@@ -17,7 +17,7 @@
         
         $result = $stmt->fetchAll();
         foreach ($result as $row) {
-    echo '
+	echo '
         <tr>
             <td>
                 <a href="contract.php?id='.$row['id'].'" title="Contract bekijken" class="btn btn-primary btn-sm">

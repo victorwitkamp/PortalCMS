@@ -34,7 +34,7 @@ class Member
         $stmt = DB::conn()->prepare($sql);
         $stmt->execute([$id]);
         if (!$stmt->rowCount() == 1) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Lid kan niet worden geladen.");
+            $_SESSION['response'][] = array("status"=>"error","message"=>"Lid kan niet worden geladen.");
             return false;
         } else {
             return $stmt->fetch();
@@ -89,10 +89,10 @@ class Member
             $incasso_gelukt, $opmerking, $id]
         );
         if ($stmt) {
-            $_SESSION['response'][] = array("status"=>"success", "message"=>"Lid opgeslagen.");
+            $_SESSION['response'][] = array("status"=>"success","message"=>"Lid opgeslagen.");
             Redirect::redirectPage("membership/");
         }
-        $_SESSION['response'][] = array("status"=>"error", "message"=>"Lid opslaan mislukt.");
+        $_SESSION['response'][] = array("status"=>"error","message"=>"Lid opslaan mislukt.");
         Redirect::redirectPage("membership/");
     }
 
@@ -127,7 +127,7 @@ class Member
         // $opmerking              = Request::post('opmerking', true);
     
         if (self::doesEmailforYearExist($jaarlidmaatschap, $emailadres)) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Emailadres wordt dit jaar al gebruikt door een ander lid.");
+            $_SESSION['response'][] = array("status"=>"error","message"=>"Emailadres wordt dit jaar al gebruikt door een ander lid.");
             Redirect::redirectPage("membership/");
         } else {
             $sql = "INSERT INTO members
@@ -149,10 +149,10 @@ class Member
                 $vrijwilligeroptie2, $vrijwilligeroptie3, $vrijwilligeroptie4, $vrijwilligeroptie5, $betalingswijze, $iban]
             );
             if ($stmt) {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Lid toegevoegd.");
+                $_SESSION['response'][] = array("status"=>"success","message"=>"Lid toegevoegd.");
                 Redirect::redirectPage("membership/");
             }
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Lid toevoegen mislukt.");
+            $_SESSION['response'][] = array("status"=>"error","message"=>"Lid toevoegen mislukt.");
             Redirect::redirectPage("membership/");
         }
     }

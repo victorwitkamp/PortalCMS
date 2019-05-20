@@ -30,8 +30,8 @@ class Event
 
     public static function loadEvents($startdate, $enddate)
     {
-        $startdatetime = $startdate.' 00:00:00';
-        $enddatetime = $enddate.' 00:00:00';
+        $startdatetime = $startdate . ' 00:00:00';
+        $enddatetime = $enddate . ' 00:00:00';
 
         $data = array();
         $stmt = DB::conn()->prepare("SELECT * FROM events where start_event > ? and end_event < ? ORDER BY id");
@@ -79,7 +79,7 @@ class Event
         $result = $stmt->fetchAll();
         foreach ($result as $row) {
             $title = $row["title"];
-            $start = $row["start_event"];
+            $start =  $row["start_event"];
             $end = $row["end_event"];
             $description = $row["description"];
             $returndata = '';
@@ -100,12 +100,12 @@ class Event
         $stmt = DB::conn()->prepare("SELECT id FROM events WHERE start_event = ? AND end_event = ?");
         $stmt->execute([$start_event, $end_event]);
         if (!$stmt->rowCount() == 0) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Kies een andere tijd.");
+            $_SESSION['response'][] = array("status"=>"error","message"=>"Kies een andere tijd.");
         } else {
             if (!self::addEventAction($title, $start_event, $end_event, $description)) {
-                $_SESSION['response'][] = array("status"=>"error", "message"=>"Toevoegen van evenement mislukt.<br>");
+                $_SESSION['response'][] = array("status"=>"error","message"=>"Toevoegen van evenement mislukt.<br>" );
             } else {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Evenement toegevoegd."); 
+                $_SESSION['response'][] = array("status"=>"success","message"=>"Evenement toegevoegd."); 
                 UserActivity::registerUserActivity('addEvent');
                 Redirect::redirectPage("events/");
             }
@@ -133,14 +133,14 @@ class Event
     
         if (self::doesEventIdExist($event_id)) {
             if (!self::updateEventAction($event_id, $title, $start_event, $end_event, $description)) {
-                $_SESSION['response'][] = array("status"=>"error", "message"=>"Wijzigen van evenement mislukt.<br>");
+                $_SESSION['response'][] = array("status"=>"error","message"=>"Wijzigen van evenement mislukt.<br>");
             } else {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Evenement gewijzigd.");
+                $_SESSION['response'][] = array("status"=>"success","message"=>"Evenement gewijzigd.");
                 UserActivity::registerUserActivity('updateEvent');
                 Redirect::redirectPage("events/");
             }
         } else {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Wijzigen van evenement mislukt.<br>Evenement bestaat niet.");
+            $_SESSION['response'][] = array("status"=>"error","message"=>"Wijzigen van evenement mislukt.<br>Evenement bestaat niet.");
         }
     }
 
@@ -175,15 +175,15 @@ class Event
         if ($count > 0) {
             $stmt = DB::conn()->prepare("DELETE FROM events WHERE id = ?");
             if (!$stmt->execute([$event_id])) {
-                $_SESSION['response'][] = array("status"=>"error", "message"=>"Verwijderen van evenement mislukt.");
+                $_SESSION['response'][] = array("status"=>"error","message"=>"Verwijderen van evenement mislukt.");
                 return false;
             } else {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Evenement verwijderd.");
+                $_SESSION['response'][] = array("status"=>"success","message"=>"Evenement verwijderd.");
                 UserActivity::registerUserActivity('deleteEvent');
                 return true;
             }
         } else {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Verwijderen van evenement mislukt.<br>Evenement bestaat niet.");
+            $_SESSION['response'][] = array("status"=>"error","message"=>"Verwijderen van evenement mislukt.<br>Evenement bestaat niet.");
             return false;
         }
     }

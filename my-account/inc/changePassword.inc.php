@@ -19,5 +19,5 @@
             <input type="password" name="newconfirmpassword" id="newConfirmPassword" class="form-control" data-match="wachtwoord" data-match-field="#newPassword" autocomplete="new-password" required/>
         </div>
     </div>
-    <input type="submit" name="changepassword" value="<?php echo Text::get('LABEL_SUBMIT'); ?>" class="btn btn-primary"/>
+    <input type="submit" name="changepassword" value="<?php echo Text::get('LABEL_SUBMIT');?>" class="btn btn-primary"/>
 </form>

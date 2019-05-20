@@ -13,7 +13,7 @@ class Config
     {
         if (!self::$config) {
 
-            $config_file = DIR_ROOT.'config/config.'.Environment::get().'.php';
+            $config_file = DIR_ROOT . 'config/config.' . Environment::get() . '.php';
 
             if (!file_exists($config_file)) {
                 // return false;

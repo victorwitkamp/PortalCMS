@@ -72,7 +72,7 @@ define('PDF_IMAGE_SCALE_RATIO', 1.25);
 define('HEAD_MAGNIFICATION', 1.1);
 define('K_CELL_HEIGHT_RATIO', 1.25);
 define('K_TITLE_MAGNIFICATION', 1.3);
-define('K_SMALL_RATIO', 2 / 3);
+define('K_SMALL_RATIO', 2/3);
 
 /**
  * Set to true to enable the special procedure used to avoid the overlappind of symbols on Thai language.

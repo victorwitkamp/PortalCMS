@@ -13,7 +13,7 @@ class UserActivity
     }
     public static function getVisitorIP() 
     {
-        $ip = $_SERVER['REMOTE_ADDR'] ?: ($_SERVER['HTTP_X_FORWARDED_FOR'] ?: $_SERVER['HTTP_CLIENT_IP']);
+        $ip = $_SERVER['REMOTE_ADDR']?:($_SERVER['HTTP_X_FORWARDED_FOR']?:$_SERVER['HTTP_CLIENT_IP']);
         return $ip;
     }
     public static function registerUserActivity($activity)

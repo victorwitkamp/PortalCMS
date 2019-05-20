@@ -26,11 +26,11 @@ PortalCMS_JS_headJS(); ?>
             </div>
         <hr>
             <?php Util::DisplayMessage(); ?>
-            <?php require DIR_ROOT.'my-account/inc/accountDetails.inc.php'; ?>
+            <?php require DIR_ROOT . 'my-account/inc/accountDetails.inc.php'; ?>
             <hr>
-            <?php require DIR_ROOT.'my-account/inc/changePassword.inc.php'; ?>
+            <?php require DIR_ROOT . 'my-account/inc/changePassword.inc.php'; ?>
             <hr>
-            <?php require DIR_ROOT.'my-account/inc/changeUsername.inc.php'; ?>
+            <?php require DIR_ROOT . 'my-account/inc/changeUsername.inc.php'; ?>
         </div>
     </div>
 </main>

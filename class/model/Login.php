@@ -19,7 +19,7 @@ class LoginModel
     {
         // we do negative-first checks here, for simplicity empty username and empty password in one line
         if (empty($user_name) OR empty($user_password)) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
+            $_SESSION['response'][] = array("status"=>"error","message"=>Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY') );
             return false;
         }
 
@@ -45,7 +45,7 @@ class LoginModel
         self::setSuccessfulLoginIntoSession(
             $result->user_id, $result->user_name, $result->user_email, $result->user_account_type, $result->user_fbid
         );
-        $_SESSION['response'][] = array("status"=>"success", "message"=>'Ingelogd met wachtwoord');
+        $_SESSION['response'][] = array("status"=>"success","message"=>'Ingelogd met wachtwoord' );
         UserActivity::registerUserActivity('login');
 
         // return true to make clear the login was successful
@@ -64,13 +64,13 @@ class LoginModel
     public static function loginWithCookie($cookie)
     {
         if (!$cookie) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_COOKIE_INVALID'));
+            $_SESSION['response'][] = array("status"=>"error","message"=>Text::get('FEEDBACK_COOKIE_INVALID') );
             return false;
         }
 
         // before list(), check it can be split into 3 strings.
-        if (count(explode(':', $cookie)) !== 3) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_COOKIE_INVALID'));
+        if (count (explode(':', $cookie)) !== 3) {
+            $_SESSION['response'][] = array("status"=>"error","message"=>Text::get('FEEDBACK_COOKIE_INVALID') );
             return false;
         }
 
@@ -79,15 +79,15 @@ class LoginModel
 
         $user_id = Encryption::decrypt($user_id);
 
-        if ($hash !== hash('sha256', $user_id.':'.$token) OR empty($token) OR empty($user_id)) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_COOKIE_INVALID'));
+        if ($hash !== hash('sha256', $user_id . ':' . $token) OR empty($token) OR empty($user_id)) {
+            $_SESSION['response'][] = array("status"=>"error","message"=>Text::get('FEEDBACK_COOKIE_INVALID') );
             return false;
         }
 
         $result = User::getUserByUserIdAndToken($user_id, $token);
 
         if (!$result) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_COOKIE_INVALID'));
+            $_SESSION['response'][] = array("status"=>"error","message"=>Text::get('FEEDBACK_COOKIE_INVALID') );
             return false;
         }
 
@@ -98,24 +98,24 @@ class LoginModel
         // be invalid after a certain amount of time, so the user has to login with username/password
         // again from time to time. This is good and safe ! ;)
 
-        $_SESSION['response'][] = array("status"=>"success", "message"=>Text::get('FEEDBACK_COOKIE_LOGIN_SUCCESSFUL'));
+        $_SESSION['response'][] = array("status"=>"success","message"=>Text::get('FEEDBACK_COOKIE_LOGIN_SUCCESSFUL') );
         return true;
     }
 
     public static function loginWithFacebook($fbid)
     {
         if (empty($fbid)) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_FACEBOOK_LOGIN_FAILED'));
+            $_SESSION['response'][] = array("status"=>"error","message"=>Text::get('FEEDBACK_FACEBOOK_LOGIN_FAILED') );
             return false;
         }
         $result = User::getUserByFbid($fbid);
         if ($result) {
             self::setSuccessfulLoginIntoSession($result->user_id, $result->user_name, $result->user_email, $result->user_account_type, $fbid);
             self::saveTimestampOfLoginOfUser($result->user_name);
-            $_SESSION['response'][] = array("status"=>"success", "message"=>Text::get('FEEDBACK_SUCCESFUL_FACEBOOK_LOGIN'));
+            $_SESSION['response'][] = array("status"=>"success","message"=>Text::get('FEEDBACK_SUCCESFUL_FACEBOOK_LOGIN') );
             return true;
         } else {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_FACEBOOK_LOGIN_FAILED'));
+            $_SESSION['response'][] = array("status"=>"error","message"=>Text::get('FEEDBACK_FACEBOOK_LOGIN_FAILED') );
             return false;
         }
     }
@@ -136,7 +136,7 @@ class LoginModel
         // block login attempt if somebody has already failed 3 times and the last login attempt is less than 30sec ago
         if (Session::get('failed-login-count') >= 3 AND (Session::get('last-failed-login') > (time() - 30))) {
             // Session::init();
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_LOGIN_FAILED_3_TIMES'));
+            $_SESSION['response'][] = array("status"=>"error","message"=>Text::get('FEEDBACK_LOGIN_FAILED_3_TIMES') );
             // Redirect::home();
             // exit();
             return false;
@@ -146,26 +146,26 @@ class LoginModel
 
         if (!$result) {
             self::incrementUserNotFoundCounter();
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
+            $_SESSION['response'][] = array("status"=>"error","message"=>Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG') );
             return false;
         }
 
         // block login attempt if somebody has already failed 3 times and the last login attempt is less than 30sec ago
         if (($result->user_failed_logins >= 3) AND ($result->user_last_failed_login > (date('Y-m-d H:i:s') - 30))) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_PASSWORD_WRONG_3_TIMES'));
+            $_SESSION['response'][] = array("status"=>"error","message"=>Text::get('FEEDBACK_PASSWORD_WRONG_3_TIMES') );
             return false;
         }
 
         // if hash of provided password does NOT match the hash in the database: +1 failed-login counter
         if (!password_verify($user_password, $result->user_password_hash)) {
             self::incrementFailedLoginCounterOfUser($result->user_name);
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
+            $_SESSION['response'][] = array("status"=>"error","message"=>Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG') );
             return false;
         }
 
         // if user is not active (= has not verified account by verification mail)
         if ($result->user_active != 1) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET'));
+            $_SESSION['response'][] = array("status"=>"error","message"=>Text::get('FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET') );
             return false;
         }
 
@@ -269,7 +269,7 @@ class LoginModel
                 WHERE user_name = :user_name OR user_email = :user_name
                 LIMIT 1";
         $sth = DB::conn()->prepare($sql);
-        $sth->execute(array(':user_name' => $user_name, ':user_last_failed_login' => date('Y-m-d H:i:s')));
+        $sth->execute(array(':user_name' => $user_name, ':user_last_failed_login' => date('Y-m-d H:i:s') ));
     }
 
     /**
@@ -320,9 +320,9 @@ class LoginModel
 
         // generate cookie string that consists of user id, random string and combined hash of both
         // never expose the original user id, instead, encrypt it.
-        $cookie_string_first_part = Encryption::encrypt($user_id).':'.$random_token_string;
-        $cookie_string_hash       = hash('sha256', $user_id.':'.$random_token_string);
-        $cookie_string            = $cookie_string_first_part.':'.$cookie_string_hash;
+        $cookie_string_first_part = Encryption::encrypt($user_id) . ':' . $random_token_string;
+        $cookie_string_hash       = hash('sha256', $user_id . ':' . $random_token_string);
+        $cookie_string            = $cookie_string_first_part . ':' . $cookie_string_hash;
 
         // set cookie, and make it available only for the domain created on (to avoid XSS attacks, where the
         // attacker could steal your remember-me cookie string and would login itself).

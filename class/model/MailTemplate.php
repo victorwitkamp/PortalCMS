@@ -31,14 +31,14 @@ class MailTemplates
     public static function new()
     {
         $type = Request::post('type', true);
-        $subject = Request::post('subject', true);
+        $subject= Request::post('subject', true);
         $body = Request::post('body', true);
 
         $return = self::writenew($type, $subject, $body);
         if ($return === false) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Nieuwe template aanmaken mislukt.");
+            $_SESSION['response'][] = array("status"=>"error","message"=>"Nieuwe template aanmaken mislukt." );
         } else {
-            $_SESSION['response'][] = array("status"=>"success", "message"=>"Template toegevoegd (ID = ".$return.')'); 
+            $_SESSION['response'][] = array("status"=>"success","message"=>"Template toegevoegd (ID = ".$return.')'); 
             UserActivity::registerUserActivity('addMailTemplate');
             Redirect::redirectPage("mailscheduler/templates/");
         }

@@ -117,43 +117,43 @@ class POSTController
         // Site settings
         if (isset($_POST['saveSiteSettings'])) {
             if (SiteSettings::saveSiteSettings()) {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Instellingen succesvol opgeslagen.");
+                $_SESSION['response'][] = array("status"=>"success","message"=>"Instellingen succesvol opgeslagen.");
                 Redirect::redirectPage("settings/site-settings/index.php");
             } else {
-                $_SESSION['response'][] = array("status"=>"warning", "message"=>"Fout bij opslaan van instellingen.");
+                $_SESSION['response'][] = array("status"=>"warning","message"=>"Fout bij opslaan van instellingen.");
                 Redirect::redirectPage("settings/site-settings/index.php");
             }
         }
         // Role
         if (isset($_POST['setuserrole'])) {
             if (Role::assign($_POST['user_id'], $_POST['role_id'])) {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Rol toegewezen.");
+                $_SESSION['response'][] = array("status"=>"success","message"=>"Rol toegewezen.");
             }
         }
         if (isset($_POST['unassignrole'])) {
             if (Role::unassign(Session::get('user_id'), $_POST['role_id'])) {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Rol verwijderd.");
+                $_SESSION['response'][] = array("status"=>"success","message"=>"Rol verwijderd.");
             }
         }
         // Roles
         if (isset($_POST['deleterole'])) {
             if (Role::delete($_POST['role_id'])) {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Rol verwijderd.");
+                $_SESSION['response'][] = array("status"=>"success","message"=>"Rol verwijderd.");
             }
         }
         if (isset($_POST['addrole'])) {
             if (Role::new($_POST['role_name'])) {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Rol verwijderd.");
+                $_SESSION['response'][] = array("status"=>"success","message"=>"Rol verwijderd.");
             }
         }
         if (isset($_POST['setrolepermission'])) {
             if (Permission::assign($_POST['role_id'], $_POST['perm_id'])) {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Permissie toegewezen.");
+                $_SESSION['response'][] = array("status"=>"success","message"=>"Permissie toegewezen.");
             }
         }
         if (isset($_POST['deleterolepermission'])) {
             if (Permission::unassign($_POST['role_id'], $_POST['perm_id'])) {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Permissie verwijderd.");
+                $_SESSION['response'][] = array("status"=>"success","message"=>"Permissie verwijderd.");
             }
         }
         // if (isset($_POST['clearUserRole'])) {

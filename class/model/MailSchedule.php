@@ -41,7 +41,7 @@ class MailSchedule
             foreach ($_POST['id'] as $id) {
                 $row = self::getScheduledMailById($id);
                 if ($row['status'] !== '1') {
-                    $_SESSION['response'][] = array("status"=>"error", "message"=>"Reeds verstuurd");
+                    $_SESSION['response'][] = array("status"=>"error","message"=>"Reeds verstuurd" );
                     Redirect::redirectPage("mailscheduler/");
                     return false;
                 } else {
@@ -58,7 +58,7 @@ class MailSchedule
                             self::setErrorMessageById($id, MailController::$error);
                         }
                     } else {
-                        $_SESSION['response'][] = array("status"=>"error", "message"=>"Mail incompleet");
+                        $_SESSION['response'][] = array("status"=>"error","message"=>"Mail incompleet" );
                     }
                 }
             }
@@ -91,11 +91,11 @@ class MailSchedule
                     }
                 }
                 if ($count_failed === 0) {
-                    $_SESSION['response'][] = array("status"=>"success", "message"=>"Totaal aantal berichten aangemaakt:".$count_created);
+                    $_SESSION['response'][] = array("status"=>"success","message"=>"Totaal aantal berichten aangemaakt:".$count_created);
                     UserActivity::registerUserActivity('addScheduledMail');
                     Redirect::redirectPage("mailscheduler/");
                 } else {
-                    $_SESSION['response'][] = array("status"=>"error", "message"=>"Nieuwe email aanmaken mislukt.");
+                    $_SESSION['response'][] = array("status"=>"error","message"=>"Nieuwe email aanmaken mislukt." );
                 }
             }
         }
@@ -124,14 +124,14 @@ class MailSchedule
     {
         $sender_email = Config::get('EMAIL_SMTP_USERNAME');
         $recipient_email = Request::post('recipient_email', true);
-        $subject = Request::post('subject', true);
+        $subject= Request::post('subject', true);
         $body = Request::post('body', true);
 
         $return = self::writenew($sender_email, $recipient_email, $subject, $body);
         if ($return === false) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Nieuwe email aanmaken mislukt.");
+            $_SESSION['response'][] = array("status"=>"error","message"=>"Nieuwe email aanmaken mislukt." );
         } else {
-            $_SESSION['response'][] = array("status"=>"success", "message"=>"Email toegevoegd (ID = ".$return.')'); 
+            $_SESSION['response'][] = array("status"=>"success","message"=>"Email toegevoegd (ID = ".$return.')'); 
             UserActivity::registerUserActivity('addScheduledMail');
             Redirect::redirectPage("settings/mailscheduler/");
         }

@@ -31,7 +31,7 @@
         <input type="hidden" name="csrf_token" value="<?php echo Csrf::makeToken(); ?>" />
         <input type="submit" name="loginSubmit" class="btn btn-success" value="<?php echo Text::get('LABEL_LOG_IN'); ?>"/>
         <?php
-        echo '<a href="'.$loginUrl.'" class="btn btn-info" ><i class="fab fa-facebook"></i>'.Text::get('LABEL_CONTINUE_WITH_FACEBOOK').'</a>';
+        echo '<a href="' . $loginUrl . '" class="btn btn-info" ><i class="fab fa-facebook"></i>'.Text::get('LABEL_CONTINUE_WITH_FACEBOOK').'</a>';
         ?>
         <hr>
 

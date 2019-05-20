@@ -15,7 +15,7 @@ $id = $_GET['id'];
 if (MailSchedule::doesMailIdExist($id)) {
     $row = MailSchedule::getScheduledMailById($id);
 } else {
-    $_SESSION['response'][] = array("status"=>"warning", "message"=>"Geen resultaten voor opgegeven mail ID.");
+    $_SESSION['response'][] = array("status"=>"warning","message"=>"Geen resultaten voor opgegeven mail ID.");
 }
 ?>
 <?php require DIR_INCLUDES.'nav.php'; ?>

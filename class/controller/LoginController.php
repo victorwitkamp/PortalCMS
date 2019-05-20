@@ -58,7 +58,7 @@ class LoginController extends Controller
             exit();
         } 
         if (Request::post('redirect')) {
-            Redirect::redirectPage('login/login.php?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
+            Redirect::redirectPage('login/login.php?redirect=' . ltrim(urlencode(Request::post('redirect')), '/'));
             exit();
         } 
         Redirect::redirectPage('login/login.php');
@@ -95,7 +95,7 @@ class LoginController extends Controller
             exit();
         } 
         if (Request::post('redirect')) {
-            Redirect::redirectPage('login/login.php?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
+            Redirect::redirectPage('login/login.php?redirect=' . ltrim(urlencode(Request::post('redirect')), '/'));
             exit();
         } 
         Redirect::redirectPage('login/login.php');

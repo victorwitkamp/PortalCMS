@@ -42,7 +42,7 @@ $user = User::getProfileById(Session::get('user_id'));
                         echo Text::get('LABEL_USER_CLEAR_FBID');
                         echo '"/></form>';
                     } else {
-                        echo '<a href="'.$loginUrl.'">Connect with Facebook!</a>';
+                        echo '<a href="' . $loginUrl . '">Connect with Facebook!</a>';
                     }
                     ?></td>
                 </tr>

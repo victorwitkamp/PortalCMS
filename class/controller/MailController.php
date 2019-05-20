@@ -12,18 +12,18 @@ class MailController
         //  = Config::get('EMAIL_SMTP_USERNAME');
         $fromName = SiteSettings::getStaticSiteSetting('site_name');
         
-        if (!empty($recipientEmail) && !empty($mailSubject) && !empty($mailBody)) {
+        if (!empty($recipientEmail) &&!empty($mailSubject) && !empty($mailBody)) {
             $MailSender = new MailSender;
             if (!$MailSender->sendMail($recipientEmail, $fromEmail, $fromName, $mailSubject, $mailBody)) {
                 self::$error = $MailSender->error;
-                $_SESSION['response'][] = array("status"=>"error", "message"=>"MailController: Niet verstuurd. Fout: ".self::$error);
+                $_SESSION['response'][] = array("status"=>"error","message"=>"MailController: Niet verstuurd. Fout: ".self::$error);
                 return false;
             } else {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"MailController: Mail verstuurd naar: ".$recipientEmail);
+                $_SESSION['response'][] = array("status"=>"success","message"=>"MailController: Mail verstuurd naar: ".$recipientEmail);
                 return true;
             }
         } else {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"MailController: Ongeldig verzoek");
+            $_SESSION['response'][] = array("status"=>"error","message"=>"MailController: Ongeldig verzoek" );
             return false;
         }
     }
@@ -39,7 +39,7 @@ class MailController
                 return false;
             }
         } else {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Geen evenementen om te versturen");
+            $_SESSION['response'][] = array("status"=>"error","message"=>"Geen evenementen om te versturen" );
             return false;
         }
     }

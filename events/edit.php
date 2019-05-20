@@ -7,9 +7,9 @@ require_once DIR_INCLUDES.'functions.php';
 
 if ($row = Event::getEventById($_GET['id'])) {
     $allowEdit = true;
-    $pageName = 'Evenement '.$row ['title'].' bewerken';
+    $pageName = 'Evenement '.$row ['title'].' bewerken' ;
 } else {
-    $_SESSION['response'][] = array("status"=>"warning", "message"=>"Geen resultaten voor opgegeven event ID.");
+    $_SESSION['response'][] = array("status"=>"warning","message"=>"Geen resultaten voor opgegeven event ID.");
 }
 
 require_once DIR_INCLUDES.'head.php';

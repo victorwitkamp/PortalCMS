@@ -18,7 +18,7 @@ class Redirect
      */
     public static function toPreviousViewedPageAfterLogin($path)
     {
-        header('location: http://'.$_SERVER['HTTP_HOST'].'/'.$path);
+        header('location: http://' . $_SERVER['HTTP_HOST'] . '/' . $path);
     }
 
     /**
@@ -61,7 +61,7 @@ class Redirect
      */
     public static function to($path)
     {
-        header("location: ".Config::get('URL').$path);
+        header("location: " . Config::get('URL') . $path);
     }
 
     public static function redirectPage($url)
@@ -70,7 +70,7 @@ class Redirect
         //     echo '<script >window.location="'.Config::get('URL').$url.'";</script>';
         //     exit;
         // }
-        header("location: ".Config::get('URL').$url);
+        header("location: " . Config::get('URL') . $url);
         exit();
     }
 }

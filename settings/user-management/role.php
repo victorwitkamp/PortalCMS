@@ -11,7 +11,7 @@ PortalCMS_JS_headJS();
 
 $Role = Role::get($_GET['role_id']);
 if (!$Role) {
-    $_SESSION['response'][] = array("status"=>"error", "message"=>"Geen resultaten voor opgegeven rol ID.");
+    $_SESSION['response'][] = array("status"=>"error","message"=>"Geen resultaten voor opgegeven rol ID.");
 } else {
     $row = $Role;
 }
@@ -23,7 +23,7 @@ if (!$Role) {
         <div class="content">
             <div class="container">
                 <div class="row mt-5">
-                    <h1><?php echo Text::get('TITLE_ROLE'); ?>: <?php if (!empty($row['role_name'])) { echo $row['role_name']; }?></h1>
+                    <h1><?php echo Text::get('TITLE_ROLE'); ?>: <?php if(!empty($row['role_name'])) { echo $row['role_name']; }?></h1>
                 </div>
 
                 <?php Util::DisplayMessage();

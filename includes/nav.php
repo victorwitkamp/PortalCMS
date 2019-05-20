@@ -18,9 +18,9 @@
                 </ul>
 
                 <span class="navbar-text">
-                    <?php echo Text::get('LABEL_SIGNED_IN_AS'); ?><strong> <?php echo Session::get('user_name'); ?></strong><br>
-                    <a href="/my-account/index.php"><?php echo Text::get('TITLE_MY_ACCOUNT'); ?></a>
-                    <a href="/logout.php"><span class="fa fa-sign-out-alt"></span><?php echo Text::get('LABEL_SIGN_OUT'); ?></a>
+                    <?php echo Text::get('LABEL_SIGNED_IN_AS');?><strong> <?php echo Session::get('user_name'); ?></strong><br>
+                    <a href="/my-account/index.php"><?php echo Text::get('TITLE_MY_ACCOUNT');?></a>
+                    <a href="/logout.php"><span class="fa fa-sign-out-alt"></span><?php echo Text::get('LABEL_SIGN_OUT');?></a>
                 </span>
             </div>
         </div>

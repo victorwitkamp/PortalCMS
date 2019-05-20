@@ -26,7 +26,7 @@ PortalCMS_JS_headJS(); ?>
                             </div>
                             <div class="card-body">
                                 <?php foreach (Member::getMembers() as $row): ?>
-                                    <input type="checkbox" name='recipients[]' value="<?php echo $row['id']; ?>"><?php echo $row['voornaam'].' '.$row['achternaam']; ?><br/>
+                                    <input type="checkbox" name='recipients[]' value="<?php echo $row['id'];?>"><?php echo $row['voornaam'].' '.$row['achternaam']; ?><br/>
                                 <?php endforeach ?>
                             </div>
                         </div>
@@ -39,7 +39,7 @@ PortalCMS_JS_headJS(); ?>
                             <div class="card-body">
                                 <select name='templateid'>
                                     <?php foreach (MailTemplates::getTemplatesByType('member') as $row): ?>
-                                        <option value="<?php echo $row['id']; ?>"><?php echo $row['subject']; ?></option>
+                                        <option value="<?php echo $row['id'];?>"><?php echo $row['subject']; ?></option>
                                     <?php endforeach ?>
                                 </select>
                                 <input type="hidden" name="type" value="member">

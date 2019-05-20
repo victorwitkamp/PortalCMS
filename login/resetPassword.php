@@ -33,20 +33,20 @@ PortalCMS_JS_headJS();
                     <div class="card-header text-center">
                         <img src='<?php echo SiteSettings::getStaticSiteSetting('site_logo'); ?>' alt='<?php echo SiteSettings::getStaticSiteSetting('site_name'); ?>' width='200px' height='200px'/>
                         <h1 class="h3 mb-3 font-weight-normal"><?php echo SiteSettings::getStaticSiteSetting('site_name'); ?></h2>
-                        <?php Util::DisplayMessage(); ?>
+                        <?php Util::DisplayMessage();?>
                     </div>
                     <div class="card-body">
                         <h2 class="h3 mb-3 font-weight-normal "><?php echo $pageName ?></h3>
                         <div class="form-label-group">
-                            <input type="password" name="password" minlength="8" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" title="Use at least 8 characters. Please include at least 1 uppercase character, 1 lowercase character and 1 number."  id="inputPassword" class="form-control" placeholder="wachtwoord" autocomplete="new-password" required="" autofocus="" <?php if (empty($_GET['resetCode'])) {echo 'disabled'; } ?>>
+                            <input type="password" name="password" minlength="8" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" title="Use at least 8 characters. Please include at least 1 uppercase character, 1 lowercase character and 1 number."  id="inputPassword" class="form-control" placeholder="wachtwoord" autocomplete="new-password" required="" autofocus="" <?php if (empty($_GET['resetCode'])) {echo 'disabled';} ?>>
                             <label for="inputPassword">Wachtwoord</label>
                         </div>
                         <div class="form-label-group">
-                            <input type="password" name="confirm_password" id="inputConfirmPassword" class="form-control" placeholder="Bevestig wachtwoord" data-match="wachtwoord" data-match-field="#inputPassword" autocomplete="new-password" required="" <?php if (empty($_GET['resetCode'])) { echo 'disabled'; } ?>>
+                            <input type="password" name="confirm_password" id="inputConfirmPassword" class="form-control" placeholder="Bevestig wachtwoord" data-match="wachtwoord" data-match-field="#inputPassword" autocomplete="new-password" required="" <?php if (empty($_GET['resetCode'])) { echo 'disabled';} ?>>
                             <label for="inputConfirmPassword">Bevestig wachtwoord</label>
                         </div>
                         <input type="hidden" name="resetCode" value="<?php echo $_REQUEST['resetCode']; ?>"/>
-                        <input type="submit" name="resetSubmit" value="Wachtwoord wijzigen" class="btn btn-secondary mb-sm-2" <?php if (empty($_GET['resetCode'])) {echo 'disabled'; } ?>>
+                        <input type="submit" name="resetSubmit" value="Wachtwoord wijzigen" class="btn btn-secondary mb-sm-2" <?php if (empty($_GET['resetCode'])) {echo 'disabled';} ?>>
                     </div>
                 </div>
             </form>

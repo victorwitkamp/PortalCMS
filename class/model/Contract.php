@@ -89,10 +89,10 @@ class Contract
             $contract_einddatum, 
             $contract_datum
         )) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Toevoegen van contract mislukt.<br>");
+            $_SESSION['response'][] = array("status"=>"error","message"=>"Toevoegen van contract mislukt.<br>");
             Redirect::redirectPage("rental/contracts/");
         } else {
-            $_SESSION['response'][] = array("status"=>"success", "message"=>"Contract toegevoegd.");
+            $_SESSION['response'][] = array("status"=>"success","message"=>"Contract toegevoegd.");
             UserActivity::registerUserActivity('newContract');
             Redirect::redirectPage("rental/contracts/");
         }
@@ -244,15 +244,15 @@ class Contract
                 $contract_datum
             )
             ) {
-                $_SESSION['response'][] = array("status"=>"error", "message"=>"Wijzigen van contract mislukt.<br>");
+                $_SESSION['response'][] = array("status"=>"error","message"=>"Wijzigen van contract mislukt.<br>");
                 Redirect::redirectPage("rental/contracts/");
             } else {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Contract gewijzigd.");
+                $_SESSION['response'][] = array("status"=>"success","message"=>"Contract gewijzigd.");
                 UserActivity::registerUserActivity('updateContract');
                 Redirect::redirectPage("rental/contracts/");
             }
         } else {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Wijzigen van contract mislukt.<br>Contract bestaat niet.");
+            $_SESSION['response'][] = array("status"=>"error","message"=>"Wijzigen van contract mislukt.<br>Contract bestaat niet.");
             Redirect::redirectPage("rental/contracts/");
         }
     }

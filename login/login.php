@@ -20,10 +20,10 @@ $loginUrl = $helper->getLoginUrl('https://portal.victorwitkamp.nl/login/ext/fb/f
 <?php PortalCMS_JS_headJS(); ?>
 </head>
 <body class='bg'>
-    <?php require DIR_INCLUDES.'loadingAnimation.php'; ?>
+    <?php require DIR_INCLUDES.'loadingAnimation.php';?>
   <nav class="navbar navbar-light bg-light">
     <a class="navbar-brand" href="<?php echo SiteSettings::getStaticSiteSetting('site_url'); ?>"><?php echo SiteSettings::getStaticSiteSetting('site_name'); ?></a>
-        <?php Util::DisplayMessage(); ?>
+        <?php Util::DisplayMessage();?>
         <?php $login->View->renderFeedbackMessages(); ?>
   </nav>
   <main>
@@ -51,7 +51,7 @@ $loginUrl = $helper->getLoginUrl('https://portal.victorwitkamp.nl/login/ext/fb/f
           </div>
         </section>
         <script src="/includes/js/newlogin.js"></script>
-        <?php Util::displayPopup(); ?>
+        <?php Util::displayPopup();?>
       </div>
     </div>
   </main>
