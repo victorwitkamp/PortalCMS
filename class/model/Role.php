@@ -59,7 +59,6 @@ class Role
             $_SESSION['response'][] = array("status"=>"error","message"=>"Rol is reeds toegewezen aan deze gebruiker.");
             return false;
         }
-<<<<<<< HEAD
         $stmt = DB::conn()->prepare(
             "INSERT INTO user_role
                     (user_id, role_id)
@@ -70,9 +69,6 @@ class Role
             return true;
         }
         $_SESSION['response'][] = array("status"=>"error","message"=>"Fout bij toewijzen van rol.");
-=======
-        $_SESSION['response'][] = array("status"=>"error", "message"=>"Rol is reeds toegewezen.<br>");
->>>>>>> 417f6878caed7cdd0006a065800f7a7b80394f4b
         return false;
     }
 
@@ -89,7 +85,6 @@ class Role
             $_SESSION['response'][] = array("status"=>"error","message"=>"Rol is niet aan deze gebruiker toegewezen. Er is geen toewijzing om te verwijderen.");
             return false;
         }
-<<<<<<< HEAD
         $stmt = DB::conn()->prepare(
             "DELETE FROM user_role
                     where user_id=?
@@ -98,9 +93,6 @@ class Role
         if ($stmt->execute([$user_id, $role_id])) {
             return true;
         }
-=======
-        $_SESSION['response'][] = array("status"=>"error", "message"=>"Rol is reeds toegewezen.<br>");
->>>>>>> 417f6878caed7cdd0006a065800f7a7b80394f4b
         return false;
     }
 
