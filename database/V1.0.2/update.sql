@@ -18,3 +18,11 @@ INSERT INTO permissions (perm_id, perm_desc) VALUES (7,'debug');
 
 ALTER TABLE users DROP session_id;
 ALTER TABLE users ADD session_id varchar(48) DEFAULT NULL after user_name;
+
+INSERT INTO `role_perm` (`role_id`, `perm_id`) VALUES ('1', '1');
+INSERT INTO `role_perm` (`role_id`, `perm_id`) VALUES ('1', '2');
+INSERT INTO `role_perm` (`role_id`, `perm_id`) VALUES ('1', '3');
+INSERT INTO `role_perm` (`role_id`, `perm_id`) VALUES ('1', '4');
+INSERT INTO `role_perm` (`role_id`, `perm_id`) VALUES ('1', '5');
+INSERT INTO `role_perm` (`role_id`, `perm_id`) VALUES ('1', '6');
+INSERT INTO `role_perm` (`role_id`, `perm_id`) VALUES ('1', '7');
