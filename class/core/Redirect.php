@@ -30,7 +30,7 @@ class Redirect
         self::redirectPage('home/index.php');
     }
 
-        /**
+    /**
      * To the homepage
      */
     public static function Error()
@@ -39,7 +39,7 @@ class Redirect
         self::redirectPage('includes/Error.php');
     }
 
-        /**
+    /**
      * To the homepage
      */
     public static function permissionerror()

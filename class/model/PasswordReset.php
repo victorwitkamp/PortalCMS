@@ -76,7 +76,7 @@ class PasswordReset
         $_SESSION['response'][] = array("status"=>"error","message"=>Text::get('FEEDBACK_PASSWORD_RESET_TOKEN_FAIL') );
         return false;
     }
-        /**
+    /**
      * Send the password reset mail
      *
      * @param string $user_name username
