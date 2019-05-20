@@ -8,7 +8,7 @@ require DIR_ROOT.'includes/functions.php';
 if ($invoice = Invoice::getInvoiceById($_GET['id'])) {
     $pageName = 'Factuur: '.$invoice['factuurnummer'];
 } else {
-    $_SESSION['response'][] = array("status"=>"warning","message"=>"Geen resultaten voor opgegeven factuur ID.");
+    $_SESSION['response'][] = array("status"=>"warning", "message"=>"Geen resultaten voor opgegeven factuur ID.");
 }
 require DIR_ROOT.'includes/head.php';
 displayHeadCSS(); 
@@ -24,7 +24,7 @@ PortalCMS_JS_headJS(); ?>
                 <h1><?php echo $pageName; ?></h1>
             </div>
             <?php 
-            Util::DisplayMessage();?>
+            Util::DisplayMessage(); ?>
             <hr>
             <h3>Details</h3>
 

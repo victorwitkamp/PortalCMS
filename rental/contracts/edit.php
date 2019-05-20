@@ -8,9 +8,9 @@ require_once DIR_INCLUDES.'functions.php';
 if (Contract::doesIdExist($_GET['id'])) {
     $row = Contract::getById($_GET['id']);
     $allowEdit = true;
-    $pageName = 'Contract van '.$row ['band_naam'].' bewerken' ;
+    $pageName = 'Contract van '.$row ['band_naam'].' bewerken';
 } else {
-    $_SESSION['response'][] = array("status"=>"warning","message"=>"Geen resultaten voor opgegeven Id.");
+    $_SESSION['response'][] = array("status"=>"warning", "message"=>"Geen resultaten voor opgegeven Id.");
 }
 require_once DIR_INCLUDES.'head.php';
 displayHeadCSS();

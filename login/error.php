@@ -43,7 +43,7 @@ if (!isset($_SESSION)) {
                     <div class="card-body">
 
                         <h2 class="h3 mb-3 font-weight-normal">Error</h2><hr>
-                        <?php $Util->displayMessage();?><hr>
+                        <?php $Util->displayMessage(); ?><hr>
                         <a class="btn btn-primary" href="/login/login.php"><span class="fas fa-sync"></span> Opnieuw proberen</a> 
                     </div>
                 </div>

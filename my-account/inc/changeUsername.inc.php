@@ -9,5 +9,5 @@
     </div>
     <?php // set CSRF token at the end of the form ?>
     <input type="hidden" name="csrf_token" value="<?php Csrf::makeToken(); ?>" />
-    <input type="submit" name="changeUsername" value="<?php echo Text::get('LABEL_SUBMIT');?>" class="btn btn-primary"/>
+    <input type="submit" name="changeUsername" value="<?php echo Text::get('LABEL_SUBMIT'); ?>" class="btn btn-primary"/>
 </form>
