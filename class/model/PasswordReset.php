@@ -23,13 +23,13 @@ class PasswordReset
         //     return false;
         // }
         if (empty($user_name_or_email)) {
-            $_SESSION['response'][] = array("status"=>"error","message"=>Text::get('FEEDBACK_USERNAME_EMAIL_FIELD_EMPTY') );
+            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_USERNAME_EMAIL_FIELD_EMPTY'));
             return false;
         }
         // check if that username exists
         $result = User::getUserDataByUserNameOrEmail($user_name_or_email);
         if (!$result) {
-            $_SESSION['response'][] = array("status"=>"error","message"=>Text::get('FEEDBACK_USER_DOES_NOT_EXIST') );
+            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_USER_DOES_NOT_EXIST'));
             return false;
         }
         // generate integer-timestamp (to see when exactly the user (or an attacker) requested the password reset mail)
@@ -73,7 +73,7 @@ class PasswordReset
         if ($stmt->rowCount() == 1) {
             return true;
         }
-        $_SESSION['response'][] = array("status"=>"error","message"=>Text::get('FEEDBACK_PASSWORD_RESET_TOKEN_FAIL') );
+        $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_PASSWORD_RESET_TOKEN_FAIL'));
         return false;
     }
     /**
@@ -87,19 +87,19 @@ class PasswordReset
      */
     public static function sendPasswordResetMail($user_name, $user_password_reset_hash, $user_email)
     {
-        $body = Config::get('EMAIL_PASSWORD_RESET_CONTENT') . ' ' . Config::get('URL') .
-                Config::get('EMAIL_PASSWORD_RESET_URL') . '?user_name=' . urlencode($user_name) . '&user_password_reset_hash=' . urlencode($user_password_reset_hash);
+        $body = Config::get('EMAIL_PASSWORD_RESET_CONTENT').' '.Config::get('URL').
+                Config::get('EMAIL_PASSWORD_RESET_URL').'?user_name='.urlencode($user_name).'&user_password_reset_hash='.urlencode($user_password_reset_hash);
         $mail = new MailSender;
         $mail_sent = $mail->sendMail(
             $user_email, Config::get('EMAIL_PASSWORD_RESET_FROM_EMAIL'),
             Config::get('EMAIL_PASSWORD_RESET_FROM_NAME'), Config::get('EMAIL_PASSWORD_RESET_SUBJECT'), $body
         );
         if ($mail_sent) {
-            $_SESSION['response'][] = array("status"=>"success","message"=>Text::get('FEEDBACK_PASSWORD_RESET_MAIL_SENDING_SUCCESSFUL') );
+            $_SESSION['response'][] = array("status"=>"success", "message"=>Text::get('FEEDBACK_PASSWORD_RESET_MAIL_SENDING_SUCCESSFUL'));
             UserActivity::registerUserActivityByUsername($user_name, 'requestPasswordReset');
             return true;
         }
-        $_SESSION['response'][] = array("status"=>"error","message"=>Text::get('FEEDBACK_PASSWORD_RESET_MAIL_SENDING_ERROR') . $mail->getError() );
+        $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_PASSWORD_RESET_MAIL_SENDING_ERROR').$mail->getError());
         return false;
     }
 
@@ -122,7 +122,7 @@ class PasswordReset
         $stmt->execute(array(':user_password_reset_hash' => $verification_code, ':user_name' => $user_name, ':user_provider_type' => 'DEFAULT'));
         // if this user with exactly this verification hash code does NOT exist
         if ($stmt->rowCount() != 1) {
-            $_SESSION['response'][] = array("status"=>"error","message"=>Text::get('FEEDBACK_PASSWORD_RESET_COMBINATION_DOES_NOT_EXIST') );
+            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_PASSWORD_RESET_COMBINATION_DOES_NOT_EXIST'));
             return false;
         }
         // get result row (as an object)
@@ -131,10 +131,10 @@ class PasswordReset
         $timestamp_one_hour_ago = date('Y-m-d H:i:s') - 3600;
         // if password reset request was sent within the last hour (this timeout is for security reasons)
         if ($result_user_row->user_password_reset_timestamp > $timestamp_one_hour_ago) {
-            $_SESSION['response'][] = array("status"=>"success","message"=>Text::get('FEEDBACK_PASSWORD_RESET_LINK_VALID') );
+            $_SESSION['response'][] = array("status"=>"success", "message"=>Text::get('FEEDBACK_PASSWORD_RESET_LINK_VALID'));
             return true;
         } else {
-            $_SESSION['response'][] = array("status"=>"error","message"=>Text::get('FEEDBACK_PASSWORD_RESET_LINK_EXPIRED') );
+            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_PASSWORD_RESET_LINK_EXPIRED'));
             return false;
         }
     }
@@ -187,10 +187,10 @@ class PasswordReset
         $user_password_hash = password_hash($user_password_new, PASSWORD_DEFAULT);
         // write the password to database (as hashed and salted string), reset user_password_reset_hash
         if (self::saveNewUserPassword($user_name, $user_password_hash, $user_password_reset_hash)) {
-            $_SESSION['response'][] = array("status"=>"success","message"=>Text::get('FEEDBACK_PASSWORD_CHANGE_SUCCESSFUL') );
+            $_SESSION['response'][] = array("status"=>"success", "message"=>Text::get('FEEDBACK_PASSWORD_CHANGE_SUCCESSFUL'));
             return true;
         } else {
-            $_SESSION['response'][] = array("status"=>"error","message"=>Text::get('FEEDBACK_PASSWORD_CHANGE_FAILED') );
+            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_PASSWORD_CHANGE_FAILED'));
             return false;
         }
     }
@@ -208,19 +208,19 @@ class PasswordReset
     public static function validateResetPassword($user_name, $user_password_reset_hash, $user_password_new, $user_password_repeat)
     {
         if (empty($user_name)) {
-            $_SESSION['response'][] = array("status"=>"error","message"=>Text::get('FEEDBACK_USERNAME_FIELD_EMPTY') );
+            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_USERNAME_FIELD_EMPTY'));
             return false;
         } else if (empty($user_password_reset_hash)) {
-            $_SESSION['response'][] = array("status"=>"error","message"=>Text::get('FEEDBACK_PASSWORD_RESET_TOKEN_MISSING') );
+            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_PASSWORD_RESET_TOKEN_MISSING'));
             return false;
         } else if (empty($user_password_new) || empty($user_password_repeat)) {
-            $_SESSION['response'][] = array("status"=>"error","message"=>Text::get('FEEDBACK_PASSWORD_FIELD_EMPTY') );
+            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_PASSWORD_FIELD_EMPTY'));
             return false;
         } else if ($user_password_new !== $user_password_repeat) {
-            $_SESSION['response'][] = array("status"=>"error","message"=>Text::get('FEEDBACK_PASSWORD_REPEAT_WRONG') );
+            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_PASSWORD_REPEAT_WRONG'));
             return false;
         } else if (strlen($user_password_new) < 6) {
-            $_SESSION['response'][] = array("status"=>"error","message"=>Text::get('FEEDBACK_PASSWORD_TOO_SHORT') );
+            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_PASSWORD_TOO_SHORT'));
             return false;
         }
         return true;

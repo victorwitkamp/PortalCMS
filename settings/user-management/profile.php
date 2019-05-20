@@ -15,8 +15,8 @@ PortalCMS_JS_headJS(); ?>
 <?php
 
 $row = User::getProfileById($_GET['id']);
-if(!$row) {
-    $_SESSION['response'][] = array("status"=>"error","message"=>"De gebruiker bestaat niet.");
+if (!$row) {
+    $_SESSION['response'][] = array("status"=>"error", "message"=>"De gebruiker bestaat niet.");
     Redirect::Error();
 }
 

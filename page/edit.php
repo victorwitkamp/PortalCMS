@@ -24,7 +24,7 @@ if (!Page::checkPage($_GET['id'])) {
     $row = Page::getPage($_GET['id']);
 }
 
-$pageName = 'Pagina '.$row ['name'].' bewerken' ;
+$pageName = 'Pagina '.$row ['name'].' bewerken';
 
 require_once DIR_INCLUDES.'head.php';
 displayHeadCSS(); ?>
@@ -47,7 +47,7 @@ plugins : 'advlist autolink link image lists charmap print preview'
                     <h3>Pagina "<?php echo $row ['name']; ?>" bewerken</h3>
                 </div>
                 <hr>
-                <?php Util::DisplayMessage();?>
+                <?php Util::DisplayMessage(); ?>
                 <form method="post" validate=true>
                     <div class="form-group form-group-sm row">
                         <div class="col-sm-12">

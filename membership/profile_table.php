@@ -51,25 +51,25 @@
         <th>Geslacht</th><td><?php echo $row['geslacht']; ?></td>
     </tr>
     <tr>
-        <th>Nieuwsbrief</th><td><?php if ($row['nieuwsbrief'] === '1') {echo 'ja';} else if ($row['nieuwsbrief'] === '0') {echo 'nee';} else {echo 'n/a';} ?></td>
+        <th>Nieuwsbrief</th><td><?php if ($row['nieuwsbrief'] === '1') {echo 'ja'; } else if ($row['nieuwsbrief'] === '0') {echo 'nee'; } else {echo 'n/a'; } ?></td>
     </tr>
     <tr>
-        <th>Vrijwilliger</th><td><?php if ($row['vrijwilliger'] === '1') {echo 'ja';} else if ($row['vrijwilliger'] === '0') {echo 'nee';} else {echo 'n/a';} ?></td>
+        <th>Vrijwilliger</th><td><?php if ($row['vrijwilliger'] === '1') {echo 'ja'; } else if ($row['vrijwilliger'] === '0') {echo 'nee'; } else {echo 'n/a'; } ?></td>
     </tr>
     <tr>
-        <th>Licht / geluid</th><td><?php if ($row['vrijwilligeroptie1'] === '1') {echo 'ja';} else if ($row['vrijwilligeroptie1'] === '0') {echo 'nee';} else {echo 'n/a';} ?></td>
+        <th>Licht / geluid</th><td><?php if ($row['vrijwilligeroptie1'] === '1') {echo 'ja'; } else if ($row['vrijwilligeroptie1'] === '0') {echo 'nee'; } else {echo 'n/a'; } ?></td>
     </tr>
     <tr>
-        <th>Bar</th><td><?php if ($row['vrijwilligeroptie2'] === '1') {echo 'ja';} else if ($row['vrijwilligeroptie2'] === '0') {echo 'nee';} else {echo 'n/a';} ?></td>
+        <th>Bar</th><td><?php if ($row['vrijwilligeroptie2'] === '1') {echo 'ja'; } else if ($row['vrijwilligeroptie2'] === '0') {echo 'nee'; } else {echo 'n/a'; } ?></td>
     </tr>
     <tr>
-        <th>Schoonmaken / klussen</th><td><?php if ($row['vrijwilligeroptie3'] === '1') {echo 'ja';} else if ($row['vrijwilligeroptie3'] === '0') {echo 'nee';} else {echo 'n/a';} ?></td>
+        <th>Schoonmaken / klussen</th><td><?php if ($row['vrijwilligeroptie3'] === '1') {echo 'ja'; } else if ($row['vrijwilligeroptie3'] === '0') {echo 'nee'; } else {echo 'n/a'; } ?></td>
     </tr>
     <tr>
-        <th>Promotie / flyeren</th><td><?php if ($row['vrijwilligeroptie4'] === '1') {echo 'ja';} else if ($row['vrijwilligeroptie4'] === '0') {echo 'nee';} else {echo 'n/a';} ?></td>
+        <th>Promotie / flyeren</th><td><?php if ($row['vrijwilligeroptie4'] === '1') {echo 'ja'; } else if ($row['vrijwilligeroptie4'] === '0') {echo 'nee'; } else {echo 'n/a'; } ?></td>
     </tr>
     <tr>
-        <th>Organisatie evenementen</th><td><?php if ($row['vrijwilligeroptie5'] === '1') {echo 'ja';} else if ($row['vrijwilligeroptie5'] === '0') {echo 'nee';} else {echo 'n/a';} ?></td>
+        <th>Organisatie evenementen</th><td><?php if ($row['vrijwilligeroptie5'] === '1') {echo 'ja'; } else if ($row['vrijwilligeroptie5'] === '0') {echo 'nee'; } else {echo 'n/a'; } ?></td>
     </tr>
 </table>
 <table class="table table-striped table-condensed">

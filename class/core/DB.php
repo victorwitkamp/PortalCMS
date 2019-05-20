@@ -18,7 +18,7 @@ class DB
         $DB_CHARSET = Config::get('DB_CHARSET');
         // $DB_COLLATE = Config::get('DB_COLLATE');
                 
-        $dsn = $DB_TYPE . ':host=' . $DB_HOST . ';port=' . $DB_PORT . ';dbname=' . $DB_NAME . ';charset=' . $DB_CHARSET;
+        $dsn = $DB_TYPE.':host='.$DB_HOST.';port='.$DB_PORT.';dbname='.$DB_NAME.';charset='.$DB_CHARSET;
         $options = array(
             //PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ, 
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
@@ -39,10 +39,10 @@ class DB
                 );
             } catch (PDOException $e) {
                 // Echo custom message. Echo error code gives you some info.
-                echo 'Database connection can not be estabilished. Please try again later.' . '<br>';
-                echo 'Error message: ' . $e->getMessage();
+                echo 'Database connection can not be estabilished. Please try again later.'.'<br>';
+                echo 'Error message: '.$e->getMessage();
                 echo '<br>';
-                echo 'Error code: ' . $e->getCode();
+                echo 'Error code: '.$e->getCode();
 
                 // Stop application :(
                 // No connection, reached limit connections etc. so no point to keep it running

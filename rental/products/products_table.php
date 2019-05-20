@@ -11,7 +11,7 @@
     <tbody>
     <?php 
         foreach ($products as $row) {
-	echo '
+    echo '
         <tr>
             <td>
                 <a href="product.php?id='.$row['id'].'" title="PDF maken" class="btn btn-primary btn-sm">

@@ -23,7 +23,7 @@ PortalCMS_JS_headJS();
                 <!-- <div class="col-sm-4"><a href="#" class="btn btn-success navbar-btn float-right"><span class="fa fa-plus"></span> Toevoegen</a></div> -->
             </div>
             <?php
-            Util::DisplayMessage();?>
+            Util::DisplayMessage(); ?>
             <hr>
                 <table class="table table-sm table-striped table-hover table-dark">
                     <thead class="thead-dark">
