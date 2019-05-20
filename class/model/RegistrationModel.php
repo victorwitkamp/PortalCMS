@@ -33,8 +33,8 @@ class RegistrationModel
     public static function writeNewUserToDatabase($username, $email, $md5password, $activationCode)
     {
         $stmt = DB::conn()->prepare("INSERT INTO users (username, email, password, confirm_code) VALUES (?, ?, ?, ?)");
-        $stmt->execute([$username,$email,$md5password,$activationCode]);
-        $count =  $stmt->rowCount();
+        $stmt->execute([$username, $email, $md5password, $activationCode]);
+        $count = $stmt->rowCount();
         if ($count == 1) {
             return true;
         }

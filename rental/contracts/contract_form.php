@@ -9,11 +9,11 @@
         <div class="form-group row">
             <div class="col-md-8">
                 <label class="col-form-label">band_naam</label>
-                <input type="text" name="band_naam" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType==='edit') { echo $row ['band_naam']; } ?>" required <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                <input type="text" name="band_naam" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType === 'edit') { echo $row ['band_naam']; } ?>" required <?php if (!$allowEdit) { echo 'disabled'; } ?>>
             </div>
             <div class="col-md-8">
                 <label class="col-form-label">bandcode</label>
-                <input type="text" name="bandcode" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType==='edit') { echo $row ['bandcode']; } ?>" required <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                <input type="text" name="bandcode" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType === 'edit') { echo $row ['bandcode']; } ?>" required <?php if (!$allowEdit) { echo 'disabled'; } ?>>
             </div>
         </div>
         <hr>
@@ -22,13 +22,13 @@
         <div class="form-group row">
             <div class="col-md-12">
                 <label class="col-form-label">kosten_ruimte</label>
-                <input type="text" name="kosten_ruimte" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType==='edit') { echo $row ['kosten_ruimte']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                <input type="text" name="kosten_ruimte" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType === 'edit') { echo $row ['kosten_ruimte']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
             </div>
         </div>
         <div class="form-group row">
             <div class="col-md-12">
                 <label class="col-form-label">kosten_kast</label>
-                <input type="text" name="kosten_kast" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType==='edit') { echo $row ['kosten_kast']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                <input type="text" name="kosten_kast" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType === 'edit') { echo $row ['kosten_kast']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
             </div>
         </div>
         <div class="form-group row">
@@ -36,7 +36,7 @@
                 <label class="col-form-label">kosten_totaal</label>
                 <input type="text" name="kosten_totaal" 
                 class="form-control form-control-sm" placeholder="" value="<?php 
-                if ($pageType==='edit') { echo $row ['kosten_totaal']; } ?>" <?php 
+                if ($pageType === 'edit') { echo $row ['kosten_totaal']; } ?>" <?php 
                 //if (!$allowEdit) { 
                     echo 'disabled'; 
                 //} 
@@ -46,7 +46,7 @@
         <div class="form-group row">
             <div class="col-md-12">
                 <label class="col-form-label">kosten_borg</label>
-                <input type="text" name="kosten_borg" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType==='edit') { echo $row ['kosten_borg']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                <input type="text" name="kosten_borg" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType === 'edit') { echo $row ['kosten_borg']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
             </div>
         </div>
 
@@ -60,7 +60,7 @@
                                 <i class="fa fa-calendar"></i>
                             </div>
                         </div>
-                        <input type="text" name="contract_ingangsdatum" class="form-control form-control-sm  datetimepicker-input" data-target="#datetimepicker2" value="<?php if ($pageType==='edit') { echo $row ['contract_ingangsdatum']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                        <input type="text" name="contract_ingangsdatum" class="form-control form-control-sm  datetimepicker-input" data-target="#datetimepicker2" value="<?php if ($pageType === 'edit') { echo $row ['contract_ingangsdatum']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
                     </div>
                 </div>
             </div>
@@ -74,7 +74,7 @@
                                 <i class="fa fa-calendar"></i>
                             </div>
                         </div>
-                        <input type="text" name="contract_einddatum" class="form-control form-control-sm  datetimepicker-input" data-target="#datetimepicker3" value="<?php if ($pageType==='edit') { echo $row ['contract_einddatum']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                        <input type="text" name="contract_einddatum" class="form-control form-control-sm  datetimepicker-input" data-target="#datetimepicker3" value="<?php if ($pageType === 'edit') { echo $row ['contract_einddatum']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
                     </div>
                 </div>
             </div>
@@ -88,7 +88,7 @@
                                 <i class="fa fa-calendar"></i>
                             </div>
                         </div>
-                        <input type="text" name="contract_datum" class="form-control form-control-sm  datetimepicker-input" data-target="#datetimepicker4" value="<?php if ($pageType==='edit') { echo $row ['contract_datum']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                        <input type="text" name="contract_datum" class="form-control form-control-sm  datetimepicker-input" data-target="#datetimepicker4" value="<?php if ($pageType === 'edit') { echo $row ['contract_datum']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
                     </div>
                 </div>
             </div>
@@ -100,23 +100,23 @@
         <div class="form-group row">
             <div class="col-md-12">
                 <label class="col-form-label">bandleider_naam</label>
-                <input type="text" name="bandleider_naam" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType==='edit') { echo $row ['bandleider_naam']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                <input type="text" name="bandleider_naam" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType === 'edit') { echo $row ['bandleider_naam']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
             </div>
         </div>
 
         <div class="form-group row">
             <div class="col-md-6">
                 <label class="col-form-label">bandleider_adres</label>
-                <input type="text" name="bandleider_adres" class="form-control form-control-sm" placeholder="Voorbeeldadres 123" value="<?php if ($pageType==='edit') { echo $row ['bandleider_adres']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                <input type="text" name="bandleider_adres" class="form-control form-control-sm" placeholder="Voorbeeldadres 123" value="<?php if ($pageType === 'edit') { echo $row ['bandleider_adres']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
             </div>
             <div class="col-md-2">
                 <label class="col-form-label">bandleider_postcode</label>
-                <input type="text" name="bandleider_postcode" class="form-control form-control-sm" maxlength="6" placeholder="1234AB" value="<?php if ($pageType==='edit') { echo $row ['bandleider_postcode']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                <input type="text" name="bandleider_postcode" class="form-control form-control-sm" maxlength="6" placeholder="1234AB" value="<?php if ($pageType === 'edit') { echo $row ['bandleider_postcode']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
             </div>
 
             <div class="col-md-4">
                 <label class="col-form-label">bandleider_woonplaats</label>
-                <input type="text" name="bandleider_woonplaats" class="form-control form-control-sm" placeholder="Barendrecht" value="<?php if ($pageType==='edit') { echo $row ['bandleider_woonplaats']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                <input type="text" name="bandleider_woonplaats" class="form-control form-control-sm" placeholder="Barendrecht" value="<?php if ($pageType === 'edit') { echo $row ['bandleider_woonplaats']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
             </div>
         </div>
 
@@ -130,7 +130,7 @@
                                 <i class="fa fa-calendar"></i>
                             </div>
                         </div>
-                        <input type="text" name="bandleider_geboortedatum" class="form-control datetimepicker-input" data-target="#datetimepicker1" value="<?php if ($pageType==='edit') { echo $row ['bandleider_geboortedatum']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                        <input type="text" name="bandleider_geboortedatum" class="form-control datetimepicker-input" data-target="#datetimepicker1" value="<?php if ($pageType === 'edit') { echo $row ['bandleider_geboortedatum']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
                     </div>
                 </div>
             </div>
@@ -139,25 +139,25 @@
         <div class="form-group row">
             <div class="col-md-6">
                 <label class="col-form-label">bandleider_telefoonnummer1</label>
-                <input type="text" name="bandleider_telefoonnummer1" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType==='edit') { echo $row ['bandleider_telefoonnummer1']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                <input type="text" name="bandleider_telefoonnummer1" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType === 'edit') { echo $row ['bandleider_telefoonnummer1']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
             </div>
             <div class="col-md-6">
                 <label class="col-form-label">bandleider_telefoonnummer2</label>
-                <input type="text" name="bandleider_telefoonnummer2" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType==='edit') { echo $row ['bandleider_telefoonnummer2']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                <input type="text" name="bandleider_telefoonnummer2" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType === 'edit') { echo $row ['bandleider_telefoonnummer2']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
             </div>
         </div>
 
         <div class="form-group row">
             <div class="col-md-12">
                 <label class="col-form-label">bandleider_email</label>
-                <input type="text" name="bandleider_email" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType==='edit') { echo $row ['bandleider_email']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                <input type="text" name="bandleider_email" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType === 'edit') { echo $row ['bandleider_email']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
             </div>
         </div>
 
         <div class="form-group row">
             <div class="col-md-12">
                 <label class="col-form-label">bandleider_bsn</label>
-                <input type="text" name="bandleider_bsn" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType==='edit') { echo $row ['bandleider_bsn']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                <input type="text" name="bandleider_bsn" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType === 'edit') { echo $row ['bandleider_bsn']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
             </div>
         </div>
         <hr>
@@ -165,39 +165,39 @@
         <div class="form-group row">
         <label for="huur_oefenruimte_nr" class="col-sm-2 col-form-label">Oefenruimte</label>
             <div class="col-sm-10">
-                <input type="radio" class="form-check-input" name="huur_oefenruimte_nr" value="1" <?php if ($pageType==='edit' AND $row['huur_oefenruimte_nr'] ===  '1') { echo 'checked' ; } ?>>
+                <input type="radio" class="form-check-input" name="huur_oefenruimte_nr" value="1" <?php if ($pageType === 'edit' AND $row['huur_oefenruimte_nr'] === '1') { echo 'checked'; } ?>>
                 <label>1</label>
-                <input type="radio" class="form-check-input" name="huur_oefenruimte_nr" value="2" <?php if ($pageType==='edit' AND $row['huur_oefenruimte_nr'] ===  '2') { echo 'checked' ; } ?>
+                <input type="radio" class="form-check-input" name="huur_oefenruimte_nr" value="2" <?php if ($pageType === 'edit' AND $row['huur_oefenruimte_nr'] === '2') { echo 'checked'; } ?>
                 ><label>2</label>
             </div>
         </div>
         <div class="form-group row">
             <div class="col-md-12">
                 <label class="col-form-label">huur_dag</label>
-                <input type="text" name="huur_dag" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType==='edit') { echo $row ['huur_dag']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                <input type="text" name="huur_dag" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType === 'edit') { echo $row ['huur_dag']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
             </div>
         </div>
         <div class="form-group row">
             <div class="col-md-6">
                 <label class="col-form-label">huur_start</label>
-                <input type="text" name="huur_start" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType==='edit') { echo $row ['huur_start']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                <input type="text" name="huur_start" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType === 'edit') { echo $row ['huur_start']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
             </div>
             <div class="col-md-6">
                 <label class="col-form-label">huur_eind</label>
-                <input type="text" name="huur_einde" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType==='edit') { echo $row ['huur_einde']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                <input type="text" name="huur_einde" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType === 'edit') { echo $row ['huur_einde']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
             </div>
         </div>
         <div class="form-group row">
             <div class="col-md-12">
                 <label class="col-form-label">huur_kast_nr</label>
-                <input type="text" name="huur_kast_nr" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType==='edit') { echo $row ['huur_kast_nr']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                <input type="text" name="huur_kast_nr" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType === 'edit') { echo $row ['huur_kast_nr']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
             </div>
         </div>
 
         <div class="form-group row">
             <div class="col-md-4">
                 <label class="col-form-label">beuk_vertegenwoordiger</label>
-                <input type="text" name="beuk_vertegenwoordiger" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType==='edit') { echo $row ['beuk_vertegenwoordiger']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                <input type="text" name="beuk_vertegenwoordiger" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType === 'edit') { echo $row ['beuk_vertegenwoordiger']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
             </div>
         </div>
 
@@ -214,8 +214,8 @@
         <div class="form-group row">
             <div class="col-md-6">
                 <label class="col-form-label">&#xA0;</label>
-                <input type="hidden" name="id" value="<?php if ($page='edit') { echo $row ['id']; } ?>">
-                <input type="submit" name="<?php if ($pageType==='edit') { echo 'updateContract'; } else { echo 'newContract'; }?>"  class="btn btn-sm btn-primary" value="Opslaan" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                <input type="hidden" name="id" value="<?php if ($page = 'edit') { echo $row ['id']; } ?>">
+                <input type="submit" name="<?php if ($pageType === 'edit') { echo 'updateContract'; } else { echo 'newContract'; }?>"  class="btn btn-sm btn-primary" value="Opslaan" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
                 <a href="contracten.php" class="btn btn-sm btn-danger">Annuleren</a>
             </div>
         </div>

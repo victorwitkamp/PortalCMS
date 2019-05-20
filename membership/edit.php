@@ -7,9 +7,9 @@ require_once DIR_INCLUDES.'functions.php';
 if (Member::doesMemberIdExist($_GET['id'])) {
     $row = Member::getMemberById($_GET['id']);
     $allowEdit = true;
-    $pageName = 'Lidmaatschap van '.$row ['voornaam'].' '.$row ['achternaam'].' bewerken' ;
+    $pageName = 'Lidmaatschap van '.$row ['voornaam'].' '.$row ['achternaam'].' bewerken';
 } else {
-    $_SESSION['response'][] = array("status"=>"warning","message"=>"Geen resultaten voor opgegeven Id.");
+    $_SESSION['response'][] = array("status"=>"warning", "message"=>"Geen resultaten voor opgegeven Id.");
 }
 require_once DIR_INCLUDES.'head.php';
 displayHeadCSS();

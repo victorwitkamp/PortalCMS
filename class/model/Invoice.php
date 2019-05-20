@@ -26,12 +26,12 @@ class Invoice
         $stmt = DB::conn()->prepare("SELECT id FROM invoice_items WHERE invoice_id = ? AND name = ? AND price = ?");
         $stmt->execute([$invoiceId, $name, $price]);
         if (!$stmt->rowCount() == 0) {
-            $_SESSION['response'][] = array("status"=>"error","message"=>"Item bestaat al");
+            $_SESSION['response'][] = array("status"=>"error", "message"=>"Item bestaat al");
         } else {
             if (!self::addInvoiceItemAction($invoiceId, $name, $price)) {
-                $_SESSION['response'][] = array("status"=>"error","message"=>"Toevoegen van evenement mislukt.<br>" );
+                $_SESSION['response'][] = array("status"=>"error", "message"=>"Toevoegen van evenement mislukt.<br>");
             } else {
-                $_SESSION['response'][] = array("status"=>"success","message"=>"Evenement toegevoegd."); 
+                $_SESSION['response'][] = array("status"=>"success", "message"=>"Evenement toegevoegd."); 
                 UserActivity::registerUserActivity('addInvoiceItem');
                 Redirect::redirectPage("rental/invoices/details.php?id=".$invoiceId);
             }
@@ -56,15 +56,15 @@ class Invoice
         $count = count($result);
         if ($count > 0) {
             if (!self::deleteInvoiceItemAction($Id)) {
-                $_SESSION['response'][] = array("status"=>"error","message"=>"Verwijderen van factuuritem mislukt.");
+                $_SESSION['response'][] = array("status"=>"error", "message"=>"Verwijderen van factuuritem mislukt.");
                 return false;
             } else {
-                $_SESSION['response'][] = array("status"=>"success","message"=>"Factuuritem item verwijderd.");
+                $_SESSION['response'][] = array("status"=>"success", "message"=>"Factuuritem item verwijderd.");
                 UserActivity::registerUserActivity('deleteInvoiceItem');
                 return true;
             }
         } else {
-            $_SESSION['response'][] = array("status"=>"error","message"=>"Kan factuuritem niet verwijderen.<br>Factuuritem bestaat niet.");
+            $_SESSION['response'][] = array("status"=>"error", "message"=>"Kan factuuritem niet verwijderen.<br>Factuuritem bestaat niet.");
             return false;
         }
     }
@@ -88,10 +88,10 @@ class Invoice
         $stmt = DB::conn()->prepare("SELECT id FROM invoices WHERE factuurnummer = ?");
         $stmt->execute([$factuurnummer]);
         if (!$stmt->rowCount() == 0) {
-            $_SESSION['response'][] = array("status"=>"error","message"=>"Factuurnummer bestaat al,");
+            $_SESSION['response'][] = array("status"=>"error", "message"=>"Factuurnummer bestaat al,");
         } else {
             if (!self::addInvoiceAction($contract_id, $factuurnummer, $year, $month)) {
-                $_SESSION['response'][] = array("status"=>"error","message"=>"Toevoegen van factuur mislukt.<br>" );
+                $_SESSION['response'][] = array("status"=>"error", "message"=>"Toevoegen van factuur mislukt.<br>");
             } else {
                 $invoice = self::getInvoiceByFactuurnummer($factuurnummer);
                 $factuuromschrijving_ruimte = 'Kosten voor: huur '.Text::get('MONTH_'.$month);
@@ -102,7 +102,7 @@ class Invoice
                         self::addInvoiceItemAction($invoice['id'], $factuuromschrijving_kast, $contract['kosten_kast']);
                     }
                 }
-                $_SESSION['response'][] = array("status"=>"success","message"=>"Factuur toegevoegd."); 
+                $_SESSION['response'][] = array("status"=>"success", "message"=>"Factuur toegevoegd."); 
                 UserActivity::registerUserActivity('addInvoice');
                 Redirect::redirectPage("rental/invoices/");
             }
@@ -211,7 +211,7 @@ class Invoice
         $pdf->setFontSubsetting(true);
         $pdf->SetFont('dejavusans', '', 11, '', true);
         $pdf->AddPage();
-        $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
+        $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196, 196, 196), 'opacity'=>1, 'blend_mode'=>'Normal'));
         $pdf->SetXY(165, 15);
         
         $pdf->Image('logo.jpg', '', '', 25, 25, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
@@ -264,7 +264,7 @@ class Invoice
             </tr>';
             $totaalbedrag = $totaalbedrag + $row['price'];
         }
-        $tbl = $tblstart . $rows . $tableend;
+        $tbl = $tblstart.$rows.$tableend;
         $pdf->writeHTML($tbl, true, false, false, false, '');
 
         $totaallabel = '<p style="text-align:right"><strong>Totaal:<strong> &euro;'.$totaalbedrag;
