@@ -56,7 +56,7 @@ class Role
      */
     public static function assign($user_id, $role_id) {
         if (self::isRoleAssigned($user_id, $role_id)) {
-            $_SESSION['response'][] = array("status"=>"error","message"=>"Rol is reeds toegewezen aan deze gebruiker.");
+            $_SESSION['response'][] = array("status"=>"error", "message"=>"Rol is reeds toegewezen aan deze gebruiker.");
             return false;
         }
         $stmt = DB::conn()->prepare(
@@ -65,10 +65,10 @@ class Role
                     VALUES (?,?)"
         );
         if ($stmt->execute([$user_id, $role_id])) {
-            $_SESSION['response'][] = array("status"=>"success","message"=>"Rol toegewezen.");
+            $_SESSION['response'][] = array("status"=>"success", "message"=>"Rol toegewezen.");
             return true;
         }
-        $_SESSION['response'][] = array("status"=>"error","message"=>"Fout bij toewijzen van rol.");
+        $_SESSION['response'][] = array("status"=>"error", "message"=>"Fout bij toewijzen van rol.");
         return false;
     }
 
@@ -82,7 +82,7 @@ class Role
      */
     public static function unassign($user_id, $role_id) {
         if (!self::isRoleAssigned($user_id, $role_id)) {
-            $_SESSION['response'][] = array("status"=>"error","message"=>"Rol is niet aan deze gebruiker toegewezen. Er is geen toewijzing om te verwijderen.");
+            $_SESSION['response'][] = array("status"=>"error", "message"=>"Rol is niet aan deze gebruiker toegewezen. Er is geen toewijzing om te verwijderen.");
             return false;
         }
         $stmt = DB::conn()->prepare(
