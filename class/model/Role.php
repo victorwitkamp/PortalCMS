@@ -31,7 +31,7 @@ class Role
             }
             return false;
         }
-        $_SESSION['response'][] = array("status"=>"error","message"=>"Rol is reeds toegewezen.<br>" );
+        $_SESSION['response'][] = array("status"=>"error", "message"=>"Rol is reeds toegewezen.<br>");
         return false;
     }
 
@@ -43,7 +43,7 @@ class Role
             }
             return false;
         }
-        $_SESSION['response'][] = array("status"=>"error","message"=>"Rol is reeds toegewezen.<br>" );
+        $_SESSION['response'][] = array("status"=>"error", "message"=>"Rol is reeds toegewezen.<br>");
         return false;
     }
 

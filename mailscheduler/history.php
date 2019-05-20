@@ -20,7 +20,7 @@ PortalCMS_JS_dataTables();
                 <div class="col-sm-8"><h1><?php echo $pageName ?></h1></div>
                 <div class="col-sm-4">
                     <a href="generate/" class="btn btn-info float-right">
-                        <span class="fa fa-plus"></span> <?php echo Text::get('LABEL_NEW_EMAIL');?>
+                        <span class="fa fa-plus"></span> <?php echo Text::get('LABEL_NEW_EMAIL'); ?>
                     </a>
                 </div>
             </div>

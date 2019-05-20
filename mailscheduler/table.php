@@ -8,7 +8,7 @@
             <th>#</th>
             <th>recipient_email</th>
             <th>subject</th>
-            <?php if ($pageType='history') { echo '<th>Verzonden op</th>'; } ?>
+            <?php if ($pageType = 'history') { echo '<th>Verzonden op</th>'; } ?>
             <th>status</th>
         </tr>
 
@@ -35,7 +35,7 @@
             <td><?php echo $row['id']; ?></td>
             <td><?php echo $row['recipient_email']; ?></td>
             <td><?php echo $row['subject']; ?></td>
-            <?php if ($pageType='history') { echo '<td>'.$row['DateSent'].'</td>'; } ?>
+            <?php if ($pageType = 'history') { echo '<td>'.$row['DateSent'].'</td>'; } ?>
             <td>
                 <?php
                 if ($row['status'] === '1') {

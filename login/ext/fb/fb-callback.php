@@ -9,20 +9,20 @@ $helper = $fb->getRedirectLoginHelper();
 try {
     $accessToken = $helper->getAccessToken();
 } catch (Facebook\Exceptions\FacebookResponseException $e) {
-    echo 'Graph returned an error: ' . $e->getMessage();
+    echo 'Graph returned an error: '.$e->getMessage();
     exit;
 } catch (Facebook\Exceptions\FacebookSDKException $e) {
-    echo 'Facebook SDK returned an error: ' . $e->getMessage();
+    echo 'Facebook SDK returned an error: '.$e->getMessage();
     exit;
 }
 
-if (! isset($accessToken)) {
+if (!isset($accessToken)) {
     if ($helper->getError()) {
         header('HTTP/1.0 401 Unauthorized');
-        echo "Error: " . $helper->getError() . "\n";
-        echo "Error Code: " . $helper->getErrorCode() . "\n";
-        echo "Error Reason: " . $helper->getErrorReason() . "\n";
-        echo "Error Description: " . $helper->getErrorDescription() . "\n";
+        echo "Error: ".$helper->getError()."\n";
+        echo "Error Code: ".$helper->getErrorCode()."\n";
+        echo "Error Reason: ".$helper->getErrorReason()."\n";
+        echo "Error Description: ".$helper->getErrorDescription()."\n";
     } else {
         header('HTTP/1.0 400 Bad Request');
         echo 'Bad request';
@@ -48,12 +48,12 @@ $oAuth2Client = $fb->getOAuth2Client();
 // //$tokenMetadata->validateUserId('123');
 // $tokenMetadata->validateExpiration();
 
-if (! $accessToken->isLongLived()) {
+if (!$accessToken->isLongLived()) {
     // Exchanges a short-lived access token for a long-lived one
     try {
         $accessToken = $oAuth2Client->getLongLivedAccessToken($accessToken);
     } catch (Facebook\Exceptions\FacebookSDKException $e) {
-        echo "<p>Error getting long-lived access token: " . $e->getMessage() . "</p>\n\n";
+        echo "<p>Error getting long-lived access token: ".$e->getMessage()."</p>\n\n";
         exit;
     }
     // echo '<h3>Long-lived</h3>';
@@ -66,10 +66,10 @@ try {
     // Returns a `Facebook\FacebookResponse` object
     $response = $fb->get('/me?fields=id,name,email', $_SESSION['fb_access_token']);
 } catch (Facebook\Exceptions\FacebookResponseException $e) {
-    echo 'Graph returned an error: ' . $e->getMessage();
+    echo 'Graph returned an error: '.$e->getMessage();
     exit;
 } catch (Facebook\Exceptions\FacebookSDKException $e) {
-    echo 'Facebook SDK returned an error: ' . $e->getMessage();
+    echo 'Facebook SDK returned an error: '.$e->getMessage();
     exit;
 }
 
@@ -79,5 +79,5 @@ $user = $response->getGraphUser();
 $userid = Session::get('user_id');
 User::saveNewFbid($userid, $user['id']);
 Session::set('user_fbid', $user['id']);
-$_SESSION['response'][] = array("status"=>"success","message"=>'Facebook account succesvol gekoppeld.' );
+$_SESSION['response'][] = array("status"=>"success", "message"=>'Facebook account succesvol gekoppeld.');
 Redirect::redirectPage('my-account/index.php');
