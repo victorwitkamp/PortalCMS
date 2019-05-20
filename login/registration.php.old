@@ -1,0 +1,78 @@
+<?php
+$pageName = 'Registreren';
+if (!isset($_SESSION)) { 
+    session_start(); 
+}
+
+require '../class/User.class.php';
+$u = new User();
+require_once DIR_INCLUDES.'functions.php';
+require_once DIR_INCLUDES.'head.php';
+displayHeadCSS();
+
+PortalCMS_CSS_floatingLabels();
+PortalCMS_JS_headJS();
+?>
+
+<script src="/includes/js/jquery-simple-validator.nl.js"></script>
+<script src="/includes/js/formProgressBar.jquery.js"></script>
+<link rel="stylesheet" type="text/css" href="/includes/css/jquery-simple-validator.css">
+<link rel="stylesheet" type="text/css" href="/includes/css/formProgressBar.css">
+</head>
+<body class="bg">
+    <header>
+        <div class="navbar navbar-dark bg-dark">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="login.php"><span class="fa fa-arrow-left"></span> Inloggen</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <main>
+        <div class="container col-md-6 offset-md-3 mt-5">
+            <form method="post" class="form-signin shadow" validate=true>
+                <div class="card">
+                    <div class="card-header text-center">
+                        <img src='<?php echo SiteSettings::getStaticSiteSetting('site_logo'); ?>' alt='<?php echo SiteSettings::getStaticSiteSetting('site_name'); ?>' width='200px' height='200px'/>
+                        <h1 class="h3 mb-3 font-weight-normal"><?php echo SiteSettings::getStaticSiteSetting('site_name'); ?></h2>
+                        <?php Util::DisplayMessage();?>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="h3 mb-3 font-weight-normal "><?php echo $pageName ?></h3>
+                        <div class="form-label-group">
+                            <input type="text" name="username" id="inputUsername" class="form-control" placeholder="Gebruikersnaam" autocomplete="username" autofocus required>
+                            <label for="inputUsername">Gebruikersnaam</label>
+                        </div>
+                        <div class="form-label-group">
+                            <input type="email" name="email" id="inputEmail" class="form-control" placeholder="E-mailadres" autocomplete="email" required>
+                            <label for="inputEmail">E-mailadres</label>
+                        </div>
+                        <div class="form-label-group">
+                            <input type="password" name="password" id="inputPassword" class="form-control" placeholder="wachtwoord" autocomplete="new-password" required>
+                            <label for="inputPassword">Wachtwoord</label>
+                        </div>
+                        <div class="form-label-group">
+                            <input type="password" name="confirm_password" id="inputConfirmPassword" class="form-control" placeholder="Bevestig wachtwoord" data-match="wachtwoord" data-match-field="#inputPassword" autocomplete="new-password" required >
+                            <label for="inputConfirmPassword">Bevestig wachtwoord</label>
+                        </div>
+                        <input type="submit" name="signupSubmit" value="Registreren" class="btn btn-secondary mb-sm-2">
+                        <p class="mb-sm-2"><a href="../login/login.php">Heb je al een account?</a></p>                    
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+    <?php require DIR_INCLUDES.'footer.php'; ?>
+    <script>
+        $("form").formProgressBar({
+            readCount: true,
+            validClass: 'no-error',
+            invalidClass: 'error',
+            percentCounting: false,
+            transitionTime: 500,
+            transitionType: 'ease'
+        })
+    </script>
+</body>
+</html>

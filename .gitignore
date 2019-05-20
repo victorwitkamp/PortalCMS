@@ -1,0 +1,6 @@
+/vendor/
+.scrutenizer.yml
+composer.lock
+Init.php
+/config/config.development.php
+web.config
