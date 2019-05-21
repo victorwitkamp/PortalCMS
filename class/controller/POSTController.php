@@ -135,7 +135,7 @@ class POSTController
             Role::delete($_POST['role_id']);
         }
         if (isset($_POST['addrole'])) {
-            Role::new($_POST['role_name']);
+            Role::create($_POST['role_name']);
         }
         if (isset($_POST['setrolepermission'])) {
             Permission::assign($_POST['role_id'], $_POST['perm_id']);
