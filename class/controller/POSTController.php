@@ -143,9 +143,9 @@ class POSTController
         if (isset($_POST['deleterolepermission'])) {
             Permission::unassign($_POST['role_id'], $_POST['perm_id']);
         }
-        // if (isset($_POST['deleteuser'])) {
-        //     $this->deleteUser($_POST['user_id']);
-        // }
+        if (isset($_POST['deleteuser'])) {
+            $this->deleteUser($_POST['user_id']);
+        }
 
 
 
