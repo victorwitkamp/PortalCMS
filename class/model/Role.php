@@ -9,13 +9,42 @@ class Role
     }
 
     /**
+     * Returns a role as an array
+     *
+     * @param string $role_id
+     *
+     * @return mixed
+     */
+    public static function get($role_id) {
+        $stmt = DB::conn()->prepare(
+            "SELECT *
+                    FROM roles
+                        WHERE role_id = ?
+                            limit 1"
+        );
+        $stmt->execute([$role_id]);
+        if ($stmt->rowCount() == 1) {
+            return $stmt->fetch();
+        }
+        return false;
+    }
+
+    /**
      * Create a new role
      *
      * @param string $role_name
      *
      * @return bool
      */
-    public static function new($role_name) {
+    public static function create($role_name) {
+        if(self::createAction($role_name)) {
+            $_SESSION['response'][] = array("status"=>"success", "message"=>"Nieuwe rol aangemaakt.");
+            return true;
+        }
+        return false;
+    }
+
+    public static function createAction($role_name) {
         $stmt = DB::conn()->prepare(
             "INSERT INTO roles
                         (role_name)
@@ -35,6 +64,14 @@ class Role
      * @return bool
      */
     public static function delete($role_id) {
+        if(self::deleteAction($role_id)) {
+            $_SESSION['response'][] = array("status"=>"success", "message"=>"Rol verwijderd.");
+            return true;
+        }
+        return false;
+    }
+
+    public static function deleteAction($role_id) {
         $stmt = DB::conn()->prepare(
             "DELETE FROM roles
                         where role_id=?
@@ -59,16 +96,22 @@ class Role
             $_SESSION['response'][] = array("status"=>"error", "message"=>"Rol is reeds toegewezen aan deze gebruiker.");
             return false;
         }
-        $stmt = DB::conn()->prepare(
-            "INSERT INTO user_role
-                    (user_id, role_id)
-                    VALUES (?,?)"
-        );
-        if ($stmt->execute([$user_id, $role_id])) {
+        if(self::assignAction($user_id, $role_id)) {
             $_SESSION['response'][] = array("status"=>"success", "message"=>"Rol toegewezen.");
             return true;
         }
         $_SESSION['response'][] = array("status"=>"error", "message"=>"Fout bij toewijzen van rol.");
+        return false;
+    }
+
+    public static function assignAction($user_id, $role_id) {
+        $stmt = DB::conn()->prepare(
+            "INSERT INTO user_role (user_id, role_id)
+                    VALUES (?,?)"
+        );
+        if ($stmt->execute([$user_id, $role_id])) {
+            return true;
+        }
         return false;
     }
 
@@ -81,10 +124,19 @@ class Role
      * @return bool
      */
     public static function unassign($user_id, $role_id) {
-        if (!self::isRoleAssigned($user_id, $role_id)) {
+        if(!self::isRoleAssigned($user_id, $role_id)) {
             $_SESSION['response'][] = array("status"=>"error", "message"=>"Rol is niet aan deze gebruiker toegewezen. Er is geen toewijzing om te verwijderen.");
             return false;
         }
+        if(self::unassignAction($user_id, $role_id)) {
+            $_SESSION['response'][] = array("status"=>"success", "message"=>"Rol voor gebruiker verwijderd.");
+            return true;
+        }
+        $_SESSION['response'][] = array("status"=>"success", "message"=>"Fout bij verwijderen van rol voor gebruiker.");
+        return false;
+    }
+
+    public static function unassignAction($user_id, $role_id) {
         $stmt = DB::conn()->prepare(
             "DELETE FROM user_role
                     where user_id=?
@@ -115,27 +167,6 @@ class Role
         $stmt->execute([$user_id, $role_id]);
         if ($stmt->rowCount() == 1) {
             return true;
-        }
-        return false;
-    }
-
-    /**
-     * Returns a role as an array
-     *
-     * @param string $role_id
-     *
-     * @return mixed
-     */
-    public static function get($role_id) {
-        $stmt = DB::conn()->prepare(
-            "SELECT *
-                    FROM roles
-                        WHERE role_id = ?
-                            limit 1"
-        );
-        $stmt->execute([$role_id]);
-        if ($stmt->rowCount() == 1) {
-            return $stmt->fetch();
         }
         return false;
     }

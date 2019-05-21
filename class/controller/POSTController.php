@@ -124,47 +124,27 @@ class POSTController
                 Redirect::redirectPage("settings/site-settings/index.php");
             }
         }
-        // Role
-        if (isset($_POST['setuserrole'])) {
-            if (Role::assign($_POST['user_id'], $_POST['role_id'])) {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Rol toegewezen.");
-            }
+        // Roles
+        if (isset($_POST['assignrole'])) {
+            Role::assign($_POST['user_id'], $_POST['role_id']);
         }
         if (isset($_POST['unassignrole'])) {
-            if (Role::unassign(Session::get('user_id'), $_POST['role_id'])) {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Rol verwijderd.");
-            }
+            Role::unassign($_POST['user_id'], $_POST['role_id']);
         }
-        // Roles
         if (isset($_POST['deleterole'])) {
-            if (Role::delete($_POST['role_id'])) {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Rol verwijderd.");
-            }
+            Role::delete($_POST['role_id']);
         }
         if (isset($_POST['addrole'])) {
-            if (Role::new($_POST['role_name'])) {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Rol verwijderd.");
-            }
+            Role::new($_POST['role_name']);
         }
         if (isset($_POST['setrolepermission'])) {
-            if (Permission::assign($_POST['role_id'], $_POST['perm_id'])) {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Permissie toegewezen.");
-            }
+            Permission::assign($_POST['role_id'], $_POST['perm_id']);
         }
         if (isset($_POST['deleterolepermission'])) {
-            if (Permission::unassign($_POST['role_id'], $_POST['perm_id'])) {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Permissie verwijderd.");
-            }
+            Permission::unassign($_POST['role_id'], $_POST['perm_id']);
         }
-        // if (isset($_POST['clearUserRole'])) {
-        //     if ($this->clearUserRole($_POST['user_id'])) {
-        //         $_SESSION['response'][] = array("status"=>"success","message"=>"Rol verwijderd.");
-        //     }
-        // }
         // if (isset($_POST['deleteuser'])) {
-        //     if ($this->deleteUser($_POST['user_id'])) {
-        //         $_SESSION['response'][] = array("status"=>"success","message"=>"Gebruiker verwijderd.");
-        //     }
+        //     $this->deleteUser($_POST['user_id']);
         // }
 
 

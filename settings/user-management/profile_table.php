@@ -53,6 +53,7 @@
 
                 <form method="post">
                 <label><?php echo Role::get($Role['role_id'])['role_name']; ?></label>
+                <input type="hidden" name="user_id" value="<?php echo $row['user_id']; ?>">
                     <input type="hidden" name="role_id" value="<?php echo $Role['role_id']; ?>">
                     <button type="submit" name="unassignrole" class="btn btn-danger"><span class="fa fa-trash"></span></button>
                 </form>
@@ -92,7 +93,7 @@
                     echo "</select>";
                 }
                 ?>
-                <input type="submit" name="setuserrole" value="Toewijzen" class="btn btn-primary ml-2" >
+                <input type="submit" name="assignrole" value="Toewijzen" class="btn btn-primary ml-2" >
             </form>
         </td>
     </tr>

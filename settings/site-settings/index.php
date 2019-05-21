@@ -1,15 +1,14 @@
-<?php 
+<?php
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_SITE_SETTINGS');
 Auth::checkAuthentication();
-// Auth::checkAdminAuthentication();
 if (!Permission::hasPrivilege("site-settings")) {
     Redirect::permissionerror();
     die();
 }
 require DIR_ROOT.'includes/functions.php';
 require DIR_ROOT.'includes/head.php';
-displayHeadCSS(); 
+displayHeadCSS();
 PortalCMS_JS_headJS();
 ?>
 
