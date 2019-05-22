@@ -1,5 +1,5 @@
 <?php
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER["DOCUMENT_ROOT"]."/../Init.php";
 $pageName = Text::get('TITLE_MAIL_TEMPLATES');
 // Auth::checkAdminAuthentication();
 if (!Permission::hasPrivilege("mail-templates")) {
