@@ -5,7 +5,7 @@
  * Details : Event Class.
  */
 
-class Event 
+class Event
 {
     public static function doesEventIdExist($eventid)
     {
@@ -73,7 +73,7 @@ class Event
     }
 
     public static function loadStaticComingEvents() {
-        $now = date("Y-m-d H:i:s");   
+        $now = date("Y-m-d H:i:s");
         $stmt = DB::conn()->prepare("SELECT * FROM events WHERE start_event > ? ORDER BY start_event asc limit 3");
         $stmt->execute([$now]);
         $result = $stmt->fetchAll();
@@ -105,7 +105,7 @@ class Event
             if (!self::addEventAction($title, $start_event, $end_event, $description)) {
                 $_SESSION['response'][] = array("status"=>"error", "message"=>"Toevoegen van evenement mislukt.<br>");
             } else {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Evenement toegevoegd."); 
+                $_SESSION['response'][] = array("status"=>"success", "message"=>"Evenement toegevoegd.");
                 UserActivity::registerUserActivity('addEvent');
                 Redirect::redirectPage("events/");
             }
@@ -122,7 +122,7 @@ class Event
         return true;
     }
 
-    
+
     public static function updateEvent()
     {
         $event_id = Request::post('id', true);
@@ -130,7 +130,7 @@ class Event
         $start_event = Request::post('start_event', true);
         $end_event = Request::post('end_event', true);
         $description = Request::post('description', true);
-    
+
         if (self::doesEventIdExist($event_id)) {
             if (!self::updateEventAction($event_id, $title, $start_event, $end_event, $description)) {
                 $_SESSION['response'][] = array("status"=>"error", "message"=>"Wijzigen van evenement mislukt.<br>");
@@ -150,7 +150,7 @@ class Event
         $stmt->execute([$title, $start_event, $end_event, $description, $event_id]);
         if (!$stmt) {
             return false;
-        }            
+        }
         return true;
     }
 
@@ -166,26 +166,35 @@ class Event
         }
     }
 
-    public static function deleteEvent($event_id) 
+    public static function deleteEvent()
     {
+        $event_id = Request::post('id', true);
+
         $stmt = DB::conn()->prepare("SELECT * FROM events where id = ?");
         $stmt->execute([$event_id]);
-        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);  
+        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         $count = count($result);
         if ($count > 0) {
-            $stmt = DB::conn()->prepare("DELETE FROM events WHERE id = ?");
-            if (!$stmt->execute([$event_id])) {
-                $_SESSION['response'][] = array("status"=>"error", "message"=>"Verwijderen van evenement mislukt.");
-                return false;
-            } else {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Evenement verwijderd.");
+            if (self::deleteEventAction($event_id)) {
                 UserActivity::registerUserActivity('deleteEvent');
+                $_SESSION['response'][] = array("status"=>"success", "message"=>"Evenement verwijderd.");
                 return true;
             }
-        } else {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Verwijderen van evenement mislukt.<br>Evenement bestaat niet.");
+
+            $_SESSION['response'][] = array("status"=>"error", "message"=>"Verwijderen van evenement mislukt.");
             return false;
         }
+        $_SESSION['response'][] = array("status"=>"error", "message"=>"Verwijderen van evenement mislukt.<br>Evenement bestaat niet.");
+        return false;
+    }
+
+    public static function deleteEventAction($event_id)
+    {
+        $stmt = DB::conn()->prepare("DELETE FROM events WHERE id = ?");
+        if ($stmt->execute([$event_id])) {
+            return true;
+        }
+        return false;
     }
 
 }

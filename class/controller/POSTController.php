@@ -30,14 +30,10 @@ class POSTController
 
         // My account
         if (isset($_POST['changeUsername'])) {
-            if (User::editUserName($_POST['user_name'])) {
-                Redirect::redirectPage("my-account/index.php");
-            };
+            User::editUserName($_POST['user_name']);
         }
         if (isset($_POST['changepassword'])) {
-            if (Password::changePassword(Session::get('user_name'), $_POST['currentpassword'], $_POST['newpassword'], $_POST['newconfirmpassword'])) {
-                Redirect::redirectPage("my-account/index.php");
-            };
+            Password::changePassword(Session::get('user_name'), $_POST['currentpassword'], $_POST['newpassword'], $_POST['newconfirmpassword']);
         }
         if (isset($_POST['clearUserFbid'])) {
             User::clearFbid();
@@ -51,9 +47,7 @@ class POSTController
             Event::updateEvent();
         }
         if (isset($_POST['deleteEvent'])) {
-            if (Event::deleteEvent($_POST['id'])) {
-                Redirect::redirectPage("events/index.php");
-            }
+            Event::deleteEvent();
         }
 
         // Members
@@ -71,7 +65,6 @@ class POSTController
         if (isset($_POST['newContract'])) {
             Contract::new();
         }
-
         // Products
         if (isset($_POST['saveNewProduct'])) {
             Product::new();
@@ -90,9 +83,7 @@ class POSTController
 
         // Page
         if (isset($_POST['updatePage'])) {
-            if (Page::updatePage($_POST['id'], $_POST['content'])) {
-                Redirect::redirectPage("home/index.php");
-            };
+            Page::updatePage($_POST['id'], $_POST['content']);
         }
 
         // Mail schedule
@@ -100,9 +91,7 @@ class POSTController
             MailController::sendMail($_POST['senderemail'], $_POST['recipientemail'], $_POST['subject'], $_POST['body']);
         }
         if (isset($_POST['testeventmail'])) {
-            if (MailController::sendEventMail($_POST['testeventmail_recipientemail'])) {
-                Redirect::redirectPage("settings/debug/");
-            }
+            MailController::sendEventMail($_POST['testeventmail_recipientemail']);
         }
         if (isset($_POST['newScheduledMail'])) {
             MailSchedule::new();
@@ -146,9 +135,5 @@ class POSTController
         if (isset($_POST['deleteuser'])) {
             $this->deleteUser($_POST['user_id']);
         }
-
-
-
-
     }
 }
