@@ -19,7 +19,9 @@
         // Simple but powerful feature, big thanks to @tysonlist.
 
         if (!empty(Request::get('redirect'))) {
+            // echo '<input type="hidden" name="redirect" value="'.$login->View->encodeHTML(Request::get('redirect')).'" />';
             echo '<input type="hidden" name="redirect" value="'.$login->View->encodeHTML(Request::get('redirect')).'" />';
+
         }
 
         // set CSRF token in login form, although sending fake login requests mightn't be interesting gap here.

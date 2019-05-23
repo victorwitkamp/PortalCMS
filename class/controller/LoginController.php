@@ -25,7 +25,7 @@ class LoginController extends Controller
         if (!LoginModel::isUserLoggedIn()) {
             // $data = array('redirect' => Request::get('redirect') ? Request::get('redirect') : NULL);
             // $this->View->render('login/index', $data);
-            Redirect::redirectPage('login/login.php');
+            Redirect::login();
         } else {
             Redirect::home();
         }
@@ -39,8 +39,9 @@ class LoginController extends Controller
         // check if csrf token is valid
         if (!Csrf::isTokenValid()) {
             LoginModel::logout();
-            Redirect::home();
-            return false;
+            Redirect::login();
+            // return false;
+            exit();
         }
 
         // perform the login method, put result (true or false) into $login_successful
@@ -52,17 +53,21 @@ class LoginController extends Controller
         if ($login_successful) {
             if (Request::post('redirect')) {
                 Redirect::toPreviousViewedPageAfterLogin(ltrim(urldecode(Request::post('redirect')), '/'));
-                return true;
+                // return true;
+                exit();
             }
             Redirect::home();
-            return true;
+            // return true;
+            exit();
         }
         if (Request::post('redirect')) {
             Redirect::redirectPage('login/login.php?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
-            return false;
+            // return false;
+            exit();
         }
         Redirect::redirectPage('login/login.php');
-        return false;
+        // return false;
+        exit();
     }
 
     /**
@@ -108,6 +113,7 @@ class LoginController extends Controller
      */
     public static function logout()
     {
+        UserActivity::registerUserActivity('LoginController:logout');
         LoginModel::logout();
         Redirect::home();
         exit();

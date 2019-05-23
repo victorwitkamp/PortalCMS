@@ -21,6 +21,15 @@ class Redirect
         header('location: http://'.$_SERVER['HTTP_HOST'].'/'.$path);
     }
 
+        /**
+     * To the homepage
+     */
+    public static function login()
+    {
+        // header("location: " . Config::get('URL'));
+        self::redirectPage('login/login.php');
+    }
+
     /**
      * To the homepage
      */
@@ -71,6 +80,6 @@ class Redirect
         //     exit;
         // }
         header("location: ".Config::get('URL').$url);
-        exit();
+        // exit();
     }
 }

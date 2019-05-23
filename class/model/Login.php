@@ -20,6 +20,7 @@ class LoginModel
         // we do negative-first checks here, for simplicity empty username and empty password in one line
         if (empty($user_name) OR empty($user_password)) {
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
+            UserActivity::registerUserActivity('login_failed_empty_credentials');
             return false;
         }
 
@@ -46,7 +47,7 @@ class LoginModel
             $result->user_id, $result->user_name, $result->user_email, $result->user_account_type, $result->user_fbid
         );
         $_SESSION['response'][] = array("status"=>"success", "message"=>'Ingelogd met wachtwoord');
-        UserActivity::registerUserActivity('login');
+        UserActivity::registerUserActivity('login_success_by_password');
 
         // return true to make clear the login was successful
         // maybe do this in dependence of setSuccessfulLoginIntoSession ?
@@ -65,12 +66,14 @@ class LoginModel
     {
         if (!$cookie) {
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_COOKIE_INVALID'));
+            UserActivity::registerUserActivity('login_failed_invalid_cookie', $user_id);
             return false;
         }
 
         // before list(), check it can be split into 3 strings.
         if (count(explode(':', $cookie)) !== 3) {
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_COOKIE_INVALID'));
+            UserActivity::registerUserActivity('login_failed_invalid_cookie', $user_id);
             return false;
         }
 
@@ -81,6 +84,7 @@ class LoginModel
 
         if ($hash !== hash('sha256', $user_id.':'.$token) OR empty($token) OR empty($user_id)) {
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_COOKIE_INVALID'));
+            UserActivity::registerUserActivity('login_failed_invalid_cookie', $user_id);
             return false;
         }
 
@@ -88,6 +92,7 @@ class LoginModel
 
         if (!$result) {
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_COOKIE_INVALID'));
+            UserActivity::registerUserActivity('login_failed_invalid_cookie', $user_id);
             return false;
         }
 
@@ -99,6 +104,7 @@ class LoginModel
         // again from time to time. This is good and safe ! ;)
 
         $_SESSION['response'][] = array("status"=>"success", "message"=>Text::get('FEEDBACK_COOKIE_LOGIN_SUCCESSFUL'));
+        UserActivity::registerUserActivity('login_success_by_cookie');
         return true;
     }
 
@@ -137,6 +143,7 @@ class LoginModel
         if (Session::get('failed-login-count') >= 3 AND (Session::get('last-failed-login') > (time() - 30))) {
             // Session::init();
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_LOGIN_FAILED_3_TIMES'));
+            UserActivity::registerUserActivity('LoginModel:validateAndGetUser:login_failed_3_times');
             // Redirect::home();
             // exit();
             return false;
@@ -147,6 +154,8 @@ class LoginModel
         if (!$result) {
             self::incrementUserNotFoundCounter();
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
+            UserActivity::registerUserActivity('LoginModel:validateAndGetUser:login_failed_invalid_credentials');
+
             return false;
         }
 
@@ -155,29 +164,32 @@ class LoginModel
         // [23-May-2019 01:21:43 Europe/Amsterdam] PHP Notice:  A non well formed numeric value encountered in /home/vhosting/d/vhost0049425/domains/beukonline.nl/htdocs/portal/class/model/Login.php on line 154
         $last_failed = $result->user_last_failed_login;
         $unix_last_failed = strtotime($last_failed);
-        $now = date('Y-m-d H:i:s');
-        $unix_now = strtotime($now);
-        if (($result->user_failed_logins >= 3) AND ($unix_last_failed > ($unix_now - 30))) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_PASSWORD_WRONG_3_TIMES'));
-            return false;
+        if ($result->user_failed_logins >= 3) {
+            if ($unix_last_failed > (strtotime(date('Y-m-d H:i:s')) - 30)) {
+                $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_PASSWORD_WRONG_3_TIMES'));
+                UserActivity::registerUserActivity('LoginModel:validateAndGetUser:login_failed_3_times_wrong_password');
+                return false;
+            }
         }
+
 
         // if hash of provided password does NOT match the hash in the database: +1 failed-login counter
         if (!password_verify($user_password, $result->user_password_hash)) {
             self::incrementFailedLoginCounterOfUser($result->user_name);
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
+            UserActivity::registerUserActivity('LoginModel:validateAndGetUser:login_failed_invalid_credentials');
             return false;
         }
 
         // if user is not active (= has not verified account by verification mail)
         if ($result->user_active != 1) {
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET'));
+            UserActivity::registerUserActivity('LoginModel:validateAndGetUser:login_failed_account_not_active');
             return false;
         }
 
         // reset the user not found counter
         self::resetUserNotFoundCounter();
-
         return $result;
     }
 
@@ -210,8 +222,12 @@ class LoginModel
      */
     public static function logout()
     {
+        UserActivity::registerUserActivity('LoginModel:logout');
         self::deleteCookie();
         Session::destroy();
+        Session::init();
+        $_SESSION['response'][] = array("status"=>"success", "message"=>'Je bent uitgelogd');
+
     }
 
     /**
@@ -355,6 +371,8 @@ class LoginModel
      */
     public static function deleteCookie($user_id = null)
     {
+        UserActivity::registerUserActivity('LoginModel:deleteCookie');
+
         // is $user_id was set, then clear remember_me token in database
         if (isset($user_id)) {
             $sql = "UPDATE users SET user_remember_me_token = :user_remember_me_token WHERE user_id = :user_id LIMIT 1";
