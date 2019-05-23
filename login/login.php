@@ -1,18 +1,18 @@
 <?php
 $pageName = 'Login';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
-require_once DIR_INCLUDES.'functions.php';
-require_once DIR_INCLUDES.'head.php';
-displayHeadCSS();
-PortalCMS_CSS_loadingAnimation();
-PortalCMS_CSS_floatingLabels();
+
 
 require $_SERVER["DOCUMENT_ROOT"]."/login/ext/fb/config.php";
 $helper = $fb->getRedirectLoginHelper();
 
 $permissions = ['email']; // Optional permissions
 $loginUrl = $helper->getLoginUrl(FB_LOGIN_URL, $permissions);
-
+require_once DIR_INCLUDES.'functions.php';
+require_once DIR_INCLUDES.'head.php';
+displayHeadCSS();
+PortalCMS_CSS_loadingAnimation();
+PortalCMS_CSS_floatingLabels();
 
 ?>
 <link rel="stylesheet" type="text/css" href="/includes/css/newlogin.css">
