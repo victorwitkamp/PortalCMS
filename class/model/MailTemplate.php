@@ -9,10 +9,10 @@ class MailTemplates
         return $stmt->fetchAll();
 
     }
-    public static function getTemplatesByType()
+    public static function getTemplatesByType($type)
     {
-        $stmt = DB::conn()->prepare("SELECT * FROM mail_templates ORDER BY id");
-        $stmt->execute([]);
+        $stmt = DB::conn()->prepare("SELECT * FROM mail_templates WHERE type = ? ORDER BY id");
+        $stmt->execute([$type]);
         return $stmt->fetchAll();
 
     }
@@ -33,22 +33,21 @@ class MailTemplates
         $type = Request::post('type', true);
         $subject = Request::post('subject', true);
         $body = Request::post('body', true);
-
-        $return = self::writenew($type, $subject, $body);
+        $status = 1;
+        $return = self::writenew($type, $subject, $body, $status);
         if ($return === false) {
             $_SESSION['response'][] = array("status"=>"error", "message"=>"Nieuwe template aanmaken mislukt.");
         } else {
-            $_SESSION['response'][] = array("status"=>"success", "message"=>"Template toegevoegd (ID = ".$return.')'); 
+            $_SESSION['response'][] = array("status"=>"success", "message"=>"Template toegevoegd (ID = ".$return.')');
             UserActivity::registerUserActivity('addMailTemplate');
             Redirect::redirectPage("mailscheduler/templates/");
         }
     }
- 
-    public static function writenew($type, $subject, $body)
+
+    public static function writenew($type, $subject, $body, $status)
     {
 
-            $stmt = DB::conn()->prepare("INSERT INTO mail_templates(id, type, subject, body) VALUES (NULL,?,?,?)");
-        
+        $stmt = DB::conn()->prepare("INSERT INTO mail_templates(id, type, subject, body, status) VALUES (NULL,?,?,?,?)");
         $stmt->execute([$type, $subject, $body, $status]);
         if (!$stmt) {
             return false;
@@ -89,7 +88,7 @@ class MailTemplates
         }
     }
 
-    
+
     function setMailText($text, $name)
     {
         $stmt = DB::conn()->prepare("UPDATE mail_text SET text = ? WHERE name = ?");

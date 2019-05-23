@@ -28,6 +28,7 @@ PortalCMS_JS_dataTables();
                     </a>
                 </div>
             </div>
+            <a href="history.php">history</a>
             <hr>
         </div>
         <div class="container">

@@ -7,25 +7,25 @@
 
 class SiteSettings
 {
-    public $SiteName;
-    public $SiteDescription;
-    public $SiteURL;
-    public $SiteLogo;
-    public $SiteTheme;
-    public $SiteLayout;
-    
-    public $WidgetComingEvents;
+    // public $SiteName;
+    // public $SiteDescription;
+    // public $SiteURL;
+    // public $SiteLogo;
+    // public $SiteTheme;
+    // public $SiteLayout;
 
-    public function getSiteSettings() 
-    {
-        $this->SiteName = $this->getSiteSetting('site_name');
-        $this->SiteDescription = $this->getSiteSetting('site_description');
-        $this->SiteTheme = $this->getSiteSetting('site_theme');
-        $this->SiteLayout = $this->getSiteSetting('site_layout');
-        $this->SiteURL = $this->getSiteSetting('site_url');
-        $this->SiteLogo = $this->getSiteSetting('site_logo');
-        $this->WidgetComingEvents = $this->getSiteSetting('WidgetComingEvents');
-    }
+    // public $WidgetComingEvents;
+
+    // public function getSiteSettings()
+    // {
+    //     $this->SiteName = $this->getSiteSetting('site_name');
+    //     $this->SiteDescription = $this->getSiteSetting('site_description');
+    //     $this->SiteTheme = $this->getSiteSetting('site_theme');
+    //     $this->SiteLayout = $this->getSiteSetting('site_layout');
+    //     $this->SiteURL = $this->getSiteSetting('site_url');
+    //     $this->SiteLogo = $this->getSiteSetting('site_logo');
+    //     $this->WidgetComingEvents = $this->getSiteSetting('WidgetComingEvents');
+    // }
 
     public static function saveSiteSettings()
     {
