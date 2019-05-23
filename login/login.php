@@ -11,7 +11,7 @@ require $_SERVER["DOCUMENT_ROOT"]."/login/ext/fb/config.php";
 $helper = $fb->getRedirectLoginHelper();
 
 $permissions = ['email']; // Optional permissions
-$loginUrl = $helper->getLoginUrl('https://portal.victorwitkamp.nl/login/ext/fb/fb-callback-login.php', $permissions);
+$loginUrl = $helper->getLoginUrl(FB_LOGIN_URL, $permissions);
 
 
 ?>
@@ -24,7 +24,6 @@ $loginUrl = $helper->getLoginUrl('https://portal.victorwitkamp.nl/login/ext/fb/f
   <nav class="navbar navbar-light bg-light">
     <a class="navbar-brand" href="<?php echo SiteSettings::getStaticSiteSetting('site_url'); ?>"><?php echo SiteSettings::getStaticSiteSetting('site_name'); ?></a>
         <?php Util::DisplayMessage(); ?>
-        <?php $login->View->renderFeedbackMessages(); ?>
   </nav>
   <main>
     <div class="content">
@@ -41,7 +40,7 @@ $loginUrl = $helper->getLoginUrl('https://portal.victorwitkamp.nl/login/ext/fb/f
                 <h2 class="user_registered-title">Heb je al een account?</h2>
                 <p class="user_registered-text">Log in met je bestaande gegevens.</p>
                 <button class="btn btn-outline-info user_registered-login" id="login-button">Login</button>
-                
+
               </div>
             </div>
             <div class="user_options-forms" id="user_options-forms">

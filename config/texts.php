@@ -7,8 +7,17 @@
  */
 RETURN ARRAY(
     // GENERAL
+    "DAY" => "DAG",
     "YEAR" => "JAAR",
     "MONTH" => "MAAND",
+    // DAYS
+    "DAY_01"=>"Maandag",
+    "DAY_02"=>"Dinsdag",
+    "DAY_03"=>"Woensdag",
+    "DAY_04"=>"Donderdag",
+    "DAY_05"=>"Vrijdag",
+    "DAY_06"=>"Zaterdag",
+    "DAY_07"=>"Zondag",
     // MONTHS
     "MONTH_01" => "Januari",
     "MONTH_02" => "Februari",

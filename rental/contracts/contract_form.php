@@ -17,7 +17,7 @@
             </div>
         </div>
         <hr>
-        
+
         <h3>Kosten</h3>
         <div class="form-group row">
             <div class="col-md-12">
@@ -34,12 +34,12 @@
         <div class="form-group row">
             <div class="col-md-12">
                 <label class="col-form-label">kosten_totaal</label>
-                <input type="text" name="kosten_totaal" 
-                class="form-control form-control-sm" placeholder="" value="<?php 
-                if ($pageType === 'edit') { echo $row ['kosten_totaal']; } ?>" <?php 
-                //if (!$allowEdit) { 
-                    echo 'disabled'; 
-                //} 
+                <input type="text" name="kosten_totaal"
+                class="form-control form-control-sm" placeholder="" value="<?php
+                if ($pageType === 'edit') { echo $row ['kosten_totaal']; } ?>" <?php
+                //if (!$allowEdit) {
+                    echo 'disabled';
+                //}
                 ?>>
             </div>
         </div>
@@ -54,7 +54,7 @@
             <div class="col-md-3">
                 <label class="col-form-label">contract_ingangsdatum</label>
                 <div class="form-group date" id="datetimepicker2" data-target-input="nearest">
-                    <div class="input-group">    
+                    <div class="input-group">
                         <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
                             <div class="input-group-text">
                                 <i class="fa fa-calendar"></i>
@@ -68,7 +68,7 @@
             <div class="col-md-3">
                 <label class="col-form-label">contract_einddatum</label>
                 <div class="form-group date" id="datetimepicker3" data-target-input="nearest">
-                    <div class="input-group">    
+                    <div class="input-group">
                         <div class="input-group-append" data-target="#datetimepicker3" data-toggle="datetimepicker">
                             <div class="input-group-text">
                                 <i class="fa fa-calendar"></i>
@@ -82,7 +82,7 @@
             <div class="col-md-3">
                 <label class="col-form-label">contract_datum</label>
                 <div class="form-group date" id="datetimepicker4" data-target-input="nearest">
-                    <div class="input-group">    
+                    <div class="input-group">
                         <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
                             <div class="input-group-text">
                                 <i class="fa fa-calendar"></i>
@@ -92,8 +92,8 @@
                     </div>
                 </div>
             </div>
-            
-        </div> 
+
+        </div>
 
         <hr>
         <h3>Gegevens bandleider</h3>
@@ -124,7 +124,7 @@
             <div class="col-md-12">
                 <label class="col-form-label">bandleider_geboortedatum</label>
                 <div class="form-group date" id="datetimepicker1" data-target-input="nearest">
-                    <div class="input-group">    
+                    <div class="input-group">
                         <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                             <div class="input-group-text">
                                 <i class="fa fa-calendar"></i>
@@ -163,20 +163,42 @@
         <hr>
         <h3>Oefenruimte</h3>
         <div class="form-group row">
-        <label for="huur_oefenruimte_nr" class="col-sm-2 col-form-label">Oefenruimte</label>
+            <label for="staticEmail" class="col-sm-2 col-form-label">Oefenruimte nr.</label>
             <div class="col-sm-10">
-                <input type="radio" class="form-check-input" name="huur_oefenruimte_nr" value="1" <?php if ($pageType === 'edit' AND $row['huur_oefenruimte_nr'] === '1') { echo 'checked'; } ?>>
-                <label>1</label>
-                <input type="radio" class="form-check-input" name="huur_oefenruimte_nr" value="2" <?php if ($pageType === 'edit' AND $row['huur_oefenruimte_nr'] === '2') { echo 'checked'; } ?>
-                ><label>2</label>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="huur_oefenruimte_nr" value="1" <?php if ($pageType === 'edit' AND $row['huur_oefenruimte_nr'] === '1') { echo 'checked'; } ?>>
+                    <label class="form-check-label" for="exampleRadios1">
+                        Oefenruimte 1
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="huur_oefenruimte_nr" value="2" <?php if ($pageType === 'edit' AND $row['huur_oefenruimte_nr'] === '2') { echo 'checked'; } ?>>
+                    <label class="form-check-label" for="exampleRadios2">
+                    Oefenruimte 2
+                    </label>
+                </div>
+
             </div>
         </div>
+
         <div class="form-group row">
-            <div class="col-md-12">
-                <label class="col-form-label">huur_dag</label>
-                <input type="text" name="huur_dag" class="form-control form-control-sm" placeholder="" value="<?php if ($pageType === 'edit') { echo $row ['huur_dag']; } ?>" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+            <label class="col-sm-2 col-form-label"><?php echo Text::get('DAY'); ?></label>
+            <div class="col-sm-10">
+                <select name="huur_dag" class="form-control" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                    <option>Selecteer een dag....</option>
+                    <option value="<?php echo Text::get('DAY_01'); ?>" <?php if ($row ['huur_dag'] === Text::get('DAY_01')) { echo 'selected'; } ?>><?php echo Text::get('DAY_01'); ?></option>
+                    <option value="<?php echo Text::get('DAY_02'); ?>" <?php if ($row ['huur_dag'] === Text::get('DAY_01')) { echo 'selected'; } ?>><?php echo Text::get('DAY_02'); ?></option>
+                    <option value="<?php echo Text::get('DAY_03'); ?>" <?php if ($row ['huur_dag'] === Text::get('DAY_01')) { echo 'selected'; } ?>><?php echo Text::get('DAY_03'); ?></option>
+                    <option value="<?php echo Text::get('DAY_04'); ?>" <?php if ($row ['huur_dag'] === Text::get('DAY_01')) { echo 'selected'; } ?>><?php echo Text::get('DAY_04'); ?></option>
+                    <option value="<?php echo Text::get('DAY_05'); ?>" <?php if ($row ['huur_dag'] === Text::get('DAY_01')) { echo 'selected'; } ?>><?php echo Text::get('DAY_05'); ?></option>
+                    <option value="<?php echo Text::get('DAY_06'); ?>" <?php if ($row ['huur_dag'] === Text::get('DAY_01')) { echo 'selected'; } ?>><?php echo Text::get('DAY_06'); ?></option>
+                    <option value="<?php echo Text::get('DAY_07'); ?>" <?php if ($row ['huur_dag'] === Text::get('DAY_01')) { echo 'selected'; } ?>><?php echo Text::get('DAY_07'); ?></option>
+                </select>
             </div>
         </div>
+
+
         <div class="form-group row">
             <div class="col-md-6">
                 <label class="col-form-label">huur_start</label>

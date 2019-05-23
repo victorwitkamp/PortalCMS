@@ -1,12 +1,18 @@
-<?php 
+<?php
+$allowEdit = false;
+$pageType = 'edit';
 $pageName = 'Profiel';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
-$row = Contract::getById($_GET['id']); 
+$row = Contract::getById($_GET['id']);
+if (!$row) {
+    $_SESSION['response'][] = array("status"=>"error", "message"=>"Het contract bestaat niet.");
+    Redirect::Error();
+}
 $pageName = 'Contract van '.$row['band_naam'];
 require_once DIR_INCLUDES.'functions.php';
 require_once DIR_INCLUDES.'head.php';
-displayHeadCSS(); 
+displayHeadCSS();
 PortalCMS_JS_headJS(); ?>
 </head>
 <body>
@@ -23,7 +29,7 @@ PortalCMS_JS_headJS(); ?>
             <?php require 'contracts_buttons.php'; ?>
             <a href="invoices.php?id=<?php echo $_GET['id']; ?>">Facturen bekijken</a>
             <hr>
-            <?php require 'contract_details_table.php'; ?>
+            <?php require 'contract_form.php'; ?>
             <hr>
             <?php require 'contracts_buttons.php'; ?>
         </div>

@@ -6,21 +6,17 @@ if (!Permission::hasPrivilege("user-management")) {
     Redirect::permissionerror();
     die();
 }
+$row = User::getProfileById($_GET['id']);
+if (!$row) {
+    $_SESSION['response'][] = array("status"=>"error", "message"=>"De gebruiker bestaat niet.");
+    Redirect::Error();
+}
 require DIR_ROOT.'includes/functions.php';
 require DIR_ROOT.'includes/head.php';
 displayHeadCSS();
 PortalCMS_JS_headJS(); ?>
 </head>
 <body>
-<?php
-
-$row = User::getProfileById($_GET['id']);
-if (!$row) {
-    $_SESSION['response'][] = array("status"=>"error", "message"=>"De gebruiker bestaat niet.");
-    Redirect::Error();
-}
-
-?>
 <?php require DIR_ROOT.'includes/nav.php'; ?>
 <main>
     <div class="content">
