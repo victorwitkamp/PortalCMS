@@ -28,16 +28,6 @@ PortalCMS_JS_headJS();
         </div>
         <hr>
         <div class="container">
-            <h2>error</h2>
-
-            <p><?php
-            $date = date('Y-m-d H:i:s');
-            echo '$date: '.$date.' <br>';
-            $datesubtracted = $date - 30;
-            echo '$date - 30: '.$datesubtracted.'<br>';
-            $unix = strtotime($date);
-            echo 'unix: '.$unix.'<br>';
-            ?></p>
             <h2>var_dump($_SESSION)</h2>
             <?php var_dump($_SESSION) ?>
         </div>

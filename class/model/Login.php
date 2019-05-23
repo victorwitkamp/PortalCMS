@@ -157,7 +157,7 @@ class LoginModel
         $unix_last_failed = strtotime($last_failed);
         $now = date('Y-m-d H:i:s');
         $unix_now = strtotime($now);
-        if (($result->user_failed_logins >= 3) AND ($unix_last_failed > ($unixnow - 30))) {
+        if (($result->user_failed_logins >= 3) AND ($unix_last_failed > ($unix_now - 30))) {
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_PASSWORD_WRONG_3_TIMES'));
             return false;
         }
