@@ -37,7 +37,7 @@ class Role
      * @return bool
      */
     public static function create($role_name) {
-        if(self::createAction($role_name)) {
+        if (self::createAction($role_name)) {
             $_SESSION['response'][] = array("status"=>"success", "message"=>"Nieuwe rol aangemaakt.");
             return true;
         }
@@ -64,7 +64,7 @@ class Role
      * @return bool
      */
     public static function delete($role_id) {
-        if(self::deleteAction($role_id)) {
+        if (self::deleteAction($role_id)) {
             $_SESSION['response'][] = array("status"=>"success", "message"=>"Rol verwijderd.");
             return true;
         }
@@ -96,7 +96,7 @@ class Role
             $_SESSION['response'][] = array("status"=>"error", "message"=>"Rol is reeds toegewezen aan deze gebruiker.");
             return false;
         }
-        if(self::assignAction($user_id, $role_id)) {
+        if (self::assignAction($user_id, $role_id)) {
             $_SESSION['response'][] = array("status"=>"success", "message"=>"Rol toegewezen.");
             return true;
         }
@@ -124,11 +124,11 @@ class Role
      * @return bool
      */
     public static function unassign($user_id, $role_id) {
-        if(!self::isRoleAssigned($user_id, $role_id)) {
+        if (!self::isRoleAssigned($user_id, $role_id)) {
             $_SESSION['response'][] = array("status"=>"error", "message"=>"Rol is niet aan deze gebruiker toegewezen. Er is geen toewijzing om te verwijderen.");
             return false;
         }
-        if(self::unassignAction($user_id, $role_id)) {
+        if (self::unassignAction($user_id, $role_id)) {
             $_SESSION['response'][] = array("status"=>"success", "message"=>"Rol voor gebruiker verwijderd.");
             return true;
         }
