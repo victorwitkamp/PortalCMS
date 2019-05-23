@@ -132,7 +132,7 @@ class LoginModel
      */
     private static function validateAndGetUser($user_name, $user_password)
     {
-        // Brute force attack mitigation: 
+        // Brute force attack mitigation:
         // block login attempt if somebody has already failed 3 times and the last login attempt is less than 30sec ago
         if (Session::get('failed-login-count') >= 3 AND (Session::get('last-failed-login') > (time() - 30))) {
             // Session::init();
@@ -151,7 +151,13 @@ class LoginModel
         }
 
         // block login attempt if somebody has already failed 3 times and the last login attempt is less than 30sec ago
-        if (($result->user_failed_logins >= 3) AND ($result->user_last_failed_login > (date('Y-m-d H:i:s') - 30))) {
+        // TODO NON NUMERIC ERROR
+        // [23-May-2019 01:21:43 Europe/Amsterdam] PHP Notice:  A non well formed numeric value encountered in /home/vhosting/d/vhost0049425/domains/beukonline.nl/htdocs/portal/class/model/Login.php on line 154
+        $last_failed = $result->user_last_failed_login;
+        $unix_last_failed = strtotime($last_failed);
+        $now = date('Y-m-d H:i:s');
+        $unix_now = strtotime($now);
+        if (($result->user_failed_logins >= 3) AND ($unix_last_failed > ($unixnow - 30))) {
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_PASSWORD_WRONG_3_TIMES'));
             return false;
         }
@@ -246,12 +252,12 @@ class LoginModel
         // Why? because you need to explicitly set session expiry, path, domain, secure, and HTTP.
         // @see https://www.owasp.org/index.php/PHP_Security_Cheat_Sheet#Cookies
         setcookie(
-            session_name(), 
-            session_id(), 
-            time() + Config::get('SESSION_RUNTIME'), 
-            Config::get('COOKIE_PATH'), 
-            Config::get('COOKIE_DOMAIN'), 
-            Config::get('COOKIE_SECURE'), 
+            session_name(),
+            session_id(),
+            time() + Config::get('SESSION_RUNTIME'),
+            Config::get('COOKIE_PATH'),
+            Config::get('COOKIE_DOMAIN'),
+            Config::get('COOKIE_SECURE'),
             Config::get('COOKIE_HTTP')
         );
     }
@@ -295,7 +301,7 @@ class LoginModel
      */
     public static function saveTimestampOfLoginOfUser($user_name)
     {
-        $sql = "UPDATE users 
+        $sql = "UPDATE users
                 SET user_last_login_timestamp = :user_last_login_timestamp
                 WHERE user_name = :user_name LIMIT 1";
         $sth = DB::conn()->prepare($sql);
@@ -329,12 +335,12 @@ class LoginModel
         // If you are using HTTPS, then you should set the "secure" flag (the second one from right) to true, too.
         // @see http://www.php.net/manual/en/function.setcookie.php
         setcookie(
-            'remember_me', 
-            $cookie_string, 
-            time() + Config::get('COOKIE_RUNTIME'), 
+            'remember_me',
+            $cookie_string,
+            time() + Config::get('COOKIE_RUNTIME'),
             Config::get('COOKIE_PATH'),
-            Config::get('COOKIE_DOMAIN'), 
-            Config::get('COOKIE_SECURE'), 
+            Config::get('COOKIE_DOMAIN'),
+            Config::get('COOKIE_SECURE'),
             Config::get('COOKIE_HTTP')
         );
     }
@@ -358,12 +364,12 @@ class LoginModel
 
         // delete remember_me cookie in browser
         setcookie(
-            'remember_me', 
-            false, 
-            time() - (3600 * 24 * 3650), 
+            'remember_me',
+            false,
+            time() - (3600 * 24 * 3650),
             Config::get('COOKIE_PATH'),
-            Config::get('COOKIE_DOMAIN'), 
-            Config::get('COOKIE_SECURE'), 
+            Config::get('COOKIE_DOMAIN'),
+            Config::get('COOKIE_SECURE'),
             Config::get('COOKIE_HTTP')
         );
     }

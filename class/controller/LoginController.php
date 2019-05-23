@@ -40,7 +40,7 @@ class LoginController extends Controller
         if (!Csrf::isTokenValid()) {
             LoginModel::logout();
             Redirect::home();
-            exit();
+            return false;
         }
 
         // perform the login method, put result (true or false) into $login_successful
@@ -52,17 +52,17 @@ class LoginController extends Controller
         if ($login_successful) {
             if (Request::post('redirect')) {
                 Redirect::toPreviousViewedPageAfterLogin(ltrim(urldecode(Request::post('redirect')), '/'));
-                exit();
+                return true;
             }
             Redirect::home();
-            exit();
-        } 
+            return true;
+        }
         if (Request::post('redirect')) {
             Redirect::redirectPage('login/login.php?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
-            exit();
-        } 
+            return false;
+        }
         Redirect::redirectPage('login/login.php');
-        exit();
+        return false;
     }
 
     /**
@@ -93,11 +93,11 @@ class LoginController extends Controller
             }
             Redirect::home();
             exit();
-        } 
+        }
         if (Request::post('redirect')) {
             Redirect::redirectPage('login/login.php?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
             exit();
-        } 
+        }
         Redirect::redirectPage('login/login.php');
         exit();
     }
