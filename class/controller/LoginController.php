@@ -54,7 +54,7 @@ class LoginController extends Controller
 
         // check login status: if true, then redirect user to user/index, if false, then to login form again
         if ($login_successful) {
-            UserActivity::registerUserActivity('LoginModel::loginWithPassword success');
+            UserActivity::registerUserActivity('LoginModel::loginWithPassword','success');
             if (Request::post('redirect')) {
 
                 UserActivity::registerUserActivity('Redirect::toPreviousViewedPageAfterLogin');
@@ -68,14 +68,17 @@ class LoginController extends Controller
             // return true;
             exit();
         }
-        UserActivity::registerUserActivity('login unsuccesful');
+        UserActivity::registerUserActivity('LoginModel::loginWithPassword','unsuccessful');
 
         if (Request::post('redirect')) {
+            UserActivity::registerUserActivity('Redirect::redirectPage');
             Redirect::redirectPage('login/login.php?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
             // return false;
             exit();
         }
-        Redirect::redirectPage('login/login.php');
+
+        UserActivity::registerUserActivity('Redirect::login');
+        Redirect::login();
         // return false;
         exit();
     }
@@ -102,18 +105,26 @@ class LoginController extends Controller
     {
         $login_successful = LoginModel::loginWithFacebook($fbid);
         if ($login_successful) {
+            UserActivity::registerUserActivity('LoginModel::loginWithFacebook','success');
+
             if (Request::post('redirect')) {
                 Redirect::toPreviousViewedPageAfterLogin(ltrim(urldecode(Request::post('redirect')), '/'));
                 exit();
             }
+            UserActivity::registerUserActivity('Redirect::home');
+
             Redirect::home();
             exit();
         }
+        UserActivity::registerUserActivity('LoginModel::loginWithFacebook','unsuccessful');
+
         if (Request::post('redirect')) {
             Redirect::redirectPage('login/login.php?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
             exit();
         }
-        Redirect::redirectPage('login/login.php');
+        UserActivity::registerUserActivity('Redirect::login');
+
+        Redirect::login();
         exit();
     }
 

@@ -42,12 +42,14 @@ PortalCMS_JS_headJS();
                     ?>
                         <tr>
                             <td><?php echo $Activity['CreationDate']; ?></td>
-                            <td><?php echo $Activity['activity_id']; ?></td>
+                            <td><?php echo $Activity['id']; ?></td>
                             <td><?php echo $Activity['user_id']; ?></td>
                             <td><?php echo $Activity['user_name']; ?></td>
                             <td><?php echo $Activity['ip_address']; ?></td>
 
                             <td><?php echo $Activity['activity']; ?></td>
+                            <td><?php echo $Activity['details']; ?></td>
+
                         </tr>
                     <?php
                 }
