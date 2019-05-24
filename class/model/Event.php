@@ -135,7 +135,7 @@ class Event
                 $_SESSION['response'][] = array("status"=>"error", "message"=>"Wijzigen van evenement mislukt.<br>");
             } else {
                 $_SESSION['response'][] = array("status"=>"success", "message"=>"Evenement gewijzigd.");
-                Redirect::redirectPage("events/");
+                redirectPage("events/");
             }
         } else {
             $_SESSION['response'][] = array("status"=>"error", "message"=>"Wijzigen van evenement mislukt.<br>Evenement bestaat niet.");

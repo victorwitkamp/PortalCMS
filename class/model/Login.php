@@ -20,7 +20,6 @@ class LoginModel
         // we do negative-first checks here, for simplicity empty username and empty password in one line
         if (empty($user_name) OR empty($user_password)) {
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
-            UserActivity::registerUserActivityByUsername($user_name,'login_failed_empty_credentials');
             return false;
         }
 
@@ -33,10 +32,10 @@ class LoginModel
 
         // reset the failed login counter for that user (if necessary)
         if ($result->user_last_failed_login > 0) {
-            self::resetFailedLoginCounterOfUser($result->user_name);
+            User::resetFailedLoginCounterOfUser($result->user_name);
         }
 
-        self::saveTimestampOfLoginOfUser($result->user_name);
+        User::saveTimestampOfLoginOfUser($result->user_name);
 
         if ($set_remember_me_cookie) {
             self::setRememberMe($result->user_id);
@@ -47,7 +46,6 @@ class LoginModel
             $result->user_id, $result->user_name, $result->user_email, $result->user_account_type, $result->user_fbid
         );
         $_SESSION['response'][] = array("status"=>"success", "message"=>'Ingelogd met wachtwoord');
-        UserActivity::registerUserActivityByUsername($result->user_name,'LoginModel::loginWithPassword success');
 
         // return true to make clear the login was successful
         // maybe do this in dependence of setSuccessfulLoginIntoSession ?
@@ -93,14 +91,13 @@ class LoginModel
         }
 
         self::setSuccessfulLoginIntoSession($result->user_id, $result->user_name, $result->user_email, $result->user_account_type, $result->user_fbid);
-        self::saveTimestampOfLoginOfUser($result->user_name);
+        User::saveTimestampOfLoginOfUser($result->user_name);
 
         // NOTE: we don't set another remember_me-cookie here as the current cookie should always
         // be invalid after a certain amount of time, so the user has to login with username/password
         // again from time to time. This is good and safe ! ;)
 
         $_SESSION['response'][] = array("status"=>"success", "message"=>Text::get('FEEDBACK_COOKIE_LOGIN_SUCCESSFUL'));
-        UserActivity::registerUserActivityByUsername($result->user_name,'login_success_by_cookie');
         return true;
     }
 
@@ -113,7 +110,7 @@ class LoginModel
         $result = User::getUserByFbid($fbid);
         if ($result) {
             self::setSuccessfulLoginIntoSession($result->user_id, $result->user_name, $result->user_email, $result->user_account_type, $fbid);
-            self::saveTimestampOfLoginOfUser($result->user_name);
+            User::saveTimestampOfLoginOfUser($result->user_name);
             $_SESSION['response'][] = array("status"=>"success", "message"=>Text::get('FEEDBACK_SUCCESFUL_FACEBOOK_LOGIN'));
             return true;
         } else {
@@ -139,7 +136,7 @@ class LoginModel
         if (Session::get('failed-login-count') >= 3 AND (Session::get('last-failed-login') > (time() - 30))) {
             // Session::init();
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_LOGIN_FAILED_3_TIMES'));
-            UserActivity::registerUserActivityByUsername($user_name,'LoginModel:validateAndGetUser:login_failed_3_times');
+
             // Redirect::home();
             // exit();
             return false;
@@ -150,8 +147,6 @@ class LoginModel
         if (!$result) {
             self::incrementUserNotFoundCounter();
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
-            UserActivity::registerUserActivityByUsername($user_name,'LoginModel:validateAndGetUser:login_failed_invalid_credentials');
-
             return false;
         }
 
@@ -163,7 +158,6 @@ class LoginModel
         if ($result->user_failed_logins >= 3) {
             if ($unix_last_failed > (strtotime(date('Y-m-d H:i:s')) - 30)) {
                 $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_PASSWORD_WRONG_3_TIMES'));
-                UserActivity::registerUserActivityByUsername($result->user_name,'LoginModel:validateAndGetUser:login_failed_3_times_wrong_password');
                 return false;
             }
         }
@@ -171,16 +165,14 @@ class LoginModel
 
         // if hash of provided password does NOT match the hash in the database: +1 failed-login counter
         if (!password_verify($user_password, $result->user_password_hash)) {
-            self::incrementFailedLoginCounterOfUser($result->user_name);
+            User::incrementFailedLoginCounterOfUser($result->user_name);
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
-            UserActivity::registerUserActivityByUsername($result->user_name,'LoginModel:validateAndGetUser:login_failed_invalid_credentials');
             return false;
         }
 
         // if user is not active (= has not verified account by verification mail)
         if ($result->user_active != 1) {
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET'));
-            UserActivity::registerUserActivityByUsername($result->user_name,'LoginModel:validateAndGetUser:login_failed_account_not_active');
             return false;
         }
 
@@ -188,10 +180,6 @@ class LoginModel
         self::resetUserNotFoundCounter();
         return $result;
     }
-
-
-
-
 
     /**
      * Reset the failed-login-count to 0.
@@ -218,7 +206,7 @@ class LoginModel
      */
     public static function logout()
     {
-        self::deleteCookie();
+        Cookie::delete();
         Session::destroy();
     }
 
@@ -233,8 +221,6 @@ class LoginModel
      */
     public static function setSuccessfulLoginIntoSession($user_id, $user_name, $user_email, $user_account_type, $user_fbid)
     {
-        UserActivity::registerUserActivityByUsername($user_name,'LoginModel::setSuccessfulLoginIntoSession');
-
         Session::init();
 
         // remove old and regenerate session ID.
@@ -242,7 +228,7 @@ class LoginModel
         // and to avoid fixated session.
         // e.g. when a user logs in
         session_regenerate_id(true);
-        $_SESSION = array();
+        // $_SESSION = array();
 
         Session::set('user_id', $user_id);
         Session::set('user_name', $user_name);
@@ -258,70 +244,7 @@ class LoginModel
         Session::set('user_logged_in', true);
         Session::updateSessionId($user_id, session_id());
 
-        // set session cookie setting manually,
-        // Why? because you need to explicitly set session expiry, path, domain, secure, and HTTP.
-        // @see https://www.owasp.org/index.php/PHP_Security_Cheat_Sheet#Cookies
-        setcookie(
-            session_name(),
-            session_id(),
-            time() + Config::get('SESSION_RUNTIME'),
-            Config::get('COOKIE_PATH'),
-            Config::get('COOKIE_DOMAIN'),
-            Config::get('COOKIE_SECURE'),
-            Config::get('COOKIE_HTTP')
-        );
-    }
-
-
-    /**
-     * Increments the failed-login counter of a user
-     *
-     * @param $user_name
-     */
-    public static function incrementFailedLoginCounterOfUser($user_name)
-    {
-        UserActivity::registerUserActivityByUsername($user_name,'LoginModel:incrementFailedLoginCounterOfUser');
-
-        $sql = "UPDATE users
-                SET user_failed_logins = user_failed_logins+1, user_last_failed_login = :user_last_failed_login
-                WHERE user_name = :user_name OR user_email = :user_name
-                LIMIT 1";
-        $sth = DB::conn()->prepare($sql);
-        $sth->execute(array(':user_name' => $user_name, ':user_last_failed_login' => date('Y-m-d H:i:s')));
-    }
-
-    /**
-     * Resets the failed-login counter of a user back to 0
-     *
-     * @param $user_name
-     */
-    public static function resetFailedLoginCounterOfUser($user_name)
-    {
-        UserActivity::registerUserActivityByUsername($user_name, 'LoginModel:resetFailedLoginCounterOfUser');
-
-        $sql = "UPDATE users
-                SET user_failed_logins = 0, user_last_failed_login = NULL
-                WHERE user_name = :user_name AND user_failed_logins != 0
-                LIMIT 1";
-        $sth = DB::conn()->prepare($sql);
-        $sth->execute(array(':user_name' => $user_name));
-    }
-
-    /**
-     * Write timestamp of this login into database (we only write a "real" login via login form into the database,
-     * not the session-login on every page request
-     *
-     * @param $user_name
-     */
-    public static function saveTimestampOfLoginOfUser($user_name)
-    {
-        UserActivity::registerUserActivityByUsername($user_name,'LoginModel:saveTimestampOfLoginOfUser');
-
-        $sql = "UPDATE users
-                SET user_last_login_timestamp = :user_last_login_timestamp
-                WHERE user_name = :user_name LIMIT 1";
-        $sth = DB::conn()->prepare($sql);
-        $sth->execute(array(':user_name' => $user_name, ':user_last_login_timestamp' => date('Y-m-d H:i:s')));
+        Cookie::setSession();
     }
 
     /**
@@ -332,8 +255,6 @@ class LoginModel
      */
     public static function setRememberMe($user_id)
     {
-        UserActivity::registerUserActivityByUserId($user_id,'LoginModel:setRememberMe');
-
         // generate 64 char random string
         $random_token_string = hash('sha256', mt_rand());
 
@@ -348,47 +269,7 @@ class LoginModel
         $cookie_string_hash       = hash('sha256', $user_id.':'.$random_token_string);
         $cookie_string            = $cookie_string_first_part.':'.$cookie_string_hash;
 
-        // set cookie, and make it available only for the domain created on (to avoid XSS attacks, where the
-        // attacker could steal your remember-me cookie string and would login itself).
-        // If you are using HTTPS, then you should set the "secure" flag (the second one from right) to true, too.
-        // @see http://www.php.net/manual/en/function.setcookie.php
-        setcookie(
-            'remember_me',
-            $cookie_string,
-            time() + Config::get('COOKIE_RUNTIME'),
-            Config::get('COOKIE_PATH'),
-            Config::get('COOKIE_DOMAIN'),
-            Config::get('COOKIE_SECURE'),
-            Config::get('COOKIE_HTTP')
-        );
-    }
-
-    /**
-     * Deletes the cookie
-     * It's necessary to split deleteCookie() and logout() as cookies are deleted without logging out too!
-     * Sets the remember-me-cookie to ten years ago (3600sec * 24 hours * 365 days * 10).
-     * that's obviously the best practice to kill a cookie @see http://stackoverflow.com/a/686166/1114320
-     *
-     * @param string $user_id
-     */
-    public static function deleteCookie($user_id = null)
-    {
-        // is $user_id was set, then clear remember_me token in database
-        if (isset($user_id)) {
-            $sql = "UPDATE users SET user_remember_me_token = :user_remember_me_token WHERE user_id = :user_id LIMIT 1";
-            $sth = DB::conn()->prepare($sql);
-            $sth->execute(array(':user_remember_me_token' => NULL, ':user_id' => $user_id));
-        }
-        // delete remember_me cookie in browser
-        setcookie(
-            'remember_me',
-            false,
-            time() - (3600 * 24 * 3650),
-            Config::get('COOKIE_PATH'),
-            Config::get('COOKIE_DOMAIN'),
-            Config::get('COOKIE_SECURE'),
-            Config::get('COOKIE_HTTP')
-        );
+        Cookie::setRememberMe($cookie_string);
     }
 
     /**

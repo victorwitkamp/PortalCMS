@@ -5,7 +5,7 @@
  * Details : Util Class.
  */
 
-class Util 
+class Util
 {
     public static function displayMessage() {
         $time = date('H:i:s');

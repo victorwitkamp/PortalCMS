@@ -314,4 +314,50 @@ class User
         $stmt->execute([$Id]);
         return $stmt->fetchAll();
     }
+
+    /**
+     * Increments the failed-login counter of a user
+     *
+     * @param $user_name
+     */
+    public static function incrementFailedLoginCounterOfUser($user_name)
+    {
+        $sql = "UPDATE users
+                SET user_failed_logins = user_failed_logins+1, user_last_failed_login = :user_last_failed_login
+                WHERE user_name = :user_name OR user_email = :user_name
+                LIMIT 1";
+        $sth = DB::conn()->prepare($sql);
+        $sth->execute(array(':user_name' => $user_name, ':user_last_failed_login' => date('Y-m-d H:i:s')));
+    }
+
+        /**
+     * Resets the failed-login counter of a user back to 0
+     *
+     * @param $user_name
+     */
+    public static function resetFailedLoginCounterOfUser($user_name)
+    {
+        $sql = "UPDATE users
+                SET user_failed_logins = 0, user_last_failed_login = NULL
+                WHERE user_name = :user_name AND user_failed_logins != 0
+                LIMIT 1";
+        $sth = DB::conn()->prepare($sql);
+        $sth->execute(array(':user_name' => $user_name));
+    }
+
+
+        /**
+     * Write timestamp of this login into database (we only write a "real" login via login form into the database,
+     * not the session-login on every page request
+     *
+     * @param $user_name
+     */
+    public static function saveTimestampOfLoginOfUser($user_name)
+    {
+        $sql = "UPDATE users
+                SET user_last_login_timestamp = :user_last_login_timestamp
+                WHERE user_name = :user_name LIMIT 1";
+        $sth = DB::conn()->prepare($sql);
+        $sth->execute(array(':user_name' => $user_name, ':user_last_login_timestamp' => date('Y-m-d H:i:s')));
+    }
 }

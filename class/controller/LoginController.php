@@ -78,7 +78,7 @@ class LoginController extends Controller
             Redirect::home();
         }
         // if not, delete cookie (outdated? attack?) and route user to login form to prevent infinite login loops
-        LoginModel::deleteCookie();
+        Cookie::delete();
         Redirect::redirectPage('login/login.php');
     }
 

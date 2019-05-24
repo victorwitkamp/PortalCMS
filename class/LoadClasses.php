@@ -9,6 +9,8 @@ if (!file_exists($_SERVER["DOCUMENT_ROOT"].'/vendor/autoload.php')) {
 
 /* CORE CLASSES */
 require_once DIR_CLASS_CORE."Auth.php";
+require_once DIR_CLASS_CORE."Cookie.php";
+
 require_once DIR_CLASS_CORE."Config.php";
 require_once DIR_CLASS_CORE."Controller.php";
 require_once DIR_CLASS_CORE."Csrf.php";
