@@ -23,12 +23,12 @@ class UserActivity
                 $user_id = Session::get('user_id');
             }
         }
-        $user_name = null;
-        if (!empty(Session::get('user_name'))) {
-            $user_name = Session::get('user_name');
-        }
+        // $user_name = null;
+        // if (!empty(Session::get('user_name'))) {
+        //     $user_name = Session::get('user_name');
+        // }
 
-        self::saveUserActivity($user_id, $user_name, $activity);
+        self::saveUserActivityByUserId($user_id, $activity);
     }
 
     public static function registerUserActivityByUserId($user_id, $activity)

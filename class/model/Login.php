@@ -225,9 +225,6 @@ class LoginModel
         UserActivity::registerUserActivity('LoginModel:logout');
         self::deleteCookie();
         Session::destroy();
-        Session::init();
-        $_SESSION['response'][] = array("status"=>"success", "message"=>'Je bent uitgelogd');
-
     }
 
     /**
@@ -286,6 +283,8 @@ class LoginModel
      */
     public static function incrementFailedLoginCounterOfUser($user_name)
     {
+        UserActivity::registerUserActivity('LoginModel:incrementFailedLoginCounterOfUser');
+
         $sql = "UPDATE users
                 SET user_failed_logins = user_failed_logins+1, user_last_failed_login = :user_last_failed_login
                 WHERE user_name = :user_name OR user_email = :user_name
@@ -301,6 +300,8 @@ class LoginModel
      */
     public static function resetFailedLoginCounterOfUser($user_name)
     {
+        UserActivity::registerUserActivityByUsername($user_name, 'LoginModel:resetFailedLoginCounterOfUser');
+
         $sql = "UPDATE users
                 SET user_failed_logins = 0, user_last_failed_login = NULL
                 WHERE user_name = :user_name AND user_failed_logins != 0
@@ -317,6 +318,8 @@ class LoginModel
      */
     public static function saveTimestampOfLoginOfUser($user_name)
     {
+        UserActivity::registerUserActivity('LoginModel:saveTimestampOfLoginOfUser');
+
         $sql = "UPDATE users
                 SET user_last_login_timestamp = :user_last_login_timestamp
                 WHERE user_name = :user_name LIMIT 1";
@@ -332,6 +335,8 @@ class LoginModel
      */
     public static function setRememberMe($user_id)
     {
+        UserActivity::registerUserActivity('LoginModel:setRememberMe');
+
         // generate 64 char random string
         $random_token_string = hash('sha256', mt_rand());
 

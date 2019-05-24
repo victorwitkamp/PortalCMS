@@ -113,10 +113,10 @@ class LoginController extends Controller
      */
     public static function logout()
     {
-        UserActivity::registerUserActivity('LoginController:logout');
+        UserActivity::registerUserActivity('LoginController::logout');
         LoginModel::logout();
+        $_SESSION['response'][] = array("status"=>"success", "message"=>'Je bent uitgelogd');
         Redirect::home();
-        exit();
     }
 
 }

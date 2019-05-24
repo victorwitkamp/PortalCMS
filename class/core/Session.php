@@ -66,8 +66,6 @@ class Session
         session_destroy();
     }
 
-
-
     /**
      * update session id in database
      *

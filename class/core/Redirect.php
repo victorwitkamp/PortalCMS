@@ -75,11 +75,11 @@ class Redirect
 
     public static function redirectPage($url)
     {
-        if ($url!="") {
-            echo '<script >window.location="'.Config::get('URL').$url.'";</script>';
-            exit;
-        }
-        // header("location: ".Config::get('URL').$url);
+        // if ($url!="") {
+        //     echo '<script >window.location="'.Config::get('URL').$url.'";</script>';
+        //     exit;
+        // }
+        header("location: ".Config::get('URL').$url);
         // exit();
     }
 }
