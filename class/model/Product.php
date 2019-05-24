@@ -35,8 +35,7 @@ class Product
             if (!self::addProductAction($name, $price, $type)) {
                 $_SESSION['response'][] = array("status"=>"error", "message"=>"Toevoegen van product mislukt.<br>");
             } else {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Product toegevoegd."); 
-                UserActivity::registerUserActivity('addProduct');
+                $_SESSION['response'][] = array("status"=>"success", "message"=>"Product toegevoegd.");
                 Redirect::redirectPage("rental/products/");
             }
         }
@@ -51,11 +50,11 @@ class Product
         return true;
     }
 
-    public static function deleteProduct($id) 
+    public static function deleteProduct($id)
     {
         $stmt = DB::conn()->prepare("SELECT * FROM products where id = ?");
         $stmt->execute([$id]);
-        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);  
+        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         $count = count($result);
         if ($count > 0) {
             $stmt = DB::conn()->prepare("DELETE FROM products WHERE id = ?");
@@ -64,7 +63,6 @@ class Product
                 return false;
             } else {
                 $_SESSION['response'][] = array("status"=>"success", "message"=>"Product verwijderd.");
-                UserActivity::registerUserActivity('deleteProduct');
                 return true;
             }
         } else {

@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Class RegistrationModel
+ * Class Registration
  *
  * Everything registration-related happens here.
  */
-class RegistrationModel
+class Registration
 {
     /**
      * Deletes the user from users table. Currently used to rollback a registration when verification mail sending

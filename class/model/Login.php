@@ -66,14 +66,12 @@ class LoginModel
     {
         if (!$cookie) {
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_COOKIE_INVALID'));
-            UserActivity::registerUserActivity('login_failed_invalid_cookie');
             return false;
         }
 
         // before list(), check it can be split into 3 strings.
         if (count(explode(':', $cookie)) !== 3) {
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_COOKIE_INVALID'));
-            UserActivity::registerUserActivity('login_failed_invalid_cookie');
             return false;
         }
 
@@ -84,7 +82,6 @@ class LoginModel
 
         if ($hash !== hash('sha256', $user_id.':'.$token) OR empty($token) OR empty($user_id)) {
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_COOKIE_INVALID'));
-            UserActivity::registerUserActivity('login_failed_invalid_cookie');
             return false;
         }
 
@@ -92,7 +89,6 @@ class LoginModel
 
         if (!$result) {
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_COOKIE_INVALID'));
-            UserActivity::registerUserActivity('login_failed_invalid_cookie');
             return false;
         }
 
@@ -222,11 +218,7 @@ class LoginModel
      */
     public static function logout()
     {
-        UserActivity::registerUserActivity('LoginModel::logout');
-        UserActivity::registerUserActivity('LoginModel::logout -> LoginModel::DeleteCookie');
         self::deleteCookie();
-        UserActivity::registerUserActivity('LoginModel::logout -> Session::destroy');
-
         Session::destroy();
     }
 
@@ -381,15 +373,12 @@ class LoginModel
      */
     public static function deleteCookie($user_id = null)
     {
-        UserActivity::registerUserActivity('LoginModel:deleteCookie');
-
         // is $user_id was set, then clear remember_me token in database
         if (isset($user_id)) {
             $sql = "UPDATE users SET user_remember_me_token = :user_remember_me_token WHERE user_id = :user_id LIMIT 1";
             $sth = DB::conn()->prepare($sql);
             $sth->execute(array(':user_remember_me_token' => NULL, ':user_id' => $user_id));
         }
-
         // delete remember_me cookie in browser
         setcookie(
             'remember_me',

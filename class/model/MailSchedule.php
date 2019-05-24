@@ -1,6 +1,6 @@
 <?php
 
-class MailSchedule 
+class MailSchedule
 {
     public static function doesMailIdExist($mailId)
     {
@@ -35,9 +35,9 @@ class MailSchedule
         }
     }
 
-    public static function sendbyid() 
+    public static function sendbyid()
     {
-        if (!empty($_POST['id'])) {    
+        if (!empty($_POST['id'])) {
             foreach ($_POST['id'] as $id) {
                 $row = self::getScheduledMailById($id);
                 if ($row['status'] !== '1') {
@@ -66,7 +66,7 @@ class MailSchedule
         Redirect::redirectPage("mailscheduler/");
 
     }
-    
+
     public static function newWithTemplate()
     {
         $sender_email = Config::get('EMAIL_SMTP_USERNAME');
@@ -78,7 +78,7 @@ class MailSchedule
         $count_failed = 0;
         if ($type === 'member') {
 
-            if (!empty($_POST['recipients'])) {    
+            if (!empty($_POST['recipients'])) {
                 foreach ($_POST['recipients'] as $value) {
 
                     $member = Member::getMemberById($value);
@@ -92,7 +92,6 @@ class MailSchedule
                 }
                 if ($count_failed === 0) {
                     $_SESSION['response'][] = array("status"=>"success", "message"=>"Totaal aantal berichten aangemaakt:".$count_created);
-                    UserActivity::registerUserActivity('addScheduledMail');
                     Redirect::redirectPage("mailscheduler/");
                 } else {
                     $_SESSION['response'][] = array("status"=>"error", "message"=>"Nieuwe email aanmaken mislukt.");
@@ -131,8 +130,7 @@ class MailSchedule
         if ($return === false) {
             $_SESSION['response'][] = array("status"=>"error", "message"=>"Nieuwe email aanmaken mislukt.");
         } else {
-            $_SESSION['response'][] = array("status"=>"success", "message"=>"Email toegevoegd (ID = ".$return.')'); 
-            UserActivity::registerUserActivity('addScheduledMail');
+            $_SESSION['response'][] = array("status"=>"success", "message"=>"Email toegevoegd (ID = ".$return.')');
             Redirect::redirectPage("settings/mailscheduler/");
         }
     }

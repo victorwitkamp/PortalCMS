@@ -46,7 +46,6 @@ class Password
         // write the password to database (as hashed and salted string)
         if (self::saveChangedPassword($user_name, $user_password_hash)) {
             $_SESSION['response'][] = array("status"=>"success", "message"=>Text::get('FEEDBACK_PASSWORD_CHANGE_SUCCESSFUL'));
-            UserActivity::registerUserActivity('changePassword');
             return true;
         } else {
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_PASSWORD_CHANGE_FAILED'));

@@ -39,7 +39,6 @@ class MailTemplates
             $_SESSION['response'][] = array("status"=>"error", "message"=>"Nieuwe template aanmaken mislukt.");
         } else {
             $_SESSION['response'][] = array("status"=>"success", "message"=>"Template toegevoegd (ID = ".$return.')');
-            UserActivity::registerUserActivity('addMailTemplate');
             Redirect::redirectPage("mailscheduler/templates/");
         }
     }

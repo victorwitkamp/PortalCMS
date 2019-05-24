@@ -92,7 +92,6 @@ class Contract
             Redirect::redirectPage("rental/contracts/");
         } else {
             $_SESSION['response'][] = array("status"=>"success", "message"=>"Contract toegevoegd.");
-            UserActivity::registerUserActivity('newContract');
             Redirect::redirectPage("rental/contracts/");
         }
     }
@@ -247,7 +246,6 @@ class Contract
                 Redirect::redirectPage("rental/contracts/");
             } else {
                 $_SESSION['response'][] = array("status"=>"success", "message"=>"Contract gewijzigd.");
-                UserActivity::registerUserActivity('updateContract');
                 Redirect::redirectPage("rental/contracts/");
             }
         } else {

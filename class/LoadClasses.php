@@ -36,7 +36,7 @@ require_once DIR_CLASS_MODEL."Password.php";
 require_once DIR_CLASS_MODEL."PasswordReset.php";
 require_once DIR_CLASS_MODEL."Permission.php";
 require_once DIR_CLASS_MODEL."Product.php";
-require_once DIR_CLASS_MODEL."RegistrationModel.php";
+require_once DIR_CLASS_MODEL."Registration.php";
 require_once DIR_CLASS_MODEL."Role.php";
 require_once DIR_CLASS_MODEL.'SiteSettings.php';
 require_once DIR_CLASS_MODEL."UserActivity.php";

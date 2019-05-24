@@ -106,7 +106,6 @@ class Event
                 $_SESSION['response'][] = array("status"=>"error", "message"=>"Toevoegen van evenement mislukt.<br>");
             } else {
                 $_SESSION['response'][] = array("status"=>"success", "message"=>"Evenement toegevoegd.");
-                UserActivity::registerUserActivity('addEvent');
                 Redirect::redirectPage("events/");
             }
         }
@@ -136,7 +135,6 @@ class Event
                 $_SESSION['response'][] = array("status"=>"error", "message"=>"Wijzigen van evenement mislukt.<br>");
             } else {
                 $_SESSION['response'][] = array("status"=>"success", "message"=>"Evenement gewijzigd.");
-                UserActivity::registerUserActivity('updateEvent');
                 Redirect::redirectPage("events/");
             }
         } else {
@@ -161,7 +159,6 @@ class Event
         if (!$stmt) {
             return false;
         } else {
-            UserActivity::registerUserActivity('updateEventDate');
             return true;
         }
     }
@@ -176,7 +173,6 @@ class Event
         $count = count($result);
         if ($count > 0) {
             if (self::deleteEventAction($event_id)) {
-                UserActivity::registerUserActivity('deleteEvent');
                 $_SESSION['response'][] = array("status"=>"success", "message"=>"Evenement verwijderd.");
                 return true;
             }

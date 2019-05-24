@@ -5,7 +5,7 @@
  * Details : Page Class.
 */
 
-class Page 
+class Page
 {
     public static function checkPage($page_id)
     {
@@ -40,15 +40,14 @@ class Page
         if ($stmt->rowCount() > 0) {
             $stmt = DB::conn()->prepare("UPDATE pages SET content=? WHERE id=?");
             if (!$stmt->execute([$content, $page_id])) {
-                $_SESSION['response'][] = array("status"=>"error", "message"=>"Wijzigen van evenement mislukt."); 
+                $_SESSION['response'][] = array("status"=>"error", "message"=>"Wijzigen van evenement mislukt.");
                 return false;
             } else {
                 $_SESSION['response'][] = array("status"=>"success", "message"=>"Pagina opgeslagen.");
-                UserActivity::registerUserActivity('updatePage');
                 return true;
             }
         } else {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Wijzigen van evenement mislukt. Evenement bestaat niet."); 
+            $_SESSION['response'][] = array("status"=>"error", "message"=>"Wijzigen van evenement mislukt. Evenement bestaat niet.");
             return false;
         }
     }
