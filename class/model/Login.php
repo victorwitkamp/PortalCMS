@@ -47,7 +47,7 @@ class LoginModel
             $result->user_id, $result->user_name, $result->user_email, $result->user_account_type, $result->user_fbid
         );
         $_SESSION['response'][] = array("status"=>"success", "message"=>'Ingelogd met wachtwoord');
-        UserActivity::registerUserActivityByUsername($result->user_name,'login_success_by_password');
+        UserActivity::registerUserActivityByUsername($result->user_name,'LoginModel::loginWithPassword success');
 
         // return true to make clear the login was successful
         // maybe do this in dependence of setSuccessfulLoginIntoSession ?
@@ -222,8 +222,11 @@ class LoginModel
      */
     public static function logout()
     {
-        UserActivity::registerUserActivity('LoginModel:logout');
+        UserActivity::registerUserActivity('LoginModel::logout');
+        UserActivity::registerUserActivity('LoginModel::logout -> LoginModel::DeleteCookie');
         self::deleteCookie();
+        UserActivity::registerUserActivity('LoginModel::logout -> Session::destroy');
+
         Session::destroy();
     }
 
@@ -238,6 +241,8 @@ class LoginModel
      */
     public static function setSuccessfulLoginIntoSession($user_id, $user_name, $user_email, $user_account_type, $user_fbid)
     {
+        UserActivity::registerUserActivityByUsername($user_name,'LoginModel::setSuccessfulLoginIntoSession');
+
         Session::init();
 
         // remove old and regenerate session ID.
@@ -318,7 +323,7 @@ class LoginModel
      */
     public static function saveTimestampOfLoginOfUser($user_name)
     {
-        UserActivity::registerUserActivity('LoginModel:saveTimestampOfLoginOfUser');
+        UserActivity::registerUserActivityByUsername($user_name,'LoginModel:saveTimestampOfLoginOfUser');
 
         $sql = "UPDATE users
                 SET user_last_login_timestamp = :user_last_login_timestamp

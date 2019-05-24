@@ -28,7 +28,7 @@ class UserActivity
         //     $user_name = Session::get('user_name');
         // }
 
-        self::saveUserActivityByUserId($user_id, $activity);
+        self::registerUserActivityByUserId($user_id, $activity);
     }
 
     public static function registerUserActivityByUserId($user_id, $activity)
@@ -42,7 +42,7 @@ class UserActivity
         $user_id = User::getUserIdByUsername($user_name);
         self::saveUserActivity($user_id, $user_name, $activity);
     }
-    public static function saveUserActivity($user_id, $user_name, $activity)
+    public static function saveUserActivity($user_id = null, $user_name = null, $activity)
     {
         $ip = self::getVisitorIP();
         $sql = 'INSERT INTO user_activity (activity_id, user_id, user_name, ip_address, activity) VALUES (NULL, ?, ?, ?, ?)';

@@ -36,6 +36,8 @@ class LoginController extends Controller
      */
     public static function loginWithPassword()
     {
+        UserActivity::registerUserActivity('LoginModel::loginWithPassword');
+
         // check if csrf token is valid
         if (!Csrf::isTokenValid()) {
 
@@ -52,16 +54,16 @@ class LoginController extends Controller
 
         // check login status: if true, then redirect user to user/index, if false, then to login form again
         if ($login_successful) {
-            UserActivity::registerUserActivity('login succesful');
+            UserActivity::registerUserActivity('LoginModel::loginWithPassword success');
             if (Request::post('redirect')) {
-                UserActivity::registerUserActivity('redirect previous');
 
+                UserActivity::registerUserActivity('Redirect::toPreviousViewedPageAfterLogin');
                 Redirect::toPreviousViewedPageAfterLogin(ltrim(urldecode(Request::post('redirect')), '/'));
                 // return true;
                 exit();
             }
-            UserActivity::registerUserActivity('redirect home');
 
+            UserActivity::registerUserActivity('Redirect::home');
             Redirect::home();
             // return true;
             exit();
@@ -122,11 +124,14 @@ class LoginController extends Controller
     public static function logout()
     {
         UserActivity::registerUserActivity('LoginController::logout');
+        UserActivity::registerUserActivity('call LoginModel::logout');
+
         LoginModel::logout();
         $_SESSION['response'][] = array("status"=>"success", "message"=>'Je bent uitgelogd');
         $_SESSION['response'][] = array("status"=>"success", "message"=>"Je bent afgemeld");
 
-        Redirect::home();
+        UserActivity::registerUserActivity('call Redirect::login');
+        Redirect::login();
     }
 
 }
