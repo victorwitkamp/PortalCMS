@@ -22,7 +22,7 @@ class Config
                 die;
             }
 
-            self::$config = require $config_file;
+            self::$config = include $config_file;
         }
 
         return self::$config[$key];

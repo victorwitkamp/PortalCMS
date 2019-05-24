@@ -20,7 +20,7 @@ class LoginModel
         // we do negative-first checks here, for simplicity empty username and empty password in one line
         if (empty($user_name) OR empty($user_password)) {
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
-            UserActivity::registerUserActivity('login_failed_empty_credentials');
+            UserActivity::registerUserActivityByUsername($user_name,'login_failed_empty_credentials');
             return false;
         }
 
@@ -47,7 +47,7 @@ class LoginModel
             $result->user_id, $result->user_name, $result->user_email, $result->user_account_type, $result->user_fbid
         );
         $_SESSION['response'][] = array("status"=>"success", "message"=>'Ingelogd met wachtwoord');
-        UserActivity::registerUserActivity('login_success_by_password');
+        UserActivity::registerUserActivityByUsername($result->user_name,'login_success_by_password');
 
         // return true to make clear the login was successful
         // maybe do this in dependence of setSuccessfulLoginIntoSession ?
@@ -66,14 +66,14 @@ class LoginModel
     {
         if (!$cookie) {
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_COOKIE_INVALID'));
-            UserActivity::registerUserActivity('login_failed_invalid_cookie', $user_id);
+            UserActivity::registerUserActivity('login_failed_invalid_cookie');
             return false;
         }
 
         // before list(), check it can be split into 3 strings.
         if (count(explode(':', $cookie)) !== 3) {
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_COOKIE_INVALID'));
-            UserActivity::registerUserActivity('login_failed_invalid_cookie', $user_id);
+            UserActivity::registerUserActivity('login_failed_invalid_cookie');
             return false;
         }
 
@@ -84,7 +84,7 @@ class LoginModel
 
         if ($hash !== hash('sha256', $user_id.':'.$token) OR empty($token) OR empty($user_id)) {
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_COOKIE_INVALID'));
-            UserActivity::registerUserActivity('login_failed_invalid_cookie', $user_id);
+            UserActivity::registerUserActivity('login_failed_invalid_cookie');
             return false;
         }
 
@@ -92,7 +92,7 @@ class LoginModel
 
         if (!$result) {
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_COOKIE_INVALID'));
-            UserActivity::registerUserActivity('login_failed_invalid_cookie', $user_id);
+            UserActivity::registerUserActivity('login_failed_invalid_cookie');
             return false;
         }
 
@@ -104,7 +104,7 @@ class LoginModel
         // again from time to time. This is good and safe ! ;)
 
         $_SESSION['response'][] = array("status"=>"success", "message"=>Text::get('FEEDBACK_COOKIE_LOGIN_SUCCESSFUL'));
-        UserActivity::registerUserActivity('login_success_by_cookie');
+        UserActivity::registerUserActivityByUsername($result->user_name,'login_success_by_cookie');
         return true;
     }
 
@@ -143,7 +143,7 @@ class LoginModel
         if (Session::get('failed-login-count') >= 3 AND (Session::get('last-failed-login') > (time() - 30))) {
             // Session::init();
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_LOGIN_FAILED_3_TIMES'));
-            UserActivity::registerUserActivity('LoginModel:validateAndGetUser:login_failed_3_times');
+            UserActivity::registerUserActivityByUsername($user_name,'LoginModel:validateAndGetUser:login_failed_3_times');
             // Redirect::home();
             // exit();
             return false;
@@ -154,7 +154,7 @@ class LoginModel
         if (!$result) {
             self::incrementUserNotFoundCounter();
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
-            UserActivity::registerUserActivity('LoginModel:validateAndGetUser:login_failed_invalid_credentials');
+            UserActivity::registerUserActivityByUsername($user_name,'LoginModel:validateAndGetUser:login_failed_invalid_credentials');
 
             return false;
         }
@@ -167,7 +167,7 @@ class LoginModel
         if ($result->user_failed_logins >= 3) {
             if ($unix_last_failed > (strtotime(date('Y-m-d H:i:s')) - 30)) {
                 $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_PASSWORD_WRONG_3_TIMES'));
-                UserActivity::registerUserActivity('LoginModel:validateAndGetUser:login_failed_3_times_wrong_password');
+                UserActivity::registerUserActivityByUsername($result->user_name,'LoginModel:validateAndGetUser:login_failed_3_times_wrong_password');
                 return false;
             }
         }
@@ -177,14 +177,14 @@ class LoginModel
         if (!password_verify($user_password, $result->user_password_hash)) {
             self::incrementFailedLoginCounterOfUser($result->user_name);
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
-            UserActivity::registerUserActivity('LoginModel:validateAndGetUser:login_failed_invalid_credentials');
+            UserActivity::registerUserActivityByUsername($result->user_name,'LoginModel:validateAndGetUser:login_failed_invalid_credentials');
             return false;
         }
 
         // if user is not active (= has not verified account by verification mail)
         if ($result->user_active != 1) {
             $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET'));
-            UserActivity::registerUserActivity('LoginModel:validateAndGetUser:login_failed_account_not_active');
+            UserActivity::registerUserActivityByUsername($result->user_name,'LoginModel:validateAndGetUser:login_failed_account_not_active');
             return false;
         }
 
@@ -283,7 +283,7 @@ class LoginModel
      */
     public static function incrementFailedLoginCounterOfUser($user_name)
     {
-        UserActivity::registerUserActivity('LoginModel:incrementFailedLoginCounterOfUser');
+        UserActivity::registerUserActivityByUsername($user_name,'LoginModel:incrementFailedLoginCounterOfUser');
 
         $sql = "UPDATE users
                 SET user_failed_logins = user_failed_logins+1, user_last_failed_login = :user_last_failed_login
@@ -335,7 +335,7 @@ class LoginModel
      */
     public static function setRememberMe($user_id)
     {
-        UserActivity::registerUserActivity('LoginModel:setRememberMe');
+        UserActivity::registerUserActivityByUserId($user_id,'LoginModel:setRememberMe');
 
         // generate 64 char random string
         $random_token_string = hash('sha256', mt_rand());

@@ -7,26 +7,20 @@ class POSTController
         if (isset($_POST['loginSubmit'])) {
             LoginController::loginWithPassword();
         }
-
-        // Registration
-        if (isset($_POST['signupSubmit'])) {
-            $this->signup($_POST['email'], $_POST['username'], $_POST['password'], $_POST['confirm_password']);
-        }
-
-        // Activation
-        if (isset($_POST['activateSubmit'])) {
-            if ($this->activate($_POST['email'], $_POST['code'])) {
-                Redirect::redirectPage("login/login.php");
-            }
-        }
-
-        // Password reset
-        if (isset($_POST['requestPasswordReset'])) {
-            PasswordReset::requestPasswordReset($_POST['user_name_or_email']);
-        }
-        if (isset($_POST['resetSubmit'])) {
-            PasswordReset::verifyPasswordReset($_POST['password'], $_POST['resetCode']);
-        }
+        // if (isset($_POST['signupSubmit'])) {
+        //     $this->signup($_POST['email'], $_POST['username'], $_POST['password'], $_POST['confirm_password']);
+        // }
+        // if (isset($_POST['activateSubmit'])) {
+        //     if ($this->activate($_POST['email'], $_POST['code'])) {
+        //         Redirect::redirectPage("login/login.php");
+        //     }
+        // }
+        // if (isset($_POST['requestPasswordReset'])) {
+        //     PasswordReset::requestPasswordReset($_POST['user_name_or_email']);
+        // }
+        // if (isset($_POST['resetSubmit'])) {
+        //     PasswordReset::verifyPasswordReset($_POST['password'], $_POST['resetCode']);
+        // }
 
         // My account
         if (isset($_POST['changeUsername'])) {

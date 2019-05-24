@@ -38,6 +38,7 @@ class LoginController extends Controller
     {
         // check if csrf token is valid
         if (!Csrf::isTokenValid()) {
+
             LoginModel::logout();
             Redirect::login();
             // return false;
@@ -51,15 +52,22 @@ class LoginController extends Controller
 
         // check login status: if true, then redirect user to user/index, if false, then to login form again
         if ($login_successful) {
+            UserActivity::registerUserActivity('login succesful');
             if (Request::post('redirect')) {
+                UserActivity::registerUserActivity('redirect previous');
+
                 Redirect::toPreviousViewedPageAfterLogin(ltrim(urldecode(Request::post('redirect')), '/'));
                 // return true;
                 exit();
             }
+            UserActivity::registerUserActivity('redirect home');
+
             Redirect::home();
             // return true;
             exit();
         }
+        UserActivity::registerUserActivity('login unsuccesful');
+
         if (Request::post('redirect')) {
             Redirect::redirectPage('login/login.php?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
             // return false;
@@ -81,7 +89,7 @@ class LoginController extends Controller
         } else {
             // if not, delete cookie (outdated? attack?) and route user to login form to prevent infinite login loops
             LoginModel::deleteCookie();
-            Redirect::redirectPage('login/index.php');
+            Redirect::redirectPage('login/login.php');
         }
     }
 
@@ -116,6 +124,8 @@ class LoginController extends Controller
         UserActivity::registerUserActivity('LoginController::logout');
         LoginModel::logout();
         $_SESSION['response'][] = array("status"=>"success", "message"=>'Je bent uitgelogd');
+        $_SESSION['response'][] = array("status"=>"success", "message"=>"Je bent afgemeld");
+
         Redirect::home();
     }
 
