@@ -330,7 +330,7 @@ class User
         $sth->execute(array(':user_name' => $user_name, ':user_last_failed_login' => date('Y-m-d H:i:s')));
     }
 
-        /**
+    /**
      * Resets the failed-login counter of a user back to 0
      *
      * @param $user_name
@@ -346,7 +346,7 @@ class User
     }
 
 
-        /**
+    /**
      * Write timestamp of this login into database (we only write a "real" login via login form into the database,
      * not the session-login on every page request
      *
