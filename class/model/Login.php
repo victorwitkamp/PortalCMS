@@ -208,6 +208,7 @@ class LoginModel
     {
         Cookie::delete();
         Session::destroy();
+
     }
 
     /**

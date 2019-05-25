@@ -2,12 +2,7 @@
 
 class Cookie
 {
-    public static function set() {
-
-    }
-
     public static function setSession() {
-
         // set session cookie setting manually,
         // Why? because you need to explicitly set session expiry, path, domain, secure, and HTTP.
         // @see https://www.owasp.org/index.php/PHP_Security_Cheat_Sheet#Cookies
@@ -23,7 +18,7 @@ class Cookie
     }
 
     public static function setRememberMe($cookie_string) {
-                // set cookie, and make it available only for the domain created on (to avoid XSS attacks, where the
+        // set cookie, and make it available only for the domain created on (to avoid XSS attacks, where the
         // attacker could steal your remember-me cookie string and would login itself).
         // If you are using HTTPS, then you should set the "secure" flag (the second one from right) to true, too.
         // @see http://www.php.net/manual/en/function.setcookie.php
@@ -38,7 +33,7 @@ class Cookie
         );
     }
 
-        /**
+    /**
      * Deletes the cookie
      * It's necessary to split deleteCookie() and logout() as cookies are deleted without logging out too!
      * Sets the remember-me-cookie to ten years ago (3600sec * 24 hours * 365 days * 10).

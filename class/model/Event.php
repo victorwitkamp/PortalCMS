@@ -32,7 +32,6 @@ class Event
     {
         $startdatetime = $startdate.' 00:00:00';
         $enddatetime = $enddate.' 00:00:00';
-
         $data = array();
         $stmt = DB::conn()->prepare("SELECT * FROM events where start_event > ? and end_event < ? ORDER BY id");
         $stmt->execute([$startdatetime, $enddatetime]);
@@ -135,7 +134,7 @@ class Event
                 $_SESSION['response'][] = array("status"=>"error", "message"=>"Wijzigen van evenement mislukt.<br>");
             } else {
                 $_SESSION['response'][] = array("status"=>"success", "message"=>"Evenement gewijzigd.");
-                redirectPage("events/");
+                Redirect::redirectPage("events/");
             }
         } else {
             $_SESSION['response'][] = array("status"=>"error", "message"=>"Wijzigen van evenement mislukt.<br>Evenement bestaat niet.");
@@ -158,15 +157,13 @@ class Event
         $stmt->execute([$title, $start_event, $end_event, $event_id]);
         if (!$stmt) {
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 
     public static function deleteEvent()
     {
         $event_id = Request::post('id', true);
-
         $stmt = DB::conn()->prepare("SELECT * FROM events where id = ?");
         $stmt->execute([$event_id]);
         $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -176,7 +173,6 @@ class Event
                 $_SESSION['response'][] = array("status"=>"success", "message"=>"Evenement verwijderd.");
                 return true;
             }
-
             $_SESSION['response'][] = array("status"=>"error", "message"=>"Verwijderen van evenement mislukt.");
             return false;
         }

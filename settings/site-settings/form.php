@@ -90,6 +90,17 @@
             </div>
         </div>
 
+        <label class="col-4 col-form-label"><?php echo Text::get('TITLE_WIDGET_DEBUG'); ?></label>
+        <div class="col-8">
+            <div class="input-group">
+                <select class="form-control" name="WidgetDebug">
+                    <?php $WidgetDebug = SiteSettings::getStaticSiteSetting('WidgetDebug'); ?>
+                    <option value="1" <?php if ($WidgetDebug == '1') { echo 'selected'; } ?>>Enabled</option>
+                    <option value="0" <?php if ($WidgetDebug == '0') { echo 'selected'; } ?>>Disabled</option>
+                </select>
+            </div>
+        </div>
+
     </div>
 
     <hr>

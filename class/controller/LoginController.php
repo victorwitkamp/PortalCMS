@@ -111,7 +111,10 @@ class LoginController extends Controller
     public static function logout()
     {
         LoginModel::logout();
-        $_SESSION['response'][] = array("status"=>"success", "message"=>"Je bent afgemeld");
+        // $_SESSION['response'][] = array("status"=>"success", "message"=>"Je bent afgemeld");
+
+                Session::init();
+        $_SESSION['response'][] = array("status"=>"success", "message"=>'Je bent uitgelogd');
         Redirect::login();
     }
 

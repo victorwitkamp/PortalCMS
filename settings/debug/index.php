@@ -29,7 +29,7 @@ PortalCMS_JS_headJS();
         <hr>
         <div class="container">
             <h2>var_dump($_SESSION)</h2>
-            <?php var_dump($_SESSION) ?>
+            <?php var_dump($_SESSION); echo '<br>'; var_dump($_SESSION['response']); ?>
         </div>
     </div>
 </main>
