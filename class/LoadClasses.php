@@ -9,9 +9,8 @@ if (!file_exists($_SERVER["DOCUMENT_ROOT"].'/vendor/autoload.php')) {
 
 /* CORE CLASSES */
 require_once DIR_CLASS_CORE."Auth.php";
-require_once DIR_CLASS_CORE."Cookie.php";
-
 require_once DIR_CLASS_CORE."Config.php";
+require_once DIR_CLASS_CORE."Cookie.php";
 require_once DIR_CLASS_CORE."Controller.php";
 require_once DIR_CLASS_CORE."Csrf.php";
 require_once DIR_CLASS_CORE.'DB.php';
@@ -44,7 +43,6 @@ require_once DIR_CLASS_MODEL.'SiteSettings.php';
 require_once DIR_CLASS_MODEL."UserActivity.php";
 require_once DIR_CLASS_MODEL."User.php";
 require_once DIR_CLASS_MODEL."Util.php";
-
 
 /* CONTROLLERS */
 require_once DIR_CLASS_CONTROLLER."LoginController.php";

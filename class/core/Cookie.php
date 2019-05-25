@@ -2,7 +2,7 @@
 
 class Cookie
 {
-    public static function setSession() {
+    public static function setSessionCookie() {
         // set session cookie setting manually,
         // Why? because you need to explicitly set session expiry, path, domain, secure, and HTTP.
         // @see https://www.owasp.org/index.php/PHP_Security_Cheat_Sheet#Cookies

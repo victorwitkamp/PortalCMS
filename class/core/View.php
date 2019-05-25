@@ -6,6 +6,7 @@
  */
 class View
 {
+
     /**
      * Renders pure JSON to the browser, useful for API construction
      * @param $data

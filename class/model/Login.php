@@ -27,6 +27,8 @@ class LoginModel
         $result = self::validateAndGetUser($user_name, $user_password);
 
         if (!$result) {
+            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
+
             return false;
         }
 
@@ -45,7 +47,6 @@ class LoginModel
         self::setSuccessfulLoginIntoSession(
             $result->user_id, $result->user_name, $result->user_email, $result->user_account_type, $result->user_fbid
         );
-        $_SESSION['response'][] = array("status"=>"success", "message"=>'Ingelogd met wachtwoord');
 
         // return true to make clear the login was successful
         // maybe do this in dependence of setSuccessfulLoginIntoSession ?
@@ -146,33 +147,40 @@ class LoginModel
 
         if (!$result) {
             self::incrementUserNotFoundCounter();
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
+            $_SESSION['response'][] = array(
+                "status"=>"error",
+                "message"=>Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG')
+            );
             return false;
         }
 
         // block login attempt if somebody has already failed 3 times and the last login attempt is less than 30sec ago
-        // TODO NON NUMERIC ERROR
-        // [23-May-2019 01:21:43 Europe/Amsterdam] PHP Notice:  A non well formed numeric value encountered in /home/vhosting/d/vhost0049425/domains/beukonline.nl/htdocs/portal/class/model/Login.php on line 154
-        $last_failed = $result->user_last_failed_login;
-        $unix_last_failed = strtotime($last_failed);
         if ($result->user_failed_logins >= 3) {
-            if ($unix_last_failed > (strtotime(date('Y-m-d H:i:s')) - 30)) {
-                $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_PASSWORD_WRONG_3_TIMES'));
+            if (strtotime($result->user_last_failed_login) > (strtotime(date('Y-m-d H:i:s')) - 30)) {
+                $_SESSION['response'][] = array(
+                    "status"=>"error",
+                    "message"=>Text::get('FEEDBACK_PASSWORD_WRONG_3_TIMES')
+                );
                 return false;
             }
         }
 
-
         // if hash of provided password does NOT match the hash in the database: +1 failed-login counter
         if (!password_verify($user_password, $result->user_password_hash)) {
             User::incrementFailedLoginCounterOfUser($result->user_name);
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
+            $_SESSION['response'][] = array(
+                "status"=>"error",
+                "message"=>Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG')
+            );
             return false;
         }
 
         // if user is not active (= has not verified account by verification mail)
         if ($result->user_active != 1) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET'));
+            $_SESSION['response'][] = array(
+                "status"=>"error",
+                "message"=>Text::get('FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET')
+            );
             return false;
         }
 
@@ -208,7 +216,6 @@ class LoginModel
     {
         Cookie::delete();
         Session::destroy();
-
     }
 
     /**
@@ -245,7 +252,7 @@ class LoginModel
         Session::set('user_logged_in', true);
         Session::updateSessionId($user_id, session_id());
 
-        Cookie::setSession();
+        Cookie::setSessionCookie();
     }
 
     /**

@@ -27,4 +27,4 @@ role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         </div>
     </div>
 </div>
-<script src="/includes/modal.js"></script>
+<script src="/includes/js/modal.js"></script>

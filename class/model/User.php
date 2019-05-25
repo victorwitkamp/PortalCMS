@@ -16,7 +16,6 @@ class User
      */
     public static function getUserByUsername($user_name)
     {
-
         $stmt = DB::conn()->prepare(
             "SELECT user_id,
                     user_name,

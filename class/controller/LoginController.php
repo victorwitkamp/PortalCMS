@@ -40,32 +40,31 @@ class LoginController extends Controller
         if (!Csrf::isTokenValid()) {
             LoginModel::logout();
             Redirect::login();
-            return false;
-            // exit();
+            exit();
         }
+
         // perform the login method, put result (true or false) into $login_successful
         $login_successful = LoginModel::loginWithPassword(
-            Request::post('user_name'), Request::post('user_password'), Request::post('set_remember_me_cookie')
+            Request::post('user_name'),
+            Request::post('user_password'),
+            Request::post('set_remember_me_cookie')
         );
+
         // check login status: if true, then redirect user to user/index, if false, then to login form again
         if ($login_successful) {
             if (Request::post('redirect')) {
                 Redirect::toPreviousViewedPageAfterLogin(ltrim(urldecode(Request::post('redirect')), '/'));
-                return true;
-                // exit();
+                exit();
             }
             Redirect::home();
-            return true;
-            // exit();
+            exit();
         }
         if (Request::post('redirect')) {
             Redirect::redirectPage('login/login.php?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
-            return false;
-            // exit();
+            exit();
         }
         Redirect::login();
-        return false;
-        // exit();
+        exit();
     }
 
     /**
@@ -113,8 +112,10 @@ class LoginController extends Controller
         LoginModel::logout();
         // $_SESSION['response'][] = array("status"=>"success", "message"=>"Je bent afgemeld");
 
-                Session::init();
+        Session::init();
         $_SESSION['response'][] = array("status"=>"success", "message"=>'Je bent uitgelogd');
+        $login->View->Message['response'][] = array("status"=>"success", "message"=>'Je bent uitgelogd');
+
         Redirect::login();
     }
 
