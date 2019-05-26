@@ -1,4 +1,4 @@
-<?php 
+<?php
 $pageName = 'Evenement bewerken';
 $allowEdit = false;
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
@@ -21,7 +21,7 @@ PortalCMS_JS_Datepicker_event();
 PortalCMS_JS_JQuery_Simple_validator(); ?>
 </head>
 <body>
-<?php require DIR_INCLUDES.'nav.php'; ?>    
+<?php require DIR_INCLUDES.'nav.php'; ?>
 <main>
     <div class="content">
         <div class="container">
@@ -31,7 +31,8 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
         </div>
         <hr>
         <div class="container">
-            <?php Util::DisplayMessage(); ?>
+            <?php //Util::DisplayMessage();
+            View::renderFeedbackMessages(); ?>
             <form method="post" validate=true>
                 <div class="form-group form-group-sm row">
                     <div class="col-sm-12">
@@ -56,7 +57,7 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
                             <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
-                        </div>                    
+                        </div>
                     </div>
                 </div>
                 <div class="form-group form-group-sm row">

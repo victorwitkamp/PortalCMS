@@ -1,7 +1,7 @@
 <?php
 $pageName = 'Registreren';
-if (!isset($_SESSION)) { 
-    session_start(); 
+if (!isset($_SESSION)) {
+    session_start();
 }
 
 require '../class/User.class.php';
@@ -36,7 +36,7 @@ PortalCMS_JS_headJS();
                     <div class="card-header text-center">
                         <img src='<?php echo SiteSettings::getStaticSiteSetting('site_logo'); ?>' alt='<?php echo SiteSettings::getStaticSiteSetting('site_name'); ?>' width='200px' height='200px'/>
                         <h1 class="h3 mb-3 font-weight-normal"><?php echo SiteSettings::getStaticSiteSetting('site_name'); ?></h2>
-                        <?php Util::DisplayMessage();?>
+                        <?php Util::DisplayMessage(); View::renderFeedbackMessages();?>
                     </div>
                     <div class="card-body">
                         <h2 class="h3 mb-3 font-weight-normal "><?php echo $pageName ?></h3>
@@ -57,7 +57,7 @@ PortalCMS_JS_headJS();
                             <label for="inputConfirmPassword">Bevestig wachtwoord</label>
                         </div>
                         <input type="submit" name="signupSubmit" value="Registreren" class="btn btn-secondary mb-sm-2">
-                        <p class="mb-sm-2"><a href="../login/login.php">Heb je al een account?</a></p>                    
+                        <p class="mb-sm-2"><a href="../login/login.php">Heb je al een account?</a></p>
                     </div>
                 </div>
             </form>

@@ -99,12 +99,12 @@ class Event
         $stmt = DB::conn()->prepare("SELECT id FROM events WHERE start_event = ? AND end_event = ?");
         $stmt->execute([$start_event, $end_event]);
         if (!$stmt->rowCount() == 0) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Kies een andere tijd.");
+            Session::add('feedback_negative', 'Kies een andere tijd.');
         } else {
             if (!self::addEventAction($title, $start_event, $end_event, $description)) {
-                $_SESSION['response'][] = array("status"=>"error", "message"=>"Toevoegen van evenement mislukt.<br>");
+                Session::add('feedback_negative', 'Toevoegen van evenement mislukt.');
             } else {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Evenement toegevoegd.");
+                Session::add('feedback_positive', 'Evenement toegevoegd.');
                 Redirect::redirectPage("events/");
             }
         }
@@ -131,13 +131,13 @@ class Event
 
         if (self::doesEventIdExist($event_id)) {
             if (!self::updateEventAction($event_id, $title, $start_event, $end_event, $description)) {
-                $_SESSION['response'][] = array("status"=>"error", "message"=>"Wijzigen van evenement mislukt.<br>");
+                Session::add('feedback_negative', 'Wijzigen van evenement mislukt.');
             } else {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Evenement gewijzigd.");
+                Session::add('feedback_positive', 'Evenement gewijzigd.');
                 Redirect::redirectPage("events/");
             }
         } else {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Wijzigen van evenement mislukt.<br>Evenement bestaat niet.");
+            Session::add('feedback_negative', 'Wijzigen van evenement mislukt.<br>Evenement bestaat niet.');
         }
     }
 
@@ -170,13 +170,13 @@ class Event
         $count = count($result);
         if ($count > 0) {
             if (self::deleteEventAction($event_id)) {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Evenement verwijderd.");
+                Session::add('feedback_positive', 'Evenement verwijderd.');
                 return true;
             }
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Verwijderen van evenement mislukt.");
+            Session::add('feedback_negative', 'Verwijderen van evenement mislukt.');
             return false;
         }
-        $_SESSION['response'][] = array("status"=>"error", "message"=>"Verwijderen van evenement mislukt.<br>Evenement bestaat niet.");
+        Session::add('feedback_negative', 'Verwijderen van evenement mislukt.<br>Evenement bestaat niet.');
         return false;
     }
 

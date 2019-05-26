@@ -19,7 +19,7 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
                     <h1><?php echo $pageName ?></h1>
                 </div>
 
-                <?php Util::DisplayMessage(); ?>
+                <?php Util::DisplayMessage(); View::renderFeedbackMessages(); ?>
 
 
 
@@ -48,7 +48,7 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
                             <a href="index.php" class="btn btn-danger">Annuleren</a>
                         </div>
                     </div>
- 
+
                 </form>
 
             </div>
@@ -58,4 +58,4 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
     <?php require DIR_INCLUDES.'footer.php'; ?>
 </body>
 
-</html> 
+</html>

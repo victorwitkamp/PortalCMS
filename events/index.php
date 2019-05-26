@@ -1,11 +1,11 @@
-<?php 
+<?php
 
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_EVENTS');
 Auth::checkAuthentication();
 require_once DIR_INCLUDES.'functions.php';
 require_once DIR_INCLUDES.'head.php';
-displayHeadCSS(); 
+displayHeadCSS();
 PortalCMS_CSS_calendar();
 PortalCMS_JS_headJS();
 PortalCMS_JS_calendar(); ?>
@@ -25,7 +25,9 @@ PortalCMS_JS_calendar(); ?>
             </div>
         </div>
         <div class="container">
-            <?php Util::DisplayMessage(); ?>
+            <?php //Util::DisplayMessage();
+            View::renderFeedbackMessages();
+             ?>
             <hr>
             <div id="calendar"></div>
         </div>

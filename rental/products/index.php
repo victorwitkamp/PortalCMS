@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_PRODUCTS');
@@ -14,9 +14,9 @@ if (isset($_GET['action']) && !empty($_GET['action'])) {
 }
 
 require_once DIR_INCLUDES.'head.php';
-displayHeadCSS(); 
+displayHeadCSS();
 PortalCMS_CSS_dataTables();
-PortalCMS_JS_headJS(); 
+PortalCMS_JS_headJS();
 PortalCMS_JS_dataTables();
 ?>
 </head>
@@ -29,7 +29,7 @@ PortalCMS_JS_dataTables();
                 <div class="col-sm-8"><h1><?php echo $pageName ?></h1></div>
                 <div class="col-sm-4"><a href="add.php" class="btn btn-success navbar-btn float-right"><span class="fa fa-plus"></span> Toevoegen</a></div>
             </div>
-            <?php Util::DisplayMessage(); ?><hr>
+            <?php Util::DisplayMessage(); View::renderFeedbackMessages(); ?><hr>
             <?php
             $products = Product::getAllProducts();
             if ($products) {

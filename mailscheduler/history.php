@@ -7,7 +7,7 @@ require_once DIR_INCLUDES.'functions.php';
 require_once DIR_INCLUDES.'head.php';
 displayHeadCSS();
 PortalCMS_CSS_dataTables();
-PortalCMS_JS_headJS(); 
+PortalCMS_JS_headJS();
 PortalCMS_JS_dataTables();
 ?>
 </head>
@@ -27,8 +27,8 @@ PortalCMS_JS_dataTables();
             <hr>
         </div>
         <div class="container">
-            <?php 
-            Util::DisplayMessage();
+            <?php
+            Util::DisplayMessage(); View::renderFeedbackMessages();
             PortalCMS_JS_Init_dataTables();
             $stmt = DB::conn()->prepare("SELECT * FROM mail_schedule WHERE status > 1 ORDER BY id ASC");
             $stmt->execute();

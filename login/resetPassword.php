@@ -1,7 +1,7 @@
-<?php 
+<?php
 $pageName = 'Wachtwoord resetten';
-if (!isset($_SESSION)) { 
-    session_start(); 
+if (!isset($_SESSION)) {
+    session_start();
 }
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 
@@ -29,11 +29,11 @@ PortalCMS_JS_headJS();
     <main>
         <div class="container col-md-6 offset-md-3 mt-5">
             <form method="post" class="form-signin shadow" validate=true>
-                <div class="card">    
+                <div class="card">
                     <div class="card-header text-center">
                         <img src='<?php echo SiteSettings::getStaticSiteSetting('site_logo'); ?>' alt='<?php echo SiteSettings::getStaticSiteSetting('site_name'); ?>' width='200px' height='200px'/>
                         <h1 class="h3 mb-3 font-weight-normal"><?php echo SiteSettings::getStaticSiteSetting('site_name'); ?></h2>
-                        <?php Util::DisplayMessage(); ?>
+                        <?php Util::DisplayMessage(); View::renderFeedbackMessages(); ?>
                     </div>
                     <div class="card-body">
                         <h2 class="h3 mb-3 font-weight-normal "><?php echo $pageName ?></h3>

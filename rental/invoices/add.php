@@ -21,7 +21,7 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
 
             <hr>
 
-                <?php Util::DisplayMessage(); ?>
+                <?php Util::DisplayMessage(); View::renderFeedbackMessages(); ?>
                 <form method="post" validate=true>
 
                     <div class="form-group row">
@@ -72,4 +72,4 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
     <?php require DIR_INCLUDES.'footer.php'; ?>
 </body>
 
-</html> 
+</html>

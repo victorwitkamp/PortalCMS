@@ -1,4 +1,4 @@
-<?php 
+<?php
 $pageName = 'Wachtwoord vergeten';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 
@@ -28,7 +28,7 @@ PortalCMS_JS_headJS();
                     <div class="card-header text-center">
                         <img src='<?php echo SiteSettings::getStaticSiteSetting('site_logo'); ?>' alt='<?php echo SiteSettings::getStaticSiteSetting('site_name'); ?>' width='200px' height='200px'/>
                         <h1 class="h3 mb-3 font-weight-normal"><?php echo SiteSettings::getStaticSiteSetting('site_name'); ?></h1><hr>
-                        <?php Util::DisplayMessage(); ?>
+                        <?php Util::DisplayMessage(); View::renderFeedbackMessages(); ?>
                     </div>
                     <div class="card-body">
                         <h2 class="h3 mb-3 font-weight-normal "><?php echo $pageName ?></h3>
@@ -40,7 +40,7 @@ PortalCMS_JS_headJS();
                             <input type="submit" name="requestPasswordReset" value="Herstellen" class="btn btn-secondary mb-sm-2">
                         </div>
                     </div>
-                </div>    
+                </div>
             </form>
         </div>
     </main>

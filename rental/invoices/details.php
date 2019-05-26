@@ -1,4 +1,4 @@
-<?php 
+<?php
 $pageName = 'Factuur';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
@@ -11,7 +11,7 @@ if ($invoice = Invoice::getInvoiceById($_GET['id'])) {
     $_SESSION['response'][] = array("status"=>"warning", "message"=>"Geen resultaten voor opgegeven factuur ID.");
 }
 require DIR_ROOT.'includes/head.php';
-displayHeadCSS(); 
+displayHeadCSS();
 PortalCMS_JS_headJS(); ?>
 </head>
 <body>
@@ -23,8 +23,8 @@ PortalCMS_JS_headJS(); ?>
             <div class="row mt-5">
                 <h1><?php echo $pageName; ?></h1>
             </div>
-            <?php 
-            Util::DisplayMessage(); ?>
+            <?php
+            Util::DisplayMessage(); View::renderFeedbackMessages(); ?>
             <hr>
             <h3>Details</h3>
 
@@ -38,8 +38,8 @@ PortalCMS_JS_headJS(); ?>
                 <tr>
                     <th>Huurder</th>
                     <td>
-                        <?php 
-                            $row = Contract::getById($invoice['contract_id']); 
+                        <?php
+                            $row = Contract::getById($invoice['contract_id']);
                             echo $row['band_naam'];
                         ?>
                     </td>
@@ -59,7 +59,7 @@ PortalCMS_JS_headJS(); ?>
                     <th>Omschrijving</th>
                     <th>Prijs</th>
                 </tr>
-                <?php  
+                <?php
                     $invoiceitems = Invoice::getInvoiceItemsById($invoice['id']);
                     foreach ($invoiceitems as $invoiceitem) {
                 ?>

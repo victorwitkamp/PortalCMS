@@ -17,14 +17,14 @@ class Cookie
         );
     }
 
-    public static function setRememberMe($cookie_string) {
+    public static function setRememberMe($token) {
         // set cookie, and make it available only for the domain created on (to avoid XSS attacks, where the
         // attacker could steal your remember-me cookie string and would login itself).
         // If you are using HTTPS, then you should set the "secure" flag (the second one from right) to true, too.
         // @see http://www.php.net/manual/en/function.setcookie.php
         setcookie(
             'remember_me',
-            $cookie_string,
+            $token,
             time() + Config::get('COOKIE_RUNTIME'),
             Config::get('COOKIE_PATH'),
             Config::get('COOKIE_DOMAIN'),
@@ -45,12 +45,10 @@ class Cookie
     {
         // is $user_id was set, then clear remember_me token in database
         if (isset($user_id)) {
-            $sql = "UPDATE users SET user_remember_me_token = :user_remember_me_token WHERE user_id = :user_id LIMIT 1";
-            $sth = DB::conn()->prepare($sql);
-            $sth->execute(array(':user_remember_me_token' => NULL, ':user_id' => $user_id));
+            User::clearRememberMe($user_id);
         }
         // delete remember_me cookie in browser
-        setcookie(
+        if (setcookie(
             'remember_me',
             false,
             time() - (3600 * 24 * 3650),
@@ -58,7 +56,10 @@ class Cookie
             Config::get('COOKIE_DOMAIN'),
             Config::get('COOKIE_SECURE'),
             Config::get('COOKIE_HTTP')
-        );
+        )) {
+            return true;
+        }
+        return false;
     }
 
 }

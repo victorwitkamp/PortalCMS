@@ -53,22 +53,22 @@ if (!$accessToken->isLongLived()) {
     try {
         $accessToken = $oAuth2Client->getLongLivedAccessToken($accessToken);
     } catch (Facebook\Exceptions\FacebookSDKException $e) {
-        echo "<p>Error getting long-lived access token: ".$e->getMessage()."</p>\n\n";
+        Session::add('feedback_negative', 'Error getting long-lived access token: '.$e->getMessage());
         exit;
     }
     // echo '<h3>Long-lived</h3>';
     // var_dump($accessToken->getValue());
 }
-  
+
 $_SESSION['fb_access_token'] = (string) $accessToken;
 
 try {
     $response = $fb->get('/me?fields=id,name,email', $_SESSION['fb_access_token']);
 } catch (Facebook\Exceptions\FacebookResponseException $e) {
-    $_SESSION['response'][] = array("status"=>"error", "message"=>'Graph returned an error: '.$e->getMessage());
+    Session::add('feedback_negative', 'Graph returned an error: '.$e->getMessage());
     exit;
 } catch (Facebook\Exceptions\FacebookSDKException $e) {
-    $_SESSION['response'][] = array("status"=>"error", "message"=>'Facebook SDK returned an error: '.$e->getMessage());
+    Session::add('feedback_negative', 'Facebook SDK returned an error: '.$e->getMessage());
     exit;
 }
 

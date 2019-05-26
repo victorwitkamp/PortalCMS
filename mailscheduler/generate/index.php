@@ -12,7 +12,7 @@ PortalCMS_JS_headJS(); ?>
 <?php require DIR_INCLUDES.'nav.php'; ?>
 <main>
     <div class="content">
-        
+
         <div class="container">
             <div class="row mt-5">
                 <div class="col-sm-12"><h1><?php echo $pageName ?></h1></div>
@@ -20,8 +20,8 @@ PortalCMS_JS_headJS(); ?>
         </div>
         <hr>
         <div class="container">
-            <?php 
-            Util::DisplayMessage(); 
+            <?php
+            Util::DisplayMessage(); View::renderFeedbackMessages();
             ?>
             <h2>Nieuw bericht met template</h2>
             <p>Aan wie wil je een e-mail versturen?<br>

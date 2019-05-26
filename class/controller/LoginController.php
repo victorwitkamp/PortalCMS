@@ -88,17 +88,18 @@ class LoginController extends Controller
     {
         $login_successful = LoginModel::loginWithFacebook($fbid);
         if ($login_successful) {
-            if (Request::post('redirect')) {
-                Redirect::toPreviousViewedPageAfterLogin(ltrim(urldecode(Request::post('redirect')), '/'));
-                exit();
-            }
+            // if (Request::post('redirect')) {
+            //     Redirect::toPreviousViewedPageAfterLogin(ltrim(urldecode(Request::post('redirect')), '/'));
+            //     exit();
+            // }
             Redirect::home();
             exit();
         }
-        if (Request::post('redirect')) {
-            Redirect::redirectPage('login/login.php?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
-            exit();
-        }
+        // if (Request::post('redirect')) {
+        //     Redirect::redirectPage('login/login.php?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
+        //     exit();
+        // }
+
         Redirect::login();
         exit();
     }
@@ -110,12 +111,6 @@ class LoginController extends Controller
     public static function logout()
     {
         LoginModel::logout();
-        // $_SESSION['response'][] = array("status"=>"success", "message"=>"Je bent afgemeld");
-
-        Session::init();
-        $_SESSION['response'][] = array("status"=>"success", "message"=>'Je bent uitgelogd');
-        $login->View->Message['response'][] = array("status"=>"success", "message"=>'Je bent uitgelogd');
-
         Redirect::login();
     }
 

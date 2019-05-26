@@ -24,7 +24,7 @@ PortalCMS_JS_headJS();
                     <h1><?php echo $pageName; ?></h1>
                 </div>
             </div>
-            <?php Util::DisplayMessage(); ?>
+            <?php Util::DisplayMessage(); View::renderFeedbackMessages(); ?>
         </div>
         <hr>
         <div class="container">

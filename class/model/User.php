@@ -89,6 +89,9 @@ class User
                         LIMIT 1"
         );
         $stmt->execute(array(':user_fbid' => $user_fbid));
+        if ($stmt->rowCount() == 0) {
+            return false;
+        }
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
@@ -211,6 +214,38 @@ class User
         if ($stmt->rowCount() == 1) {
             Session::set('user_fbid', null);
             $_SESSION['response'][] = array("status" => "success", "message" => 'fbid cleared');
+            return true;
+        }
+        return false;
+    }
+
+    public static function setRememberMeToken($user_id, $token) {
+        $stmt = DB::conn()->prepare(
+            "UPDATE users
+                    SET user_remember_me_token = :user_remember_me_token
+                    WHERE user_id = :user_id LIMIT 1"
+        );
+        $stmt->execute(
+            array(
+            ':user_remember_me_token' => $token,
+            ':user_id' => $user_id
+            )
+        );
+        if ($stmt->rowCount() == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    public static function clearRememberMeToken($user_id) {
+        $stmt = DB::conn()->prepare(
+            "UPDATE users
+                    SET user_remember_me_token = :user_remember_me_token
+                    WHERE user_id = :user_id
+                    LIMIT 1"
+        );
+        $stmt->execute(array(':user_remember_me_token' => NULL, ':user_id' => $user_id));
+        if ($stmt->rowCount() == 1) {
             return true;
         }
         return false;

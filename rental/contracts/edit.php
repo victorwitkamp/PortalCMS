@@ -1,4 +1,4 @@
-<?php 
+<?php
 $pageName = 'Contract bewerken';
 $allowEdit = false;
 $pageType = 'edit';
@@ -55,7 +55,7 @@ $(function () {
 <body>
 <?php
 
-    
+
 
 ?>
 <?php require DIR_INCLUDES.'nav.php'; ?>
@@ -67,7 +67,7 @@ $(function () {
             </div>
         </div>
         <div class="container">
-        <?php Util::DisplayMessage(); ?>
+        <?php Util::DisplayMessage(); View::renderFeedbackMessages(); ?>
         <?php require 'contract_form.php'; ?>
         </div>
     </div>

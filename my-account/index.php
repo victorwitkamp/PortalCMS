@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
@@ -9,10 +9,10 @@ require $_SERVER["DOCUMENT_ROOT"]."/login/ext/fb/config.php";
     $helper = $fb->getRedirectLoginHelper();
 
     $permissions = ['email']; // Optional permissions
-    $loginUrl = $helper->getLoginUrl(FB_LOGIN_URL, $permissions);
+    $loginUrl = $helper->getLoginUrl(FB_ASSIGN_URL, $permissions);
 
 require_once DIR_INCLUDES.'head.php';
-displayHeadCSS(); 
+displayHeadCSS();
 PortalCMS_JS_headJS(); ?>
 <?php PortalCMS_JS_JQuery_Simple_validator(); ?>
 </head>
@@ -25,7 +25,7 @@ PortalCMS_JS_headJS(); ?>
                 <h1><?php echo $pageName ?></h1>
             </div>
         <hr>
-            <?php Util::DisplayMessage(); ?>
+            <?php Util::DisplayMessage(); View::renderFeedbackMessages(); ?>
             <?php require DIR_ROOT.'my-account/inc/accountDetails.inc.php'; ?>
             <hr>
             <?php require DIR_ROOT.'my-account/inc/changePassword.inc.php'; ?>

@@ -56,6 +56,7 @@ class Session
     public static function add($key, $value)
     {
         $_SESSION[$key][] = $value;
+        session_write_close();
     }
 
     /**
@@ -63,7 +64,10 @@ class Session
      */
     public static function destroy()
     {
-        session_destroy();
+        if (session_destroy()) {
+            return true;
+        }
+        return false;
     }
 
     /**

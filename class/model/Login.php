@@ -19,7 +19,7 @@ class LoginModel
     {
         // we do negative-first checks here, for simplicity empty username and empty password in one line
         if (empty($user_name) OR empty($user_password)) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
+            Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
             return false;
         }
 
@@ -27,8 +27,7 @@ class LoginModel
         $result = self::validateAndGetUser($user_name, $user_password);
 
         if (!$result) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
-
+            Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
             return false;
         }
 
@@ -50,6 +49,8 @@ class LoginModel
 
         // return true to make clear the login was successful
         // maybe do this in dependence of setSuccessfulLoginIntoSession ?
+        Session::add('feedback_positive', Text::get('FEEDBACK_LOGIN_SUCCESSFUL'));
+
         return true;
     }
 
@@ -64,13 +65,13 @@ class LoginModel
     public static function loginWithCookie($cookie)
     {
         if (!$cookie) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_COOKIE_INVALID'));
+            Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
             return false;
         }
 
         // before list(), check it can be split into 3 strings.
         if (count(explode(':', $cookie)) !== 3) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_COOKIE_INVALID'));
+            Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
             return false;
         }
 
@@ -80,14 +81,14 @@ class LoginModel
         $user_id = Encryption::decrypt($user_id);
 
         if ($hash !== hash('sha256', $user_id.':'.$token) OR empty($token) OR empty($user_id)) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_COOKIE_INVALID'));
+            Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
             return false;
         }
 
         $result = User::getUserByUserIdAndToken($user_id, $token);
 
         if (!$result) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_COOKIE_INVALID'));
+            Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
             return false;
         }
 
@@ -98,26 +99,25 @@ class LoginModel
         // be invalid after a certain amount of time, so the user has to login with username/password
         // again from time to time. This is good and safe ! ;)
 
-        $_SESSION['response'][] = array("status"=>"success", "message"=>Text::get('FEEDBACK_COOKIE_LOGIN_SUCCESSFUL'));
+        Session::add('feedback_positive', Text::get('FEEDBACK_COOKIE_LOGIN_SUCCESSFUL'));
         return true;
     }
 
     public static function loginWithFacebook($fbid)
     {
         if (empty($fbid)) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_FACEBOOK_LOGIN_FAILED'));
+            Session::add('feedback_negative', Text::get('FEEDBACK_FACEBOOK_LOGIN_FAILED'));
             return false;
         }
         $result = User::getUserByFbid($fbid);
-        if ($result) {
-            self::setSuccessfulLoginIntoSession($result->user_id, $result->user_name, $result->user_email, $result->user_account_type, $fbid);
-            User::saveTimestampOfLoginOfUser($result->user_name);
-            $_SESSION['response'][] = array("status"=>"success", "message"=>Text::get('FEEDBACK_SUCCESFUL_FACEBOOK_LOGIN'));
-            return true;
-        } else {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_FACEBOOK_LOGIN_FAILED'));
+        if (!$result) {
+            Session::add('feedback_negative', Text::get('FEEDBACK_FACEBOOK_LOGIN_FAILED'));
             return false;
         }
+        self::setSuccessfulLoginIntoSession($result->user_id, $result->user_name, $result->user_email, $result->user_account_type, $fbid);
+        User::saveTimestampOfLoginOfUser($result->user_name);
+        Session::add('feedback_positive', Text::get('FEEDBACK_SUCCESSFUL_FACEBOOK_LOGIN'));
+        return true;
     }
 
 
@@ -135,11 +135,7 @@ class LoginModel
         // Brute force attack mitigation:
         // block login attempt if somebody has already failed 3 times and the last login attempt is less than 30sec ago
         if (Session::get('failed-login-count') >= 3 AND (Session::get('last-failed-login') > (time() - 30))) {
-            // Session::init();
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_LOGIN_FAILED_3_TIMES'));
-
-            // Redirect::home();
-            // exit();
+            Session::add('feedback_negative', Text::get('FEEDBACK_LOGIN_FAILED_3_TIMES'));
             return false;
         }
 
@@ -147,20 +143,14 @@ class LoginModel
 
         if (!$result) {
             self::incrementUserNotFoundCounter();
-            $_SESSION['response'][] = array(
-                "status"=>"error",
-                "message"=>Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG')
-            );
+            Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
             return false;
         }
 
         // block login attempt if somebody has already failed 3 times and the last login attempt is less than 30sec ago
         if ($result->user_failed_logins >= 3) {
             if (strtotime($result->user_last_failed_login) > (strtotime(date('Y-m-d H:i:s')) - 30)) {
-                $_SESSION['response'][] = array(
-                    "status"=>"error",
-                    "message"=>Text::get('FEEDBACK_PASSWORD_WRONG_3_TIMES')
-                );
+                Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_WRONG_3_TIMES'));
                 return false;
             }
         }
@@ -168,19 +158,13 @@ class LoginModel
         // if hash of provided password does NOT match the hash in the database: +1 failed-login counter
         if (!password_verify($user_password, $result->user_password_hash)) {
             User::incrementFailedLoginCounterOfUser($result->user_name);
-            $_SESSION['response'][] = array(
-                "status"=>"error",
-                "message"=>Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG')
-            );
+            Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
             return false;
         }
 
         // if user is not active (= has not verified account by verification mail)
         if ($result->user_active != 1) {
-            $_SESSION['response'][] = array(
-                "status"=>"error",
-                "message"=>Text::get('FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET')
-            );
+            Session::add('feedback_negative', Text::get('FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET'));
             return false;
         }
 
@@ -214,8 +198,17 @@ class LoginModel
      */
     public static function logout()
     {
-        Cookie::delete();
-        Session::destroy();
+        $user_id = Session::get('user_id');
+        if (User::clearRememberMeToken($user_id)) {
+            if (Cookie::delete()) {
+                if (Session::destroy()) {
+                    Session::init();
+                    Session::add('feedback_positive', Text::get('FEEDBACK_LOGOUT_SUCCESSFUL'));
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -264,21 +257,20 @@ class LoginModel
     public static function setRememberMe($user_id)
     {
         // generate 64 char random string
-        $random_token_string = hash('sha256', mt_rand());
+        $token = hash('sha256', mt_rand());
 
-        // write that token into database
-        $sql = "UPDATE users SET user_remember_me_token = :user_remember_me_token WHERE user_id = :user_id LIMIT 1";
-        $sth = DB::conn()->prepare($sql);
-        $sth->execute(array(':user_remember_me_token' => $random_token_string, ':user_id' => $user_id));
+        User::setRememberMeToken($user_id, $token);
 
         // generate cookie string that consists of user id, random string and combined hash of both
         // never expose the original user id, instead, encrypt it.
-        $cookie_string_first_part = Encryption::encrypt($user_id).':'.$random_token_string;
-        $cookie_string_hash       = hash('sha256', $user_id.':'.$random_token_string);
+        $cookie_string_first_part = Encryption::encrypt($user_id).':'.$token;
+        $cookie_string_hash       = hash('sha256', $user_id.':'.$token);
         $cookie_string            = $cookie_string_first_part.':'.$cookie_string_hash;
 
         Cookie::setRememberMe($cookie_string);
     }
+
+
 
     /**
      * Returns the current state of the user's login

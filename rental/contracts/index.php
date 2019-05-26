@@ -1,12 +1,12 @@
-<?php 
+<?php
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_CONTRACTS');
 Auth::checkAuthentication();
 require_once DIR_INCLUDES.'functions.php';
 require_once DIR_INCLUDES.'head.php';
-displayHeadCSS(); 
+displayHeadCSS();
 PortalCMS_CSS_dataTables();
-PortalCMS_JS_headJS(); 
+PortalCMS_JS_headJS();
 PortalCMS_JS_dataTables();
 ?>
 
@@ -22,7 +22,7 @@ PortalCMS_JS_dataTables();
             </div>
             <hr>
             <?php
-            Util::DisplayMessage(); 
+            Util::DisplayMessage(); View::renderFeedbackMessages();
             $stmt = DB::conn()->prepare("SELECT * FROM contracts ORDER BY id ASC");
             $stmt->execute();
             if ($stmt->rowCount() == 0) {

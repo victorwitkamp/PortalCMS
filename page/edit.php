@@ -1,5 +1,5 @@
-<?php 
-$pageName = 'Pagina bewerken'; 
+<?php
+$pageName = 'Pagina bewerken';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
 require_once DIR_INCLUDES.'functions.php';
@@ -39,7 +39,7 @@ plugins : 'advlist autolink link image lists charmap print preview'
 </script>
 </head>
 <body>
-    <?php require DIR_INCLUDES.'nav.php'; ?>    
+    <?php require DIR_INCLUDES.'nav.php'; ?>
     <main>
         <div class="content">
             <div class="container">
@@ -47,7 +47,7 @@ plugins : 'advlist autolink link image lists charmap print preview'
                     <h3>Pagina "<?php echo $row ['name']; ?>" bewerken</h3>
                 </div>
                 <hr>
-                <?php Util::DisplayMessage(); ?>
+                <?php Util::DisplayMessage(); View::renderFeedbackMessages(); ?>
                 <form method="post" validate=true>
                     <div class="form-group form-group-sm row">
                         <div class="col-sm-12">

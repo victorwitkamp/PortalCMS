@@ -7,7 +7,7 @@ require_once DIR_INCLUDES.'head.php';
 displayHeadCSS();
 PortalCMS_CSS_tempusdominus();
 PortalCMS_JS_headJS();
-PortalCMS_JS_tempusdominus(); 
+PortalCMS_JS_tempusdominus();
 PortalCMS_JS_Datepicker_event();
 PortalCMS_JS_JQuery_Simple_validator(); ?>
 </head>
@@ -22,7 +22,7 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
             </div>
             <hr>
             <div class="container">
-                <?php Util::DisplayMessage(); ?>
+                <?php Util::DisplayMessage(); View::renderFeedbackMessages(); ?>
                 <form method="post" validate=true>
                     <div class="row">
                         <div class="col-sm-12">
@@ -79,4 +79,4 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
     <?php require DIR_INCLUDES.'footer.php'; ?>
 </body>
 
-</html> 
+</html>

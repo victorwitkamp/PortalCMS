@@ -33,7 +33,7 @@ PortalCMS_JS_dataTables();
         </div>
         <div class="container">
             <?php
-            Util::DisplayMessage();
+            Util::DisplayMessage(); View::renderFeedbackMessages();
             PortalCMS_JS_Init_dataTables();
             $stmt = DB::conn()->prepare("SELECT * FROM mail_schedule WHERE status = 1 ORDER BY id ASC");
             $stmt->execute();

@@ -1,13 +1,13 @@
-<?php 
+<?php
 
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_INVOICES');
 Auth::checkAuthentication();
 require_once DIR_INCLUDES.'functions.php';
 require_once DIR_INCLUDES.'head.php';
-displayHeadCSS(); 
+displayHeadCSS();
 PortalCMS_CSS_dataTables();
-PortalCMS_JS_headJS(); 
+PortalCMS_JS_headJS();
 PortalCMS_JS_dataTables();
 ?>
 </head>
@@ -23,7 +23,7 @@ PortalCMS_JS_dataTables();
 
         <hr>
 
-                <?php Util::DisplayMessage(); ?>
+                <?php Util::DisplayMessage(); View::renderFeedbackMessages(); ?>
         <?php
         $invoices = Invoice::getAllInvoices();
         if ($invoices) {
@@ -33,7 +33,7 @@ PortalCMS_JS_dataTables();
             echo 'Ontbrekende gegevens..';
         }
         ?>
-        
+
         </div>
     </div>
 </main>

@@ -2,8 +2,8 @@
 $pageName = 'Account activeren';
 
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
-if (!isset($_SESSION)) { 
-    session_start(); 
+if (!isset($_SESSION)) {
+    session_start();
 }
 
 require_once DIR_INCLUDES.'functions.php';
@@ -38,7 +38,7 @@ if (isset($_GET['activate'])) {
                     <div class="card-header text-center">
                         <img src='<?php echo SiteSettings::getStaticSiteSetting('site_logo'); ?>' alt='<?php echo SiteSettings::getStaticSiteSetting('site_name'); ?>' width='200px' height='200px'/>
                         <h1 class="h3 mb-3 font-weight-normal"><?php echo SiteSettings::getStaticSiteSetting('site_name'); ?></h2>
-                        <?php Util::DisplayMessage(); ?>
+                        <?php Util::DisplayMessage(); View::renderFeedbackMessages(); ?>
                     </div>
                     <div class="card-body">
                         <h2 class="h3 mb-3 font-weight-normal "><?php echo $pageName ?></h3>
@@ -50,7 +50,7 @@ if (isset($_GET['activate'])) {
                             <input type="text" minlength="32" maxlength="32" name="code" id="inputCode" class="form-control" placeholder="code" required>
                             <label for="inputCode">Activatiecode</label>
                         </div>
-                        <input type="submit" name="activateSubmit" value="Activeren" class="btn btn-secondary mb-sm-2">             
+                        <input type="submit" name="activateSubmit" value="Activeren" class="btn btn-secondary mb-sm-2">
                     </div>
                 </div>
             </form>
