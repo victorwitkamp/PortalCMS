@@ -6,5 +6,5 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title><?php
 echo $pageName; ?> - <?php
-echo SiteSettings::getStaticSiteSetting('site_name');
+echo SiteSetting::getStaticSiteSetting('site_name');
 ?></title>

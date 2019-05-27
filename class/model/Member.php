@@ -34,7 +34,7 @@ class Member
         $stmt = DB::conn()->prepare($sql);
         $stmt->execute([$id]);
         if (!$stmt->rowCount() == 1) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Lid kan niet worden geladen.");
+            Session::add('feedback_negative', "Lid kan niet worden geladen.");
             return false;
         } else {
             return $stmt->fetch();
@@ -70,29 +70,29 @@ class Member
         $machtigingskenmerk     = Request::post('machtigingskenmerk', true);
         $incasso_gelukt         = Request::post('incasso_gelukt', true);
         $opmerking              = Request::post('opmerking', true);
-    
-        $sql = "UPDATE members 
-        SET jaarlidmaatschap=?, voorletters=?, voornaam=?, achternaam=?, 
-        geboortedatum=?, adres=?, postcode=?, huisnummer=?, 
-        woonplaats=?, telefoon_vast=?, telefoon_mobiel=?, 
-        emailadres=?, ingangsdatum=?, geslacht=?, nieuwsbrief=?, 
-        vrijwilliger=?, vrijwilligeroptie1=?, vrijwilligeroptie2=?, 
-        vrijwilligeroptie3=?, vrijwilligeroptie4=?, vrijwilligeroptie5=?, 
-        betalingswijze=?, iban=?, machtigingskenmerk=?, incasso_gelukt=?, 
+
+        $sql = "UPDATE members
+        SET jaarlidmaatschap=?, voorletters=?, voornaam=?, achternaam=?,
+        geboortedatum=?, adres=?, postcode=?, huisnummer=?,
+        woonplaats=?, telefoon_vast=?, telefoon_mobiel=?,
+        emailadres=?, ingangsdatum=?, geslacht=?, nieuwsbrief=?,
+        vrijwilliger=?, vrijwilligeroptie1=?, vrijwilligeroptie2=?,
+        vrijwilligeroptie3=?, vrijwilligeroptie4=?, vrijwilligeroptie5=?,
+        betalingswijze=?, iban=?, machtigingskenmerk=?, incasso_gelukt=?,
         opmerking=? WHERE id=?";
         $stmt = DB::conn()->prepare($sql);
         $stmt->execute(
-            [$jaarlidmaatschap, $voorletters, $voornaam, $achternaam, $geboortedatum, 
-            $adres, $postcode, $huisnummer, $woonplaats, $telefoon_vast, $telefoon_mobiel, 
-            $emailadres, $ingangsdatum, $geslacht, $nieuwsbrief, $vrijwilliger, $vrijwilligeroptie1, 
+            [$jaarlidmaatschap, $voorletters, $voornaam, $achternaam, $geboortedatum,
+            $adres, $postcode, $huisnummer, $woonplaats, $telefoon_vast, $telefoon_mobiel,
+            $emailadres, $ingangsdatum, $geslacht, $nieuwsbrief, $vrijwilliger, $vrijwilligeroptie1,
             $vrijwilligeroptie2, $vrijwilligeroptie3, $vrijwilligeroptie4, $vrijwilligeroptie5, $betalingswijze, $iban, $machtigingskenmerk,
             $incasso_gelukt, $opmerking, $id]
         );
         if ($stmt) {
-            $_SESSION['response'][] = array("status"=>"success", "message"=>"Lid opgeslagen.");
+            Session::add('feedback_positive', "Lid opgeslagen.");
             Redirect::redirectPage("membership/");
         }
-        $_SESSION['response'][] = array("status"=>"error", "message"=>"Lid opslaan mislukt.");
+        Session::add('feedback_negative', "Lid opslaan mislukt.");
         Redirect::redirectPage("membership/");
     }
 
@@ -125,34 +125,34 @@ class Member
         // $machtigingskenmerk     = Request::post('machtigingskenmerk', true);
         // $incasso_gelukt         = Request::post('incasso_gelukt', true);
         // $opmerking              = Request::post('opmerking', true);
-    
+
         if (self::doesEmailforYearExist($jaarlidmaatschap, $emailadres)) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Emailadres wordt dit jaar al gebruikt door een ander lid.");
+            Session::add('feedback_negative', "Emailadres wordt dit jaar al gebruikt door een ander lid.");
             Redirect::redirectPage("membership/");
         } else {
             $sql = "INSERT INTO members
                         (
-                            id, jaarlidmaatschap, voorletters, voornaam, achternaam, geboortedatum, 
-                            adres, postcode, huisnummer, woonplaats, telefoon_vast, telefoon_mobiel, 
-                            emailadres, ingangsdatum, geslacht, nieuwsbrief, vrijwilliger, vrijwilligeroptie1, 
+                            id, jaarlidmaatschap, voorletters, voornaam, achternaam, geboortedatum,
+                            adres, postcode, huisnummer, woonplaats, telefoon_vast, telefoon_mobiel,
+                            emailadres, ingangsdatum, geslacht, nieuwsbrief, vrijwilliger, vrijwilligeroptie1,
                             vrijwilligeroptie2, vrijwilligeroptie3, vrijwilligeroptie4, vrijwilligeroptie5, betalingswijze, iban
-                        ) 
-                        VALUES 
+                        )
+                        VALUES
                         (
                             NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
                         )";
             $stmt = DB::conn()->prepare($sql);
             $stmt->execute(
-                [$jaarlidmaatschap, $voorletters, $voornaam, $achternaam, $geboortedatum, 
-                $adres, $postcode, $huisnummer, $woonplaats, $telefoon_vast, $telefoon_mobiel, 
-                $emailadres, $ingangsdatum, $geslacht, $nieuwsbrief, $vrijwilliger, $vrijwilligeroptie1, 
+                [$jaarlidmaatschap, $voorletters, $voornaam, $achternaam, $geboortedatum,
+                $adres, $postcode, $huisnummer, $woonplaats, $telefoon_vast, $telefoon_mobiel,
+                $emailadres, $ingangsdatum, $geslacht, $nieuwsbrief, $vrijwilliger, $vrijwilligeroptie1,
                 $vrijwilligeroptie2, $vrijwilligeroptie3, $vrijwilligeroptie4, $vrijwilligeroptie5, $betalingswijze, $iban]
             );
             if ($stmt) {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Lid toegevoegd.");
+                Session::add('feedback_positive', "Lid toegevoegd.");
                 Redirect::redirectPage("membership/");
             }
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Lid toevoegen mislukt.");
+            Session::add('feedback_negative', "Lid toevoegen mislukt.");
             Redirect::redirectPage("membership/");
         }
     }

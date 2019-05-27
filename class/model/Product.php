@@ -30,12 +30,12 @@ class Product
         $stmt = DB::conn()->prepare("SELECT id FROM products WHERE name = ?");
         $stmt->execute([$name]);
         if (!$stmt->rowCount() == 0) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Productnaam bestaat al,");
+            Session::add('feedback_negative', "Productnaam bestaat al.");
         } else {
             if (!self::addProductAction($name, $price, $type)) {
-                $_SESSION['response'][] = array("status"=>"error", "message"=>"Toevoegen van product mislukt.<br>");
+                Session::add('feedback_negative', "Toevoegen van product mislukt.");
             } else {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Product toegevoegd.");
+                Session::add('feedback_positive', "Product toegevoegd.");
                 Redirect::redirectPage("rental/products/");
             }
         }
@@ -59,14 +59,14 @@ class Product
         if ($count > 0) {
             $stmt = DB::conn()->prepare("DELETE FROM products WHERE id = ?");
             if (!$stmt->execute([$id])) {
-                $_SESSION['response'][] = array("status"=>"error", "message"=>"Verwijderen van product mislukt.");
+                Session::add('feedback_negative', "Verwijderen van product mislukt.");
                 return false;
             } else {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Product verwijderd.");
+                Session::add('feedback_positive', "Product verwijderd.");
                 return true;
             }
         } else {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Verwijderen van product mislukt.<br>Product bestaat niet.");
+            Session::add('feedback_negative', "Verwijderen van product mislukt.<br>Product bestaat niet.");
             return false;
         }
     }

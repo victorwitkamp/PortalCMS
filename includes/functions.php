@@ -1,7 +1,7 @@
 <?php
 /**
  * PortalCMS Framework: Functions
- * 
+ *
  * Functions used in the PortalCMS Framework. Should be included on all pages.
  *
  * @package PortalCMS
@@ -76,7 +76,7 @@ function PortalCMS_JS_dataTables()
  *
  * @return void
  */
-function PortalCMS_JS_Init_dataTables() 
+function PortalCMS_JS_Init_dataTables()
 {
     echo '
     <script src="/includes/init.datatables.js"  class="init"></script>
@@ -112,9 +112,9 @@ function PortalCMS_JS_Datepicker_event()
  *
  * @return void
  */
-function displayHeadCSS() 
+function displayHeadCSS()
 {
-    $theme = SiteSettings::getStaticSiteSetting('site_theme');
+    $theme = SiteSetting::getStaticSiteSetting('site_theme');
     echo '
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
     <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
@@ -201,7 +201,7 @@ function PortalCMS_JS_basic()
  */
 function PortalCMS_JS_IE9()
 {
-    echo '  
+    echo '
     <!--[if lt IE 9]>
     <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -228,7 +228,7 @@ function PortalCMS_JS_jQuery()
  */
 function PortalCMS_JS_bootstrap()
 {
-    echo '  
+    echo '
     <script src="//bootswatch.com/_vendor/popper.js/dist/umd/popper.min.js"></script>
     <script src="//bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.min.js"></script>
     ';
@@ -277,4 +277,3 @@ function PortalCMS_JS_calendar()
     <script src="/includes/js/calendar.js"></script>
     ';
 }
-

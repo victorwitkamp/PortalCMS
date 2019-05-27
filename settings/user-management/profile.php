@@ -1,6 +1,6 @@
 <?php
-$pageName = 'Profiel';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+$pageName = Text::get('TITLE_PROFILE');
 Auth::checkAuthentication();
 if (!Permission::hasPrivilege("user-management")) {
     Redirect::permissionerror();
@@ -8,7 +8,7 @@ if (!Permission::hasPrivilege("user-management")) {
 }
 $row = User::getProfileById($_GET['id']);
 if (!$row) {
-    $_SESSION['response'][] = array("status"=>"error", "message"=>"De gebruiker bestaat niet.");
+    Session::add('feedback_negative', "De gebruiker bestaat niet.");
     Redirect::Error();
 }
 require DIR_ROOT.'includes/functions.php';
@@ -24,7 +24,7 @@ PortalCMS_JS_headJS(); ?>
             <div class="row mt-5">
                 <h1>Profiel van: <?php echo $row['user_name']; ?></h1>
             </div>
-            <?php Util::DisplayMessage(); View::renderFeedbackMessages();
+            <?php View::renderFeedbackMessages();
             require 'profile_buttons.php';
             ?>
         <hr><?php

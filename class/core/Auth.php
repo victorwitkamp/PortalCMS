@@ -36,9 +36,10 @@ class Auth
             // this is not optimal and will be fixed in future releases
             exit();
         } else {
-            if (!Cookie::isValid()) {
+            // Hook to check is a cookie exists and if it matches a remember me token in the database.
+            // if (!Cookie::isValid()) {
 
-            }
+            // }
         }
     }
 

@@ -1,13 +1,17 @@
-<?php 
+<?php
 
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('LABEL_CONTRACT_INVOICES_FOR_ID').': '.$_GET['id'];
 Auth::checkAuthentication();
+if (!Permission::hasPrivilege("rental-contracts")) {
+    Redirect::permissionerror();
+    die();
+}
 require_once DIR_INCLUDES.'functions.php';
 require_once DIR_INCLUDES.'head.php';
-displayHeadCSS(); 
+displayHeadCSS();
 PortalCMS_CSS_dataTables();
-PortalCMS_JS_headJS(); 
+PortalCMS_JS_headJS();
 PortalCMS_JS_dataTables();
 ?>
 </head>
@@ -30,7 +34,7 @@ PortalCMS_JS_dataTables();
             echo 'Ontbrekende gegevens..';
         }
         ?>
-        
+
         </div>
     </div>
 </main>

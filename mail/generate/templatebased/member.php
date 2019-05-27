@@ -2,6 +2,10 @@
 $pageName = 'Nieuw bericht';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
+if (!Permission::hasPrivilege("mail-scheduler")) {
+    Redirect::permissionerror();
+    die();
+}
 require_once DIR_INCLUDES.'functions.php';
 require_once DIR_INCLUDES.'head.php';
 displayHeadCSS();
@@ -38,7 +42,7 @@ PortalCMS_JS_headJS(); ?>
                             </div>
                             <div class="card-body">
                                 <select name='templateid'>
-                                    <?php foreach (MailTemplates::getTemplatesByType('member') as $row): ?>
+                                    <?php foreach (MailTemplate::getTemplatesByType('member') as $row): ?>
                                         <option value="<?php echo $row['id']; ?>"><?php echo $row['subject']; ?></option>
                                     <?php endforeach ?>
                                 </select>

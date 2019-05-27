@@ -5,7 +5,7 @@
  * Details : SiteSettings.
  */
 
-class SiteSettings
+class SiteSetting
 {
     // public $SiteName;
     // public $SiteDescription;
@@ -31,12 +31,13 @@ class SiteSettings
     {
         self::setSiteSetting(Request::post('site_name'), 'site_name');
         self::setSiteSetting(Request::post('site_description'), 'site_description');
+        self::setSiteSetting(Request::post('site_description_type'), 'site_description_type');
         self::setSiteSetting(Request::post('site_url'), 'site_url');
         self::setSiteSetting(Request::post('site_logo'), 'site_logo');
         self::setSiteSetting(Request::post('site_theme'), 'site_theme');
         self::setSiteSetting(Request::post('site_layout'), 'site_layout');
         self::setSiteSetting(Request::post('WidgetComingEvents'), 'WidgetComingEvents');
-        self::setSiteSetting(Request::post('site_description_type'), 'site_description_type');
+        self::setSiteSetting(Request::post('WidgetDebug'), 'WidgetDebug');
         return true;
     }
 
@@ -67,7 +68,5 @@ class SiteSettings
             return $row['string_value'];
         }
     }
-
-
 
 }

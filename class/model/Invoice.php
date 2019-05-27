@@ -26,12 +26,12 @@ class Invoice
         $stmt = DB::conn()->prepare("SELECT id FROM invoice_items WHERE invoice_id = ? AND name = ? AND price = ?");
         $stmt->execute([$invoiceId, $name, $price]);
         if (!$stmt->rowCount() == 0) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Item bestaat al");
+            Session::add('feedback_negative', "Factuuritem bestaat al");
         } else {
             if (!self::addInvoiceItemAction($invoiceId, $name, $price)) {
-                $_SESSION['response'][] = array("status"=>"error", "message"=>"Toevoegen van evenement mislukt.<br>");
+                Session::add('feedback_negative', "Toevoegen van factuuritem mislukt.");
             } else {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Evenement toegevoegd.");
+                Session::add('feedback_positive', "Factuuritem toegevoegd.");
                 Redirect::redirectPage("rental/invoices/details.php?id=".$invoiceId);
             }
         }
@@ -55,14 +55,14 @@ class Invoice
         $count = count($result);
         if ($count > 0) {
             if (!self::deleteInvoiceItemAction($Id)) {
-                $_SESSION['response'][] = array("status"=>"error", "message"=>"Verwijderen van factuuritem mislukt.");
+                Session::add('feedback_negative', "Verwijderen van factuuritem mislukt.");
                 return false;
             } else {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Factuuritem item verwijderd.");
+                Session::add('feedback_positive', "Factuuritem verwijderd.");
                 return true;
             }
         } else {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Kan factuuritem niet verwijderen.<br>Factuuritem bestaat niet.");
+            Session::add('feedback_negative', "Kan factuuritem niet verwijderen.<br>Factuuritem bestaat niet.");
             return false;
         }
     }
@@ -86,10 +86,10 @@ class Invoice
         $stmt = DB::conn()->prepare("SELECT id FROM invoices WHERE factuurnummer = ?");
         $stmt->execute([$factuurnummer]);
         if (!$stmt->rowCount() == 0) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Factuurnummer bestaat al,");
+            Session::add('feedback_negative', "Factuurnummer bestaat al.");
         } else {
             if (!self::addInvoiceAction($contract_id, $factuurnummer, $year, $month)) {
-                $_SESSION['response'][] = array("status"=>"error", "message"=>"Toevoegen van factuur mislukt.<br>");
+                Session::add('feedback_negative', "Toevoegen van factuur mislukt.");
             } else {
                 $invoice = self::getInvoiceByFactuurnummer($factuurnummer);
                 $factuuromschrijving_ruimte = 'Kosten voor: huur '.Text::get('MONTH_'.$month);
@@ -100,7 +100,7 @@ class Invoice
                         self::addInvoiceItemAction($invoice['id'], $factuuromschrijving_kast, $contract['kosten_kast']);
                     }
                 }
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Factuur toegevoegd.");
+                Session::add('feedback_positive', "Factuur toegevoegd.");
                 Redirect::redirectPage("rental/invoices/");
             }
         }

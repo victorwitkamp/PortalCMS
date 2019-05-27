@@ -7,11 +7,11 @@
 ?>
 <div class="col-sm-4">
     <?php
-    if (SiteSettings::getStaticSiteSetting('WidgetComingEvents') == '1') {
+    if (SiteSetting::getStaticSiteSetting('WidgetComingEvents') == '1') {
         include 'widgets/comingEvents/comingEvents.php';
     }
     ?><hr><?php
-        if (SiteSettings::getStaticSiteSetting('WidgetDebug') == '1') {
+        if (SiteSetting::getStaticSiteSetting('WidgetDebug') == '1') {
         include 'widgets/debug/debug.php';
     }
     ?>
@@ -19,7 +19,7 @@
 <div class="col-sm-8">
     <?php
     $page = Page::getPage('1');
-    Util::DisplayMessage(); View::renderFeedbackMessages();
+    View::renderFeedbackMessages();
 
     $permissionName = 'edit-page';
     echo $page["content"];

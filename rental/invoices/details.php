@@ -2,13 +2,17 @@
 $pageName = 'Factuur';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
-Auth::checkAdminAuthentication();
+if (!Permission::hasPrivilege("rental-invoices")) {
+    Redirect::permissionerror();
+    die();
+}
 require DIR_ROOT.'includes/functions.php';
 
 if ($invoice = Invoice::getInvoiceById($_GET['id'])) {
     $pageName = 'Factuur: '.$invoice['factuurnummer'];
 } else {
-    $_SESSION['response'][] = array("status"=>"warning", "message"=>"Geen resultaten voor opgegeven factuur ID.");
+    Session::add('feedback_negative', "Geen resultaten voor opgegeven factuur ID.");
+    Redirect::Error();
 }
 require DIR_ROOT.'includes/head.php';
 displayHeadCSS();
@@ -24,7 +28,7 @@ PortalCMS_JS_headJS(); ?>
                 <h1><?php echo $pageName; ?></h1>
             </div>
             <?php
-            Util::DisplayMessage(); View::renderFeedbackMessages(); ?>
+            View::renderFeedbackMessages(); ?>
             <hr>
             <h3>Details</h3>
 

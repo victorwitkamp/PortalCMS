@@ -1,9 +1,13 @@
-<?php 
+<?php
 $pageName = 'Contract toevoegen';
 $allowEdit = true;
 $pageType = 'new';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
+if (!Permission::hasPrivilege("rental-contracts")) {
+    Redirect::permissionerror();
+    die();
+}
 require_once DIR_INCLUDES.'functions.php';
 require_once DIR_INCLUDES.'head.php';
 displayHeadCSS();

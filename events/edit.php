@@ -9,7 +9,8 @@ if ($row = Event::getEventById($_GET['id'])) {
     $allowEdit = true;
     $pageName = 'Evenement '.$row ['title'].' bewerken';
 } else {
-    $_SESSION['response'][] = array("status"=>"warning", "message"=>"Geen resultaten voor opgegeven event ID.");
+    Session::add('feedback_negative', "Geen resultaten voor opgegeven event ID.");
+    Redirect::Error();
 }
 
 require_once DIR_INCLUDES.'head.php';
@@ -31,8 +32,7 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
         </div>
         <hr>
         <div class="container">
-            <?php //Util::DisplayMessage();
-            View::renderFeedbackMessages(); ?>
+            <?php View::renderFeedbackMessages(); ?>
             <form method="post" validate=true>
                 <div class="form-group form-group-sm row">
                     <div class="col-sm-12">

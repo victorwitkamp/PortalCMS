@@ -1,7 +1,7 @@
 <?php
-require $_SERVER["DOCUMENT_ROOT"]."/../Init.php";
+require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_MAIL_TEMPLATES');
-// Auth::checkAdminAuthentication();
+Auth::checkAuthentication();
 if (!Permission::hasPrivilege("mail-templates")) {
     Redirect::permissionerror();
     die();
@@ -36,7 +36,7 @@ plugins : 'advlist autolink link image lists charmap print preview'
                 </div>
             </div>
             <hr>
-            <?php Util::DisplayMessage(); View::renderFeedbackMessages(); ?>
+            <?php View::renderFeedbackMessages(); ?>
             <table id="example" class="table table-sm table-striped table-hover table-dark" style="width:100%">
                 <thead class="thead-dark">
                     <tr>
@@ -48,7 +48,7 @@ plugins : 'advlist autolink link image lists charmap print preview'
                 </thead>
                 <tbody>
                     <?php
-                    foreach (MailTemplates::getTemplates() as $row) {
+                    foreach (MailTemplate::getTemplates() as $row) {
                         echo '<tr>';
                         echo '<td>'.$row['id'].'</td>';
                         echo '<td>'.$row['type'].'</td>';
@@ -58,30 +58,28 @@ plugins : 'advlist autolink link image lists charmap print preview'
                     ?>
                 </tbody>
             </table>
-
             <h3>Mail templates</h3>
-
-    <div class="form-group row">
-
-        <label class="col-4 col-form-label">Reset password mailtext</label>
-        <p>Beschikbare placeholders: USERNAME, RESETLINK, SITENAME</p>
-        <div class="col-8">
-            <textarea id="mytextarea" name="MailText_ResetPassword" cols="50" rows="15" required><?php echo htmlspecialchars(SiteSettings::getStaticMailText('ResetPassword')); ?></textarea>
-        </div>
-
-    </div>
-    <div class="form-group row">
-
-        <label class="col-4 col-form-label">Signup mailtext</label>
-        <p>Beschikbare placeholders: username, sitename, activatelink, activateformlink, confcode</p>
-        <div class="col-8">
-            <textarea id="mytextarea2" name="MailText_Signup" cols="50" rows="15" required><?php echo htmlspecialchars(SiteSettings::getStaticMailText('Signup')); ?></textarea>
-        </div>
-
-    </div>
-
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Reset password mailtext</label>
+                <p>Beschikbare placeholders: USERNAME, RESETLINK, SITENAME</p>
+                <div class="col-8">
+                    <textarea id="mytextarea" name="MailText_ResetPassword" cols="50" rows="15" required>
+                    <?php echo htmlspecialchars(MailTemplate::getStaticMailText('ResetPassword')); ?>
+                    </textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Signup mailtext</label>
+                <p>Beschikbare placeholders: username, sitename, activatelink, activateformlink, confcode</p>
+                <div class="col-8">
+                    <textarea id="mytextarea2" name="MailText_Signup" cols="50" rows="15" required>
+                    <?php echo htmlspecialchars(MailTemplate::getStaticMailText('Signup')); ?>
+                    </textarea>
+                </div>
+            </div>
         </div>
     </div>
 </main>
+<?php require DIR_INCLUDES.'footer.php'; ?>
 </body>
 </html>

@@ -52,8 +52,8 @@ define('PDF_PAGE_FORMAT', 'A4');
  */
 define('PDF_PAGE_ORIENTATION', 'P');
 
-define('PDF_CREATOR', SiteSettings::getStaticSiteSetting('site_name'));
-define('PDF_AUTHOR', SiteSettings::getStaticSiteSetting('site_name'));
+define('PDF_CREATOR', SiteSetting::getStaticSiteSetting('site_name'));
+define('PDF_AUTHOR', SiteSetting::getStaticSiteSetting('site_name'));
 define('PDF_HEADER_TITLE', 'Factuur');
 define('PDF_HEADER_STRING', "Poppodium de Beuk\nbeukonline.nl");
 define('PDF_UNIT', 'mm');

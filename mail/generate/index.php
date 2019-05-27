@@ -2,6 +2,10 @@
 $pageName = 'Nieuw bericht';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
+if (!Permission::hasPrivilege("mail-scheduler")) {
+    Redirect::permissionerror();
+    die();
+}
 require_once DIR_INCLUDES.'functions.php';
 require_once DIR_INCLUDES.'head.php';
 displayHeadCSS();
@@ -21,7 +25,7 @@ PortalCMS_JS_headJS(); ?>
         <hr>
         <div class="container">
             <?php
-            Util::DisplayMessage(); View::renderFeedbackMessages();
+            View::renderFeedbackMessages();
             ?>
             <h2>Nieuw bericht met template</h2>
             <p>Aan wie wil je een e-mail versturen?<br>

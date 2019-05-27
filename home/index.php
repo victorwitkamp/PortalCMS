@@ -22,14 +22,14 @@ PortalCMS_JS_headJS();
             <div class="container">
                 <div class="row">
                     <div class="col-sm-3">
-                        <img src='<?php echo SiteSettings::getStaticSiteSetting('site_logo'); ?>' alt='logo' width='120px' height='120px' />
+                        <img src='<?php echo SiteSetting::getStaticSiteSetting('site_logo'); ?>' alt='logo' width='120px' height='120px' />
                     </div>
                     <div class="col-sm-9">
-                        <h1><?php echo SiteSettings::getStaticSiteSetting('site_name'); ?></h1>
+                        <h1><?php echo SiteSetting::getStaticSiteSetting('site_name'); ?></h1>
                         <p class="lead">
                         <?php
-                        if (SiteSettings::getStaticSiteSetting('site_description_type') === '1') {
-                            echo SiteSettings::getStaticSiteSetting('site_description');
+                        if (SiteSetting::getStaticSiteSetting('site_description_type') === '1') {
+                            echo SiteSetting::getStaticSiteSetting('site_description');
                         }
                         require 'slogan.php';
                         ?></p>
@@ -40,7 +40,7 @@ PortalCMS_JS_headJS();
         <div class="container">
             <div class="row">
                 <?php
-                $layout = SiteSettings::getStaticSiteSetting('site_layout');
+                $layout = SiteSetting::getStaticSiteSetting('site_layout');
                 require 'layouts/'.$layout.'.php';
                 ?>
             </div>

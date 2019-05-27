@@ -38,7 +38,7 @@ class Role
      */
     public static function create($role_name) {
         if (self::createAction($role_name)) {
-            $_SESSION['response'][] = array("status"=>"success", "message"=>"Nieuwe rol aangemaakt.");
+            Session::add('feedback_positive', "Nieuwe rol aangemaakt.");
             return true;
         }
         return false;
@@ -65,7 +65,7 @@ class Role
      */
     public static function delete($role_id) {
         if (self::deleteAction($role_id)) {
-            $_SESSION['response'][] = array("status"=>"success", "message"=>"Rol verwijderd.");
+            Session::add('feedback_positive', "Rol verwijderd.");
             return true;
         }
         return false;
@@ -93,14 +93,14 @@ class Role
      */
     public static function assign($user_id, $role_id) {
         if (self::isRoleAssigned($user_id, $role_id)) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Rol is reeds toegewezen aan deze gebruiker.");
+            Session::add('feedback_negative', "Rol is reeds toegewezen aan deze gebruiker.");
             return false;
         }
         if (self::assignAction($user_id, $role_id)) {
-            $_SESSION['response'][] = array("status"=>"success", "message"=>"Rol toegewezen.");
+            Session::add('feedback_positive', "Rol toegewezen.");
             return true;
         }
-        $_SESSION['response'][] = array("status"=>"error", "message"=>"Fout bij toewijzen van rol.");
+        Session::add('feedback_negative', "Fout bij toewijzen van rol.");
         return false;
     }
 
@@ -125,14 +125,14 @@ class Role
      */
     public static function unassign($user_id, $role_id) {
         if (!self::isRoleAssigned($user_id, $role_id)) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Rol is niet aan deze gebruiker toegewezen. Er is geen toewijzing om te verwijderen.");
+            Session::add('feedback_negative', "Rol is niet aan deze gebruiker toegewezen. Er is geen toewijzing om te verwijderen.");
             return false;
         }
         if (self::unassignAction($user_id, $role_id)) {
-            $_SESSION['response'][] = array("status"=>"success", "message"=>"Rol voor gebruiker verwijderd.");
+            Session::add('feedback_positive', "Rol voor gebruiker verwijderd.");
             return true;
         }
-        $_SESSION['response'][] = array("status"=>"success", "message"=>"Fout bij verwijderen van rol voor gebruiker.");
+        Session::add('feedback_negative', "Fout bij verwijderen van rol voor gebruiker.");
         return false;
     }
 

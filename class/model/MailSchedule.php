@@ -41,7 +41,7 @@ class MailSchedule
             foreach ($_POST['id'] as $id) {
                 $row = self::getScheduledMailById($id);
                 if ($row['status'] !== '1') {
-                    $_SESSION['response'][] = array("status"=>"error", "message"=>"Reeds verstuurd");
+                    Session::add('feedback_negative', "Reeds verstuurd");
                     Redirect::redirectPage("mailscheduler/");
                     return false;
                 } else {
@@ -58,13 +58,12 @@ class MailSchedule
                             self::setErrorMessageById($id, MailController::$error);
                         }
                     } else {
-                        $_SESSION['response'][] = array("status"=>"error", "message"=>"Mail incompleet");
+                        Session::add('feedback_negative', "Mail incompleet");
                     }
                 }
             }
         }
         Redirect::redirectPage("mailscheduler/");
-
     }
 
     public static function newWithTemplate()
@@ -72,15 +71,13 @@ class MailSchedule
         $sender_email = Config::get('EMAIL_SMTP_USERNAME');
         $type = Request::post('type', true);
         $templateid = Request::post('templateid', true);
-        $template = MailTemplates::getTemplateById($templateid);
+        $template = MailTemplate::getTemplateById($templateid);
         $templatebody = $template['body'];
         $count_created = 0;
         $count_failed = 0;
         if ($type === 'member') {
-
             if (!empty($_POST['recipients'])) {
                 foreach ($_POST['recipients'] as $value) {
-
                     $member = Member::getMemberById($value);
                     $mailBody = self::replaceholdersMember($value, $templatebody);
                     $return = self::writenew($sender_email, $member['emailadres'], $value, $template['subject'], $mailBody);
@@ -91,10 +88,10 @@ class MailSchedule
                     }
                 }
                 if ($count_failed === 0) {
-                    $_SESSION['response'][] = array("status"=>"success", "message"=>"Totaal aantal berichten aangemaakt:".$count_created);
+                    Session::add('feedback_positive', "Totaal aantal berichten aangemaakt:".$count_created);
                     Redirect::redirectPage("mailscheduler/");
                 } else {
-                    $_SESSION['response'][] = array("status"=>"error", "message"=>"Nieuwe email aanmaken mislukt.");
+                    Session::add('feedback_negative', "Nieuwe email aanmaken mislukt.");
                 }
             }
         }
@@ -103,7 +100,7 @@ class MailSchedule
     public static function replaceholdersMember($memberid, $templatebody)
     {
         $member = Member::getMemberById($memberid);
-        $afzender = SiteSettings::getStaticSiteSetting('site_name');
+        $afzender = SiteSetting::getStaticSiteSetting('site_name');
         $variables = array(
             "voornaam"=>$member['voornaam'],
             "achternaam"=>$member['achternaam'],
@@ -112,11 +109,8 @@ class MailSchedule
         );
         foreach ($variables as $key => $value) {
             $templatebody = str_replace('{'.strtoupper($key).'}', $value, $templatebody);
-
         }
         return $templatebody;
-
-
     }
 
     public static function new()
@@ -125,12 +119,11 @@ class MailSchedule
         $recipient_email = Request::post('recipient_email', true);
         $subject = Request::post('subject', true);
         $body = Request::post('body', true);
-
         $return = self::writenew($sender_email, $recipient_email, $subject, $body);
         if ($return === false) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Nieuwe email aanmaken mislukt.");
+            Session::add('feedback_negative', "Nieuwe email aanmaken mislukt.");
         } else {
-            $_SESSION['response'][] = array("status"=>"success", "message"=>"Email toegevoegd (ID = ".$return.')');
+            Session::add('feedback_positive', "Email toegevoegd (ID = ".$return.')');
             Redirect::redirectPage("settings/mailscheduler/");
         }
     }

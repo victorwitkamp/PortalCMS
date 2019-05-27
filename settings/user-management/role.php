@@ -2,18 +2,20 @@
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_ROLE');
 Auth::checkAuthentication();
-Auth::checkAdminAuthentication();
+if (!Permission::hasPrivilege("user-management")) {
+    Redirect::permissionerror();
+    die();
+}
 require DIR_ROOT.'includes/functions.php';
 require DIR_ROOT.'includes/head.php';
 displayHeadCSS();
 PortalCMS_JS_headJS();
 
 
-$Role = Role::get($_GET['role_id']);
-if (!$Role) {
-    $_SESSION['response'][] = array("status"=>"error", "message"=>"Geen resultaten voor opgegeven rol ID.");
-} else {
-    $row = $Role;
+$row = Role::get($_GET['role_id']);
+if (!$row) {
+    Session::add('feedback_negative', "Geen resultaten voor opgegeven rol ID.");
+    Redirect::Error();
 }
 ?>
 </head>
@@ -26,7 +28,7 @@ if (!$Role) {
                     <h1><?php echo Text::get('TITLE_ROLE'); ?>: <?php if (!empty($row['role_name'])) { echo $row['role_name']; }?></h1>
                 </div>
 
-                <?php Util::DisplayMessage(); View::renderFeedbackMessages();
+                <?php View::renderFeedbackMessages();
 
                 if ($Role) { ?>
                 <h3><?php echo Text::get('LABEL_ROLE_GENERAL'); ?></h3>

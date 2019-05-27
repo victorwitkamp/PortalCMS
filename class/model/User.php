@@ -213,7 +213,7 @@ class User
         $stmt->execute([$user_id]);
         if ($stmt->rowCount() == 1) {
             Session::set('user_fbid', null);
-            $_SESSION['response'][] = array("status" => "success", "message" => 'fbid cleared');
+            Session::add('feedback_positive', 'fbid cleared');
             return true;
         }
         return false;
@@ -262,13 +262,13 @@ class User
     {
         // Check if new password is indeed different.
         if ($new_user_name == Session::get('user_name')) {
-            $_SESSION['response'][] = array("status" => "error", "message" => Text::get('FEEDBACK_USERNAME_SAME_AS_OLD_ONE'));
+            Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_SAME_AS_OLD_ONE'));
             return false;
         }
 
         // username cannot be empty and must be azAZ09 and 2-64 characters
         if (!preg_match("/^[a-zA-Z0-9]{2,64}$/", $new_user_name)) {
-            $_SESSION['response'][] = array("status" => "error", "message" => Text::get('FEEDBACK_USERNAME_DOES_NOT_FIT_PATTERN'));
+            Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_DOES_NOT_FIT_PATTERN'));
             return false;
         }
 
@@ -277,18 +277,18 @@ class User
 
         // check if new username already exists
         if (self::doesUsernameExist($new_user_name)) {
-            $_SESSION['response'][] = array("status" => "error", "message" => Text::get('FEEDBACK_USERNAME_ALREADY_TAKEN'));
+            Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_ALREADY_TAKEN'));
             return false;
         }
 
         $status_of_action = self::saveNewUserName(Session::get('user_id'), $new_user_name);
         if ($status_of_action) {
             Session::set('user_name', $new_user_name);
-            $_SESSION['response'][] = array("status" => "success", "message" => Text::get('FEEDBACK_USERNAME_CHANGE_SUCCESSFUL'));
+            Session::add('feedback_positive', Text::get('FEEDBACK_USERNAME_CHANGE_SUCCESSFUL'));
             UserActivity::registerUserActivityByUserId(Session::get('user_id'), 'changeUsername');
             return true;
         } else {
-            $_SESSION['response'][] = array("status" => "error", "message" => Text::get('FEEDBACK_UNKNOWN_ERROR'));
+            Session::add('feedback_negative', Text::get('FEEDBACK_UNKNOWN_ERROR'));
             return false;
         }
     }

@@ -3,6 +3,10 @@
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_INVOICES');
 Auth::checkAuthentication();
+if (!Permission::hasPrivilege("rental-invoices")) {
+    Redirect::permissionerror();
+    die();
+}
 require_once DIR_INCLUDES.'functions.php';
 require_once DIR_INCLUDES.'head.php';
 displayHeadCSS();
@@ -23,7 +27,7 @@ PortalCMS_JS_dataTables();
 
         <hr>
 
-                <?php Util::DisplayMessage(); View::renderFeedbackMessages(); ?>
+                <?php View::renderFeedbackMessages(); ?>
         <?php
         $invoices = Invoice::getAllInvoices();
         if ($invoices) {

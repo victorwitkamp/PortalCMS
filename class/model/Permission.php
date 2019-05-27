@@ -17,7 +17,7 @@ class Permission
 
     public static function assign($role_id, $perm_id) {
         if (self::assignAction($role_id, $perm_id)) {
-            $_SESSION['response'][] = array("status"=>"success", "message"=>"Permissie toegewezen.");
+            Session::add('feedback_positive', "Permissie toegewezen.");
             return true;
         }
         return false;
@@ -35,7 +35,7 @@ class Permission
     }
     public static function unassign($role_id, $perm_id) {
         if (self::unassignAction($role_id, $perm_id)) {
-            $_SESSION['response'][] = array("status"=>"success", "message"=>"Permissie verwijderd.");
+            Session::add('feedback_positive', "Permissie verwijderd.");
             return true;
         }
         return false;

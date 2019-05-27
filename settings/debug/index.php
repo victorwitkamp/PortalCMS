@@ -24,12 +24,12 @@ PortalCMS_JS_headJS();
                     <h1><?php echo $pageName; ?></h1>
                 </div>
             </div>
-            <?php Util::DisplayMessage(); View::renderFeedbackMessages(); ?>
+            <?php View::renderFeedbackMessages(); ?>
         </div>
         <hr>
         <div class="container">
             <h2>var_dump($_SESSION)</h2>
-            <?php var_dump($_SESSION); echo '<br>'; var_dump($_SESSION['response']); ?>
+            <?php var_dump($_SESSION); echo '<br>'; ?>
         </div>
     </div>
 </main>

@@ -88,10 +88,10 @@ class Contract
             $contract_einddatum,
             $contract_datum
         )) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Toevoegen van contract mislukt.<br>");
+            Session::add('feedback_negative', "Toevoegen van contract mislukt.");
             Redirect::redirectPage("rental/contracts/");
         } else {
-            $_SESSION['response'][] = array("status"=>"success", "message"=>"Contract toegevoegd.");
+            Session::add('feedback_positive', "Contract toegevoegd.");
             Redirect::redirectPage("rental/contracts/");
         }
     }
@@ -242,14 +242,14 @@ class Contract
                 $contract_datum
             )
             ) {
-                $_SESSION['response'][] = array("status"=>"error", "message"=>"Wijzigen van contract mislukt.<br>");
+                Session::add('feedback_negative', "Wijzigen van contract mislukt.");
                 Redirect::redirectPage("rental/contracts/");
             } else {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Contract gewijzigd.");
+                Session::add('feedback_positive', "Contract gewijzigd.");
                 Redirect::redirectPage("rental/contracts/");
             }
         } else {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Wijzigen van contract mislukt.<br>Contract bestaat niet.");
+            Session::add('feedback_negative', "Wijzigen van contract mislukt.<br>Contract bestaat niet.");
             Redirect::redirectPage("rental/contracts/");
         }
     }

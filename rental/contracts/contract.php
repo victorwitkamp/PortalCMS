@@ -4,9 +4,13 @@ $pageType = 'edit';
 $pageName = 'Profiel';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
+if (!Permission::hasPrivilege("rental-contracts")) {
+    Redirect::permissionerror();
+    die();
+}
 $row = Contract::getById($_GET['id']);
 if (!$row) {
-    $_SESSION['response'][] = array("status"=>"error", "message"=>"Het contract bestaat niet.");
+    Session::add('feedback_negative', "Het contract bestaat niet.");
     Redirect::Error();
 }
 $pageName = 'Contract van '.$row['band_naam'];

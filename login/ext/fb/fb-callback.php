@@ -29,7 +29,7 @@ if (!isset($accessToken)) {
     }
     exit;
 }
-  
+
 // Logged in
 // echo '<h3>Access Token</h3>';
 // var_dump($accessToken->getValue());
@@ -79,5 +79,5 @@ $user = $response->getGraphUser();
 $userid = Session::get('user_id');
 User::saveNewFbid($userid, $user['id']);
 Session::set('user_fbid', $user['id']);
-$_SESSION['response'][] = array("status"=>"success", "message"=>'Facebook account succesvol gekoppeld.');
+Session::add('feedback_positive', 'Facebook account succesvol gekoppeld.');
 Redirect::redirectPage('my-account/index.php');

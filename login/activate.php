@@ -16,7 +16,7 @@ PortalCMS_JS_headJS();
 if (isset($_GET['activate'])) {
     if ($_GET['activate'] = '1') {
         $u->activate($_GET['email'], $_GET['code']);
-        Util::redirectPage(SiteSettings::getStaticSiteSetting('site_url')."/login/login.php");
+        Util::redirectPage(SiteSetting::getStaticSiteSetting('site_url')."/login/login.php");
     }
 }
 ?>
@@ -36,9 +36,9 @@ if (isset($_GET['activate'])) {
             <form method="post" class="form-signin shadow" validate=true>
                 <div class="card">
                     <div class="card-header text-center">
-                        <img src='<?php echo SiteSettings::getStaticSiteSetting('site_logo'); ?>' alt='<?php echo SiteSettings::getStaticSiteSetting('site_name'); ?>' width='200px' height='200px'/>
-                        <h1 class="h3 mb-3 font-weight-normal"><?php echo SiteSettings::getStaticSiteSetting('site_name'); ?></h2>
-                        <?php Util::DisplayMessage(); View::renderFeedbackMessages(); ?>
+                        <img src='<?php echo SiteSetting::getStaticSiteSetting('site_logo'); ?>' alt='<?php echo SiteSetting::getStaticSiteSetting('site_name'); ?>' width='200px' height='200px'/>
+                        <h1 class="h3 mb-3 font-weight-normal"><?php echo SiteSetting::getStaticSiteSetting('site_name'); ?></h2>
+                        <?php View::renderFeedbackMessages(); ?>
                     </div>
                     <div class="card-body">
                         <h2 class="h3 mb-3 font-weight-normal "><?php echo $pageName ?></h3>

@@ -1,6 +1,6 @@
 <?php
 
-class MailTemplates
+class MailTemplate
 {
     public static function getTemplates()
     {
@@ -36,9 +36,9 @@ class MailTemplates
         $status = 1;
         $return = self::writenew($type, $subject, $body, $status);
         if ($return === false) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Nieuwe template aanmaken mislukt.");
+            Session::add('feedback_negative', "Nieuwe template aanmaken mislukt.");
         } else {
-            $_SESSION['response'][] = array("status"=>"success", "message"=>"Template toegevoegd (ID = ".$return.')');
+            Session::add('feedback_positive', "Template toegevoegd (ID = ".$return.')');
             Redirect::redirectPage("mailscheduler/templates/");
         }
     }

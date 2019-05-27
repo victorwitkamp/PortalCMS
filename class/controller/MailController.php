@@ -10,20 +10,20 @@ class MailController
     public static function sendMail($fromEmail, $recipientEmail, $mailSubject, $mailBody)
     {
         //  = Config::get('EMAIL_SMTP_USERNAME');
-        $fromName = SiteSettings::getStaticSiteSetting('site_name');
-        
+        $fromName = SiteSetting::getStaticSiteSetting('site_name');
+
         if (!empty($recipientEmail) && !empty($mailSubject) && !empty($mailBody)) {
             $MailSender = new MailSender;
             if (!$MailSender->sendMail($recipientEmail, $fromEmail, $fromName, $mailSubject, $mailBody)) {
                 self::$error = $MailSender->error;
-                $_SESSION['response'][] = array("status"=>"error", "message"=>"MailController: Niet verstuurd. Fout: ".self::$error);
+                Session::add('feedback_negative', "MailController: Niet verstuurd. Fout: ".self::$error);
                 return false;
             } else {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"MailController: Mail verstuurd naar: ".$recipientEmail);
+                Session::add('feedback_positive', "MailController: Mail verstuurd naar: ".$recipientEmail);
                 return true;
             }
         } else {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"MailController: Ongeldig verzoek");
+            Session::add('feedback_negative', "MailController: Ongeldig verzoek");
             return false;
         }
     }
@@ -39,7 +39,7 @@ class MailController
                 return false;
             }
         } else {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>"Geen evenementen om te versturen");
+            Session::add('feedback_negative', "MailController: Geen evenementen om te versturen");
             return false;
         }
     }

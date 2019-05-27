@@ -2,6 +2,10 @@
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_CONTRACTS');
 Auth::checkAuthentication();
+if (!Permission::hasPrivilege("rental-contracts")) {
+    Redirect::permissionerror();
+    die();
+}
 require_once DIR_INCLUDES.'functions.php';
 require_once DIR_INCLUDES.'head.php';
 displayHeadCSS();
@@ -22,7 +26,7 @@ PortalCMS_JS_dataTables();
             </div>
             <hr>
             <?php
-            Util::DisplayMessage(); View::renderFeedbackMessages();
+            View::renderFeedbackMessages();
             $stmt = DB::conn()->prepare("SELECT * FROM contracts ORDER BY id ASC");
             $stmt->execute();
             if ($stmt->rowCount() == 0) {

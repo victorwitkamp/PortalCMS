@@ -4,29 +4,29 @@
 
         <label class="col-4 col-form-label"><?php echo Text::get('LABEL_SITE_NAME'); ?></label>
         <div class="col-8">
-            <input type="text" name="site_name" value="<?php echo SiteSettings::getStaticSiteSetting('site_name'); ?>" class="form-control">
+            <input type="text" name="site_name" value="<?php echo SiteSetting::getStaticSiteSetting('site_name'); ?>" class="form-control">
         </div>
 
         <label class="col-4 col-form-label"><?php echo Text::get('LABEL_SITE_DESC'); ?></label>
         <div class="col-8">
-            <input type="text" name="site_description" value="<?php echo SiteSettings::getStaticSiteSetting('site_description'); ?>" class="form-control">
+            <input type="text" name="site_description" value="<?php echo SiteSetting::getStaticSiteSetting('site_description'); ?>" class="form-control">
         </div>
 
         <label class="col-4 col-form-label"><?php echo Text::get('LABEL_SITE_DESC_TYPE'); ?></label>
         <div class="col-8">
             <div class="input-group">
                 <select name="site_description_type" class="form-control">
-                    <option value="1" <?php if (SiteSettings::getStaticSiteSetting('site_description_type') === '1') { echo 'selected'; } ?>>
+                    <option value="1" <?php if (SiteSetting::getStaticSiteSetting('site_description_type') === '1') { echo 'selected'; } ?>>
                         <label class="form-check-label">
                             1. Site description text
                         </label>
                     </option>
-                    <option value="2" <?php if (SiteSettings::getStaticSiteSetting('site_description_type') === '2') { echo 'selected'; } ?>>
+                    <option value="2" <?php if (SiteSetting::getStaticSiteSetting('site_description_type') === '2') { echo 'selected'; } ?>>
                         <label class="form-check-label">
                             2. Random joke
                         </label>
                     </option>
-                    <option value="3" <?php if (SiteSettings::getStaticSiteSetting('site_description_type') === '3') { echo 'selected'; } ?>>
+                    <option value="3" <?php if (SiteSetting::getStaticSiteSetting('site_description_type') === '3') { echo 'selected'; } ?>>
                         <label class="form-check-label">
                                 3. Random Chuck Norris joke
                         </label>
@@ -39,7 +39,7 @@
         <div class="col-8">
             <div class="input-group">
                 <select class="form-control" name="site_theme">
-                    <?php $SiteTheme = SiteSettings::getStaticSiteSetting('site_theme'); ?>
+                    <?php $SiteTheme = SiteSetting::getStaticSiteSetting('site_theme'); ?>
                     <option value="darkly" <?php if ($SiteTheme == 'darkly') { echo 'selected'; } ?>>darkly</option>
                     <option value="solar" <?php if ($SiteTheme == 'solar') { echo 'selected'; } ?>>solar</option>
                     <option value="superhero" <?php if ($SiteTheme == 'superhero') { echo 'selected'; } ?>>superhero</option>
@@ -54,7 +54,7 @@
         <div class="col-8">
             <div class="input-group">
                 <select class="form-control" name="site_layout">
-                    <?php $SiteLayout = SiteSettings::getStaticSiteSetting('site_layout'); ?>
+                    <?php $SiteLayout = SiteSetting::getStaticSiteSetting('site_layout'); ?>
                     <option value="right-sidebar" <?php if ($SiteLayout == 'right-sidebar') { echo 'selected'; } ?>>right-sidebar</option>
                     <option value="left-sidebar" <?php if ($SiteLayout == 'left-sidebar') { echo 'selected'; } ?>>left-sidebar</option>
                 </select>
@@ -63,12 +63,12 @@
 
         <label class="col-4 col-form-label"><?php echo Text::get('LABEL_SITE_URL'); ?></label>
         <div class="col-8">
-            <input type="text" name="site_url" value="<?php echo SiteSettings::getStaticSiteSetting('site_url'); ?>" class="form-control">
+            <input type="text" name="site_url" value="<?php echo SiteSetting::getStaticSiteSetting('site_url'); ?>" class="form-control">
         </div>
 
         <label class="col-4 col-form-label"><?php echo Text::get('LABEL_SITE_LOGO'); ?></label>
         <div class="col-8">
-            <input type="text" name="site_logo" value="<?php echo SiteSettings::getStaticSiteSetting('site_logo'); ?>" class="form-control">
+            <input type="text" name="site_logo" value="<?php echo SiteSetting::getStaticSiteSetting('site_logo'); ?>" class="form-control">
         </div>
 
     </div>
@@ -83,7 +83,7 @@
         <div class="col-8">
             <div class="input-group">
                 <select class="form-control" name="WidgetComingEvents">
-                    <?php $WidgetComingEvents = SiteSettings::getStaticSiteSetting('WidgetComingEvents'); ?>
+                    <?php $WidgetComingEvents = SiteSetting::getStaticSiteSetting('WidgetComingEvents'); ?>
                     <option value="1" <?php if ($WidgetComingEvents == '1') { echo 'selected'; } ?>>Enabled</option>
                     <option value="0" <?php if ($WidgetComingEvents == '0') { echo 'selected'; } ?>>Disabled</option>
                 </select>
@@ -94,7 +94,7 @@
         <div class="col-8">
             <div class="input-group">
                 <select class="form-control" name="WidgetDebug">
-                    <?php $WidgetDebug = SiteSettings::getStaticSiteSetting('WidgetDebug'); ?>
+                    <?php $WidgetDebug = SiteSetting::getStaticSiteSetting('WidgetDebug'); ?>
                     <option value="1" <?php if ($WidgetDebug == '1') { echo 'selected'; } ?>>Enabled</option>
                     <option value="0" <?php if ($WidgetDebug == '0') { echo 'selected'; } ?>>Disabled</option>
                 </select>
@@ -111,19 +111,19 @@
 
         <label class="col-4 col-form-label">Mailserver</label>
         <div class="col-8">
-            <input type="text" name="MailServer" value="<?php echo SiteSettings::getStaticSiteSetting('MailServer'); ?>" class="form-control">
+            <input type="text" name="MailServer" value="<?php echo SiteSetting::getStaticSiteSetting('MailServer'); ?>" class="form-control">
         </div>
 
         <label class="col-4 col-form-label">Port</label>
         <div class="col-8">
-            <input type="text" name="MailServerPort" value="<?php echo SiteSettings::getStaticSiteSetting('MailServerPort'); ?>" class="form-control">
+            <input type="text" name="MailServerPort" value="<?php echo SiteSetting::getStaticSiteSetting('MailServerPort'); ?>" class="form-control">
         </div>
 
         <label class="col-4 col-form-label">Security</label>
         <div class="col-8">
             <div class="input-group">
                 <select class="form-control" name="MailServerSecure">
-                    <?php $MailServerSecure = SiteSettings::getStaticSiteSetting('MailServerSecure'); ?>
+                    <?php $MailServerSecure = SiteSetting::getStaticSiteSetting('MailServerSecure'); ?>
                     <option value="tls" <?php if ($MailServerSecure == 'tls') { echo 'selected'; } ?>>tls</option>
                     <option value="ssl" <?php if ($MailServerSecure == 'ssl') { echo 'selected'; } ?>>ssl</option>
                     <option value="0" <?php if ($MailServerSecure == '0') { echo 'selected'; } ?>>Disabled</option>
@@ -136,7 +136,7 @@
         <div class="col-8">
             <div class="input-group">
                 <select class="form-control" name="MailServerAuth">
-                    <?php $MailServerAuth = SiteSettings::getStaticSiteSetting('MailServerAuth'); ?>
+                    <?php $MailServerAuth = SiteSetting::getStaticSiteSetting('MailServerAuth'); ?>
                     <option value="1" <?php if ($MailServerAuth == '1') { echo 'selected'; } ?>>Enabled</option>
                     <option value="0" <?php if ($MailServerAuth == '0') { echo 'selected'; } ?>>Disabled</option>
                 </select>
@@ -145,12 +145,12 @@
 
         <label class="col-4 col-form-label">SMTP username</label>
         <div class="col-8">
-            <input type="text" name="MailServerUsername" value="<?php echo SiteSettings::getStaticSiteSetting('MailServerUsername'); ?>" class="form-control">
+            <input type="text" name="MailServerUsername" value="<?php echo SiteSetting::getStaticSiteSetting('MailServerUsername'); ?>" class="form-control">
         </div>
 
         <label class="col-4 col-form-label">SMTP password</label>
         <div class="col-8">
-            <input type="password" name="MailServerPassword" value="<?php echo SiteSettings::getStaticSiteSetting('MailServerPassword'); ?>" class="form-control">
+            <input type="password" name="MailServerPassword" value="<?php echo SiteSetting::getStaticSiteSetting('MailServerPassword'); ?>" class="form-control">
         </div>
 
     </div>

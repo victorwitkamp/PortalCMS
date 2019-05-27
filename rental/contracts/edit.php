@@ -4,13 +4,18 @@ $allowEdit = false;
 $pageType = 'edit';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
+if (!Permission::hasPrivilege("rental-contracts")) {
+    Redirect::permissionerror();
+    die();
+}
 require_once DIR_INCLUDES.'functions.php';
 if (Contract::doesIdExist($_GET['id'])) {
     $row = Contract::getById($_GET['id']);
     $allowEdit = true;
     $pageName = 'Contract van '.$row ['band_naam'].' bewerken';
 } else {
-    $_SESSION['response'][] = array("status"=>"warning", "message"=>"Geen resultaten voor opgegeven Id.");
+    Session::add('feedback_negative', "Geen resultaten voor opgegeven Id.");
+    Redirect::Error();
 }
 require_once DIR_INCLUDES.'head.php';
 displayHeadCSS();
@@ -67,7 +72,7 @@ $(function () {
             </div>
         </div>
         <div class="container">
-        <?php Util::DisplayMessage(); View::renderFeedbackMessages(); ?>
+        <?php View::renderFeedbackMessages(); ?>
         <?php require 'contract_form.php'; ?>
         </div>
     </div>

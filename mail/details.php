@@ -1,11 +1,15 @@
-<?php 
+<?php
 
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
-$pageName = Text::get('LABEL_MAILDETAILS_TITLE');
+$pageName = Text::get('TITLE_MAIL_DETAILS');
 Auth::checkAuthentication();
+if (!Permission::hasPrivilege("mail-scheduler")) {
+    Redirect::permissionerror();
+    die();
+}
 require_once DIR_INCLUDES.'functions.php';
 require_once DIR_INCLUDES.'head.php';
-displayHeadCSS(); 
+displayHeadCSS();
 PortalCMS_JS_headJS(); ?>
 </head>
 <body>
@@ -15,12 +19,13 @@ $id = $_GET['id'];
 if (MailSchedule::doesMailIdExist($id)) {
     $row = MailSchedule::getScheduledMailById($id);
 } else {
-    $_SESSION['response'][] = array("status"=>"warning", "message"=>"Geen resultaten voor opgegeven mail ID.");
+    Session::add('feedback_negative', "Geen resultaten voor opgegeven mail ID.");
+    Redirect::Error();
 }
 ?>
 <?php require DIR_INCLUDES.'nav.php'; ?>
 <main>
-    <div class="content">   
+    <div class="content">
         <div class="container">
             <div class="row mt-5">
                 <h1><?php echo $pageName; ?></h1>

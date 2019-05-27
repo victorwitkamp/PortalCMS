@@ -1,7 +1,7 @@
 <?php
-$pageType = 'index';
+$pageType = 'history';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
-$pageName = Text::get('TITLE_MAIL_SCHEDULER');
+$pageName = Text::get('TITLE_MAIL_HISTORY');
 Auth::checkAuthentication();
 if (!Permission::hasPrivilege("mail-scheduler")) {
     Redirect::permissionerror();
@@ -28,23 +28,22 @@ PortalCMS_JS_dataTables();
                     </a>
                 </div>
             </div>
-            <a href="history.php">history</a>
             <hr>
         </div>
         <div class="container">
             <?php
-            Util::DisplayMessage(); View::renderFeedbackMessages();
+            View::renderFeedbackMessages();
             PortalCMS_JS_Init_dataTables();
-            $stmt = DB::conn()->prepare("SELECT * FROM mail_schedule WHERE status = 1 ORDER BY id ASC");
+            $stmt = DB::conn()->prepare("SELECT * FROM mail_schedule WHERE status > 1 ORDER BY id ASC");
             $stmt->execute();
             if ($stmt->rowCount() == 0) {
                 echo 'Ontbrekende gegevens..';
             } else {
-                include 'table.php';
+                include 'inc/table.php';
             }
             ?>
         </div>
     </div>
 </main>
-<?php require '../includes/footer.php'; ?>
+<?php require DIR_INCLUDES.'footer.php'; ?>
 </body>

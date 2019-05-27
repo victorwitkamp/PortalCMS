@@ -99,11 +99,11 @@ class POSTController
 
         // Site settings
         if (isset($_POST['saveSiteSettings'])) {
-            if (SiteSettings::saveSiteSettings()) {
-                $_SESSION['response'][] = array("status"=>"success", "message"=>"Instellingen succesvol opgeslagen.");
+            if (SiteSetting::saveSiteSettings()) {
+                Session::add('feedback_positive', "Instellingen succesvol opgeslagen.");
                 Redirect::redirectPage("settings/site-settings/index.php");
             } else {
-                $_SESSION['response'][] = array("status"=>"warning", "message"=>"Fout bij opslaan van instellingen.");
+                Session::add('feedback_negative', "Fout bij opslaan van instellingen.");
                 Redirect::redirectPage("settings/site-settings/index.php");
             }
         }

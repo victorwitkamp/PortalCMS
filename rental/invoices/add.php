@@ -2,6 +2,10 @@
 $pageName = 'Factuur toevoegen';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
+if (!Permission::hasPrivilege("rental-invoices")) {
+    Redirect::permissionerror();
+    die();
+}
 require_once DIR_INCLUDES.'functions.php';
 require_once DIR_INCLUDES.'head.php';
 displayHeadCSS();
@@ -21,7 +25,7 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
 
             <hr>
 
-                <?php Util::DisplayMessage(); View::renderFeedbackMessages(); ?>
+                <?php View::renderFeedbackMessages(); ?>
                 <form method="post" validate=true>
 
                     <div class="form-group row">

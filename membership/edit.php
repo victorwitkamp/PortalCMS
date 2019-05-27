@@ -1,4 +1,4 @@
-<?php 
+<?php
 $pageName = 'Wijzigen';
 $pageType = 'edit';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
@@ -9,13 +9,13 @@ if (Member::doesMemberIdExist($_GET['id'])) {
     $allowEdit = true;
     $pageName = 'Lidmaatschap van '.$row ['voornaam'].' '.$row ['achternaam'].' bewerken';
 } else {
-    $_SESSION['response'][] = array("status"=>"warning", "message"=>"Geen resultaten voor opgegeven Id.");
+    Session::add('feedback_negative', "Geen resultaten voor opgegeven Id.");
 }
 require_once DIR_INCLUDES.'head.php';
 displayHeadCSS();
 PortalCMS_CSS_tempusdominus();
 PortalCMS_JS_headJS();
-PortalCMS_JS_tempusdominus(); 
+PortalCMS_JS_tempusdominus();
 PortalCMS_JS_JQuery_Simple_validator();
 PortalCMS_JS_Datepicker_membership();
 ?>

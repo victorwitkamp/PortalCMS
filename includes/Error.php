@@ -15,7 +15,7 @@ PortalCMS_JS_headJS();
             <div class="row mt-5">
                 <div class="col-sm-8"><h1><?php echo $pageName ?></h1></div>
             </div>
-            <?php Util::DisplayMessage(); View::renderFeedbackMessages(); ?>
+            <?php View::renderFeedbackMessages(); ?>
             <button onclick="goBack()" class="btn btn-outline-success my-2 my-sm-0"><span class="fa fa-angle-left"></span> Ga terug</button>
         </div>
     </div>

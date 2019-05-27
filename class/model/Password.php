@@ -45,10 +45,10 @@ class Password
         $user_password_hash = password_hash($user_password_new, PASSWORD_DEFAULT);
         // write the password to database (as hashed and salted string)
         if (self::saveChangedPassword($user_name, $user_password_hash)) {
-            $_SESSION['response'][] = array("status"=>"success", "message"=>Text::get('FEEDBACK_PASSWORD_CHANGE_SUCCESSFUL'));
+            Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_CHANGE_SUCCESSFUL'));
             return true;
         } else {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_PASSWORD_CHANGE_FAILED'));
+            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CHANGE_FAILED'));
             return false;
         }
     }
@@ -72,23 +72,23 @@ class Password
         if ($stmt->rowCount() == 1) {
             $user_password_hash = $user->user_password_hash;
         } else {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_USER_DOES_NOT_EXIST'));
+            Session::add('feedback_negative', Text::get('FEEDBACK_USER_DOES_NOT_EXIST'));
             return false;
         }
         if (!password_verify($user_password_current, $user_password_hash)) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_PASSWORD_CURRENT_INCORRECT'));
+            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CURRENT_INCORRECT'));
             return false;
         } else if (empty($user_password_new) || empty($user_password_repeat)) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_PASSWORD_FIELD_EMPTY'));
+            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_FIELD_EMPTY'));
             return false;
         } else if ($user_password_new !== $user_password_repeat) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_PASSWORD_REPEAT_WRONG'));
+            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_REPEAT_WRONG'));
             return false;
         } else if (strlen($user_password_new) < 6) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_PASSWORD_TOO_SHORT'));
+            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_TOO_SHORT'));
             return false;
         } else if ($user_password_current == $user_password_new) {
-            $_SESSION['response'][] = array("status"=>"error", "message"=>Text::get('FEEDBACK_PASSWORD_NEW_SAME_AS_CURRENT'));
+            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_NEW_SAME_AS_CURRENT'));
             return false;
         }
         return true;

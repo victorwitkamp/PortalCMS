@@ -32,7 +32,7 @@ PortalCMS_JS_dataTables();
         <?php
 
 
-        Util::DisplayMessage(); View::renderFeedbackMessages();
+        View::renderFeedbackMessages();
         PortalCMS_JS_Init_dataTables();
         $stmt = DB::conn()->prepare("SELECT * FROM members ORDER BY id ASC");
         $stmt->execute();

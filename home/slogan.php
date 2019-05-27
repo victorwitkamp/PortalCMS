@@ -1,5 +1,5 @@
 <?php
-if (SiteSettings::getStaticSiteSetting('site_description_type') === '2') {
+if (SiteSetting::getStaticSiteSetting('site_description_type') === '2') {
     $request_headers = array();
     $request_headers[] = 'accept: (application/json|text/plain)';
     $ch = curl_init('https://sv443.net/jokeapi/category/Any');
@@ -16,7 +16,7 @@ if (SiteSettings::getStaticSiteSetting('site_description_type') === '2') {
     echo '<br>';
     print $out->{'delivery'};
 }
-if (SiteSettings::getStaticSiteSetting('site_description_type') === '3') {
+if (SiteSetting::getStaticSiteSetting('site_description_type') === '3') {
     $request_headers = array();
     $request_headers[] = 'accept: (text/plain)';
     $ch = curl_init('https://api.chucknorris.io/jokes/random');
