@@ -3,7 +3,6 @@ class POSTController
 {
     public function __construct()
     {
-        // Login
         if (isset($_POST['loginSubmit'])) {
             LoginController::loginWithPassword();
         }
@@ -21,8 +20,6 @@ class POSTController
         if (isset($_POST['resetSubmit'])) {
             PasswordReset::verifyPasswordReset($_POST['password'], $_POST['resetCode']);
         }
-
-        // My account
         if (isset($_POST['changeUsername'])) {
             User::editUserName($_POST['user_name']);
         }
@@ -32,8 +29,6 @@ class POSTController
         if (isset($_POST['clearUserFbid'])) {
             User::clearFbid();
         }
-
-        // Events
         if (isset($_POST['addEvent'])) {
             Event::addEvent();
         }
@@ -43,28 +38,21 @@ class POSTController
         if (isset($_POST['deleteEvent'])) {
             Event::deleteEvent();
         }
-
-        // Members
         if (isset($_POST['saveMember'])) {
             Member::saveMember();
         }
         if (isset($_POST['saveNewMember'])) {
             Member::newMember();
         }
-
-        // Contracts
         if (isset($_POST['updateContract'])) {
             Contract::update();
         }
         if (isset($_POST['newContract'])) {
             Contract::new();
         }
-        // Products
         if (isset($_POST['saveNewProduct'])) {
             Product::new();
         }
-
-        // Invoices
         if (isset($_POST['saveNewInvoice'])) {
             Invoice::new();
         }
@@ -74,13 +62,9 @@ class POSTController
         if (isset($_POST['addinvoiceitem'])) {
             Invoice::addInvoiceItem();
         }
-
-        // Page
         if (isset($_POST['updatePage'])) {
             Page::updatePage($_POST['id'], $_POST['content']);
         }
-
-        // Mail schedule
         if (isset($_POST['testmail'])) {
             MailController::sendMail($_POST['senderemail'], $_POST['recipientemail'], $_POST['subject'], $_POST['body']);
         }
@@ -97,7 +81,6 @@ class POSTController
             MailSchedule::newWithTemplate();
         }
 
-        // Site settings
         if (isset($_POST['saveSiteSettings'])) {
             if (SiteSetting::saveSiteSettings()) {
                 Session::add('feedback_positive', "Instellingen succesvol opgeslagen.");
@@ -107,7 +90,6 @@ class POSTController
                 Redirect::redirectPage("settings/site-settings/index.php");
             }
         }
-        // Roles
         if (isset($_POST['assignrole'])) {
             Role::assign($_POST['user_id'], $_POST['role_id']);
         }
