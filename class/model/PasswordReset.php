@@ -214,7 +214,7 @@ class PasswordReset
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_TOKEN_MISSING'));
             return false;
         } else if (empty($user_password_new) || empty($user_password_repeat)) {
-            Session::add('feedback_negative', "message"=>Text::get('FEEDBACK_PASSWORD_FIELD_EMPTY'));
+            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_FIELD_EMPTY'));
             return false;
         } else if ($user_password_new !== $user_password_repeat) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_REPEAT_WRONG'));
