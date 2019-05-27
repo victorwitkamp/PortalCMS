@@ -15,12 +15,12 @@ class POSTController
         //         Redirect::redirectPage("login/login.php");
         //     }
         // }
-        // if (isset($_POST['requestPasswordReset'])) {
-        //     PasswordReset::requestPasswordReset($_POST['user_name_or_email']);
-        // }
-        // if (isset($_POST['resetSubmit'])) {
-        //     PasswordReset::verifyPasswordReset($_POST['password'], $_POST['resetCode']);
-        // }
+        if (isset($_POST['requestPasswordReset'])) {
+            PasswordReset::requestPasswordReset($_POST['user_name_or_email']);
+        }
+        if (isset($_POST['resetSubmit'])) {
+            PasswordReset::verifyPasswordReset($_POST['password'], $_POST['resetCode']);
+        }
 
         // My account
         if (isset($_POST['changeUsername'])) {

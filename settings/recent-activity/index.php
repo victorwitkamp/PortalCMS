@@ -34,9 +34,8 @@ PortalCMS_JS_headJS();
                     <th>user_id</th>
                     <th>user_name</th>
                     <th>ip_address</th>
-
                     <th>activity</th>
-</thead>
+                </thead>
                 <?php $Activities = UserActivity::load();
                 foreach ($Activities as $Activity) {
                     ?>
@@ -56,7 +55,6 @@ PortalCMS_JS_headJS();
                 ?>
             </table>
         </div>
-
     </div>
 </main>
 <?php require DIR_ROOT.'includes/footer.php'; ?>

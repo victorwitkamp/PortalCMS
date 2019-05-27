@@ -2,8 +2,6 @@
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_DEBUG');
 Auth::checkAuthentication();
-$pageName = Text::get('TITLE_MAIL_TEMPLATES');
-// Auth::checkAdminAuthentication();
 if (!Permission::hasPrivilege("debug")) {
     Redirect::permissionerror();
     die();
@@ -30,6 +28,10 @@ PortalCMS_JS_headJS();
         <div class="container">
             <h2>var_dump($_SESSION)</h2>
             <?php var_dump($_SESSION); echo '<br>'; ?>
+        </div>
+                <div class="container">
+<iframe width="800" height="600" src="phpinfo.inc.php" frameborder="0"></iframe>
+
         </div>
     </div>
 </main>

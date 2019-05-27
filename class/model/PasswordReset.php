@@ -96,7 +96,6 @@ class PasswordReset
         );
         if ($mail_sent) {
             Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_RESET_MAIL_SENDING_SUCCESSFUL'));
-            UserActivity::registerUserActivityByUsername($user_name, 'requestPasswordReset');
             return true;
         }
         Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_MAIL_SENDING_ERROR').$mail->getError());

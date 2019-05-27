@@ -285,7 +285,6 @@ class User
         if ($status_of_action) {
             Session::set('user_name', $new_user_name);
             Session::add('feedback_positive', Text::get('FEEDBACK_USERNAME_CHANGE_SUCCESSFUL'));
-            UserActivity::registerUserActivityByUserId(Session::get('user_id'), 'changeUsername');
             return true;
         } else {
             Session::add('feedback_negative', Text::get('FEEDBACK_UNKNOWN_ERROR'));

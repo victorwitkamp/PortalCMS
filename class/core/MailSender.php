@@ -10,6 +10,9 @@ use PHPMailer\PHPMailer\Exception;
  */
 class MailSender
 {
+    /** @var mixed variable to collect errors */
+    public $error;
+
     /**
      * The main mail sending method, this simply calls a certain mail sending method depending on which mail provider
      * you've selected in the application's config.
@@ -39,9 +42,6 @@ class MailSender
     {
         return $this->error;
     }
-
-    /** @var mixed variable to collect errors */
-    public $error;
 
     /**
      * Try to send a mail by using PHPMailer.
@@ -96,7 +96,7 @@ class MailSender
             // echo $e->errorMessage(); //Pretty error messages from PHPMailer
             $this->error = $e->errorMessage();
             return false;
-        } 
+        }
         // catch (\Exception $e) { //The leading slash means the Global PHP Exception class will be caught
         //     echo $e->getMessage(); //Boring error messages from anything else!
         // }
