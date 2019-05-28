@@ -19,7 +19,7 @@
 <div class="col-sm-8">
     <?php
     $page = Page::getPage('1');
-    View::renderFeedbackMessages();
+    Alert::renderFeedbackMessages();
 
     $permissionName = 'edit-page';
     echo $page["content"];

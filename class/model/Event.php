@@ -100,12 +100,14 @@ class Event
         $stmt->execute([$start_event, $end_event]);
         if (!$stmt->rowCount() == 0) {
             Session::add('feedback_negative', 'Kies een andere tijd.');
+            return false;
         } else {
             if (!self::addEventAction($title, $start_event, $end_event, $description)) {
                 Session::add('feedback_negative', 'Toevoegen van evenement mislukt.');
+                return false;
             } else {
                 Session::add('feedback_positive', 'Evenement toegevoegd.');
-                Redirect::redirectPage("events/");
+                return true;
             }
         }
     }
@@ -132,12 +134,14 @@ class Event
         if (self::doesEventIdExist($event_id)) {
             if (!self::updateEventAction($event_id, $title, $start_event, $end_event, $description)) {
                 Session::add('feedback_negative', 'Wijzigen van evenement mislukt.');
+                Redirect::redirectPage("events/");
             } else {
                 Session::add('feedback_positive', 'Evenement gewijzigd.');
                 Redirect::redirectPage("events/");
             }
         } else {
             Session::add('feedback_negative', 'Wijzigen van evenement mislukt.<br>Evenement bestaat niet.');
+            Redirect::redirectPage("events/");
         }
     }
 
@@ -171,12 +175,15 @@ class Event
         if ($count > 0) {
             if (self::deleteEventAction($event_id)) {
                 Session::add('feedback_positive', 'Evenement verwijderd.');
+                Redirect::redirectPage("events/");
                 return true;
             }
             Session::add('feedback_negative', 'Verwijderen van evenement mislukt.');
+            Redirect::redirectPage("events/");
             return false;
         }
         Session::add('feedback_negative', 'Verwijderen van evenement mislukt.<br>Evenement bestaat niet.');
+        Redirect::redirectPage("events/");
         return false;
     }
 

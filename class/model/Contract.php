@@ -345,4 +345,37 @@ class Contract
         return true;
     }
 
+    public static function delete()
+    {
+        $contract_id = Request::post('id', true);
+        $stmt = DB::conn()->prepare("SELECT * FROM contracts where id = ?");
+        $stmt->execute([$contract_id]);
+        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $count = count($result);
+        if ($count > 0) {
+            if(!Invoice::getInvoicesByContractId($contract_id)) {
+                if (self::deleteAction($contract_id)) {
+                    Session::add('feedback_positive', 'Contract verwijderd.');
+                    return true;
+                }
+                Session::add('feedback_negative', 'Verwijderen van contract mislukt.');
+                return false;
+            } else {
+                Session::add('feedback_negative', 'Dit contract heeft al facturen.');
+                return false;
+            }
+        }
+        Session::add('feedback_negative', 'Verwijderen van contract mislukt.<br>Contract bestaat niet.');
+        return false;
+    }
+
+    public static function deleteAction($contract_id)
+    {
+        $stmt = DB::conn()->prepare("DELETE FROM contracts WHERE id = ?");
+        if ($stmt->execute([$contract_id])) {
+            return true;
+        }
+        return false;
+    }
+
 }

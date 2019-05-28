@@ -72,7 +72,7 @@ $(function () {
             </div>
         </div>
         <div class="container">
-        <?php View::renderFeedbackMessages(); ?>
+        <?php Alert::renderFeedbackMessages(); ?>
         <?php require 'contract_form.php'; ?>
         </div>
     </div>

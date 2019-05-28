@@ -23,7 +23,7 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
                     <h1><?php echo $pageName ?></h1>
                 </div>
 
-                <?php View::renderFeedbackMessages(); ?>
+                <?php Alert::renderFeedbackMessages(); ?>
 
 
 

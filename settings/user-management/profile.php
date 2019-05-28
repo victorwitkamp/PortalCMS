@@ -24,7 +24,7 @@ PortalCMS_JS_headJS(); ?>
             <div class="row mt-5">
                 <h1>Profiel van: <?php echo $row['user_name']; ?></h1>
             </div>
-            <?php View::renderFeedbackMessages();
+            <?php Alert::renderFeedbackMessages();
             require 'profile_buttons.php';
             ?>
         <hr><?php

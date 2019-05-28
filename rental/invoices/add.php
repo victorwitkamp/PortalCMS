@@ -25,7 +25,7 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
 
             <hr>
 
-                <?php View::renderFeedbackMessages(); ?>
+                <?php Alert::renderFeedbackMessages(); ?>
                 <form method="post" validate=true>
 
                     <div class="form-group row">

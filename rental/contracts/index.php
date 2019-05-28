@@ -26,7 +26,7 @@ PortalCMS_JS_dataTables();
             </div>
             <hr>
             <?php
-            View::renderFeedbackMessages();
+            Alert::renderFeedbackMessages();
             $stmt = DB::conn()->prepare("SELECT * FROM contracts ORDER BY id ASC");
             $stmt->execute();
             if ($stmt->rowCount() == 0) {

@@ -27,7 +27,7 @@ PortalCMS_JS_headJS();
                     <input type="submit" name="saveSiteSettings" class="btn btn-success navbar-btn float-right" value="<?php echo Text::get('LABEL_SUBMIT'); ?>">
                 </div>
             </div>
-            <?php View::renderFeedbackMessages(); ?>
+            <?php Alert::renderFeedbackMessages(); ?>
             <?php require 'form.php'; ?>
         </form>
     </div>

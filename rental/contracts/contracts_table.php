@@ -13,8 +13,8 @@
         </tr>
     </thead>
     <tbody>
-    <?php 
-        
+    <?php
+
         $result = $stmt->fetchAll();
         foreach ($result as $row) {
     echo '
@@ -26,10 +26,10 @@
                 <a href="edit.php?id='.$row['id'].'" title="Gegevens wijzigen" class="btn btn-warning btn-sm">
                     <span class="fa fa-edit"></span>
                 </a>
-                <a href="contracten.php?action=delete&id='.$row['id'].'" title="Verwijderen" onclick="return confirm(\'Weet u zeker dat u '.$row['band_naam'].' wilt verwijderen?\')"
-                    class="btn btn-danger btn-sm">
-                    <span class="fa fa-trash"></span>
-                </a>
+                <form method="post">
+                    <input type="hidden" name="id" value="'.$row['id'].'">
+                    <button type="submit" name="deleteContract" class="btn btn-danger btn-sm" onclick="return confirm(\'Weet u zeker dat u het contract van '.$row['band_naam'].' wilt verwijderen?\')"><span class="fa fa-trash"></span></button>
+                </form>
             </td>
             <td>'.$row['bandcode'].'</td>
             <td>'.$row['band_naam'].'</td>

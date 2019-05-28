@@ -23,7 +23,7 @@ PortalCMS_JS_headJS();
                     <h1><?php echo $pageName; ?></h1>
                 </div>
             </div>
-            <?php View::renderFeedbackMessages(); ?>
+            <?php Alert::renderFeedbackMessages(); ?>
         </div>
         <div class="container">
             <?php //require 'content.php'; ?>
@@ -36,7 +36,7 @@ PortalCMS_JS_headJS();
                     <th>ip_address</th>
                     <th>activity</th>
                 </thead>
-                <?php $Activities = UserActivity::load();
+                <?php $Activities = Activity::load();
                 foreach ($Activities as $Activity) {
                     ?>
                         <tr>

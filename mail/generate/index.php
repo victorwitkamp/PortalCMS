@@ -25,7 +25,7 @@ PortalCMS_JS_headJS(); ?>
         <hr>
         <div class="container">
             <?php
-            View::renderFeedbackMessages();
+            Alert::renderFeedbackMessages();
             ?>
             <h2>Nieuw bericht met template</h2>
             <p>Aan wie wil je een e-mail versturen?<br>

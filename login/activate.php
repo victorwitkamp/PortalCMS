@@ -38,7 +38,7 @@ if (isset($_GET['activate'])) {
                     <div class="card-header text-center">
                         <img src='<?php echo SiteSetting::getStaticSiteSetting('site_logo'); ?>' alt='<?php echo SiteSetting::getStaticSiteSetting('site_name'); ?>' width='200px' height='200px'/>
                         <h1 class="h3 mb-3 font-weight-normal"><?php echo SiteSetting::getStaticSiteSetting('site_name'); ?></h2>
-                        <?php View::renderFeedbackMessages(); ?>
+                        <?php Alert::renderFeedbackMessages(); ?>
                     </div>
                     <div class="card-body">
                         <h2 class="h3 mb-3 font-weight-normal "><?php echo $pageName ?></h3>

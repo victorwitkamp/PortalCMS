@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Class : UserActivity (UserActivity.php)
+ * Class : Activity (Activity.php)
  * Details :
  */
-class UserActivity
+class Activity
 {
     public static function load() {
         $stmt = DB::conn()->prepare("SELECT * FROM activity ORDER BY id desc LIMIT 50");

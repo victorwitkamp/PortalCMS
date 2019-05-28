@@ -27,7 +27,7 @@ PortalCMS_JS_dataTables();
 
         <hr>
 
-                <?php View::renderFeedbackMessages(); ?>
+                <?php Alert::renderFeedbackMessages(); ?>
         <?php
         $invoices = Invoice::getAllInvoices();
         if ($invoices) {

@@ -30,7 +30,9 @@ class POSTController
             User::clearFbid();
         }
         if (isset($_POST['addEvent'])) {
-            Event::addEvent();
+            if (Event::addEvent()) {
+                Redirect::redirectPage("events/");
+            }
         }
         if (isset($_POST['updateEvent'])) {
             Event::updateEvent();
@@ -49,6 +51,9 @@ class POSTController
         }
         if (isset($_POST['newContract'])) {
             Contract::new();
+        }
+        if (isset($_POST['deleteContract'])) {
+            Contract::delete();
         }
         if (isset($_POST['saveNewProduct'])) {
             Product::new();

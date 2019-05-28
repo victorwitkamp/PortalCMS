@@ -28,7 +28,7 @@ if (!$row) {
                     <h1><?php echo Text::get('TITLE_ROLE'); ?>: <?php if (!empty($row['role_name'])) { echo $row['role_name']; }?></h1>
                 </div>
 
-                <?php View::renderFeedbackMessages();
+                <?php Alert::renderFeedbackMessages();
 
                 if ($Role) { ?>
                 <h3><?php echo Text::get('LABEL_ROLE_GENERAL'); ?></h3>

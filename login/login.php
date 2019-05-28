@@ -24,7 +24,7 @@ PortalCMS_CSS_floatingLabels();
     <?php require DIR_INCLUDES.'loadingAnimation.php'; ?>
   <nav class="navbar navbar-light bg-light">
     <a class="navbar-brand" href="<?php echo SiteSetting::getStaticSiteSetting('site_url'); ?>"><?php echo SiteSetting::getStaticSiteSetting('site_name'); ?></a>
-        <?php View::renderFeedbackMessages(); ?>
+        <?php Alert::renderFeedbackMessages(); ?>
   </nav>
   <main>
     <div class="content">

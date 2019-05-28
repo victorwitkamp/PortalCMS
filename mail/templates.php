@@ -36,7 +36,7 @@ plugins : 'advlist autolink link image lists charmap print preview'
                 </div>
             </div>
             <hr>
-            <?php View::renderFeedbackMessages(); ?>
+            <?php Alert::renderFeedbackMessages(); ?>
             <table id="example" class="table table-sm table-striped table-hover table-dark" style="width:100%">
                 <thead class="thead-dark">
                     <tr>

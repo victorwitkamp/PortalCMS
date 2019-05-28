@@ -47,7 +47,7 @@ plugins : 'advlist autolink link image lists charmap print preview'
                     <h3>Pagina "<?php echo $row ['name']; ?>" bewerken</h3>
                 </div>
                 <hr>
-                <?php View::renderFeedbackMessages(); ?>
+                <?php Alert::renderFeedbackMessages(); ?>
                 <form method="post" validate=true>
                     <div class="form-group form-group-sm row">
                         <div class="col-sm-12">
