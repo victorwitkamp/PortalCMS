@@ -1,10 +1,10 @@
 <?php
 /**
- * LoginModel
+ * Login
  *
  * Handles the login / logout process.
  */
-class LoginModel
+class Login
 {
     /**
      * Login process (for DEFAULT user accounts).

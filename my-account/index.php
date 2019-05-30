@@ -9,7 +9,7 @@ require $_SERVER["DOCUMENT_ROOT"]."/login/ext/fb/config.php";
     $helper = $fb->getRedirectLoginHelper();
 
     $permissions = ['email']; // Optional permissions
-    $loginUrl = $helper->getLoginUrl(FB_ASSIGN_URL, $permissions);
+    $loginUrl = $helper->getLoginUrl(Config::get('FB_ASSIGN_URL'), $permissions);
 
 require_once DIR_INCLUDES.'head.php';
 displayHeadCSS();

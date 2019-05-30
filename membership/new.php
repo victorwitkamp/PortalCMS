@@ -1,14 +1,18 @@
-<?php 
+<?php
 $pageName = 'Lid toevoegen';
 $pageType = 'new';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
+if (!Permission::hasPrivilege("membership")) {
+    Redirect::permissionerror();
+    die();
+}
 require_once DIR_INCLUDES.'functions.php';
 require_once DIR_INCLUDES.'head.php';
 displayHeadCSS();
 PortalCMS_CSS_tempusdominus();
 PortalCMS_JS_headJS();
-PortalCMS_JS_tempusdominus(); 
+PortalCMS_JS_tempusdominus();
 PortalCMS_JS_JQuery_Simple_validator();
 PortalCMS_JS_Datepicker_membership();
 ?>

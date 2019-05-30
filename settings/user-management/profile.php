@@ -27,7 +27,10 @@ PortalCMS_JS_headJS(); ?>
             <?php Alert::renderFeedbackMessages();
             require 'profile_buttons.php';
             ?>
-        <hr><?php
+            <hr>
+        </div>
+        <div class="container-fluid">
+            <?php
             require 'profile_table.php'; ?>
             <!-- <hr> -->
             <?php //require 'profile_buttons.php'; ?>

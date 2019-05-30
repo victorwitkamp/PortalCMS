@@ -15,14 +15,14 @@ class Csrf
      * This validation needed in the controller action method to validate CSRF token submitted with the form:
      *
      * if (!Csrf::isTokenValid()) {
-     *     LoginModel::logout();
+     *     Login::logout();
      *     Redirect::home();
      *     exit();
      * }
      *
      * To get simpler code it might be better to put the logout, redirect, exit into an own (static) method.
      */
-    
+
     /**
      * get CSRF token and generate a new one if expired
      *

@@ -1,13 +1,17 @@
-<?php 
+<?php
 $pageName = 'Profiel';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
+if (!Permission::hasPrivilege("membership")) {
+    Redirect::permissionerror();
+    die();
+}
 require_once DIR_INCLUDES.'functions.php';
-$row = Member::getMemberById($_GET['id']); 
+$row = Member::getMemberById($_GET['id']);
 $pageName = 'Lidmaatschap van '.$row['voornaam'].' '.$row['achternaam'];
 
 require_once DIR_INCLUDES.'head.php';
-displayHeadCSS(); 
+displayHeadCSS();
 PortalCMS_JS_headJS(); ?>
 </head>
 <body>

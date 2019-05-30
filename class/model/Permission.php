@@ -38,6 +38,7 @@ class Permission
             Session::add('feedback_positive', "Permissie verwijderd.");
             return true;
         }
+        Session::add('feedback_negative', "Kon permissie niet verwijderen.");
         return false;
     }
 
@@ -49,7 +50,10 @@ class Permission
                         LIMIT 1"
         );
         if ($stmt->execute([$role_id, $perm_id])) {
-            return true;
+            if ($stmt->rowCount() > 0) {
+                return true;
+            }
+            return false;
         }
         return false;
     }

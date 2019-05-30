@@ -6,6 +6,23 @@
 
 class MailController
 {
+    public function __construct() {
+        if (isset($_POST['testmail'])) {
+            MailController::sendMail($_POST['senderemail'], $_POST['recipientemail'], $_POST['subject'], $_POST['body']);
+        }
+        if (isset($_POST['testeventmail'])) {
+            MailController::sendEventMail($_POST['testeventmail_recipientemail']);
+        }
+        if (isset($_POST['newScheduledMail'])) {
+            MailSchedule::new();
+        }
+        if (isset($_POST['sendScheduledMailById'])) {
+            MailSchedule::sendbyid();
+        }
+        if (isset($_POST['createMailWithTemplate'])) {
+            MailSchedule::newWithTemplate();
+        }
+    }
     public static $error = '';
     public static function sendMail($fromEmail, $recipientEmail, $mailSubject, $mailBody)
     {

@@ -175,15 +175,15 @@ class Event
         if ($count > 0) {
             if (self::deleteEventAction($event_id)) {
                 Session::add('feedback_positive', 'Evenement verwijderd.');
-                Redirect::redirectPage("events/");
+                // Redirect::redirectPage("events/");
                 return true;
             }
             Session::add('feedback_negative', 'Verwijderen van evenement mislukt.');
-            Redirect::redirectPage("events/");
+            // Redirect::redirectPage("events/");
             return false;
         }
         Session::add('feedback_negative', 'Verwijderen van evenement mislukt.<br>Evenement bestaat niet.');
-        Redirect::redirectPage("events/");
+        // Redirect::redirectPage("events/");
         return false;
     }
 

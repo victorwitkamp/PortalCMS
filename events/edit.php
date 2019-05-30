@@ -3,6 +3,10 @@ $pageName = 'Evenement bewerken';
 $allowEdit = false;
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
+if (!Permission::hasPrivilege("events")) {
+    Redirect::permissionerror();
+    die();
+}
 require_once DIR_INCLUDES.'functions.php';
 
 if ($row = Event::getEventById($_GET['id'])) {

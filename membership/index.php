@@ -4,6 +4,10 @@ require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_MEMBERS');
 $year = Request::get('year');
 Auth::checkAuthentication();
+if (!Permission::hasPrivilege("membership")) {
+    Redirect::permissionerror();
+    die();
+}
 require_once DIR_INCLUDES.'functions.php';
 require_once DIR_INCLUDES.'head.php';
 displayHeadCSS();

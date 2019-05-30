@@ -99,7 +99,7 @@ RETURN ARRAY(
     "LABEL_SITE_LOGO" => "LOGO",
     "LABEL_SITE_WIDGETS" => "WIDGETS",
     // ROLE MANAGEMENT
-    "TITLE_ROLE" => "ROL",
+    "TITLE_ROLE" => "Details van",
     "LABEL_ROLE_GENERAL" => "Algemeen",
     "LABEL_ROLE_PERMISSIONS" => "Permissies",
     "LABEL_ROLE_ADD_PERMISSION" => "Permissie toevoegen",

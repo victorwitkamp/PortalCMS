@@ -14,6 +14,24 @@ class LoginController extends Controller
     public function __construct()
     {
         parent::__construct();
+
+        if (isset($_POST['loginSubmit'])) {
+            self::loginWithPassword();
+        }
+        // if (isset($_POST['signupSubmit'])) {
+        //     $this->signup($_POST['email'], $_POST['username'], $_POST['password'], $_POST['confirm_password']);
+        // }
+        // if (isset($_POST['activateSubmit'])) {
+        //     if ($this->activate($_POST['email'], $_POST['code'])) {
+        //         Redirect::redirectPage("login/login.php");
+        //     }
+        // }
+        if (isset($_POST['requestPasswordReset'])) {
+            PasswordReset::requestPasswordReset($_POST['user_name_or_email']);
+        }
+        if (isset($_POST['resetSubmit'])) {
+            PasswordReset::verifyPasswordReset($_POST['password'], $_POST['resetCode']);
+        }
     }
 
     /**
@@ -21,8 +39,7 @@ class LoginController extends Controller
      */
     public static function index()
     {
-        // if user is logged in redirect to main-page, if not show the view
-        if (!LoginModel::isUserLoggedIn()) {
+        if (!Login::isUserLoggedIn()) {
             // $data = array('redirect' => Request::get('redirect') ? Request::get('redirect') : NULL);
             // $this->View->render('login/index', $data);
             Redirect::login();
@@ -36,21 +53,16 @@ class LoginController extends Controller
      */
     public static function loginWithPassword()
     {
-        // check if csrf token is valid
         if (!Csrf::isTokenValid()) {
-            LoginModel::logout();
+            Login::logout();
             Redirect::login();
             exit();
         }
-
-        // perform the login method, put result (true or false) into $login_successful
-        $login_successful = LoginModel::loginWithPassword(
+        $login_successful = Login::loginWithPassword(
             Request::post('user_name'),
             Request::post('user_password'),
             Request::post('set_remember_me_cookie')
         );
-
-        // check login status: if true, then redirect user to user/index, if false, then to login form again
         if ($login_successful) {
             if (Request::post('redirect')) {
                 Redirect::toPreviousViewedPageAfterLogin(ltrim(urldecode(Request::post('redirect')), '/'));
@@ -72,7 +84,7 @@ class LoginController extends Controller
      */
     public function loginWithCookie()
     {
-        $login_successful = LoginModel::loginWithCookie(Request::cookie('remember_me'));
+        $login_successful = Login::loginWithCookie(Request::cookie('remember_me'));
         if ($login_successful) {
             Redirect::home();
         }
@@ -86,20 +98,19 @@ class LoginController extends Controller
      */
     public static function loginWithFacebook($fbid)
     {
-        $login_successful = LoginModel::loginWithFacebook($fbid);
+        $login_successful = Login::loginWithFacebook($fbid);
         if ($login_successful) {
-            // if (Request::post('redirect')) {
-            //     Redirect::toPreviousViewedPageAfterLogin(ltrim(urldecode(Request::post('redirect')), '/'));
-            //     exit();
-            // }
+            if (Request::post('redirect')) {
+                Redirect::toPreviousViewedPageAfterLogin(ltrim(urldecode(Request::post('redirect')), '/'));
+                exit();
+            }
             Redirect::home();
             exit();
         }
-        // if (Request::post('redirect')) {
-        //     Redirect::redirectPage('login/login.php?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
-        //     exit();
-        // }
-
+        if (Request::post('redirect')) {
+            Redirect::redirectPage('login/login.php?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
+            exit();
+        }
         Redirect::login();
         exit();
     }
@@ -110,7 +121,7 @@ class LoginController extends Controller
      */
     public static function logout()
     {
-        LoginModel::logout();
+        Login::logout();
         Redirect::login();
     }
 

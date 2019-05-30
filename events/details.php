@@ -1,6 +1,10 @@
-<?php 
+<?php
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
+if (!Permission::hasPrivilege("events")) {
+    Redirect::permissionerror();
+    die();
+}
 $row = Event::getEventById($_GET['id']);
 ?>
 
@@ -10,10 +14,10 @@ $row = Event::getEventById($_GET['id']);
     <div class="col-sm-6"><strong><?php echo Text::get('LABEL_EVENT_TITLE'); ?>:</strong></div>
     <div class="col-sm-6"><p><?php echo $row['title']; ?></p></div>
     <div class="col-sm-6"><strong><?php echo Text::get('LABEL_EVENT_ADDED_BY'); ?>:</strong></div>
-    <div class="col-sm-6"><p><?php 
+    <div class="col-sm-6"><p><?php
     $User = User::getProfileById($row['CreatedBy']);
     echo $User['user_name']; ?></p></div>
-    
+
     <div class="col-sm-6"><strong><?php echo Text::get('LABEL_EVENT_START'); ?>:</strong></div>
     <div class="col-sm-6"><p><?php echo $row['start_event']; ?></p></div>
     <div class="col-sm-6"><strong><?php echo Text::get('LABEL_EVENT_END'); ?>:</strong></div>

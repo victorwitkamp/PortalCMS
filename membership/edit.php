@@ -3,6 +3,10 @@ $pageName = 'Wijzigen';
 $pageType = 'edit';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
+if (!Permission::hasPrivilege("membership")) {
+    Redirect::permissionerror();
+    die();
+}
 require_once DIR_INCLUDES.'functions.php';
 if (Member::doesMemberIdExist($_GET['id'])) {
     $row = Member::getMemberById($_GET['id']);

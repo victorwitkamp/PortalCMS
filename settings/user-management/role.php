@@ -2,18 +2,18 @@
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_ROLE');
 Auth::checkAuthentication();
-if (!Permission::hasPrivilege("user-management")) {
-    Redirect::permissionerror();
-    die();
-}
+// if (!Permission::hasPrivilege("user-management")) {
+//     Redirect::permissionerror();
+//     die();
+// }
 require DIR_ROOT.'includes/functions.php';
 require DIR_ROOT.'includes/head.php';
 displayHeadCSS();
 PortalCMS_JS_headJS();
 
 
-$row = Role::get($_GET['role_id']);
-if (!$row) {
+$Role = Role::get($_GET['role_id']);
+if (!$Role) {
     Session::add('feedback_negative', "Geen resultaten voor opgegeven rol ID.");
     Redirect::Error();
 }
@@ -25,83 +25,85 @@ if (!$row) {
         <div class="content">
             <div class="container">
                 <div class="row mt-5">
-                    <h1><?php echo Text::get('TITLE_ROLE'); ?>: <?php if (!empty($row['role_name'])) { echo $row['role_name']; }?></h1>
+                    <h1><?php echo Text::get('TITLE_ROLE'); ?>: <?php
+                    if (!empty($Role['role_name'])) { echo $Role['role_name'].' (rol)'; }?></h1>
                 </div>
 
                 <?php Alert::renderFeedbackMessages();
 
                 if ($Role) { ?>
-                <h3><?php echo Text::get('LABEL_ROLE_GENERAL'); ?></h3>
-                <table class="table table-sm table-striped table-hover table-dark">
-                    <thead class="thead-dark">
+                    <!-- <h3><?php //echo Text::get('LABEL_ROLE_GENERAL'); ?></h3> -->
+                    <table class="table table-striped table-condensed">
+                        <!-- <thead class="thead-dark"> -->
+                        <tbody>
                         <tr>
-                            <th>ID</th>
+                        <th>ID</th><td>
+                            <?php echo $Role['role_id']; ?>
+                        </td>
+                        </tr>
                             <th>Naam</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
                             <td>
-                                <?php echo $row['role_id']; ?>
-                            </td>
-                            <td>
-                                <?php echo $row['role_name']; ?>
+                                <?php echo $Role['role_name']; ?>
                             </td>
                         </tr>
-                    </tbody>
-                </table>
+                            <th>Permissies</th>
+                            <td>
+
+                            <h3><?php //echo Text::get('LABEL_ROLE_PERMISSIONS'); ?></h3>
+                                <?php
+                                $Permissions = Role::getRolePermissionIds($_GET['role_id']);
+                                if ($Permissions) { ?>
+                                    <table class="table table-sm table-striped table-hover table-dark">
+                                            <thead class="thead-dark">                                <tr>
+                                                    <!-- <th>ID</th> -->
+                                                    <th>Permissie</th>
+                                                    <th>Acties</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php
+                                            foreach ($Permissions as $row) { ?>
+
+                                                <?php $Permission = Permission::get($row['perm_id']); ?>
+                                                    <tr>
+                                                        <!-- <td><?php //echo $row['perm_id']; ?></td> -->
+                                                        <td><?php echo $Permission['perm_desc']; ?></td>
+                                                        <td>
+                                                            <form method="post">
+                                                                <input type="hidden" name="role_id" value="<?php echo $_GET['role_id']; ?>">
+                                                                <input type="hidden" name="perm_id" value="<?php echo $Permission['perm_id']; ?>">
+                                                                            <?php
+                                                                            $msg = 'Weet u zeker dat u '.$Permission['perm_desc'].' wilt verwijderen?';
+                                                                            ?>
+
+                                                                <button type="submit" name="deleterolepermission" onclick="return confirm('<?php echo $msg; ?>')" class="btn btn-danger ml-2"><span class="fa fa-trash"></span></button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+
+                                            <?php } ?>
+                                            </tbody>
+                                    </table>
+                                    <?php
+                                } else {
+                                    echo 'Nog geen permissies...';
+                                }
+                                ?>
+                            </td>
+                        </tr>
+                        <!-- </thead> -->
+                        </tbody>
+                    </table>
                 <?php }
 
-                if ($Role) { ?>
-                <h3><?php echo Text::get('LABEL_ROLE_PERMISSIONS'); ?></h3>
 
-                    <?php
-                    $stmt = DB::conn()->prepare("SELECT * FROM role_perm where role_id=".$_GET['role_id']." ORDER BY perm_id ASC");
-                    $stmt->execute([$_GET['role_id']]);
-                    if ($stmt->rowCount() > 0) { ?>
-
-                        <table class="table table-sm table-striped table-hover table-dark">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Permissie</th>
-                                    <th>Acties</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <?php
-                            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
-
-                                <tr>
-                                    <td><?php echo $row['perm_id']; ?></td>
-                                    <td><?php
-                                    $Permission = Permission::get($row['perm_id']);
-                                    echo $Permission['perm_desc'];
-                                    ?></td>
-                                    <td>
-                                        <form method="post">
-                                            <input type="hidden" name="role_id"
-                                                value="<?php echo $row['role_id']; ?>">
-                                            <input type="hidden" name="perm_id"
-                                                value="<?php echo $row['perm_id']; ?>">
-                                            <input type="submit" name="deleterolepermission"
-                                                value="Verwijderen" class="btn btn-danger ml-2">
-                                        </form>
-                                    </td>
-                                </tr>
-
-                            <?php } ?>
-                            </tbody>
-                        </table>
-
-                    <?php }
-                }
 
                 if ($Role) { ?>
                     <h3><?php echo Text::get('LABEL_ROLE_ADD_PERMISSION'); ?></h3>
                     <p>Een rol kan meerdere permissies hebben. Kies hieronder
                     een gewenste permissie om toe te voegen aan de rol.<p>
                     <?php
+
                     $stmt = DB::conn()->prepare("SELECT * FROM permissions ORDER BY perm_id ASC");
                     $stmt->execute();
                     if ($stmt->rowCount() > 0) { ?>
@@ -123,10 +125,14 @@ if (!$row) {
 
                     <?php } else { ?>
 
-                        <p>Leeg</p>
+                        <p>Geen permissies om toe te wijzen</p>
 
                     <?php }
-                } ?>
+                }
+
+                // if ($Role) {
+
+            // } ?>
 
             </div>
         </div>
