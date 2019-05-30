@@ -7,6 +7,13 @@
 
 class Event
 {
+    /**
+     * Check if an Event ID exists
+     *
+     * @param [type] $eventid
+     *
+     * @return bool
+     */
     public static function doesEventIdExist($eventid)
     {
         $stmt = DB::conn()->prepare("SELECT id FROM events WHERE id = ? limit 1");
