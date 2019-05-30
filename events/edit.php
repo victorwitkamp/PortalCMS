@@ -9,7 +9,7 @@ if (!Permission::hasPrivilege("events")) {
 }
 require_once DIR_INCLUDES.'functions.php';
 
-if ($row = Event::getEventById($_GET['id'])) {
+if ($row = Event::getEvent($_GET['id'])) {
     $allowEdit = true;
     $pageName = 'Evenement '.$row ['title'].' bewerken';
 } else {

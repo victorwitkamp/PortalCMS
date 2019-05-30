@@ -10,24 +10,31 @@ class Event
     /**
      * Check if an Event ID exists
      *
-     * @param [type] $eventid
+     * @param int $Id
      *
      * @return bool
      */
-    public static function doesEventIdExist($eventid)
+    public static function doesEventIdExist($Id)
     {
         $stmt = DB::conn()->prepare("SELECT id FROM events WHERE id = ? limit 1");
-        $stmt->execute([$eventid]);
+        $stmt->execute([$Id]);
         if ($stmt->rowCount() == 0) {
             return false;
         }
         return true;
     }
 
-    public static function getEventById($eventid)
+    /**
+     * Fetches an Event by ID
+     *
+     * @param int $Id
+     *
+     * @return bool
+     */
+    public static function getEvent($Id)
     {
         $stmt = DB::conn()->prepare("SELECT * FROM events WHERE id = ? limit 1");
-        $stmt->execute([$eventid]);
+        $stmt->execute([$Id]);
         if (!$stmt->rowCount() == 1) {
             return false;
         } else {
@@ -162,7 +169,7 @@ class Event
         return true;
     }
 
-    public static function updateEventDate($event_id, $title, $start_event, $end_event)
+    public static function updateDate($event_id, $title, $start_event, $end_event)
     {
         $stmt = DB::conn()->prepare("UPDATE events SET title=?, start_event=?, end_event=? WHERE id=?");
         $stmt->execute([$title, $start_event, $end_event, $event_id]);
@@ -172,7 +179,7 @@ class Event
         return true;
     }
 
-    public static function deleteEvent()
+    public static function delete()
     {
         $event_id = Request::post('id', true);
         $stmt = DB::conn()->prepare("SELECT * FROM events where id = ?");
@@ -180,7 +187,7 @@ class Event
         $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         $count = count($result);
         if ($count > 0) {
-            if (self::deleteEventAction($event_id)) {
+            if (self::deleteAction($event_id)) {
                 Session::add('feedback_positive', 'Evenement verwijderd.');
                 // Redirect::redirectPage("events/");
                 return true;
@@ -194,7 +201,7 @@ class Event
         return false;
     }
 
-    public static function deleteEventAction($event_id)
+    public static function deleteAction($event_id)
     {
         $stmt = DB::conn()->prepare("DELETE FROM events WHERE id = ?");
         if ($stmt->execute([$event_id])) {

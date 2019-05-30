@@ -23,7 +23,7 @@ class EventController extends Controller
         }
 
         if (isset($_POST['deleteEvent'])) {
-            if (Event::deleteEvent()) {
+            if (Event::delete()) {
                 Redirect::redirectPage("events/");
             }
         }
