@@ -35,6 +35,6 @@ PortalCMS_JS_headJS();
         </div>
     </div>
 </main>
-<?php require DIR_ROOT.'includes/footer.php'; ?>
+<?php View::renderFooter(); ?>
 </body>
 </html>

@@ -6,6 +6,15 @@
  */
 class View
 {
+    /**
+     * Render the footer template
+     *
+     * @return void
+     */
+    public static function renderFooter()
+    {
+        require DIR_INCLUDES.'footer.php';
+    }
 
     /**
      * Renders pure JSON to the browser, useful for API construction

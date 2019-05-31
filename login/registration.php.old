@@ -63,7 +63,7 @@ PortalCMS_JS_headJS();
             </form>
         </div>
     </main>
-    <?php require DIR_INCLUDES.'footer.php'; ?>
+    <?php View::renderFooter(); ?>
     <script>
         $("form").formProgressBar({
             readCount: true,

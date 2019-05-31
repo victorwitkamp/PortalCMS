@@ -26,12 +26,7 @@ class LoginController extends Controller
         //         Redirect::redirectPage("login/login.php");
         //     }
         // }
-        if (isset($_POST['requestPasswordReset'])) {
-            PasswordReset::requestPasswordReset($_POST['user_name_or_email']);
-        }
-        if (isset($_POST['resetSubmit'])) {
-            PasswordReset::verifyPasswordReset($_POST['password'], $_POST['resetCode']);
-        }
+
     }
 
     /**

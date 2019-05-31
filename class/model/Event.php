@@ -110,7 +110,12 @@ class Event
         $end_event = Request::post('end_event', true);
         $description = Request::post('description', true);
 
-        $stmt = DB::conn()->prepare("SELECT id FROM events WHERE start_event = ? AND end_event = ?");
+        $stmt = DB::conn()->prepare(
+            "SELECT id
+            FROM events
+            WHERE start_event = ?
+            AND end_event = ?"
+        );
         $stmt->execute([$start_event, $end_event]);
         if (!$stmt->rowCount() == 0) {
             Session::add('feedback_negative', 'Kies een andere tijd.');
@@ -128,7 +133,13 @@ class Event
 
     public static function addEventAction($title, $start_event, $end_event, $description) {
         $CreatedBy = Session::get('user_id');
-        $stmt = DB::conn()->prepare("INSERT INTO events(id, title, CreatedBy, start_event, end_event, description) VALUES (NULL,?,?,?,?,?)");
+        $stmt = DB::conn()->prepare(
+            "INSERT INTO events(
+                id, title, CreatedBy, start_event, end_event, description
+            ) VALUES (
+                NULL,?,?,?,?,?
+            )"
+        );
         $stmt->execute([$title, $CreatedBy, $start_event, $end_event, $description]);
         if (!$stmt) {
             return false;
@@ -148,20 +159,24 @@ class Event
         if (self::doesEventIdExist($event_id)) {
             if (!self::updateEventAction($event_id, $title, $start_event, $end_event, $description)) {
                 Session::add('feedback_negative', 'Wijzigen van evenement mislukt.');
-                Redirect::redirectPage("events/");
+                return false;
             } else {
                 Session::add('feedback_positive', 'Evenement gewijzigd.');
-                Redirect::redirectPage("events/");
+                return true;
             }
         } else {
             Session::add('feedback_negative', 'Wijzigen van evenement mislukt.<br>Evenement bestaat niet.');
-            Redirect::redirectPage("events/");
+                return false;
         }
     }
 
     public static function updateEventAction($event_id, $title, $start_event, $end_event, $description)
     {
-        $stmt = DB::conn()->prepare("UPDATE events SET title=?, start_event=?, end_event=?, description=? WHERE id=?");
+        $stmt = DB::conn()->prepare(
+            "UPDATE events
+            SET title=?, start_event=?, end_event=?, description=?
+            WHERE id=?"
+        );
         $stmt->execute([$title, $start_event, $end_event, $description, $event_id]);
         if (!$stmt) {
             return false;
@@ -171,7 +186,11 @@ class Event
 
     public static function updateDate($event_id, $title, $start_event, $end_event)
     {
-        $stmt = DB::conn()->prepare("UPDATE events SET title=?, start_event=?, end_event=? WHERE id=?");
+        $stmt = DB::conn()->prepare(
+            "UPDATE events
+            SET title=?, start_event=?, end_event=?
+            WHERE id=?"
+        );
         $stmt->execute([$title, $start_event, $end_event, $event_id]);
         if (!$stmt) {
             return false;
@@ -189,15 +208,12 @@ class Event
         if ($count > 0) {
             if (self::deleteAction($event_id)) {
                 Session::add('feedback_positive', 'Evenement verwijderd.');
-                // Redirect::redirectPage("events/");
                 return true;
             }
             Session::add('feedback_negative', 'Verwijderen van evenement mislukt.');
-            // Redirect::redirectPage("events/");
             return false;
         }
         Session::add('feedback_negative', 'Verwijderen van evenement mislukt.<br>Evenement bestaat niet.');
-        // Redirect::redirectPage("events/");
         return false;
     }
 

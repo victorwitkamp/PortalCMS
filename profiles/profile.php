@@ -1,11 +1,11 @@
-<?php 
+<?php
 $pageName = 'Gebruikersprofiel weergeven';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
 require_once DIR_INCLUDES.'functions.php';
 
 require_once DIR_INCLUDES.'head.php';
-displayHeadCSS(); 
+displayHeadCSS();
 PortalCMS_JS_headJS(); ?>
 </head>
 <body>
@@ -24,6 +24,6 @@ $row = User::getProfileById($_GET['id']);
         </div>
     </div>
 </main>
-<?php require DIR_INCLUDES.'footer.php'; ?>
+<?php View::renderFooter(); ?>
 </body>
 </html>

@@ -20,7 +20,7 @@ PortalCMS_JS_headJS();
         </div>
     </div>
 </main>
-<?php require DIR_INCLUDES.'footer.php'; ?>
+<?php View::renderFooter(); ?>
 <script>
 function goBack() {
     window.history.back();

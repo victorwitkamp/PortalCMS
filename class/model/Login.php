@@ -199,7 +199,9 @@ class Login
     public static function logout()
     {
         $user_id = Session::get('user_id');
-        if (User::clearRememberMeToken($user_id)) {
+
+        User::clearRememberMeToken($user_id);
+        // if (User::clearRememberMeToken($user_id)) {
             if (Cookie::delete()) {
                 if (Session::destroy()) {
                     Session::init();
@@ -207,7 +209,7 @@ class Login
                     return true;
                 }
             }
-        }
+        // }
         return false;
     }
 

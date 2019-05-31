@@ -113,6 +113,8 @@ class MailSchedule
         return $templatebody;
     }
 
+
+
     public static function new()
     {
         $sender_email = Config::get('EMAIL_SMTP_USERNAME');

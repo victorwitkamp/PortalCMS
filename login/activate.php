@@ -56,6 +56,6 @@ if (isset($_GET['activate'])) {
             </form>
         </div>
     </main>
-    <?php require DIR_INCLUDES.'footer.php'; ?>
+    <?php View::renderFooter(); ?>
 </body>
 </html>

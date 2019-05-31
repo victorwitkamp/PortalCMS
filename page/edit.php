@@ -61,6 +61,6 @@ plugins : 'advlist autolink link image lists charmap print preview'
             </div>
         </div>
     </main>
-    <?php require DIR_INCLUDES.'footer.php'; ?>
+    <?php View::renderFooter(); ?>
 </body>
 </html>

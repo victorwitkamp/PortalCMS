@@ -48,5 +48,5 @@ PortalCMS_JS_dataTables();
         </div>
     </div>
 </main>
-<?php require DIR_INCLUDES.'footer.php'; ?>
+<?php View::renderFooter(); ?>
 </body>

@@ -31,6 +31,6 @@ PortalCMS_JS_Datepicker_membership();
         </div>
     </div>
 </main>
-<?php require '../includes/footer.php' ?>
+<?php View::renderFooter(); ?>
 </body>
 </html>

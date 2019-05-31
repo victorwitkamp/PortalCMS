@@ -37,12 +37,16 @@ class PasswordReset
         $temporary_timestamp = date('Y-m-d H:i:s');
         $user_password_reset_hash = sha1(uniqid(mt_rand(), true));
         // set token (= a random hash string and a timestamp) into database ...
-        $token_set = self::setPasswordResetDatabaseToken($result->user_name, $user_password_reset_hash, $temporary_timestamp);
+        $token_set = self::setPasswordResetDatabaseToken(
+            $result->user_name, $user_password_reset_hash, $temporary_timestamp
+        );
         if (!$token_set) {
             return false;
         }
         // ... and send a mail to the user, containing a link with username and token hash string
-        $mail_sent = self::sendPasswordResetMail($result->user_name, $user_password_reset_hash, $result->user_email);
+        $mail_sent = self::sendPasswordResetMail(
+            $result->user_name, $user_password_reset_hash, $result->user_email
+        );
         if ($mail_sent) {
             return true;
         }
@@ -87,12 +91,31 @@ class PasswordReset
      */
     public static function sendPasswordResetMail($user_name, $user_password_reset_hash, $user_email)
     {
-        $body = Config::get('EMAIL_PASSWORD_RESET_CONTENT').' '.Config::get('URL').
-                Config::get('EMAIL_PASSWORD_RESET_URL').'?user_name='.urlencode($user_name).'&user_password_reset_hash='.urlencode($user_password_reset_hash);
+        $MailText = MailTemplate::getStaticMailText('ResetPassword');
+        $placeholder_username = 'USERNAME';
+        $placeholder_resetlink = 'RESETLINK';
+        $placeholder_sitename = 'SITENAME';
+        $MailText = MailTemplate::replaceholder('USERNAME', $user_name, $MailText);
+
+        $MailText = MailTemplate::replaceholder('SITENAME', SiteSetting::getStaticSiteSetting('site_name'), $MailText);
+
+        $resetlink =    Config::get('URL').
+                        Config::get('EMAIL_PASSWORD_RESET_URL').
+                        '?user_name='.
+                        urlencode($user_name).
+                        '&user_password_reset_hash='
+                        .urlencode($user_password_reset_hash);
+        $MailText = MailTemplate::replaceholder('RESETLINK', $resetlink, $MailText);
+
+        // $body = Config::get('EMAIL_PASSWORD_RESET_CONTENT').' '.$resetlink;
         $mail = new MailSender;
         $mail_sent = $mail->sendMail(
-            $user_email, Config::get('EMAIL_PASSWORD_RESET_FROM_EMAIL'),
-            Config::get('EMAIL_PASSWORD_RESET_FROM_NAME'), Config::get('EMAIL_PASSWORD_RESET_SUBJECT'), $body
+            $user_email,
+            Config::get('EMAIL_PASSWORD_RESET_FROM_EMAIL'),
+            Config::get('EMAIL_PASSWORD_RESET_FROM_NAME'),
+            Config::get('EMAIL_PASSWORD_RESET_SUBJECT'),
+            // $body
+            $MailText
         );
         if ($mail_sent) {
             Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_RESET_MAIL_SENDING_SUCCESSFUL'));
@@ -127,13 +150,21 @@ class PasswordReset
         // get result row (as an object)
         $result_user_row = $stmt->fetch();
         // 3600 seconds are 1 hour
-        $timestamp_one_hour_ago = date('Y-m-d H:i:s') - 3600;
+        // $timestamp_one_hour_ago = date('Y-m-d H:i:s') - 3600;
+
+        $timestamp_one_hour_ago = strtotime(date('Y-m-d H:i:s')) - 3600;
+        $user_timestamp = strtotime($result_user_row['user_password_reset_timestamp']);
+        // $text = 'result_user_row: '.$user_timestamp.'<br>timestamp_one_hour_ago: '.$timestamp_one_hour_ago.'<br>';
+        // Session::add('feedback_negative', $text);
+
+
         // if password reset request was sent within the last hour (this timeout is for security reasons)
-        if ($result_user_row->user_password_reset_timestamp > $timestamp_one_hour_ago) {
-              Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_RESET_LINK_VALID'));
+        if ($user_timestamp > $timestamp_one_hour_ago) {
+            //   Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_RESET_LINK_VALID'));
             return true;
         } else {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_LINK_EXPIRED'));
+            // Session::add('feedback_negative', $text);
             return false;
         }
     }
@@ -160,7 +191,12 @@ class PasswordReset
                 ':user_password_reset_hash' => $user_password_reset_hash, ':user_provider_type' => 'DEFAULT'
             )
         );
-        return ($stmt->rowCount() == 1 ? true : false);
+        if ($stmt->rowCount() == 1) {
+            Session::add('feedback_positive', 'Wachtwoord gewijzigd.');
+            return true;
+        }
+        Session::add('feedback_negative', 'Wachtwoord niet gewijzigd.');
+        return false;
     }
 
     /**

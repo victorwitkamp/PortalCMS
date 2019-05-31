@@ -1,4 +1,4 @@
-<?php 
+<?php
 $pageName = 'Geen toegang';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 require DIR_ROOT.'includes/functions.php';
@@ -20,7 +20,7 @@ PortalCMS_JS_headJS();
         </div>
     </div>
 </main>
-<?php require DIR_INCLUDES.'footer.php'; ?>
+<?php View::renderFooter(); ?>
 <script>
 function goBack() {
     window.history.back();
@@ -28,5 +28,3 @@ function goBack() {
 </script>
 </body>
 </html>
-
-
