@@ -83,12 +83,14 @@ class Invoice
         $month = Request::post('month', true);
         $contract = Contract::getById($contract_id);
         $factuurnummer = $year.$contract['bandcode'].$month;
+        $factuurdatum = Request::post('factuurdatum', true);
+        $vervaldatum = Request::post('vervaldatum', true);
         $stmt = DB::conn()->prepare("SELECT id FROM invoices WHERE factuurnummer = ?");
         $stmt->execute([$factuurnummer]);
         if (!$stmt->rowCount() == 0) {
             Session::add('feedback_negative', "Factuurnummer bestaat al.");
         } else {
-            if (!self::addInvoiceAction($contract_id, $factuurnummer, $year, $month)) {
+            if (!self::addInvoiceAction($contract_id, $factuurnummer, $year, $month, $factuurdatum, $vervaldatum)) {
                 Session::add('feedback_negative', "Toevoegen van factuur mislukt.");
             } else {
                 $invoice = self::getInvoiceByFactuurnummer($factuurnummer);
@@ -106,10 +108,10 @@ class Invoice
         }
     }
 
-    public static function addInvoiceAction($contract_id, $factuurnummer, $year, $month)
+    public static function addInvoiceAction($contract_id, $factuurnummer, $year, $month, $factuurdatum, $vervaldatum)
     {
-        $stmt = DB::conn()->prepare("INSERT INTO invoices(id, contract_id, factuurnummer, year, month) VALUES (NULL,?,?,?,?)");
-        $stmt->execute([$contract_id, $factuurnummer, $year, $month]);
+        $stmt = DB::conn()->prepare("INSERT INTO invoices(id, contract_id, factuurnummer, year, month, factuurdatum, vervaldatum) VALUES (NULL,?,?,?,?,?,?)");
+        $stmt->execute([$contract_id, $factuurnummer, $year, $month, $factuurdatum, $vervaldatum]);
         if (!$stmt) {
             return false;
         }
@@ -235,7 +237,7 @@ class Invoice
         $pdf->writeHTMLCell(0, 0, '', '', $factuurtekst, 0, 1, 0, true, '', true);
 
         $pdf->SetXY(120, 120);
-        $factuurtekstrechts = '<p style="text-align:right">Factuurdatum: 1-1-2019<br>Vervaldatum: 31-1-2019</p>';
+        $factuurtekstrechts = '<p style="text-align:right">Factuurdatum: '.$invoice['factuurdatum'].'<br>Vervaldatum: '.$invoice['vervaldatum'].'</p>';
         $pdf->writeHTMLCell(0, 0, '', '', $factuurtekstrechts, 0, 1, 0, true, '', true);
 
         $pdf->SetXY(20, 140);

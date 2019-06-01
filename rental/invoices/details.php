@@ -54,6 +54,18 @@ PortalCMS_JS_headJS(); ?>
                         <?php echo $invoice['CreationDate']; ?>
                     </td>
                 </tr>
+                <tr>
+                    <th>Factuurdatum</th>
+                    <td>
+                        <?php echo $invoice['factuurdatum']; ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Vervaldatum</th>
+                    <td>
+                        <?php echo $invoice['vervaldatum']; ?>
+                    </td>
+                </tr>
             </table>
 
             <h3>Items</h3>

@@ -14,7 +14,7 @@ class User
      *
      * @return mixed Returns false if user does not exist, returns object with user's data when user exists
      */
-    public static function getUserByUsername($user_name)
+    public static function getByUsername($user_name)
     {
         $stmt = DB::conn()->prepare(
             "SELECT user_id,
@@ -33,11 +33,7 @@ class User
                         AND user_provider_type = :provider_type
                         LIMIT 1"
         );
-
-        // DEFAULT is the marker for "normal" accounts (that have a password etc.)
-        // There are other types of accounts that don't have passwords etc. (FACEBOOK)
         $stmt->execute(array(':user_name' => $user_name, ':provider_type' => 'DEFAULT'));
-
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
@@ -49,7 +45,7 @@ class User
      *
      * @return mixed Returns false if user does not exist, returns object with user's data when user exists
      */
-    public static function getUserByUserIdAndToken($user_id, $token)
+    public static function getByIdAndToken($user_id, $token)
     {
         $stmt = DB::conn()->prepare(
             "SELECT user_id,
@@ -78,7 +74,7 @@ class User
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
-    public static function getUserByFbid($user_fbid)
+    public static function getByFbid($user_fbid)
     {
         $stmt = DB::conn()->prepare(
             "SELECT user_id, user_name, user_email, user_password_hash, user_active,
@@ -100,7 +96,7 @@ class User
      *
      * @return mixed
      */
-    public static function getUserDataByUserNameOrEmail($user_name_or_email)
+    public static function getByUsernameOrEmail($user_name_or_email)
     {
         $stmt = DB::conn()->prepare(
             "SELECT user_id, user_name, user_email
@@ -121,7 +117,7 @@ class User
      *
      * @return bool
      */
-    public static function doesUsernameExist($user_name)
+    public static function UsernameExists($user_name)
     {
         $stmt = DB::conn()->prepare(
             "SELECT user_id
@@ -170,7 +166,7 @@ class User
      *
      * @return bool
      */
-    public static function saveNewUserName($user_id, $new_user_name)
+    public static function updateUsername($user_id, $new_user_name)
     {
         $stmt = DB::conn()->prepare(
             "UPDATE users
@@ -190,7 +186,7 @@ class User
         return false;
     }
 
-    public static function saveNewFbid($user_id, $fbid)
+    public static function updateFbid($user_id, $fbid)
     {
         $stmt = DB::conn()->prepare(
             "UPDATE users SET user_fbid = ?
@@ -258,7 +254,7 @@ class User
      *
      * @return bool success status
      */
-    public static function editUserName($new_user_name)
+    public static function editUsername($new_user_name)
     {
         // Check if new password is indeed different.
         if ($new_user_name == Session::get('user_name')) {
@@ -276,12 +272,12 @@ class User
         $new_user_name = substr(strip_tags($new_user_name), 0, 64);
 
         // check if new username already exists
-        if (self::doesUsernameExist($new_user_name)) {
+        if (self::UsernameExists($new_user_name)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_ALREADY_TAKEN'));
             return false;
         }
 
-        $status_of_action = self::saveNewUserName(Session::get('user_id'), $new_user_name);
+        $status_of_action = self::updateUsername(Session::get('user_id'), $new_user_name);
         if ($status_of_action) {
             Session::set('user_name', $new_user_name);
             Session::add('feedback_positive', Text::get('FEEDBACK_USERNAME_CHANGE_SUCCESSFUL'));

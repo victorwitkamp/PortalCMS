@@ -65,6 +65,21 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
                             </select>
                         </div>
                     </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Factuurdatum</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="factuurdatum" placeholder="YYYY-MM-DD">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Vervaldatum</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="vervaldatum" placeholder="YYYY-MM-DD">
+                        </div>
+                    </div>
+
                     <input type="submit" name="saveNewInvoice" class="btn btn-primary" value="Opslaan">
                     <a href="index.php" class="btn btn-danger">Annuleren</a>
                 </form>

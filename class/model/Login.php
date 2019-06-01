@@ -85,7 +85,7 @@ class Login
             return false;
         }
 
-        $result = User::getUserByUserIdAndToken($user_id, $token);
+        $result = User::getByIdAndToken($user_id, $token);
 
         if (!$result) {
             Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
@@ -109,7 +109,7 @@ class Login
             Session::add('feedback_negative', Text::get('FEEDBACK_FACEBOOK_LOGIN_FAILED'));
             return false;
         }
-        $result = User::getUserByFbid($fbid);
+        $result = User::getByFbid($fbid);
         if (!$result) {
             Session::add('feedback_negative', Text::get('FEEDBACK_FACEBOOK_LOGIN_FAILED'));
             return false;
@@ -139,7 +139,7 @@ class Login
             return false;
         }
 
-        $result = User::getUserByUsername($user_name);
+        $result = User::getByUsername($user_name);
 
         if (!$result) {
             self::incrementUserNotFoundCounter();

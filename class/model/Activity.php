@@ -20,13 +20,9 @@ class Activity
 
     public static function registerUserActivity($activity, $details = null)
     {
-        // if ($user_id == null) {
-            if (!empty(Session::get('user_id'))) {
-                $user_id = Session::get('user_id');
-            }
-        // }
-
-        // self::registerUserActivityByUserId($user_id, $activity, $details);
+        if (!empty(Session::get('user_id'))) {
+            $user_id = Session::get('user_id');
+        }
         self::saveUserActivity(null, null, $activity, $details);
     }
 
@@ -39,7 +35,8 @@ class Activity
 
     public static function registerUserActivityByUsername($user_name, $activity = null, $details = null)
     {
-        $user_id = User::getUserIdByUsername($user_name);
+        $user = User::getByUsername($user_name);
+        $user_id = $user['user_id'];
         self::saveUserActivity($user_id, $user_name, $activity, $details);
     }
 

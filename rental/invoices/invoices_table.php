@@ -56,7 +56,7 @@
                 </a>
             </td>
             <td>
-                <form method="post"><input type="hidden" name="ïd" value="$row['id']"><button type="submit" name="confirmPayment" class="btn btn-success"><i class="fas fa-check"></i></form>
+                <form method="post"><input type="hidden" name="ïd" value="$row['id']"><button type="submit" name="confirmPayment" class="btn btn-success" disabled><i class="fas fa-check"></i></form>
             </td>
         </tr>
         <?php

@@ -9,7 +9,7 @@ class Contract
 {
     public static function getStartDateById($Id) {
         $stmt = DB::conn()->prepare("SELECT contract_ingangsdatum FROM contracts WHERE id = ? limit 1");
-        $stmt->execute([$id]);
+        $stmt->execute([$Id]);
         if (!$stmt->rowCount() == 1) {
             return false;
         } else {
@@ -23,20 +23,20 @@ class Contract
         return $stmt->fetchAll();
     }
 
-    public static function doesIdExist($id)
+    public static function doesIdExist($Id)
     {
         $stmt = DB::conn()->prepare("SELECT id FROM contracts WHERE id = ? limit 1");
-        $stmt->execute([$id]);
+        $stmt->execute([$Id]);
         if ($stmt->rowCount() == 0) {
             return false;
         }
         return true;
     }
 
-    public static function getById($id)
+    public static function getById($Id)
     {
         $stmt = DB::conn()->prepare("SELECT * FROM contracts WHERE id = ? limit 1");
-        $stmt->execute([$id]);
+        $stmt->execute([$Id]);
         if (!$stmt->rowCount() == 1) {
             return false;
         } else {
@@ -196,7 +196,7 @@ class Contract
 
     public static function update()
     {
-        $id                         = Request::post('id', true);
+        $Id                         = Request::post('id', true);
         $beuk_vertegenwoordiger     = Request::post('beuk_vertegenwoordiger', true);
         $band_naam                  = Request::post('band_naam', true);
         $bandcode                   = Request::post('bandcode', true);
@@ -222,9 +222,9 @@ class Contract
         $contract_einddatum         = Request::post('contract_einddatumm', true);
         $contract_datum             = Request::post('contract_datum', true);
 
-        if (self::doesIdExist($id)) {
+        if (self::doesIdExist($Id)) {
             if (!self::updateAction(
-                $id,
+                $Id,
                 $beuk_vertegenwoordiger,
                 $band_naam,
                 $bandcode,
@@ -264,7 +264,7 @@ class Contract
     }
 
     public static function updateAction(
-        $id,
+        $Id,
         $beuk_vertegenwoordiger,
         $band_naam,
         $bandcode,
@@ -345,7 +345,7 @@ class Contract
                 $contract_ingangsdatum,
                 $contract_einddatum,
                 $contract_datum,
-                $id
+                $Id
             ]
         );
         if (!$stmt) {

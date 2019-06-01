@@ -27,18 +27,18 @@ class PasswordReset
             return false;
         }
         // check if that username exists
-        $result = User::getUserDataByUserNameOrEmail($user_name_or_email);
+        $result = User::getByUsernameOrEmail($user_name_or_email);
         if (!$result) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USER_DOES_NOT_EXIST'));
             return false;
         }
         // generate integer-timestamp (to see when exactly the user (or an attacker) requested the password reset mail)
+        $timestamp = date('Y-m-d H:i:s');
         // generate random hash for email password reset verification (40 char string)
-        $temporary_timestamp = date('Y-m-d H:i:s');
         $password_reset_hash = sha1(uniqid(mt_rand(), true));
-        // set token (= a random hash string and a timestamp) into database ...
-        $token_set = self::setPasswordResetDatabaseToken(
-            $result->user_name, $password_reset_hash, $temporary_timestamp
+
+        $token_set = self::writeTokenToDatabase(
+            $result->user_name, $password_reset_hash, $timestamp
         );
         if (!$token_set) {
             return false;
@@ -58,11 +58,11 @@ class PasswordReset
      *
      * @param string $user_name username
      * @param string $password_reset_hash password reset hash
-     * @param int $temporary_timestamp timestamp
+     * @param int $timestamp timestamp
      *
      * @return bool success status
      */
-    public static function setPasswordResetDatabaseToken($user_name, $password_reset_hash, $temporary_timestamp)
+    public static function writeTokenToDatabase($user_name, $password_reset_hash, $timestamp)
     {
         $sql = "UPDATE users
                 SET password_reset_hash = :password_reset_hash, user_password_reset_timestamp = :user_password_reset_timestamp
@@ -71,7 +71,7 @@ class PasswordReset
         $stmt->execute(
             array(
                 ':password_reset_hash' => $password_reset_hash, ':user_name' => $user_name,
-                ':user_password_reset_timestamp' => $temporary_timestamp, ':provider_type' => 'DEFAULT'
+                ':user_password_reset_timestamp' => $timestamp, ':provider_type' => 'DEFAULT'
             )
         );
         if ($stmt->rowCount() == 1) {
