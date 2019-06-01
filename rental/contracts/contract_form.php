@@ -253,29 +253,16 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label"><?php echo Text::get('DAY'); ?></label>
                 <div class="col-sm-10">
+<?php if ($pageType === 'edit') { ?><input type="text" value="<?php echo $row['huur_dag']; ?>" disabled> <?php } ?>
                     <select name="huur_dag" class="form-control" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
                         <option>Selecteer een dag....</option>
-                        <option value="<?php echo Text::get('DAY_01'); ?>"
-                            <?php if ($row ['huur_dag'] === Text::get('DAY_01')) { echo 'selected'; } ?>>
-                            <?php echo Text::get('DAY_01'); ?></option>
-                        <option value="<?php echo Text::get('DAY_02'); ?>"
-                            <?php if ($row ['huur_dag'] === Text::get('DAY_01')) { echo 'selected'; } ?>>
-                            <?php echo Text::get('DAY_02'); ?></option>
-                        <option value="<?php echo Text::get('DAY_03'); ?>"
-                            <?php if ($row ['huur_dag'] === Text::get('DAY_01')) { echo 'selected'; } ?>>
-                            <?php echo Text::get('DAY_03'); ?></option>
-                        <option value="<?php echo Text::get('DAY_04'); ?>"
-                            <?php if ($row ['huur_dag'] === Text::get('DAY_01')) { echo 'selected'; } ?>>
-                            <?php echo Text::get('DAY_04'); ?></option>
-                        <option value="<?php echo Text::get('DAY_05'); ?>"
-                            <?php if ($row ['huur_dag'] === Text::get('DAY_01')) { echo 'selected'; } ?>>
-                            <?php echo Text::get('DAY_05'); ?></option>
-                        <option value="<?php echo Text::get('DAY_06'); ?>"
-                            <?php if ($row ['huur_dag'] === Text::get('DAY_01')) { echo 'selected'; } ?>>
-                            <?php echo Text::get('DAY_06'); ?></option>
-                        <option value="<?php echo Text::get('DAY_07'); ?>"
-                            <?php if ($row ['huur_dag'] === Text::get('DAY_01')) { echo 'selected'; } ?>>
-                            <?php echo Text::get('DAY_07'); ?></option>
+                        <option value="<?php echo Text::get('DAY_01'); ?>"><?php echo Text::get('DAY_01'); ?></option>
+                        <option value="<?php echo Text::get('DAY_02'); ?>"><?php echo Text::get('DAY_02'); ?></option>
+                        <option value="<?php echo Text::get('DAY_03'); ?>"><?php echo Text::get('DAY_03'); ?></option>
+                        <option value="<?php echo Text::get('DAY_04'); ?>"><?php echo Text::get('DAY_04'); ?></option>
+                        <option value="<?php echo Text::get('DAY_05'); ?>"><?php echo Text::get('DAY_05'); ?></option>
+                        <option value="<?php echo Text::get('DAY_06'); ?>"><?php echo Text::get('DAY_06'); ?></option>
+                        <option value="<?php echo Text::get('DAY_07'); ?>"><?php echo Text::get('DAY_07'); ?></option>
                     </select>
                 </div>
             </div>
