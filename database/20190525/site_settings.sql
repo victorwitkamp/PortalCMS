@@ -1,1 +1,0 @@
-INSERT INTO `site_settings` (`setting`, `string_value`) VALUES ('WidgetDebug','1');

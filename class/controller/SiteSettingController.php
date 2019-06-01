@@ -11,5 +11,8 @@ class SiteSettingController extends Controller
                 Redirect::redirectPage("settings/site-settings/index.php");
             }
         }
+        if (isset($_POST['uploadLogo'])) {
+            SiteSetting::uploadLogo_action();
+        }
     }
 }

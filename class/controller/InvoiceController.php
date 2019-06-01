@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * InvoiceController
+ * Controls everything that is invoice-related
+ */
 class InvoiceController extends controller
 {
     public function __construct() {

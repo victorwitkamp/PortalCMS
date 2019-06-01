@@ -93,7 +93,6 @@ class MailSender
             $mail->isHTML(true);
             return $mail->Send();
         } catch (Exception $e) {
-            // echo $e->errorMessage(); //Pretty error messages from PHPMailer
             $this->error = $e->errorMessage();
             return false;
         }

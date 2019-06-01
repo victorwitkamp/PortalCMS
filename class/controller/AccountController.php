@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * AccountController
+ * Controls everything that is account-related
+ */
 class AccountController extends Controller
 {
     public function __construct() {

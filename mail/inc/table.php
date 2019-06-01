@@ -14,7 +14,7 @@
 
     </thead>
     <tbody>
-        <?php 
+        <?php
         $result = $stmt->fetchAll();
         foreach ($result as $row) {  ?>
         <tr>
@@ -28,7 +28,7 @@
                 ?>
             </td>
             <td>
-                <a href="maildetails.php?id=<?php echo $row['id']; ?>" title="Details" class="btn btn-info btn-sm">
+                <a href="details.php?id=<?php echo $row['id']; ?>" title="Details" class="btn btn-info btn-sm">
                 <i class="fas fa-info"></i></a>
 
             </td>
@@ -41,11 +41,11 @@
                 if ($row['status'] === '1') {
                     echo '<span class="badge badge-secondary">Klaar voor verzending</span>';
                 }
-                if ($row['status'] === '2') { 
-                    echo '<span class="badge badge-success">Verzonden</span>'; 
+                if ($row['status'] === '2') {
+                    echo '<span class="badge badge-success">Verzonden</span>';
                 }
-                if ($row['status'] === '3') { 
-                    echo '<span class="badge badge-danger">Fout bij verzenden</span>'; 
+                if ($row['status'] === '3') {
+                    echo '<span class="badge badge-danger">Fout bij verzenden</span>';
                 }
                 ?>
             </td>
@@ -54,7 +54,7 @@
     </tbody>
 </table>
 <hr>
-<?php 
+<?php
 if ($pageType == 'index') {
     echo '<input type="submit" class="btn btn-info" name="sendScheduledMailById" value="';
     echo Text::get('LABEL_SEND_EMAIL');

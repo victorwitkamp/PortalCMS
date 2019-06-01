@@ -4,12 +4,6 @@
             <th>Acties</th>
             <th>Bandcode</th>
             <th>Huurder</th>
-            <th>Contactpersoon</th>
-            <th>Oefenruimte</th>
-            <th>Dag</th>
-            <th>Vanaf</th>
-            <th>Tot</th>
-
         </tr>
     </thead>
     <tbody>
@@ -33,11 +27,6 @@
             </td>
             <td>'.$row['bandcode'].'</td>
             <td>'.$row['band_naam'].'</td>
-            <td>'.$row['bandleider_naam'].'</td>
-            <td>'.$row['huur_oefenruimte_nr'].'</td>
-            <td>'.$row['huur_dag'].'</td>
-            <td>'.$row['huur_start'].'</td>
-            <td>'.$row['huur_einde'].'</td>
         </tr>
         ';
         $row['id']++;

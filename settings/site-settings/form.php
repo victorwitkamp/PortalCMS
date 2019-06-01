@@ -1,4 +1,4 @@
-    <h3>General</h3>
+    <h3><?php echo Text::get('LABEL_SETTINGS_GENERAL'); ?></h3>
 
     <div class="form-group row">
 
@@ -69,7 +69,10 @@
         <label class="col-4 col-form-label"><?php echo Text::get('LABEL_SITE_LOGO'); ?></label>
         <div class="col-8">
             <input type="text" name="site_logo" value="<?php echo SiteSetting::getStaticSiteSetting('site_logo'); ?>" class="form-control">
+
         </div>
+
+
 
     </div>
 
@@ -105,24 +108,24 @@
 
     <hr>
 
-    <h3>Mailserver</h3>
+    <h3><del>Mailserver</del></h3>
 
     <div class="form-group row">
 
         <label class="col-4 col-form-label">Mailserver</label>
         <div class="col-8">
-            <input type="text" name="MailServer" value="<?php echo SiteSetting::getStaticSiteSetting('MailServer'); ?>" class="form-control">
+            <input type="text" name="MailServer" value="<?php echo SiteSetting::getStaticSiteSetting('MailServer'); ?>" class="form-control" disabled>
         </div>
 
         <label class="col-4 col-form-label">Port</label>
         <div class="col-8">
-            <input type="text" name="MailServerPort" value="<?php echo SiteSetting::getStaticSiteSetting('MailServerPort'); ?>" class="form-control">
+            <input type="text" name="MailServerPort" value="<?php echo SiteSetting::getStaticSiteSetting('MailServerPort'); ?>" class="form-control" disabled>
         </div>
 
         <label class="col-4 col-form-label">Security</label>
         <div class="col-8">
             <div class="input-group">
-                <select class="form-control" name="MailServerSecure">
+                <select class="form-control" name="MailServerSecure" disabled>
                     <?php $MailServerSecure = SiteSetting::getStaticSiteSetting('MailServerSecure'); ?>
                     <option value="tls" <?php if ($MailServerSecure == 'tls') { echo 'selected'; } ?>>tls</option>
                     <option value="ssl" <?php if ($MailServerSecure == 'ssl') { echo 'selected'; } ?>>ssl</option>
@@ -135,7 +138,7 @@
         <label class="col-4 col-form-label">Enable SMTP authentication</label>
         <div class="col-8">
             <div class="input-group">
-                <select class="form-control" name="MailServerAuth">
+                <select class="form-control" name="MailServerAuth" disabled>
                     <?php $MailServerAuth = SiteSetting::getStaticSiteSetting('MailServerAuth'); ?>
                     <option value="1" <?php if ($MailServerAuth == '1') { echo 'selected'; } ?>>Enabled</option>
                     <option value="0" <?php if ($MailServerAuth == '0') { echo 'selected'; } ?>>Disabled</option>
@@ -145,12 +148,12 @@
 
         <label class="col-4 col-form-label">SMTP username</label>
         <div class="col-8">
-            <input type="text" name="MailServerUsername" value="<?php echo SiteSetting::getStaticSiteSetting('MailServerUsername'); ?>" class="form-control">
+            <input type="text" name="MailServerUsername" value="<?php echo SiteSetting::getStaticSiteSetting('MailServerUsername'); ?>" class="form-control" disabled>
         </div>
 
         <label class="col-4 col-form-label">SMTP password</label>
         <div class="col-8">
-            <input type="password" name="MailServerPassword" value="<?php echo SiteSetting::getStaticSiteSetting('MailServerPassword'); ?>" class="form-control">
+            <input type="password" name="MailServerPassword" value="<?php echo SiteSetting::getStaticSiteSetting('MailServerPassword'); ?>" class="form-control" disabled>
         </div>
 
     </div>

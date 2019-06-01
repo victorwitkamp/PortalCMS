@@ -7,6 +7,15 @@
 
 class Contract
 {
+    public static function getStartDateById($Id) {
+        $stmt = DB::conn()->prepare("SELECT contract_ingangsdatum FROM contracts WHERE id = ? limit 1");
+        $stmt->execute([$id]);
+        if (!$stmt->rowCount() == 1) {
+            return false;
+        } else {
+            return $stmt->fetchColumn();
+        }
+    }
     public static function getAll()
     {
         $stmt = DB::conn()->prepare("SELECT * FROM contracts ORDER BY id");

@@ -1,11 +1,13 @@
 <?php
-/**
- * Class : MailController (MailController.php)
- * Details : MailController.
- */
 
+/**
+ * ContractController
+ * Controls everything that is event-related
+ */
 class MailController
 {
+    public static $error = '';
+
     public function __construct() {
         if (isset($_POST['testmail'])) {
             MailController::sendMail($_POST['senderemail'], $_POST['recipientemail'], $_POST['subject'], $_POST['body']);
@@ -22,8 +24,11 @@ class MailController
         if (isset($_POST['createMailWithTemplate'])) {
             MailSchedule::newWithTemplate();
         }
+        if (isset($_POST['deleteScheduledMailById'])) {
+
+        }
     }
-    public static $error = '';
+
     public static function sendMail($fromEmail, $recipientEmail, $mailSubject, $mailBody)
     {
         //  = Config::get('EMAIL_SMTP_USERNAME');

@@ -18,18 +18,20 @@ PortalCMS_JS_headJS();
 
 <main>
     <div class="content">
-        <form method="post" class="container">
-            <div class="row mt-5">
-                <div class="col-sm-8">
-                    <h1><?php echo $pageName; ?></h1>
+        <div class="container">
+            <form method="post" class="container">
+                <div class="row mt-5">
+                    <div class="col-sm-8">
+                        <h1><?php echo $pageName; ?></h1>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="submit" name="saveSiteSettings" class="btn btn-success navbar-btn float-right" value="<?php echo Text::get('LABEL_SUBMIT'); ?>">
+                    </div>
                 </div>
-                <div class="col-sm-4">
-                    <input type="submit" name="saveSiteSettings" class="btn btn-success navbar-btn float-right" value="<?php echo Text::get('LABEL_SUBMIT'); ?>">
-                </div>
-            </div>
-            <?php Alert::renderFeedbackMessages(); ?>
-            <?php require 'form.php'; ?>
-        </form>
+                <?php Alert::renderFeedbackMessages();
+                require 'form.php'; ?>
+            </form>
+        </div>
     </div>
 </main>
 <?php View::renderFooter(); ?>

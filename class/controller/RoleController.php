@@ -18,7 +18,7 @@ class RoleController extends Controller
             }
         }
         if (isset($_POST['deleterolepermission'])) {
-            if (Permission::unassign($RoleID, $_POST['perm_id'])) {
+            if (Permission::unassign($_POST['role_id'], $_POST['perm_id'])) {
                 Redirect::redirectPage("settings/user-management/role.php?role_id=".$_POST['role_id']);
             }
         }

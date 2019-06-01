@@ -2,9 +2,9 @@
 
 /**
  * ContractController
- * Controls everything that is event-related
+ * Controls everything that is contract-related
  */
-class EventController extends Controller
+class ContractController extends Controller
 {
     public function __construct()
     {

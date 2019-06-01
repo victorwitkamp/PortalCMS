@@ -1,3 +1,10 @@
+CREATE TABLE IF NOT EXISTS permissions (
+  perm_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  perm_desc VARCHAR(50) NOT NULL
+);
+
+--------------------------------------------
+
 DELETE FROM permissions;
 INSERT INTO permissions (perm_id, perm_desc) VALUES (1,'site-settings');
 INSERT INTO permissions (perm_id, perm_desc) VALUES (2,'user-management');

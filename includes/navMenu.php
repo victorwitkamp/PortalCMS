@@ -13,6 +13,7 @@
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <?php echo Text::get('NAV_TITLE_RENTAL'); ?></a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <a class="dropdown-item" href="/rental/overview/"><?php echo Text::get('TITLE_OVERVIEW'); ?></a>
         <a class="dropdown-item" href="/rental/contracts/"><?php echo Text::get('TITLE_CONTRACTS'); ?></a>
         <a class="dropdown-item" href="/rental/invoices/"><?php echo Text::get('TITLE_INVOICES'); ?></a>
         <a class="dropdown-item" href="/rental/products/"><del><?php echo Text::get('TITLE_PRODUCTS'); ?></del></a>

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * ProductController
+ * Controls everything that is product-related
+ */
 class ProductController extends Controller
 {
     public function __construct() {
