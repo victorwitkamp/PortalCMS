@@ -1,7 +1,7 @@
 <?php
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
-if (!Permission::hasPrivilege("events")) {
+if (!Auth::checkPrivilege("events")) {
     Redirect::permissionerror();
     die();
 }

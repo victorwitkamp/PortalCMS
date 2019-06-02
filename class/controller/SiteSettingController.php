@@ -2,6 +2,8 @@
 class SiteSettingController extends Controller
 {
     public function __construct() {
+        parent::__construct();
+
         if (isset($_POST['saveSiteSettings'])) {
             if (SiteSetting::saveSiteSettings()) {
                 Session::add('feedback_positive', "Instellingen succesvol opgeslagen.");

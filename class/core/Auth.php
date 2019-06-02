@@ -44,32 +44,21 @@ class Auth
     }
 
     /**
-     * The admin authentication flow, just check if the user is logged in (by looking into the session) AND has
-     * user role type 7 (currently there's only type 1 (normal user), type 2 (premium user) and 7 (admin)).
-     * If user is not, then he will be redirected to login page and the application is hard-stopped via exit().
-     * Using this method makes only sense in controllers that should only be used by admins.
+     * Check whether the user that is currently logged on has a specific permission
+     *
+     * @param string $perm_desc
+     *
+     * @return bool
      */
-    public static function checkAdminAuthentication()
+    public static function checkPrivilege($perm_desc)
     {
-        // initialize the session (if not initialized yet)
-        Session::init();
-
-        // self::checkSessionConcurrency();
-
-        // if user is not logged in or is not an admin (= not role type 7)
-        if (!Session::userIsLoggedIn() || Session::get("user_account_type") != 7) {
-
-            // ... then treat user as "not logged in", destroy session, redirect to login page
-            // Session::destroy();
-
-            // header('location: ' . Config::get('URL') . 'login/login.php?redirect=' . urlencode($_SERVER['REQUEST_URI']));
-
-            include DIR_ROOT.'includes/permissionError.php';
-            // to prevent fetching views via cURL (which "ignores" the header-redirect above) we leave the application
-            // the hard way, via exit(). @see https://github.com/panique/php-login/issues/453
-            // this is not optimal and will be fixed in future releases
-            exit();
+        $Roles = User::getRoles(Session::get('user_id'));
+        foreach ($Roles as $Role) {
+            if (RolePermission::isAssigned($Role['role_id'], $perm_desc)) {
+                return true;
+            }
         }
+        return false;
     }
 
 }

@@ -3,7 +3,7 @@
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_PRODUCTS');
 Auth::checkAuthentication();
-if (!Permission::hasPrivilege("rental-products")) {
+if (!Auth::checkPrivilege("rental-products")) {
     Redirect::permissionerror();
     die();
 }

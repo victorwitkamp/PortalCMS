@@ -2,7 +2,7 @@
 $pageName = 'Product toevoegen';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
-if (!Permission::hasPrivilege("rental-products")) {
+if (!Auth::checkPrivilege("rental-products")) {
     Redirect::permissionerror();
     die();
 }

@@ -76,8 +76,6 @@ try {
 $user = $response->getGraphUser();
 
 
-$userid = Session::get('user_id');
-User::updateFbid($userid, $user['id']);
-Session::set('user_fbid', $user['id']);
-Session::add('feedback_positive', 'Facebook account succesvol gekoppeld.');
-Redirect::redirectPage('my-account/index.php');
+
+
+AccountController::setFbid($user['id']);

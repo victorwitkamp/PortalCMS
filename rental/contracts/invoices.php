@@ -3,7 +3,7 @@
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('LABEL_CONTRACT_INVOICES_FOR_ID').': '.$_GET['id'];
 Auth::checkAuthentication();
-if (!Permission::hasPrivilege("rental-contracts")) {
+if (!Auth::checkPrivilege("rental-contracts")) {
     Redirect::permissionerror();
     die();
 }

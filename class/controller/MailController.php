@@ -4,11 +4,13 @@
  * ContractController
  * Controls everything that is event-related
  */
-class MailController
+class MailController extends Controller
 {
     public static $error = '';
 
     public function __construct() {
+        parent::__construct();
+
         if (isset($_POST['testmail'])) {
             MailController::sendMail($_POST['senderemail'], $_POST['recipientemail'], $_POST['subject'], $_POST['body']);
         }

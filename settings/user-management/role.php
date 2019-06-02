@@ -2,7 +2,7 @@
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_ROLE');
 Auth::checkAuthentication();
-// if (!Permission::hasPrivilege("user-management")) {
+// if (!Auth::checkPrivilege("user-management")) {
 //     Redirect::permissionerror();
 //     die();
 // }
@@ -15,7 +15,7 @@ PortalCMS_JS_headJS();
 $Role = Role::get($_GET['role_id']);
 if (!$Role) {
     Session::add('feedback_negative', "Geen resultaten voor opgegeven rol ID.");
-    Redirect::Error();
+    Redirect::error();
 }
 ?>
 </head>
@@ -51,7 +51,7 @@ if (!$Role) {
 
                             <h3><?php //echo Text::get('LABEL_ROLE_PERMISSIONS'); ?></h3>
                                 <?php
-                                $Permissions = Role::getRolePermissionIds($_GET['role_id']);
+                                $Permissions = RolePermission::getPermissionIds($_GET['role_id']);
                                 if ($Permissions) { ?>
                                     <table class="table table-sm table-striped table-hover table-dark">
                                             <thead class="thead-dark">                                <tr>

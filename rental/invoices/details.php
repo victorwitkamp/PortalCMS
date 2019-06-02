@@ -2,7 +2,7 @@
 $pageName = 'Factuur';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
-if (!Permission::hasPrivilege("rental-invoices")) {
+if (!Auth::checkPrivilege("rental-invoices")) {
     Redirect::permissionerror();
     die();
 }
@@ -12,7 +12,7 @@ if ($invoice = Invoice::getInvoiceById($_GET['id'])) {
     $pageName = 'Factuur: '.$invoice['factuurnummer'];
 } else {
     Session::add('feedback_negative', "Geen resultaten voor opgegeven factuur ID.");
-    Redirect::Error();
+    Redirect::error();
 }
 require DIR_ROOT.'includes/head.php';
 displayHeadCSS();

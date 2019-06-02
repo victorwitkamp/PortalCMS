@@ -2,7 +2,7 @@
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_MAIL_TEMPLATES');
 Auth::checkAuthentication();
-if (!Permission::hasPrivilege("mail-templates")) {
+if (!Auth::checkPrivilege("mail-templates")) {
     Redirect::permissionerror();
     die();
 }

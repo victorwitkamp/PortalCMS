@@ -66,10 +66,10 @@
         <th>Permissies</th>
         <td>
         <?php
-        $RolePermissions = Permission::getPermissions($row['user_id']);
-        foreach ($RolePermissions as $RolePermission) {
+        $UserPermissions = Permission::getUserPermissions($row['user_id']);
+        foreach ($UserPermissions as $UserPermission) {
             echo '<li>';
-            echo $RolePermission['perm_desc'];
+            echo $UserPermission['perm_desc'];
             echo '</li>';
         }
         ?>

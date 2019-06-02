@@ -3,20 +3,6 @@ $pageName = 'Pagina bewerken';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
 require_once DIR_INCLUDES.'functions.php';
-
-// $permissionName = 'edit-page';
-// if (!$u->hasPrivilege($permissionName)) {
-//     include DIR_INCLUDES.'permissionError.php';
-//     die;
-// }
-
-// $id = $_GET['id'];
-// $sql = mysqli_query($u->Database->db, "SELECT * FROM pages WHERE id='$id'");
-// if (mysqli_num_rows($sql) == 0) {
-//     header("Location: index.php");
-// } else {
-//     $row = mysqli_fetch_assoc($sql);
-// }
 if (!Page::checkPage($_GET['id'])) {
     header("Location: /index.php");
     die;

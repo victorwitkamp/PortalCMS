@@ -189,30 +189,16 @@ class User
     public static function updateFbid($user_id, $fbid)
     {
         $stmt = DB::conn()->prepare(
-            "UPDATE users SET user_fbid = ?
-            WHERE user_id = ? LIMIT 1"
+            "UPDATE users
+                SET user_fbid = ?
+                    WHERE user_id = ?
+                    LIMIT 1"
         );
         $stmt->execute([$fbid, $user_id]);
-        if ($stmt->rowCount() == 1) {
-            return true;
+        if ($stmt->rowCount() == 0) {
+            return false;
         }
-        return false;
-    }
-
-    public static function clearFbid()
-    {
-        $user_id = Session::get('user_id');
-        $stmt = DB::conn()->prepare(
-            "UPDATE users SET user_fbid = NULL
-            WHERE user_id = ? LIMIT 1"
-        );
-        $stmt->execute([$user_id]);
-        if ($stmt->rowCount() == 1) {
-            Session::set('user_fbid', null);
-            Session::add('feedback_positive', 'fbid cleared');
-            return true;
-        }
-        return false;
+        return true;
     }
 
     public static function setRememberMeToken($user_id, $token) {

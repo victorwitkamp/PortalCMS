@@ -2,7 +2,7 @@
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_OVERVIEW');
 Auth::checkAuthentication();
-if (!Permission::hasPrivilege("rental-contracts")) {
+if (!Auth::checkPrivilege("rental-contracts")) {
     Redirect::permissionerror();
     die();
 }

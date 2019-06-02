@@ -2,7 +2,7 @@
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_DEBUG');
 Auth::checkAuthentication();
-if (!Permission::hasPrivilege("debug")) {
+if (!Auth::checkPrivilege("debug")) {
     Redirect::permissionerror();
     die();
 }

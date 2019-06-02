@@ -3,7 +3,7 @@
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_EVENTS');
 Auth::checkAuthentication();
-if (!Permission::hasPrivilege("events")) {
+if (!Auth::checkPrivilege("events")) {
     Redirect::permissionerror();
     die();
 }

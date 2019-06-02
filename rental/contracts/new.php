@@ -2,9 +2,10 @@
 $pageName = 'Contract toevoegen';
 $allowEdit = true;
 $pageType = 'new';
+$loadData = false;
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
-if (!Permission::hasPrivilege("rental-contracts")) {
+if (!Auth::checkPrivilege("rental-contracts")) {
     Redirect::permissionerror();
     die();
 }
@@ -45,7 +46,7 @@ $(function () {
     });
 });
 </script>
-<script src="../includes/js/jquery-simple-validator.nl.js"></script>
+<script src="/includes/js/jquery-simple-validator.nl.js"></script>
 <link rel="stylesheet" type="text/css" href="/includes/css/jquery-simple-validator.css">
 </head>
 <body>

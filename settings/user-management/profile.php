@@ -2,14 +2,16 @@
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_PROFILE');
 Auth::checkAuthentication();
-if (!Permission::hasPrivilege("user-management")) {
+if (!Auth::checkPrivilege("user-management")) {
     Redirect::permissionerror();
     die();
 }
 $row = User::getProfileById($_GET['id']);
 if (!$row) {
     Session::add('feedback_negative', "De gebruiker bestaat niet.");
-    Redirect::Error();
+    Redirect::error();
+} else {
+    $pageName = Text::get('TITLE_PROFILE').$row['user_name'];
 }
 require DIR_ROOT.'includes/functions.php';
 require DIR_ROOT.'includes/head.php';

@@ -2,9 +2,10 @@
 $pageName = 'Contract bewerken';
 $allowEdit = false;
 $pageType = 'edit';
+$loadData = true;
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
-if (!Permission::hasPrivilege("rental-contracts")) {
+if (!Auth::checkPrivilege("rental-contracts")) {
     Redirect::permissionerror();
     die();
 }
@@ -15,7 +16,7 @@ if (Contract::doesIdExist($_GET['id'])) {
     $pageName = 'Contract van '.$row ['band_naam'].' bewerken';
 } else {
     Session::add('feedback_negative', "Geen resultaten voor opgegeven Id.");
-    Redirect::Error();
+    Redirect::error();
 }
 require_once DIR_INCLUDES.'head.php';
 displayHeadCSS();

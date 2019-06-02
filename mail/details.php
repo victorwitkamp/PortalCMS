@@ -3,7 +3,7 @@
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_MAIL_DETAILS');
 Auth::checkAuthentication();
-if (!Permission::hasPrivilege("mail-scheduler")) {
+if (!Auth::checkPrivilege("mail-scheduler")) {
     Redirect::permissionerror();
     die();
 }
@@ -20,7 +20,7 @@ if (MailSchedule::doesMailIdExist($id)) {
     $row = MailSchedule::getScheduledMailById($id);
 } else {
     Session::add('feedback_negative', "Geen resultaten voor opgegeven mail ID.");
-    Redirect::Error();
+    Redirect::error();
 }
 ?>
 <?php require DIR_INCLUDES.'nav.php'; ?>

@@ -1,17 +1,18 @@
 <?php
 $allowEdit = false;
-$pageType = 'edit';
+$loadData = true;
+$pageType = 'view';
 $pageName = 'Profiel';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
-if (!Permission::hasPrivilege("rental-contracts")) {
+if (!Auth::checkPrivilege("rental-contracts")) {
     Redirect::permissionerror();
     die();
 }
 $row = Contract::getById($_GET['id']);
 if (!$row) {
     Session::add('feedback_negative', "Het contract bestaat niet.");
-    Redirect::Error();
+    Redirect::error();
 }
 $pageName = 'Contract van '.$row['band_naam'];
 require_once DIR_INCLUDES.'functions.php';

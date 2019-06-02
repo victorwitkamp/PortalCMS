@@ -3,7 +3,7 @@ $pageType = 'history';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_MAIL_HISTORY');
 Auth::checkAuthentication();
-if (!Permission::hasPrivilege("mail-scheduler")) {
+if (!Auth::checkPrivilege("mail-scheduler")) {
     Redirect::permissionerror();
     die();
 }

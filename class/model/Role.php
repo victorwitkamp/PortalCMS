@@ -37,14 +37,6 @@ class Role
      * @return bool
      */
     public static function create($role_name) {
-        if (self::createAction($role_name)) {
-            Session::add('feedback_positive', "Nieuwe rol aangemaakt.");
-            return true;
-        }
-        return false;
-    }
-
-    public static function createAction($role_name) {
         $stmt = DB::conn()->prepare(
             "INSERT INTO roles
                         (role_name)
@@ -64,14 +56,6 @@ class Role
      * @return bool
      */
     public static function delete($role_id) {
-        if (self::deleteAction($role_id)) {
-            Session::add('feedback_positive', "Rol verwijderd.");
-            return true;
-        }
-        return false;
-    }
-
-    public static function deleteAction($role_id) {
         $stmt = DB::conn()->prepare(
             "DELETE FROM roles
                         where role_id=?
@@ -83,156 +67,10 @@ class Role
         return false;
     }
 
-    /**
-     * Assign a role to a user
-     *
-     * @param string $user_id
-     * @param string $role_id
-     *
-     * @return bool
-     */
-    public static function assign($user_id, $role_id) {
-        if (self::isRoleAssigned($user_id, $role_id)) {
-            Session::add('feedback_negative', "Rol is reeds toegewezen aan deze gebruiker.");
-            return false;
-        }
-        if (self::assignAction($user_id, $role_id)) {
-            Session::add('feedback_positive', "Rol toegewezen.");
-            return true;
-        }
-        Session::add('feedback_negative', "Fout bij toewijzen van rol.");
-        return false;
-    }
 
-    public static function assignAction($user_id, $role_id) {
-        $stmt = DB::conn()->prepare(
-            "INSERT INTO user_role (user_id, role_id)
-                    VALUES (?,?)"
-        );
-        if ($stmt->execute([$user_id, $role_id])) {
-            return true;
-        }
-        return false;
-    }
 
-    /**
-     * Unassign a role from a user
-     *
-     * @param string $user_id
-     * @param string $role_id
-     *
-     * @return bool
-     */
-    public static function unassign($user_id, $role_id) {
-        if (!self::isRoleAssigned($user_id, $role_id)) {
-            Session::add('feedback_negative', "Rol is niet aan deze gebruiker toegewezen. Er is geen toewijzing om te verwijderen.");
-            return false;
-        }
-        if (self::unassignAction($user_id, $role_id)) {
-            Session::add('feedback_positive', "Rol voor gebruiker verwijderd.");
-            return true;
-        }
-        Session::add('feedback_negative', "Fout bij verwijderen van rol voor gebruiker.");
-        return false;
-    }
 
-    public static function unassignAction($user_id, $role_id) {
-        $stmt = DB::conn()->prepare(
-            "DELETE FROM user_role
-                    where user_id=?
-                        and role_id=?"
-        );
-        if ($stmt->execute([$user_id, $role_id])) {
-            return true;
-        }
-        return false;
-    }
 
-    /**
-     * Check whether a user has a specific role
-     *
-     * @param string $user_id
-     * @param string $role_id
-     *
-     * @return bool
-     */
-    public static function isRoleAssigned($user_id, $role_id) {
-        $stmt = DB::conn()->prepare(
-            "SELECT *
-                    FROM user_role
-                        WHERE user_id = ?
-                            and role_id = ?
-                                limit 1"
-        );
-        $stmt->execute([$user_id, $role_id]);
-        if ($stmt->rowCount() == 1) {
-            return true;
-        }
-        return false;
-    }
 
-    /**
-     * Returns the permissions of a role as an array
-     *
-     * @param string $role_id
-     *
-     * @return mixed
-     */
-    public static function getRolePermissions($role_id) {
-        $stmt = DB::conn()->prepare(
-            "SELECT t2.perm_desc
-                    FROM role_perm as t1
-                        JOIN permissions as t2 ON t1.perm_id = t2.perm_id
-                            WHERE t1.role_id = ?"
-        );
-        $stmt->execute([$role_id]);
-        if ($stmt->rowCount() > 0) {
-            return $stmt->fetchAll();
-        }
-        return false;
-    }
-
-    /**
-     * Check whether a role has a specific permission
-     *
-     * @param string $role_id
-     * @param string $perm_desc
-     *
-     * @return bool
-     */
-    public static function hasPerm($role_id, $perm_desc) {
-        $stmt = DB::conn()->prepare(
-            "SELECT t2.perm_desc
-                    FROM role_perm as t1
-                        JOIN permissions as t2 ON t1.perm_id = t2.perm_id
-                            WHERE t1.role_id = ? and t2.perm_desc = ?"
-        );
-        $stmt->execute([$role_id, $perm_desc]);
-        if ($stmt->rowCount() > 0) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Returns the permission ID's for a specific role
-     *
-     * @param string $role_id
-     *
-     * @return array
-     */
-    public static function getRolePermissionIds($role_id) {
-        $stmt = DB::conn()->prepare(
-            "SELECT perm_id
-                    FROM role_perm
-                        WHERE role_id = ?"
-        );
-        $stmt->execute([$role_id]);
-        if ($stmt->rowCount() > 0) {
-            return $stmt->fetchAll();
-
-        }
-        return false;
-    }
 
 }

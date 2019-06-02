@@ -2,7 +2,7 @@
 $pageName = 'Profiel';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
-if (!Permission::hasPrivilege("membership")) {
+if (!Auth::checkPrivilege("membership")) {
     Redirect::permissionerror();
     die();
 }

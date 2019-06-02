@@ -43,11 +43,15 @@
             <td><?php echo Invoice::DisplayInvoiceSumById($row['id']); ?></td>
             <td>
             <?php
-            echo $row['status'];
             if ($row['status'] === '0') {
-                echo ' <i class="fas fa-lock-open"></i>';
-            } else {
-                echo ' <i class="fas fa-lock"></i>'; }
+                echo '<i class="fas fa-lock-open"></i> Concept';
+            }
+            if ($row['status'] === '1') {
+                echo '<i class="fas fa-lock"></i> Klaar voor verzending';
+            }
+            if ($row['status'] === '2') {
+                echo '<i class="fas fa-lock"></i> Verzonden ';
+            }
             ?>
             </td>
             <td>

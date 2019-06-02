@@ -4,7 +4,7 @@ require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_MEMBERS');
 $year = Request::get('year');
 Auth::checkAuthentication();
-if (!Permission::hasPrivilege("membership")) {
+if (!Auth::checkPrivilege("membership")) {
     Redirect::permissionerror();
     die();
 }

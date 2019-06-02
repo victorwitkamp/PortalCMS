@@ -15,15 +15,22 @@ A CMS-like PHP application/portal that I'm creation for a small non-profit music
     - Change username
     - Change e-mailaddress (planned)
     - Assign Facebook account to current user
-  - Registration
+  - Registration (disabled. need to verify/implement this again. planned.)
     - Registration form
-    - Activate account by clicking URL that was received by e-mail
+    - Activate account by clicking the URL that was received by e-mail
     - Activate account manually by specifying the code received by e-mail
   - Reset password
-    - Request password reset form
+    - A form where the user can request a reset of the password by entering a known e-mailaddress.
+    - User clicks on the URL in the e-mail that was sent to the known e-mailaddress.
+    - User will be redirected to a form where they can provide a new password.
   - Login
     - Login with username or e-mailaddress + password
     - Login with Facebook
+  - User management
+    - User roles/permissions
+      - Roles can be assigned/unassigned to a user. Multiple roles allowed.
+      - Roles can be created/deleted from the Role Management page.
+      - Permissions can be assigned/unassigned to a role. The names of the permissions are currently static and cannot be changed.
 
 - Membership: manage the yearly membership.
   - Add new members or edit existing members by filling in a form.

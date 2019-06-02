@@ -2,7 +2,7 @@
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_USER_MANAGEMENT');
 Auth::checkAuthentication();
-if (!Permission::hasPrivilege("user-management")) {
+if (!Auth::checkPrivilege("user-management")) {
     Redirect::permissionerror();
     die();
 }

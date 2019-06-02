@@ -2,7 +2,7 @@
 $pageName = 'Nieuw bericht';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
-if (!Permission::hasPrivilege("mail-scheduler")) {
+if (!Auth::checkPrivilege("mail-scheduler")) {
     Redirect::permissionerror();
     die();
 }

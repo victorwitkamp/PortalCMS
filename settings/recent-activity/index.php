@@ -3,7 +3,7 @@
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_RECENT_ACTIVITY');
 Auth::checkAuthentication();
-if (!Permission::hasPrivilege("recent-activity")) {
+if (!Auth::checkPrivilege("recent-activity")) {
     Redirect::permissionerror();
     die();
 }

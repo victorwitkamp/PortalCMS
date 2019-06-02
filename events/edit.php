@@ -3,7 +3,7 @@ $pageName = 'Evenement bewerken';
 $allowEdit = false;
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
-if (!Permission::hasPrivilege("events")) {
+if (!Auth::checkPrivilege("events")) {
     Redirect::permissionerror();
     die();
 }
@@ -14,7 +14,7 @@ if ($row = Event::getEvent($_GET['id'])) {
     $pageName = 'Evenement '.$row ['title'].' bewerken';
 } else {
     Session::add('feedback_negative', "Geen resultaten voor opgegeven event ID.");
-    Redirect::Error();
+    Redirect::error();
 }
 
 require_once DIR_INCLUDES.'head.php';

@@ -1,7 +1,7 @@
 <?php
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
-if (!Permission::hasPrivilege("rental-invoices")) {
+if (!Auth::checkPrivilege("rental-invoices")) {
     Redirect::permissionerror();
     die();
 }

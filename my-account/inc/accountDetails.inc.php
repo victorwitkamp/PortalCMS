@@ -1,7 +1,8 @@
 
 <?php
 $user = User::getProfileById(Session::get('user_id'));
-?><h3><?php echo Text::get('LABEL_ACCOUNT_DETAILS'); ?></h3>
+?>
+<h3><?php echo Text::get('LABEL_ACCOUNT_DETAILS'); ?></h3>
             <table class="table table-striped table-condensed">
                 <tr>
                     <th width="20%"><?php echo Text::get('LABEL_USER_ID'); ?></th><td><?php

@@ -2,7 +2,7 @@
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_SITE_SETTINGS');
 Auth::checkAuthentication();
-if (!Permission::hasPrivilege("site-settings")) {
+if (!Auth::checkPrivilege("site-settings")) {
     Redirect::permissionerror();
     die();
 }

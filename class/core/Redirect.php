@@ -21,12 +21,11 @@ class Redirect
         header('location: http://'.$_SERVER['HTTP_HOST'].'/'.$path);
     }
 
-        /**
-     * To the homepage
+    /**
+     * To the login page
      */
     public static function login()
     {
-        // header("location: " . Config::get('URL'));
         self::redirectPage('login/login.php');
     }
 
@@ -35,16 +34,22 @@ class Redirect
      */
     public static function home()
     {
-        // header("location: " . Config::get('URL'));
         self::redirectPage('home/index.php');
     }
 
     /**
      * To the homepage
      */
-    public static function Error()
+    public static function myAccount()
     {
-        // header("location: " . Config::get('URL'));
+        self::redirectPage('my-account');
+    }
+
+    /**
+     * To the page that displays an error
+     */
+    public static function error()
+    {
         self::redirectPage('includes/Error.php');
     }
 
@@ -53,7 +58,6 @@ class Redirect
      */
     public static function permissionerror()
     {
-        // header("location: " . Config::get('URL'));
         self::redirectPage('includes/permissionError.php');
     }
 

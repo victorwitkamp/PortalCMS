@@ -8,6 +8,8 @@ class PasswordResetController extends Controller
 {
     public function __construct()
     {
+        parent::__construct();
+
         if (isset($_POST['requestPasswordReset'])) {
             if (PasswordReset::requestPasswordReset($_POST['user_name_or_email'])) {
                 Redirect::redirectPage("login/login.php");
