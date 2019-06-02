@@ -28,6 +28,7 @@ PortalCMS_JS_dataTables();
         <hr>
 
                 <?php Alert::renderFeedbackMessages(); ?>
+                <p>Factuurnummmer = Jaar + Bandcode + Maandcode. Voorbeeld: 20190001 = 2019, Band 00, Januari.</p>
         <?php
         $invoices = Invoice::getAllInvoices();
         if ($invoices) {

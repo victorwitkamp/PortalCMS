@@ -94,14 +94,16 @@ class Invoice
                 Session::add('feedback_negative', "Toevoegen van factuur mislukt.");
             } else {
                 $invoice = self::getInvoiceByFactuurnummer($factuurnummer);
-                $factuuromschrijving_ruimte = 'Kosten voor: huur '.Text::get('MONTH_'.$month);
+                if ($contract['kosten_ruimte'] > 0) {
+                    $factuuromschrijving_ruimte = 'Kosten voor: huur '.Text::get('MONTH_'.$month);
+                }
                 self::addInvoiceItemAction($invoice['id'], $factuuromschrijving_ruimte, $contract['kosten_ruimte']);
-                if (!empty($contract['huur_kast_nr'])) {
+                // if (!empty($contract['huur_kast_nr'])) {
                     if ($contract['kosten_kast'] > 0) {
                         $factuuromschrijving_kast = 'Kosten voor: kast '.Text::get('MONTH_'.$month);
                         self::addInvoiceItemAction($invoice['id'], $factuuromschrijving_kast, $contract['kosten_kast']);
                     }
-                }
+                // }
                 Session::add('feedback_positive', "Factuur toegevoegd.");
                 Redirect::redirectPage("rental/invoices/");
             }

@@ -254,6 +254,7 @@
                 <label class="col-sm-2 col-form-label"><?php echo Text::get('DAY'); ?></label>
                 <div class="col-sm-10">
 <?php if ($pageType === 'edit') { ?><input type="text" value="<?php echo $row['huur_dag']; ?>" disabled> <?php } ?>
+<?php if ($allowEdit) { ?>
                     <select name="huur_dag" class="form-control" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
                         <option>Selecteer een dag....</option>
                         <option value="<?php echo Text::get('DAY_01'); ?>"><?php echo Text::get('DAY_01'); ?></option>
@@ -264,6 +265,7 @@
                         <option value="<?php echo Text::get('DAY_06'); ?>"><?php echo Text::get('DAY_06'); ?></option>
                         <option value="<?php echo Text::get('DAY_07'); ?>"><?php echo Text::get('DAY_07'); ?></option>
                     </select>
+<?php } ?>
                 </div>
             </div>
 

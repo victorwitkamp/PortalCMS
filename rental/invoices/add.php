@@ -26,6 +26,7 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
             <hr>
 
                 <?php Alert::renderFeedbackMessages(); ?>
+                <p>Zorg ervoor dat de bedragen voor de huur van de ruimte en van een eventuele kast reeds ingevuld zijn in het contract.</p>
                 <form method="post" validate=true>
 
                     <div class="form-group row">
