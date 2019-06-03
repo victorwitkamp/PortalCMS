@@ -10,11 +10,11 @@ class User
     /**
      * Gets the user's data
      *
-     * @param $userName string User's name
+     * @param $username string User's name
      *
      * @return mixed Returns false if user does not exist, returns object with user's data when user exists
      */
-    public static function getByUserName($userName)
+    public static function getByUsername($username)
     {
         $stmt = DB::conn()->prepare(
             "SELECT user_id,
@@ -33,7 +33,7 @@ class User
                         AND user_provider_type = :provider_type
                         LIMIT 1"
         );
-        $stmt->execute(array(':user_name' => $userName, ':provider_type' => 'DEFAULT'));
+        $stmt->execute(array(':user_name' => $username, ':provider_type' => 'DEFAULT'));
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
@@ -92,11 +92,11 @@ class User
     }
 
     /**
-     * @param $userNameOrEmail
+     * @param $usernameOrEmail
      *
      * @return mixed
      */
-    public static function getByUserNameOrEmail($userNameOrEmail)
+    public static function getByUsernameOrEmail($usernameOrEmail)
     {
         $stmt = DB::conn()->prepare(
             "SELECT user_id, user_name, user_email
@@ -106,18 +106,18 @@ class User
                         AND user_provider_type = :provider_type
                         LIMIT 1"
         );
-        $stmt->execute(array(':user_name_or_email' => $userNameOrEmail, ':provider_type' => 'DEFAULT'));
+        $stmt->execute(array(':user_name_or_email' => $usernameOrEmail, ':provider_type' => 'DEFAULT'));
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
     /**
      * Checks if a username is already taken
      *
-     * @param $userName string username
+     * @param $username string username
      *
      * @return bool
      */
-    public static function UsernameExists($userName)
+    public static function UsernameExists($username)
     {
         $stmt = DB::conn()->prepare(
             "SELECT user_id
@@ -127,7 +127,7 @@ class User
         );
         $stmt->execute(
             array(
-                ':user_name' => $userName
+                ':user_name' => $username
             )
         );
         if ($stmt->rowCount() == 0) {
@@ -162,11 +162,11 @@ class User
      * Writes new username to database
      *
      * @param $user_id int user id
-     * @param $newUserName string new username
+     * @param $newUsername string new username
      *
      * @return bool
      */
-    public static function updateUsername($user_id, $newUserName)
+    public static function updateUsername($user_id, $newUsername)
     {
         $stmt = DB::conn()->prepare(
             "UPDATE users
@@ -176,7 +176,7 @@ class User
         );
         $stmt->execute(
             array(
-                ':user_name' => $newUserName,
+                ':user_name' => $newUsername,
                 ':user_id' => $user_id
             )
         );
@@ -236,36 +236,36 @@ class User
     /**
      * Edit the user's name, provided in the editing form
      *
-     * @param $newUserName string The new username
+     * @param $newUsername string The new username
      *
      * @return bool success status
      */
-    public static function editUserName($newUserName)
+    public static function editUsername($newUsername)
     {
         // Check if new password is indeed different.
-        if ($newUserName == Session::get('user_name')) {
+        if ($newUsername == Session::get('user_name')) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_SAME_AS_OLD_ONE'));
             return false;
         }
 
         // username cannot be empty and must be azAZ09 and 2-64 characters
-        if (!preg_match("/^[a-zA-Z0-9]{2,64}$/", $newUserName)) {
+        if (!preg_match("/^[a-zA-Z0-9]{2,64}$/", $newUsername)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_DOES_NOT_FIT_PATTERN'));
             return false;
         }
 
         // clean the input, strip usernames longer than 64 chars (maybe fix this ?)
-        $newUserName = substr(strip_tags($newUserName), 0, 64);
+        $newUsername = substr(strip_tags($newUsername), 0, 64);
 
         // check if new username already exists
-        if (self::UserNameExists($newUserName)) {
+        if (self::UsernameExists($newUsername)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_ALREADY_TAKEN'));
             return false;
         }
 
-        $status_of_action = self::updateUserName(Session::get('user_id'), $newUserName);
+        $status_of_action = self::updateUsername(Session::get('user_id'), $newUsername);
         if ($status_of_action) {
-            Session::set('user_name', $newUserName);
+            Session::set('user_name', $newUsername);
             Session::add('feedback_positive', Text::get('FEEDBACK_USERNAME_CHANGE_SUCCESSFUL'));
             return true;
         } else {
@@ -277,15 +277,15 @@ class User
     /**
      * Gets the user's id
      *
-     * @param $userName
+     * @param $username
      *
      * @return mixed
      */
-    public static function getUserIdByUserName($userName)
+    public static function getUserIdByUsername($username)
     {
         $sql = "SELECT user_id FROM users WHERE user_name = :user_name AND user_provider_type = :provider_type LIMIT 1";
         $stmt = DB::conn()->prepare($sql);
-        $stmt->execute(array(':user_name' => $userName, ':provider_type' => 'DEFAULT'));
+        $stmt->execute(array(':user_name' => $username, ':provider_type' => 'DEFAULT'));
         while ($row = $stmt->fetch()) {
             return $row['user_id'];
         }
@@ -333,31 +333,31 @@ class User
     /**
      * Increments the failed-login counter of a user
      *
-     * @param $userName
+     * @param $username
      */
-    public static function incrementFailedLoginCounterOfUser($userName)
+    public static function incrementFailedLoginCounterOfUser($username)
     {
         $sql = "UPDATE users
                 SET user_failed_logins = user_failed_logins+1, user_last_failed_login = :user_last_failed_login
                 WHERE user_name = :user_name OR user_email = :user_name
                 LIMIT 1";
         $stmt = DB::conn()->prepare($sql);
-        $stmt->execute(array(':user_name' => $userName, ':user_last_failed_login' => date('Y-m-d H:i:s')));
+        $stmt->execute(array(':user_name' => $username, ':user_last_failed_login' => date('Y-m-d H:i:s')));
     }
 
     /**
      * Resets the failed-login counter of a user back to 0
      *
-     * @param $userName
+     * @param $username
      */
-    public static function resetFailedLoginCounterOfUser($userName)
+    public static function resetFailedLoginCounterOfUser($username)
     {
         $sql = "UPDATE users
                 SET user_failed_logins = 0, user_last_failed_login = NULL
                 WHERE user_name = :user_name AND user_failed_logins != 0
                 LIMIT 1";
         $stmt = DB::conn()->prepare($sql);
-        $stmt->execute(array(':user_name' => $userName));
+        $stmt->execute(array(':user_name' => $username));
     }
 
 
@@ -365,14 +365,14 @@ class User
      * Write timestamp of this login into database (we only write a "real" login via login form into the database,
      * not the session-login on every page request
      *
-     * @param $userName
+     * @param $username
      */
-    public static function saveTimestampOfLoginOfUser($userName)
+    public static function saveTimestampOfLoginOfUser($username)
     {
         $sql = "UPDATE users
                 SET user_last_login_timestamp = :user_last_login_timestamp
                 WHERE user_name = :user_name LIMIT 1";
         $stmt = DB::conn()->prepare($sql);
-        $stmt->execute(array(':user_name' => $userName, ':user_last_login_timestamp' => date('Y-m-d H:i:s')));
+        $stmt->execute(array(':user_name' => $username, ':user_last_login_timestamp' => date('Y-m-d H:i:s')));
     }
 }

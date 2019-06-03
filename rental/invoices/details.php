@@ -8,7 +8,7 @@ if (!Auth::checkPrivilege("rental-invoices")) {
 }
 require DIR_ROOT.'includes/functions.php';
 
-if ($invoice = Invoice::getInvoiceById($_GET['id'])) {
+if ($invoice = Invoice::getById($_GET['id'])) {
     $pageName = 'Factuur: '.$invoice['factuurnummer'];
 } else {
     Session::add('feedback_negative', "Geen resultaten voor opgegeven factuur ID.");
@@ -76,15 +76,16 @@ PortalCMS_JS_headJS(); ?>
                     <th>Prijs</th>
                 </tr>
                 <?php
-                    $invoiceitems = Invoice::getInvoiceItemsById($invoice['id']);
+                    $invoiceitems = InvoiceItem::getByInvoiceId($invoice['id']);
                     foreach ($invoiceitems as $invoiceitem) {
                 ?>
                 <tr>
                     <td>
                         <?php if ($invoice['status'] === '0') { ?>
                         <form method="post">
+                            <input type="hidden" name="invoiceid" value="<?php echo $invoice['id']; ?>">
                             <input type="hidden" name="id" value="<?php echo $invoiceitem['id']; ?>">
-                            <button type="submit" name="deleteinvoiceitem" onclick="return confirm('Weet je zeker dat je <?php echo $invoiceitem['id']; ?> wilt verwijderen?')" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></button>
+                            <button type="submit" name="deleteinvoiceitem" onclick="return confirm('Weet je zeker dat je <?php echo $invoiceitem['name']; ?> wilt verwijderen?')" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></button>
                         </form>
                         <?php } ?>
                     </td>
@@ -112,7 +113,7 @@ PortalCMS_JS_headJS(); ?>
                         <input type="text" name="price" class="form-control">
                     </div>
                 </div>
-                <input type="hidden" name="invoiceid" value="<?php echo $_GET['id']; ?>">
+                <input type="hidden" name="invoiceid" value="<?php echo $invoice['id']; ?>">
                 <input type="submit" name="addinvoiceitem" class="btn btn-primary">
             </form>
             <?php } else { ?>
