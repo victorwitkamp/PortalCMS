@@ -22,6 +22,7 @@ class InvoiceItem
         }
         return true;
     }
+
     /**
      * Check if an InvoiceItem with a specific name and price exists for a specific invoiceId.
      *
@@ -47,7 +48,15 @@ class InvoiceItem
         return true;
     }
 
-
+    /**
+     * Create an InvoiceItem with a specific name and price exists for a specific invoiceId.
+     *
+     * @param int $invoiceId
+     * @param string $name
+     * @param int $price
+     *
+     * @return bool
+     */
     public static function create($invoiceId, $name, $price) {
         $stmt = DB::conn()->prepare(
             "INSERT INTO invoice_items(id, invoice_id, name, price)
@@ -60,8 +69,13 @@ class InvoiceItem
         return true;
     }
 
-
-
+    /**
+     * Delete an InvoiceItem by Id.
+     *
+     * @param int $id
+     *
+     * @return bool
+     */
     public static function delete($id) {
         $stmt = DB::conn()->prepare(
             "DELETE

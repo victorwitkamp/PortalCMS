@@ -42,7 +42,7 @@ class InvoiceController extends controller
         if (empty($id)) {
             return false;
         }
-        $invoice = self::getById($id);
+        $invoice = Invoice::getById($id);
         $contract = Contract::getById($invoice['contract_id']);
         if (InvoicePDF::render($invoice, $contract)) {
             return true;
