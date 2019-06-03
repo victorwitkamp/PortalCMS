@@ -139,7 +139,7 @@ class Login
             return false;
         }
 
-        $result = User::getByUsername($user_name);
+        $result = User::getByUserName($user_name);
 
         if (!$result) {
             self::incrementUserNotFoundCounter();

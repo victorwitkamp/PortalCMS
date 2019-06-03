@@ -1,23 +1,21 @@
 <?php
-
 /**
- * Class : Event (Event.class.php)
+ * Class : Event (Event.php)
  * Details : Event Class.
  */
-
 class Event
 {
     /**
      * Check if an Event ID exists
      *
-     * @param int $Id
+     * @param int $eventId
      *
      * @return bool
      */
-    public static function doesEventIdExist($Id)
+    public static function doesEventIdExist($eventId)
     {
         $stmt = DB::conn()->prepare("SELECT id FROM events WHERE id = ? limit 1");
-        $stmt->execute([$Id]);
+        $stmt->execute([$eventId]);
         if ($stmt->rowCount() == 0) {
             return false;
         }
@@ -27,28 +25,27 @@ class Event
     /**
      * Fetches an Event by ID
      *
-     * @param int $Id
+     * @param int $eventId
      *
      * @return bool
      */
-    public static function getEvent($Id)
+    public static function getEvent($eventId)
     {
         $stmt = DB::conn()->prepare("SELECT * FROM events WHERE id = ? limit 1");
-        $stmt->execute([$Id]);
+        $stmt->execute([$eventId]);
         if (!$stmt->rowCount() == 1) {
             return false;
-        } else {
-            return $stmt->fetch();
         }
+        return $stmt->fetch();
     }
 
-    public static function loadEvents($startdate, $enddate)
+    public static function loadEvents($startDate, $endDate)
     {
-        $startdatetime = $startdate.' 00:00:00';
-        $enddatetime = $enddate.' 00:00:00';
+        $startDateTime = $startDate.' 00:00:00';
+        $endDateTime = $endDate.' 00:00:00';
         $data = array();
         $stmt = DB::conn()->prepare("SELECT * FROM events where start_event > ? and end_event < ? ORDER BY id");
-        $stmt->execute([$startdatetime, $enddatetime]);
+        $stmt->execute([$startDateTime, $endDateTime]);
         $result = $stmt->fetchAll();
         foreach ($result as $row) {
             $data[] = array(
@@ -120,15 +117,13 @@ class Event
         if (!$stmt->rowCount() == 0) {
             Session::add('feedback_negative', 'Kies een andere tijd.');
             return false;
-        } else {
-            if (!self::addEventAction($title, $start_event, $end_event, $description)) {
-                Session::add('feedback_negative', 'Toevoegen van evenement mislukt.');
-                return false;
-            } else {
-                Session::add('feedback_positive', 'Evenement toegevoegd.');
-                return true;
-            }
         }
+        if (!self::addEventAction($title, $start_event, $end_event, $description)) {
+            Session::add('feedback_negative', 'Toevoegen van evenement mislukt.');
+            return false;
+        }
+        Session::add('feedback_positive', 'Evenement toegevoegd.');
+        return true;
     }
 
     public static function addEventAction($title, $start_event, $end_event, $description) {
@@ -155,19 +150,16 @@ class Event
         $start_event = Request::post('start_event', true);
         $end_event = Request::post('end_event', true);
         $description = Request::post('description', true);
-
-        if (self::doesEventIdExist($event_id)) {
-            if (!self::updateEventAction($event_id, $title, $start_event, $end_event, $description)) {
-                Session::add('feedback_negative', 'Wijzigen van evenement mislukt.');
-                return false;
-            } else {
-                Session::add('feedback_positive', 'Evenement gewijzigd.');
-                return true;
-            }
-        } else {
+        if (!self::doesEventIdExist($event_id)) {
             Session::add('feedback_negative', 'Wijzigen van evenement mislukt.<br>Evenement bestaat niet.');
-                return false;
+            return false;
         }
+        if (!self::updateEventAction($event_id, $title, $start_event, $end_event, $description)) {
+            Session::add('feedback_negative', 'Wijzigen van evenement mislukt.');
+            return false;
+        }
+        Session::add('feedback_positive', 'Evenement gewijzigd.');
+        return true;
     }
 
     public static function updateEventAction($event_id, $title, $start_event, $end_event, $description)

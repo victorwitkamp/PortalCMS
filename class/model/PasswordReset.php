@@ -27,7 +27,7 @@ class PasswordReset
             return false;
         }
         // check if that username exists
-        $result = User::getByUsernameOrEmail($user_name_or_email);
+        $result = User::getByUserNameOrEmail($user_name_or_email);
         if (!$result) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USER_DOES_NOT_EXIST'));
             return false;
@@ -80,6 +80,7 @@ class PasswordReset
         Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_TOKEN_FAIL'));
         return false;
     }
+
     /**
      * Send the password reset mail
      *
@@ -92,8 +93,6 @@ class PasswordReset
     public static function sendPasswordResetMail($user_name, $password_reset_hash, $user_email)
     {
         $MailText = MailTemplate::getStaticMailText('ResetPassword');
-
-
         $resetlink =    Config::get('URL').
                         Config::get('EMAIL_PASSWORD_RESET_URL').
                         '?username='.$user_name.
@@ -156,11 +155,9 @@ class PasswordReset
         if ($user_timestamp > $timestamp_one_hour_ago) {
             //   Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_RESET_LINK_VALID'));
             return true;
-        } else {
-            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_LINK_EXPIRED'));
-            // Session::add('feedback_negative', $text);
-            return false;
         }
+        Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_LINK_EXPIRED'));
+        return false;
     }
 
     /**
@@ -218,10 +215,9 @@ class PasswordReset
         if (self::saveNewUserPassword($user_name, $user_password_hash, $password_reset_hash)) {
             Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_CHANGE_SUCCESSFUL'));
             return true;
-        } else {
-            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CHANGE_FAILED'));
-            return false;
         }
+        Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CHANGE_FAILED'));
+        return false;
     }
 
     /**

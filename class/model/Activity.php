@@ -35,7 +35,7 @@ class Activity
 
     public static function registerUserActivityByUsername($user_name, $activity = null, $details = null)
     {
-        $user = User::getByUsername($user_name);
+        $user = User::getByUserName($user_name);
         $user_id = $user['user_id'];
         self::saveUserActivity($user_id, $user_name, $activity, $details);
     }

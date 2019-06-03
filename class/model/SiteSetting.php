@@ -7,26 +7,6 @@
 
 class SiteSetting
 {
-    // public $SiteName;
-    // public $SiteDescription;
-    // public $SiteURL;
-    // public $SiteLogo;
-    // public $SiteTheme;
-    // public $SiteLayout;
-
-    // public $WidgetComingEvents;
-
-    // public function getSiteSettings()
-    // {
-    //     $this->SiteName = $this->getSiteSetting('site_name');
-    //     $this->SiteDescription = $this->getSiteSetting('site_description');
-    //     $this->SiteTheme = $this->getSiteSetting('site_theme');
-    //     $this->SiteLayout = $this->getSiteSetting('site_layout');
-    //     $this->SiteURL = $this->getSiteSetting('site_url');
-    //     $this->SiteLogo = $this->getSiteSetting('site_logo');
-    //     $this->WidgetComingEvents = $this->getSiteSetting('WidgetComingEvents');
-    // }
-
     public static function saveSiteSettings()
     {
         self::setSiteSetting(Request::post('site_name'), 'site_name');
@@ -46,9 +26,8 @@ class SiteSetting
         $stmt = DB::conn()->prepare("UPDATE site_settings SET string_value = ? WHERE setting = ?");
         if (!$stmt->execute([$value, $setting])) {
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 
     function getSiteSetting($setting)
@@ -119,7 +98,6 @@ class SiteSetting
         }
         Session::add('feedback_positive', 'Directory '.$path_logo.' exists and is writeable');
         return true;
-
     }
 
     /**
@@ -152,7 +130,8 @@ class SiteSetting
         }
         return true;
     }
-        /**
+
+    /**
      * Writes marker to database, saying user has an avatar now
      *
      * @param $user_id
@@ -169,6 +148,7 @@ class SiteSetting
             return true;
         }
     }
+
     /**
      * Resize avatar image (while keeping aspect ratio and cropping it off sexy)
      *
