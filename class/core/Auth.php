@@ -35,12 +35,13 @@ class Auth
             // the hard way, via exit(). @see https://github.com/panique/php-login/issues/453
             // this is not optimal and will be fixed in future releases
             exit();
-        } else {
-            // Hook to check is a cookie exists and if it matches a remember me token in the database.
-            // if (!Cookie::isValid()) {
-
-            // }
         }
+
+        // Hook to check is a cookie exists and if it matches a remember me token in the database.
+        // if (!Cookie::isValid()) {
+
+        // }
+
     }
 
     /**
