@@ -1,8 +1,6 @@
 /vendor/
 .scrutenizer.yml
 composer.lock
-Init.php
-Init.beuk.php
 /config/config.development.php
 /config/config.development.beuk.php
 web.config
