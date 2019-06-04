@@ -86,7 +86,7 @@ class InvoiceItemMapper
     }
 
     /**
-     * Check if an InvoiceItem with a specific name and price exists for a specific invoiceId.
+     * Check if an InvoiceItem with a specific name exists for a specific invoiceId.
      *
      * @param int $invoiceId
      * @param string $name
@@ -94,16 +94,15 @@ class InvoiceItemMapper
      *
      * @return bool
      */
-    public static function itemExists($invoiceId, $name, $price)
+    public static function itemExists($invoiceId, $name)
     {
         $stmt = DB::conn()->prepare(
             "SELECT id
                     FROM invoice_items
                         WHERE invoice_id = ?
                         AND name = ?
-                        AND price = ?
                         LIMIT 1");
-        $stmt->execute([$invoiceId, $name, $price]);
+        $stmt->execute([$invoiceId, $name]);
         if ($stmt->rowCount() == 0) {
             return false;
         }

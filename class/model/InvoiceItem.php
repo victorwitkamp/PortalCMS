@@ -4,9 +4,9 @@ class InvoiceItem
 {
     public static function create()
     {
-        $invoiceId = Request::post('invoiceid', true);
+        $invoiceId = (int)Request::post('invoiceid', true);
         $name = Request::post('name', true);
-        $price = Request::post('price', true);
+        $price = (int)Request::post('price', true);
         if (InvoiceItemMapper::itemExists($invoiceId, $name, $price)) {
             Session::add('feedback_negative', "Factuuritem bestaat al");
             return false;
@@ -21,7 +21,7 @@ class InvoiceItem
 
     public static function delete()
     {
-        $id = Request::post('id', true);
+        $id = (int)Request::post('id', true);
         if (!InvoiceItemMapper::exists($id)) {
             Session::add('feedback_negative', "Kan factuuritem niet verwijderen.<br>Factuuritem bestaat niet.");
             return false;
