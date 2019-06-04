@@ -2,15 +2,6 @@
 
 class InvoiceMapper
 {
-    public static function getByContractId($contractId)
-    {
-        $stmt = DB::conn()->prepare("SELECT * FROM invoices where contract_id = ?");
-        $stmt->execute([$contractId]);
-        if (!$stmt->rowCount() > 0) {
-            return false;
-        }
-        return $stmt->fetchAll();
-    }
     public static function getById($id)
     {
         $stmt = DB::conn()->prepare("SELECT * FROM invoices WHERE id = ? limit 1");
@@ -19,6 +10,31 @@ class InvoiceMapper
             return false;
         }
         return $stmt->fetch();
+    }
+
+    public static function getByFactuurnummer($factuurnummer)
+    {
+        $stmt = DB::conn()->prepare(
+            "SELECT *
+                    FROM invoices
+                    WHERE factuurnummer = ?
+                    LIMIT 1"
+        );
+        $stmt->execute([$factuurnummer]);
+        if (!$stmt->rowCount() == 1) {
+            return false;
+        }
+        return $stmt->fetch();
+    }
+
+    public static function getByContractId($contractId)
+    {
+        $stmt = DB::conn()->prepare("SELECT * FROM invoices where contract_id = ?");
+        $stmt->execute([$contractId]);
+        if (!$stmt->rowCount() > 0) {
+            return false;
+        }
+        return $stmt->fetchAll();
     }
 
     public static function getAll()
