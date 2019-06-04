@@ -9,7 +9,7 @@ class InvoiceItemMapper
      *
      * @return array
      */
-    public static function getByInvoiceId($invoiceId)
+    public static function getByInvoiceId(int $invoiceId)
     {
         $stmt = DB::conn()->prepare(
             "SELECT *
@@ -32,7 +32,7 @@ class InvoiceItemMapper
      *
      * @return bool
      */
-    public static function create($invoiceId, $name, $price) {
+    public static function create(int $invoiceId, string $name, int $price) {
         $stmt = DB::conn()->prepare(
             "INSERT INTO invoice_items(id, invoice_id, name, price)
             VALUES (NULL,?,?,?)"
@@ -51,7 +51,7 @@ class InvoiceItemMapper
      *
      * @return bool
      */
-    public static function delete($id) {
+    public static function delete(int $id) {
         $stmt = DB::conn()->prepare(
             "DELETE
             FROM invoice_items
@@ -71,7 +71,7 @@ class InvoiceItemMapper
      *
      * @return bool
      */
-    public static function exists($id)
+    public static function exists(int $id)
     {
         $stmt = DB::conn()->prepare(
             "SELECT id
@@ -94,7 +94,7 @@ class InvoiceItemMapper
      *
      * @return bool
      */
-    public static function itemExists($invoiceId, $name, $price)
+    public static function itemExists(int $invoiceId, string $name, int $price)
     {
         $stmt = DB::conn()->prepare(
             "SELECT id
