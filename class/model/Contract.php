@@ -362,7 +362,7 @@ class Contract
         $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         $count = count($result);
         if ($count > 0) {
-            if(!Invoice::getInvoicesByContractId($contract_id)) {
+            if(!Invoice::getByContractId($contract_id)) {
                 if (self::deleteAction($contract_id)) {
                     Session::add('feedback_positive', 'Contract verwijderd.');
                     return true;

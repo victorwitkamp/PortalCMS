@@ -62,7 +62,7 @@ class InvoicePDF
                 <th><strong>Bedrag</strong></th>
             </tr>';
         $tableend = '</table>';
-        $invoiceitems = InvoiceItem::getByInvoiceId($invoice['id']);
+        $invoiceitems = InvoiceItemMapper::getByInvoiceId($invoice['id']);
         $totaalbedrag = '0';
         $rows = '';
         foreach ($invoiceitems as $row) {

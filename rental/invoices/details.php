@@ -8,7 +8,7 @@ if (!Auth::checkPrivilege("rental-invoices")) {
 }
 require DIR_ROOT.'includes/functions.php';
 
-if ($invoice = Invoice::getById($_GET['id'])) {
+if ($invoice = InvoiceMapper::getById($_GET['id'])) {
     $pageName = 'Factuur: '.$invoice['factuurnummer'];
 } else {
     Session::add('feedback_negative', "Geen resultaten voor opgegeven factuur ID.");
@@ -76,7 +76,7 @@ PortalCMS_JS_headJS(); ?>
                     <th>Prijs</th>
                 </tr>
                 <?php
-                    $invoiceitems = InvoiceItem::getByInvoiceId($invoice['id']);
+                    $invoiceitems = InvoiceItemMapper::getByInvoiceId($invoice['id']);
                     foreach ($invoiceitems as $invoiceitem) {
                 ?>
                 <tr>
@@ -85,7 +85,7 @@ PortalCMS_JS_headJS(); ?>
                         <form method="post">
                             <input type="hidden" name="invoiceid" value="<?php echo $invoice['id']; ?>">
                             <input type="hidden" name="id" value="<?php echo $invoiceitem['id']; ?>">
-                            <button type="submit" name="deleteinvoiceitem" onclick="return confirm('Weet je zeker dat je <?php echo $invoiceitem['name']; ?> wilt verwijderen?')" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></button>
+                            <button type="submit" name="deleteInvoiceItem" onclick="return confirm('Weet je zeker dat je <?php echo $invoiceitem['name']; ?> wilt verwijderen?')" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></button>
                         </form>
                         <?php } ?>
                     </td>

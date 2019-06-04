@@ -10,8 +10,6 @@ date_default_timezone_set('Europe/Amsterdam');
 
 /**
  * Configuration for: Error reporting
- * Useful to show every little problem during development, but only show hard / no errors in production.
- * It's a little bit dirty to put this here, but who cares. For development purposes it's totally okay.
  */
 error_reporting(E_ALL); // Error engine - always TRUE!
 // Passing in the value -1 will show every possible error, even when new levels and constants are added in future PHP versions.
@@ -25,7 +23,8 @@ ini_set('error_log', $_SERVER["DOCUMENT_ROOT"] . '/errors.log');
 ini_set('log_errors_max_len', 1024);
 
 /**
- * Configuration for cookie security
+ * Configuration for: cookie security
+ *
  * Quote from PHP manual: Marks the cookie as accessible only through the HTTP protocol. This means that the cookie
  * won't be accessible by scripting languages, such as JavaScript. This setting can effectively help to reduce identity
  * theft through XSS attacks (although it is not supported by all browsers).
@@ -38,27 +37,24 @@ ini_set('session.cookie_httponly', 1);
  * Configuration for: Named constants
  */
 define("DIR_ROOT", $_SERVER["DOCUMENT_ROOT"] . "/");
-define("DIR_CLASS", $_SERVER["DOCUMENT_ROOT"] . "/class/");
-define("DIR_CLASS_CORE", $_SERVER["DOCUMENT_ROOT"] . "/class/core/");
-define("DIR_CLASS_MODEL", $_SERVER["DOCUMENT_ROOT"] . "/class/model/");
-define("DIR_CLASS_CONTROLLER", $_SERVER["DOCUMENT_ROOT"] . "/class/controller/");
-define("DIR_INCLUDES", $_SERVER["DOCUMENT_ROOT"] . "/includes/");
+define("DIR_CLASS", DIR_ROOT . "class/");
+define("DIR_INCLUDES", DIR_ROOT . "includes/");
+define("DIR_VENDOR", DIR_ROOT . "vendor/");
 
-// require 'config/paths.settings.php';
-
-if (!file_exists($_SERVER["DOCUMENT_ROOT"].'/vendor/autoload.php')) {
-    echo 'No "vendor" directory found. Run "composer update" to get started.';
+if (!file_exists(DIR_VENDOR . 'autoload.php')) {
+    echo 'No autoloader found in the "vendor" directory. Run "composer update" to get started.';
     die;
 } else {
-    include_once $_SERVER["DOCUMENT_ROOT"].'/vendor/autoload.php';
+    include_once DIR_VENDOR . 'autoload.php';
 }
 
 spl_autoload_register(
     function ($class) {
         $sources = array(
-            DIR_CLASS."core/$class.php",
-            DIR_CLASS."model/$class.php",
-            DIR_CLASS."controller/$class.php"
+            DIR_CLASS."Core/$class.php",
+            DIR_CLASS."Model/$class.php",
+            DIR_CLASS."Controller/$class.php",
+            DIR_CLASS."DataMapper/$class.php"
         );
         foreach ($sources as $source) {
             if (file_exists($source)) {

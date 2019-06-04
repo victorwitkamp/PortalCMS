@@ -81,7 +81,7 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
                         </div>
                     </div>
 
-                    <input type="submit" name="saveNewInvoice" class="btn btn-primary" value="Opslaan">
+                    <input type="submit" name="createInvoice" class="btn btn-primary" value="Opslaan">
                     <a href="index.php" class="btn btn-danger">Annuleren</a>
                 </form>
 
