@@ -14,7 +14,6 @@ class MailTemplate
         $stmt = DB::conn()->prepare("SELECT * FROM mail_templates WHERE type = ? ORDER BY id");
         $stmt->execute([$type]);
         return $stmt->fetchAll();
-
     }
 
     public static function getTemplateById($id)
@@ -45,7 +44,6 @@ class MailTemplate
 
     public static function writenew($type, $subject, $body, $status)
     {
-
         $stmt = DB::conn()->prepare("INSERT INTO mail_templates(id, type, subject, body, status) VALUES (NULL,?,?,?,?)");
         $stmt->execute([$type, $subject, $body, $status]);
         if (!$stmt) {
@@ -69,7 +67,7 @@ class MailTemplate
     // }
 
 
-    function getMailText($name)
+    public function getMailText($name)
     {
         $stmt = DB::conn()->prepare("SELECT * FROM mail_text WHERE name = ?");
         $stmt->execute([$name]);
@@ -88,7 +86,7 @@ class MailTemplate
     }
 
 
-    function setMailText($text, $name)
+    public function setMailText($text, $name)
     {
         $stmt = DB::conn()->prepare("UPDATE mail_text SET text = ? WHERE name = ?");
         if (!$stmt->execute([$text, $name])) {
@@ -98,7 +96,7 @@ class MailTemplate
         }
     }
 
-        public static function replaceholder($placeholder, $placeholdervalue, $body_in)
+    public static function replaceholder($placeholder, $placeholdervalue, $body_in)
     {
         $variables = array(
             $placeholder=>$placeholdervalue
