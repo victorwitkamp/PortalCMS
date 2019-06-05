@@ -86,7 +86,7 @@ class InvoicePDF
         // }
         // if ($pdf->Output($_SERVER["DOCUMENT_ROOT"].'content/invoices/'.$invoice['factuurnummer'].'.pdf', 'F')) {
             return true;
-            // Redirect::redirectPage("content/invoices/".$invoice['factuurnummer'].".pdf");
+            // Redirect::to("content/invoices/".$invoice['factuurnummer'].".pdf");
 
         }
 

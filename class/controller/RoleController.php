@@ -24,7 +24,7 @@ class RoleController extends Controller
     {
         if (Role::create($role_name)) {
             Session::add('feedback_positive', "Nieuwe rol aangemaakt.");
-            Redirect::redirectPage("settings/user-management/roles.php");
+            Redirect::to("settings/user-management/roles.php");
         } else {
             Session::add('feedback_negative', "Fout bij het aanmaken van nieuwe rol.");
             Redirect::error();
@@ -35,7 +35,7 @@ class RoleController extends Controller
     {
         if (Role::delete($role_id)) {
             Session::add('feedback_positive', "Rol verwijderd.");
-            Redirect::redirectPage("settings/user-management/roles.php");
+            Redirect::to("settings/user-management/roles.php");
         } else {
             Session::add('feedback_negative', "Fout bij het verwijderen van rol.");
             Redirect::error();
@@ -45,7 +45,7 @@ class RoleController extends Controller
     public static function assignPermission($role_id, $perm_id) {
         if (RolePermission::assign($role_id, $perm_id)) {
             Session::add('feedback_positive', "Permissie toegewezen.");
-            Redirect::redirectPage("settings/user-management/role.php?role_id=".$role_id);
+            Redirect::to("settings/user-management/role.php?role_id=".$role_id);
         } else {
             Session::add('feedback_negative', "Fout bij het toewijzen van de permissie.");
             Redirect::error();
@@ -55,7 +55,7 @@ class RoleController extends Controller
     public static function unassignPermission($role_id, $perm_id) {
         if (RolePermission::unassign($role_id, $perm_id)) {
             Session::add('feedback_positive', "Permissie verwijderd.");
-            Redirect::redirectPage("settings/user-management/role.php?role_id=".$role_id);
+            Redirect::to("settings/user-management/role.php?role_id=".$role_id);
         } else {
             Session::add('feedback_negative', "Fout bij het verwijderen van de permissie.");
             Redirect::error();

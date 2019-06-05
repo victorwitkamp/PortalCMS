@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Class : Event (Event.php)
  * Details : Event Class.
@@ -9,7 +8,7 @@ class Event
     /**
      * Check if an Event ID exists
      *
-     * @param int $eventId
+     * @param int $eventId The Id of the event
      *
      * @return bool
      */
@@ -24,9 +23,9 @@ class Event
     }
 
     /**
-     * Fetches an Event by ID
+     * Fetches an Event by Id
      *
-     * @param int $eventId
+     * @param int $eventId The Id of the event
      *
      * @return bool
      */
@@ -83,7 +82,8 @@ class Event
         }
     }
 
-    public static function loadStaticComingEvents() {
+    public static function loadStaticComingEvents()
+    {
         $now = date("Y-m-d H:i:s");
         $stmt = DB::conn()->prepare("SELECT * FROM events WHERE start_event > ? ORDER BY start_event asc limit 3");
         $stmt->execute([$now]);
@@ -127,7 +127,8 @@ class Event
         return true;
     }
 
-    public static function addEventAction($title, $start_event, $end_event, $description) {
+    public static function addEventAction($title, $start_event, $end_event, $description)
+    {
         $CreatedBy = Session::get('user_id');
         $stmt = DB::conn()->prepare(
             "INSERT INTO events(

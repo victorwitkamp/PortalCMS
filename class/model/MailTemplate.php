@@ -39,7 +39,7 @@ class MailTemplate
             Session::add('feedback_negative', "Nieuwe template aanmaken mislukt.");
         } else {
             Session::add('feedback_positive', "Template toegevoegd (ID = ".$return.')');
-            Redirect::redirectPage("mailscheduler/templates/");
+            Redirect::to("mailscheduler/templates/");
         }
     }
 

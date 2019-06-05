@@ -42,7 +42,7 @@ class MailSchedule
                 $row = self::getScheduledMailById($id);
                 if ($row['status'] !== '1') {
                     Session::add('feedback_negative', "Reeds verstuurd");
-                    Redirect::redirectPage("mailscheduler/");
+                    Redirect::to("mailscheduler/");
                     return false;
                 } else {
                     $senderemail = $row['sender_email'];
@@ -63,7 +63,7 @@ class MailSchedule
                 }
             }
         }
-        Redirect::redirectPage("mailscheduler/");
+        Redirect::to("mailscheduler/");
     }
 
     public static function newWithTemplate()
@@ -89,7 +89,7 @@ class MailSchedule
                 }
                 if ($count_failed === 0) {
                     Session::add('feedback_positive', "Totaal aantal berichten aangemaakt:".$count_created);
-                    Redirect::redirectPage("mailscheduler/");
+                    Redirect::to("mailscheduler/");
                 } else {
                     Session::add('feedback_negative', "Nieuwe email aanmaken mislukt.");
                 }
@@ -126,7 +126,7 @@ class MailSchedule
             Session::add('feedback_negative', "Nieuwe email aanmaken mislukt.");
         } else {
             Session::add('feedback_positive', "Email toegevoegd (ID = ".$return.')');
-            Redirect::redirectPage("settings/mailscheduler/");
+            Redirect::to("settings/mailscheduler/");
         }
     }
 

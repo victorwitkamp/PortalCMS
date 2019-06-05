@@ -23,7 +23,7 @@ class LoginController extends Controller
         // }
         // if (isset($_POST['activateSubmit'])) {
         //     if ($this->activate($_POST['email'], $_POST['code'])) {
-        //         Redirect::redirectPage("login/login.php");
+        //         Redirect::to("login/login.php");
         //     }
         // }
 
@@ -37,10 +37,9 @@ class LoginController extends Controller
         if (!Login::isUserLoggedIn()) {
             // $data = array('redirect' => Request::get('redirect') ? Request::get('redirect') : NULL);
             // $this->View->render('login/index', $data);
-            Redirect::login();
-        } else {
-            Redirect::home();
+            return Redirect::login();
         }
+        return Redirect::home();
     }
 
     /**
@@ -50,8 +49,7 @@ class LoginController extends Controller
     {
         if (!Csrf::isTokenValid()) {
             Login::logout();
-            Redirect::login();
-            exit();
+            return Redirect::login();
         }
         $login_successful = Login::loginWithPassword(
             Request::post('user_name'),
@@ -60,18 +58,14 @@ class LoginController extends Controller
         );
         if ($login_successful) {
             if (Request::post('redirect')) {
-                Redirect::toPreviousViewedPageAfterLogin(ltrim(urldecode(Request::post('redirect')), '/'));
-                exit();
+                return Redirect::toPreviousViewedPageAfterLogin(ltrim(urldecode(Request::post('redirect')), '/'));
             }
-            Redirect::home();
-            exit();
+            return Redirect::home();
         }
         if (Request::post('redirect')) {
-            Redirect::redirectPage('login/login.php?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
-            exit();
+            return Redirect::to('login/login.php?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
         }
-        Redirect::login();
-        exit();
+        return Redirect::login();
     }
 
     /**
@@ -81,11 +75,11 @@ class LoginController extends Controller
     {
         $login_successful = Login::loginWithCookie(Request::cookie('remember_me'));
         if ($login_successful) {
-            Redirect::home();
+            return Redirect::home();
         }
         // if not, delete cookie (outdated? attack?) and route user to login form to prevent infinite login loops
         Cookie::delete();
-        Redirect::redirectPage('login/login.php');
+        return Redirect::login();
     }
 
     /**
@@ -96,18 +90,14 @@ class LoginController extends Controller
         $login_successful = Login::loginWithFacebook($fbid);
         if ($login_successful) {
             if (Request::post('redirect')) {
-                Redirect::toPreviousViewedPageAfterLogin(ltrim(urldecode(Request::post('redirect')), '/'));
-                exit();
+                return Redirect::toPreviousViewedPageAfterLogin(ltrim(urldecode(Request::post('redirect')), '/'));
             }
-            Redirect::home();
-            exit();
+            return Redirect::home();
         }
         if (Request::post('redirect')) {
-            Redirect::redirectPage('login/login.php?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
-            exit();
+            return Redirect::to('login/login.php?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
         }
-        Redirect::login();
-        exit();
+        return Redirect::login();
     }
 
     /**

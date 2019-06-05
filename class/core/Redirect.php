@@ -10,9 +10,9 @@ class Redirect
      * To the last visited page before user logged in (useful when people are on a certain page inside your application
      * and then want to log in (to edit or comment something for example) and don't to be redirected to the main page).
      *
-     * This is just a bulletproof version of Redirect::redirectPage(), redirecting to an ABSOLUTE URL path like
+     * This is just a bulletproof version of Redirect::to(), redirecting to an ABSOLUTE URL path like
      * "http://www.mydomain.com/user/profile", useful as people had problems with the RELATIVE URL path generated
-     * by Redirect::redirectPage() when using HUGE inside sub-folders.
+     * by Redirect::to() when using HUGE inside sub-folders.
      *
      * @param $path string
      */
@@ -26,7 +26,7 @@ class Redirect
      */
     public static function login()
     {
-        self::redirectPage('login/login.php');
+        self::to('login/login.php');
     }
 
     /**
@@ -34,7 +34,7 @@ class Redirect
      */
     public static function home()
     {
-        self::redirectPage('home/index.php');
+        self::to('home');
     }
 
     /**
@@ -42,7 +42,7 @@ class Redirect
      */
     public static function myAccount()
     {
-        self::redirectPage('my-account');
+        self::to('my-account');
     }
 
     /**
@@ -50,7 +50,7 @@ class Redirect
      */
     public static function error()
     {
-        self::redirectPage('includes/Error.php');
+        self::to('includes/Error.php');
     }
 
     /**
@@ -58,7 +58,7 @@ class Redirect
      */
     public static function permissionerror()
     {
-        self::redirectPage('includes/permissionError.php');
+        self::to('includes/permissionError.php');
     }
 
     /**
@@ -75,15 +75,5 @@ class Redirect
     public static function to($path)
     {
         header("location: ".Config::get('URL').$path);
-    }
-
-    public static function redirectPage($url)
-    {
-        // if ($url!="") {
-        //     echo '<script >window.location="'.Config::get('URL').$url.'";</script>';
-        //     exit;
-        // }
-        header("location: ".Config::get('URL').$url);
-        // exit();
     }
 }

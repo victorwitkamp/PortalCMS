@@ -14,7 +14,7 @@ class InvoiceController extends controller
             if (!Invoice::create()) {
                 Redirect::error();
             } else {
-                Redirect::redirectPage("rental/invoices/");
+                Redirect::to("rental/invoices/");
             }
         }
 
@@ -23,7 +23,7 @@ class InvoiceController extends controller
             if(!InvoiceItem::delete()) {
                 Redirect::error();
             } else {
-                Redirect::redirectPage("rental/invoices/details.php?id=".$invoiceId);
+                Redirect::to("rental/invoices/details.php?id=".$invoiceId);
             }
         }
 
@@ -32,7 +32,7 @@ class InvoiceController extends controller
             if(!InvoiceItem::create()) {
                 Redirect::error();
             } else {
-                Redirect::redirectPage("rental/invoices/details.php?id=".$invoiceId);
+                Redirect::to("rental/invoices/details.php?id=".$invoiceId);
             }
         }
     }

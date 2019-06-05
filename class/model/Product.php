@@ -36,7 +36,7 @@ class Product
                 Session::add('feedback_negative', "Toevoegen van product mislukt.");
             } else {
                 Session::add('feedback_positive', "Product toegevoegd.");
-                Redirect::redirectPage("rental/products/");
+                Redirect::to("rental/products/");
             }
         }
     }

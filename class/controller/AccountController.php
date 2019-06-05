@@ -35,14 +35,14 @@ class AccountController extends Controller
             if (User::updateFbid(Session::get('user_id'), $FbId)) {
                 Session::set('user_fbid', $FbId);
                 Session::add('feedback_positive', Text::get("FEEDBACK_CONNECT_FACEBOOK_ACCOUNT_SUCCESS"));
-                Redirect::redirectPage('my-account/index.php');
+                Redirect::to('my-account/index.php');
             } else {
                 Session::add('feedback_negative', Text::get("FEEDBACK_CONNECT_FACEBOOK_ACCOUNT_FAILED"));
-                Redirect::redirectPage('my-account/index.php');
+                Redirect::to('my-account/index.php');
             }
         } else {
             Session::add('feedback_negative', Text::get("FEEDBACK_CONNECT_FACEBOOK_ACCOUNT_FAILED"));
-            Redirect::redirectPage('my-account/index.php');
+            Redirect::to('my-account/index.php');
         }
     }
 }

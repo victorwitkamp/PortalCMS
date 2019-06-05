@@ -88,10 +88,10 @@ class Member
         );
         if ($stmt) {
             Session::add('feedback_positive', "Lid opgeslagen.");
-            Redirect::redirectPage("membership/");
+            Redirect::to("membership/");
         }
         Session::add('feedback_negative', "Lid opslaan mislukt.");
-        Redirect::redirectPage("membership/");
+        Redirect::to("membership/");
     }
 
     public static function newMember()
@@ -125,7 +125,7 @@ class Member
 
         if (self::doesEmailforYearExist($jaarlidmaatschap, $emailadres)) {
             Session::add('feedback_negative', "Emailadres wordt dit jaar al gebruikt door een ander lid.");
-            Redirect::redirectPage("membership/");
+            Redirect::to("membership/");
         } else {
             $sql = "INSERT INTO members
                         (
@@ -147,10 +147,10 @@ class Member
             );
             if ($stmt) {
                 Session::add('feedback_positive', "Lid toegevoegd.");
-                Redirect::redirectPage("membership/");
+                Redirect::to("membership/");
             }
             Session::add('feedback_negative', "Lid toevoegen mislukt.");
-            Redirect::redirectPage("membership/");
+            Redirect::to("membership/");
         }
     }
 

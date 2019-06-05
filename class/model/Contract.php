@@ -100,10 +100,10 @@ class Contract
             $contract_datum
         )) {
             Session::add('feedback_negative', "Toevoegen van contract mislukt.");
-            Redirect::redirectPage("rental/contracts/");
+            Redirect::to("rental/contracts/");
         } else {
             Session::add('feedback_positive', "Contract toegevoegd.");
-            Redirect::redirectPage("rental/contracts/");
+            Redirect::to("rental/contracts/");
         }
     }
 
@@ -254,14 +254,14 @@ class Contract
             )
             ) {
                 Session::add('feedback_negative', "Wijzigen van contract mislukt.");
-                Redirect::redirectPage("rental/contracts/");
+                Redirect::to("rental/contracts/");
             } else {
                 Session::add('feedback_positive', "Contract gewijzigd.");
-                Redirect::redirectPage("rental/contracts/");
+                Redirect::to("rental/contracts/");
             }
         } else {
             Session::add('feedback_negative', "Wijzigen van contract mislukt.<br>Contract bestaat niet.");
-            Redirect::redirectPage("rental/contracts/");
+            Redirect::to("rental/contracts/");
         }
     }
 
