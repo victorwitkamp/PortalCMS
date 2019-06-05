@@ -36,9 +36,9 @@ class Registration
         $stmt->execute([$username, $email, $md5password, $activationCode]);
         $count = $stmt->rowCount();
         if ($count == 1) {
-            return true;
+            return TRUE;
         }
-        return false;
+        return FALSE;
     }
 
 }

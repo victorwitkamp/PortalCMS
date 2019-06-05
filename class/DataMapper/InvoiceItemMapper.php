@@ -18,7 +18,7 @@ class InvoiceItemMapper
         );
         $stmt->execute([$invoiceId]);
         if (!$stmt->rowCount() > 1) {
-            return false;
+            return FALSE;
         }
         return $stmt->fetchAll();
     }
@@ -39,9 +39,9 @@ class InvoiceItemMapper
         );
         $stmt->execute([$invoiceId, $name, $price]);
         if (!$stmt) {
-            return false;
+            return FALSE;
         }
-        return true;
+        return TRUE;
     }
 
     /**
@@ -59,9 +59,9 @@ class InvoiceItemMapper
         );
         $stmt->execute([$id]);
         if ($stmt->rowCount() == 0) {
-            return false;
+            return FALSE;
         }
-        return true;
+        return TRUE;
     }
 
     /**
@@ -80,9 +80,9 @@ class InvoiceItemMapper
                         LIMIT 1");
         $stmt->execute([$id]);
         if ($stmt->rowCount() == 0) {
-            return false;
+            return FALSE;
         }
-        return true;
+        return TRUE;
     }
 
     /**
@@ -104,8 +104,8 @@ class InvoiceItemMapper
                         LIMIT 1");
         $stmt->execute([$invoiceId, $name]);
         if ($stmt->rowCount() == 0) {
-            return false;
+            return FALSE;
         }
-        return true;
+        return TRUE;
     }
 }

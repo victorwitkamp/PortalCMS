@@ -41,14 +41,14 @@ class MailController extends Controller
             if (!$MailSender->sendMail($recipientEmail, $fromEmail, $fromName, $mailSubject, $mailBody)) {
                 self::$error = $MailSender->error;
                 Session::add('feedback_negative', "MailController: Niet verstuurd. Fout: ".self::$error);
-                return false;
+                return FALSE;
             } else {
                 Session::add('feedback_positive', "MailController: Mail verstuurd naar: ".$recipientEmail);
-                return true;
+                return TRUE;
             }
         } else {
             Session::add('feedback_negative', "MailController: Ongeldig verzoek");
-            return false;
+            return FALSE;
         }
     }
 
@@ -58,13 +58,13 @@ class MailController extends Controller
         $body = Event::loadStaticComingEvents();
         if (!empty($body)) {
             if (self::sendMail($sender_email, $recipientEmail, 'Komende evenementen', $body)) {
-                return true;
+                return TRUE;
             } else {
-                return false;
+                return FALSE;
             }
         } else {
             Session::add('feedback_negative', "MailController: Geen evenementen om te versturen");
-            return false;
+            return FALSE;
         }
     }
 

@@ -40,12 +40,12 @@ class InvoiceController extends controller
     public static function render($id = null)
     {
         if (empty($id)) {
-            return false;
+            return FALSE;
         }
         $invoice = InvoiceMapper::getById($id);
         $contract = Contract::getById($invoice['contract_id']);
         if (InvoicePDF::render($invoice, $contract)) {
-            return true;
+            return TRUE;
         }
     }
 

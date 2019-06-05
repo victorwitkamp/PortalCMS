@@ -12,7 +12,7 @@ class Contract
         $stmt = DB::conn()->prepare("SELECT contract_ingangsdatum FROM contracts WHERE id = ? limit 1");
         $stmt->execute([$Id]);
         if (!$stmt->rowCount() == 1) {
-            return false;
+            return FALSE;
         } else {
             return $stmt->fetchColumn();
         }
@@ -30,7 +30,7 @@ class Contract
         $stmt = DB::conn()->prepare("SELECT id FROM contracts WHERE id = ? limit 1");
         $stmt->execute([$Id]);
         if ($stmt->rowCount() == 0) {
-            return false;
+            return FALSE;
         }
         return TRUE;
     }
@@ -40,7 +40,7 @@ class Contract
         $stmt = DB::conn()->prepare("SELECT * FROM contracts WHERE id = ? limit 1");
         $stmt->execute([$Id]);
         if (!$stmt->rowCount() == 1) {
-            return false;
+            return FALSE;
         } else {
             return $stmt->fetch();
         }
@@ -191,7 +191,7 @@ class Contract
             ]
         );
         if (!$stmt) {
-            return false;
+            return FALSE;
         }
         return TRUE;
     }
@@ -351,7 +351,7 @@ class Contract
             ]
         );
         if (!$stmt) {
-            return false;
+            return FALSE;
         }
         return TRUE;
     }
@@ -370,14 +370,14 @@ class Contract
                     return TRUE;
                 }
                 Session::add('feedback_negative', 'Verwijderen van contract mislukt.');
-                return false;
+                return FALSE;
             } else {
                 Session::add('feedback_negative', 'Dit contract heeft al facturen.');
-                return false;
+                return FALSE;
             }
         }
         Session::add('feedback_negative', 'Verwijderen van contract mislukt.<br>Contract bestaat niet.');
-        return false;
+        return FALSE;
     }
 
     public static function deleteAction($contract_id)
@@ -386,7 +386,7 @@ class Contract
         if ($stmt->execute([$contract_id])) {
             return TRUE;
         }
-        return false;
+        return FALSE;
     }
 
 }

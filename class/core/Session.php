@@ -65,9 +65,9 @@ class Session
     public static function destroy()
     {
         if (session_destroy()) {
-            return true;
+            return TRUE;
         }
-        return false;
+        return FALSE;
     }
 
     /**

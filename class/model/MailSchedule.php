@@ -7,9 +7,9 @@ class MailSchedule
         $stmt = DB::conn()->prepare("SELECT id FROM mail_schedule WHERE id = ? limit 1");
         $stmt->execute([$mailId]);
         if ($stmt->rowCount() == 0) {
-            return false;
+            return FALSE;
         }
-        return true;
+        return TRUE;
     }
     public static function get()
     {
@@ -29,7 +29,7 @@ class MailSchedule
         $stmt = DB::conn()->prepare("SELECT * FROM mail_schedule WHERE id = ? limit 1");
         $stmt->execute([$id]);
         if (!$stmt->rowCount() == 1) {
-            return false;
+            return FALSE;
         } else {
             return $stmt->fetch();
         }
@@ -43,7 +43,7 @@ class MailSchedule
                 if ($row['status'] !== '1') {
                     Session::add('feedback_negative', "Reeds verstuurd");
                     Redirect::to("mailscheduler/");
-                    return false;
+                    return FALSE;
                 } else {
                     $senderemail = $row['sender_email'];
                     $recipientEmail = $row['recipient_email'];
@@ -134,9 +134,9 @@ class MailSchedule
         $stmt = DB::conn()->prepare("UPDATE mail_schedule SET errormessage =? where id=?");
         $stmt->execute([$message, $id]);
         if (!$stmt) {
-            return false;
+            return FALSE;
         }
-        return true;
+        return TRUE;
     }
 
     public static function updateStatusById($id, $status)
@@ -144,18 +144,18 @@ class MailSchedule
         $stmt = DB::conn()->prepare("UPDATE mail_schedule SET status =? where id=?");
         $stmt->execute([$status, $id]);
         if (!$stmt) {
-            return false;
+            return FALSE;
         }
-        return true;
+        return TRUE;
     }
     public static function setDateSent($id)
     {
         $stmt = DB::conn()->prepare("UPDATE mail_schedule SET DateSent = CURRENT_TIMESTAMP where id=?");
         $stmt->execute([$id]);
         if (!$stmt) {
-            return false;
+            return FALSE;
         }
-        return true;
+        return TRUE;
     }
 
     public static function writenew($sender_email, $recipient_email, $member_id, $subject, $body, $status = '1')
@@ -163,7 +163,7 @@ class MailSchedule
         $stmt = DB::conn()->prepare("INSERT INTO mail_schedule(id, sender_email, recipient_email, member_id, subject, body, status) VALUES (NULL,?,?,?,?,?,?)");
         $stmt->execute([$sender_email, $recipient_email, $member_id, $subject, $body, $status]);
         if (!$stmt) {
-            return false;
+            return FALSE;
         }
         $id = self::returnLastInsertedId();
         return $id;

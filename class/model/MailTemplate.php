@@ -21,7 +21,7 @@ class MailTemplate
         $stmt = DB::conn()->prepare("SELECT * FROM mail_templates WHERE id = ? limit 1");
         $stmt->execute([$id]);
         if (!$stmt->rowCount() == 1) {
-            return false;
+            return FALSE;
         } else {
             return $stmt->fetch();
         }
@@ -47,7 +47,7 @@ class MailTemplate
         $stmt = DB::conn()->prepare("INSERT INTO mail_templates(id, type, subject, body, status) VALUES (NULL,?,?,?,?)");
         $stmt->execute([$type, $subject, $body, $status]);
         if (!$stmt) {
-            return false;
+            return FALSE;
         }
         $id = self::returnLastInsertedId();
         return $id;
@@ -90,9 +90,9 @@ class MailTemplate
     {
         $stmt = DB::conn()->prepare("UPDATE mail_text SET text = ? WHERE name = ?");
         if (!$stmt->execute([$text, $name])) {
-            return false;
+            return FALSE;
         } else {
-            return true;
+            return TRUE;
         }
     }
 

@@ -99,7 +99,7 @@ class Encryption
         // generate original hmac & compare it with the one in $ciphertext
         $originalHmac = hash_hmac('sha256', $iv_cipher, $key);
         if (!self::hashEquals($hmac, $originalHmac)) {
-            return false;
+            return FALSE;
         }
 
         // split out the initialization vector and cipher
@@ -133,7 +133,7 @@ class Encryption
         $compareLength = mb_strlen($compare, '8bit');
 
         if ($hashLength !== $compareLength) {
-            return false;
+            return FALSE;
         }
 
         $result = 0;

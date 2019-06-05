@@ -20,17 +20,17 @@ class PasswordReset
     {
         // if (!CaptchaModel::checkCaptcha($captcha)) {
         //     Session::add('feedback_negative', Text::get('FEEDBACK_CAPTCHA_WRONG'));
-        //     return false;
+        //     return FALSE;
         // }
         if (empty($user_name_or_email)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_EMAIL_FIELD_EMPTY'));
-            return false;
+            return FALSE;
         }
         // check if that username exists
         $result = User::getByUserNameOrEmail($user_name_or_email);
         if (!$result) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USER_DOES_NOT_EXIST'));
-            return false;
+            return FALSE;
         }
         // generate integer-timestamp (to see when exactly the user (or an attacker) requested the password reset mail)
         $timestamp = date('Y-m-d H:i:s');
@@ -41,16 +41,16 @@ class PasswordReset
             $result->user_name, $password_reset_hash, $timestamp
         );
         if (!$token_set) {
-            return false;
+            return FALSE;
         }
         // ... and send a mail to the user, containing a link with username and token hash string
         $mail_sent = self::sendPasswordResetMail(
             $result->user_name, $password_reset_hash, $result->user_email
         );
         if ($mail_sent) {
-            return true;
+            return TRUE;
         }
-        return false;
+        return FALSE;
     }
 
     /**
@@ -75,10 +75,10 @@ class PasswordReset
             )
         );
         if ($stmt->rowCount() == 1) {
-            return true;
+            return TRUE;
         }
         Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_TOKEN_FAIL'));
-        return false;
+        return FALSE;
     }
 
     /**
@@ -112,10 +112,10 @@ class PasswordReset
         );
         if ($mail_sent) {
             Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_RESET_MAIL_SENDING_SUCCESSFUL'));
-            return true;
+            return TRUE;
         }
         Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_MAIL_SENDING_ERROR').$mail->getError());
-        return false;
+        return FALSE;
     }
 
     /**
@@ -144,7 +144,7 @@ class PasswordReset
         if ($stmt->rowCount() != 1) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_COMBINATION_DOES_NOT_EXIST'));
             Session::add('feedback_negative', $user_name.' '.$sql);
-            return false;
+            return FALSE;
         }
         // get result row (as an object)
         $result_user_row = $stmt->fetch();
@@ -154,10 +154,10 @@ class PasswordReset
         // if password reset request was sent within the last hour (this timeout is for security reasons)
         if ($user_timestamp > $timestamp_one_hour_ago) {
             //   Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_RESET_LINK_VALID'));
-            return true;
+            return TRUE;
         }
         Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_LINK_EXPIRED'));
-        return false;
+        return FALSE;
     }
 
     /**
@@ -184,10 +184,10 @@ class PasswordReset
         );
         if ($stmt->rowCount() == 1) {
             Session::add('feedback_positive', 'Wachtwoord gewijzigd.');
-            return true;
+            return TRUE;
         }
         Session::add('feedback_negative', 'Wachtwoord niet gewijzigd.');
-        return false;
+        return FALSE;
     }
 
     /**
@@ -207,17 +207,17 @@ class PasswordReset
     {
         // validate the password
         if (!self::validateResetPassword($user_name, $password_reset_hash, $user_password_new, $user_password_repeat)) {
-            return false;
+            return FALSE;
         }
         // crypt the password (with the PHP 5.5+'s password_hash() function, result is a 60 character hash string)
         $user_password_hash = password_hash($user_password_new, PASSWORD_DEFAULT);
         // write the password to database (as hashed and salted string), reset password_reset_hash
         if (self::saveNewUserPassword($user_name, $user_password_hash, $password_reset_hash)) {
             Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_CHANGE_SUCCESSFUL'));
-            return true;
+            return TRUE;
         }
         Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CHANGE_FAILED'));
-        return false;
+        return FALSE;
     }
 
     /**
@@ -234,20 +234,20 @@ class PasswordReset
     {
         if (empty($user_name)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_FIELD_EMPTY'));
-            return false;
+            return FALSE;
         } else if (empty($password_reset_hash)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_TOKEN_MISSING'));
-            return false;
+            return FALSE;
         } else if (empty($user_password_new) || empty($user_password_repeat)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_FIELD_EMPTY'));
-            return false;
+            return FALSE;
         } else if ($user_password_new !== $user_password_repeat) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_REPEAT_WRONG'));
-            return false;
+            return FALSE;
         } else if (strlen($user_password_new) < 6) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_TOO_SHORT'));
-            return false;
+            return FALSE;
         }
-        return true;
+        return TRUE;
     }
 }

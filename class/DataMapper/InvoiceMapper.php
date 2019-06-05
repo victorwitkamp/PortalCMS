@@ -7,7 +7,7 @@ class InvoiceMapper
         $stmt = DB::conn()->prepare("SELECT * FROM invoices WHERE id = ? limit 1");
         $stmt->execute([$id]);
         if (!$stmt->rowCount() == 1) {
-            return false;
+            return FALSE;
         }
         return $stmt->fetch();
     }
@@ -22,7 +22,7 @@ class InvoiceMapper
         );
         $stmt->execute([$factuurnummer]);
         if (!$stmt->rowCount() == 1) {
-            return false;
+            return FALSE;
         }
         return $stmt->fetch();
     }
@@ -32,7 +32,7 @@ class InvoiceMapper
         $stmt = DB::conn()->prepare("SELECT * FROM invoices where contract_id = ?");
         $stmt->execute([$contractId]);
         if (!$stmt->rowCount() > 0) {
-            return false;
+            return FALSE;
         }
         return $stmt->fetchAll();
     }
@@ -42,7 +42,7 @@ class InvoiceMapper
         $stmt = DB::conn()->prepare("SELECT * FROM invoices");
         $stmt->execute();
         if (!$stmt->rowCount() > 0) {
-            return false;
+            return FALSE;
         }
         return $stmt->fetchAll();
     }
@@ -55,8 +55,8 @@ class InvoiceMapper
         );
         $stmt->execute([$contract_id, $factuurnummer, $year, $month, $factuurdatum, $vervaldatum]);
         if (!$stmt) {
-            return false;
+            return FALSE;
         }
-        return true;
+        return TRUE;
     }
 }

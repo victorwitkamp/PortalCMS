@@ -17,7 +17,7 @@ class Event
         $stmt = DB::conn()->prepare("SELECT id FROM events WHERE id = ? limit 1");
         $stmt->execute([$eventId]);
         if ($stmt->rowCount() == 0) {
-            return false;
+            return FALSE;
         }
         return TRUE;
     }
@@ -34,7 +34,7 @@ class Event
         $stmt = DB::conn()->prepare("SELECT * FROM events WHERE id = ? limit 1");
         $stmt->execute([$eventId]);
         if (!$stmt->rowCount() == 1) {
-            return false;
+            return FALSE;
         }
         return $stmt->fetch();
     }
@@ -117,11 +117,11 @@ class Event
         $stmt->execute([$start_event, $end_event]);
         if (!$stmt->rowCount() == 0) {
             Session::add('feedback_negative', 'Kies een andere tijd.');
-            return false;
+            return FALSE;
         }
         if (!self::addEventAction($title, $start_event, $end_event, $description)) {
             Session::add('feedback_negative', 'Toevoegen van evenement mislukt.');
-            return false;
+            return FALSE;
         }
         Session::add('feedback_positive', 'Evenement toegevoegd.');
         return TRUE;
@@ -139,7 +139,7 @@ class Event
         );
         $stmt->execute([$title, $CreatedBy, $start_event, $end_event, $description]);
         if (!$stmt) {
-            return false;
+            return FALSE;
         }
         return TRUE;
     }
@@ -154,11 +154,11 @@ class Event
         $description = Request::post('description', TRUE);
         if (!self::doesEventIdExist($event_id)) {
             Session::add('feedback_negative', 'Wijzigen van evenement mislukt.<br>Evenement bestaat niet.');
-            return false;
+            return FALSE;
         }
         if (!self::updateEventAction($event_id, $title, $start_event, $end_event, $description)) {
             Session::add('feedback_negative', 'Wijzigen van evenement mislukt.');
-            return false;
+            return FALSE;
         }
         Session::add('feedback_positive', 'Evenement gewijzigd.');
         return TRUE;
@@ -173,7 +173,7 @@ class Event
         );
         $stmt->execute([$title, $start_event, $end_event, $description, $event_id]);
         if (!$stmt) {
-            return false;
+            return FALSE;
         }
         return TRUE;
     }
@@ -187,7 +187,7 @@ class Event
         );
         $stmt->execute([$title, $start_event, $end_event, $event_id]);
         if (!$stmt) {
-            return false;
+            return FALSE;
         }
         return TRUE;
     }
@@ -205,10 +205,10 @@ class Event
                 return TRUE;
             }
             Session::add('feedback_negative', 'Verwijderen van evenement mislukt.');
-            return false;
+            return FALSE;
         }
         Session::add('feedback_negative', 'Verwijderen van evenement mislukt.<br>Evenement bestaat niet.');
-        return false;
+        return FALSE;
     }
 
     public static function deleteAction($event_id)
@@ -217,7 +217,7 @@ class Event
         if ($stmt->execute([$event_id])) {
             return TRUE;
         }
-        return false;
+        return FALSE;
     }
 
 }

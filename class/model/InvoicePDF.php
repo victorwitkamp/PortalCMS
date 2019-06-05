@@ -82,7 +82,7 @@ class InvoicePDF
 
         // if (file_exists($_SERVER["DOCUMENT_ROOT"].'content/invoices/'.$invoice['factuurnummer'].'.pdf')) {
         //     echo 'error - bestand bestaat al';
-        //     return false;
+        //     return FALSE;
         // }
         // if ($pdf->Output($_SERVER["DOCUMENT_ROOT"].'content/invoices/'.$invoice['factuurnummer'].'.pdf', 'F')) {
             return TRUE;
@@ -90,6 +90,6 @@ class InvoicePDF
 
         }
 
-        return false;
+        return FALSE;
     }
 }

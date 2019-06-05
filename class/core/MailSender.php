@@ -94,7 +94,7 @@ class MailSender
             return $mail->Send();
         } catch (Exception $e) {
             $this->error = $e->errorMessage();
-            return false;
+            return FALSE;
         }
         // catch (\Exception $e) { //The leading slash means the Global PHP Exception class will be caught
         //     echo $e->getMessage(); //Boring error messages from anything else!

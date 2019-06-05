@@ -13,11 +13,11 @@ class Invoice
         $vervaldatum = Request::post('vervaldatum', true);
         if (InvoiceMapper::getByFactuurnummer($factuurnummer)) {
             Session::add('feedback_negative', "Factuurnummer bestaat al.");
-            return false;
+            return FALSE;
         }
         if (!InvoiceMapper::create($contract_id, $factuurnummer, $year, $month, $factuurdatum, $vervaldatum)) {
             Session::add('feedback_negative', "Toevoegen van factuur mislukt.");
-            return false;
+            return FALSE;
         }
         $invoice = InvoiceMapper::getByFactuurnummer($factuurnummer);
         if ($contract['kosten_ruimte'] > 0) {
@@ -27,13 +27,13 @@ class Invoice
             InvoiceItem::create($invoice['id'], 'Kosten voor: kast '.Text::get('MONTH_'.$month), $contract['kosten_kast']);
         }
         Session::add('feedback_positive', "Factuur toegevoegd.");
-        return true;
+        return TRUE;
     }
 
     public static function displayInvoiceSumById($id) {
         $sum = self::getInvoiceSumById($id);
         if (!$sum) {
-            return false;
+            return FALSE;
         }
         return '&euro; '.$sum;
     }

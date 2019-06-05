@@ -6,7 +6,7 @@ class Product
         $stmt = DB::conn()->prepare("SELECT * FROM products WHERE id = ? limit 1");
         $stmt->execute([$Id]);
         if (!$stmt->rowCount() == 1) {
-            return false;
+            return FALSE;
         } else {
             return $stmt->fetch();
         }
@@ -16,7 +16,7 @@ class Product
         $stmt = DB::conn()->prepare("SELECT * FROM Products");
         $stmt->execute();
         if (!$stmt->rowCount() > 0) {
-            return false;
+            return FALSE;
         } else {
             return $stmt->fetchAll();
         }
@@ -45,9 +45,9 @@ class Product
         $stmt = DB::conn()->prepare("INSERT INTO products(id, name, price, type) VALUES (NULL,?,?,?)");
         $stmt->execute([$name, $price, $type]);
         if (!$stmt) {
-            return false;
+            return FALSE;
         }
-        return true;
+        return TRUE;
     }
 
     public static function deleteProduct($id)
@@ -60,14 +60,14 @@ class Product
             $stmt = DB::conn()->prepare("DELETE FROM products WHERE id = ?");
             if (!$stmt->execute([$id])) {
                 Session::add('feedback_negative', "Verwijderen van product mislukt.");
-                return false;
+                return FALSE;
             } else {
                 Session::add('feedback_positive', "Product verwijderd.");
-                return true;
+                return TRUE;
             }
         } else {
             Session::add('feedback_negative', "Verwijderen van product mislukt.<br>Product bestaat niet.");
-            return false;
+            return FALSE;
         }
     }
 }

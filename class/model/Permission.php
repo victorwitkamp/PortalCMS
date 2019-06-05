@@ -12,7 +12,7 @@ class Permission
         if ($stmt->rowCount() > 0) {
             return $stmt->fetch();
         }
-        return false;
+        return FALSE;
     }
 
     public static function getUserPermissions($user_id) {

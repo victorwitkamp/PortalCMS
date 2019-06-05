@@ -13,7 +13,7 @@ class Member
         $stmt = DB::conn()->prepare("SELECT id FROM members WHERE id = ? limit 1");
         $stmt->execute([$memberId]);
         if ($stmt->rowCount() == 0) {
-            return false;
+            return FALSE;
         }
         return TRUE;
     }
@@ -23,7 +23,7 @@ class Member
         $stmt = DB::conn()->prepare("SELECT id FROM members WHERE jaarlidmaatschap = ? AND emailadres = ? limit 1");
         $stmt->execute([$jaarlidmaatschap, $email]);
         if ($stmt->rowCount() == 0) {
-            return false;
+            return FALSE;
         }
         return TRUE;
     }
@@ -34,7 +34,7 @@ class Member
         $stmt->execute([$id]);
         if (!$stmt->rowCount() == 1) {
             Session::add('feedback_negative', "Lid kan niet worden geladen.");
-            return false;
+            return FALSE;
         }
         return $stmt->fetch();
     }

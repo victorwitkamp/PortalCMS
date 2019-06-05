@@ -26,7 +26,7 @@ class Role
         if ($stmt->rowCount() == 1) {
             return $stmt->fetch();
         }
-        return false;
+        return FALSE;
     }
 
     /**
@@ -43,9 +43,9 @@ class Role
                         VALUES (?)"
         );
         if ($stmt->execute([$role_name])) {
-            return true;
+            return TRUE;
         }
-        return false;
+        return FALSE;
     }
 
     /**
@@ -62,9 +62,9 @@ class Role
                         LIMIT 1"
         );
         if ($stmt->execute([$role_id])) {
-            return true;
+            return TRUE;
         }
-        return false;
+        return FALSE;
     }
 
 
