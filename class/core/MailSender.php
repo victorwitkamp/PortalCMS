@@ -26,7 +26,6 @@ class MailSender
      */
     public function sendMail($recipient_email, $from_email, $from_name, $subject, $body)
     {
-        // returns true if successful, false if not
         return $this->sendMailWithPHPMailer(
             $recipient_email, $from_email, $from_name, $subject, $body
         );
@@ -60,16 +59,16 @@ class MailSender
      */
     public function sendMailWithPHPMailer($recipient_email, $from_email, $from_name, $subject, $body)
     {
-        $mail = new PHPMailer(true);
+        $mail = new PHPMailer(TRUE);
         try {
             $mail->CharSet = 'UTF-8';
             if (Config::get('EMAIL_USE_SMTP')) {
                 $mail->IsSMTP();
                 $mail->SMTPOptions = array(
                     'ssl' => array(
-                        'verify_peer' => false,
-                        'verify_peer_name' => false,
-                        'allow_self_signed' => true)
+                        'verify_peer' => FALSE,
+                        'verify_peer_name' => FALSE,
+                        'allow_self_signed' => TRUE)
                     );
                 $mail->SMTPDebug = Config::get('EMAIL_SMTP_DEBUG');
                 $mail->SMTPAuth = Config::get('EMAIL_SMTP_AUTH');
@@ -90,7 +89,7 @@ class MailSender
             $mail->Subject = $subject;
             $mail->Body = $body;
 
-            $mail->isHTML(true);
+            $mail->isHTML(TRUE);
             return $mail->Send();
         } catch (Exception $e) {
             $this->error = $e->errorMessage();

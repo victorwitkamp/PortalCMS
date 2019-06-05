@@ -4,11 +4,11 @@ class Text
 {
     private static $texts;
 
-    public static function get($key, $data = null)
+    public static function get($key, $data = NULL)
     {
         // if not $key
         if (!$key) {
-            return null;
+            return NULL;
         }
 
         if ($data) {
@@ -21,12 +21,12 @@ class Text
         if (!self::$texts) {
             // self::$texts = require('../application/config/texts.php');
 
-            self::$texts = require DIR_ROOT.'config/texts.php';
+            self::$texts = require DIR_ROOT . 'config/texts.php';
         }
 
         // check if array key exists
         if (!array_key_exists($key, self::$texts)) {
-            // return null;
+            // return NULL;
             return '!! LABEL NOT FOUND !!';
         }
 

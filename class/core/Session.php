@@ -78,7 +78,7 @@ class Session
      * @param  string $userId
      * @param  string $sessionId
      */
-    public static function updateSessionId($userId, $sessionId = null)
+    public static function updateSessionId($userId, $sessionId = NULL)
     {
         $sql = "UPDATE users SET session_id = :session_id WHERE user_id = :user_id";
 
@@ -93,6 +93,6 @@ class Session
      */
     public static function userIsLoggedIn()
     {
-        return (self::get('user_logged_in') ? true : false);
+        return (self::get('user_logged_in') ? true : FALSE);
     }
 }

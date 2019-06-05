@@ -4,16 +4,16 @@ Auth::checkAuthentication();
 require_once DIR_INCLUDES.'functions.php';
 $jaarlidmaatschap = $_POST["jaarlidmaatschap"];
 if (isset($_POST["submit_file"])) {
-    if ($_FILES['photoname']['error'] > 0) { 
+    if ($_FILES['photoname']['error'] > 0) {
         echo $_FILES['photoname']['error'];
         die;
-    }	
+    }
     $file = $_FILES["file"]["tmp_name"];
     $file_open = fopen($file, "r");
-    while (($csv = fgetcsv($file_open, 1000, ",")) !== false) {
-        $sql = "INSERT INTO members 
-        (jaarlidmaatschap, voornaam, achternaam, emailadres, 
-        iban, machtigingskenmerk, incasso_gelukt, opmerking) 
+    while (($csv = fgetcsv($file_open, 1000, ",")) !== FALSE) {
+        $sql = "INSERT INTO members
+        (jaarlidmaatschap, voornaam, achternaam, emailadres,
+        iban, machtigingskenmerk, incasso_gelukt, opmerking)
         VALUES (?,?,?,?,?,?,?,?)";
         $stmt = DB::conn()->prepare($sql);
         $voornaam = $csv[0];

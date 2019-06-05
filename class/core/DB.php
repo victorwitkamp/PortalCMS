@@ -17,13 +17,13 @@ class DB
         $DB_PORT = Config::get('DB_PORT');
         $DB_CHARSET = Config::get('DB_CHARSET');
         // $DB_COLLATE = Config::get('DB_COLLATE');
-                
+
         $dsn = $DB_TYPE.':host='.$DB_HOST.';port='.$DB_PORT.';dbname='.$DB_NAME.';charset='.$DB_CHARSET;
         $options = array(
-            //PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ, 
+            //PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
-        $conn = null;
-        if ($conn == null) {
+        $conn = NULL;
+        if ($conn == NULL) {
             /**
              * Check DB connection in try/catch block. Also when PDO is not constructed properly,
              * prevent to exposing database host, username and password in plain text as:

@@ -19,7 +19,7 @@ class InvoiceController extends controller
         }
 
         if (isset($_POST['deleteInvoiceItem'])) {
-            $invoiceId = Request::post('invoiceid', true);
+            $invoiceId = Request::post('invoiceid', TRUE);
             if(!InvoiceItem::delete()) {
                 Redirect::error();
             } else {
@@ -28,7 +28,7 @@ class InvoiceController extends controller
         }
 
         if (isset($_POST['addinvoiceitem'])) {
-            $invoiceId = Request::post('invoiceid', true);
+            $invoiceId = Request::post('invoiceid', TRUE);
             if(!InvoiceItem::create()) {
                 Redirect::error();
             } else {
@@ -37,7 +37,7 @@ class InvoiceController extends controller
         }
     }
 
-    public static function render($id = null)
+    public static function render($id = NULL)
     {
         if (empty($id)) {
             return FALSE;

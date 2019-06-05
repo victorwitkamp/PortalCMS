@@ -15,7 +15,7 @@ class Login
      *
      * @return bool success state
      */
-    public static function loginWithPassword($user_name, $user_password, $set_remember_me_cookie = null)
+    public static function loginWithPassword($user_name, $user_password, $set_remember_me_cookie = NULL)
     {
         // we do negative-first checks here, for simplicity empty username and empty password in one line
         if (empty($user_name) OR empty($user_password)) {
@@ -230,7 +230,7 @@ class Login
         // It's important to regenerate session on sensitive actions,
         // and to avoid fixated session.
         // e.g. when a user logs in
-        session_regenerate_id(true);
+        session_regenerate_id(TRUE);
         // $_SESSION = array();
 
         Session::set('user_id', $user_id);
@@ -244,7 +244,7 @@ class Login
         // Session::set('user_avatar_file', AvatarModel::getPublicUserAvatarFilePathByUserId($user_id));
         // Session::set('user_gravatar_image_url', AvatarModel::getGravatarLinkByEmail($user_email));
 
-        Session::set('user_logged_in', true);
+        Session::set('user_logged_in', TRUE);
         Session::updateSessionId($user_id, session_id());
 
         Cookie::setSessionCookie();

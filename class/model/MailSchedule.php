@@ -69,8 +69,8 @@ class MailSchedule
     public static function newWithTemplate()
     {
         $sender_email = Config::get('EMAIL_SMTP_USERNAME');
-        $type = Request::post('type', true);
-        $templateid = Request::post('templateid', true);
+        $type = Request::post('type', TRUE);
+        $templateid = Request::post('templateid', TRUE);
         $template = MailTemplate::getTemplateById($templateid);
         $templatebody = $template['body'];
         $count_created = 0;
@@ -81,7 +81,7 @@ class MailSchedule
                     $member = Member::getMemberById($value);
                     $mailBody = self::replaceholdersMember($value, $templatebody);
                     $return = self::writenew($sender_email, $member['emailadres'], $value, $template['subject'], $mailBody);
-                    if ($return === false) {
+                    if ($return === FALSE) {
                         $count_failed += 1;
                     } else {
                         $count_created += 1;
@@ -118,11 +118,11 @@ class MailSchedule
     public static function new()
     {
         $sender_email = Config::get('EMAIL_SMTP_USERNAME');
-        $recipient_email = Request::post('recipient_email', true);
-        $subject = Request::post('subject', true);
-        $body = Request::post('body', true);
+        $recipient_email = Request::post('recipient_email', TRUE);
+        $subject = Request::post('subject', TRUE);
+        $body = Request::post('body', TRUE);
         $return = self::writenew($sender_email, $recipient_email, $subject, $body);
-        if ($return === false) {
+        if ($return === FALSE) {
             Session::add('feedback_negative', "Nieuwe email aanmaken mislukt.");
         } else {
             Session::add('feedback_positive', "Email toegevoegd (ID = ".$return.')');

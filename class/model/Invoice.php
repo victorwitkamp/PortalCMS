@@ -4,13 +4,13 @@ class Invoice
 {
     public static function create()
     {
-        $contract_id = Request::post('contract_id', true);
-        $year = Request::post('year', true);
-        $month = Request::post('month', true);
+        $contract_id = Request::post('contract_id', TRUE);
+        $year = Request::post('year', TRUE);
+        $month = Request::post('month', TRUE);
         $contract = Contract::getById($contract_id);
         $factuurnummer = $year.$contract['bandcode'].$month;
-        $factuurdatum = Request::post('factuurdatum', true);
-        $vervaldatum = Request::post('vervaldatum', true);
+        $factuurdatum = Request::post('factuurdatum', TRUE);
+        $vervaldatum = Request::post('vervaldatum', TRUE);
         if (InvoiceMapper::getByFactuurnummer($factuurnummer)) {
             Session::add('feedback_negative', "Factuurnummer bestaat al.");
             return FALSE;

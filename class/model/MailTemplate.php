@@ -29,12 +29,12 @@ class MailTemplate
 
     public static function new()
     {
-        $type = Request::post('type', true);
-        $subject = Request::post('subject', true);
-        $body = Request::post('body', true);
+        $type = Request::post('type', TRUE);
+        $subject = Request::post('subject', TRUE);
+        $body = Request::post('body', TRUE);
         $status = 1;
         $return = self::writenew($type, $subject, $body, $status);
-        if ($return === false) {
+        if ($return === FALSE) {
             Session::add('feedback_negative', "Nieuwe template aanmaken mislukt.");
         } else {
             Session::add('feedback_positive', "Template toegevoegd (ID = ".$return.')');

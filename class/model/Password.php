@@ -22,7 +22,7 @@ class Password
                  AND user_provider_type = :user_provider_type LIMIT 1";
         $stmt = DB::conn()->prepare($sql);
         $stmt->execute(array(':user_password_hash' => $user_password_hash, ':user_name' => $user_name, ':user_provider_type' => 'DEFAULT'));
-        return ($stmt->rowCount() == 1 ? true : false);
+        return ($stmt->rowCount() == 1 ? true : FALSE);
     }
 
     /**

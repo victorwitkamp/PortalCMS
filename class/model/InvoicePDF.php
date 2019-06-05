@@ -3,9 +3,9 @@
 class InvoicePDF
 {
     public static function render($invoice, $contract) {
-        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, TRUE, 'UTF-8', false);
-        $pdf->setPrintHeader(false);
-        $pdf->setPrintFooter(false);
+        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, TRUE, 'UTF-8', FALSE);
+        $pdf->setPrintHeader(FALSE);
+        $pdf->setPrintFooter(FALSE);
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor(PDF_AUTHOR);
         $pdf->SetTitle('Factuur '.$invoice['factuurnummer']);
@@ -23,7 +23,7 @@ class InvoicePDF
         $pdf->setTextShadow(array('enabled'=>TRUE, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196, 196, 196), 'opacity'=>1, 'blend_mode'=>'Normal'));
         $pdf->SetXY(165, 15);
 
-        $pdf->Image('logo.jpg', '', '', 25, 25, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
+        $pdf->Image('logo.jpg', '', '', 25, 25, '', '', 'T', false, 300, '', false, false, 1, false, false, FALSE);
         $pdf->SetXY(120, 60);
         $afzender = '<p style="text-align:right">Poppodium de Beuk<br>
         1e Barendrechtseweg 53-55<br>

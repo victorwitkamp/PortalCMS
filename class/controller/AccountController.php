@@ -22,8 +22,8 @@ class AccountController extends Controller
     }
 
     public static function clearFbid() {
-        if (User::updateFbid(Session::get('user_id'), null)) {
-            Session::set('user_fbid', null);
+        if (User::updateFbid(Session::get('user_id'), NULL)) {
+            Session::set('user_fbid', NULL);
             Session::add('feedback_positive', Text::get("FEEDBACK_REMOVE_FACEBOOK_ACCOUNT_SUCCESS"));
             Redirect::myAccount();
         }

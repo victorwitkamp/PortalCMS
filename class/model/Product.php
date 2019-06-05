@@ -23,9 +23,9 @@ class Product
     }
     public static function new()
     {
-        $name = Request::post('name', true);
-        $price = Request::post('price', true);
-        $type = Request::post('type', true);
+        $name = Request::post('name', TRUE);
+        $price = Request::post('price', TRUE);
+        $type = Request::post('type', TRUE);
 
         $stmt = DB::conn()->prepare("SELECT id FROM products WHERE name = ?");
         $stmt->execute([$name]);
