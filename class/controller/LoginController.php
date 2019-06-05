@@ -77,7 +77,7 @@ class LoginController extends Controller
     /**
      * Login with cookie
      */
-    public function loginWithCookie()
+    public static function loginWithCookie()
     {
         $login_successful = Login::loginWithCookie(Request::cookie('remember_me'));
         if ($login_successful) {

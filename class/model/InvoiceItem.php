@@ -7,8 +7,8 @@ class InvoiceItem
         $invoiceId = (int)Request::post('invoiceid', true);
         $name = Request::post('name', true);
         $price = (int)Request::post('price', true);
-        if (InvoiceItemMapper::itemExists($invoiceId, $name, $price)) {
-            Session::add('feedback_negative', "Factuuritem bestaat al");
+        if (InvoiceItemMapper::itemExists($invoiceId, $name)) {
+            Session::add('feedback_negative', "Er bestaat al een factuuritem met deze opgegeven naam.");
             return false;
         }
         if (!InvoiceItemMapper::create($invoiceId, $name, $price)) {

@@ -7,7 +7,8 @@
 
 class Contract
 {
-    public static function getStartDateById($Id) {
+    public static function getStartDateById($Id)
+    {
         $stmt = DB::conn()->prepare("SELECT contract_ingangsdatum FROM contracts WHERE id = ? limit 1");
         $stmt->execute([$Id]);
         if (!$stmt->rowCount() == 1) {
@@ -16,6 +17,7 @@ class Contract
             return $stmt->fetchColumn();
         }
     }
+
     public static function getAll()
     {
         $stmt = DB::conn()->prepare("SELECT * FROM contracts ORDER BY id");

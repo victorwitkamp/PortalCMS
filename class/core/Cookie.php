@@ -45,7 +45,7 @@ class Cookie
     {
         // is $user_id was set, then clear remember_me token in database
         if (isset($user_id)) {
-            User::clearRememberMe($user_id);
+            User::clearRememberMeToken($user_id);
         }
         // delete remember_me cookie in browser
         if (setcookie(

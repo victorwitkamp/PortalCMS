@@ -28,17 +28,15 @@ class Member
         return true;
     }
 
-    static function getMemberById($id)
+    public static function getMemberById($id)
     {
-        $sql = "SELECT * FROM members WHERE id=?";
-        $stmt = DB::conn()->prepare($sql);
+        $stmt = DB::conn()->prepare("SELECT * FROM members WHERE id=? LIMIT 1");
         $stmt->execute([$id]);
         if (!$stmt->rowCount() == 1) {
             Session::add('feedback_negative', "Lid kan niet worden geladen.");
             return false;
-        } else {
-            return $stmt->fetch();
         }
+        return $stmt->fetch();
     }
 
     static function saveMember()
@@ -96,9 +94,8 @@ class Member
         Redirect::redirectPage("membership/");
     }
 
-    static function newMember()
+    public static function newMember()
     {
-        // $id                  = Request::post('id', true);
         $jaarlidmaatschap       = Request::post('jaarlidmaatschap', true);
         $voorletters            = Request::post('voorletters', true);
         $voornaam               = Request::post('voornaam', true);
