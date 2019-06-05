@@ -134,9 +134,11 @@ class Login
     {
         // Brute force attack mitigation:
         // block login attempt if somebody has already failed 3 times and the last login attempt is less than 30sec ago
-        if (Session::get('failed-login-count') >= 3 AND (Session::get('last-failed-login') > (time() - 30))) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_LOGIN_FAILED_3_TIMES'));
-            return FALSE;
+        if (Session::get('failed-login-count') >= 3) {
+            if (Session::get('last-failed-login') > (time() - 30))  {
+                Session::add('feedback_negative', Text::get('FEEDBACK_LOGIN_FAILED_3_TIMES'));
+                return FALSE;
+            }
         }
 
         $result = User::getByUserName($user_name);

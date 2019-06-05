@@ -68,13 +68,13 @@ class Password
     {
         $stmt = DB::conn()->prepare("SELECT user_password_hash, user_failed_logins FROM users WHERE user_name = :user_name LIMIT 1;");
         $stmt->execute(array(':user_name' => $user_name));
-        $user = $stmt->fetch(PDO::FETCH_OBJ);
-        if ($stmt->rowCount() == 1) {
-            $user_password_hash = $user->user_password_hash;
-        } else {
+        if (!$stmt->rowCount() == 1) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USER_DOES_NOT_EXIST'));
             return FALSE;
         }
+        $user = $stmt->fetch(PDO::FETCH_OBJ);
+        $user_password_hash = $user->user_password_hash;
+
         if (!password_verify($user_password_current, $user_password_hash)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CURRENT_INCORRECT'));
             return FALSE;
