@@ -18,7 +18,7 @@ class MailTemplate
 
     public static function getTemplateById($id)
     {
-        $stmt = DB::conn()->prepare("SELECT * FROM mail_templates WHERE id = ? limit 1");
+        $stmt = DB::conn()->prepare("SELECT * FROM mail_templates WHERE id = ? LIMIT 1");
         $stmt->execute([$id]);
         if (!$stmt->rowCount() == 1) {
             return FALSE;

@@ -29,8 +29,7 @@ PortalCMS_JS_calendar(); ?>
             </div>
         </div>
         <div class="container">
-            <?php Alert::renderFeedbackMessages();
-             ?>
+            <?php Alert::renderFeedbackMessages(); ?>
             <hr>
             <div id="calendar"></div>
         </div>

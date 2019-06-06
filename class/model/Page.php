@@ -9,7 +9,7 @@ class Page
 {
     public static function checkPage($page_id)
     {
-        $stmt = DB::conn()->prepare('SELECT * FROM pages WHERE id = ? limit 1');
+        $stmt = DB::conn()->prepare('SELECT * FROM pages WHERE id = ? LIMIT 1');
         $stmt->execute([$page_id]);
         if (!$stmt->rowCount() > 0) {
             Session::add('feedback_negative', "Pagina bestaat niet.");
@@ -21,7 +21,7 @@ class Page
 
     public static function getPage($page_id)
     {
-        $stmt = DB::conn()->prepare('SELECT * FROM pages WHERE id = ? limit 1');
+        $stmt = DB::conn()->prepare('SELECT * FROM pages WHERE id = ? LIMIT 1');
         $stmt->execute([$page_id]);
         if ($stmt->rowCount() > 0) {
             while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
@@ -35,7 +35,7 @@ class Page
 
     public static function updatePage($page_id, $content)
     {
-        $stmt = DB::conn()->prepare('SELECT id FROM pages WHERE id = ? limit 1');
+        $stmt = DB::conn()->prepare('SELECT id FROM pages WHERE id = ? LIMIT 1');
         $stmt->execute([$page_id]);
         if ($stmt->rowCount() > 0) {
             $stmt = DB::conn()->prepare("UPDATE pages SET content=? WHERE id=?");

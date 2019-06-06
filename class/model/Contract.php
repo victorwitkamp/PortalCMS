@@ -9,7 +9,7 @@ class Contract
 {
     public static function getStartDateById($Id)
     {
-        $stmt = DB::conn()->prepare("SELECT contract_ingangsdatum FROM contracts WHERE id = ? limit 1");
+        $stmt = DB::conn()->prepare("SELECT contract_ingangsdatum FROM contracts WHERE id = ? LIMIT 1");
         $stmt->execute([$Id]);
         if (!$stmt->rowCount() == 1) {
             return FALSE;
@@ -27,7 +27,7 @@ class Contract
 
     public static function doesIdExist($Id)
     {
-        $stmt = DB::conn()->prepare("SELECT id FROM contracts WHERE id = ? limit 1");
+        $stmt = DB::conn()->prepare("SELECT id FROM contracts WHERE id = ? LIMIT 1");
         $stmt->execute([$Id]);
         if ($stmt->rowCount() == 0) {
             return FALSE;
@@ -37,7 +37,7 @@ class Contract
 
     public static function getById($Id)
     {
-        $stmt = DB::conn()->prepare("SELECT * FROM contracts WHERE id = ? limit 1");
+        $stmt = DB::conn()->prepare("SELECT * FROM contracts WHERE id = ? LIMIT 1");
         $stmt->execute([$Id]);
         if (!$stmt->rowCount() == 1) {
             return FALSE;

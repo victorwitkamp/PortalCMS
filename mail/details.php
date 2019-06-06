@@ -16,8 +16,8 @@ PortalCMS_JS_headJS(); ?>
 <?php
 $id = $_GET['id'];
 
-if (MailSchedule::doesMailIdExist($id)) {
-    $row = MailSchedule::getScheduledMailById($id);
+if (MailSchedule::exists($id)) {
+    $row = MailScheduleMapper::getById($id);
 } else {
     Session::add('feedback_negative', "Geen resultaten voor opgegeven mail ID.");
     Redirect::error();

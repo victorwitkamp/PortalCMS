@@ -4,7 +4,7 @@ class InvoiceMapper
 {
     public static function getById($id)
     {
-        $stmt = DB::conn()->prepare("SELECT * FROM invoices WHERE id = ? limit 1");
+        $stmt = DB::conn()->prepare("SELECT * FROM invoices WHERE id = ? LIMIT 1");
         $stmt->execute([$id]);
         if (!$stmt->rowCount() == 1) {
             return FALSE;

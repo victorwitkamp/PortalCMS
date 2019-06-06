@@ -30,18 +30,7 @@ PortalCMS_JS_headJS(); ?>
             <h2>Nieuw bericht met template</h2>
             <p>Aan wie wil je een e-mail versturen?<br>
             <a href="templatebased/member.php">Lid</a><br>
-            <a href="user.php">Gebruiker</a>
-        </div>
-        <hr>
-        <div class="container">
-            <h2>MailController::sendMail()</h2>
-            <form method="post">
-                <input type="text" name="senderemail" value="<?php echo Config::get('EMAIL_SMTP_USERNAME'); ?>">
-                <input type="text" name="recipientemail" placeholder="Email">
-                <input type="text" name="subject" placeholder="Onderwerp">
-                <input type="text" name="body" placeholder="Tekst">
-                <input type="submit" name="testmail" value="Verzenden">
-            </form>
+            <!-- <a href="user.php">Gebruiker</a> -->
         </div>
         <hr>
         <div class="container">

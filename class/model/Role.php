@@ -20,7 +20,7 @@ class Role
             "SELECT *
                     FROM roles
                         WHERE role_id = ?
-                            limit 1"
+                            LIMIT 1"
         );
         $stmt->execute([$role_id]);
         if ($stmt->rowCount() == 1) {

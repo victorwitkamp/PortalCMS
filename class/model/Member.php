@@ -10,7 +10,7 @@ class Member
     }
     public static function doesMemberIdExist($memberId)
     {
-        $stmt = DB::conn()->prepare("SELECT id FROM members WHERE id = ? limit 1");
+        $stmt = DB::conn()->prepare("SELECT id FROM members WHERE id = ? LIMIT 1");
         $stmt->execute([$memberId]);
         if ($stmt->rowCount() == 0) {
             return FALSE;
@@ -20,7 +20,7 @@ class Member
 
     public static function doesEmailforYearExist($jaarlidmaatschap, $email)
     {
-        $stmt = DB::conn()->prepare("SELECT id FROM members WHERE jaarlidmaatschap = ? AND emailadres = ? limit 1");
+        $stmt = DB::conn()->prepare("SELECT id FROM members WHERE jaarlidmaatschap = ? AND emailadres = ? LIMIT 1");
         $stmt->execute([$jaarlidmaatschap, $email]);
         if ($stmt->rowCount() == 0) {
             return FALSE;

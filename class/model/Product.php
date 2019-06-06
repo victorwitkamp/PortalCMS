@@ -3,7 +3,7 @@
 class Product
 {
     public static function getProductById($Id) {
-        $stmt = DB::conn()->prepare("SELECT * FROM products WHERE id = ? limit 1");
+        $stmt = DB::conn()->prepare("SELECT * FROM products WHERE id = ? LIMIT 1");
         $stmt->execute([$Id]);
         if (!$stmt->rowCount() == 1) {
             return FALSE;

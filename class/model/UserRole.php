@@ -16,7 +16,7 @@ class UserRole
                     FROM user_role
                         WHERE user_id = ?
                             and role_id = ?
-                                limit 1"
+                                LIMIT 1"
         );
         $stmt->execute([$user_id, $role_id]);
         if ($stmt->rowCount() == 1) {

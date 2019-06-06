@@ -1,8 +1,8 @@
 <?php
 
 /**
- * ContractController
- * Controls everything that is event-related
+ * MailController
+ * Controls everything mail-related
  */
 class MailController extends Controller
 {
@@ -11,9 +11,6 @@ class MailController extends Controller
     public function __construct() {
         parent::__construct();
 
-        if (isset($_POST['testmail'])) {
-            MailController::sendMail($_POST['senderemail'], $_POST['recipientemail'], $_POST['subject'], $_POST['body']);
-        }
         if (isset($_POST['testeventmail'])) {
             MailController::sendEventMail($_POST['testeventmail_recipientemail']);
         }
@@ -27,37 +24,35 @@ class MailController extends Controller
             MailSchedule::newWithTemplate();
         }
         if (isset($_POST['deleteScheduledMailById'])) {
-
+            // TODO
         }
     }
 
-    public static function sendMail($fromEmail, $recipientEmail, $mailSubject, $mailBody)
+    public static function sendMail($sender, $recipient, $subject, $body)
     {
-        //  = Config::get('EMAIL_SMTP_USERNAME');
-        $fromName = SiteSetting::getStaticSiteSetting('site_name');
-
-        if (!empty($recipientEmail) && !empty($mailSubject) && !empty($mailBody)) {
-            $MailSender = new MailSender;
-            if (!$MailSender->sendMail($recipientEmail, $fromEmail, $fromName, $mailSubject, $mailBody)) {
-                self::$error = $MailSender->error;
-                Session::add('feedback_negative', "MailController: Niet verstuurd. Fout: ".self::$error);
-                return FALSE;
-            } else {
-                Session::add('feedback_positive', "MailController: Mail verstuurd naar: ".$recipientEmail);
-                return TRUE;
-            }
-        } else {
+        $senderName = SiteSetting::getStaticSiteSetting('site_name');
+        if (empty($recipient) || empty($subject) || empty($body)) {
             Session::add('feedback_negative', "MailController: Ongeldig verzoek");
             return FALSE;
         }
+
+        $MailSender = new MailSender;
+        if (!$MailSender->sendMail($recipient, $sender, $senderName, $subject, $body)) {
+            self::$error = $MailSender->error;
+            Session::add('feedback_negative', "MailController: Niet verstuurd. Fout: ".self::$error);
+            return FALSE;
+        } else {
+            Session::add('feedback_positive', "MailController: Mail verstuurd naar: ".$recipient);
+            return TRUE;
+        }
     }
 
-    public static function sendEventMail($recipientEmail)
+    public static function sendEventMail($recipient)
     {
-        $sender_email = Config::get('EMAIL_SMTP_USERNAME');
+        $sender = Config::get('EMAIL_SMTP_USERNAME');
         $body = Event::loadStaticComingEvents();
         if (!empty($body)) {
-            if (self::sendMail($sender_email, $recipientEmail, 'Komende evenementen', $body)) {
+            if (self::sendMail($sender, $recipient, 'Komende evenementen', $body)) {
                 return TRUE;
             } else {
                 return FALSE;

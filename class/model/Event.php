@@ -14,7 +14,7 @@ class Event
      */
     public static function doesEventIdExist($eventId)
     {
-        $stmt = DB::conn()->prepare("SELECT id FROM events WHERE id = ? limit 1");
+        $stmt = DB::conn()->prepare("SELECT id FROM events WHERE id = ? LIMIT 1");
         $stmt->execute([$eventId]);
         if ($stmt->rowCount() == 0) {
             return FALSE;
@@ -31,7 +31,7 @@ class Event
      */
     public static function getEvent($eventId)
     {
-        $stmt = DB::conn()->prepare("SELECT * FROM events WHERE id = ? limit 1");
+        $stmt = DB::conn()->prepare("SELECT * FROM events WHERE id = ? LIMIT 1");
         $stmt->execute([$eventId]);
         if (!$stmt->rowCount() == 1) {
             return FALSE;

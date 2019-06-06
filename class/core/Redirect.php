@@ -61,6 +61,11 @@ class Redirect
         self::to('includes/permissionError.php');
     }
 
+    public static function mail()
+    {
+        self::to('mail');
+    }
+
     /**
      * To the defined page, uses a relative path (like "user/profile")
      *
