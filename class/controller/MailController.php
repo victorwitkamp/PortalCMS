@@ -33,17 +33,17 @@ class MailController extends Controller
         $senderName = SiteSetting::getStaticSiteSetting('site_name');
         if (empty($recipient) || empty($subject) || empty($body)) {
             Session::add('feedback_negative', "MailController: Ongeldig verzoek");
-            return FALSE;
+            return false;
         }
 
         $MailSender = new MailSender;
         if (!$MailSender->sendMail($recipient, $sender, $senderName, $subject, $body)) {
             self::$error = $MailSender->error;
             Session::add('feedback_negative', "MailController: Niet verstuurd. Fout: ".self::$error);
-            return FALSE;
+            return false;
         } else {
             Session::add('feedback_positive', "MailController: Mail verstuurd naar: ".$recipient);
-            return TRUE;
+            return true;
         }
     }
 
@@ -53,13 +53,13 @@ class MailController extends Controller
         $body = Event::loadStaticComingEvents();
         if (!empty($body)) {
             if (self::sendMail($sender, $recipient, 'Komende evenementen', $body)) {
-                return TRUE;
+                return true;
             } else {
-                return FALSE;
+                return false;
             }
         } else {
             Session::add('feedback_negative', "MailController: Geen evenementen om te versturen");
-            return FALSE;
+            return false;
         }
     }
 

@@ -6,7 +6,7 @@ class Product
         $stmt = DB::conn()->prepare("SELECT * FROM products WHERE id = ? LIMIT 1");
         $stmt->execute([$Id]);
         if (!$stmt->rowCount() == 1) {
-            return FALSE;
+            return false;
         } else {
             return $stmt->fetch();
         }
@@ -16,16 +16,16 @@ class Product
         $stmt = DB::conn()->prepare("SELECT * FROM Products");
         $stmt->execute();
         if (!$stmt->rowCount() > 0) {
-            return FALSE;
+            return false;
         } else {
             return $stmt->fetchAll();
         }
     }
     public static function new()
     {
-        $name = Request::post('name', TRUE);
-        $price = Request::post('price', TRUE);
-        $type = Request::post('type', TRUE);
+        $name = Request::post('name', true);
+        $price = Request::post('price', true);
+        $type = Request::post('type', true);
 
         $stmt = DB::conn()->prepare("SELECT id FROM products WHERE name = ?");
         $stmt->execute([$name]);
@@ -45,9 +45,9 @@ class Product
         $stmt = DB::conn()->prepare("INSERT INTO products(id, name, price, type) VALUES (NULL,?,?,?)");
         $stmt->execute([$name, $price, $type]);
         if (!$stmt) {
-            return FALSE;
+            return false;
         }
-        return TRUE;
+        return true;
     }
 
     public static function deleteProduct($id)
@@ -60,14 +60,14 @@ class Product
             $stmt = DB::conn()->prepare("DELETE FROM products WHERE id = ?");
             if (!$stmt->execute([$id])) {
                 Session::add('feedback_negative', "Verwijderen van product mislukt.");
-                return FALSE;
+                return false;
             } else {
                 Session::add('feedback_positive', "Product verwijderd.");
-                return TRUE;
+                return true;
             }
         } else {
             Session::add('feedback_negative', "Verwijderen van product mislukt.<br>Product bestaat niet.");
-            return FALSE;
+            return false;
         }
     }
 }

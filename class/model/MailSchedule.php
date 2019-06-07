@@ -14,7 +14,7 @@ class MailSchedule
                 if ($row['status'] !== '1') {
                     Session::add('feedback_negative', "Reeds verstuurd");
                     Redirect::Mail();
-                    return FALSE;
+                    return false;
                 } else {
                     $sender = $row['sender_email'];
                     $recipient = $row['recipient_email'];
@@ -40,8 +40,8 @@ class MailSchedule
     public static function newWithTemplate()
     {
         $sender_email = Config::get('EMAIL_SMTP_USERNAME');
-        $type = Request::post('type', TRUE);
-        $templateId = Request::post('templateid', TRUE);
+        $type = Request::post('type', true);
+        $templateId = Request::post('templateid', true);
         $template = MailTemplate::getTemplateById($templateId);
         $count_created = 0;
         $count_failed = 0;
@@ -86,9 +86,9 @@ class MailSchedule
     public static function new()
     {
         $sender_email = Config::get('EMAIL_SMTP_USERNAME');
-        $recipient_email = Request::post('recipient_email', TRUE);
-        $subject = Request::post('subject', TRUE);
-        $body = Request::post('body', TRUE);
+        $recipient_email = Request::post('recipient_email', true);
+        $subject = Request::post('subject', true);
+        $body = Request::post('body', true);
         $create = MailScheduleMapper::create($sender_email, $recipient_email, $subject, $body);
         if (!$create) {
             Session::add('feedback_negative', "Nieuwe email aanmaken mislukt.");

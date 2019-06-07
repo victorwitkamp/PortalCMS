@@ -10,7 +10,7 @@ if (isset($_POST["submit_file"])) {
     }
     $file = $_FILES["file"]["tmp_name"];
     $file_open = fopen($file, "r");
-    while (($csv = fgetcsv($file_open, 1000, ",")) !== FALSE) {
+    while (($csv = fgetcsv($file_open, 1000, ",")) !== false) {
         $sql = "INSERT INTO members
         (jaarlidmaatschap, voornaam, achternaam, emailadres,
         iban, machtigingskenmerk, incasso_gelukt, opmerking)

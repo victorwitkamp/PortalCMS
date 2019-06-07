@@ -4,20 +4,20 @@ class Invoice
 {
     public static function create()
     {
-        $contract_id = Request::post('contract_id', TRUE);
-        $year = Request::post('year', TRUE);
-        $month = Request::post('month', TRUE);
+        $contract_id = Request::post('contract_id', true);
+        $year = Request::post('year', true);
+        $month = Request::post('month', true);
         $contract = Contract::getById($contract_id);
         $factuurnummer = $year.$contract['bandcode'].$month;
-        $factuurdatum = Request::post('factuurdatum', TRUE);
-        $vervaldatum = Request::post('vervaldatum', TRUE);
+        $factuurdatum = Request::post('factuurdatum', true);
+        $vervaldatum = Request::post('vervaldatum', true);
         if (InvoiceMapper::getByFactuurnummer($factuurnummer)) {
             Session::add('feedback_negative', "Factuurnummer bestaat al.");
-            return FALSE;
+            return false;
         }
         if (!InvoiceMapper::create($contract_id, $factuurnummer, $year, $month, $factuurdatum, $vervaldatum)) {
             Session::add('feedback_negative', "Toevoegen van factuur mislukt.");
-            return FALSE;
+            return false;
         }
         $invoice = InvoiceMapper::getByFactuurnummer($factuurnummer);
         if ($contract['kosten_ruimte'] > 0) {
@@ -27,13 +27,13 @@ class Invoice
             InvoiceItem::create($invoice['id'], 'Kosten voor: kast '.Text::get('MONTH_'.$month), $contract['kosten_kast']);
         }
         Session::add('feedback_positive', "Factuur toegevoegd.");
-        return TRUE;
+        return true;
     }
 
     public static function displayInvoiceSumById($id) {
         $sum = self::getInvoiceSumById($id);
         if (!$sum) {
-            return FALSE;
+            return false;
         }
         return '&euro; '.$sum;
     }

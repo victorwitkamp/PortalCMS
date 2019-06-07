@@ -20,9 +20,9 @@ class UserRole
         );
         $stmt->execute([$user_id, $role_id]);
         if ($stmt->rowCount() == 1) {
-            return TRUE;
+            return true;
         }
-        return FALSE;
+        return false;
     }
 
     /**
@@ -39,9 +39,9 @@ class UserRole
                     VALUES (?,?)"
         );
         if ($stmt->execute([$user_id, $role_id])) {
-            return TRUE;
+            return true;
         }
-        return FALSE;
+        return false;
     }
 
     /**
@@ -59,8 +59,8 @@ class UserRole
                         and role_id=?"
         );
         if ($stmt->execute([$user_id, $role_id])) {
-            return TRUE;
+            return true;
         }
-        return FALSE;
+        return false;
     }
 }

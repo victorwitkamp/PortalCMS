@@ -19,7 +19,7 @@ class InvoiceController extends controller
         }
 
         if (isset($_POST['deleteInvoiceItem'])) {
-            $invoiceId = Request::post('invoiceid', TRUE);
+            $invoiceId = Request::post('invoiceid', true);
             if(!InvoiceItem::delete()) {
                 Redirect::error();
             } else {
@@ -28,7 +28,7 @@ class InvoiceController extends controller
         }
 
         if (isset($_POST['addinvoiceitem'])) {
-            $invoiceId = Request::post('invoiceid', TRUE);
+            $invoiceId = Request::post('invoiceid', true);
             if(!InvoiceItem::create()) {
                 Redirect::error();
             } else {
@@ -40,12 +40,12 @@ class InvoiceController extends controller
     public static function render($id = NULL)
     {
         if (empty($id)) {
-            return FALSE;
+            return false;
         }
         $invoice = InvoiceMapper::getById($id);
         $contract = Contract::getById($invoice['contract_id']);
         if (InvoicePDF::render($invoice, $contract)) {
-            return TRUE;
+            return true;
         }
     }
 

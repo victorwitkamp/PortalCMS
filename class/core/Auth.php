@@ -56,10 +56,10 @@ class Auth
         $Roles = User::getRoles(Session::get('user_id'));
         foreach ($Roles as $Role) {
             if (RolePermission::isAssigned($Role['role_id'], $perm_desc)) {
-                return TRUE;
+                return true;
             }
         }
-        return FALSE;
+        return false;
     }
 
 }

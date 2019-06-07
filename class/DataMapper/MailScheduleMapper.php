@@ -7,9 +7,9 @@ class MailScheduleMapper
         $stmt = DB::conn()->prepare("SELECT id FROM mail_schedule WHERE id = ? LIMIT 1");
         $stmt->execute([$id]);
         if (!$stmt->rowCount() == 1) {
-            return FALSE;
+            return false;
         }
-        return TRUE;
+        return true;
     }
 
     public static function get()
@@ -29,7 +29,7 @@ class MailScheduleMapper
         $stmt = DB::conn()->prepare("SELECT * FROM mail_schedule WHERE id = ? LIMIT 1");
         $stmt->execute([$id]);
         if (!$stmt->rowCount() == 1) {
-            return FALSE;
+            return false;
         }
         return $stmt->fetch();
     }
@@ -41,9 +41,9 @@ class MailScheduleMapper
         );
         $stmt->execute([$sender_email, $recipient_email, $member_id, $subject, $body, $status]);
         if (!$stmt) {
-            return FALSE;
+            return false;
         }
-        return TRUE;
+        return true;
     }
 
     public static function lastInsertedId()
@@ -57,9 +57,9 @@ class MailScheduleMapper
         $stmt = DB::conn()->prepare("UPDATE mail_schedule SET status =? where id=?");
         $stmt->execute([$status, $id]);
         if (!$stmt) {
-            return FALSE;
+            return false;
         }
-        return TRUE;
+        return true;
     }
 
     public static function updateDateSent($id)
@@ -67,9 +67,9 @@ class MailScheduleMapper
         $stmt = DB::conn()->prepare("UPDATE mail_schedule SET DateSent = CURRENT_TIMESTAMP where id=?");
         $stmt->execute([$id]);
         if (!$stmt) {
-            return FALSE;
+            return false;
         }
-        return TRUE;
+        return true;
     }
 
     public static function setErrorMessageById($id, $message)
@@ -77,8 +77,8 @@ class MailScheduleMapper
         $stmt = DB::conn()->prepare("UPDATE mail_schedule SET errormessage =? where id=?");
         $stmt->execute([$message, $id]);
         if (!$stmt) {
-            return FALSE;
+            return false;
         }
-        return TRUE;
+        return true;
     }
 }

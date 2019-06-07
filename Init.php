@@ -11,12 +11,12 @@ date_default_timezone_set('Europe/Amsterdam');
 /**
  * Configuration for: Error reporting
  */
-error_reporting(E_ALL); // Error engine - always TRUE!
+error_reporting(E_ALL); // Error engine - always true!
 // Passing in the value -1 will show every possible error, even when new levels and constants are added in future PHP versions.
 // The E_ALL constant also behaves this way as of PHP 5.4.
 //error_reporting(-1);
-ini_set('ignore_repeated_errors', 0); // always TRUE
-ini_set('display_errors', 1); // Error display - FALSE only in production environment or real server
+ini_set('ignore_repeated_errors', 0); // always true
+ini_set('display_errors', 1); // Error display - false only in production environment or real server
 ini_set('display_startup_errors', 1);
 ini_set('log_errors', 1);
 ini_set('error_log', $_SERVER["DOCUMENT_ROOT"] . '/errors.log');

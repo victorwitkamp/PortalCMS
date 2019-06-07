@@ -20,7 +20,7 @@ class Login
         // we do negative-first checks here, for simplicity empty username and empty password in one line
         if (empty($user_name) OR empty($user_password)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
-            return FALSE;
+            return false;
         }
 
         // checks if user exists, if login is not blocked (due to failed logins) and if password fits the hash
@@ -28,7 +28,7 @@ class Login
 
         if (!$result) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
-            return FALSE;
+            return false;
         }
 
         // reset the failed login counter for that user (if necessary)
@@ -47,11 +47,11 @@ class Login
             $result->user_id, $result->user_name, $result->user_email, $result->user_account_type, $result->user_fbid
         );
 
-        // return TRUE to make clear the login was successful
+        // return true to make clear the login was successful
         // maybe do this in dependence of setSuccessfulLoginIntoSession ?
         Session::add('feedback_positive', Text::get('FEEDBACK_LOGIN_SUCCESSFUL'));
 
-        return TRUE;
+        return true;
     }
 
     /**
@@ -66,13 +66,13 @@ class Login
     {
         if (!$cookie) {
             Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
-            return FALSE;
+            return false;
         }
 
         // before list(), check it can be split into 3 strings.
         if (count(explode(':', $cookie)) !== 3) {
             Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
-            return FALSE;
+            return false;
         }
 
         // check cookie's contents, check if cookie contents belong together or token is empty
@@ -82,14 +82,14 @@ class Login
 
         if ($hash !== hash('sha256', $user_id.':'.$token) OR empty($token) OR empty($user_id)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
-            return FALSE;
+            return false;
         }
 
         $result = User::getByIdAndToken($user_id, $token);
 
         if (!$result) {
             Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
-            return FALSE;
+            return false;
         }
 
         self::setSuccessfulLoginIntoSession($result->user_id, $result->user_name, $result->user_email, $result->user_account_type, $result->user_fbid);
@@ -100,24 +100,24 @@ class Login
         // again from time to time. This is good and safe ! ;)
 
         Session::add('feedback_positive', Text::get('FEEDBACK_COOKIE_LOGIN_SUCCESSFUL'));
-        return TRUE;
+        return true;
     }
 
     public static function loginWithFacebook($fbid)
     {
         if (empty($fbid)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_FACEBOOK_LOGIN_FAILED'));
-            return FALSE;
+            return false;
         }
         $result = User::getByFbid($fbid);
         if (!$result) {
             Session::add('feedback_negative', Text::get('FEEDBACK_FACEBOOK_LOGIN_FAILED'));
-            return FALSE;
+            return false;
         }
         self::setSuccessfulLoginIntoSession($result->user_id, $result->user_name, $result->user_email, $result->user_account_type, $fbid);
         User::saveTimestampOfLoginOfUser($result->user_name);
         Session::add('feedback_positive', Text::get('FEEDBACK_SUCCESSFUL_FACEBOOK_LOGIN'));
-        return TRUE;
+        return true;
     }
 
 
@@ -137,7 +137,7 @@ class Login
         if (Session::get('failed-login-count') >= 3) {
             if (Session::get('last-failed-login') > (time() - 30))  {
                 Session::add('feedback_negative', Text::get('FEEDBACK_LOGIN_FAILED_3_TIMES'));
-                return FALSE;
+                return false;
             }
         }
 
@@ -146,14 +146,14 @@ class Login
         if (!$result) {
             self::incrementUserNotFoundCounter();
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
-            return FALSE;
+            return false;
         }
 
         // block login attempt if somebody has already failed 3 times and the last login attempt is less than 30sec ago
         if ($result->user_failed_logins >= 3) {
             if (strtotime($result->user_last_failed_login) > (strtotime(date('Y-m-d H:i:s')) - 30)) {
                 Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_WRONG_3_TIMES'));
-                return FALSE;
+                return false;
             }
         }
 
@@ -161,13 +161,13 @@ class Login
         if (!password_verify($user_password, $result->user_password_hash)) {
             User::incrementFailedLoginCounterOfUser($result->user_name);
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
-            return FALSE;
+            return false;
         }
 
         // if user is not active (= has not verified account by verification mail)
         if ($result->user_active != 1) {
             Session::add('feedback_negative', Text::get('FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET'));
-            return FALSE;
+            return false;
         }
 
         // reset the user not found counter
@@ -208,11 +208,11 @@ class Login
                 if (Session::destroy()) {
                     Session::init();
                     Session::add('feedback_positive', Text::get('FEEDBACK_LOGOUT_SUCCESSFUL'));
-                    return TRUE;
+                    return true;
                 }
             }
         // }
-        return FALSE;
+        return false;
     }
 
     /**
@@ -232,7 +232,7 @@ class Login
         // It's important to regenerate session on sensitive actions,
         // and to avoid fixated session.
         // e.g. when a user logs in
-        session_regenerate_id(TRUE);
+        session_regenerate_id(true);
         // $_SESSION = array();
 
         Session::set('user_id', $user_id);
@@ -246,7 +246,7 @@ class Login
         // Session::set('user_avatar_file', AvatarModel::getPublicUserAvatarFilePathByUserId($user_id));
         // Session::set('user_gravatar_image_url', AvatarModel::getGravatarLinkByEmail($user_email));
 
-        Session::set('user_logged_in', TRUE);
+        Session::set('user_logged_in', true);
         Session::updateSessionId($user_id, session_id());
 
         Cookie::setSessionCookie();

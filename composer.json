@@ -4,6 +4,12 @@
         "squizlabs/php_codesniffer": "3.*",
         "facebook/graph-sdk": "^5.7",
         "tecnickcom/tcpdf": "6.2.26",
-        "phpmailer/phpmailer": "~6.0"
+        "phpmailer/phpmailer": "~6.0",
+      "ext-pdo": "*",
+        "ext-curl": "*",
+        "ext-mbstring": "*",
+        "ext-openssl": "*",
+        "ext-gd": "*",
+        "ext-json": "*"
     }
 }

@@ -16,7 +16,7 @@ class Config
             $config_file = DIR_ROOT.'config/config.'.Environment::get().'.php';
 
             if (!file_exists($config_file)) {
-                // return FALSE;
+                // return false;
                 echo 'No configuration file could be found. Please check your configuration file in the "config" folder.<br><br>';
                 echo 'You can find an example configuration file (config.development.php.example) in the "config" folder as well. Rename this file to config.development.php and use it as a starting point.';
                 die;

@@ -59,16 +59,16 @@ class MailSender
      */
     public function sendMailWithPHPMailer($recipient_email, $from_email, $from_name, $subject, $body)
     {
-        $mail = new PHPMailer(TRUE);
+        $mail = new PHPMailer(true);
         try {
             $mail->CharSet = 'UTF-8';
             if (Config::get('EMAIL_USE_SMTP')) {
                 $mail->IsSMTP();
                 $mail->SMTPOptions = array(
                     'ssl' => array(
-                        'verify_peer' => FALSE,
-                        'verify_peer_name' => FALSE,
-                        'allow_self_signed' => TRUE)
+                        'verify_peer' => false,
+                        'verify_peer_name' => false,
+                        'allow_self_signed' => true)
                     );
                 $mail->SMTPDebug = Config::get('EMAIL_SMTP_DEBUG');
                 $mail->SMTPAuth = Config::get('EMAIL_SMTP_AUTH');
@@ -89,11 +89,11 @@ class MailSender
             $mail->Subject = $subject;
             $mail->Body = $body;
 
-            $mail->isHTML(TRUE);
+            $mail->isHTML(true);
             return $mail->Send();
         } catch (Exception $e) {
             $this->error = $e->errorMessage();
-            return FALSE;
+            return false;
         }
         // catch (\Exception $e) { //The leading slash means the Global PHP Exception class will be caught
         //     echo $e->getMessage(); //Boring error messages from anything else!

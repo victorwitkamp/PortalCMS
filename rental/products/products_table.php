@@ -20,12 +20,12 @@
                 <a href="edit_product.php?id='.$row['id'].'" title="Gegevens wijzigen" class="btn btn-warning btn-sm">
                     <span class="fa fa-edit"></span>
                 </a>
-                <a href="index.php?action=delete&id='.$row['id'].'" title="Verwijderen" onclick="return confirm(\'Weet u zeker dat u product '.$row['name'].' wilt verwijderen?\')"
-                    class="btn btn-danger btn-sm">
-                    <span class="fa fa-trash"></span>
+                <a href="index.php?action=delete&id='.$row['id'].'" title="Verwijderen" onclick="return confirm(\'Weet u zeker dat u product '.$row['name']. " wilt verwijderen?\';)\"
+                    class=\"btn btn-danger btn-sm\">
+                    <span class=\"fa fa-trash\"></span>
                 </a>
             </td>
-            <td>'.$row['id'].'</td>
+            <td>'" .$row['id'].'</td>
             <td>'.$row['name'].'</td>
             <td>'.$row['price'].'</td>
             <td>'.$row['type'].'</td>

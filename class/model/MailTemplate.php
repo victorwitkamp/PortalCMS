@@ -21,7 +21,7 @@ class MailTemplate
         $stmt = DB::conn()->prepare("SELECT * FROM mail_templates WHERE id = ? LIMIT 1");
         $stmt->execute([$id]);
         if (!$stmt->rowCount() == 1) {
-            return FALSE;
+            return false;
         } else {
             return $stmt->fetch();
         }
@@ -29,12 +29,12 @@ class MailTemplate
 
     public static function new()
     {
-        $type = Request::post('type', TRUE);
-        $subject = Request::post('subject', TRUE);
-        $body = Request::post('body', TRUE);
+        $type = Request::post('type', true);
+        $subject = Request::post('subject', true);
+        $body = Request::post('body', true);
         $status = 1;
         $return = self::writenew($type, $subject, $body, $status);
-        if ($return === FALSE) {
+        if ($return === false) {
             Session::add('feedback_negative', "Nieuwe template aanmaken mislukt.");
         } else {
             Session::add('feedback_positive', "Template toegevoegd (ID = ".$return.')');
@@ -47,7 +47,7 @@ class MailTemplate
         $stmt = DB::conn()->prepare("INSERT INTO mail_templates(id, type, subject, body, status) VALUES (NULL,?,?,?,?)");
         $stmt->execute([$type, $subject, $body, $status]);
         if (!$stmt) {
-            return FALSE;
+            return false;
         }
         $id = self::returnLastInsertedId();
         return $id;
@@ -90,9 +90,9 @@ class MailTemplate
     {
         $stmt = DB::conn()->prepare("UPDATE mail_text SET text = ? WHERE name = ?");
         if (!$stmt->execute([$text, $name])) {
-            return FALSE;
+            return false;
         } else {
-            return TRUE;
+            return true;
         }
     }
 

@@ -17,9 +17,9 @@ class Event
         $stmt = DB::conn()->prepare("SELECT id FROM events WHERE id = ? LIMIT 1");
         $stmt->execute([$eventId]);
         if ($stmt->rowCount() == 0) {
-            return FALSE;
+            return false;
         }
-        return TRUE;
+        return true;
     }
 
     /**
@@ -27,14 +27,14 @@ class Event
      *
      * @param int $eventId The Id of the event
      *
-     * @return bool
+     * @return mixed
      */
     public static function getEvent($eventId)
     {
         $stmt = DB::conn()->prepare("SELECT * FROM events WHERE id = ? LIMIT 1");
         $stmt->execute([$eventId]);
         if (!$stmt->rowCount() == 1) {
-            return FALSE;
+            return false;
         }
         return $stmt->fetch();
     }
@@ -85,7 +85,9 @@ class Event
     public static function loadStaticComingEvents()
     {
         $now = date("Y-m-d H:i:s");
-        $stmt = DB::conn()->prepare("SELECT * FROM events WHERE start_event > ? ORDER BY start_event asc limit 3");
+        $stmt = DB::conn()->prepare(
+            "SELECT * FROM events WHERE start_event > ? ORDER BY start_event asc limit 3"
+        );
         $stmt->execute([$now]);
         $result = $stmt->fetchAll();
         foreach ($result as $row) {
@@ -95,19 +97,19 @@ class Event
             $description = $row["description"];
             $returndata = '';
             $returndata .= '<strong>Naam evenement: '.$title.'</strong><br>Start: '.$start.'<br>Einde: '.$end.'<br><strong>Beschrijving</strong> '.$description.'<br>';
-            if (!empty($returndata)) {
-                return $returndata;
-            }
         }
+        if (!empty($returndata)) {
+            return $returndata;
+        }
+        return false;
     }
 
     public static function addEvent()
     {
-        $title = Request::post('title', TRUE);
-        $start_event = Request::post('start_event', TRUE);
-        $end_event = Request::post('end_event', TRUE);
-        $description = Request::post('description', TRUE);
-
+        $title = Request::post('title', true);
+        $start_event = Request::post('start_event', true);
+        $end_event = Request::post('end_event', true);
+        $description = Request::post('description', true);
         $stmt = DB::conn()->prepare(
             "SELECT id
             FROM events
@@ -117,14 +119,14 @@ class Event
         $stmt->execute([$start_event, $end_event]);
         if (!$stmt->rowCount() == 0) {
             Session::add('feedback_negative', 'Kies een andere tijd.');
-            return FALSE;
+            return false;
         }
         if (!self::addEventAction($title, $start_event, $end_event, $description)) {
             Session::add('feedback_negative', 'Toevoegen van evenement mislukt.');
-            return FALSE;
+            return false;
         }
         Session::add('feedback_positive', 'Evenement toegevoegd.');
-        return TRUE;
+        return true;
     }
 
     public static function addEventAction($title, $start_event, $end_event, $description)
@@ -139,29 +141,29 @@ class Event
         );
         $stmt->execute([$title, $CreatedBy, $start_event, $end_event, $description]);
         if (!$stmt) {
-            return FALSE;
+            return false;
         }
-        return TRUE;
+        return true;
     }
 
 
     public static function updateEvent()
     {
-        $event_id = Request::post('id', TRUE);
-        $title = Request::post('title', TRUE);
-        $start_event = Request::post('start_event', TRUE);
-        $end_event = Request::post('end_event', TRUE);
-        $description = Request::post('description', TRUE);
+        $event_id = Request::post('id', true);
+        $title = Request::post('title', true);
+        $start_event = Request::post('start_event', true);
+        $end_event = Request::post('end_event', true);
+        $description = Request::post('description', true);
         if (!self::doesEventIdExist($event_id)) {
             Session::add('feedback_negative', 'Wijzigen van evenement mislukt.<br>Evenement bestaat niet.');
-            return FALSE;
+            return false;
         }
         if (!self::updateEventAction($event_id, $title, $start_event, $end_event, $description)) {
             Session::add('feedback_negative', 'Wijzigen van evenement mislukt.');
-            return FALSE;
+            return false;
         }
         Session::add('feedback_positive', 'Evenement gewijzigd.');
-        return TRUE;
+        return true;
     }
 
     public static function updateEventAction($event_id, $title, $start_event, $end_event, $description)
@@ -173,9 +175,9 @@ class Event
         );
         $stmt->execute([$title, $start_event, $end_event, $description, $event_id]);
         if (!$stmt) {
-            return FALSE;
+            return false;
         }
-        return TRUE;
+        return true;
     }
 
     public static function updateDate($event_id, $title, $start_event, $end_event)
@@ -187,14 +189,14 @@ class Event
         );
         $stmt->execute([$title, $start_event, $end_event, $event_id]);
         if (!$stmt) {
-            return FALSE;
+            return false;
         }
-        return TRUE;
+        return true;
     }
 
     public static function delete()
     {
-        $event_id = Request::post('id', TRUE);
+        $event_id = Request::post('id', true);
         $stmt = DB::conn()->prepare("SELECT * FROM events where id = ?");
         $stmt->execute([$event_id]);
         $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -202,22 +204,22 @@ class Event
         if ($count > 0) {
             if (self::deleteAction($event_id)) {
                 Session::add('feedback_positive', 'Evenement verwijderd.');
-                return TRUE;
+                return true;
             }
             Session::add('feedback_negative', 'Verwijderen van evenement mislukt.');
-            return FALSE;
+            return false;
         }
         Session::add('feedback_negative', 'Verwijderen van evenement mislukt.<br>Evenement bestaat niet.');
-        return FALSE;
+        return false;
     }
 
     public static function deleteAction($event_id)
     {
         $stmt = DB::conn()->prepare("DELETE FROM events WHERE id = ?");
         if ($stmt->execute([$event_id])) {
-            return TRUE;
+            return true;
         }
-        return FALSE;
+        return false;
     }
 
 }

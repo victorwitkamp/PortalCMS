@@ -13,9 +13,9 @@ class Page
         $stmt->execute([$page_id]);
         if (!$stmt->rowCount() > 0) {
             Session::add('feedback_negative', "Pagina bestaat niet.");
-            return FALSE;
+            return false;
         } else {
-            return TRUE;
+            return true;
         }
     }
 
@@ -29,7 +29,7 @@ class Page
             }
         } else {
             Session::add('feedback_negative', "Geen pagina gevonden voor weergave.");
-            return FALSE;
+            return false;
         }
     }
 
@@ -41,14 +41,14 @@ class Page
             $stmt = DB::conn()->prepare("UPDATE pages SET content=? WHERE id=?");
             if (!$stmt->execute([$content, $page_id])) {
                 Session::add('feedback_negative', "Wijzigen van evenement mislukt.");
-                return FALSE;
+                return false;
             } else {
                 Session::add('feedback_positive', "Pagina opgeslagen.");
-                return TRUE;
+                return true;
             }
         } else {
             Session::add('feedback_negative', "Wijzigen van evenement mislukt. Evenement bestaat niet.");
-            return FALSE;
+            return false;
         }
     }
 

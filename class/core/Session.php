@@ -65,9 +65,9 @@ class Session
     public static function destroy()
     {
         if (session_destroy()) {
-            return TRUE;
+            return true;
         }
-        return FALSE;
+        return false;
     }
 
     /**
@@ -93,6 +93,6 @@ class Session
      */
     public static function userIsLoggedIn()
     {
-        return (self::get('user_logged_in') ? true : FALSE);
+        return (self::get('user_logged_in') ? true : false);
     }
 }

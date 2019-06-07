@@ -57,9 +57,9 @@ class Cookie
             Config::get('COOKIE_SECURE'),
             Config::get('COOKIE_HTTP')
         )) {
-            return TRUE;
+            return true;
         }
-        return FALSE;
+        return false;
     }
 
 }

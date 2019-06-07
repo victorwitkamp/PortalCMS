@@ -11,7 +11,7 @@ class Filter
      * The XSS filter: This simply removes "code" from any data, used to prevent Cross-Site Scripting Attacks.
      *
      * A very simple introduction: Let's say an attackers changes its username from "John" to these lines:
-     * "<script>var http = new XMLHttpRequest(); http.open('POST', 'example.com/my_account/delete.php', TRUE);</script>"
+     * "<script>var http = new XMLHttpRequest(); http.open('POST', 'example.com/my_account/delete.php', true);</script>"
      * This means, every user's browser would render "John" anymore, instead interpreting this JavaScript code, calling
      * the delete.php, in this case inside the project, in worse scenarios something like performing a bank transaction
      * or sending your cookie data (containing your remember-me-token) to somebody else.

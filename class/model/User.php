@@ -86,7 +86,7 @@ class User
         );
         $stmt->execute(array(':user_fbid' => $user_fbid));
         if ($stmt->rowCount() == 0) {
-            return FALSE;
+            return false;
         }
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
@@ -131,9 +131,9 @@ class User
             )
         );
         if ($stmt->rowCount() == 0) {
-            return FALSE;
+            return false;
         }
-        return TRUE;
+        return true;
     }
 
     /**
@@ -153,9 +153,9 @@ class User
         );
         $stmt->execute(array(':user_email' => $user_email));
         if ($stmt->rowCount() == 0) {
-            return FALSE;
+            return false;
         }
-        return TRUE;
+        return true;
     }
 
     /**
@@ -181,9 +181,9 @@ class User
             )
         );
         if ($stmt->rowCount() == 1) {
-            return TRUE;
+            return true;
         }
-        return FALSE;
+        return false;
     }
 
     public static function updateFbid($user_id, $fbid)
@@ -196,9 +196,9 @@ class User
         );
         $stmt->execute([$fbid, $user_id]);
         if ($stmt->rowCount() == 0) {
-            return FALSE;
+            return false;
         }
-        return TRUE;
+        return true;
     }
 
     public static function setRememberMeToken($user_id, $token) {
@@ -214,9 +214,9 @@ class User
             )
         );
         if ($stmt->rowCount() == 1) {
-            return TRUE;
+            return true;
         }
-        return FALSE;
+        return false;
     }
 
     public static function clearRememberMeToken($user_id) {
@@ -228,9 +228,9 @@ class User
         );
         $stmt->execute(array(':user_remember_me_token' => NULL, ':user_id' => $user_id));
         if ($stmt->rowCount() == 1) {
-            return TRUE;
+            return true;
         }
-        return FALSE;
+        return false;
     }
 
     /**
@@ -245,13 +245,13 @@ class User
         // Check if new password is indeed different.
         if ($newUsername == Session::get('user_name')) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_SAME_AS_OLD_ONE'));
-            return FALSE;
+            return false;
         }
 
         // username cannot be empty and must be azAZ09 and 2-64 characters
         if (!preg_match("/^[a-zA-Z0-9]{2,64}$/", $newUsername)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_DOES_NOT_FIT_PATTERN'));
-            return FALSE;
+            return false;
         }
 
         // clean the input, strip usernames longer than 64 chars (maybe fix this ?)
@@ -260,17 +260,17 @@ class User
         // check if new username already exists
         if (self::UsernameExists($newUsername)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_ALREADY_TAKEN'));
-            return FALSE;
+            return false;
         }
 
         $status_of_action = self::updateUsername(Session::get('user_id'), $newUsername);
         if ($status_of_action) {
             Session::set('user_name', $newUsername);
             Session::add('feedback_positive', Text::get('FEEDBACK_USERNAME_CHANGE_SUCCESSFUL'));
-            return TRUE;
+            return true;
         } else {
             Session::add('feedback_negative', Text::get('FEEDBACK_UNKNOWN_ERROR'));
-            return FALSE;
+            return false;
         }
     }
 
@@ -289,7 +289,7 @@ class User
         while ($row = $stmt->fetch()) {
             return $row['user_id'];
         }
-        return FALSE;
+        return false;
     }
 
     public static function getProfileById($Id)
@@ -317,7 +317,7 @@ class User
         );
         $stmt->execute(array(':user_id' => $Id));
         if (!$stmt->rowCount() > 0) {
-            return FALSE;
+            return false;
         } else {
             return $stmt->fetch(PDO::FETCH_ASSOC);
         }

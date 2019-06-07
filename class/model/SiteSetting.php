@@ -18,16 +18,16 @@ class SiteSetting
         self::setSiteSetting(Request::post('site_layout'), 'site_layout');
         self::setSiteSetting(Request::post('WidgetComingEvents'), 'WidgetComingEvents');
         self::setSiteSetting(Request::post('WidgetDebug'), 'WidgetDebug');
-        return TRUE;
+        return true;
     }
 
     static function setSiteSetting($value, $setting)
     {
         $stmt = DB::conn()->prepare("UPDATE site_settings SET string_value = ? WHERE setting = ?");
         if (!$stmt->execute([$value, $setting])) {
-            return FALSE;
+            return false;
         }
-        return TRUE;
+        return true;
     }
 
     function getSiteSetting($setting)
@@ -68,10 +68,10 @@ class SiteSetting
     public static function createLogo()
     {
         if (!self::isLogoFolderWritable()) {
-            return FALSE;
+            return false;
         }
         if (!self::validateImageFile()) {
-            return FALSE;
+            return false;
         }
         $target_file_path = Config::get('PATH_LOGO') . 'logo' ;
         $target_file_path_public = Config::get('PATH_LOGO_PUBLIC') . 'logo' ;
@@ -90,14 +90,14 @@ class SiteSetting
         $path_logo = Config::get('PATH_LOGO');
         if (!is_dir(Config::get('PATH_LOGO'))) {
             Session::add('feedback_negative', 'Directory '.$path_logo.' doesnt exist');
-            return FALSE;
+            return false;
         }
         if (!is_writable(Config::get('PATH_LOGO'))) {
             Session::add('feedback_negative', 'Directory '.$path_logo.' is not writeable');
-            return FALSE;
+            return false;
         }
         Session::add('feedback_positive', 'Directory '.$path_logo.' exists and is writeable');
-        return TRUE;
+        return true;
     }
 
     /**
@@ -110,25 +110,25 @@ class SiteSetting
     {
         if (!isset($_FILES['logo_file'])) {
             Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_IMAGE_UPLOAD_FAILED'));
-            return FALSE;
+            return false;
         }
         if ($_FILES['logo_file']['size'] > 5000000) {
             // if input file too big (>5MB)
             Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_UPLOAD_TOO_BIG'));
-            return FALSE;
+            return false;
         }
         // get the image width, height and mime type
         $image_proportions = getimagesize($_FILES['logo_file']['tmp_name']);
         // if input file too small
         if ($image_proportions[0] < Config::get('AVATAR_SIZE') OR $image_proportions[1] < Config::get('AVATAR_SIZE')) {
             Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_UPLOAD_TOO_SMALL'));
-            return FALSE;
+            return false;
         }
         if (!($image_proportions['mime'] == 'image/jpeg')) {
             Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_UPLOAD_WRONG_TYPE'));
-            return FALSE;
+            return false;
         }
-        return TRUE;
+        return true;
     }
 
     /**
@@ -142,10 +142,10 @@ class SiteSetting
         if (!$stmt->execute([$fileName])) {
                     Session::add('feedback_negative', 'DB error');
 
-            return FALSE;
+            return false;
         } else {
             Session::add('feedback_negative', 'write to db succes');
-            return TRUE;
+            return true;
         }
     }
 
@@ -170,7 +170,7 @@ class SiteSetting
 
         list($width, $height) = getimagesize($source_image);
         if (!$width || !$height) {
-            return FALSE;
+            return false;
         }
         //saving the image into memory (for manipulation with GD Library)
         $myImage = imagecreatefromjpeg($source_image);
@@ -193,9 +193,9 @@ class SiteSetting
         // delete "working copy"
         imagedestroy($thumb);
         if (file_exists($destination)) {
-            return TRUE;
+            return true;
         }
         // default return
-        return FALSE;
+        return false;
     }
 }

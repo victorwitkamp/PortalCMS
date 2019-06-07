@@ -21,7 +21,7 @@ class RolePermission
         if ($stmt->rowCount() > 0) {
             return $stmt->fetchAll();
         }
-        return FALSE;
+        return false;
     }
 
     /**
@@ -41,9 +41,9 @@ class RolePermission
         );
         $stmt->execute([$role_id, $perm_desc]);
         if ($stmt->rowCount() > 0) {
-            return TRUE;
+            return true;
         }
-        return FALSE;
+        return false;
     }
 
     public static function assign($role_id, $perm_id) {
@@ -51,9 +51,9 @@ class RolePermission
             "INSERT INTO role_perm(role_id, perm_id) VALUES (?,?)"
         );
         if ($stmt->execute([$role_id, $perm_id])) {
-            return TRUE;
+            return true;
         }
-        return FALSE;
+        return false;
     }
 
     public static function unassign($role_id, $perm_id) {
@@ -65,11 +65,11 @@ class RolePermission
         );
         if ($stmt->execute([$role_id, $perm_id])) {
             if ($stmt->rowCount() > 0) {
-                return TRUE;
+                return true;
             }
-            return FALSE;
+            return false;
         }
-        return FALSE;
+        return false;
     }
 
     /**
@@ -90,7 +90,7 @@ class RolePermission
             return $stmt->fetchAll();
 
         }
-        return FALSE;
+        return false;
     }
 
 

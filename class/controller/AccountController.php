@@ -11,10 +11,15 @@ class AccountController extends Controller
         parent::__construct();
 
         if (isset($_POST['changeUsername'])) {
-            User::editUsername($_POST['user_name']);
+            User::editUsername(Request::post('user_name'));
         }
         if (isset($_POST['changepassword'])) {
-            Password::changePassword(Session::get('user_name'), $_POST['currentpassword'], $_POST['newpassword'], $_POST['newconfirmpassword']);
+            Password::changePassword(
+                Session::get('user_name'),
+                Request::post('currentpassword'),
+                Request::post('newpassword'),
+                Request::post('newconfirmpassword')
+            );
         }
         if (isset($_POST['clearUserFbid'])) {
             self::clearFbid();
