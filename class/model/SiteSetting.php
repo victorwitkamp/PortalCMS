@@ -75,7 +75,13 @@ class SiteSetting
         }
         $target_file_path = Config::get('PATH_LOGO') . 'logo' ;
         $target_file_path_public = Config::get('PATH_LOGO_PUBLIC') . 'logo' ;
-        self::resizeLogo($_FILES['logo_file']['tmp_name'], $target_file_path, Config::get('AVATAR_SIZE'), Config::get('AVATAR_SIZE'), Config::get('AVATAR_JPEG_QUALITY'));
+        self::resizeLogo(
+            $_FILES['logo_file']['tmp_name'],
+            $target_file_path,
+            Config::get('AVATAR_SIZE'),
+            Config::get('AVATAR_SIZE'),
+            Config::get('AVATAR_JPEG_QUALITY')
+        );
         self::writeLogoToDatabase($target_file_path_public.'.jpg');
         Session::add('feedback_positive', Text::get('FEEDBACK_AVATAR_UPLOAD_SUCCESSFUL'));
     }
