@@ -2,7 +2,8 @@
 
 class Cookie
 {
-    public static function setSessionCookie() {
+    public static function setSessionCookie()
+    {
         // set session cookie setting manually,
         // Why? because you need to explicitly set session expiry, path, domain, secure, and HTTP.
         // @see https://www.owasp.org/index.php/PHP_Security_Cheat_Sheet#Cookies
@@ -17,7 +18,8 @@ class Cookie
         );
     }
 
-    public static function setRememberMe($token) {
+    public static function setRememberMe($token)
+    {
         // set cookie, and make it available only for the domain created on (to avoid XSS attacks, where the
         // attacker could steal your remember-me cookie string and would login itself).
         // If you are using HTTPS, then you should set the "secure" flag (the second one from right) to true, too.
@@ -41,7 +43,7 @@ class Cookie
      *
      * @param string $user_id
      */
-    public static function delete($user_id = NULL)
+    public static function delete($user_id = null)
     {
         // is $user_id was set, then clear remember_me token in database
         if (isset($user_id)) {

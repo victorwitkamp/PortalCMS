@@ -42,7 +42,8 @@ class RoleController extends Controller
         }
     }
 
-    public static function assignPermission($role_id, $perm_id) {
+    public static function assignPermission($role_id, $perm_id)
+    {
         if (RolePermission::assign($role_id, $perm_id)) {
             Session::add('feedback_positive', "Permissie toegewezen.");
             Redirect::to("settings/user-management/role.php?role_id=".$role_id);
@@ -52,7 +53,8 @@ class RoleController extends Controller
         }
     }
 
-    public static function unassignPermission($role_id, $perm_id) {
+    public static function unassignPermission($role_id, $perm_id)
+    {
         if (RolePermission::unassign($role_id, $perm_id)) {
             Session::add('feedback_positive', "Permissie verwijderd.");
             Redirect::to("settings/user-management/role.php?role_id=".$role_id);

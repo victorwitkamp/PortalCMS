@@ -19,7 +19,7 @@ ini_set('ignore_repeated_errors', 0); // always true
 ini_set('display_errors', 1); // Error display - false only in production environment or real server
 ini_set('display_startup_errors', 1);
 ini_set('log_errors', 1);
-ini_set('error_log', $_SERVER["DOCUMENT_ROOT"] . '/errors.log');
+ini_set('error_log', $_SERVER["DOCUMENT_ROOT"].'/errors.log');
 ini_set('log_errors_max_len', 1024);
 
 /**
@@ -36,20 +36,20 @@ ini_set('session.cookie_httponly', 1);
 /**
  * Configuration for: Named constants
  */
-define("DIR_ROOT", $_SERVER["DOCUMENT_ROOT"] . "/");
-define("DIR_CLASS", DIR_ROOT . "class/");
-define("DIR_INCLUDES", DIR_ROOT . "includes/");
-define("DIR_VENDOR", DIR_ROOT . "vendor/");
+define("DIR_ROOT", $_SERVER["DOCUMENT_ROOT"]."/");
+define("DIR_CLASS", DIR_ROOT."class/");
+define("DIR_INCLUDES", DIR_ROOT."includes/");
+define("DIR_VENDOR", DIR_ROOT."vendor/");
 
-if (!file_exists(DIR_VENDOR . 'autoload.php')) {
+if (!file_exists(DIR_VENDOR.'autoload.php')) {
     echo 'No autoloader found in the "vendor" directory. Run "composer update" to get started.';
     die;
 } else {
-    include_once DIR_VENDOR . 'autoload.php';
+    include_once DIR_VENDOR.'autoload.php';
 }
 
 spl_autoload_register(
-    function ($class) {
+    function($class) {
         $sources = array(
             DIR_CLASS."Core/$class.php",
             DIR_CLASS."Model/$class.php",

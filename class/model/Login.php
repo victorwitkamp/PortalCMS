@@ -15,10 +15,10 @@ class Login
      *
      * @return bool success state
      */
-    public static function loginWithPassword($user_name, $user_password, $set_remember_me_cookie = NULL)
+    public static function loginWithPassword($user_name, $user_password, $set_remember_me_cookie = null)
     {
         // we do negative-first checks here, for simplicity empty username and empty password in one line
-        if (empty($user_name) OR empty($user_password)) {
+        if (empty($user_name) or empty($user_password)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
             return false;
         }
@@ -80,7 +80,7 @@ class Login
 
         $user_id = Encryption::decrypt($user_id);
 
-        if ($hash !== hash('sha256', $user_id.':'.$token) OR empty($token) OR empty($user_id)) {
+        if ($hash !== hash('sha256', $user_id.':'.$token) or empty($token) or empty($user_id)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
             return false;
         }
@@ -135,7 +135,7 @@ class Login
         // Brute force attack mitigation:
         // block login attempt if somebody has already failed 3 times and the last login attempt is less than 30sec ago
         if (Session::get('failed-login-count') >= 3) {
-            if (Session::get('last-failed-login') > (time() - 30))  {
+            if (Session::get('last-failed-login') > (time() - 30)) {
                 Session::add('feedback_negative', Text::get('FEEDBACK_LOGIN_FAILED_3_TIMES'));
                 return false;
             }

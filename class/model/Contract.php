@@ -94,7 +94,7 @@ class Contract
     {
         $contract_id = Request::post('id', true);
         if (ContractMapper::exists($contract_id)) {
-            if(!Invoice::getByContractId($contract_id)) {
+            if (!Invoice::getByContractId($contract_id)) {
                 if (ContractMapper::delete($contract_id)) {
                     Session::add('feedback_positive', 'Contract verwijderd.');
                     Redirect::contracts();

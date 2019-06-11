@@ -26,7 +26,8 @@ class AccountController extends Controller
         }
     }
 
-    public static function clearFbid() {
+    public static function clearFbid()
+    {
         if (User::updateFbid(Session::get('user_id'), NULL)) {
             Session::set('user_fbid', NULL);
             Session::add('feedback_positive', Text::get("FEEDBACK_REMOVE_FACEBOOK_ACCOUNT_SUCCESS"));
@@ -35,7 +36,8 @@ class AccountController extends Controller
         Session::add('feedback_negative', Text::get("FEEDBACK_REMOVE_FACEBOOK_ACCOUNT_FAILED"));
         Redirect::myAccount();
     }
-    public static function setFbid($FbId) {
+    public static function setFbid($FbId)
+    {
         if (!empty($FbId)) {
             if (User::updateFbid(Session::get('user_id'), $FbId)) {
                 Session::set('user_fbid', $FbId);

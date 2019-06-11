@@ -201,7 +201,8 @@ class User
         return true;
     }
 
-    public static function setRememberMeToken($user_id, $token) {
+    public static function setRememberMeToken($user_id, $token)
+    {
         $stmt = DB::conn()->prepare(
             "UPDATE users
                     SET user_remember_me_token = :user_remember_me_token
@@ -219,14 +220,15 @@ class User
         return false;
     }
 
-    public static function clearRememberMeToken($user_id) {
+    public static function clearRememberMeToken($user_id)
+    {
         $stmt = DB::conn()->prepare(
             "UPDATE users
                     SET user_remember_me_token = :user_remember_me_token
                     WHERE user_id = :user_id
                     LIMIT 1"
         );
-        $stmt->execute(array(':user_remember_me_token' => NULL, ':user_id' => $user_id));
+        $stmt->execute(array(':user_remember_me_token' => null, ':user_id' => $user_id));
         if ($stmt->rowCount() == 1) {
             return true;
         }

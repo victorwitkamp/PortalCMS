@@ -73,8 +73,8 @@ class SiteSetting
         if (!self::validateImageFile()) {
             return false;
         }
-        $target_file_path = Config::get('PATH_LOGO') . 'logo' ;
-        $target_file_path_public = Config::get('PATH_LOGO_PUBLIC') . 'logo' ;
+        $target_file_path = Config::get('PATH_LOGO').'logo';
+        $target_file_path_public = Config::get('PATH_LOGO_PUBLIC').'logo';
         self::resizeLogo(
             $_FILES['logo_file']['tmp_name'],
             $target_file_path,
@@ -126,7 +126,7 @@ class SiteSetting
         // get the image width, height and mime type
         $image_proportions = getimagesize($_FILES['logo_file']['tmp_name']);
         // if input file too small
-        if ($image_proportions[0] < Config::get('AVATAR_SIZE') OR $image_proportions[1] < Config::get('AVATAR_SIZE')) {
+        if ($image_proportions[0] < Config::get('AVATAR_SIZE') or $image_proportions[1] < Config::get('AVATAR_SIZE')) {
             Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_UPLOAD_TOO_SMALL'));
             return false;
         }

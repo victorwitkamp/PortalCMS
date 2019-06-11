@@ -28,7 +28,7 @@ PortalCMS_JS_dataTables();
             <hr>
             <?php
             Alert::renderFeedbackMessages();
-            if(!$contracts) {
+            if (!$contracts) {
                 echo 'Ontbrekende gegevens..';
             } else {
                 include 'inc/contracts_table.php';

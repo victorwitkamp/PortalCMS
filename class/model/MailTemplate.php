@@ -53,7 +53,8 @@ class MailTemplate
         return $id;
     }
 
-    public static function returnLastInsertedId() {
+    public static function returnLastInsertedId()
+    {
         $stmt = DB::conn()->query("SELECT max(id) from mail_templates");
         $lastId = $stmt->fetchColumn();
         return $lastId;

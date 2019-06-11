@@ -2,7 +2,8 @@
 
 class MembershipController extends Controller
 {
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
 
         if (isset($_POST['saveMember'])) {

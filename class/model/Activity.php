@@ -6,7 +6,8 @@
  */
 class Activity
 {
-    public static function load() {
+    public static function load()
+    {
         $stmt = DB::conn()->prepare("SELECT * FROM activity ORDER BY id desc LIMIT 50");
         $stmt->execute();
         return $stmt->fetchAll();
@@ -18,12 +19,12 @@ class Activity
         return $ip;
     }
 
-    public static function registerUserActivity($activity, $details = NULL)
+    public static function registerUserActivity($activity, $details = null)
     {
         if (!empty(Session::get('user_id'))) {
             $user_id = Session::get('user_id');
         }
-        self::saveUserActivity(NULL, NULL, $activity, $details);
+        self::saveUserActivity(null, null, $activity, $details);
     }
 
     public static function registerUserActivityByUserId($user_id, $activity, $details)
@@ -46,7 +47,8 @@ class Activity
         self::saveUserActivityAction($user_id, $user_name, $ip, $activity, $details);
     }
 
-    public static function saveUserActivityAction($user_id = NULL, $user_name = NULL, $ip = NULL, $activity = NULL, $details = NULL) {
+    public static function saveUserActivityAction($user_id = NULL, $user_name = NULL, $ip = NULL, $activity = NULL, $details = NULL)
+    {
         $sql = 'INSERT INTO activity (id, user_id, user_name, ip_address, activity, details) VALUES (NULL, ?, ?, ?, ?, ?)';
         $stmt = DB::conn()->prepare($sql);
         $stmt->execute([$user_id, $user_name, $ip, $activity, $details]);
