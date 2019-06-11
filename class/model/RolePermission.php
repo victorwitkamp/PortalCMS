@@ -10,7 +10,8 @@ class RolePermission
      *
      * @return mixed
      */
-    public static function getRolePermissions($role_id) {
+    public static function getRolePermissions($role_id)
+    {
         $stmt = DB::conn()->prepare(
             "SELECT t2.perm_desc
                     FROM role_perm as t1
@@ -32,7 +33,8 @@ class RolePermission
      *
      * @return bool
      */
-    public static function isAssigned($role_id, $perm_desc) {
+    public static function isAssigned($role_id, $perm_desc)
+    {
         $stmt = DB::conn()->prepare(
             "SELECT t2.perm_desc
                     FROM role_perm as t1
@@ -46,7 +48,8 @@ class RolePermission
         return false;
     }
 
-    public static function assign($role_id, $perm_id) {
+    public static function assign($role_id, $perm_id)
+    {
         $stmt = DB::conn()->prepare(
             "INSERT INTO role_perm(role_id, perm_id) VALUES (?,?)"
         );
@@ -56,7 +59,8 @@ class RolePermission
         return false;
     }
 
-    public static function unassign($role_id, $perm_id) {
+    public static function unassign($role_id, $perm_id)
+    {
         $stmt = DB::conn()->prepare(
             "DELETE FROM role_perm
                         where role_id=?
@@ -79,7 +83,8 @@ class RolePermission
      *
      * @return array
      */
-    public static function getPermissionIds($role_id) {
+    public static function getPermissionIds($role_id)
+    {
         $stmt = DB::conn()->prepare(
             "SELECT perm_id
                     FROM role_perm

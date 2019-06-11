@@ -2,7 +2,8 @@
 
 class Product
 {
-    public static function getProductById($Id) {
+    public static function getProductById($Id)
+    {
         $stmt = DB::conn()->prepare("SELECT * FROM products WHERE id = ? LIMIT 1");
         $stmt->execute([$Id]);
         if (!$stmt->rowCount() == 1) {
@@ -41,7 +42,8 @@ class Product
         }
     }
 
-    public static function addProductAction($name, $price, $type) {
+    public static function addProductAction($name, $price, $type)
+    {
         $stmt = DB::conn()->prepare("INSERT INTO products(id, name, price, type) VALUES (NULL,?,?,?)");
         $stmt->execute([$name, $price, $type]);
         if (!$stmt) {

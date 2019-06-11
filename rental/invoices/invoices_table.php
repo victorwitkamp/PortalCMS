@@ -28,7 +28,7 @@
             <td><?php echo $invoice['factuurnummer'] ?></td>
             <td>
                 <?php
-                if (isset($invoice['contract_id']) AND !empty($invoice['contract_id'])) {
+                if (isset($invoice['contract_id']) and !empty($invoice['contract_id'])) {
                     if ($contract = ContractMapper::getById($invoice['contract_id'])) {
                         echo $contract['band_naam'];
                     } else {

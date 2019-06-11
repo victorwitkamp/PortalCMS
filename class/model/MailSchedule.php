@@ -2,7 +2,8 @@
 
 class MailSchedule
 {
-    public static function exists($id) {
+    public static function exists($id)
+    {
         return MailScheduleMapper::exists($id);
     }
 

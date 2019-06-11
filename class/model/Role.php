@@ -4,7 +4,8 @@ class Role
 {
     protected $permissions;
 
-    protected function __construct() {
+    protected function __construct()
+    {
         $this->permissions = array();
     }
 
@@ -15,7 +16,8 @@ class Role
      *
      * @return mixed
      */
-    public static function get($role_id) {
+    public static function get($role_id)
+    {
         $stmt = DB::conn()->prepare(
             "SELECT *
                     FROM roles
@@ -36,7 +38,8 @@ class Role
      *
      * @return bool
      */
-    public static function create($role_name) {
+    public static function create($role_name)
+    {
         $stmt = DB::conn()->prepare(
             "INSERT INTO roles
                         (role_name)
@@ -55,7 +58,8 @@ class Role
      *
      * @return bool
      */
-    public static function delete($role_id) {
+    public static function delete($role_id)
+    {
         $stmt = DB::conn()->prepare(
             "DELETE FROM roles
                         where role_id=?

@@ -4,11 +4,11 @@ class Text
 {
     private static $texts;
 
-    public static function get($key, $data = NULL)
+    public static function get($key, $data = null)
     {
         // if not $key
         if (!$key) {
-            return NULL;
+            return null;
         }
 
         if ($data) {
@@ -21,7 +21,7 @@ class Text
         if (!self::$texts) {
             // self::$texts = require('../application/config/texts.php');
 
-            self::$texts = require DIR_ROOT . 'config/texts.php';
+            self::$texts = require DIR_ROOT.'config/texts.php';
         }
 
         // check if array key exists

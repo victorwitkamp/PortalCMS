@@ -93,7 +93,7 @@ class PasswordReset
     public static function sendPasswordResetMail($user_name, $password_reset_hash, $user_email)
     {
         $MailText = MailTemplate::getStaticMailText('ResetPassword');
-        $resetlink =    Config::get('URL').
+        $resetlink = Config::get('URL').
                         Config::get('EMAIL_PASSWORD_RESET_URL').
                         '?username='.$user_name.
                         '&password_reset_hash='

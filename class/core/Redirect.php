@@ -46,8 +46,8 @@ class Redirect
     }
 
         /**
-     * To the homepage
-     */
+         * To the homepage
+         */
     public static function contracts()
     {
         self::to('rental/contracts');

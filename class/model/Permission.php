@@ -2,7 +2,8 @@
 
 class Permission
 {
-    public static function get($perm_id) {
+    public static function get($perm_id)
+    {
         $stmt = DB::conn()->prepare(
             "SELECT *
                     FROM permissions
@@ -15,7 +16,8 @@ class Permission
         return false;
     }
 
-    public static function getUserPermissions($user_id) {
+    public static function getUserPermissions($user_id)
+    {
         $stmt = DB::conn()->prepare(
             "SELECT DISTINCT t2.perm_desc
                     FROM role_perm as t1

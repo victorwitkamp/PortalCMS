@@ -38,7 +38,7 @@
 <?php
 echo '<input type="text" name="kosten_ruimte" class="form-control form-control-sm" placeholder="" value="';
 if ($loadData) {
-  echo $contract['kosten_ruimte'];
+    echo $contract['kosten_ruimte'];
 }
 echo '">';
 ?></div>
@@ -226,14 +226,14 @@ echo '">';
 
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="huur_oefenruimte_nr" value="1"
-                            <?php if ($loadData AND $contract['huur_oefenruimte_nr'] === '1') { echo 'checked'; } ?>>
+                            <?php if ($loadData and $contract['huur_oefenruimte_nr'] === '1') { echo 'checked'; } ?>>
                         <label class="form-check-label" for="exampleRadios1">
                             Oefenruimte 1
                         </label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="huur_oefenruimte_nr" value="2"
-                            <?php if ($loadData AND $contract['huur_oefenruimte_nr'] === '2') { echo 'checked'; } ?>>
+                            <?php if ($loadData and $contract['huur_oefenruimte_nr'] === '2') { echo 'checked'; } ?>>
                         <label class="form-check-label" for="exampleRadios2">
                             Oefenruimte 2
                         </label>

@@ -32,7 +32,8 @@ class InvoiceItemMapper
      *
      * @return bool
      */
-    public static function create($invoiceId, $name, $price) {
+    public static function create($invoiceId, $name, $price)
+    {
         $stmt = DB::conn()->prepare(
             "INSERT INTO invoice_items(id, invoice_id, name, price)
             VALUES (NULL,?,?,?)"
@@ -51,7 +52,8 @@ class InvoiceItemMapper
      *
      * @return bool
      */
-    public static function delete($id) {
+    public static function delete($id)
+    {
         $stmt = DB::conn()->prepare(
             "DELETE
             FROM invoice_items

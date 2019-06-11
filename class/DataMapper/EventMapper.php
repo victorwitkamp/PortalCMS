@@ -31,7 +31,8 @@ class EventMapper
         return $stmt->fetchAll();
     }
 
-    public static function getEventsAfter($dateTime) {
+    public static function getEventsAfter($dateTime)
+    {
         $stmt = DB::conn()->prepare(
             "SELECT * FROM events WHERE start_event > ? ORDER BY start_event asc limit 3"
         );

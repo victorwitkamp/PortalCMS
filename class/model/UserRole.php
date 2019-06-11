@@ -10,7 +10,8 @@ class UserRole
      *
      * @return bool
      */
-    public static function isAssigned($user_id, $role_id) {
+    public static function isAssigned($user_id, $role_id)
+    {
         $stmt = DB::conn()->prepare(
             "SELECT *
                     FROM user_role
@@ -33,7 +34,8 @@ class UserRole
      *
      * @return bool
      */
-    public static function assign($user_id, $role_id) {
+    public static function assign($user_id, $role_id)
+    {
         $stmt = DB::conn()->prepare(
             "INSERT INTO user_role (user_id, role_id)
                     VALUES (?,?)"
@@ -52,7 +54,8 @@ class UserRole
      *
      * @return bool
      */
-    public static function unassign($user_id, $role_id) {
+    public static function unassign($user_id, $role_id)
+    {
         $stmt = DB::conn()->prepare(
             "DELETE FROM user_role
                     where user_id=?

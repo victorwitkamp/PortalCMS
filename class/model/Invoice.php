@@ -5,7 +5,7 @@ class Invoice
     public static function getByContractId($contract_id)
     {
         $Invoices = InvoiceMapper::getByContractId($contract_id);
-        if(!$Invoices) {
+        if (!$Invoices) {
             return false;
         }
         return $Invoices;
@@ -39,7 +39,8 @@ class Invoice
         return true;
     }
 
-    public static function displayInvoiceSumById($id) {
+    public static function displayInvoiceSumById($id)
+    {
         $sum = self::getInvoiceSumById($id);
         if (!$sum) {
             return false;
