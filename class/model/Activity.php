@@ -29,14 +29,14 @@ class Activity
 
     public static function registerUserActivityByUserId($user_id, $activity, $details)
     {
-        $user = User::getProfileById($user_id);
+        $user = UserMapper::getProfileById($user_id);
         $user_name = $user['user_name'];
         self::saveUserActivity($user_id, $user_name, $activity, $details);
     }
 
     public static function registerUserActivityByUsername($user_name, $activity = NULL, $details = NULL)
     {
-        $user = User::getByUserName($user_name);
+        $user = UserMapper::getByUserName($user_name);
         $user_id = $user['user_id'];
         self::saveUserActivity($user_id, $user_name, $activity, $details);
     }

@@ -15,7 +15,7 @@ $row = EventMapper::getById($_GET['id']);
     <div class="col-sm-6"><p><?php echo $row['title']; ?></p></div>
     <div class="col-sm-6"><strong><?php echo Text::get('LABEL_EVENT_ADDED_BY'); ?>:</strong></div>
     <div class="col-sm-6"><p><?php
-    $User = User::getProfileById($row['CreatedBy']);
+    $User = UserMapper::getProfileById($row['CreatedBy']);
     echo $User['user_name']; ?></p></div>
 
     <div class="col-sm-6"><strong><?php echo Text::get('LABEL_EVENT_START'); ?>:</strong></div>

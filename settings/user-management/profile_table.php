@@ -48,7 +48,7 @@
         <td>
             <?php
 
-            $Roles = User::getRoles($row['user_id']);
+            $Roles = UserRoleMapper::getByUserId($row['user_id']);
             foreach ($Roles as $Role) { ?>
 
                 <form method="post">

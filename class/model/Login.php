@@ -33,10 +33,10 @@ class Login
 
         // reset the failed login counter for that user (if necessary)
         if ($result->user_last_failed_login > 0) {
-            User::resetFailedLoginCounterOfUser($result->user_name);
+            UserMapper::resetFailedLoginsByUsername($result->user_name);
         }
 
-        User::saveTimestampOfLoginOfUser($result->user_name);
+        UserMapper::saveTimestampByUsername($result->user_name);
 
         if ($set_remember_me_cookie) {
             self::setRememberMe($result->user_id);
@@ -85,7 +85,7 @@ class Login
             return false;
         }
 
-        $result = User::getByIdAndToken($user_id, $token);
+        $result = UserMapper::getByIdAndToken($user_id, $token);
 
         if (!$result) {
             Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
@@ -93,7 +93,7 @@ class Login
         }
 
         self::setSuccessfulLoginIntoSession($result->user_id, $result->user_name, $result->user_email, $result->user_account_type, $result->user_fbid);
-        User::saveTimestampOfLoginOfUser($result->user_name);
+        UserMapper::saveTimestampByUsername($result->user_name);
 
         // NOTE: we don't set another remember_me-cookie here as the current cookie should always
         // be invalid after a certain amount of time, so the user has to login with username/password
@@ -109,13 +109,13 @@ class Login
             Session::add('feedback_negative', Text::get('FEEDBACK_FACEBOOK_LOGIN_FAILED'));
             return false;
         }
-        $result = User::getByFbid($fbid);
+        $result = UserMapper::getByFbid($fbid);
         if (!$result) {
             Session::add('feedback_negative', Text::get('FEEDBACK_FACEBOOK_LOGIN_FAILED'));
             return false;
         }
         self::setSuccessfulLoginIntoSession($result->user_id, $result->user_name, $result->user_email, $result->user_account_type, $fbid);
-        User::saveTimestampOfLoginOfUser($result->user_name);
+        UserMapper::saveTimestampByUsername($result->user_name);
         Session::add('feedback_positive', Text::get('FEEDBACK_SUCCESSFUL_FACEBOOK_LOGIN'));
         return true;
     }
@@ -141,7 +141,7 @@ class Login
             }
         }
 
-        $result = User::getByUserName($user_name);
+        $result = UserMapper::getByUserName($user_name);
 
         if (!$result) {
             self::incrementUserNotFoundCounter();
@@ -159,7 +159,7 @@ class Login
 
         // if hash of provided password does NOT match the hash in the database: +1 failed-login counter
         if (!password_verify($user_password, $result->user_password_hash)) {
-            User::incrementFailedLoginCounterOfUser($result->user_name);
+            UserMapper::setFailedLoginByUsername($result->user_name);
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
             return false;
         }
@@ -202,8 +202,8 @@ class Login
     {
         $user_id = Session::get('user_id');
 
-        User::clearRememberMeToken($user_id);
-        // if (User::clearRememberMeToken($user_id)) {
+        UserMapper::clearRememberMeToken($user_id);
+        // if (UserMapper::clearRememberMeToken($user_id)) {
             if (Cookie::delete()) {
                 if (Session::destroy()) {
                     Session::init();
@@ -263,7 +263,7 @@ class Login
         // generate 64 char random string
         $token = hash('sha256', mt_rand());
 
-        User::setRememberMeToken($user_id, $token);
+        UserMapper::updateRememberMeToken($user_id, $token);
 
         // generate cookie string that consists of user id, random string and combined hash of both
         // never expose the original user id, instead, encrypt it.

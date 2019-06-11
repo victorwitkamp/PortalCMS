@@ -1,6 +1,6 @@
 
 <?php
-$user = User::getProfileById(Session::get('user_id'));
+$user = UserMapper::getProfileById(Session::get('user_id'));
 ?>
 <h3><?php echo Text::get('LABEL_ACCOUNT_DETAILS'); ?></h3>
             <table class="table table-striped table-condensed">

@@ -10,7 +10,7 @@ PortalCMS_JS_headJS(); ?>
 </head>
 <body>
 <?php
-$row = User::getProfileById($_GET['id']);
+$row = UserMapper::getProfileById($_GET['id']);
 
 ?>
 <?php require DIR_INCLUDES.'nav.php'; ?>

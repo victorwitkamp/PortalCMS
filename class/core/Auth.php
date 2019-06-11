@@ -53,7 +53,7 @@ class Auth
      */
     public static function checkPrivilege($perm_desc)
     {
-        $Roles = User::getRoles(Session::get('user_id'));
+        $Roles = UserRoleMapper::getByUserId(Session::get('user_id'));
         foreach ($Roles as $Role) {
             if (RolePermission::isAssigned($Role['role_id'], $perm_desc)) {
                 return true;

@@ -6,7 +6,7 @@ if (!Auth::checkPrivilege("user-management")) {
     Redirect::permissionerror();
     die();
 }
-$row = User::getProfileById($_GET['id']);
+$row = UserMapper::getProfileById($_GET['id']);
 if (!$row) {
     Session::add('feedback_negative', "De gebruiker bestaat niet.");
     Redirect::error();
