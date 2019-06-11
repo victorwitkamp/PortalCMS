@@ -1,29 +1,30 @@
-<?php if ($pageType !== 'view') { ?>
-<!-- <form method="post" validate=true> -->
 <form method="post">
-<?php }?>
-
-
+<!-- <form method="post" validate=true> TODO -->
     <div class="row">
         <div class="col-md-12">
-
-
-
             <div class="form-group row">
                 <div class="col-md-8">
                     <label class="col-form-label">Huurder</label>
-                    <input type="text" name="band_naam" class="form-control form-control-sm" placeholder=""
-                        value="<?php if ($loadData) { echo $row ['band_naam']; } ?>" required
-                        <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                    <?php
+                        echo '<input type="text" name="band_naam" class="form-control form-control-sm" placeholder="" value="';
+                        if ($loadData) {
+                            echo $contract['band_naam'];
+                        }
+                        echo '" required>';
+                    ?>
                 </div>
                 <div class="col-md-4">
                     <label class="col-form-label">bandcode</label>
-                    <input type="text" name="bandcode" class="form-control form-control-sm" placeholder=""
-                        value="<?php if ($loadData) { echo $row ['bandcode']; } ?>" required
-                        <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                    <?php
+                        echo '<input type="text" name="bandcode" class="form-control form-control-sm" placeholder="" value="';
+                        if ($loadData) {
+                            echo $contract['bandcode'];
+                        }
+                        echo '" required>';
+                    ?>
+
                 </div>
             </div>
-
             <div class="form-group">
                 <h3>Kosten</h3>
             <div class="row">
@@ -34,10 +35,13 @@
                             <div class="input-group-text">
                                 <i class="fas fa-euro-sign"></i>
                             </div>
-                            <input type="text" name="kosten_ruimte" class="form-control form-control-sm" placeholder=""
-                                value="<?php if ($loadData) { echo $row ['kosten_ruimte']; } ?>"
-                                <?php if (!$allowEdit) { echo 'disabled'; } ?>>
-                        </div>
+<?php
+echo '<input type="text" name="kosten_ruimte" class="form-control form-control-sm" placeholder="" value="';
+if ($loadData) {
+  echo $contract['kosten_ruimte'];
+}
+echo '">';
+?></div>
                     </div>
                 </div>
 
@@ -49,8 +53,7 @@
                                 <i class="fas fa-euro-sign"></i>
                             </div>
                             <input type="text" name="kosten_kast" class="form-control form-control-sm" placeholder=""
-                                value="<?php if ($loadData) { echo $row ['kosten_kast']; } ?>"
-                                <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                                value="<?php if ($loadData) { echo $contract['kosten_kast']; } ?>">
                         </div>
                     </div>
                 </div>
@@ -63,7 +66,7 @@
                                 <i class="fas fa-euro-sign"></i>
                             </div>
                             <input type="text" name="kosten_totaal" class="form-control form-control-sm" placeholder=""
-                                value="<?php if ($loadData) { echo $row ['kosten_totaal']; } ?>" disabled>
+                                value="<?php if ($loadData) { echo $contract['kosten_totaal']; } ?>" disabled>
                         </div>
                     </div>
                 </div>
@@ -76,8 +79,7 @@
                                 <i class="fas fa-euro-sign"></i>
                             </div>
                             <input type="text" name="kosten_borg" class="form-control form-control-sm" placeholder=""
-                                value="<?php if ($loadData) { echo $row ['kosten_borg']; } ?>"
-                                <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                                value="<?php if ($loadData) { echo $contract['kosten_borg']; } ?>">
                         </div>
                     </div>
                 </div>
@@ -97,8 +99,7 @@
                             <input type="text" name="contract_ingangsdatum"
                                 class="form-control form-control-sm  datetimepicker-input"
                                 data-target="#datetimepicker2"
-                                value="<?php if ($loadData) { echo $row ['contract_ingangsdatum']; } ?>"
-                                <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                                value="<?php if ($loadData) { echo $contract['contract_ingangsdatum']; } ?>">
                         </div>
                     </div>
                 </div>
@@ -115,8 +116,7 @@
                             <input type="text" name="contract_einddatum"
                                 class="form-control form-control-sm  datetimepicker-input"
                                 data-target="#datetimepicker3"
-                                value="<?php if ($loadData) { echo $row ['contract_einddatum']; } ?>"
-                                <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                                value="<?php if ($loadData) { echo $contract['contract_einddatum']; } ?>">
                         </div>
                     </div>
                 </div>
@@ -133,8 +133,7 @@
                             <input type="text" name="contract_datum"
                                 class="form-control form-control-sm  datetimepicker-input"
                                 data-target="#datetimepicker4"
-                                value="<?php if ($loadData) { echo $row ['contract_datum']; } ?>"
-                                <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                                value="<?php if ($loadData) { echo $contract['contract_datum']; } ?>">
                         </div>
                     </div>
                 </div>
@@ -148,8 +147,7 @@
                     <div class="col-md-12">
                         <label class="col-form-label">Naam</label>
                         <input type="text" name="bandleider_naam" class="form-control form-control-sm" placeholder=""
-                            value="<?php if ($loadData) { echo $row ['bandleider_naam']; } ?>"
-                            <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                            value="<?php if ($loadData) { echo $contract['bandleider_naam']; } ?>">
                     </div>
                 </div>
                 <div class="row">
@@ -157,23 +155,20 @@
                         <label class="col-form-label">Adres</label>
                         <input type="text" name="bandleider_adres" class="form-control form-control-sm"
                             placeholder="Voorbeeldadres 123"
-                            value="<?php if ($loadData) { echo $row ['bandleider_adres']; } ?>"
-                            <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                            value="<?php if ($loadData) { echo $contract['bandleider_adres']; } ?>">
                     </div>
                     <div class="col-md-2">
                         <label class="col-form-label">Postcode</label>
                         <input type="text" name="bandleider_postcode" class="form-control form-control-sm" maxlength="6"
                             placeholder="1234AB"
-                            value="<?php if ($loadData) { echo $row ['bandleider_postcode']; } ?>"
-                            <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                            value="<?php if ($loadData) { echo $contract['bandleider_postcode']; } ?>">
                     </div>
 
                     <div class="col-md-4">
                         <label class="col-form-label">Woonplaats</label>
                         <input type="text" name="bandleider_woonplaats" class="form-control form-control-sm"
                             placeholder="Barendrecht"
-                            value="<?php if ($loadData) { echo $row ['bandleider_woonplaats']; } ?>"
-                            <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                            value="<?php if ($loadData) { echo $contract['bandleider_woonplaats']; } ?>">
                     </div>
                 </div>
                 <div class="row">
@@ -188,8 +183,7 @@
                                 </div>
                                 <input type="text" name="bandleider_geboortedatum" class="form-control datetimepicker-input"
                                     data-target="#datetimepicker1"
-                                    value="<?php if ($loadData) { echo $row ['bandleider_geboortedatum']; } ?>"
-                                    <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                                    value="<?php if ($loadData) { echo $contract['bandleider_geboortedatum']; } ?>">
                             </div>
                         </div>
                     </div>
@@ -199,31 +193,27 @@
                         <label class="col-form-label">Telefoonnummer 1</label>
                         <input type="text" name="bandleider_telefoonnummer1" class="form-control form-control-sm"
                             placeholder=""
-                            value="<?php if ($loadData) { echo $row ['bandleider_telefoonnummer1']; } ?>"
-                            <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                            value="<?php if ($loadData) { echo $contract['bandleider_telefoonnummer1']; } ?>">
                     </div>
                     <div class="col-md-6">
                         <label class="col-form-label">Telefoonnummer 2</label>
                         <input type="text" name="bandleider_telefoonnummer2" class="form-control form-control-sm"
                             placeholder=""
-                            value="<?php if ($loadData) { echo $row ['bandleider_telefoonnummer2']; } ?>"
-                            <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                            value="<?php if ($loadData) { echo $contract['bandleider_telefoonnummer2']; } ?>">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <label class="col-form-label">E-mail</label>
                         <input type="text" name="bandleider_email" class="form-control form-control-sm" placeholder=""
-                            value="<?php if ($loadData) { echo $row ['bandleider_email']; } ?>"
-                            <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                            value="<?php if ($loadData) { echo $contract['bandleider_email']; } ?>">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <label class="col-form-label">BSN</label>
                         <input type="text" name="bandleider_bsn" class="form-control form-control-sm" placeholder=""
-                            value="<?php if ($loadData) { echo $row ['bandleider_bsn']; } ?>"
-                            <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                            value="<?php if ($loadData) { echo $contract['bandleider_bsn']; } ?>">
                     </div>
                 </div>
             </div>
@@ -236,14 +226,14 @@
 
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="huur_oefenruimte_nr" value="1"
-                            <?php if ($loadData AND $row['huur_oefenruimte_nr'] === '1') { echo 'checked'; } ?>>
+                            <?php if ($loadData AND $contract['huur_oefenruimte_nr'] === '1') { echo 'checked'; } ?>>
                         <label class="form-check-label" for="exampleRadios1">
                             Oefenruimte 1
                         </label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="huur_oefenruimte_nr" value="2"
-                            <?php if ($loadData AND $row['huur_oefenruimte_nr'] === '2') { echo 'checked'; } ?>>
+                            <?php if ($loadData AND $contract['huur_oefenruimte_nr'] === '2') { echo 'checked'; } ?>>
                         <label class="form-check-label" for="exampleRadios2">
                             Oefenruimte 2
                         </label>
@@ -255,19 +245,26 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label"><?php echo Text::get('DAY'); ?></label>
                 <div class="col-sm-10">
-<?php if ($loadData) { ?><input type="text" value="<?php echo $row['huur_dag']; ?>" disabled> <?php } ?>
-<?php if ($allowEdit) { ?>
-                    <select name="huur_dag" class="form-control" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
-                        <option>Selecteer een dag....</option>
-                        <option value="<?php echo Text::get('DAY_01'); ?>"><?php echo Text::get('DAY_01'); ?></option>
-                        <option value="<?php echo Text::get('DAY_02'); ?>"><?php echo Text::get('DAY_02'); ?></option>
-                        <option value="<?php echo Text::get('DAY_03'); ?>"><?php echo Text::get('DAY_03'); ?></option>
-                        <option value="<?php echo Text::get('DAY_04'); ?>"><?php echo Text::get('DAY_04'); ?></option>
-                        <option value="<?php echo Text::get('DAY_05'); ?>"><?php echo Text::get('DAY_05'); ?></option>
-                        <option value="<?php echo Text::get('DAY_06'); ?>"><?php echo Text::get('DAY_06'); ?></option>
-                        <option value="<?php echo Text::get('DAY_07'); ?>"><?php echo Text::get('DAY_07'); ?></option>
-                    </select>
-<?php } ?>
+<?php
+if ($loadData) {
+    echo '<input type="text" value="'.$contract['huur_dag'].'" disabled> ';
+}
+
+
+    echo '<select name="huur_dag" class="form-control" ';
+
+    echo '>';
+    echo '<option>Selecteer een dag....</option>';
+    echo '<option value="'.Text::get('DAY_01').'">'.Text::get('DAY_01').'</option>';
+    echo '<option value="'.Text::get('DAY_02').'">'.Text::get('DAY_02').'</option>';
+    echo '<option value="'.Text::get('DAY_03').'">'.Text::get('DAY_03').'</option>';
+    echo '<option value="'.Text::get('DAY_04').'">'.Text::get('DAY_04').'</option>';
+    echo '<option value="'.Text::get('DAY_05').'">'.Text::get('DAY_05').'</option>';
+    echo '<option value="'.Text::get('DAY_06').'">'.Text::get('DAY_06').'</option>';
+    echo '<option value="'.Text::get('DAY_07').'">'.Text::get('DAY_07').'</option>';
+    echo '</select>';
+
+?>
                 </div>
             </div>
 
@@ -276,22 +273,19 @@
                 <div class="col-md-6">
                     <label class="col-form-label">huur_start</label>
                     <input type="text" name="huur_start" class="form-control form-control-sm" placeholder=""
-                        value="<?php if ($loadData) { echo $row ['huur_start']; } ?>"
-                        <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                        value="<?php if ($loadData) { echo $contract['huur_start']; } ?>">
                 </div>
                 <div class="col-md-6">
                     <label class="col-form-label">huur_eind</label>
                     <input type="text" name="huur_einde" class="form-control form-control-sm" placeholder=""
-                        value="<?php if ($loadData) { echo $row ['huur_einde']; } ?>"
-                        <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                        value="<?php if ($loadData) { echo $contract['huur_einde']; } ?>">
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-md-12">
                     <label class="col-form-label">huur_kast_nr</label>
                     <input type="text" name="huur_kast_nr" class="form-control form-control-sm" placeholder=""
-                        value="<?php if ($loadData) { echo $row ['huur_kast_nr']; } ?>"
-                        <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                        value="<?php if ($loadData) { echo $contract['huur_kast_nr']; } ?>">
                 </div>
             </div>
 
@@ -299,8 +293,7 @@
                 <div class="col-md-4">
                     <label class="col-form-label">beuk_vertegenwoordiger</label>
                     <input type="text" name="beuk_vertegenwoordiger" class="form-control form-control-sm" placeholder=""
-                        value="<?php if ($loadData) { echo $row ['beuk_vertegenwoordiger']; } ?>"
-                        <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                        value="<?php if ($loadData) { echo $contract['beuk_vertegenwoordiger']; } ?>">
                 </div>
             </div>
 
@@ -309,7 +302,7 @@
     </div>
 
 
-<?php if ($pageType !== 'view') { ?>
+
     <div class="row">
         <div class="col-md-12">
             <hr>
@@ -317,14 +310,12 @@
             <div class="form-group row">
                 <div class="col-md-6">
                     <label class="col-form-label">&#xA0;</label>
-                    <input type="hidden" name="id" value="<?php if ($page = 'edit') { echo $row ['id']; } ?>">
-                    <input type="submit"
-                        name="<?php if ($pageType === 'edit') { echo 'updateContract'; } else { echo 'newContract'; }?>"
-                        class="btn btn-sm btn-primary" value="Opslaan" <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                    <input type="hidden" name="id" value="<?php if ($pageType === 'edit') { echo $contract['id']; } ?>">
+                    <input type="submit" name="<?php if ($pageType === 'edit') { echo 'updateContract'; } else { echo 'newContract'; }?>"
+                        class="btn btn-sm btn-primary" value="Opslaan">
                     <a href="contracten.php" class="btn btn-sm btn-danger">Annuleren</a>
                 </div>
             </div>
         </div>
     </div>
 </form>
-<?php } ?>

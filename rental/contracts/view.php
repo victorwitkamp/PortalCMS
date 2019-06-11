@@ -1,20 +1,16 @@
 <?php
-$allowEdit = false;
-$loadData = true;
-$pageType = 'view';
-$pageName = 'Profiel';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
 if (!Auth::checkPrivilege("rental-contracts")) {
     Redirect::permissionerror();
     die();
 }
-$row = Contract::getById($_GET['id']);
-if (!$row) {
+$contract = ContractMapper::getById($_GET['id']);
+if (!$contract) {
     Session::add('feedback_negative', "Het contract bestaat niet.");
     Redirect::error();
 }
-$pageName = 'Contract van '.$row['band_naam'];
+$pageName = 'Contract van '.$contract['band_naam'];
 require_once DIR_INCLUDES.'functions.php';
 require_once DIR_INCLUDES.'head.php';
 displayHeadCSS();
@@ -31,12 +27,12 @@ PortalCMS_JS_headJS(); ?>
             </div>
         </div>
         <div class="container">
-            <?php require 'contracts_buttons.php'; ?>
-            <a href="invoices.php?id=<?php echo $_GET['id']; ?>">Facturen bekijken</a>
+            <?php require 'inc/buttons.php'; ?>
+            <a href="invoices.php?id=<?php echo $contract['id']; ?>">Facturen bekijken</a>
             <hr>
-            <?php require 'contract_form.php'; ?>
+            <?php require 'inc/view.php'; ?>
             <hr>
-            <?php require 'contracts_buttons.php'; ?>
+            <?php require 'inc/buttons.php'; ?>
         </div>
     </div>
 </main>

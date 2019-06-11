@@ -45,6 +45,14 @@ class Redirect
         self::to('my-account');
     }
 
+        /**
+     * To the homepage
+     */
+    public static function contracts()
+    {
+        self::to('rental/contracts');
+    }
+
     /**
      * To the page that displays an error
      */

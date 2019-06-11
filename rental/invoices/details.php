@@ -43,7 +43,7 @@ PortalCMS_JS_headJS(); ?>
                     <th>Huurder</th>
                     <td>
                         <?php
-                            $row = Contract::getById($invoice['contract_id']);
+                            $row = ContractMapper::getById($invoice['contract_id']);
                             echo $row['band_naam'];
                         ?>
                     </td>

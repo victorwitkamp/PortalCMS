@@ -6,6 +6,7 @@ if (!Auth::checkPrivilege("rental-contracts")) {
     Redirect::permissionerror();
     die();
 }
+$contracts = ContractMapper::get();
 require_once DIR_INCLUDES.'functions.php';
 require_once DIR_INCLUDES.'head.php';
 displayHeadCSS();
@@ -27,9 +28,7 @@ PortalCMS_JS_dataTables();
             <hr>
             <?php
             Alert::renderFeedbackMessages();
-            $stmt = DB::conn()->prepare("SELECT * FROM contracts ORDER BY id ASC");
-            $stmt->execute();
-            if ($stmt->rowCount() == 0) {
+            if(!$contracts) {
                 echo 'Ontbrekende gegevens..';
             } else {
                 include 'contracts_table.php';

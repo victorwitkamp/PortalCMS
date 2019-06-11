@@ -43,7 +43,7 @@ class InvoiceController extends controller
             return false;
         }
         $invoice = InvoiceMapper::getById($id);
-        $contract = Contract::getById($invoice['contract_id']);
+        $contract = ContractMapper::getById($invoice['contract_id']);
         if (InvoicePDF::render($invoice, $contract)) {
             return true;
         }

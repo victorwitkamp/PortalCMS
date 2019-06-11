@@ -40,7 +40,7 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
                         <label class="col-sm-2 col-form-label">Contract</label>
                         <div class="col-sm-10">
                             <select name="contract_id" class="form-control">
-                                <?php foreach (Contract::getAll() as $row): ?>
+                                <?php foreach (ContractMapper::get() as $row): ?>
                                     <option value="<?php echo $row['id']; ?>"><?php echo $row['bandcode'].': '.$row['band_naam']; ?></option>
                                 <?php endforeach ?>
                             </select>

@@ -7,45 +7,6 @@
 
 class Contract
 {
-    public static function getStartDateById($Id)
-    {
-        $stmt = DB::conn()->prepare("SELECT contract_ingangsdatum FROM contracts WHERE id = ? LIMIT 1");
-        $stmt->execute([$Id]);
-        if (!$stmt->rowCount() == 1) {
-            return false;
-        } else {
-            return $stmt->fetchColumn();
-        }
-    }
-
-    public static function getAll()
-    {
-        $stmt = DB::conn()->prepare("SELECT * FROM contracts ORDER BY id");
-        $stmt->execute([]);
-        return $stmt->fetchAll();
-    }
-
-    public static function doesIdExist($Id)
-    {
-        $stmt = DB::conn()->prepare("SELECT id FROM contracts WHERE id = ? LIMIT 1");
-        $stmt->execute([$Id]);
-        if ($stmt->rowCount() == 0) {
-            return false;
-        }
-        return true;
-    }
-
-    public static function getById($Id)
-    {
-        $stmt = DB::conn()->prepare("SELECT * FROM contracts WHERE id = ? LIMIT 1");
-        $stmt->execute([$Id]);
-        if (!$stmt->rowCount() == 1) {
-            return false;
-        } else {
-            return $stmt->fetch();
-        }
-    }
-
     public static function new()
     {
         $beuk_vertegenwoordiger     = Request::post('beuk_vertegenwoordiger', true);
@@ -73,7 +34,7 @@ class Contract
         $contract_einddatum         = Request::post('contract_einddatumm', true);
         $contract_datum             = Request::post('contract_datum', true);
 
-        if (!self::newAction(
+        if (!ContractMapper::new(
             $beuk_vertegenwoordiger,
             $band_naam,
             $bandcode,
@@ -107,95 +68,6 @@ class Contract
         }
     }
 
-    public static function newAction(
-        $beuk_vertegenwoordiger,
-        $band_naam,
-        $bandcode,
-        $bandleider_naam,
-        $bandleider_adres,
-        $bandleider_postcode,
-        $bandleider_woonplaats,
-        $bandleider_geboortedatum,
-        $bandleider_telefoonnummer1,
-        $bandleider_telefoonnummer2,
-        $bandleider_email,
-        $bandleider_bsn,
-        $huur_oefenruimte_nr,
-        $huur_dag,
-        $huur_start,
-        $huur_einde,
-        $huur_kast_nr,
-        $kosten_ruimte,
-        $kosten_kast,
-        $kosten_totaal,
-        $kosten_borg,
-        $contract_ingangsdatum,
-        $contract_einddatum,
-        $contract_datum
-    ) {
-        $stmt = DB::conn()->prepare(
-            "INSERT INTO contracts (
-                id,
-                beuk_vertegenwoordiger,
-                band_naam,
-                bandcode,
-                bandleider_naam,
-                bandleider_adres,
-                bandleider_postcode,
-                bandleider_woonplaats,
-                bandleider_geboortedatum,
-                bandleider_telefoonnummer1,
-                bandleider_telefoonnummer2,
-                bandleider_email,
-                bandleider_bsn,
-                huur_oefenruimte_nr,
-                huur_dag,
-                huur_start,
-                huur_einde,
-                huur_kast_nr,
-                kosten_ruimte,
-                kosten_kast,
-                kosten_totaal,
-                kosten_borg,
-                contract_ingangsdatum,
-                contract_einddatum,
-                contract_datum
-            ) VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
-        );
-        $stmt->execute(
-            [
-                $beuk_vertegenwoordiger,
-                $band_naam,
-                $bandcode,
-                $bandleider_naam,
-                $bandleider_adres,
-                $bandleider_postcode,
-                $bandleider_woonplaats,
-                $bandleider_geboortedatum,
-                $bandleider_telefoonnummer1,
-                $bandleider_telefoonnummer2,
-                $bandleider_email,
-                $bandleider_bsn,
-                $huur_oefenruimte_nr,
-                $huur_dag,
-                $huur_start,
-                $huur_einde,
-                $huur_kast_nr,
-                $kosten_ruimte,
-                $kosten_kast,
-                $kosten_totaal,
-                $kosten_borg,
-                $contract_ingangsdatum,
-                $contract_einddatum,
-                $contract_datum
-            ]
-        );
-        if (!$stmt) {
-            return false;
-        }
-        return true;
-    }
-
     public static function update()
     {
         $Id                         = Request::post('id', true);
@@ -224,169 +96,52 @@ class Contract
         $contract_einddatum         = Request::post('contract_einddatumm', true);
         $contract_datum             = Request::post('contract_datum', true);
 
-        if (self::doesIdExist($Id)) {
-            if (!self::updateAction(
-                $Id,
-                $beuk_vertegenwoordiger,
-                $band_naam,
-                $bandcode,
-                $bandleider_naam,
-                $bandleider_adres,
-                $bandleider_postcode,
-                $bandleider_woonplaats,
-                $bandleider_geboortedatum,
-                $bandleider_telefoonnummer1,
-                $bandleider_telefoonnummer2,
-                $bandleider_email,
-                $bandleider_bsn,
-                $huur_oefenruimte_nr,
-                $huur_dag,
-                $huur_start,
-                $huur_einde,
-                $huur_kast_nr,
-                $kosten_ruimte,
-                $kosten_kast,
-                $kosten_totaal,
-                $kosten_borg,
-                $contract_ingangsdatum,
-                $contract_einddatum,
-                $contract_datum
-            )
-            ) {
-                Session::add('feedback_negative', "Wijzigen van contract mislukt.");
-                Redirect::to("rental/contracts/");
-            } else {
-                Session::add('feedback_positive', "Contract gewijzigd.");
-                Redirect::to("rental/contracts/");
-            }
-        } else {
+        if (!ContractMapper::exists($Id)) {
             Session::add('feedback_negative', "Wijzigen van contract mislukt.<br>Contract bestaat niet.");
             Redirect::to("rental/contracts/");
         }
-    }
-
-    public static function updateAction(
-        $Id,
-        $beuk_vertegenwoordiger,
-        $band_naam,
-        $bandcode,
-        $bandleider_naam,
-        $bandleider_adres,
-        $bandleider_postcode,
-        $bandleider_woonplaats,
-        $bandleider_geboortedatum,
-        $bandleider_telefoonnummer1,
-        $bandleider_telefoonnummer2,
-        $bandleider_email,
-        $bandleider_bsn,
-        $huur_oefenruimte_nr,
-        $huur_dag,
-        $huur_start,
-        $huur_einde,
-        $huur_kast_nr,
-        $kosten_ruimte,
-        $kosten_kast,
-        $kosten_totaal,
-        $kosten_borg,
-        $contract_ingangsdatum,
-        $contract_einddatum,
-        $contract_datum
-    ) {
-        $stmt = DB::conn()->prepare(
-            "UPDATE contracts
-                    SET
-                    beuk_vertegenwoordiger=?,
-                    band_naam=?,
-                    bandcode=?,
-                    bandleider_naam=?,
-                    bandleider_adres=?,
-                    bandleider_postcode=?,
-                    bandleider_woonplaats=?,
-                    bandleider_geboortedatum=?,
-                    bandleider_telefoonnummer1=?,
-                    bandleider_telefoonnummer2=?,
-                    bandleider_email=?,
-                    bandleider_bsn=?,
-                    huur_oefenruimte_nr=?,
-                    huur_dag=?,
-                    huur_start=?,
-                    huur_einde=?,
-                    huur_kast_nr=?,
-                    kosten_ruimte=?,
-                    kosten_kast=?,
-                    kosten_totaal=?,
-                    kosten_borg=?,
-                    contract_ingangsdatum=?,
-                    contract_einddatum=?,
-                    contract_datum=?
-                    WHERE id=?"
-        );
-        $stmt->execute(
-            [
-                $beuk_vertegenwoordiger,
-                $band_naam,
-                $bandcode,
-                $bandleider_naam,
-                $bandleider_adres,
-                $bandleider_postcode,
-                $bandleider_woonplaats,
-                $bandleider_geboortedatum,
-                $bandleider_telefoonnummer1,
-                $bandleider_telefoonnummer2,
-                $bandleider_email,
-                $bandleider_bsn,
-                $huur_oefenruimte_nr,
-                $huur_dag,
-                $huur_start,
-                $huur_einde,
-                $huur_kast_nr,
-                $kosten_ruimte,
-                $kosten_kast,
-                $kosten_totaal,
-                $kosten_borg,
-                $contract_ingangsdatum,
-                $contract_einddatum,
-                $contract_datum,
-                $Id
-            ]
-        );
-        if (!$stmt) {
-            return false;
+        if (!ContractMapper::update(
+            $Id,
+            $beuk_vertegenwoordiger,
+            $band_naam, $bandcode,
+            $bandleider_naam, $bandleider_adres, $bandleider_postcode, $bandleider_woonplaats, $bandleider_geboortedatum,
+            $bandleider_telefoonnummer1, $bandleider_telefoonnummer2, $bandleider_email, $bandleider_bsn,
+            $huur_oefenruimte_nr, $huur_dag, $huur_start, $huur_einde, $huur_kast_nr,
+            $kosten_ruimte, $kosten_kast, $kosten_totaal, $kosten_borg, $contract_ingangsdatum,
+            $contract_einddatum, $contract_datum)
+        ) {
+            Session::add('feedback_negative', "Wijzigen van contract mislukt.");
+            Redirect::to("rental/contracts/");
+        } else {
+            Session::add('feedback_positive', "Contract gewijzigd.");
+            Redirect::to("rental/contracts/");
         }
-        return true;
     }
 
     public static function delete()
     {
         $contract_id = Request::post('id', true);
-        $stmt = DB::conn()->prepare("SELECT * FROM contracts where id = ?");
-        $stmt->execute([$contract_id]);
-        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-        $count = count($result);
-        if ($count > 0) {
+        if (ContractMapper::exists($contract_id)) {
             if(!Invoice::getByContractId($contract_id)) {
-                if (self::deleteAction($contract_id)) {
+                if (ContractMapper::delete($contract_id)) {
                     Session::add('feedback_positive', 'Contract verwijderd.');
+                    Redirect::contracts();
                     return true;
                 }
                 Session::add('feedback_negative', 'Verwijderen van contract mislukt.');
+                Redirect::contracts();
                 return false;
             } else {
                 Session::add('feedback_negative', 'Dit contract heeft al facturen.');
+                Redirect::contracts();
                 return false;
             }
         }
         Session::add('feedback_negative', 'Verwijderen van contract mislukt.<br>Contract bestaat niet.');
+        Redirect::contracts();
         return false;
     }
 
-    public static function deleteAction($contract_id)
-    {
-        $stmt = DB::conn()->prepare("DELETE FROM contracts WHERE id = ?");
-        if ($stmt->execute([$contract_id])) {
-            return true;
-        }
-        return false;
-    }
+
 
 }

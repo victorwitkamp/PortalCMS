@@ -2,12 +2,21 @@
 
 class Invoice
 {
+    public static function getByContractId($contract_id)
+    {
+        $Invoices = InvoiceMapper::getByContractId($contract_id);
+        if(!$Invoices) {
+            return false;
+        }
+        return $Invoices;
+    }
+
     public static function create()
     {
         $contract_id = Request::post('contract_id', true);
         $year = Request::post('year', true);
         $month = Request::post('month', true);
-        $contract = Contract::getById($contract_id);
+        $contract = ContractMapper::getById($contract_id);
         $factuurnummer = $year.$contract['bandcode'].$month;
         $factuurdatum = Request::post('factuurdatum', true);
         $vervaldatum = Request::post('vervaldatum', true);

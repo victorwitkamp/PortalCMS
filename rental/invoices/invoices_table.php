@@ -16,20 +16,20 @@
     </thead>
     <tbody>
     <?php
-    foreach ($invoices as $row) {
+    foreach ($invoices as $invoice) {
         ?>
         <tr>
             <td>
-                <a href="details.php?id=<?php echo $row['id'] ?>" title="Details" class="btn btn-primary">
+                <a href="/rental/invoices/details.php?id=<?php echo $invoice['id'] ?>" title="Details" class="btn btn-primary">
                 <span class="fas fa-edit"></span>
                 </a>
             </td>
 
-            <td><?php echo $row['factuurnummer'] ?></td>
+            <td><?php echo $invoice['factuurnummer'] ?></td>
             <td>
                 <?php
-                if (isset($row['contract_id']) AND !empty($row['contract_id'])) {
-                    if ($contract = Contract::getById($row['contract_id'])) {
+                if (isset($invoice['contract_id']) AND !empty($invoice['contract_id'])) {
+                    if ($contract = ContractMapper::getById($invoice['contract_id'])) {
                         echo $contract['band_naam'];
                     } else {
                         echo 'n/a';
@@ -40,27 +40,30 @@
                 ?>
             </td>
 
-            <td><?php echo Invoice::DisplayInvoiceSumById($row['id']); ?></td>
+            <td><?php echo Invoice::DisplayInvoiceSumById($invoice['id']); ?></td>
             <td>
             <?php
-            if ($row['status'] === '0') {
+            if ($invoice['status'] === '0') {
                 echo '<i class="fas fa-lock-open"></i> Concept';
             }
-            if ($row['status'] === '1') {
+            if ($invoice['status'] === '1') {
                 echo '<i class="fas fa-lock"></i> Klaar voor verzending';
             }
-            if ($row['status'] === '2') {
+            if ($invoice['status'] === '2') {
                 echo '<i class="fas fa-lock"></i> Verzonden ';
             }
             ?>
             </td>
             <td>
-                <a href="createpdf.php?id=<?php echo $row['id'] ?>" title="PDF maken" class="btn btn-success">
+                <a href="createpdf.php?id=<?php echo $invoice['id'] ?>" title="PDF maken" class="btn btn-success">
                     <span class="fas fa-file-pdf"></span>
                 </a>
             </td>
             <td>
-                <form method="post"><input type="hidden" name="ïd" value="$row['id']"><button type="submit" name="confirmPayment" class="btn btn-success" disabled><i class="fas fa-check"></i></form>
+                <form method="post">
+                    <input type="hidden" name="ïd" value="<?php echo $invoice['id']; ?>">
+                    <button type="submit" name="confirmPayment" class="btn btn-success" disabled><i class="fas fa-check"></i></button>
+                </form>
             </td>
         </tr>
         <?php

@@ -1,7 +1,5 @@
 <?php
 $pageName = 'Contract toevoegen';
-$allowEdit = true;
-$pageType = 'new';
 $loadData = false;
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
@@ -15,7 +13,7 @@ displayHeadCSS();
 PortalCMS_CSS_tempusdominus();
 PortalCMS_JS_headJS();
 PortalCMS_JS_tempusdominus(); ?>
-<script >
+<script>
 $(function () {
     $('#datetimepicker1').datetimepicker({
         format: 'DD-MM-YYYY',
@@ -50,21 +48,19 @@ $(function () {
 <link rel="stylesheet" type="text/css" href="/includes/css/jquery-simple-validator.css">
 </head>
 <body>
-<?php require DIR_INCLUDES."nav.php"; ?>
-<main>
-    <div class="content">
-        <div class="container">
-            <div class="row mt-5">
-                <h1><?php echo $pageName; ?></h1>
+    <?php require DIR_INCLUDES."nav.php"; ?>
+    <main>
+        <div class="content">
+            <div class="container">
+                <div class="row mt-5">
+                    <h1><?php echo $pageName; ?></h1>
+                </div>
+            </div>
+            <div class="container">
+                <?php require "inc/form.php"; ?>
             </div>
         </div>
-        <div class="container">
-            <?php
-            require "contract_form.php";
-            ?>
-        </div>
-    </div>
-</main>
-<?php require DIR_INCLUDES."footer.php"; ?>
+    </main>
+    <?php require DIR_INCLUDES."footer.php"; ?>
 </body>
 </html>
