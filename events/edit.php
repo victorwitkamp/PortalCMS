@@ -9,7 +9,7 @@ if (!Auth::checkPrivilege("events")) {
 }
 require_once DIR_INCLUDES.'functions.php';
 
-if ($row = Event::getEvent($_GET['id'])) {
+if ($row = EventMapper::getById($_GET['id'])) {
     $allowEdit = true;
     $pageName = 'Evenement '.$row ['title'].' bewerken';
 } else {

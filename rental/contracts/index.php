@@ -31,7 +31,7 @@ PortalCMS_JS_dataTables();
             if(!$contracts) {
                 echo 'Ontbrekende gegevens..';
             } else {
-                include 'contracts_table.php';
+                include 'inc/contracts_table.php';
             }
             ?>
             <script class="init">

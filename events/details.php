@@ -5,7 +5,7 @@ if (!Auth::checkPrivilege("events")) {
     Redirect::permissionerror();
     die();
 }
-$row = Event::getEvent($_GET['id']);
+$row = EventMapper::getById($_GET['id']);
 ?>
 
 <div class="row">

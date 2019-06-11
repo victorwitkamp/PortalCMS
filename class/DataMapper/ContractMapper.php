@@ -70,28 +70,14 @@ class ContractMapper
                 beuk_vertegenwoordiger,
                 band_naam,
                 bandcode,
-                bandleider_naam,
-                bandleider_adres,
-                bandleider_postcode,
-                bandleider_woonplaats,
-                bandleider_geboortedatum,
-                bandleider_telefoonnummer1,
-                bandleider_telefoonnummer2,
-                bandleider_email,
-                bandleider_bsn,
-                huur_oefenruimte_nr,
-                huur_dag,
-                huur_start,
-                huur_einde,
-                huur_kast_nr,
-                kosten_ruimte,
-                kosten_kast,
-                kosten_totaal,
-                kosten_borg,
-                contract_ingangsdatum,
-                contract_einddatum,
-                contract_datum
-            ) VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+                bandleider_naam, bandleider_adres, bandleider_postcode, bandleider_woonplaats, bandleider_geboortedatum,
+                bandleider_telefoonnummer1, bandleider_telefoonnummer2, bandleider_email, bandleider_bsn,
+                huur_oefenruimte_nr, huur_dag, huur_start, huur_einde, huur_kast_nr,
+                kosten_ruimte, kosten_kast, kosten_totaal, kosten_borg,
+                contract_ingangsdatum, contract_einddatum, contract_datum
+            ) VALUES (
+                NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?
+            )"
         );
         $stmt->execute(
             [
