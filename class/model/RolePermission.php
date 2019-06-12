@@ -81,7 +81,7 @@ class RolePermission
      *
      * @param string $role_id
      *
-     * @return array
+     * @return mixed
      */
     public static function getPermissionIds($role_id)
     {

@@ -8,6 +8,7 @@ class Event
     public static function loadEvents($startDate, $endDate)
     {
         $result = EventMapper::getByDate($startDate, $endDate);
+        $data = array();
         foreach ($result as $row) {
             $data[] = array(
                 'id'   => $row["id"],
@@ -26,6 +27,7 @@ class Event
     {
         $now = date("Y-m-d H:i:s");
         $result = EventMapper::getEventsAfter($now);
+        $data = array();
         foreach ($result as $row) {
             $data[] = array(
                 'id'   => $row["id"],

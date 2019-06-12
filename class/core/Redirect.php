@@ -18,7 +18,7 @@ class Redirect
      */
     public static function toPreviousViewedPageAfterLogin($path)
     {
-        header('location: http://'.$_SERVER['HTTP_HOST'].'/'.$path);
+        header('location: https://'.$_SERVER['HTTP_HOST'].'/'.$path);
     }
 
     /**
@@ -69,7 +69,7 @@ class Redirect
         self::to('includes/permissionError.php');
     }
 
-    public static function mail()
+    public static function Mail()
     {
         self::to('mail');
     }

@@ -7,7 +7,7 @@ class InvoiceItemMapper
      *
      * @param int $invoiceId
      *
-     * @return array
+     * @return mixed
      */
     public static function getByInvoiceId($invoiceId)
     {

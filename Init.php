@@ -53,7 +53,7 @@ spl_autoload_register(
         $sources = array(
             DIR_CLASS."Core/$class.php",
             DIR_CLASS."Model/$class.php",
-            DIR_CLASS."Controller/$class.php",
+            DIR_CLASS."controller/$class.php",
             DIR_CLASS."DataMapper/$class.php"
         );
         foreach ($sources as $source) {

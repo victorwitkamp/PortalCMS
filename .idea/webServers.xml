@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="1b115288-82ee-4742-874f-ac1129929930" name="Portal" url="http://portal.victorwitkamp.nl">
+        <fileTransfer port="0" mountedRoot="C:\inetpub\portal" accessType="MOUNT" />
+      </webServer>
+    </option>
+  </component>
+</project>

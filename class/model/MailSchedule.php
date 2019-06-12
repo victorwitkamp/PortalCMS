@@ -97,7 +97,7 @@ class MailSchedule
         }
         $created = MailScheduleMapper::lastInsertedId();
         Session::add('feedback_positive', "Email toegevoegd (ID = ".$created.')');
-        Redirect::to("settings/mailscheduler/");
+        Redirect::Mail();
         return true;
     }
 
