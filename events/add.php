@@ -3,7 +3,7 @@ $pageName = 'Evenement toevoegen';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
 if (!Auth::checkPrivilege("events")) {
-    Redirect::permissionerror();
+    Redirect::permissionError();
     die();
 }
 require_once DIR_INCLUDES.'functions.php';

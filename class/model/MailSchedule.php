@@ -2,6 +2,9 @@
 
 class MailSchedule
 {
+    public static function getScheduled() {
+        return MailScheduleMapper::getScheduled();
+    }
     public static function exists($id)
     {
         return MailScheduleMapper::exists($id);
@@ -14,7 +17,7 @@ class MailSchedule
                 $row = MailScheduleMapper::getById($id);
                 if ($row['status'] !== '1') {
                     Session::add('feedback_negative', "Reeds verstuurd");
-                    Redirect::Mail();
+                    Redirect::mail();
                     return false;
                 } else {
                     $sender = $row['sender_email'];
@@ -35,7 +38,7 @@ class MailSchedule
                 }
             }
         }
-        Redirect::Mail();
+        Redirect::mail();
     }
 
     public static function newWithTemplate()
@@ -60,7 +63,7 @@ class MailSchedule
                 }
                 if ($count_failed === 0) {
                     Session::add('feedback_positive', "Totaal aantal berichten aangemaakt:".$count_created);
-                    Redirect::Mail();
+                    Redirect::mail();
                 } else {
                     Session::add('feedback_negative', "Nieuwe email aanmaken mislukt.");
                 }
@@ -97,7 +100,7 @@ class MailSchedule
         }
         $created = MailScheduleMapper::lastInsertedId();
         Session::add('feedback_positive', "Email toegevoegd (ID = ".$created.')');
-        Redirect::Mail();
+        Redirect::mail();
         return true;
     }
 

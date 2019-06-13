@@ -12,9 +12,9 @@ class MailScheduleMapper
         return true;
     }
 
-    public static function get()
+    public static function getScheduled()
     {
-        $stmt = DB::conn()->prepare("SELECT * FROM mail_schedule ORDER BY id");
+        $stmt = DB::conn()->prepare("SELECT * FROM mail_schedule WHERE status = 1 ORDER BY id ASC");
         $stmt->execute([]);
         return $stmt->fetchAll();
     }

@@ -66,8 +66,8 @@ class Member
         $betalingswijze         = Request::post('betalingswijze', true);
         $iban                   = Request::post('iban', true);
         $machtigingskenmerk     = Request::post('machtigingskenmerk', true);
-        $incasso_gelukt         = Request::post('incasso_gelukt', true);
-        $opmerking              = Request::post('opmerking', true);
+        $status         = Request::post('status', true);
+        // $opmerking              = Request::post('opmerking', true);
 
         $sql = "UPDATE members
         SET jaarlidmaatschap=?, voorletters=?, voornaam=?, achternaam=?,
@@ -76,15 +76,14 @@ class Member
         emailadres=?, ingangsdatum=?, geslacht=?, nieuwsbrief=?,
         vrijwilliger=?, vrijwilligeroptie1=?, vrijwilligeroptie2=?,
         vrijwilligeroptie3=?, vrijwilligeroptie4=?, vrijwilligeroptie5=?,
-        betalingswijze=?, iban=?, machtigingskenmerk=?, incasso_gelukt=?,
-        opmerking=? WHERE id=?";
+        betalingswijze=?, iban=?, machtigingskenmerk=?, status=? WHERE id=?";
         $stmt = DB::conn()->prepare($sql);
         $stmt->execute(
             [$jaarlidmaatschap, $voorletters, $voornaam, $achternaam, $geboortedatum,
             $adres, $postcode, $huisnummer, $woonplaats, $telefoon_vast, $telefoon_mobiel,
             $emailadres, $ingangsdatum, $geslacht, $nieuwsbrief, $vrijwilliger, $vrijwilligeroptie1,
             $vrijwilligeroptie2, $vrijwilligeroptie3, $vrijwilligeroptie4, $vrijwilligeroptie5, $betalingswijze, $iban, $machtigingskenmerk,
-            $incasso_gelukt, $opmerking, $id]
+            $status, $id]
         );
         if ($stmt) {
             Session::add('feedback_positive', "Lid opgeslagen.");
@@ -119,8 +118,8 @@ class Member
         $vrijwilligeroptie5     = Request::post('vrijwilligeroptie5', true);
         $betalingswijze         = Request::post('betalingswijze', true);
         $iban                   = Request::post('iban', true);
-        // $machtigingskenmerk     = Request::post('machtigingskenmerk', true);
-        // $incasso_gelukt         = Request::post('incasso_gelukt', true);
+        $machtigingskenmerk     = Request::post('machtigingskenmerk', true);
+        $status         = Request::post('status', true);
         // $opmerking              = Request::post('opmerking', true);
 
         if (self::doesEmailforYearExist($jaarlidmaatschap, $emailadres)) {
@@ -132,7 +131,7 @@ class Member
                             id, jaarlidmaatschap, voorletters, voornaam, achternaam, geboortedatum,
                             adres, postcode, huisnummer, woonplaats, telefoon_vast, telefoon_mobiel,
                             emailadres, ingangsdatum, geslacht, nieuwsbrief, vrijwilliger, vrijwilligeroptie1,
-                            vrijwilligeroptie2, vrijwilligeroptie3, vrijwilligeroptie4, vrijwilligeroptie5, betalingswijze, iban
+                            vrijwilligeroptie2, vrijwilligeroptie3, vrijwilligeroptie4, vrijwilligeroptie5, betalingswijze, iban, machtigingskenmerk, status
                         )
                         VALUES
                         (
@@ -143,7 +142,7 @@ class Member
                 [$jaarlidmaatschap, $voorletters, $voornaam, $achternaam, $geboortedatum,
                 $adres, $postcode, $huisnummer, $woonplaats, $telefoon_vast, $telefoon_mobiel,
                 $emailadres, $ingangsdatum, $geslacht, $nieuwsbrief, $vrijwilliger, $vrijwilligeroptie1,
-                $vrijwilligeroptie2, $vrijwilligeroptie3, $vrijwilligeroptie4, $vrijwilligeroptie5, $betalingswijze, $iban]
+                $vrijwilligeroptie2, $vrijwilligeroptie3, $vrijwilligeroptie4, $vrijwilligeroptie5, $betalingswijze, $iban, $machtigingskenmerk, $status]
             );
             if ($stmt) {
                 Session::add('feedback_positive', "Lid toegevoegd.");

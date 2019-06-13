@@ -2,6 +2,6 @@
 .scrutenizer.yml
 composer.lock
 /config/config.development.php
-/config/config.development.beuk.php
+/config/config.beuk.php
 web.config
 errors.log

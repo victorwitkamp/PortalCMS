@@ -18,60 +18,44 @@ class Redirect
      */
     public static function toPreviousViewedPageAfterLogin($path)
     {
-        header('location: https://'.$_SERVER['HTTP_HOST'].'/'.$path);
+        // header('location: https://'.$_SERVER['HTTP_HOST'].'/'.$path);
+
+        header('location: '.Config::get('URL').$path);
     }
 
-    /**
-     * To the login page
-     */
     public static function login()
     {
         self::to('login/login.php');
     }
 
-    /**
-     * To the homepage
-     */
     public static function home()
     {
-        self::to('home');
+        self::to('home/index.php');
     }
 
-    /**
-     * To the homepage
-     */
     public static function myAccount()
     {
-        self::to('my-account');
+        self::to('my-account/index.php');
     }
 
-        /**
-         * To the homepage
-         */
     public static function contracts()
     {
-        self::to('rental/contracts');
+        self::to('rental/contracts/index.php');
     }
 
-    /**
-     * To the page that displays an error
-     */
     public static function error()
     {
         self::to('includes/Error.php');
     }
 
-    /**
-     * To the homepage
-     */
-    public static function permissionerror()
+    public static function permissionError()
     {
         self::to('includes/permissionError.php');
     }
 
-    public static function Mail()
+    public static function mail()
     {
-        self::to('mail');
+        self::to('mail/index.php');
     }
 
     /**

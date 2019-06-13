@@ -3,7 +3,7 @@ require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_SITE_SETTINGS');
 Auth::checkAuthentication();
 if (!Auth::checkPrivilege("site-settings")) {
-    Redirect::permissionerror();
+    Redirect::permissionError();
     die();
 }
 require DIR_ROOT.'includes/functions.php';
@@ -28,7 +28,7 @@ PortalCMS_JS_headJS();
                 </label>
                 <input type="file" name="logo_file" required />
                 <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
-                <input type="submit" name="uploadLogo" value="Upload image" />
+                <input type="submit" name="uploadLogo" value="Logo uploaden" />
             </form>
         </div>
 

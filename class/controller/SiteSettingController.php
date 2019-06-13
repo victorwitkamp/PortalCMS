@@ -15,7 +15,12 @@ class SiteSettingController extends Controller
             }
         }
         if (isset($_POST['uploadLogo'])) {
-            SiteSetting::uploadLogo_action();
+            if (SiteSetting::uploadLogo()) {
+                Session::add('feedback_positive', Text::get('FEEDBACK_AVATAR_UPLOAD_SUCCESSFUL'));
+                Redirect::to("home/index.php");
+            } else {
+                Redirect::to("settings/logo/index.php");
+            }
         }
     }
 }

@@ -8,14 +8,14 @@
             <th>#</th>
             <th>recipient_email</th>
             <th>subject</th>
-            <?php if ($pageType = 'history') { echo '<th>Verzonden op</th>'; } ?>
+            <?php if ($pageType === 'history') { echo '<th>Verzonden op</th>'; } ?>
             <th>status</th>
         </tr>
 
     </thead>
     <tbody>
         <?php
-        $result = $stmt->fetchAll();
+
         foreach ($result as $row) {  ?>
         <tr>
             <td class="text-center" >
@@ -35,7 +35,7 @@
             <td><?php echo $row['id']; ?></td>
             <td><?php echo $row['recipient_email']; ?></td>
             <td><?php echo $row['subject']; ?></td>
-            <?php if ($pageType = 'history') { echo '<td>'.$row['DateSent'].'</td>'; } ?>
+            <?php if ($pageType === 'history') { echo '<td>'.$row['DateSent'].'</td>'; } ?>
             <td>
                 <?php
                 if ($row['status'] === '1') {
@@ -55,18 +55,17 @@
 </table>
 <hr>
 <?php
-if ($pageType == 'index') {
-    echo '<input type="submit" class="btn btn-info" name="sendScheduledMailById" value="';
+if ($pageType === 'index') {
+    echo '<input type="submit" class="btn btn-primary" name="sendScheduledMailById" value="';
     echo Text::get('LABEL_SEND_EMAIL');
     echo '">';
 }
-if ($pageType == 'history') {
-    echo '<input type="submit" class="btn btn-info" name="deleteScheduledMailById" value="';
+// if ($pageType === 'history') {
+    echo '<input type="submit" class="btn btn-danger" name="deleteScheduledMailById" value="';
     echo Text::get('LABEL_DELETE_EMAIL');
     echo '">';
-}
+// }
 ?>
-<?php  ?>
 </form>
 <script>
   $( '#selectall' ).click( function () {

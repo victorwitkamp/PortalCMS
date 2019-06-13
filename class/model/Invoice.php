@@ -2,6 +2,30 @@
 
 class Invoice
 {
+    public static function createMail() {
+        $sender_email = Config::get('EMAIL_SMTP_USERNAME');
+        $recipient_email = Request::post('recipient_email', true);
+        // $subject = Request::post('subject', true);
+        // $body = Request::post('body', true);
+        $subject = 'factuur';
+        $body = 'Hey een factuur';
+
+        $invoiceId = Request::post('id', true);
+        $invoice - InvoiceMapper::getById($invoieId);
+        $contract = ContractMapper::getById($invoice['contract_id']);
+        $recipient_email = $contract{['bandleider_email']};
+
+        $create = MailScheduleMapper::create($sender_email, $recipient_email, $subject, $body);
+        if (!$create) {
+            Session::add('feedback_negative', "Nieuwe email aanmaken mislukt.");
+            return false;
+        }
+        $created = MailScheduleMapper::lastInsertedId();
+        Session::add('feedback_positive', "Email toegevoegd (ID = ".$created.')');
+        Redirect::mail();
+        return true;
+
+    }
     public static function getByContractId($contract_id)
     {
         $Invoices = InvoiceMapper::getByContractId($contract_id);

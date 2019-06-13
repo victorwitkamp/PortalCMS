@@ -53,10 +53,13 @@ class SiteSetting
      * Auth::checkAuthentication() makes sure that only logged in users can use this action and see this page
      * POST-request
      */
-    public static function uploadLogo_action()
+    public static function uploadLogo()
     {
         Auth::checkAuthentication();
-        self::createLogo();
+        if (self::createLogo()) {
+            return true;
+        }
+        return false;
         // Redirect::to('login/editAvatar');
     }
 
@@ -83,7 +86,7 @@ class SiteSetting
             Config::get('AVATAR_JPEG_QUALITY')
         );
         self::writeLogoToDatabase($target_file_path_public.'.jpg');
-        Session::add('feedback_positive', Text::get('FEEDBACK_AVATAR_UPLOAD_SUCCESSFUL'));
+        return true;
     }
 
     /**
@@ -102,7 +105,7 @@ class SiteSetting
             Session::add('feedback_negative', 'Directory '.$path_logo.' is not writeable');
             return false;
         }
-        Session::add('feedback_positive', 'Directory '.$path_logo.' exists and is writeable');
+        //Session::add('feedback_positive', 'Directory '.$path_logo.' exists and is writeable');
         return true;
     }
 
@@ -201,7 +204,6 @@ class SiteSetting
         if (file_exists($destination)) {
             return true;
         }
-        // default return
         return false;
     }
 }

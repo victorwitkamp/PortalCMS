@@ -10,6 +10,9 @@ class InvoiceController extends controller
     {
         parent::__construct();
 
+        if (isset($_POST['createInvoiceMail'])) {
+            Invoice::createMail();
+        }
         if (isset($_POST['createInvoice'])) {
             if (!Invoice::create()) {
                 Redirect::error();
@@ -20,7 +23,8 @@ class InvoiceController extends controller
 
         if (isset($_POST['deleteInvoiceItem'])) {
             $invoiceId = Request::post('invoiceid', true);
-            if (!InvoiceItem::delete()) {
+            $id = (int) Request::post('id', true);
+            if (!InvoiceItem::delete($id)) {
                 Redirect::error();
             } else {
                 Redirect::to("rental/invoices/details.php?id=".$invoiceId);
@@ -29,7 +33,10 @@ class InvoiceController extends controller
 
         if (isset($_POST['addinvoiceitem'])) {
             $invoiceId = Request::post('invoiceid', true);
-            if (!InvoiceItem::create()) {
+                    $invoiceId = (int) Request::post('invoiceid', true);
+        $name = Request::post('name', true);
+        $price = (int) Request::post('price', true);
+            if (!InvoiceItem::create($invoiceId, $name, $price)) {
                 Redirect::error();
             } else {
                 Redirect::to("rental/invoices/details.php?id=".$invoiceId);

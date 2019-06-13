@@ -3,7 +3,7 @@ require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_MAIL_TEMPLATES');
 Auth::checkAuthentication();
 if (!Auth::checkPrivilege("mail-templates")) {
-    Redirect::permissionerror();
+    Redirect::permissionError();
     die();
 }
 require_once DIR_INCLUDES.'functions.php';

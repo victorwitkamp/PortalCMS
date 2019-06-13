@@ -4,7 +4,7 @@ require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_MAIL_SCHEDULER');
 Auth::checkAuthentication();
 if (!Auth::checkPrivilege("mail-scheduler")) {
-    Redirect::permissionerror();
+    Redirect::permissionError();
     die();
 }
 require_once DIR_INCLUDES.'functions.php';
@@ -34,9 +34,8 @@ PortalCMS_JS_dataTables();
             <?php
             Alert::renderFeedbackMessages();
             PortalCMS_JS_Init_dataTables();
-            $stmt = DB::conn()->prepare("SELECT * FROM mail_schedule WHERE status = 1 ORDER BY id ASC");
-            $stmt->execute();
-            if ($stmt->rowCount() == 0) {
+            $result = MailSchedule::getScheduled();
+            if (!$result) {
                 echo 'Ontbrekende gegevens..';
             } else {
                 include 'inc/table.php';

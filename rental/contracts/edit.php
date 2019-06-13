@@ -4,7 +4,7 @@ $pageType = 'edit';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
 if (!Auth::checkPrivilege("rental-contracts")) {
-    Redirect::permissionerror();
+    Redirect::permissionError();
     die();
 }
 require_once DIR_INCLUDES.'functions.php';

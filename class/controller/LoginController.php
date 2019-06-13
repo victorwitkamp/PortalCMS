@@ -57,14 +57,14 @@ class LoginController extends Controller
             Request::post('set_remember_me_cookie')
         );
         if ($login_successful) {
-            if (Request::post('redirect')) {
-                return Redirect::toPreviousViewedPageAfterLogin(ltrim(urldecode(Request::post('redirect')), '/'));
-            }
+            // if (Request::post('redirect')) {
+            //     return Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
+            // }
             return Redirect::home();
         }
-        if (Request::post('redirect')) {
-            return Redirect::to('login/login.php?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
-        }
+        // if (Request::post('redirect')) {
+        //     return Redirect::to('login/login.php?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
+        // }
         return Redirect::login();
     }
 
@@ -89,14 +89,14 @@ class LoginController extends Controller
     {
         $login_successful = Login::loginWithFacebook($fbid);
         if ($login_successful) {
-            if (Request::post('redirect')) {
-                return Redirect::toPreviousViewedPageAfterLogin(ltrim(urldecode(Request::post('redirect')), '/'));
-            }
+            // if (Request::post('redirect')) {
+            //     return Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
+            // }
             return Redirect::home();
         }
-        if (Request::post('redirect')) {
-            return Redirect::to('login/login.php?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
-        }
+        // if (Request::post('redirect')) {
+        //     return Redirect::to('login/login.php?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
+        // }
         return Redirect::login();
     }
 
@@ -107,7 +107,7 @@ class LoginController extends Controller
     public static function logout()
     {
         Login::logout();
-        Redirect::login();
+        return Redirect::login();
     }
 
 }

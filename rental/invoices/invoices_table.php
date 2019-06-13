@@ -10,7 +10,8 @@
 
             <th>Bedrag</th>
             <th>Status</th>
-            <th>PDF</th>
+            <th>Voorbeeld</th>
+            <th>Versturen</th>
             <th>Bevestig betaling</th>
         </tr>
     </thead>
@@ -58,6 +59,12 @@
                 <a href="createpdf.php?id=<?php echo $invoice['id'] ?>" title="PDF maken" class="btn btn-success">
                     <span class="fas fa-file-pdf"></span>
                 </a>
+            </td>
+            <td>
+                <form method="post">
+                    <input type="hidden" name="ïd" value="<?php echo $invoice['id']; ?>">
+                    <button type="submit" name="createInvoiceMail" class="btn btn-success" disabled><i class="fas fa-check"></i></button>
+                </form>
             </td>
             <td>
                 <form method="post">

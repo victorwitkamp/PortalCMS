@@ -4,7 +4,7 @@ require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_MAIL_DETAILS');
 Auth::checkAuthentication();
 if (!Auth::checkPrivilege("mail-scheduler")) {
-    Redirect::permissionerror();
+    Redirect::permissionError();
     die();
 }
 require_once DIR_INCLUDES.'functions.php';

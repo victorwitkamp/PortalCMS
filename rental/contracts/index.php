@@ -3,7 +3,7 @@ require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_CONTRACTS');
 Auth::checkAuthentication();
 if (!Auth::checkPrivilege("rental-contracts")) {
-    Redirect::permissionerror();
+    Redirect::permissionError();
     die();
 }
 $contracts = ContractMapper::get();

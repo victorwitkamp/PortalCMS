@@ -3,7 +3,7 @@ require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_PROFILE');
 Auth::checkAuthentication();
 if (!Auth::checkPrivilege("user-management")) {
-    Redirect::permissionerror();
+    Redirect::permissionError();
     die();
 }
 $row = UserMapper::getProfileById($_GET['id']);

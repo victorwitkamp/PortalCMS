@@ -3,7 +3,7 @@ $pageName = 'Factuur';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
 if (!Auth::checkPrivilege("rental-invoices")) {
-    Redirect::permissionerror();
+    Redirect::permissionError();
     die();
 }
 require DIR_ROOT.'includes/functions.php';

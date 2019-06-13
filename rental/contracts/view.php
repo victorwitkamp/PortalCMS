@@ -2,7 +2,7 @@
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
 if (!Auth::checkPrivilege("rental-contracts")) {
-    Redirect::permissionerror();
+    Redirect::permissionError();
     die();
 }
 $contract = ContractMapper::getById($_GET['id']);

@@ -24,7 +24,7 @@ PortalCMS_JS_headJS();
                     <div class="col-sm-3">
                         <img src='<?php echo SiteSetting::getStaticSiteSetting('site_logo'); ?>' alt='logo' width='120px' height='120px' />
                         <?php if (Auth::checkPrivilege("site-settings")) { ?>
-                            <br><a href="/settings/changelogo/">Logo wijzigen</a>
+                            <br><a href="/settings/logo/">Logo wijzigen</a>
                         <?php } ?>
 
                     </div>

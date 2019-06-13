@@ -2,7 +2,7 @@
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
 if (!Auth::checkPrivilege("events")) {
-    Redirect::permissionerror();
+    Redirect::permissionError();
     die();
 }
 $row = EventMapper::getById($_GET['id']);

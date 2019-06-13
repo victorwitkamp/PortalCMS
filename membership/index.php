@@ -5,7 +5,7 @@ $pageName = Text::get('TITLE_MEMBERS');
 $year = Request::get('year');
 Auth::checkAuthentication();
 if (!Auth::checkPrivilege("membership")) {
-    Redirect::permissionerror();
+    Redirect::permissionError();
     die();
 }
 require_once DIR_INCLUDES.'functions.php';

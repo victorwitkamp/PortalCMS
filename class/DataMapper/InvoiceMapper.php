@@ -59,4 +59,15 @@ class InvoiceMapper
         }
         return true;
     }
+
+    public static function updateMailId($invoice_id, $mail_id) {
+        $stmt = DB::conn()->prepare(
+            "UPDATE invoices SET mail_id = ? WHERE id = ?"
+        );
+        $stmt->execute([$mail_id, $invoice_id]);
+        if (!$stmt->rowCount() > 0) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -3,7 +3,7 @@ require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_ROLE');
 Auth::checkAuthentication();
 // if (!Auth::checkPrivilege("user-management")) {
-//     Redirect::permissionerror();
+//     Redirect::permissionError();
 //     die();
 // }
 require DIR_ROOT.'includes/functions.php';

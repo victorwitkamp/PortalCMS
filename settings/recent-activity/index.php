@@ -4,7 +4,7 @@ require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_RECENT_ACTIVITY');
 Auth::checkAuthentication();
 if (!Auth::checkPrivilege("recent-activity")) {
-    Redirect::permissionerror();
+    Redirect::permissionError();
     die();
 }
 require DIR_ROOT.'includes/functions.php';
