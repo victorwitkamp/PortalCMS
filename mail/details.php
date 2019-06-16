@@ -50,6 +50,9 @@ if (MailSchedule::exists($id)) {
                     <th><?php echo Text::get('LABEL_MAILDETAILS_BODY'); ?></th><td><?php echo $row['body']; ?></td>
                 </tr>
                 <tr>
+                    <th><?php echo Text::get('LABEL_MAILDETAILS_ATTACHMENT'); ?></th><td><?php echo $row['attachment']; ?></td>
+                </tr>
+                <tr>
                     <th><?php echo Text::get('LABEL_MAILDETAILS_MEMBER_ID'); ?></th><td><?php echo $row['member_id']; ?></td>
                 </tr>
                 <tr>

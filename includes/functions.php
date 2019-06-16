@@ -79,7 +79,7 @@ function PortalCMS_JS_dataTables()
 function PortalCMS_JS_Init_dataTables()
 {
     echo '
-    <script src="/includes/init.datatables.js"  class="init"></script>
+    <script src="/includes/js/init.datatables.js"  class="init"></script>
     ';
 }
 

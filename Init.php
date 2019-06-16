@@ -78,4 +78,7 @@ $RoleController = new RoleController;
 $SiteSettingController = new SiteSettingController;
 $UserController = new UserController;
 
-require_once $_SERVER["DOCUMENT_ROOT"].'/includes/tcpdf_config_alt.php';
+
+
+// use Tracy\Debugger;
+// Debugger::enable(Debugger::DEVELOPMENT);

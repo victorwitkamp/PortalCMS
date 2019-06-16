@@ -4,7 +4,7 @@
  * InvoiceController
  * Controls everything that is invoice-related
  */
-class InvoiceController extends controller
+class InvoiceController extends Controller
 {
     public function __construct()
     {
@@ -12,52 +12,22 @@ class InvoiceController extends controller
 
         if (isset($_POST['createInvoiceMail'])) {
             Invoice::createMail();
+            // Invoice::write();
+        }
+        if (isset($_POST['writeInvoice'])) {
+           Invoice::write();
         }
         if (isset($_POST['createInvoice'])) {
-            if (!Invoice::create()) {
-                Redirect::error();
-            } else {
-                Redirect::to("rental/invoices/");
-            }
+            Invoice::create();
         }
-
         if (isset($_POST['deleteInvoice'])) {
-            $id = (int) Request::post('id', true);
-            Invoice::delete($id);
+            Invoice::delete();
         }
-
         if (isset($_POST['deleteInvoiceItem'])) {
-            $invoiceId = Request::post('invoiceid', true);
-            $id = (int) Request::post('id', true);
-            if (!InvoiceItem::delete($id)) {
-                Redirect::error();
-            } else {
-                Redirect::to("rental/invoices/details.php?id=".$invoiceId);
-            }
+            InvoiceItem::delete();
         }
-
-        if (isset($_POST['addinvoiceitem'])) {
-            $invoiceId = (int) Request::post('invoiceid', true);
-            $name = Request::post('name', true);
-            $price = (int) Request::post('price', true);
-            if (!InvoiceItem::create($invoiceId, $name, $price)) {
-                Redirect::error();
-            } else {
-                Redirect::to("rental/invoices/details.php?id=".$invoiceId);
-            }
+        if (isset($_POST['addInvoiceItem'])) {
+            InvoiceItem::create();
         }
     }
-
-    public static function render($id = null)
-    {
-        if (empty($id)) {
-            return false;
-        }
-        $invoice = InvoiceMapper::getById($id);
-        $contract = ContractMapper::getById($invoice['contract_id']);
-        if (InvoicePDF::render($invoice, $contract)) {
-            return true;
-        }
-    }
-
 }

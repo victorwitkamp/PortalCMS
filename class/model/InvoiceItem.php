@@ -2,32 +2,33 @@
 
 class InvoiceItem
 {
-    public static function create($invoiceId, $name, $price)
+    public static function create()
     {
-        if (InvoiceItemMapper::itemExists($invoiceId, $name)) {
-            Session::add('feedback_negative', "Er bestaat al een factuuritem met deze opgegeven naam.");
-            return false;
-        }
+        $invoiceId = (int) Request::post('invoiceid', true);
+        $name = Request::post('name', true);
+        $price = (int) Request::post('price', true);
         if (!InvoiceItemMapper::create($invoiceId, $name, $price)) {
             Session::add('feedback_negative', "Toevoegen van factuuritem mislukt.");
-            return false;
+            return Redirect::error();
         }
         Session::add('feedback_positive', "Factuuritem toegevoegd.");
-        return true;
+        return Redirect::to("rental/invoices/details.php?id=".$invoiceId);
     }
 
-    public static function delete($id)
+    public static function delete()
     {
+        $invoiceId = (int) Request::post('invoiceid', true);
+        $id = (int) Request::post('id', true);
         if (!InvoiceItemMapper::exists($id)) {
             Session::add('feedback_negative', "Kan factuuritem niet verwijderen.<br>Factuuritem bestaat niet.");
-            return false;
+            return Redirect::error();
         }
         if (!InvoiceItemMapper::delete($id)) {
             Session::add('feedback_negative', "Verwijderen van factuuritem mislukt.");
-            return false;
+            return Redirect::error();
         }
         Session::add('feedback_positive', "Factuuritem verwijderd.");
-        return true;
+        return Redirect::to("rental/invoices/details.php?id=".$invoiceId);
     }
 
 }

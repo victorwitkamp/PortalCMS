@@ -5,3 +5,4 @@ composer.lock
 /config/config.beuk.php
 web.config
 errors.log
+/content/invoices/

@@ -11,7 +11,8 @@
             <th>Bedrag</th>
             <th>Status</th>
             <th>Voorbeeld</th>
-            <th>Versturen</th>
+            <th>Maak definitief</th>
+            <th>E-mail plannen</th>
             <th>Bevestig betaling</th>
         </tr>
     </thead>
@@ -45,13 +46,16 @@
             <td>
             <?php
             if ($invoice['status'] === '0') {
-                echo '<i class="fas fa-lock-open"></i> Concept';
+                echo '<i class="fas fa-lock-open"></i> 0 - Concept';
             }
             if ($invoice['status'] === '1') {
-                echo '<i class="fas fa-lock"></i> Klaar voor verzending';
+                echo '<i class="fas fa-lock"></i> 1 - Klaar voor planning';
             }
             if ($invoice['status'] === '2') {
-                echo '<i class="fas fa-lock"></i> Verzonden ';
+                echo '<i class="fas fa-lock"></i> 2 - Gepland';
+            }
+            if ($invoice['status'] === '3') {
+                echo '<i class="fas fa-lock"></i> 3 - Verzonden ';
             }
             ?>
             </td>
@@ -61,10 +65,20 @@
                 </a>
             </td>
             <td>
+                <?php if ($invoice['status'] === '0') { ?>
                 <form method="post">
-                    <input type="hidden" name="ïd" value="<?php echo $invoice['id']; ?>">
-                    <button type="submit" name="createInvoiceMail" class="btn btn-success" disabled><i class="fas fa-check"></i></button>
+                    <input type="hidden" name="id" value="<?php echo $invoice['id']; ?>">
+                    <button type="submit" name="writeInvoice" class="btn btn-success"><i class="fas fa-check"></i></button>
                 </form>
+                <?php } ?>
+            </td>
+            <td>
+            <?php if ($invoice['status'] === '1') { ?>
+                <form method="post">
+                    <input type="hidden" name="id" value="<?php echo $invoice['id']; ?>">
+                    <button type="submit" name="createInvoiceMail" class="btn btn-success"><i class="fas fa-check"></i></button>
+                </form>
+            <?php } ?>
             </td>
             <td>
                 <form method="post">

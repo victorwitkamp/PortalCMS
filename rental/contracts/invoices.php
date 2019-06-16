@@ -7,6 +7,11 @@ if (!Auth::checkPrivilege("rental-contracts")) {
     Redirect::permissionError();
     die();
 }
+$contract = ContractMapper::getById($_GET['id']);
+if (!$contract) {
+    Redirect::error();
+}
+$pageName = "Facturen voor ".$contract['band_naam'];
 require_once DIR_INCLUDES.'functions.php';
 require_once DIR_INCLUDES.'head.php';
 displayHeadCSS();

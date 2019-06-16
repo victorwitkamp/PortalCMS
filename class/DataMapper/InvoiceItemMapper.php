@@ -108,27 +108,51 @@ class InvoiceItemMapper
         return true;
     }
 
-    /**
-     * Check if an InvoiceItem with a specific name exists for a specific invoiceId.
-     *
-     * @param int $invoiceId
-     * @param string $name
-     * @param int $price
-     *
-     * @return bool
-     */
-    public static function itemExists($invoiceId, $name)
-    {
-        $stmt = DB::conn()->prepare(
-            "SELECT id
-                    FROM invoice_items
-                        WHERE invoice_id = ?
-                        AND name = ?
-                        LIMIT 1");
-        $stmt->execute([$invoiceId, $name]);
-        if ($stmt->rowCount() == 0) {
-            return false;
-        }
-        return true;
-    }
+    // /**
+    //  * Check if an InvoiceItem with a specific name exists for a specific invoiceId.
+    //  *
+    //  * @param int $invoiceId
+    //  * @param string $name
+    //  * @param int $price
+    //  *
+    //  * @return bool
+    //  */
+    // public static function itemExists($invoiceId, $name)
+    // {
+    //     $stmt = DB::conn()->prepare(
+    //         "SELECT id
+    //                 FROM invoice_items
+    //                     WHERE invoice_id = ?
+    //                     AND name = ?
+    //                     LIMIT 1");
+    //     $stmt->execute([$invoiceId, $name]);
+    //     if ($stmt->rowCount() == 0) {
+    //         return false;
+    //     }
+    //     return true;
+    // }
+
+    // /**
+    //  * Check if an InvoiceItem with a specific name exists for a specific invoiceId.
+    //  *
+    //  * @param int $invoiceId
+    //  * @param string $name
+    //  * @param int $price
+    //  *
+    //  * @return bool
+    //  */
+    // public static function itemExists($invoiceId, $name)
+    // {
+    //     $stmt = DB::conn()->prepare(
+    //         "SELECT id
+    //                 FROM invoice_items
+    //                     WHERE invoice_id = ?
+    //                     AND name = ?
+    //                     LIMIT 1");
+    //     $stmt->execute([$invoiceId, $name]);
+    //     if ($stmt->rowCount() == 0) {
+    //         return false;
+    //     }
+    //     return true;
+    // }
 }

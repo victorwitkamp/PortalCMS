@@ -49,12 +49,12 @@ class MailScheduleMapper
         return true;
     }
 
-    public static function create($sender_email, $recipient_email, $member_id, $subject, $body, $status = '1')
+    public static function create($sender_email, $recipient_email, $member_id, $subject, $body, $attachment, $status = '1')
     {
         $stmt = DB::conn()->prepare(
-            "INSERT INTO mail_schedule(id, sender_email, recipient_email, member_id, subject, body, status) VALUES (NULL,?,?,?,?,?,?)"
+            "INSERT INTO mail_schedule(id, sender_email, recipient_email, member_id, subject, body, attachment, status) VALUES (NULL,?,?,?,?,?,?,?)"
         );
-        $stmt->execute([$sender_email, $recipient_email, $member_id, $subject, $body, $status]);
+        $stmt->execute([$sender_email, $recipient_email, $member_id, $subject, $body, $attachment, $status]);
         if (!$stmt) {
             return false;
         }

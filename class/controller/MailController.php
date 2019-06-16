@@ -29,7 +29,7 @@ class MailController extends Controller
         }
     }
 
-    public static function sendMail($sender, $recipient, $subject, $body)
+    public static function sendMail($sender, $recipient, $subject, $body, $attachment = NULL)
     {
         $senderName = SiteSetting::getStaticSiteSetting('site_name');
         if (empty($recipient) || empty($subject) || empty($body)) {
@@ -38,7 +38,7 @@ class MailController extends Controller
         }
 
         $MailSender = new MailSender;
-        if (!$MailSender->sendMail($recipient, $sender, $senderName, $subject, $body)) {
+        if (!$MailSender->sendMail($recipient, $sender, $senderName, $subject, $body, $attachment)) {
             self::$error = $MailSender->error;
             Session::add('feedback_negative', "MailController: Niet verstuurd. Fout: ".self::$error);
             return false;

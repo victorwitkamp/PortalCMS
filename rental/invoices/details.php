@@ -12,7 +12,7 @@ if ($invoice = InvoiceMapper::getById($_GET['id'])) {
     $pageName = 'Factuur: '.$invoice['factuurnummer'];
 } else {
     Session::add('feedback_negative', "Geen resultaten voor opgegeven factuur ID.");
-    Redirect::error();
+    // Redirect::error();
 }
 require DIR_ROOT.'includes/head.php';
 displayHeadCSS();
@@ -27,18 +27,20 @@ PortalCMS_JS_headJS(); ?>
             <div class="row mt-5">
                 <h1><?php echo $pageName; ?></h1>
             </div>
-            <?php
-            Alert::renderFeedbackMessages(); ?>
-            <hr>
+
+
+
             <form method="post">
-            <?php $msg = "Weet u zeker dat u factuur met nummer ".$invoice['factuurnummer']."wilt verwijderen?"; ?>
+            <a href="index.php" class="btn btn-sm btn-primary"><span class="fa fa-arrow-left"></span></a>
+            <?php $msg = "Weet u zeker dat u factuur met nummer ".$invoice['factuurnummer']." wilt verwijderen?"; ?>
                 <input type="hidden" name="id" value="<?php echo $invoice['id']; ?>">
-                <button type="submit" name="deleteInvoice"
-                class="btn btn-danger btn-sm"
-                title="Verwijderen" onclick="return confirm('<?php echo $msg; ?>')">
+                <button type="submit" name="deleteInvoice" class="btn btn-danger btn-sm" title="Verwijderen" onclick="return confirm('<?php echo $msg; ?>')">
                     <span class="fa fa-trash"></span>
                 </button>
             </form>
+            <hr>
+            <?php
+            Alert::renderFeedbackMessages(); ?>
             <h3>Details</h3>
 
             <table class="table table-striped table-condensed">
@@ -123,7 +125,7 @@ PortalCMS_JS_headJS(); ?>
                     </div>
                 </div>
                 <input type="hidden" name="invoiceid" value="<?php echo $invoice['id']; ?>">
-                <input type="submit" name="addinvoiceitem" class="btn btn-primary">
+                <input type="submit" name="addInvoiceItem" class="btn btn-primary">
             </form>
             <?php } else { ?>
             <p>Je kunt de factuur niet meer bewerken</p>

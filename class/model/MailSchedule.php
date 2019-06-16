@@ -50,8 +50,9 @@ class MailSchedule
                     $recipient = $row['recipient_email'];
                     $title = $row['subject'];
                     $body = $row['body'];
+                    $attachment = $row['attachment'];
                     if (!empty($recipient) && !empty($title) && !empty($body)) {
-                        if (MailController::sendMail($sender, $recipient, $title, $body)) {
+                        if (MailController::sendMail($sender, $recipient, $title, $body, $attachment)) {
                             MailScheduleMapper::updateStatus($id, '2');
                             MailScheduleMapper::updateDateSent($id);
                         } else {

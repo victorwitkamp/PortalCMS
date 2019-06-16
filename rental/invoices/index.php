@@ -19,26 +19,25 @@ PortalCMS_JS_dataTables();
 <?php require DIR_INCLUDES.'nav.php'; ?>
 <main>
     <div class="content">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row mt-5">
                 <div class="col-sm-8"><h1><?php echo $pageName ?></h1></div>
                 <div class="col-sm-4"><a href="add.php" class="btn btn-success navbar-btn float-right"><span class="fa fa-plus"></span> Toevoegen</a></div>
             </div>
+            <hr>
+            <?php Alert::renderFeedbackMessages(); ?>
+        </div>
 
-        <hr>
-
-                <?php Alert::renderFeedbackMessages(); ?>
-                <p>Factuurnummmer = Jaar + Bandcode + Maandcode. Voorbeeld: 20190001 = 2019, Band 00, Januari.</p>
-        <?php
-        $invoices = InvoiceMapper::getAll();
-        if ($invoices) {
-            include 'invoices_table.php';
-            PortalCMS_JS_Init_dataTables();
-        } else {
-            echo 'Ontbrekende gegevens..';
-        }
-        ?>
-
+        <div class="container-fluid">
+            <?php
+            $invoices = InvoiceMapper::getAll();
+            if ($invoices) {
+                include 'invoices_table.php';
+                PortalCMS_JS_Init_dataTables();
+            } else {
+                echo 'Ontbrekende gegevens..';
+            }
+            ?>
         </div>
     </div>
 </main>

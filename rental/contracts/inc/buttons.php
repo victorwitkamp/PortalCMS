@@ -1,3 +1,6 @@
+
+
+<form method="post">
 <a href="index.php"
 class="btn btn-sm btn-primary">
     <span class="fa fa-arrow-left"></span>
@@ -8,7 +11,7 @@ class="btn btn-sm btn-warning">
     <span class="fa fa-edit"></span>
 </a>
 
-<form method="post">
+
     <input type="hidden" name="id" value="<?php echo $contract['id']; ?>">
     <button type="submit" name="deleteContract"
             class="btn btn-danger btn-sm"

@@ -14,10 +14,11 @@ class InvoiceMapper
         $stmt = DB::conn()->prepare(
             "DELETE
             FROM invoices
-            WHERE id = ?"
+            WHERE id = ?
+            LIMIT 1"
         );
         $stmt->execute([$id]);
-        if ($stmt->rowCount() == 0) {
+        if (!$stmt->rowCount() == 1) {
             return false;
         }
         return true;
@@ -86,6 +87,17 @@ class InvoiceMapper
             "UPDATE invoices SET mail_id = ? WHERE id = ?"
         );
         $stmt->execute([$mail_id, $invoice_id]);
+        if (!$stmt->rowCount() > 0) {
+            return false;
+        }
+        return true;
+    }
+
+    public static function updateStatus($invoice_id, $status) {
+        $stmt = DB::conn()->prepare(
+            "UPDATE invoices SET status = ? WHERE id = ?"
+        );
+        $stmt->execute([$status, $invoice_id]);
         if (!$stmt->rowCount() > 0) {
             return false;
         }

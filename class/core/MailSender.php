@@ -24,10 +24,10 @@ class MailSender
      * @param $body string full mail body text
      * @return bool the success status of the according mail sending method
      */
-    public function sendMail($recipient_email, $from_email, $from_name, $subject, $body)
+    public function sendMail($recipient_email, $from_email, $from_name, $subject, $body, $attachment)
     {
         return $this->sendMailWithPHPMailer(
-            $recipient_email, $from_email, $from_name, $subject, $body
+            $recipient_email, $from_email, $from_name, $subject, $body, $attachment
         );
     }
 
@@ -57,7 +57,7 @@ class MailSender
      * @throws Exception
      * @throws phpmailerException
      */
-    public function sendMailWithPHPMailer($recipient_email, $from_email, $from_name, $subject, $body)
+    public function sendMailWithPHPMailer($recipient_email, $from_email, $from_name, $subject, $body, $attachment = NULL)
     {
         $mail = new PHPMailer(true);
         try {
@@ -88,7 +88,9 @@ class MailSender
             $mail->AddAddress($recipient_email);
             $mail->Subject = $subject;
             $mail->Body = $body;
-
+            if (!empty($attachment)) {
+                $mail->addAttachment($_SERVER["DOCUMENT_ROOT"].'/'.$attachment, $name = 'test',  $encoding = 'base64', $type = 'application/pdf');
+            }
             $mail->isHTML(true);
             return $mail->Send();
         } catch (Exception $e) {
