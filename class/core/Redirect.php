@@ -42,7 +42,10 @@ class Redirect
     {
         self::to('rental/contracts/index.php');
     }
-
+    public static function invoices()
+    {
+        self::to('rental/invoices/index.php');
+    }
     public static function error()
     {
         self::to('includes/Error.php');

@@ -19,7 +19,7 @@ PortalCMS_JS_dataTables();
 <?php require DIR_INCLUDES.'nav.php'; ?>
 <main>
     <div class="content">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row mt-5">
                 <div class="col-sm-8"><h1><?php echo $pageName ?></h1></div>
                 <div class="col-sm-4"><a href="add.php" class="btn btn-success navbar-btn float-right"><span class="fa fa-plus"></span> Toevoegen</a></div>

@@ -2,6 +2,27 @@
 
 class InvoiceMapper
 {
+    /**
+     * Delete an Invoice by Id.
+     *
+     * @param int $id
+     *
+     * @return bool
+     */
+    public static function delete($id)
+    {
+        $stmt = DB::conn()->prepare(
+            "DELETE
+            FROM invoices
+            WHERE id = ?"
+        );
+        $stmt->execute([$id]);
+        if ($stmt->rowCount() == 0) {
+            return false;
+        }
+        return true;
+    }
+
     public static function getById($id)
     {
         $stmt = DB::conn()->prepare("SELECT * FROM invoices WHERE id = ? LIMIT 1");

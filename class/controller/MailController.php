@@ -25,7 +25,7 @@ class MailController extends Controller
             MailSchedule::newWithTemplate();
         }
         if (isset($_POST['deleteScheduledMailById'])) {
-            // TODO
+            MailSchedule::deleteById();
         }
     }
 

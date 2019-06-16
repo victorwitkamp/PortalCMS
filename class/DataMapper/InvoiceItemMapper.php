@@ -67,6 +67,27 @@ class InvoiceItemMapper
     }
 
     /**
+     * Delete an InvoiceItem by InvoiceId.
+     *
+     * @param int $id
+     *
+     * @return bool
+     */
+    public static function deleteByInvoiceId($id)
+    {
+        $stmt = DB::conn()->prepare(
+            "DELETE
+            FROM invoice_items
+            WHERE invoice_id = ?"
+        );
+        $stmt->execute([$id]);
+        if (!$stmt->rowCount() > 0) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Check if an InvoiceItem with a specific id exists.
      *
      * @param int $id

@@ -18,7 +18,6 @@ class InvoiceItem
 
     public static function delete($id)
     {
-
         if (!InvoiceItemMapper::exists($id)) {
             Session::add('feedback_negative', "Kan factuuritem niet verwijderen.<br>Factuuritem bestaat niet.");
             return false;

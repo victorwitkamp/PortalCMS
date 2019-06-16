@@ -34,9 +34,9 @@ PortalCMS_JS_dataTables();
             <?php
             Alert::renderFeedbackMessages();
             PortalCMS_JS_Init_dataTables();
-            $stmt = DB::conn()->prepare("SELECT * FROM mail_schedule WHERE status > 1 ORDER BY id ASC");
-            $stmt->execute();
-            if ($stmt->rowCount() == 0) {
+            // $stmt = DB::conn()->prepare("SELECT * FROM mail_schedule WHERE status > 1 ORDER BY id ASC");
+            $result = MailSchedule::getHistory();
+            if (!$result) {
                 echo 'Ontbrekende gegevens..';
             } else {
                 include 'inc/table.php';

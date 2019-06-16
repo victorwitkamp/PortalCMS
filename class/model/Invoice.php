@@ -82,4 +82,29 @@ class Invoice
         return $sum;
     }
 
+
+    public static function delete($id)
+    {
+        if (!InvoiceMapper::getById($id)) {
+            Session::add('feedback_negative', "Kan factuur niet verwijderen.<br>Factuur bestaat niet.");
+            Redirect::error();
+            return false;
+        }
+        if (InvoiceItemMapper::getByInvoiceId($id)) {
+            if (!InvoiceItemMapper::deleteByInvoiceId($id)) {
+                Session::add('feedback_negative', "Verwijderen van factuuritems voor factuur mislukt.");
+                Redirect::error();
+                return false;
+            }
+        }
+        if (!InvoiceMapper::delete($id)) {
+            Session::add('feedback_negative', "Verwijderen van factuur mislukt.");
+            Redirect::error();
+            return false;
+        }
+        Session::add('feedback_positive', "Factuur verwijderd.");
+        Redirect::invoices();
+        return true;
+    }
+
 }

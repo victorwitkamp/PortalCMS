@@ -5,10 +5,36 @@ class MailSchedule
     public static function getScheduled() {
         return MailScheduleMapper::getScheduled();
     }
+    public static function getHistory() {
+        return MailScheduleMapper::getHistory();
+    }
     public static function exists($id)
     {
         return MailScheduleMapper::exists($id);
     }
+
+    public static function deleteById()
+    {
+        $deleted = 0;
+        $error = 0;
+        if (!empty($_POST['id'])) {
+            foreach ($_POST['id'] as $id) {
+                if (!MailScheduleMapper::deleteById($id)) {
+                    $error += 1;
+                } else {
+                    $deleted += 1;
+                }
+            }
+        }
+        if (!$deleted > 0) {
+            Session::add('feedback_negative', "Verwijderen mislukt. Aantal berichten met problemen: ".$error);
+            return false;
+        }
+        Session::add('feedback_positive', "Er zijn ".$deleted." berichten verwijderd.");
+
+        // Redirect::mail();
+    }
+
 
     public static function sendbyid()
     {

@@ -30,6 +30,15 @@ PortalCMS_JS_headJS(); ?>
             <?php
             Alert::renderFeedbackMessages(); ?>
             <hr>
+            <form method="post">
+            <?php $msg = "Weet u zeker dat u factuur met nummer ".$invoice['factuurnummer']."wilt verwijderen?"; ?>
+                <input type="hidden" name="id" value="<?php echo $invoice['id']; ?>">
+                <button type="submit" name="deleteInvoice"
+                class="btn btn-danger btn-sm"
+                title="Verwijderen" onclick="return confirm('<?php echo $msg; ?>')">
+                    <span class="fa fa-trash"></span>
+                </button>
+            </form>
             <h3>Details</h3>
 
             <table class="table table-striped table-condensed">

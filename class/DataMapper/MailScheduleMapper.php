@@ -19,6 +19,12 @@ class MailScheduleMapper
         return $stmt->fetchAll();
     }
 
+    public static function getHistory()
+    {
+        $stmt = DB::conn()->prepare("SELECT * FROM mail_schedule WHERE status > 1 ORDER BY id ASC");
+        $stmt->execute([]);
+        return $stmt->fetchAll();
+    }
     public static function count()
     {
         return DB::conn()->query("SELECT count(1) FROM mail_schedule")->fetchColumn();
@@ -32,6 +38,15 @@ class MailScheduleMapper
             return false;
         }
         return $stmt->fetch();
+    }
+
+    public static function deleteById($id) {
+        $stmt = DB::conn()->prepare("DELETE FROM mail_schedule WHERE id = ? LIMIT 1");
+        $stmt->execute([$id]);
+                if (!$stmt->rowCount() == 1) {
+            return false;
+        }
+        return true;
     }
 
     public static function create($sender_email, $recipient_email, $member_id, $subject, $body, $status = '1')
