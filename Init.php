@@ -73,12 +73,11 @@ $MailController = new MailController;
 $MembershipController = new MembershipController;
 $PageController = new PageController;
 $PasswordResetController = new PasswordResetController;
-$ProductController = new ProductController;
 $RoleController = new RoleController;
 $SiteSettingController = new SiteSettingController;
 $UserController = new UserController;
 
 
 
-// use Tracy\Debugger;
-// Debugger::enable(Debugger::DEVELOPMENT);
+use Tracy\Debugger;
+Debugger::enable(Debugger::DEVELOPMENT);

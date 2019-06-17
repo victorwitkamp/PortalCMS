@@ -169,24 +169,17 @@
             <div class="form-group row">
                 <label for="staticEmail" class="col-sm-2 col-form-label">Oefenruimte nr.</label>
                 <div class="col-sm-10">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" value="1"
-                            <?php if ($contract['huur_oefenruimte_nr'] === '1') { echo 'checked'; } ?>>
-                        <label class="form-check-label" for="exampleRadios1">Oefenruimte 1</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" value="2"
-                            <?php if ($contract['huur_oefenruimte_nr'] === '2') { echo 'checked'; } ?>>
-                        <label class="form-check-label" for="exampleRadios2">Oefenruimte 2 </label>
-                    </div>
-
+                    <?php
+                    if ($contract['huur_oefenruimte_nr'] === '1') { echo 'Oefenruimte 1'; }
+                    if ($contract['huur_oefenruimte_nr'] === '2') { echo 'Oefenruimte 2'; }
+                    ?>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label"><?php echo Text::get('DAY'); ?></label>
                 <div class="col-sm-10">
-                    <input type="text" value="<?php echo $contract['huur_dag']; ?>" disabled>
+                    <?php echo $contract['huur_dag']; ?>
                 </div>
             </div>
 

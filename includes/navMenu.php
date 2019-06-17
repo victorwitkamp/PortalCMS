@@ -16,7 +16,6 @@
         <a class="dropdown-item" href="/rental/overview/"><?php echo Text::get('TITLE_OVERVIEW'); ?></a>
         <a class="dropdown-item" href="/rental/contracts/"><?php echo Text::get('TITLE_CONTRACTS'); ?></a>
         <a class="dropdown-item" href="/rental/invoices/"><?php echo Text::get('TITLE_INVOICES'); ?></a>
-        <a class="dropdown-item" href="/rental/products/"><del><?php echo Text::get('TITLE_PRODUCTS'); ?></del></a>
     </div>
 </li>
 
