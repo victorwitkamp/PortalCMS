@@ -103,7 +103,7 @@ class PDF
         $pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
         // $pdf->setFontSubsetting(true);
-        $pdf->setFontSubsetting(false) ;
+        $pdf->setFontSubsetting(false);
 
         // $pdf->SetFont('dejavusans', '', 11, '', true);
         $pdf->AddPage();
@@ -117,16 +117,16 @@ class PDF
         $pdf->Image('logo.jpg', '', '', 25, 25, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
 
         $pdf->SetXY(120, 60);
-        $pdf->Multicell(0,2,"Poppodium de Beuk\n1e Barendrechtseweg 53-55\n2992XE, Barendrecht\n\nKVK: 40341794\nIBAN: NL19RABO1017541353",$border=0, $align='R');
+        $pdf->Multicell(0, 2, "Poppodium de Beuk\n1e Barendrechtseweg 53-55\n2992XE, Barendrecht\n\nKVK: 40341794\nIBAN: NL19RABO1017541353", $border = 0, $align = 'R');
 
         $pdf->SetXY(20, 70);
-        $pdf->Write(0, $contract['bandleider_naam'] . " (" . $contract['band_naam'] . ")\n", '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Write(0, $contract['bandleider_naam']." (".$contract['band_naam'].")\n", '', 0, 'L', true, 0, false, false, 0);
         $pdf->Ln();
         $pdf->SetX(20);
-        $pdf->Write(0, $contract['bandleider_adres'] . "\n", '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Write(0, $contract['bandleider_adres']."\n", '', 0, 'L', true, 0, false, false, 0);
         $pdf->Ln();
         $pdf->SetX(20);
-        $postcodewoonplaats = $contract['bandleider_postcode'] . " " . $contract['bandleider_woonplaats'];
+        $postcodewoonplaats = $contract['bandleider_postcode']." ".$contract['bandleider_woonplaats'];
         $pdf->Write(0, $postcodewoonplaats, '', 0, 'L', true, 0, false, false, 0);
 
         $pdf->SetXY(20, 110);
