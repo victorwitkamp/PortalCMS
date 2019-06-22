@@ -102,8 +102,10 @@ class PDF
         $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         $pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-        $pdf->setFontSubsetting(true);
-        $pdf->SetFont('dejavusans', '', 11, '', true);
+        // $pdf->setFontSubsetting(true);
+        $pdf->setFontSubsetting(false) ;
+
+        // $pdf->SetFont('dejavusans', '', 11, '', true);
         $pdf->AddPage();
         // $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196, 196, 196), 'opacity'=>1, 'blend_mode'=>'Normal'));
         return $pdf;
@@ -113,60 +115,77 @@ class PDF
         $pdf->SetTitle('Factuur '.$invoice['factuurnummer']);
         $pdf->SetXY(165, 15);
         $pdf->Image('logo.jpg', '', '', 25, 25, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
+
         $pdf->SetXY(120, 60);
-        $afzender = '<p style="text-align:right">Poppodium de Beuk<br>
-        1e Barendrechtseweg 53-55<br>
-        2992XE, Barendrecht<br><br>
-        KVK: 40341794<br>
-        IBAN: NL19RABO1017541353<br><br></p>';
-        $pdf->writeHTMLCell(0, 0, '', '', $afzender, 0, 1, 0, true, '', true);
+        $pdf->Multicell(0,2,"Poppodium de Beuk\n1e Barendrechtseweg 53-55\n2992XE, Barendrecht\n\nKVK: 40341794\nIBAN: NL19RABO1017541353",$border=0, $align='R');
 
         $pdf->SetXY(20, 70);
-        $aan = '<p>'.$contract['bandleider_naam'].' ('.$contract['band_naam'].')<br>'
-        .$contract['bandleider_adres'].'<br>'
-        .$contract['bandleider_postcode'].' '.$contract['bandleider_woonplaats'].'</p>';
-        $pdf->writeHTMLCell(0, 0, '', '', $aan, 0, 1, 0, true, '', true);
+        $pdf->Write(0, $contract['bandleider_naam'] . " (" . $contract['band_naam'] . ")\n", '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Ln();
+        $pdf->SetX(20);
+        $pdf->Write(0, $contract['bandleider_adres'] . "\n", '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Ln();
+        $pdf->SetX(20);
+        $postcodewoonplaats = $contract['bandleider_postcode'] . " " . $contract['bandleider_woonplaats'];
+        $pdf->Write(0, $postcodewoonplaats, '', 0, 'L', true, 0, false, false, 0);
 
         $pdf->SetXY(20, 110);
-        $factuurtitel = '<h1>Factuur</h1>';
-        $pdf->writeHTMLCell(0, 0, '', '', $factuurtitel, 0, 1, 0, true, '', true);
+        $pdf->SetFont('dejavusans', 'B', 11, '', true);
+        $factuurtitel = 'Factuur';
+        $pdf->Write(0, $factuurtitel, '', 0, 'L', true, 0, false, false, 0);
 
         $pdf->SetXY(20, 120);
-        $factuurnummertekst = '<p>Factuurnummer: '.$invoice['factuurnummer'].'</p>';
-        $pdf->writeHTMLCell(0, 0, '', '', $factuurnummertekst, 0, 1, 0, true, '', true);
+        $pdf->SetFont('dejavusans', '', 11, '', true);
+        $factuurnummertekst = 'Factuurnummer: '.$invoice['factuurnummer'];
+        $pdf->Write(0, $factuurnummertekst, '', 0, 'L', true, 0, false, false, 0);
 
         $pdf->SetXY(120, 120);
-        $factuurtekstrechts = '<p style="text-align:right">Factuurdatum: '.$invoice['factuurdatum'].'<br>Vervaldatum: '.$invoice['vervaldatum'].'</p>';
-        $pdf->writeHTMLCell(0, 0, '', '', $factuurtekstrechts, 0, 1, 0, true, '', true);
+        $factuurtekstrechts = 'Factuurdatum: '.$invoice['factuurdatum'];
+        $factuurtekstrechts2 = 'Vervaldatum: '.$invoice['vervaldatum'];
+        $pdf->Write(0, $factuurtekstrechts, '', 0, 'R', true, 0, false, false, 0);
+        $pdf->Ln();
+        $pdf->Write(0, $factuurtekstrechts2, '', 0, 'R', true, 0, false, false, 0);
+
 
         $pdf->SetXY(20, 140);
-
+        $pdf->SetFont('dejavusans', 'B', 11, '', true);
+        $pdf->Write(0, 'Omschrijving', '', 0, 'L', false, 0, false, false, 0);
+        $pdf->SetX(150);
+        $pdf->Write(0, 'Bedrag', '', 0, 'R', false, 0, false, false, 0);
+        $pdf->Ln();
+        $pdf->SetFont('dejavusans', '', 11, '', true);
 
         $totaalbedrag = 0;
-        $tblcontent = '';
+
         foreach ($invoiceitems as $invoiceitem) {
-            $tblcontent .= '
-            <tr>
-            <td colspan="3">'.$invoiceitem['name'].'</td>
-            <td>'.$invoiceitem['price'].'</td>
-            </tr>';
+            $pdf->SetX(20);
+            $pdf->Write(0, $invoiceitem['name'], '', 0, 'L', false, 0, false, false, 0);
+            $pdf->SetX(150);
+            $pdf->Write(0, $invoiceitem['price'], '', 0, 'L', false, 0, false, false, 0);
+            $pdf->Ln();
             $totaalbedrag = $totaalbedrag + $invoiceitem['price'];
         }
-        $tbl =
-        '<table cellpadding="2" cellspacing="2" nobr="true">
-        <tr>
-            <th colspan="3"><strong>Omschrijving</strong></th>
-            <th><strong>Bedrag</strong></th>
-        </tr>' . $tblcontent . '</table>';
-        $pdf->writeHTML($tbl, true, false, false, false, '');
+        $pdf->Ln();
+        $pdf->SetX(20);
+        $pdf->Write(0, 'Totaal: &euro;', '', 0, 'L', false, 0, false, false, 0);
+        $pdf->SetX(150);
+        $pdf->Write(0, $totaalbedrag, '', 0, 'R', false, 0, false, false, 0);
+        $pdf->Ln();
+        $pdf->Ln();
+        $pdf->SetX(20);
+        $gelieve  = 'Gelieve het verschuldigde bedrag binnen 14 dagen te storten op IBAN: ';
+        $gelieve2 = 'NL19 RABO 1017 5413 53 t.n.v. Sociëteit de Beuk te Barendrecht';
+        $gelieve3 = 'onder vermelding van het factuurnummer. Neem voor vragen over';
+        $gelieve4 = 'facturatie contact op met penningmeester@beukonline.nl.';
 
-        $totaal = '<p style="text-align:right"><strong>Totaal:<strong> &euro;'.$totaalbedrag.'</p>';
-        $pdf->writeHTML($totaal, true, false, false, false, '');
-
-        // $pdf->SetXY(20, 140);
-        $gelieve = '<p><i>Gelieve het verschuldigde bedrag binnen 14 dagen te storten op IBAN NL19 RABO 1017 5413 53 t.n.v. Sociëteit de Beuk te Barendrecht onder vermelding van het factuurnummer. Neem voor vragen over facturatie contact op met penningmeester@beukonline.nl.</i></p>';
-        // $pdf->writeHTMLCell(0, 0, '', '', $gelieve, 0, 1, 0, true, '', true);
-        $pdf->writeHTML($gelieve, true, false, false, false, '');
+        $pdf->SetX(20);
+        $pdf->Write(0, $gelieve, '', 0, '', true, 0, false, false, 0);
+        $pdf->SetX(20);
+        $pdf->Write(0, $gelieve2, '', 0, 'L', true, 0, false, false, 0);
+        $pdf->SetX(20);
+        $pdf->Write(0, $gelieve3, '', 0, 'L', true, 0, false, false, 0);
+        $pdf->SetX(20);
+        $pdf->Write(0, $gelieve4, '', 0, 'L', true, 0, false, false, 0);
         return $pdf;
     }
 

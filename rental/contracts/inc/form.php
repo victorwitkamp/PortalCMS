@@ -1,5 +1,5 @@
-<form method="post">
-<!-- <form method="post" validate=true> TODO -->
+<!-- <form method="post"> -->
+<form method="post" validate=true>
     <div class="row">
         <div class="col-md-12">
             <div class="form-group row">

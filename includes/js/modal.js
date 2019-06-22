@@ -1,1 +1,1 @@
-$("#exampleModalCenter").modal("show")
+$("#exampleModalCenter").modal("show");

@@ -31,7 +31,14 @@ PortalCMS_JS_calendar(); ?>
         <div class="container">
             <?php Alert::renderFeedbackMessages(); ?>
             <hr>
-            <div id="calendar"></div>
+            <div class="row justify-content-center">
+
+<div class="col-sm-10">
+
+    <div id="calendar"></div>
+</div>
+
+</div>
         </div>
     </div>
 </main>

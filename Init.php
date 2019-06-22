@@ -79,5 +79,5 @@ $UserController = new UserController;
 
 
 
-use Tracy\Debugger;
-Debugger::enable(Debugger::DEVELOPMENT);
+// use Tracy\Debugger;
+// Debugger::enable(Debugger::DEVELOPMENT);

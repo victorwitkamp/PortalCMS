@@ -72,14 +72,14 @@ class EventMapper
         }
         return true;
     }
-    public static function update($id, $title, $start_event, $end_event, $description)
+    public static function update($id, $title, $start_event, $end_event, $description, $status)
     {
         $stmt = DB::conn()->prepare(
             "UPDATE events
-            SET title=?, start_event=?, end_event=?, description=?
+            SET title=?, start_event=?, end_event=?, description=?, status=?
             WHERE id=?"
         );
-        $stmt->execute([$title, $start_event, $end_event, $description, $id]);
+        $stmt->execute([$title, $start_event, $end_event, $description, $status, $id]);
         if (!$stmt) {
             return false;
         }

@@ -129,7 +129,8 @@ class Invoice
         }
         $invoice = InvoiceMapper::getById($id);
         $contract = ContractMapper::getById($invoice['contract_id']);
-        if (!PDF::writeInvoice($invoice, $contract)) {
+        $invoiceitems = InvoiceItemMapper::getByInvoiceId($id);
+        if (!PDF::writeInvoice($invoice, $invoiceitems, $contract)) {
             return Redirect::error();
         }
         InvoiceMapper::updateStatus($id, 1);

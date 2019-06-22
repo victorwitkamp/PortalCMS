@@ -10,12 +10,34 @@ class Event
         $result = EventMapper::getByDate($startDate, $endDate);
         $data = array();
         foreach ($result as $row) {
-            $data[] = array(
+            if ($row['status'] == 2) {
+                $data[] = array(
+                    'id'   => $row["id"],
+                    'title'   => $row["title"],
+                    'start'   => $row["start_event"],
+                    'end'   => $row["end_event"],
+                    'backgroundColor' => 'var(--danger)'
+                );
+            }
+            if ($row['status'] == 1) {
+                $data[] = array(
                 'id'   => $row["id"],
                 'title'   => $row["title"],
                 'start'   => $row["start_event"],
-                'end'   => $row["end_event"]
-            );
+                'end'   => $row["end_event"],
+                'backgroundColor' => 'var(--success)'
+
+                );
+            }
+            if ($row['status'] == 0) {
+                $data[] = array(
+                    'id'   => $row["id"],
+                    'title'   => $row["title"],
+                    'start'   => $row["start_event"],
+                    'end'   => $row["end_event"],
+                    'backgroundColor' => 'var(--info)'
+                );
+            }
         }
         $returndata = json_encode($data);
         if (!empty($returndata)) {
@@ -93,11 +115,12 @@ class Event
         $start_event = Request::post('start_event', true);
         $end_event = Request::post('end_event', true);
         $description = Request::post('description', true);
+        $status = Request::post('status', true);
         if (!EventMapper::exists($event_id)) {
             Session::add('feedback_negative', 'Wijzigen van evenement mislukt.<br>Evenement bestaat niet.');
             return false;
         }
-        if (!EventMapper::update($event_id, $title, $start_event, $end_event, $description)) {
+        if (!EventMapper::update($event_id, $title, $start_event, $end_event, $description, $status)) {
             Session::add('feedback_negative', 'Wijzigen van evenement mislukt.');
             return false;
         }

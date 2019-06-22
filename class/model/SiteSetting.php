@@ -34,7 +34,7 @@ class SiteSetting
     {
         $stmt = DB::conn()->prepare("SELECT * FROM site_settings WHERE setting = ?");
         $stmt->execute([$setting]);
-        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             return $row['string_value'];
         }
     }
@@ -43,7 +43,7 @@ class SiteSetting
     {
         $stmt = DB::conn()->prepare("SELECT * FROM site_settings WHERE setting = ?");
         $stmt->execute([$setting]);
-        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             return $row['string_value'];
         }
     }
@@ -77,7 +77,7 @@ class SiteSetting
             return false;
         }
         $target_file_path = Config::get('PATH_LOGO').'logo';
-        $target_file_path_public = Config::get('PATH_LOGO_PUBLIC').'logo';
+        $target_file_path_public = Config::get('URL').Config::get('PATH_LOGO_PUBLIC').'logo';
         self::resizeLogo(
             $_FILES['logo_file']['tmp_name'],
             $target_file_path,
@@ -175,7 +175,7 @@ class SiteSetting
      */
     public static function resizeLogo($source_image, $destination, $final_width = 150, $final_height = 150, $quality = 100)
     {
-        Session::add('feedback_negative', 'resizeLogo destination: '.$destination);
+        // Session::add('feedback_negative', 'resizeLogo destination: '.$destination);
 
         list($width, $height) = getimagesize($source_image);
         if (!$width || !$height) {

@@ -1,4 +1,17 @@
 document.addEventListener('DOMContentLoaded', function () {
+  var style = getComputedStyle(document.body);
+  var theme = {};
+
+  theme.primary = style.getPropertyValue('--primary');
+  theme.secondary = style.getPropertyValue('--secondary');
+  theme.success = style.getPropertyValue('--success');
+  theme.info = style.getPropertyValue('--info');
+  theme.warning = style.getPropertyValue('--warning');
+  theme.danger = style.getPropertyValue('--danger');
+  theme.light = style.getPropertyValue('--light');
+  theme.dark = style.getPropertyValue('--dark');
+
+  var now = moment.now.getDate;
   var calendarEl = document.getElementById('calendar');
   var calendar = new FullCalendar.Calendar(calendarEl, {
     plugins: ['list', 'dayGrid', 'interaction', 'bootstrap'],
@@ -8,9 +21,11 @@ document.addEventListener('DOMContentLoaded', function () {
     contentHeight: 'auto',
     aspectRatio: 2,
     themeSystem: 'bootstrap',
+    now: now,
     bootstrapFontAwesome: {
       custom1: 'fa-calendar-plus'
     },
+
     editable: true,
     droppable: true,
     header: {

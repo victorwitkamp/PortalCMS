@@ -13,7 +13,8 @@ class Cookie
             time() + Config::get('SESSION_RUNTIME'),
             Config::get('COOKIE_PATH'),
             Config::get('COOKIE_DOMAIN'),
-            Config::get('COOKIE_SECURE'),
+            // Config::get('COOKIE_SECURE'),
+            $secure = true,
             Config::get('COOKIE_HTTP')
         );
     }
@@ -30,7 +31,8 @@ class Cookie
             time() + Config::get('COOKIE_RUNTIME'),
             Config::get('COOKIE_PATH'),
             Config::get('COOKIE_DOMAIN'),
-            Config::get('COOKIE_SECURE'),
+            // Config::get('COOKIE_SECURE'),
+            $secure = true,
             Config::get('COOKIE_HTTP')
         );
     }

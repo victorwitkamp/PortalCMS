@@ -71,6 +71,21 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
                     </div>
                 </div>
                 <hr>
+                <!-- <div class="form-group form-group-sm row">
+                    <div class="col-sm-12">
+                        <label class="control-label">Status</label>
+                        <input type="text" name="status" value="<?php if ($allowEdit) { echo $row ['status']; } ?>" class="form-control input-sm" placeholder="" required <?php if (!$allowEdit) { echo 'disabled'; } ?>>
+                    </div>
+                </div> -->
+                            <div class="col-sm-6">status</div>
+            <div class="col-sm-6">
+                <select name="status" class="form-control" required>
+                    <option value="0" <?php if ($row ['status'] == 0) { echo 'selected'; } ?>>0 - concept</option>
+                    <option value="1" <?php if ($row ['status'] == 1) { echo 'selected'; } ?>>1 - bevestigd</option>
+                    <option value="2" <?php if ($row ['status'] == 2) { echo 'selected'; } ?>>2 - geannuleerd</option>
+                </select>
+            </div>
+                <hr>
                 <div class="form-group form-group-sm">
                     <input type="hidden" name="id" value="<?php if ($allowEdit) { echo $row ['id']; } ?>">
                     <input type="submit" name="updateEvent" class="btn btn-sm btn-primary" value="Opslaan" <?php if (!$allowEdit) { echo 'disabled'; } ?>>

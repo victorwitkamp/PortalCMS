@@ -84,6 +84,7 @@ return array(
     "LABEL_EVENT_START" => "START",
     "LABEL_EVENT_END" => "EINDE",
     "LABEL_EVENT_DESC" => "BESCHRIJVING",
+    "LABEL_EVENT_STATUS" => "STATUS",
 
     // RENTAL
     // OVERVIEW

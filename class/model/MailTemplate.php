@@ -72,7 +72,7 @@ class MailTemplate
     {
         $stmt = DB::conn()->prepare("SELECT * FROM mail_text WHERE name = ?");
         $stmt->execute([$name]);
-        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             return $row['text'];
         }
     }
@@ -81,7 +81,7 @@ class MailTemplate
     {
         $stmt = DB::conn()->prepare("SELECT * FROM mail_text WHERE name = ?");
         $stmt->execute([$name]);
-        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             return $row['text'];
         }
     }

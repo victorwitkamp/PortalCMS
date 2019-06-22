@@ -96,9 +96,7 @@ class UserMapper
                     WHERE user_id = ?
                     LIMIT 1"
         );
-        $stmt->execute(
-            array([$token, $user_id])
-        );
+        $stmt->execute([$token, $user_id]);
         if ($stmt->rowCount() == 0) {
             return false;
         }

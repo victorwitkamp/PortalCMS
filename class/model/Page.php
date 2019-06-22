@@ -24,7 +24,7 @@ class Page
         $stmt = DB::conn()->prepare('SELECT * FROM pages WHERE id = ? LIMIT 1');
         $stmt->execute([$page_id]);
         if ($stmt->rowCount() > 0) {
-            while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 return $row;
             }
         } else {

@@ -15,7 +15,7 @@ class="btn btn-sm btn-warning">
     <input type="hidden" name="id" value="<?php echo $contract['id']; ?>">
     <button type="submit" name="deleteContract"
             class="btn btn-danger btn-sm"
-            onclick="return confirm(\'Weet u zeker dat u het contract van <?php echo $contract['band_naam']; ?> wilt verwijderen?\')">
+            onclick="return confirm(;\'Weet u zeker dat u het contract van <?php echo $contract['band_naam']; ?> wilt verwijderen?\')">
     <span class="fa fa-trash"></span>
     </button>
 </form>

@@ -1,5 +1,6 @@
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-8">
+
             <div class="form-group row">
                 <div class="col-md-8">
                     <label class="col-form-label">Huurder</label>
@@ -10,55 +11,9 @@
                     <input type="text" class="form-control form-control-sm" value="<?php echo $contract['bandcode']; ?>" required disabled>
                 </div>
             </div>
-            <div class="form-group">
-                <h3>Kosten</h3>
-                <div class="row">
-                    <div class="col-md-3">
-                        <label class="col-form-label">Ruimte (per maand)</label>
-                        <div class="input-group">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <i class="fas fa-euro-sign"></i>
-                                </div>
-                                <input type="text"class="form-control form-control-sm" value="<?php echo $contract['kosten_ruimte']; ?>" disabled>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label class="col-form-label">Kast (per maand)</label>
-                        <div class="input-group">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <i class="fas fa-euro-sign"></i>
-                                </div>
-                                <input type="text" class="form-control form-control-sm" value="<?php echo $contract['kosten_kast']; ?>" disabled>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label class="col-form-label">Totaal (per maand)</label>
-                        <div class="input-group">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <i class="fas fa-euro-sign"></i>
-                                </div>
-                                <input type="text" class="form-control form-control-sm" value="<?php echo $contract['kosten_totaal']; ?>" disabled>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label class="col-form-label">Borg (eenmalig)</label>
-                        <div class="input-group">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <i class="fas fa-euro-sign"></i>
-                                </div>
-                                <input type="text" class="form-control form-control-sm" value="<?php echo $contract['kosten_borg']; ?>" disabled>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
+            <h3>Contract datum</h3>
+            <div class="form-group">
                 <div class="row">
                     <div class="col-md-3">
                         <label class="col-form-label">Ingangsdatum</label>
@@ -100,7 +55,7 @@
                         </div>
                     </div>
                 </div>
-
+            </div>
 
             <h3>Gegevens bandleider</h3>
             <div class="form-group">
@@ -164,24 +119,30 @@
                 </div>
             </div>
 
-            <hr>
-            <h3>Oefenruimte</h3>
             <div class="form-group row">
-                <label for="staticEmail" class="col-sm-2 col-form-label">Oefenruimte nr.</label>
-                <div class="col-sm-10">
-                    <?php
-                    if ($contract['huur_oefenruimte_nr'] === '1') { echo 'Oefenruimte 1'; }
-                    if ($contract['huur_oefenruimte_nr'] === '2') { echo 'Oefenruimte 2'; }
-                    ?>
+                <div class="col-md-4">
+                    <label class="col-form-label">beuk_vertegenwoordiger</label>
+                    <input type="text" class="form-control form-control-sm" value="<?php echo $contract['beuk_vertegenwoordiger']; ?>" disabled>
                 </div>
             </div>
 
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label"><?php echo Text::get('DAY'); ?></label>
-                <div class="col-sm-10">
-                    <?php echo $contract['huur_dag']; ?>
+        </div>
+
+        <div class="col-md-4">
+
+                    <h3>Oefenruimte</h3>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-6">Oefenruimte nr.</div>
+                    <div class="col-sm-6"><?php echo $contract['huur_oefenruimte_nr']; ?></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6"><?php echo Text::get('DAY'); ?></div>
+                    <div class="col-sm-6"><?php echo $contract['huur_dag']; ?></div>
                 </div>
             </div>
+
+
 
 
             <div class="form-group row">
@@ -201,10 +162,53 @@
                 </div>
             </div>
 
-            <div class="form-group row">
-                <div class="col-md-4">
-                    <label class="col-form-label">beuk_vertegenwoordiger</label>
-                    <input type="text" class="form-control form-control-sm" value="<?php echo $contract['beuk_vertegenwoordiger']; ?>" disabled>
+            <div class="form-group">
+                <h3>Kosten</h3>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="col-form-label">Ruimte (per maand)</label>
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <i class="fas fa-euro-sign"></i>
+                                </div>
+                                <input type="text"class="form-control form-control-sm" value="<?php echo $contract['kosten_ruimte']; ?>" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="col-form-label">Kast (per maand)</label>
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <i class="fas fa-euro-sign"></i>
+                                </div>
+                                <input type="text" class="form-control form-control-sm" value="<?php echo $contract['kosten_kast']; ?>" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="col-form-label">Totaal (per maand)</label>
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <i class="fas fa-euro-sign"></i>
+                                </div>
+                                <input type="text" class="form-control form-control-sm" value="<?php echo $contract['kosten_totaal']; ?>" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="col-form-label">Borg (eenmalig)</label>
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <i class="fas fa-euro-sign"></i>
+                                </div>
+                                <input type="text" class="form-control form-control-sm" value="<?php echo $contract['kosten_borg']; ?>" disabled>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
