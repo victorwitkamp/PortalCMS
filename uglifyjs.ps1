@@ -1,5 +1,7 @@
- $arrayInput = ("C:\inetpub\portal\includes\js")
-
+ $arrayInput = ("C:\inetpub\portal\includes")
+  Write-Host "--------------------------"
+  Write-Host "JS"
+  Write-Host "--------------------------"
  foreach ($input in $arrayInput)
  {
     $folders =  Get-ChildItem -path $input -Recurse -include *.js
@@ -13,8 +15,10 @@
     }
  }
 
- $arrayInput2 = ("C:\inetpub\portal\includes\css")
-
+ $arrayInput2 = ("C:\inetpub\portal\includes")
+  Write-Host "--------------------------"
+  Write-Host "CSS"
+  Write-Host "--------------------------"
  foreach ($input in $arrayInput2)
  {
     $folders =  Get-ChildItem -path $input -Recurse -include *.css

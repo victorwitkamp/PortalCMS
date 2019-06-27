@@ -163,11 +163,17 @@ function PortalCMS_CSS_loadingAnimation2()
  */
 function PortalCMS_CSS_calendar()
 {
+    // echo '
+    // <link rel="stylesheet" href="//unpkg.com/@fullcalendar/core/main.min.css"/>
+    // <link rel="stylesheet" href="//unpkg.com/@fullcalendar/list/main.min.css"/>
+    // <link rel="stylesheet" href="//unpkg.com/@fullcalendar/bootstrap/main.min.css"/>
+    // <link rel="stylesheet" href="//unpkg.com/@fullcalendar/daygrid/main.min.css"/>
+    // ';
     echo '
-    <link rel="stylesheet" href="//unpkg.com/@fullcalendar/core/main.min.css"/>
-    <link rel="stylesheet" href="//unpkg.com/@fullcalendar/list/main.min.css"/>
-    <link rel="stylesheet" href="//unpkg.com/@fullcalendar/bootstrap/main.min.css"/>
-    <link rel="stylesheet" href="//unpkg.com/@fullcalendar/daygrid/main.min.css"/>
+    <link rel="stylesheet" href="/node_modules/@fullcalendar/core/main.min.css"/>
+    <link rel="stylesheet" href="/node_modules/@fullcalendar/list/main.min.css"/>
+    <link rel="stylesheet" href="/node_modules/@fullcalendar/bootstrap/main.min.css"/>
+    <link rel="stylesheet" href="/node_modules/@fullcalendar/daygrid/main.min.css"/>
     ';
 }
 
@@ -253,9 +259,13 @@ function PortalCMS_JS_cookieConsent()
  */
 function PortalCMS_JS_moment()
 {
+    // echo '
+    // <script src="//unpkg.com/moment@2.24.0/min/moment.min.js"></script>
+    // <script src="//unpkg.com/moment@2.24.0/locale/nl.js"></script>
+    // ';
     echo '
-    <script src="//unpkg.com/moment@2.24.0/min/moment.min.js"></script>
-    <script src="//unpkg.com/moment@2.24.0/locale/nl.js"></script>
+    <script src="/node_modules/moment/min/moment.min.js"></script>
+    <script src="/node_modules/moment/locale/nl.js"></script>
     ';
 }
 
@@ -267,13 +277,22 @@ function PortalCMS_JS_moment()
 function PortalCMS_JS_calendar()
 {
     PortalCMS_JS_moment();
+    // echo '
+    // <script src="//unpkg.com/@fullcalendar/core/main.min.js"></script>
+    // <script src="//unpkg.com/@fullcalendar/list/main.min.js"></script>
+    // <script src="//unpkg.com/@fullcalendar/bootstrap/main.min.js"></script>
+    // <script src="//unpkg.com/@fullcalendar/daygrid/main.min.js"></script>
+    // <script src="//unpkg.com/@fullcalendar/interaction/main.min.js"></script>
+    // <script src="//unpkg.com/@fullcalendar/core/locales/nl.js"></script>
+    // <script src="/includes/js/calendar.js"></script>
+    // ';
     echo '
-    <script src="//unpkg.com/@fullcalendar/core/main.min.js"></script>
-    <script src="//unpkg.com/@fullcalendar/list/main.min.js"></script>
-    <script src="//unpkg.com/@fullcalendar/bootstrap/main.min.js"></script>
-    <script src="//unpkg.com/@fullcalendar/daygrid/main.min.js"></script>
-    <script src="//unpkg.com/@fullcalendar/interaction/main.min.js"></script>
-    <script src="//unpkg.com/@fullcalendar/core/locales/nl.js"></script>
+    <script src="/node_modules/@fullcalendar/core/main.min.js"></script>
+    <script src="/node_modules/@fullcalendar/list/main.min.js"></script>
+    <script src="/node_modules/@fullcalendar/bootstrap/main.min.js"></script>
+    <script src="/node_modules/@fullcalendar/daygrid/main.min.js"></script>
+    <script src="/node_modules/@fullcalendar/interaction/main.min.js"></script>
+    <script src="/node_modules/@fullcalendar/core/locales/nl.js"></script>
     <script src="/includes/js/calendar.js"></script>
     ';
 }

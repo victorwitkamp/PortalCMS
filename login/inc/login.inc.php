@@ -1,11 +1,15 @@
 <div class="user_forms-login">
     <h2 class="forms_title"><?php echo Text::get('LABEL_LOG_IN'); ?></h2>
+    <p>
+    Session duration: <?php echo (Config::get('SESSION_RUNTIME') / 60).' minutes.'; ?><br>
+    Cookie duration: <?php echo (Config::get('COOKIE_RUNTIME') / 60).' minutes ('.((Config::get('COOKIE_RUNTIME') / 60) / 24).' hours)'; ?>
+    </p>
     <form method="post">
             <div class="form-row">
-                    <input type="text" name="user_name" id="inputEmail" placeholder="E-mailadres of gebruikersnaam" class="form-control" autocomplete="username" required autofocus/>
+                <input type="text" name="user_name" placeholder="E-mailadres of gebruikersnaam" class="form-control" autocomplete="username" required autofocus/>
             </div>
             <div class="form-row">
-                <input type="password" name="user_password" placeholder="Wachtwoord" class="form-control" autocomplete="current-password" required />
+                <input type="password" name="user_password" placeholder="Wachtwoord" class="form-control" autocomplete="current-password" required/>
             </div>
             <div class="form-group form-check">
                 <input type="checkbox" id="rememberMe" name="set_remember_me_cookie" class="form-check-input">
@@ -17,11 +21,8 @@
         // (have a look). This "where did you came from" value is put into this form to sent the user back
         // there after being logged in successfully.
         // Simple but powerful feature, big thanks to @tysonlist.
-
         if (!empty(Request::get('redirect'))) {
-            // echo '<input type="hidden" name="redirect" value="'.$login->View->encodeHTML(Request::get('redirect')).'" />';
             echo '<input type="hidden" name="redirect" value="'.$login->View->encodeHTML(Request::get('redirect')).'" />';
-
         }
 
         // set CSRF token in login form, although sending fake login requests mightn't be interesting gap here.
@@ -32,12 +33,8 @@
         ?>
         <input type="hidden" name="csrf_token" value="<?php echo Csrf::makeToken(); ?>" />
         <input type="submit" name="loginSubmit" class="btn btn-success" value="<?php echo Text::get('LABEL_LOG_IN'); ?>"/>
-        <?php
-        echo '<a href="'.$loginUrl.'" class="btn btn-info" ><i class="fab fa-facebook"></i>'.Text::get('LABEL_CONTINUE_WITH_FACEBOOK').'</a>';
-        ?>
+        <a href="<?php echo $loginUrl; ?>" class="btn btn-info"><i class="fab fa-facebook"></i><?php echo Text::get('LABEL_CONTINUE_WITH_FACEBOOK'); ?></a>
         <hr>
-
         <a href="requestPasswordReset.php"><?php echo Text::get('LABEL_FORGOT_PASSWORD'); ?></a>
-
     </form>
 </div>

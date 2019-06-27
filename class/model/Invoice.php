@@ -41,28 +41,34 @@ class Invoice
 
     public static function create()
     {
-        $contract_id = Request::post('contract_id', true);
         $year = Request::post('year', true);
         $month = Request::post('month', true);
-        $contract = ContractMapper::getById($contract_id);
-        $factuurnummer = $year.$contract['bandcode'].$month;
-        $factuurdatum = Request::post('factuurdatum', true);
-        $vervaldatum = Request::post('vervaldatum', true);
-        if (InvoiceMapper::getByFactuurnummer($factuurnummer)) {
-            Session::add('feedback_negative', "Factuurnummer bestaat al.");
-            return Redirect::error();
+        if (!empty($_POST['contract_id'])) {
+            foreach ($_POST['contract_id'] as $contract_id) {
+                $contract = ContractMapper::getById($contract_id);
+                $factuurnummer = $year.$contract['bandcode'].$month;
+                $factuurdatum = Request::post('factuurdatum', true);
+                $vervaldatum = Request::post('vervaldatum', true);
+                if (InvoiceMapper::getByFactuurnummer($factuurnummer)) {
+                    Session::add('feedback_negative', "Factuurnummer bestaat al.");
+                    return Redirect::error();
+                }
+                if (!InvoiceMapper::create($contract_id, $factuurnummer, $year, $month, $factuurdatum, $vervaldatum)) {
+                    Session::add('feedback_negative', "Toevoegen van factuur mislukt.");
+                    return Redirect::error();
+                }
+                $invoice = InvoiceMapper::getByFactuurnummer($factuurnummer);
+                if ($contract['kosten_ruimte'] > 0) {
+                    InvoiceItemMapper::create($invoice['id'], 'Kosten voor: huur '.Text::get('MONTH_'.$month), $contract['kosten_ruimte']);
+                }
+                if ($contract['kosten_kast'] > 0) {
+                    InvoiceItemMapper::create($invoice['id'], 'Kosten voor: kast '.Text::get('MONTH_'.$month), $contract['kosten_kast']);
+                }
+            }
         }
-        if (!InvoiceMapper::create($contract_id, $factuurnummer, $year, $month, $factuurdatum, $vervaldatum)) {
-            Session::add('feedback_negative', "Toevoegen van factuur mislukt.");
-            return Redirect::error();
-        }
-        $invoice = InvoiceMapper::getByFactuurnummer($factuurnummer);
-        if ($contract['kosten_ruimte'] > 0) {
-            InvoiceItemMapper::create($invoice['id'], 'Kosten voor: huur '.Text::get('MONTH_'.$month), $contract['kosten_ruimte']);
-        }
-        if ($contract['kosten_kast'] > 0) {
-            InvoiceItemMapper::create($invoice['id'], 'Kosten voor: kast '.Text::get('MONTH_'.$month), $contract['kosten_kast']);
-        }
+
+
+
         Session::add('feedback_positive', "Factuur toegevoegd.");
         return Redirect::to("rental/invoices/index.php");
     }
