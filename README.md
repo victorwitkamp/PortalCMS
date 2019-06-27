@@ -45,11 +45,20 @@ A CMS-like PHP application/portal that I'm creation for a small non-profit music
 - Mail scheduler:
   - Send new or template based emails to members or site-users.
 
-## Installation
-
 ## Requirements
 
-I'm currently developing this on an IIS webserver with PHP 7.2.12 and a local MySQL server.
+This may work on other configurations as well.
+
+- IIS webserver
+- PHP 7.2.13
+- MySQL 5.7
+- Yarn
+- Composer
+
+## Installation
+
+Install node_modules by running "yarn" from the project folder.
+Install composer requirements by running "composer update".
 
 ## Credits
 
