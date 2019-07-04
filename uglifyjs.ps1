@@ -1,4 +1,4 @@
- $arrayInput = ("C:\inetpub\portal\includes","C:\inetpub\portal\node_modules\")
+ $arrayInput = ("C:\inetpub\portal\includes")
   Write-Host "--------------------------"
   Write-Host "JS"
   Write-Host "--------------------------"
@@ -15,7 +15,7 @@
     }
  }
 
- $arrayInput2 = ("C:\inetpub\portal\includes","C:\inetpub\portal\node_modules\")
+ $arrayInput2 = ("C:\inetpub\portal\includes")
   Write-Host "--------------------------"
   Write-Host "CSS"
   Write-Host "--------------------------"
