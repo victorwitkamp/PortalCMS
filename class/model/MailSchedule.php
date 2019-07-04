@@ -50,9 +50,9 @@ class MailSchedule
                     $recipient = $row['recipient_email'];
                     $title = $row['subject'];
                     $body = $row['body'];
-                    $attachment = $row['attachment'];
+                    $attachments = MailAttachmentMapper::getByMailId($id);
                     if (!empty($recipient) && !empty($title) && !empty($body)) {
-                        if (MailController::sendMail($sender, $recipient, $title, $body, $attachment)) {
+                        if (MailController::sendMail($sender, $recipient, $title, $body, $attachments)) {
                             MailScheduleMapper::updateStatus($id, '2');
                             MailScheduleMapper::updateDateSent($id);
                         } else {
@@ -86,6 +86,11 @@ class MailSchedule
                         $count_failed += 1;
                     } else {
                         $count_created += 1;
+                    }
+                    $templateAttachments = MailAttachmentMapper::getByTemplateId($templateId);
+                    $mailid = MailScheduleMapper::lastInsertedId();
+                    foreach ($templateAttachments as $templateAttachment) {
+                        MailAttachmentMapper::create($mailid, $templateAttachment['path'], $templateAttachment['name'], $templateAttachment['extension'], $templateAttachment['encoding'], $templateAttachment['type']);
                     }
                 }
                 if ($count_failed === 0) {

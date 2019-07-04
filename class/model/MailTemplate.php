@@ -27,9 +27,21 @@ class MailTemplate
         }
     }
 
+    public static function getSystemTemplateByName($name)
+    {
+        $stmt = DB::conn()->prepare("SELECT * FROM mail_templates WHERE type = 'system' AND name = ? LIMIT 1");
+        $stmt->execute([$name]);
+        if (!$stmt->rowCount() == 1) {
+            return false;
+        } else {
+            return $stmt->fetch();
+        }
+    }
+
     public static function new()
     {
-        $type = Request::post('type', true);
+        // $type = Request::post('type', true);
+        $type = 'member';
         $subject = Request::post('subject', true);
         $body = Request::post('body', true);
         $status = 1;
@@ -38,7 +50,7 @@ class MailTemplate
             Session::add('feedback_negative', "Nieuwe template aanmaken mislukt.");
         } else {
             Session::add('feedback_positive', "Template toegevoegd (ID = ".$return.')');
-            Redirect::to("mailscheduler/templates/");
+            Redirect::to("mail/templates/");
         }
     }
 
@@ -58,43 +70,6 @@ class MailTemplate
         $stmt = DB::conn()->query("SELECT max(id) from mail_templates");
         $lastId = $stmt->fetchColumn();
         return $lastId;
-    }
-
-    // alle function voor de bestaande mailtext settings
-
-    // function savesitesettings() {
-    //     self::setMailText(Request::post('MailText_ResetPassword'), 'ResetPassword');
-    //     self::setMailText(Request::post('MailText_Signup'), 'Signup');
-    // }
-
-
-    public function getMailText($name)
-    {
-        $stmt = DB::conn()->prepare("SELECT * FROM mail_text WHERE name = ?");
-        $stmt->execute([$name]);
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            return $row['text'];
-        }
-    }
-
-    public static function getStaticMailText($name)
-    {
-        $stmt = DB::conn()->prepare("SELECT * FROM mail_text WHERE name = ?");
-        $stmt->execute([$name]);
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            return $row['text'];
-        }
-    }
-
-
-    public function setMailText($text, $name)
-    {
-        $stmt = DB::conn()->prepare("UPDATE mail_text SET text = ? WHERE name = ?");
-        if (!$stmt->execute([$text, $name])) {
-            return false;
-        } else {
-            return true;
-        }
     }
 
     public static function replaceholder($placeholder, $placeholdervalue, $body_in)

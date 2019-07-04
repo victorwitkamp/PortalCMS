@@ -1,5 +1,5 @@
-<!-- <form method="post"> -->
-<form method="post" validate=true>
+<form method="post">
+<!-- <form method="post" validate=true> -->
     <div class="row">
         <div class="col-md-12">
             <div class="form-group row">
@@ -328,8 +328,8 @@ echo '">';
             <div class="form-group row">
                 <div class="col-md-6">
                     <label class="col-form-label">&#xA0;</label>
-                    <input type="hidden" name="id" value="<?php if ($pageType === 'edit') { echo $contract['id']; } ?>">
-                    <input type="submit" name="<?php if ($pageType === 'edit') { echo 'updateContract'; } else { echo 'newContract'; }?>"
+                    <input type="hidden" name="id" value="<?php if ($loadData) { echo $contract['id']; } ?>">
+                    <input type="submit" name="<?php if ($loadData) { echo 'updateContract'; } else { echo 'newContract'; }?>"
                         class="btn btn-sm btn-primary" value="Opslaan">
                     <a href="contracten.php" class="btn btn-sm btn-danger">Annuleren</a>
                 </div>

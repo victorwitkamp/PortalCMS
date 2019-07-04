@@ -79,6 +79,11 @@
                     <button type="submit" name="createInvoiceMail" class="btn btn-success"><i class="fas fa-check"></i></button>
                 </form>
             <?php } ?>
+            <?php if ($invoice['status'] === '2') { ?>
+                <form method="post">
+                    <a href="<?php echo Config::get('URL').'mail/details.php?id='.$invoice['mail_id']; ?>">Mail openen</a>
+                </form>
+            <?php } ?>
             </td>
             <td>
                 <form method="post">

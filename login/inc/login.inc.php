@@ -1,7 +1,10 @@
 <div class="user_forms-login">
     <h2 class="forms_title"><?php echo Text::get('LABEL_LOG_IN'); ?></h2>
-    <p>
-    Session duration: <?php echo (Config::get('SESSION_RUNTIME') / 60).' minutes.'; ?><br>
+    <p><?php
+    $minutes = (Config::get('SESSION_RUNTIME') / 60);
+    if ($minutes > 1) { $minutestext = 'minutes'; } else { $minutestext = 'minute'; }
+    ?>
+    Session duration: <?php echo $minutes.' '.$minutestext; ?><br>
     Cookie duration: <?php echo (Config::get('COOKIE_RUNTIME') / 60).' minutes ('.((Config::get('COOKIE_RUNTIME') / 60) / 24).' hours)'; ?>
     </p>
     <form method="post">

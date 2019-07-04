@@ -92,7 +92,8 @@ class PasswordReset
      */
     public static function sendPasswordResetMail($user_name, $password_reset_hash, $user_email)
     {
-        $MailText = MailTemplate::getStaticMailText('ResetPassword');
+        $Mail = MailTemplate::getSystemTemplateByName('ResetPassword');
+        $MailText = $Mail['body'];
         $resetlink = Config::get('URL').
                         Config::get('EMAIL_PASSWORD_RESET_URL').
                         '?username='.$user_name.
@@ -210,7 +211,12 @@ class PasswordReset
             return false;
         }
         // crypt the password (with the PHP 5.5+'s password_hash() function, result is a 60 character hash string)
-        $user_password_hash = password_hash($user_password_new, PASSWORD_DEFAULT);
+        $user_password_hash = password_hash(
+            base64_encode(
+                $user_password_new
+            ),
+            PASSWORD_DEFAULT
+        );
         // write the password to database (as hashed and salted string), reset password_reset_hash
         if (self::saveNewUserPassword($user_name, $user_password_hash, $password_reset_hash)) {
             Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_CHANGE_SUCCESSFUL'));

@@ -15,7 +15,7 @@ class InvoiceController extends Controller
             // Invoice::write();
         }
         if (isset($_POST['writeInvoice'])) {
-           Invoice::write();
+            Invoice::write();
         }
         if (isset($_POST['createInvoice'])) {
             Invoice::create();

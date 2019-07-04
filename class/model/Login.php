@@ -158,7 +158,13 @@ class Login
         }
 
         // if hash of provided password does NOT match the hash in the database: +1 failed-login counter
-        if (!password_verify($user_password, $result->user_password_hash)) {
+        if (!password_verify(
+                base64_encode(
+                    $user_password
+                ),
+                $result->user_password_hash
+            )
+        ) {
             UserMapper::setFailedLoginByUsername($result->user_name);
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
             return false;

@@ -24,10 +24,10 @@ class MailSender
      * @param $body string full mail body text
      * @return bool the success status of the according mail sending method
      */
-    public function sendMail($recipient_email, $from_email, $from_name, $subject, $body, $attachment)
+    public function sendMail($recipient_email, $from_email, $from_name, $subject, $body, $attachments)
     {
         return $this->sendMailWithPHPMailer(
-            $recipient_email, $from_email, $from_name, $subject, $body, $attachment
+            $recipient_email, $from_email, $from_name, $subject, $body, $attachments
         );
     }
 
@@ -57,7 +57,7 @@ class MailSender
      * @throws Exception
      * @throws phpmailerException
      */
-    public function sendMailWithPHPMailer($recipient_email, $from_email, $from_name, $subject, $body, $attachment = NULL)
+    public function sendMailWithPHPMailer($recipient_email, $from_email, $from_name, $subject, $body, $attachments)
     {
         $mail = new PHPMailer(true);
         try {
@@ -88,8 +88,13 @@ class MailSender
             $mail->AddAddress($recipient_email);
             $mail->Subject = $subject;
             $mail->Body = $body;
-            if (!empty($attachment)) {
-                $mail->addAttachment($_SERVER["DOCUMENT_ROOT"].'/'.$attachment, $name = 'test',  $encoding = 'base64', $type = 'application/pdf');
+            if (!empty($attachments)) {
+                foreach ($attachments as $attachment) {
+                    $attachmentFullFilePath = DIR_ROOT.$attachment['path'].$attachment['name'].$attachment['extension'];
+                    $attachmentFullName = $attachment['name'].$attachment['extension'];
+                    $mail->addAttachment($attachmentFullFilePath, $attachmentFullName, $attachment['encoding'], $attachment['type']);
+                }
+
             }
             $mail->isHTML(true);
             return $mail->Send();

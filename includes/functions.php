@@ -63,88 +63,47 @@ function PortalCMS_JS_Datepicker_event()
 function displayHeadCSS()
 {
     $theme = SiteSetting::getStaticSiteSetting('site_theme');
-    echo '<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="//bootswatch.com/4/'.$theme.'/bootstrap.min.css">
+    echo '<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">';
+    echo '<link rel="stylesheet" type="text/css" href="/node_modules/@fortawesome/fontawesome-free/css/all.min.css">';
+    echo '<link rel="stylesheet" type="text/css" href="/node_modules/bootswatch/dist/'.$theme.'/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Raleway">
-    <link rel="stylesheet" type="text/css" href="/includes/css/style.css">
-    ';
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" type="text/css" href="/includes/css/style.css">';
 }
 
 function PortalCMS_CSS_floatingLabels()
 {
-    echo '<link rel="stylesheet" type="text/css" href="/includes/css/floating-labels.css">
-    ';
+    echo '<link rel="stylesheet" type="text/css" href="/includes/css/floating-labels.css">';
 }
 
 function PortalCMS_CSS_loadingAnimation()
 {
-    echo '<link rel="stylesheet" type="text/css" href="/includes/css/loadingAnimation.css">
-    ';
-}
-
-function PortalCMS_CSS_loadingAnimation2()
-{
-    echo '<link rel="stylesheet" type="text/css" href="/includes/css/loadingAnimation2.css">
-    ';
+    echo '<link rel="stylesheet" type="text/css" href="/includes/css/loadingAnimation.css">';
 }
 
 function PortalCMS_CSS_calendar()
 {
-    echo '<link rel="stylesheet" href="/node_modules/@fullcalendar/core/main.min.css"/>
-    <link rel="stylesheet" href="/node_modules/@fullcalendar/list/main.min.css"/>
-    <link rel="stylesheet" href="/node_modules/@fullcalendar/bootstrap/main.min.css"/>
-    <link rel="stylesheet" href="/node_modules/@fullcalendar/daygrid/main.min.css"/>
-    ';
+    echo '<link rel="stylesheet" type="text/css" href="/node_modules/@fullcalendar/core/main.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/node_modules/@fullcalendar/list/main.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/node_modules/@fullcalendar/bootstrap/main.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/node_modules/@fullcalendar/daygrid/main.min.css"/>';
 }
 
 function PortalCMS_JS_headJS()
-{
-    PortalCMS_JS_basic();
-    PortalCMS_JS_cookieConsent();
-}
-
-function PortalCMS_JS_basic()
-{
-    PortalCMS_JS_IE9();
-    PortalCMS_JS_jQuery();
-    PortalCMS_JS_bootstrap();
-}
-
-function PortalCMS_JS_IE9()
 {
     echo '<!--[if lt IE 9]>
     <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    ';
-}
-
-function PortalCMS_JS_jQuery()
-{
-    echo '<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    ';
-}
-
-function PortalCMS_JS_bootstrap()
-{
-    echo '<script src="//bootswatch.com/_vendor/popper.js/dist/umd/popper.min.js"></script>
-    <script src="//bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-    ';
-}
-
-function PortalCMS_JS_cookieConsent()
-{
-    echo '<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
-    ';
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>';
 }
 
 function PortalCMS_JS_moment()
 {
     echo '<script src="/node_modules/moment/min/moment.min.js"></script>
-    <script src="/node_modules/moment/locale/nl.js"></script>
-    ';
+    <script src="/node_modules/moment/locale/nl.js"></script>';
 }
 
 function PortalCMS_JS_calendar()
@@ -156,6 +115,5 @@ function PortalCMS_JS_calendar()
     <script src="/node_modules/@fullcalendar/daygrid/main.min.js"></script>
     <script src="/node_modules/@fullcalendar/interaction/main.min.js"></script>
     <script src="/node_modules/@fullcalendar/core/locales/nl.js"></script>
-    <script src="/includes/js/calendar.js"></script>
-    ';
+    <script src="/includes/js/calendar.js"></script>';
 }

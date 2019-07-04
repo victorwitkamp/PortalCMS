@@ -5,27 +5,30 @@ class Invoice
     public static function createMail()
     {
         $sender_email = Config::get('EMAIL_SMTP_USERNAME');
-        // $recipient_email = Request::post('recipient_email', true);
-        // $subject = Request::post('subject', true);
-        // $body = Request::post('body', true);
         $invoiceId = Request::post('id', true);
-        $subject = 'factuur';
-        $body = 'Hey een factuur';
+        $subject = 'Factuur: '.$invoice['factuurnummer'];
+        $body = 'Beste huurder,<br><br>Er is een nieuwe factuur voor u klaargezet. U treft de nieuwe factuur, met factuurnummer '.$invoice['factuurnummer'].', in de bijlage van dit e-mailbericht.<br><br>Met vriendelijke groet,<br><br>Poppodium de Beuk';
 
         $invoice = InvoiceMapper::getById($invoiceId);
         $contract = ContractMapper::getById($invoice['contract_id']);
         $recipient_email = $contract['bandleider_email'];
-        $attachment = "content/invoices/".$invoice['factuurnummer'].".pdf";
 
-        $create = MailScheduleMapper::create($sender_email, $recipient_email, null, $subject, $body, $attachment);
+        $create = MailScheduleMapper::create($sender_email, $recipient_email, null, $subject, $body);
         if (!$create) {
             Session::add('feedback_negative', "Nieuwe email aanmaken mislukt.");
             return false;
         }
-        $created = MailScheduleMapper::lastInsertedId();
-        InvoiceMapper::updateMailId($invoiceId,$created);
+        $createdMailId = MailScheduleMapper::lastInsertedId();
+
+        $attachmentPath = "content/invoices/";
+        $attachmentName = $invoice['factuurnummer'];
+        $attachmentExtension = ".pdf";
+        $attachmentName = $invoice['factuurnummer'];
+        MailAttachmentMapper::create($createdMailId, $attachmentPath, $attachmentName, $attachmentExtension);
+
+        InvoiceMapper::updateMailId($invoiceId,$createdMailId);
         InvoiceMapper::updateStatus($invoiceId,2);
-        Session::add('feedback_positive', "Email toegevoegd (ID = ".$created.')');
+        Session::add('feedback_positive', "Email toegevoegd (ID = ".$createdMailId.')');
         Redirect::mail();
         return true;
     }
@@ -66,9 +69,6 @@ class Invoice
                 }
             }
         }
-
-
-
         Session::add('feedback_positive', "Factuur toegevoegd.");
         return Redirect::to("rental/invoices/index.php");
     }
@@ -95,8 +95,9 @@ class Invoice
     public static function delete()
     {
         $id = (int) Request::post('id', true);
-        if (!InvoiceMapper::getById($id)) {
-            Session::add('feedback_negative', "Kan factuur niet verwijderen.<br>Factuur bestaat niet.");
+        $invoice = InvoiceMapper::getById($id);
+        if (!$invoice) {
+            Session::add('feedback_negative', "Kan factuur niet verwijderen. Factuur bestaat niet.");
             return Redirect::error();
         }
         if (InvoiceItemMapper::getByInvoiceId($id)) {
@@ -104,6 +105,9 @@ class Invoice
                 Session::add('feedback_negative', "Verwijderen van factuuritems voor factuur mislukt.");
                 return Redirect::error();
             }
+        }
+        if($invoice['status'] > 0) {
+            unlink(DIR_ROOT.'content/invoices/'.$invoice['factuurnummer'].'.pdf');
         }
         if (!InvoiceMapper::delete($id)) {
             Session::add('feedback_negative', "Verwijderen van factuur mislukt.");

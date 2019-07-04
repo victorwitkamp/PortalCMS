@@ -1,1 +1,0 @@
-ALTER TABLE invoices add mail_id int default null after status

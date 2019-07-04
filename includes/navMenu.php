@@ -24,7 +24,7 @@
     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
         <a class="dropdown-item" href="/mail/"><?php echo Text::get('TITLE_MAIL_SCHEDULER'); ?></a>
         <a class="dropdown-item" href="/mail/history.php"><?php echo Text::get('TITLE_MAIL_HISTORY'); ?></a>
-        <a class="dropdown-item" href="/mail/templates.php"><?php echo Text::get('TITLE_MAIL_TEMPLATES'); ?></a>
+        <a class="dropdown-item" href="/mail/templates/"><?php echo Text::get('TITLE_MAIL_TEMPLATES'); ?></a>
     </div>
 </li>
 

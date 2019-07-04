@@ -10,19 +10,7 @@ require_once DIR_INCLUDES.'functions.php';
 require_once DIR_INCLUDES.'head.php';
 displayHeadCSS();
 PortalCMS_JS_headJS(); ?>
-<script src='https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=y6xawmw19w565wdi90wrtlow2ll6498emv0fozfrtrt7vb4y'></script>
-<script>
-tinymce.init({
-selector: '#mytextarea',
-plugins : 'advlist autolink link image lists charmap print preview'
-});
-</script>
-<script>
-tinymce.init({
-selector: '#mytextarea2',
-plugins : 'advlist autolink link image lists charmap print preview'
-});
-</script>
+
 </head>
 <body>
 <?php require DIR_INCLUDES.'nav.php'; ?>
@@ -40,7 +28,9 @@ plugins : 'advlist autolink link image lists charmap print preview'
             <table id="example" class="table table-sm table-striped table-hover table-dark" style="width:100%">
                 <thead class="thead-dark">
                     <tr>
+                        <th>acties</th>
                         <th>id</th>
+                        <th>name</th>
                         <th>type</th>
                         <th>subject</th>
                         <th>body</th>
@@ -50,7 +40,10 @@ plugins : 'advlist autolink link image lists charmap print preview'
                     <?php
                     foreach (MailTemplate::getTemplates() as $row) {
                         echo '<tr>';
+                        echo '<td><a href="edit.php?id='.$row['id'].'" title="Gegevens wijzigen" class="btn btn-warning btn-sm">
+            <span class="fa fa-edit"></span></a></td>';
                         echo '<td>'.$row['id'].'</td>';
+                        echo '<td>'.$row['name'].'</td>';
                         echo '<td>'.$row['type'].'</td>';
                         echo '<td>'.$row['subject'].'</td>';
                         echo '<td>'.$row['body'].'</td><tr>';
@@ -58,25 +51,7 @@ plugins : 'advlist autolink link image lists charmap print preview'
                     ?>
                 </tbody>
             </table>
-            <h3>Mail templates</h3>
-            <div class="form-group row">
-                <label class="col-4 col-form-label">Reset password mailtext</label>
-                <p>Beschikbare placeholders: USERNAME, RESETLINK, SITENAME</p>
-                <div class="col-8">
-                    <textarea id="mytextarea" name="MailText_ResetPassword" cols="50" rows="15" required>
-                    <?php echo htmlspecialchars(MailTemplate::getStaticMailText('ResetPassword')); ?>
-                    </textarea>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-4 col-form-label">Signup mailtext</label>
-                <p>Beschikbare placeholders: username, sitename, activatelink, activateformlink, confcode</p>
-                <div class="col-8">
-                    <textarea id="mytextarea2" name="MailText_Signup" cols="50" rows="15" required>
-                    <?php echo htmlspecialchars(MailTemplate::getStaticMailText('Signup')); ?>
-                    </textarea>
-                </div>
-            </div>
+
         </div>
     </div>
 </main>

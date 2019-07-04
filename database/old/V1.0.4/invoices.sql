@@ -11,3 +11,6 @@ CREATE TABLE IF NOT EXISTS invoices (
   CreationDate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   ModificationDate timestamp  NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 )
+
+
+ALTER TABLE invoices add mail_id int default null after status

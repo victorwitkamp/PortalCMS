@@ -27,9 +27,20 @@ class MailController extends Controller
         if (isset($_POST['deleteScheduledMailById'])) {
             MailSchedule::deleteById();
         }
+        if (isset($_POST['uploadAttachment'])) {
+            if (MailAttachment::uploadAttachment()) {
+                Session::add('feedback_positive', Text::get('FEEDBACK_AVATAR_UPLOAD_SUCCESSFUL'));
+                Redirect::to("mail/templates/edit.php?id=".Request::get('id'));
+            } else {
+                Redirect::to("mail/templates/edit.php?id=".Request::get('id'));
+            }
+        }
+        if (isset($_POST['newtemplate'])) {
+            MailTemplate::new();
+        }
     }
 
-    public static function sendMail($sender, $recipient, $subject, $body, $attachment = NULL)
+    public static function sendMail($sender, $recipient, $subject, $body, $attachments)
     {
         $senderName = SiteSetting::getStaticSiteSetting('site_name');
         if (empty($recipient) || empty($subject) || empty($body)) {
@@ -38,7 +49,7 @@ class MailController extends Controller
         }
 
         $MailSender = new MailSender;
-        if (!$MailSender->sendMail($recipient, $sender, $senderName, $subject, $body, $attachment)) {
+        if (!$MailSender->sendMail($recipient, $sender, $senderName, $subject, $body, $attachments)) {
             self::$error = $MailSender->error;
             Session::add('feedback_negative', "MailController: Niet verstuurd. Fout: ".self::$error);
             return false;
@@ -63,5 +74,7 @@ class MailController extends Controller
             return false;
         }
     }
+
+
 
 }

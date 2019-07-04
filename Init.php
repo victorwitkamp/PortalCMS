@@ -32,6 +32,7 @@ ini_set('log_errors_max_len', 1024);
  * @see php.net/manual/en/session.configuration.php#ini.session.cookie-httponly
  */
 ini_set('session.cookie_httponly', 1);
+ini_set('session.use_strict_mode', 1);
 
 /**
  * Configuration for: Named constants
