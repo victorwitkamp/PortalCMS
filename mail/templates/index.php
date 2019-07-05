@@ -33,7 +33,7 @@ PortalCMS_JS_headJS(); ?>
                         <th>name</th>
                         <th>type</th>
                         <th>subject</th>
-                        <th>body</th>
+                        <!-- <th>body</th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -46,7 +46,7 @@ PortalCMS_JS_headJS(); ?>
                         echo '<td>'.$row['name'].'</td>';
                         echo '<td>'.$row['type'].'</td>';
                         echo '<td>'.$row['subject'].'</td>';
-                        echo '<td>'.$row['body'].'</td><tr>';
+                        // echo '<td>'.$row['body'].'</td><tr>';
                     }
                     ?>
                 </tbody>

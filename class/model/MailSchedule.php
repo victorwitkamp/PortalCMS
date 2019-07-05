@@ -89,8 +89,10 @@ class MailSchedule
                     }
                     $templateAttachments = MailAttachmentMapper::getByTemplateId($templateId);
                     $mailid = MailScheduleMapper::lastInsertedId();
-                    foreach ($templateAttachments as $templateAttachment) {
-                        MailAttachmentMapper::create($mailid, $templateAttachment['path'], $templateAttachment['name'], $templateAttachment['extension'], $templateAttachment['encoding'], $templateAttachment['type']);
+                    if (!empty($templateAttachments)) {
+                        foreach ($templateAttachments as $templateAttachment) {
+                            MailAttachmentMapper::create($mailid, $templateAttachment['path'], $templateAttachment['name'], $templateAttachment['extension'], $templateAttachment['encoding'], $templateAttachment['type']);
+                        }
                     }
                 }
                 if ($count_failed === 0) {

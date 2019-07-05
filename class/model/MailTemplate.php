@@ -43,7 +43,7 @@ class MailTemplate
         // $type = Request::post('type', true);
         $type = 'member';
         $subject = Request::post('subject', true);
-        $body = Request::post('body', true);
+        $body = htmlentities(Request::post('body', true));
         $status = 1;
         $return = self::writenew($type, $subject, $body, $status);
         if ($return === false) {

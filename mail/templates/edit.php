@@ -19,7 +19,6 @@ selector: '#mytextarea',
 plugins : 'advlist autolink link image lists charmap print preview'
 });
 </script>
-
 </head>
 <body>
 <?php require DIR_INCLUDES.'nav.php'; ?>
