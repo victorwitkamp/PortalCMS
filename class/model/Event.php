@@ -10,52 +10,21 @@ class Event
         $result = EventMapper::getByDate($startDate, $endDate);
         $data = array();
         foreach ($result as $row) {
-            if ($row['status'] == 2) {
-                $data[] = array(
-                    'id'   => $row["id"],
-                    'title'   => $row["title"],
-                    'start'   => $row["start_event"],
-                    'end'   => $row["end_event"],
-                    'backgroundColor' => 'var(--danger)'
-                );
+            if ($row['status'] == 0) {
+                $color = 'var(--info)';
             }
             if ($row['status'] == 1) {
-                $data[] = array(
-                'id'   => $row["id"],
-                'title'   => $row["title"],
-                'start'   => $row["start_event"],
-                'end'   => $row["end_event"],
-                'backgroundColor' => 'var(--success)'
-
-                );
+                $color ='var(--success)';
             }
-            if ($row['status'] == 0) {
-                $data[] = array(
-                    'id'   => $row["id"],
-                    'title'   => $row["title"],
-                    'start'   => $row["start_event"],
-                    'end'   => $row["end_event"],
-                    'backgroundColor' => 'var(--info)'
-                );
+            if ($row['status'] == 2) {
+                $color = 'var(--danger)';
             }
-        }
-        $returndata = json_encode($data);
-        if (!empty($returndata)) {
-            echo $returndata;
-        }
-    }
-
-    public static function loadComingEvents()
-    {
-        $now = date("Y-m-d H:i:s");
-        $result = EventMapper::getEventsAfter($now);
-        $data = array();
-        foreach ($result as $row) {
             $data[] = array(
                 'id'   => $row["id"],
                 'title'   => $row["title"],
                 'start'   => $row["start_event"],
-                'end'   => $row["end_event"]
+                'end'   => $row["end_event"],
+                'backgroundColor' => $color
             );
         }
         $returndata = json_encode($data);
@@ -63,6 +32,24 @@ class Event
             echo $returndata;
         }
     }
+
+    // public static function loadComingEvents()
+    // {
+    //     $now = date("Y-m-d H:i:s");
+    //     $result = EventMapper::getEventsAfter($now);
+    //     foreach ($result as $row) {
+    //         $data[] = array(
+    //             'id'   => $row["id"],
+    //             'title'   => $row["title"],
+    //             'start'   => $row["start_event"],
+    //             'end'   => $row["end_event"]
+    //         );
+    //     }
+    //     $returndata = json_encode($data);
+    //     if (!empty($returndata)) {
+    //         echo $returndata;
+    //     }
+    // }
 
     public static function loadStaticComingEvents()
     {
