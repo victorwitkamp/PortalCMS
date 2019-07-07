@@ -1,7 +1,7 @@
 # PortalCMS
 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/victorwitkamp/portal/badges/quality-score.png?b=master&s=6b94a234857427ce86a5e8aa8e1b15202260758f)](https://scrutinizer-ci.com/g/victorwitkamp/portal/?branch=master)
-[![Build Status](https://scrutinizer-ci.com/g/victorwitkamp/portal/badges/build.png?b=master&s=b2598efca3c8ece2d5b6ed1356cb43bdfdffbc1f)](https://scrutinizer-ci.com/g/victorwitkamp/portal/build-status/master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/victorwitkamp/PortalCMS/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/victorwitkamp/PortalCMS/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/victorwitkamp/PortalCMS/badges/build.png?b=master)](https://scrutinizer-ci.com/g/victorwitkamp/PortalCMS/build-status/master)
 
 ## About
 
