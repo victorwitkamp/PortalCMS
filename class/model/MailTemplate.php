@@ -43,9 +43,27 @@ class MailTemplate
         // $type = Request::post('type', true);
         $type = 'member';
         $subject = Request::post('subject', true);
-        $body = htmlentities(Request::post('body', true));
+        $body = Request::post('body', false); //TODO: Possible issue!!! Needed for HTML markup in templates
         $status = 1;
         $return = self::writenew($type, $subject, $body, $status);
+        if ($return === false) {
+            Session::add('feedback_negative', "Nieuwe template aanmaken mislukt.");
+        } else {
+            Session::add('feedback_positive', "Template toegevoegd (ID = ".$return.')');
+            Redirect::to("mail/templates/");
+        }
+    }
+
+    public static function edit()
+    {
+        // $type = Request::post('type', true);
+        $type = 'member';
+        $id = Request::post('id', true);
+
+        $subject = Request::post('subject', true);
+        $body = Request::post('body', false); //TODO: Possible issue!!! Needed for HTML markup in templates
+        $status = 1;
+        $return = self::writeedit($id, $type, $subject, $body, $status);
         if ($return === false) {
             Session::add('feedback_negative', "Nieuwe template aanmaken mislukt.");
         } else {
@@ -63,6 +81,16 @@ class MailTemplate
         }
         $id = self::returnLastInsertedId();
         return $id;
+    }
+
+    public static function writeedit($id, $type, $subject, $body, $status)
+    {
+        $stmt = DB::conn()->prepare("UPDATE mail_templates SET id = ?, type = ?, subject = ?, body = ?, status = ?");
+        $stmt->execute([$id, $type, $subject, $body, $status]);
+        if (!$stmt->rowCount() > 0) {
+            return false;
+        }
+        return true;
     }
 
     public static function returnLastInsertedId()

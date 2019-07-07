@@ -5,7 +5,7 @@
  */
 class Event
 {
-    public static function loadEvents($startDate, $endDate)
+    public static function loadCalendarEvents($startDate, $endDate)
     {
         $result = EventMapper::getByDate($startDate, $endDate);
         $data = array();
@@ -33,25 +33,25 @@ class Event
         }
     }
 
-    // public static function loadComingEvents()
-    // {
-    //     $now = date("Y-m-d H:i:s");
-    //     $result = EventMapper::getEventsAfter($now);
-    //     foreach ($result as $row) {
-    //         $data[] = array(
-    //             'id'   => $row["id"],
-    //             'title'   => $row["title"],
-    //             'start'   => $row["start_event"],
-    //             'end'   => $row["end_event"]
-    //         );
-    //     }
-    //     $returndata = json_encode($data);
-    //     if (!empty($returndata)) {
-    //         echo $returndata;
-    //     }
-    // }
+    public static function loadComingEvents()
+    {
+        $now = date("Y-m-d H:i:s");
+        $result = EventMapper::getEventsAfter($now);
+        foreach ($result as $row) {
+            $data[] = array(
+                'id'   => $row["id"],
+                'title'   => $row["title"],
+                'start'   => $row["start_event"],
+                'end'   => $row["end_event"]
+            );
+        }
+        $returndata = json_encode($data);
+        if (!empty($returndata)) {
+            echo $returndata;
+        }
+    }
 
-    public static function loadStaticComingEvents()
+    public static function loadMailEvents()
     {
         $now = date("Y-m-d H:i:s");
         $result = EventMapper::getEventsAfter($now);

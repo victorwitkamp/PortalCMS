@@ -51,21 +51,23 @@ class Invoice
                 $contract = ContractMapper::getById($contract_id);
                 $factuurnummer = $year.$contract['bandcode'].$month;
                 $factuurdatum = Request::post('factuurdatum', true);
-                $vervaldatum = Request::post('vervaldatum', true);
+                // $vervaldatum = Request::post('vervaldatum', true);
                 if (InvoiceMapper::getByFactuurnummer($factuurnummer)) {
                     Session::add('feedback_negative', "Factuurnummer bestaat al.");
                     return Redirect::error();
                 }
-                if (!InvoiceMapper::create($contract_id, $factuurnummer, $year, $month, $factuurdatum, $vervaldatum)) {
+                // if (!InvoiceMapper::create($contract_id, $factuurnummer, $year, $month, $factuurdatum, $vervaldatum)) {
+                if (!InvoiceMapper::create($contract_id, $factuurnummer, $year, $month, $factuurdatum)) {
+
                     Session::add('feedback_negative', "Toevoegen van factuur mislukt.");
                     return Redirect::error();
                 }
                 $invoice = InvoiceMapper::getByFactuurnummer($factuurnummer);
                 if ($contract['kosten_ruimte'] > 0) {
-                    InvoiceItemMapper::create($invoice['id'], 'Kosten voor: huur '.Text::get('MONTH_'.$month), $contract['kosten_ruimte']);
+                    InvoiceItemMapper::create($invoice['id'], 'Huur oefenruimte - '.Text::get('MONTH_'.$month), $contract['kosten_ruimte']);
                 }
                 if ($contract['kosten_kast'] > 0) {
-                    InvoiceItemMapper::create($invoice['id'], 'Kosten voor: kast '.Text::get('MONTH_'.$month), $contract['kosten_kast']);
+                    InvoiceItemMapper::create($invoice['id'], 'Huur kast - '.Text::get('MONTH_'.$month), $contract['kosten_kast']);
                 }
             }
         }

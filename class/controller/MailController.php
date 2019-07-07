@@ -29,7 +29,7 @@ class MailController extends Controller
         }
         if (isset($_POST['uploadAttachment'])) {
             if (MailAttachment::uploadAttachment()) {
-                Session::add('feedback_positive', Text::get('FEEDBACK_AVATAR_UPLOAD_SUCCESSFUL'));
+                Session::add('feedback_positive', Text::get('MAIL_ATTACHMENT_UPLOAD_SUCCESSFUL'));
                 Redirect::to("mail/templates/edit.php?id=".Request::get('id'));
             } else {
                 Redirect::to("mail/templates/edit.php?id=".Request::get('id'));
@@ -37,6 +37,12 @@ class MailController extends Controller
         }
         if (isset($_POST['newtemplate'])) {
             MailTemplate::new();
+        }
+        if (isset($_POST['edittemplate'])) {
+            MailTemplate::edit();
+        }
+        if (isset($_POST['deleteMailTemplateAttachments'])) {
+            MailAttachment::deleteById();
         }
     }
 
@@ -62,7 +68,7 @@ class MailController extends Controller
     public static function sendEventMail($recipient)
     {
         $sender = Config::get('EMAIL_SMTP_USERNAME');
-        $body = Event::loadStaticComingEvents();
+        $body = Event::loadMailEvents();
         if (!empty($body)) {
             if (self::sendMail($sender, $recipient, 'Komende evenementen', $body)) {
                 return true;

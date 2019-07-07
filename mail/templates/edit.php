@@ -6,7 +6,7 @@ if (!Auth::checkPrivilege("mail-templates")) {
     die();
 }
 $template = MailTemplate::getTemplateById(Request::get('id'));
-$pageName = Text::get('TITLE_MAIL_TEMPLATES').': id = '.$template['id'];
+$pageName = Text::get('TITLE_EDIT_MAIL_TEMPLATE');
 
 require_once DIR_INCLUDES.'functions.php';
 require_once DIR_INCLUDES.'head.php';
@@ -19,6 +19,7 @@ selector: '#mytextarea',
 plugins : 'advlist autolink link image lists charmap print preview'
 });
 </script>
+
 </head>
 <body>
 <?php require DIR_INCLUDES.'nav.php'; ?>
@@ -33,35 +34,49 @@ plugins : 'advlist autolink link image lists charmap print preview'
             </div>
             <hr>
             <?php Alert::renderFeedbackMessages(); ?>
-            <h3>Bewerken</h3>
-            <div class="form-group row">
-            Attachments:<br>
-            <?php
-                $attachments = MailAttachmentMapper::getByTemplateId(Request::get('id'));
-                if (!empty($attachments)) {
-                foreach ($attachments as $attachment) {
-                    echo $attachment['path'].$attachment['name'].$attachment['extension'];
-                    echo '<br>';
-                }
-                }
-            ?>
 
-            </div>
-<div class="form-group row"><form method="post" enctype="multipart/form-data">
-                <label for="avatar_file">
-                Upload een bijlage:
-                </label>
-                <input type="file" name="attachment_file" required />
-                <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
-                <input type="submit" name="uploadAttachment" value="Bijlage uploaden" />
-            </form></div>
-
-            <div class="form-group row">
-                <textarea id="mytextarea" name="body" cols="50" rows="15" required>
-                <?php
-                echo htmlspecialchars($template['body']); ?>
-                </textarea>
-            </div>
+            <form method="post">
+                <div class="form-group">
+                    <label for="subject">Onderwerp</label>
+                    <input type="text" name="subject" class="form-control" id="subject" placeholder="Onderwerp" value="<?php echo $template['subject']; ?>">
+                </div>
+                <div class="form-group">
+                    <textarea id="mytextarea" name="body" cols="50" rows="15" required>
+                        <?php echo $template['body']; ?>
+                    </textarea>
+                </div>
+                <input type="hidden" name="id" value="<?php echo $template['id']; ?>">
+                <input type="submit" class="btn btn-primary" name="edittemplate"/>
+            </form>
+            <hr>
+            <form method="post">
+                <div class="form-group">
+                    <label for="currentattachments">Bijlage(s)</label>
+                    <?php
+                        $attachments = MailAttachmentMapper::getByTemplateId(Request::get('id'));
+                        if (!empty($attachments)) {
+                            echo '<ul id="currentattachments">';
+                            foreach ($attachments as $attachment) {
+                                echo '<li>';
+                                echo '<input type="checkbox" name="id[]" id="checkbox" value="'.$attachment['id'].'">';
+                                echo $attachment['path'].$attachment['name'].$attachment['extension'];
+                                echo '</li>';
+                            }
+                            echo '</ul>';
+                        }
+                    ?>
+                </div>
+                <input type="submit" class="btn btn-danger" name="deleteMailTemplateAttachments" value="Verwijderen">
+            </form>
+            <form method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                <label for="attachment_file">Upload een bijlage:</label>
+                    <input type="file" name="attachment_file" required />
+                    <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
+                    <input type="submit" name="uploadAttachment" value="Bijlage uploaden" />
+                </div>
+            </form>
+            <hr>
             <p>Beschikbare placeholders voor signup: username, sitename, activatelink, activateformlink, confcode</p>
             <p>Beschikbare placeholders voor password reset: USERNAME, RESETLINK, SITENAME</p>
         </div>

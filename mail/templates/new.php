@@ -5,7 +5,7 @@ if (!Auth::checkPrivilege("mail-templates")) {
     Redirect::permissionError();
     die();
 }
-$pageName = Text::get('TITLE_MAIL_TEMPLATES');
+$pageName = Text::get('TITLE_NEW_MAIL_TEMPLATE');
 
 require_once DIR_INCLUDES.'functions.php';
 require_once DIR_INCLUDES.'head.php';
@@ -14,7 +14,7 @@ PortalCMS_JS_headJS(); ?>
 <script src='https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=y6xawmw19w565wdi90wrtlow2ll6498emv0fozfrtrt7vb4y'></script>
 <script>
 tinymce.init({
-selector: '#mytextarea',
+selector: '#body',
 plugins : 'advlist autolink link image lists charmap print preview'
 });
 </script>
@@ -33,15 +33,19 @@ plugins : 'advlist autolink link image lists charmap print preview'
             </div>
             <hr>
             <?php Alert::renderFeedbackMessages(); ?>
-            <h3>Nieuw template</h3>
-            <div class="form-group row">
+
             <form method="post">
-            <textarea id="mytextarea" name="body" cols="50" rows="15" required>
-            </textarea>
-            <input type="text" name="subject"/>
-            <input type="submit" name="newtemplate"/>
+                <div class="form-group">
+                    <label for="subject">Onderwerp</label>
+                    <input type="text" name="subject" class="form-control" id="subject" placeholder="Onderwerp">
+                </div>
+                <div class="form-group">
+                    <label for="body">Onderwerp</label>
+                    <textarea class="form-control" id="body" name="body" cols="50" rows="15"></textarea>
+                </div>
+                <input type="submit" class="btn btn-primary" name="newtemplate"/>
             </form>
-            </div>
+            <hr>
             <p>Beschikbare placeholders voor signup: username, sitename, activatelink, activateformlink, confcode</p>
             <p>Beschikbare placeholders voor password reset: USERNAME, RESETLINK, SITENAME</p>
         </div>

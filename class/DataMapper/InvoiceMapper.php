@@ -69,13 +69,18 @@ class InvoiceMapper
         return $stmt->fetchAll();
     }
 
-    public static function create($contract_id, $factuurnummer, $year, $month, $factuurdatum, $vervaldatum)
+    public static function create($contract_id, $factuurnummer, $year, $month, $factuurdatum, $vervaldatum = NULL)
     {
         $stmt = DB::conn()->prepare(
             "INSERT INTO invoices(id, contract_id, factuurnummer, year, month, factuurdatum, vervaldatum)
             VALUES (NULL,?,?,?,?,?,?)"
         );
-        $stmt->execute([$contract_id, $factuurnummer, $year, $month, $factuurdatum, $vervaldatum]);
+        // $stmt->execute([$contract_id, $factuurnummer, $year, $month, $factuurdatum, $vervaldatum]);
+
+        // todo: iets met vervaldatum doen.
+        // voor nu dezelfde waarde als factuurdatum
+        $stmt->execute([$contract_id, $factuurnummer, $year, $month, $factuurdatum, $factuurdatum]);
+
         if (!$stmt) {
             return false;
         }

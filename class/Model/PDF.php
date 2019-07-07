@@ -114,17 +114,18 @@ class PDF
     public static function createInvoice($pdf, $invoice, $invoiceitems, $contract) {
         $pdf->SetTitle('Factuur '.$invoice['factuurnummer']);
         $pdf->SetXY(165, 15);
-        $pdf->Image('logo.jpg', '', '', 25, 25, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
+        // $logo = $_SERVER["DOCUMENT_ROOT"].'/rental/invoices/beuklogo_1866x1866.png';
+        $pdf->Image('logo_new_280px.jpg', '', '', 25, 25, '', '', 'T', false, 300, '', false, false, 0, false, false, false);
 
         $pdf->SetXY(120, 60);
         $pdf->Multicell(0, 2, "Poppodium de Beuk\n1e Barendrechtseweg 53-55\n2992XE, Barendrecht\n\nKVK: 40341794\nIBAN: NL19RABO1017541353", $border = 0, $align = 'R');
 
         $pdf->SetXY(20, 70);
         $pdf->Write(0, $contract['bandleider_naam']." (".$contract['band_naam'].")\n", '', 0, 'L', true, 0, false, false, 0);
-        $pdf->Ln();
+        // $pdf->Ln();
         $pdf->SetX(20);
         $pdf->Write(0, $contract['bandleider_adres']."\n", '', 0, 'L', true, 0, false, false, 0);
-        $pdf->Ln();
+        // $pdf->Ln();
         $pdf->SetX(20);
         $postcodewoonplaats = $contract['bandleider_postcode']." ".$contract['bandleider_woonplaats'];
         $pdf->Write(0, $postcodewoonplaats, '', 0, 'L', true, 0, false, false, 0);
@@ -140,11 +141,12 @@ class PDF
         $pdf->Write(0, $factuurnummertekst, '', 0, 'L', true, 0, false, false, 0);
 
         $pdf->SetXY(120, 120);
-        $factuurtekstrechts = 'Factuurdatum: '.$invoice['factuurdatum'];
-        $factuurtekstrechts2 = 'Vervaldatum: '.$invoice['vervaldatum'];
+        $newDate = date("d-m-Y", strtotime($invoice['factuurdatum']));
+        $factuurtekstrechts = 'Factuurdatum: '.$newDate;
+        // $factuurtekstrechts2 = 'Vervaldatum: '.$invoice['vervaldatum'];
         $pdf->Write(0, $factuurtekstrechts, '', 0, 'R', true, 0, false, false, 0);
-        $pdf->Ln();
-        $pdf->Write(0, $factuurtekstrechts2, '', 0, 'R', true, 0, false, false, 0);
+        // $pdf->Ln();
+        // $pdf->Write(0, $factuurtekstrechts2, '', 0, 'R', true, 0, false, false, 0);
 
 
         $pdf->SetXY(20, 140);
@@ -160,14 +162,19 @@ class PDF
         foreach ($invoiceitems as $invoiceitem) {
             $pdf->SetX(20);
             $pdf->Write(0, $invoiceitem['name'], '', 0, 'L', false, 0, false, false, 0);
+            $pdf->SetX(140);
+            $pdf->Write(0, '€', '', 0, 'L', false, 0, false, false, 0);
+
             $pdf->SetX(150);
-            $pdf->Write(0, $invoiceitem['price'], '', 0, 'L', false, 0, false, false, 0);
+            $pdf->Write(0, $invoiceitem['price'], '', 0, 'R', false, 0, false, false, 0);
             $pdf->Ln();
             $totaalbedrag = $totaalbedrag + $invoiceitem['price'];
         }
         $pdf->Ln();
         $pdf->SetX(20);
-        $pdf->Write(0, 'Totaal: &euro;', '', 0, 'L', false, 0, false, false, 0);
+        $pdf->Write(0, 'Totaal:', '', 0, 'L', false, 0, false, false, 0);
+        $pdf->SetX(140);
+        $pdf->Write(0, '€', '', 0, 'L', false, 0, false, false, 0);
         $pdf->SetX(150);
         $pdf->Write(0, $totaalbedrag, '', 0, 'R', false, 0, false, false, 0);
         $pdf->Ln();
@@ -186,6 +193,13 @@ class PDF
         $pdf->Write(0, $gelieve3, '', 0, 'L', true, 0, false, false, 0);
         $pdf->SetX(20);
         $pdf->Write(0, $gelieve4, '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Ln();
+        $pdf->Ln();
+        $pdf->SetX(20);
+        $pdf->Write(0, 'Met vriendelijke groet,', '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Ln();
+        $pdf->SetX(20);
+        $pdf->Write(0, 'De penningmeester van Poppodium de Beuk.', '', 0, 'L', true, 0, false, false, 0);
         return $pdf;
     }
 
