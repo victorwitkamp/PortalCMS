@@ -40,9 +40,9 @@ class MailSchedule
 
     public static function sendbyid()
     {
+        $count_success = 0;
+        $count_failed = 0;
         if (!empty($_POST['id'])) {
-            $count_success = 0;
-            $count_failed= 0;
             foreach ($_POST['id'] as $id) {
                 $row = MailScheduleMapper::getById($id);
                 if ($row['status'] !== '1') {
@@ -82,7 +82,6 @@ class MailSchedule
         } else {
             Session::add('feedback_negative', $count_success.' bericht(en) succesvol verstuurd. ');
         }
-
         Redirect::mail();
     }
 
@@ -117,7 +116,8 @@ class MailSchedule
                     Session::add('feedback_positive', "Totaal aantal berichten aangemaakt:".$count_created);
                     Redirect::mail();
                 } else {
-                    Session::add('feedback_negative', "Nieuwe email aanmaken mislukt.");
+                    Session::add('feedback_warning', "Totaal aantal berichten aangemaakt: ".$count_created.". Berichten met fout: ".$count_failed);
+                    Redirect::mail();
                 }
             }
         }
@@ -128,10 +128,10 @@ class MailSchedule
         $member = Member::getMemberById($memberid);
         $afzender = SiteSetting::getStaticSiteSetting('site_name');
         $variables = array(
-            "voornaam"=>$member['voornaam'],
-            "achternaam"=>$member['achternaam'],
-            "iban"=>$member['iban'],
-            "afzender"=>$afzender
+            "voornaam" => $member['voornaam'],
+            "achternaam" => $member['achternaam'],
+            "iban" => $member['iban'],
+            "afzender" => $afzender
         );
         foreach ($variables as $key => $value) {
             $templatebody = str_replace('{'.strtoupper($key).'}', $value, $templatebody);
