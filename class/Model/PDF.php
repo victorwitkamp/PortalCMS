@@ -224,6 +224,7 @@ class PDF
             Session::add('feedback_negative', "Bestand bestaat al.");
             return false;
         }
+        ob_end_clean();
         $pdf->Output($_SERVER["DOCUMENT_ROOT"].'content/invoices/'.$invoice['factuurnummer'].'.pdf', 'F');
         return true;
     }
