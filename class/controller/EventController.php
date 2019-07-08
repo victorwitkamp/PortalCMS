@@ -11,13 +11,13 @@ class EventController extends Controller
         parent::__construct();
 
         if (isset($_POST['addEvent'])) {
-            if (Event::addEvent()) {
+            if (Event::create()) {
                 Redirect::to("events/");
             }
         }
 
         if (isset($_POST['updateEvent'])) {
-            if (Event::updateEvent()) {
+            if (Event::update()) {
                 Redirect::to("events/");
             }
         }

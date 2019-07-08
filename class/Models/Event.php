@@ -8,13 +8,12 @@ class Event
     public static function loadCalendarEvents($startDate, $endDate)
     {
         $result = EventMapper::getByDate($startDate, $endDate);
-        $data = array();
         foreach ($result as $row) {
             if ($row['status'] == 0) {
                 $color = 'var(--info)';
             }
             if ($row['status'] == 1) {
-                $color ='var(--success)';
+                $color = 'var(--success)';
             }
             if ($row['status'] == 2) {
                 $color = 'var(--danger)';
@@ -69,7 +68,7 @@ class Event
         return false;
     }
 
-    public static function addEvent()
+    public static function create()
     {
         $title = Request::post('title', true);
         $start_event = Request::post('start_event', true);
@@ -95,7 +94,7 @@ class Event
         return true;
     }
 
-    public static function updateEvent()
+    public static function update()
     {
         $event_id = Request::post('id', true);
         $title = Request::post('title', true);
@@ -130,7 +129,5 @@ class Event
         Session::add('feedback_negative', 'Verwijderen van evenement mislukt.');
         return false;
     }
-
-
 
 }
