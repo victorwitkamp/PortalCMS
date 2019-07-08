@@ -11,7 +11,7 @@ use PHPMailer\PHPMailer\Exception;
 class MailSender
 {
     /**
-     * @var mixed variable to collect errors 
+     * @var mixed variable to collect errors
      */
     public $error;
 
@@ -26,7 +26,7 @@ class MailSender
      * @param  $body string full mail body text
      * @return bool the success status of the according mail sending method
      */
-    public function sendMail($recipient_email, $from_email, $from_name, $subject, $body, $attachments = null)
+    public function sendMail($recipient_email, $from_email, $from_name, $subject, $body, $attachments = NULL)
     {
         return $this->sendMailWithPHPMailer(
             $recipient_email, $from_email, $from_name, $subject, $body, $attachments

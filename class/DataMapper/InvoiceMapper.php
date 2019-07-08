@@ -69,7 +69,7 @@ class InvoiceMapper
         return $stmt->fetchAll();
     }
 
-    public static function create($contract_id, $factuurnummer, $year, $month, $factuurdatum, $vervaldatum = null)
+    public static function create($contract_id, $factuurnummer, $year, $month, $factuurdatum, $vervaldatum = NULL)
     {
         $stmt = DB::conn()->prepare(
             "INSERT INTO invoices(id, contract_id, factuurnummer, year, month, factuurdatum, vervaldatum)

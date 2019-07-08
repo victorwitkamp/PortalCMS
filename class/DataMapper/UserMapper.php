@@ -227,7 +227,7 @@ class UserMapper
                     WHERE user_id = :user_id
                     LIMIT 1"
         );
-        $stmt->execute(array(':user_remember_me_token' => null, ':user_id' => $user_id));
+        $stmt->execute(array(':user_remember_me_token' => NULL, ':user_id' => $user_id));
         if (!$stmt->rowCount() == 1) {
             return false;
         }

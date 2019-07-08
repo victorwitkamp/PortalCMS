@@ -2,15 +2,13 @@
 
 class MailTemplate
 {
-
-
     public static function new()
     {
         // $type = Request::post('type', true);
         $type = 'member';
         $subject = Request::post('subject', true);
         $body = Request::post('body', false); //TODO: Possible issue!!! Needed for HTML markup in templates
-        $status MailTemplateMapper
+        $status = 1;
         $return = MailTemplateMapper::create($type, $subject, $body, $status);
         if ($return === false) {
             Session::add('feedback_negative', "Nieuwe template aanmaken mislukt.");

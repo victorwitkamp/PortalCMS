@@ -45,9 +45,9 @@ class Alert
             }
         }
 
-        Session::set('feedback_positive', null);
+        Session::set('feedback_positive', NULL);
         // unset($_SESSION['feedback_positive']);
-        Session::set('feedback_warning', null);
-        Session::set('feedback_negative', null);
+        Session::set('feedback_warning', NULL);
+        Session::set('feedback_negative', NULL);
     }
 }

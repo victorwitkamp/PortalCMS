@@ -13,7 +13,7 @@ class Invoice
         $contract = ContractMapper::getById($invoice['contract_id']);
         $recipient_email = $contract['bandleider_email'];
 
-        $create = MailScheduleMapper::create($sender_email, $recipient_email, null, $subject, $body);
+        $create = MailScheduleMapper::create($sender_email, $recipient_email, NULL, $subject, $body);
         if (!$create) {
             Session::add('feedback_negative', "Nieuwe email aanmaken mislukt.");
             return false;
@@ -119,7 +119,7 @@ class Invoice
         return Redirect::to("rental/invoices/index.php");
     }
 
-    public static function render($id = null)
+    public static function render($id = NULL)
     {
         if (empty($id)) {
             return false;

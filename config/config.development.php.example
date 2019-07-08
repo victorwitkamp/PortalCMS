@@ -1,11 +1,11 @@
 <?php
 /**
  * Configuration for DEVELOPMENT environment
- * 
+ *
  * Returns the full configuration.
  * This is used by the core/Config class.
  */
- 
+
 return array(
 
     /**
@@ -80,7 +80,7 @@ return array(
      * @see php.net/manual/en/function.setcookie.php
      *
      * COOKIE_DOMAIN: The domain where the cookie is valid for. Usually this does not work with "localhost",
-     * ".localhost", "127.0.0.1", or ".127.0.0.1". If so, leave it as empty string, false or null.
+     * ".localhost", "127.0.0.1", or ".127.0.0.1". If so, leave it as empty string, false or NULL.
      * When using real domains make sure you have a dot (!) in front of the domain, like ".mydomain.com". This is
      * strange, but explained here:
      * @see http://stackoverflow.com/questions/2285010/php-setcookie-domain
@@ -135,7 +135,7 @@ return array(
      * what you do, then you can skip this section. Otherwise please set EMAIL_USE_SMTP to true
      * and fill in your SMTP provider account data.
      */
-     
+
     'EMAIL_USE_SMTP' => true,
     'EMAIL_SMTP_DEBUG' => 0,                                // 0 = off, 1 = commands, 2 = commands and data, 3 = , 4 = .
     'EMAIL_SMTP_HOST' => 'localhost',

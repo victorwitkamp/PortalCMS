@@ -1,4 +1,4 @@
-ALTER TABLE mail_templates ADD name varchar(32) default null after type;
+ALTER TABLE mail_templates ADD name varchar(32) default NULL after type;
 
 INSERT INTO mail_templates (id, type, name, subject, body) VALUES (NULL,
             'system',

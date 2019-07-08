@@ -13,4 +13,4 @@ CREATE TABLE IF NOT EXISTS invoices (
 )
 
 
-ALTER TABLE invoices add mail_id int default null after status
+ALTER TABLE invoices add mail_id int default NULL after status

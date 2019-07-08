@@ -1,1 +1,1 @@
-ALTER TABLE mail_schedule ADD attachment text default null after body;
+ALTER TABLE mail_schedule ADD attachment text default NULL after body;

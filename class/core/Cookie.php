@@ -45,7 +45,7 @@ class Cookie
      *
      * @param string $user_id
      */
-    public static function delete($user_id = null)
+    public static function delete($user_id = NULL)
     {
         // is $user_id was set, then clear remember_me token in database
         if (isset($user_id)) {
