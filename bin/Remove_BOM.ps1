@@ -1,0 +1,1 @@
+get-childitem "..\" -recurse | where {$_.extension -eq ".php"} | ForEach-Object { Remove-UTF8BOM $_.FullName -WhatIf -Verbose}

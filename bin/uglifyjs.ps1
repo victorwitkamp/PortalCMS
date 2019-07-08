@@ -1,4 +1,4 @@
- $arrayInput = ("..\includes")
+ $arrayInput = ("..\public\includes")
   Write-Host "--------------------------"
   Write-Host "JS"
   Write-Host "--------------------------"
@@ -15,7 +15,7 @@
     }
  }
 
- $arrayInput2 = ("..\includes")
+ $arrayInput2 = ("..\public\includes")
   Write-Host "--------------------------"
   Write-Host "CSS"
   Write-Host "--------------------------"
