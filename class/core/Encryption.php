@@ -2,7 +2,6 @@
 
 /**
  * Encryption and Decryption Class
- *
  */
 class Encryption
 {
@@ -41,9 +40,10 @@ class Encryption
      */
     public static function encrypt($plain)
     {
-        if (!function_exists('openssl_cipher_iv_length') ||
-            !function_exists('openssl_random_pseudo_bytes') ||
-            !function_exists('openssl_encrypt')) {
+        if (!function_exists('openssl_cipher_iv_length') 
+            || !function_exists('openssl_random_pseudo_bytes') 
+            || !function_exists('openssl_encrypt')
+        ) {
 
             throw new Exception('Encryption function doesn\'t exist');
         }
@@ -82,8 +82,9 @@ class Encryption
             throw new Exception('The String to decrypt can\'t be empty');
         }
 
-        if (!function_exists('openssl_cipher_iv_length') ||
-            !function_exists('openssl_decrypt')) {
+        if (!function_exists('openssl_cipher_iv_length') 
+            || !function_exists('openssl_decrypt')
+        ) {
 
             throw new Exception('Encryption function doesn\'t exist');
         }
@@ -115,10 +116,10 @@ class Encryption
      *
      * @access private
      * @static static method
-     * @param string $hmac The hmac from the ciphertext being decrypted.
-     * @param string $compare The comparison hmac.
+     * @param  string $hmac    The hmac from the ciphertext being decrypted.
+     * @param  string $compare The comparison hmac.
      * @return bool
-     * @see https://github.com/sarciszewski/php-future/blob/bd6c91fb924b2b35a3e4f4074a642868bd051baf/src/Security.php#L36
+     * @see    https://github.com/sarciszewski/php-future/blob/bd6c91fb924b2b35a3e4f4074a642868bd051baf/src/Security.php#L36
      */
     private static function hashEquals($hmac, $compare)
     {

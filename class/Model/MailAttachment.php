@@ -3,11 +3,12 @@
 class MailAttachment
 {
 
-    public static function _mime_content_type($filename) {
-        $realpath = realpath( $filename );
-return finfo_file( finfo_open( FILEINFO_MIME_TYPE ), $realpath );
+    public static function _mime_content_type($filename)
+    {
+        $realpath = realpath($filename);
+        return finfo_file(finfo_open(FILEINFO_MIME_TYPE), $realpath);
 
-}
+    }
 
     /**
      * Perform the upload of the avatar
@@ -51,10 +52,10 @@ return finfo_file( finfo_open( FILEINFO_MIME_TYPE ), $realpath );
     }
 
         /**
-     * Checks if the avatar folder exists and is writable
-     *
-     * @return bool success status
-     */
+         * Checks if the avatar folder exists and is writable
+         *
+         * @return bool success status
+         */
     public static function isAttachmentFolderWritable()
     {
         $path_attachment = Config::get('PATH_ATTACHMENTS');
@@ -71,11 +72,11 @@ return finfo_file( finfo_open( FILEINFO_MIME_TYPE ), $realpath );
     }
 
         /**
-     * Validates the image
-     * TODO totally decouple
-     *
-     * @return bool
-     */
+         * Validates the image
+         * TODO totally decouple
+         *
+         * @return bool
+         */
     public static function validateAttachmentFile()
     {
         if (!isset($_FILES['attachment_file'])) {

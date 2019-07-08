@@ -10,21 +10,23 @@ use PHPMailer\PHPMailer\Exception;
  */
 class MailSender
 {
-    /** @var mixed variable to collect errors */
+    /**
+     * @var mixed variable to collect errors 
+     */
     public $error;
 
     /**
      * The main mail sending method, this simply calls a certain mail sending method depending on which mail provider
      * you've selected in the application's config.
      *
-     * @param $recipient_email string email
-     * @param $from_email string sender's email
-     * @param $from_name string sender's name
-     * @param $subject string subject
-     * @param $body string full mail body text
+     * @param  $recipient_email string email
+     * @param  $from_email string sender's email
+     * @param  $from_name string sender's name
+     * @param  $subject string subject
+     * @param  $body string full mail body text
      * @return bool the success status of the according mail sending method
      */
-    public function sendMail($recipient_email, $from_email, $from_name, $subject, $body, $attachments)
+    public function sendMail($recipient_email, $from_email, $from_name, $subject, $body, $attachments = null)
     {
         return $this->sendMailWithPHPMailer(
             $recipient_email, $from_email, $from_name, $subject, $body, $attachments

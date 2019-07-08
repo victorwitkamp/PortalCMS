@@ -69,7 +69,7 @@ class InvoiceMapper
         return $stmt->fetchAll();
     }
 
-    public static function create($contract_id, $factuurnummer, $year, $month, $factuurdatum, $vervaldatum = NULL)
+    public static function create($contract_id, $factuurnummer, $year, $month, $factuurdatum, $vervaldatum = null)
     {
         $stmt = DB::conn()->prepare(
             "INSERT INTO invoices(id, contract_id, factuurnummer, year, month, factuurdatum, vervaldatum)
@@ -87,7 +87,8 @@ class InvoiceMapper
         return true;
     }
 
-    public static function updateMailId($invoice_id, $mail_id) {
+    public static function updateMailId($invoice_id, $mail_id)
+    {
         $stmt = DB::conn()->prepare(
             "UPDATE invoices SET mail_id = ? WHERE id = ?"
         );
@@ -98,7 +99,8 @@ class InvoiceMapper
         return true;
     }
 
-    public static function updateStatus($invoice_id, $status) {
+    public static function updateStatus($invoice_id, $status)
+    {
         $stmt = DB::conn()->prepare(
             "UPDATE invoices SET status = ? WHERE id = ?"
         );

@@ -109,8 +109,10 @@ class LoginController extends Controller
      */
     public static function logout()
     {
-        Login::logout();
-        return Redirect::login();
+        // if (Login::logout()) {
+                Login::Logout();
+
+        // }
     }
 
 }

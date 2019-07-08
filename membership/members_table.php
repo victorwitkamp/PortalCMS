@@ -33,13 +33,20 @@
             <td><?php 
 
  
-    if ($row ['status'] === '0') { echo '0. Nieuw'; }
-    if ($row ['status'] === '1') { echo '1. Incasso opdracht verzonden'; }
-    if ($row ['status'] === '11') { echo '1.1 Niet verstuurd: rekeningnummer onjuist'; }
-    if ($row ['status'] === '2') { echo '2. Betaling per incasso gelukt'; }
-    if ($row ['status'] === '21') { echo '2.1 Incasso mislukt: rekeningnummer onjuist'; }
-    if ($row ['status'] === '3') { echo '3'; };
-    if ($row ['status'] === '4') { echo '4'; }; ?>
+            if ($row ['status'] === '0') { echo '0. Nieuw'; 
+            }
+            if ($row ['status'] === '1') { echo '1. Incasso opdracht verzonden'; 
+            }
+            if ($row ['status'] === '11') { echo '1.1 Niet verstuurd: rekeningnummer onjuist'; 
+            }
+            if ($row ['status'] === '2') { echo '2. Betaling per incasso gelukt'; 
+            }
+            if ($row ['status'] === '21') { echo '2.1 Incasso mislukt: rekeningnummer onjuist'; 
+            }
+            if ($row ['status'] === '3') { echo '3'; 
+            };
+            if ($row ['status'] === '4') { echo '4'; 
+            }; ?>
             </td>
             </tr>
             <?php

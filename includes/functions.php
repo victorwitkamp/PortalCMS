@@ -11,53 +11,45 @@
 function PortalCMS_JS_tempusdominus()
 {
     PortalCMS_JS_moment();
-    echo '<script src="//cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
-    ';
+    echo '<script src="//cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>';
 }
 
 function PortalCMS_CSS_tempusdominus()
 {
-    echo '<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
-    ';
+    echo '<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />';
 }
 
 function PortalCMS_JS_JQuery_Simple_validator()
 {
     echo '<script src="/includes/js/jquery-simple-validator.nl.js"></script>
-    <link rel="stylesheet" type="text/css" href="/includes/css/jquery-simple-validator.css">
-    ';
+    <link rel="stylesheet" type="text/css" href="/includes/css/jquery-simple-validator.css">';
 }
 
 function PortalCMS_CSS_dataTables()
 {
     echo '<!-- <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"> -->
-    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
-    ';
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">';
 }
 
 function PortalCMS_JS_dataTables()
 {
     echo '<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script src="//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-    ';
+    <script src="//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>';
 }
 
 function PortalCMS_JS_Init_dataTables()
 {
-    echo '<script src="/includes/js/init.datatables.js"  class="init"></script>
-    ';
+    echo '<script src="/includes/js/init.datatables.js"  class="init"></script>';
 }
 
 function PortalCMS_JS_Datepicker_membership()
 {
-    echo '<script src="/includes/js/datepicker_membership.js"></script>
-    ';
+    echo '<script src="/includes/js/datepicker_membership.js"></script>';
 }
 
 function PortalCMS_JS_Datepicker_event()
 {
-    echo '<script src="/includes/js/datepicker_event.js"></script>
-    ';
+    echo '<script src="/includes/js/datepicker_event.js"></script>';
 }
 
 function displayHeadCSS()

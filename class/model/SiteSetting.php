@@ -164,12 +164,11 @@ class SiteSetting
      * TROUBLESHOOTING: You don't see the new image ? Press F5 or CTRL-F5 to refresh browser cache.
      *
      * @param string $source_image The location to the original raw image.
-     * @param string $destination The location to save the new image.
-     * @param int $final_width The desired width of the new image
-     * @param int $final_height The desired height of the new image.
-     * @param int $quality The quality of the JPG to produce 1 - 100
-     *
-     * TODO currently we just allow .jpg
+     * @param string $destination  The location to save the new image.
+     * @param int    $final_width  The desired width of the new image
+     * @param int    $final_height The desired height of the new image.
+     * @param int    $quality      The quality of the JPG to produce 1 - 100
+     *                             TODO currently we just allow .jpgTODO currently we just allow .jpg
      *
      * @return bool success state
      */

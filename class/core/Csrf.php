@@ -1,7 +1,6 @@
 <?php
 /**
  * Cross Site Request Forgery Class
- *
  */
 
 class Csrf

@@ -44,7 +44,7 @@ PortalCMS_JS_headJS();
                     if ($stmt->rowCount() > 0) {
                         echo '<tbody>';
                         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        echo '<tr>
+                            echo '<tr>
                             <td>'.$row['user_id'].'</td>
                             <td>'.$row['user_name'].'</td>
                             <td>'.$row['user_email'].'</td>

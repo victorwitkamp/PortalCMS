@@ -91,7 +91,8 @@ class Password
                 $user_password_current
             ),
             $user_password_hash
-        )) {
+        )
+        ) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CURRENT_INCORRECT'));
             return false;
         } else if (empty($user_password_new) || empty($user_password_repeat)) {

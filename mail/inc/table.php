@@ -1,6 +1,6 @@
 <form method="post" name="myform" action="">
 
-<table id="example" class="table table-sm" style="width:100%">
+<table id="example" class="table table-sm" style="width:100%" data-page-length='25'>
     <thead class="thead-dark">
         <tr>
             <th class="text-center" ><input type="checkbox" id="selectall"/></th>
@@ -8,7 +8,11 @@
             <th>#</th>
             <th>recipient_email</th>
             <th>subject</th>
-            <?php if ($pageType === 'history') { echo '<th>Verzonden op</th>'; } ?>
+            <?php
+            if ($pageType === 'history') {
+                echo '<th>Verzonden op</th>';
+            }
+            ?>
             <th>status</th>
         </tr>
 
@@ -20,11 +24,7 @@
         <tr>
             <td class="text-center" >
                 <?php
-                // if ($row['status'] === '1') {
                     echo '<input type="checkbox" name="id[]" id="checkbox" value="'.$row['id'].'"/>';
-                // } else {
-                    // echo '<input type="checkbox" disabled>';
-                // }
                 ?>
             </td>
             <td>
@@ -35,7 +35,8 @@
             <td><?php echo $row['id']; ?></td>
             <td><?php echo $row['recipient_email']; ?></td>
             <td><?php echo $row['subject']; ?></td>
-            <?php if ($pageType === 'history') { echo '<td>'.$row['DateSent'].'</td>'; } ?>
+            <?php if ($pageType === 'history') { echo '<td>'.$row['DateSent'].'</td>';
+            } ?>
             <td>
                 <?php
                 if ($row['status'] === '1') {
@@ -69,8 +70,6 @@ if ($pageType === 'index') {
 </form>
 <script>
   $( '#selectall' ).click( function () {
-    // $( '#example input[type="checkbox"]' ).prop('checked', this.checked)
     $( '#example #checkbox' ).prop('checked', this.checked)
-
 })
 </script>

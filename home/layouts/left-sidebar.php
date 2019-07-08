@@ -11,10 +11,10 @@
         include 'widgets/comingEvents/comingEvents.php';
     }
     ?><hr><?php
-        if (SiteSetting::getStaticSiteSetting('WidgetDebug') == '1') {
-        include 'widgets/debug/debug.php';
-    }
-    ?>
+if (SiteSetting::getStaticSiteSetting('WidgetDebug') == '1') {
+    include 'widgets/debug/debug.php';
+}
+?>
 </div>
 <div class="col-sm-8">
     <?php

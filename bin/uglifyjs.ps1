@@ -1,4 +1,4 @@
- $arrayInput = ("C:\inetpub\portal\includes")
+ $arrayInput = ("..\includes")
   Write-Host "--------------------------"
   Write-Host "JS"
   Write-Host "--------------------------"
@@ -15,7 +15,7 @@
     }
  }
 
- $arrayInput2 = ("C:\inetpub\portal\includes")
+ $arrayInput2 = ("..\includes")
   Write-Host "--------------------------"
   Write-Host "CSS"
   Write-Host "--------------------------"

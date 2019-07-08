@@ -3,7 +3,7 @@
 /**
  * Class : Page (Page.class.php)
  * Details : Page Class.
-*/
+ */
 
 class Page
 {

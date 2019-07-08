@@ -56,9 +56,9 @@ class PasswordReset
     /**
      * Set password reset token in database (for DEFAULT user accounts)
      *
-     * @param string $user_name username
+     * @param string $user_name           username
      * @param string $password_reset_hash password reset hash
-     * @param int $timestamp timestamp
+     * @param int    $timestamp           timestamp
      *
      * @return bool success status
      */
@@ -84,15 +84,15 @@ class PasswordReset
     /**
      * Send the password reset mail
      *
-     * @param string $user_name username
+     * @param string $user_name           username
      * @param string $password_reset_hash password reset hash
-     * @param string $user_email user email
+     * @param string $user_email          user email
      *
      * @return bool success status
      */
     public static function sendPasswordResetMail($user_name, $password_reset_hash, $user_email)
     {
-        $Mail = MailTemplate::getSystemTemplateByName('ResetPassword');
+        $Mail = MailTemplateMapper::getSystemTemplateByName('ResetPassword');
         $MailText = $Mail['body'];
         $resetlink = Config::get('URL').
                         Config::get('EMAIL_PASSWORD_RESET_URL').
@@ -121,12 +121,12 @@ class PasswordReset
 
     /**
      * Verifies the password reset request via the verification hash token (that's only valid for one hour)
-     * @param string $user_name Username
-     * @param string $verification_code Hash token
+     *
+     * @param  string $user_name         Username
+     * @param  string $verification_code Hash token
      * @return bool Success status
      */
     public static function verifyPasswordReset($user_name, $verification_code)
-    // public static function verifyPasswordReset($verification_code)
     {
         // check if user-provided username + verification code combination exists
         $sql = "SELECT user_id, user_password_reset_timestamp
@@ -136,7 +136,8 @@ class PasswordReset
                        AND user_provider_type = :user_provider_type
                  LIMIT 1";
         $stmt = DB::conn()->prepare($sql);
-        $stmt->execute(array(
+        $stmt->execute(
+            array(
             ':password_reset_hash' => $verification_code,
             ':user_name' => $user_name,
             ':user_provider_type' => 'DEFAULT')
@@ -164,7 +165,7 @@ class PasswordReset
     /**
      * Writes the new password to the database
      *
-     * @param string $user_name username
+     * @param string $user_name           username
      * @param string $user_password_hash
      * @param string $password_reset_hash
      *

@@ -2,10 +2,12 @@
 
 class MailSchedule
 {
-    public static function getScheduled() {
+    public static function getScheduled()
+    {
         return MailScheduleMapper::getScheduled();
     }
-    public static function getHistory() {
+    public static function getHistory()
+    {
         return MailScheduleMapper::getHistory();
     }
     public static function exists($id)
@@ -32,13 +34,15 @@ class MailSchedule
         }
         Session::add('feedback_positive', "Er zijn ".$deleted." berichten verwijderd.");
 
-        // Redirect::mail();
+        Redirect::mail();
     }
 
 
     public static function sendbyid()
     {
         if (!empty($_POST['id'])) {
+            $count_success = 0;
+            $count_failed= 0;
             foreach ($_POST['id'] as $id) {
                 $row = MailScheduleMapper::getById($id);
                 if ($row['status'] !== '1') {
@@ -55,16 +59,30 @@ class MailSchedule
                         if (MailController::sendMail($sender, $recipient, $title, $body, $attachments)) {
                             MailScheduleMapper::updateStatus($id, '2');
                             MailScheduleMapper::updateDateSent($id);
+                            $count_success += 1;
                         } else {
                             MailScheduleMapper::updateStatus($id, '3');
                             MailScheduleMapper::setErrorMessageById($id, MailController::$error);
+                            $count_failed += 1;
                         }
                     } else {
-                        Session::add('feedback_negative', "Mail incompleet");
+                        MailScheduleMapper::updateStatus($id, '3');
+                        MailScheduleMapper::setErrorMessageById($id, "Mail incompleet");
+                        $count_failed += 1;
                     }
                 }
             }
         }
+        if ($count_failed > 0) {
+            if ($count_success > 0) {
+                Session::add('feedback_warning', $count_success.' bericht(en) succesvol verstuurd. '.$count_failed.' bericht(en) mislukt.');
+            } else {
+                Session::add('feedback_negative', $count_failed.' berichte(n) mislukt.');
+            }
+        } else {
+            Session::add('feedback_negative', $count_success.' bericht(en) succesvol verstuurd. ');
+        }
+
         Redirect::mail();
     }
 
@@ -73,7 +91,7 @@ class MailSchedule
         $sender_email = Config::get('EMAIL_SMTP_USERNAME');
         $type = Request::post('type', true);
         $templateId = Request::post('templateid', true);
-        $template = MailTemplate::getTemplateById($templateId);
+        $template = MailTemplateMapper::getTemplateById($templateId);
         $count_created = 0;
         $count_failed = 0;
         if ($type === 'member') {

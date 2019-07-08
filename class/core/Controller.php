@@ -8,7 +8,11 @@
  */
 class Controller
 {
-    /** @var View View The view object */
+    /**
+     * 
+     *
+     * @var View View The view object 
+     */
     public $View;
 
     /**

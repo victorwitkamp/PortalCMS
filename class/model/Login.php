@@ -158,13 +158,7 @@ class Login
         }
 
         // if hash of provided password does NOT match the hash in the database: +1 failed-login counter
-        if (!password_verify(
-                base64_encode(
-                    $user_password
-                ),
-                $result->user_password_hash
-            )
-        ) {
+        if (!password_verify(base64_encode($user_password), $result->user_password_hash)) {
             UserMapper::setFailedLoginByUsername($result->user_name);
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
             return false;
@@ -206,19 +200,24 @@ class Login
      */
     public static function logout()
     {
+        if (Login::isUserLoggedIn()) {
+
         $user_id = Session::get('user_id');
 
-        UserMapper::clearRememberMeToken($user_id);
-        // if (UserMapper::clearRememberMeToken($user_id)) {
+        if (!empty($user_id)) {
+            UserMapper::clearRememberMeToken($user_id);
             if (Cookie::delete()) {
                 if (Session::destroy()) {
                     Session::init();
                     Session::add('feedback_positive', Text::get('FEEDBACK_LOGOUT_SUCCESSFUL'));
-                    return true;
+                    Redirect::login();
                 }
             }
-        // }
-        return false;
+        }
+        } else {
+            Session::add('feedback_positive', Text::get('FEEDBACK_LOGOUT_INVALID'));
+            Redirect::login();
+        }
     }
 
     /**

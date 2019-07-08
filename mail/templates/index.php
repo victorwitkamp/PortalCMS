@@ -38,7 +38,7 @@ PortalCMS_JS_headJS(); ?>
                 </thead>
                 <tbody>
                     <?php
-                    foreach (MailTemplate::getTemplates() as $row) {
+                    foreach (MailTemplateMapper::getTemplates() as $row) {
                         echo '<tr>';
                         echo '<td><a href="edit.php?id='.$row['id'].'" title="Gegevens wijzigen" class="btn btn-warning btn-sm">
             <span class="fa fa-edit"></span></a></td>';

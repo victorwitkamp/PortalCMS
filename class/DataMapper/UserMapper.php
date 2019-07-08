@@ -235,12 +235,12 @@ class UserMapper
     }
 
         /**
-     * Gets the user's data
-     *
-     * @param $username string User's name
-     *
-     * @return mixed Returns false if user does not exist, returns object with user's data when user exists
-     */
+         * Gets the user's data
+         *
+         * @param $username string User's name
+         *
+         * @return mixed Returns false if user does not exist, returns object with user's data when user exists
+         */
     public static function getByUsername($username)
     {
         $stmt = DB::conn()->prepare(

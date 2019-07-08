@@ -13,11 +13,12 @@ class View
      */
     public static function renderFooter()
     {
-        require DIR_INCLUDES.'footer.php';
+        include DIR_INCLUDES.'footer.php';
     }
 
     /**
      * Renders pure JSON to the browser, useful for API construction
+     *
      * @param $data
      */
     public function renderJSON($data)

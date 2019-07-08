@@ -20,9 +20,9 @@
     if (SiteSetting::getStaticSiteSetting('WidgetComingEvents') == '1') {
         include 'widgets/comingEvents/comingEvents.php';
     }
-        ?><hr><?php
-            if (SiteSetting::getStaticSiteSetting('WidgetDebug') == '1') {
-        include 'widgets/debug/debug.php';
-    }
-    ?>
+    ?><hr><?php
+if (SiteSetting::getStaticSiteSetting('WidgetDebug') == '1') {
+    include 'widgets/debug/debug.php';
+}
+?>
 </div>

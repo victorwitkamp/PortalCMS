@@ -60,7 +60,8 @@ class Cookie
             Config::get('COOKIE_DOMAIN'),
             Config::get('COOKIE_SECURE'),
             Config::get('COOKIE_HTTP')
-        )) {
+        )
+        ) {
             return true;
         }
         return false;

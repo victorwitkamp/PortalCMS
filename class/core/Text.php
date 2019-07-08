@@ -21,7 +21,7 @@ class Text
         if (!self::$texts) {
             // self::$texts = require('../application/config/texts.php');
 
-            self::$texts = require DIR_ROOT.'config/texts.php';
+            self::$texts = include DIR_ROOT.'config/texts.php';
         }
 
         // check if array key exists

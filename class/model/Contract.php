@@ -37,7 +37,8 @@ class Contract
             Request::post('contract_ingangsdatum', true),
             Request::post('contract_einddatumm', true),
             Request::post('contract_datum', true)
-        )) {
+        )
+        ) {
             Session::add('feedback_negative', "Toevoegen van contract mislukt.");
             Redirect::to("rental/contracts/");
         } else {
@@ -80,7 +81,7 @@ class Contract
             Request::post('contract_ingangsdatum', true),
             Request::post('contract_einddatumm', true),
             Request::post('contract_datum', true)
-            )
+        )
         ) {
             Session::add('feedback_negative', "Wijzigen van contract mislukt.");
             Redirect::to("rental/contracts/");

@@ -5,7 +5,7 @@ if (!Auth::checkPrivilege("mail-templates")) {
     Redirect::permissionError();
     die();
 }
-$template = MailTemplate::getTemplateById(Request::get('id'));
+$template = MailTemplateMapper::getTemplateById(Request::get('id'));
 $pageName = Text::get('TITLE_EDIT_MAIL_TEMPLATE');
 
 require_once DIR_INCLUDES.'functions.php';
@@ -54,16 +54,16 @@ plugins : 'advlist autolink link image lists charmap print preview'
                     <label for="currentattachments">Bijlage(s)</label>
                     <?php
                         $attachments = MailAttachmentMapper::getByTemplateId(Request::get('id'));
-                        if (!empty($attachments)) {
-                            echo '<ul id="currentattachments">';
-                            foreach ($attachments as $attachment) {
-                                echo '<li>';
-                                echo '<input type="checkbox" name="id[]" id="checkbox" value="'.$attachment['id'].'">';
-                                echo $attachment['path'].$attachment['name'].$attachment['extension'];
-                                echo '</li>';
-                            }
-                            echo '</ul>';
+                    if (!empty($attachments)) {
+                        echo '<ul id="currentattachments">';
+                        foreach ($attachments as $attachment) {
+                            echo '<li>';
+                            echo '<input type="checkbox" name="id[]" id="checkbox" value="'.$attachment['id'].'">';
+                            echo $attachment['path'].$attachment['name'].$attachment['extension'];
+                            echo '</li>';
                         }
+                        echo '</ul>';
+                    }
                     ?>
                 </div>
                 <input type="submit" class="btn btn-danger" name="deleteMailTemplateAttachments" value="Verwijderen">

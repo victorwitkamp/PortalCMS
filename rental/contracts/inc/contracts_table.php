@@ -8,7 +8,7 @@
     </thead>
     <tbody>
     <?php
-        foreach ($contracts as $contract) { ?>
+    foreach ($contracts as $contract) { ?>
             <tr>
                 <td><a href="view.php?id=<?php echo $contract['id']; ?>"><?php echo $contract['band_naam']; ?></a></td>
                 <td><?php echo $contract['bandcode']; ?></td>

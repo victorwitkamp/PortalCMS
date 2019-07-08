@@ -88,23 +88,23 @@ PortalCMS_JS_headJS(); ?>
                 </tr>
                 <?php
                     $invoiceitems = InvoiceItemMapper::getByInvoiceId($invoice['id']);
-                    foreach ($invoiceitems as $invoiceitem) {
-                ?>
+                foreach ($invoiceitems as $invoiceitem) {
+                    ?>
                 <tr>
                     <td>
-                        <?php if ($invoice['status'] === '0') { ?>
+                    <?php if ($invoice['status'] === '0') { ?>
                         <form method="post">
                             <input type="hidden" name="invoiceid" value="<?php echo $invoice['id']; ?>">
                             <input type="hidden" name="id" value="<?php echo $invoiceitem['id']; ?>">
                             <button type="submit" name="deleteInvoiceItem" onclick="return confirm('Weet je zeker dat je <?php echo $invoiceitem['name']; ?> wilt verwijderen?')" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></button>
                         </form>
-                        <?php } ?>
+                    <?php } ?>
                     </td>
                     <td>
-                        <?php echo $invoiceitem['name']; ?>
+                    <?php echo $invoiceitem['name']; ?>
                     </td>
                     <td>
-                        <?php echo '&euro; '.$invoiceitem['price']; ?>
+                    <?php echo '&euro; '.$invoiceitem['price']; ?>
                     </td>
                 </tr>
                 <?php } ?>

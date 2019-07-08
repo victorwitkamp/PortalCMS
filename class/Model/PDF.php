@@ -2,7 +2,8 @@
 
 class PDF
 {
-    public static function configPDF() {
+    public static function configPDF()
+    {
         define('K_TCPDF_EXTERNAL_CONFIG', true);
 
         /**
@@ -111,7 +112,8 @@ class PDF
         return $pdf;
     }
 
-    public static function createInvoice($pdf, $invoice, $invoiceitems, $contract) {
+    public static function createInvoice($pdf, $invoice, $invoiceitems, $contract)
+    {
         $pdf->SetTitle('Factuur '.$invoice['factuurnummer']);
         $pdf->SetXY(165, 15);
         // $logo = $_SERVER["DOCUMENT_ROOT"].'/rental/invoices/beuklogo_1866x1866.png';

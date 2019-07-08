@@ -26,7 +26,8 @@ if (!$Role) {
             <div class="container">
                 <div class="row mt-5">
                     <h1><?php echo Text::get('TITLE_ROLE'); ?>: <?php
-                    if (!empty($Role['role_name'])) { echo $Role['role_name'].' (rol)'; }?></h1>
+                    if (!empty($Role['role_name'])) { echo $Role['role_name'].' (rol)'; 
+                    }?></h1>
                 </div>
 
                 <?php Alert::renderFeedbackMessages();
@@ -132,7 +133,7 @@ if (!$Role) {
 
                 // if ($Role) {
 
-            // } ?>
+                // } ?>
 
             </div>
         </div>
