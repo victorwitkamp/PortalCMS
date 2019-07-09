@@ -74,10 +74,7 @@ function PortalCMS_CSS_loadingAnimation()
 
 function PortalCMS_CSS_calendar()
 {
-    echo '<link rel="stylesheet" type="text/css" href="/dist/@fullcalendar/core/main.min.css"/>
-    <link rel="stylesheet" type="text/css" href="/dist/@fullcalendar/list/main.min.css"/>
-    <link rel="stylesheet" type="text/css" href="/dist/@fullcalendar/bootstrap/main.min.css"/>
-    <link rel="stylesheet" type="text/css" href="/dist/@fullcalendar/daygrid/main.min.css"/>';
+    echo '<link rel="stylesheet" type="text/css" href="/dist/merged/@fullcalendar/fullcalendar.min.css"/>';
 }
 
 function PortalCMS_JS_headJS()
@@ -101,11 +98,6 @@ function PortalCMS_JS_moment()
 function PortalCMS_JS_calendar()
 {
     PortalCMS_JS_moment();
-    echo '<script src="/dist/@fullcalendar/core/main.min.js"></script>
-    <script src="/dist/@fullcalendar/list/main.min.js"></script>
-    <script src="/dist/@fullcalendar/bootstrap/main.min.js"></script>
-    <script src="/dist/@fullcalendar/daygrid/main.min.js"></script>
-    <script src="/dist/@fullcalendar/interaction/main.min.js"></script>
-    <script src="/dist/@fullcalendar/core/locales/nl.js"></script>
+    echo '<script src="/dist/merged/@fullcalendar/fullcalendar.min.js"></script>
     <script src="/includes/js/calendar.js"></script>';
 }

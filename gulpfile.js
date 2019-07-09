@@ -35,6 +35,21 @@ function css() {
         .pipe(dest('public/dist/'))
 }
 
+function fullcalendar_css() {
+    return src([
+            'node_modules/@fullcalendar/core/main.min.css',
+            'node_modules/@fullcalendar/list/main.min.css',
+            'node_modules/@fullcalendar/bootstrap/main.min.css',
+            'node_modules/@fullcalendar/daygrid/main.min.css'
+        ], {
+            base: 'node_modules/'
+        })
+        // .pipe(less())
+        .pipe(concat('fullcalendar.min.css'))
+        .pipe(minifyCSS())
+        .pipe(dest('public/dist/merged/@fullcalendar/'))
+}
+
 
 function js() {
     return src([
@@ -42,18 +57,27 @@ function js() {
         'node_modules/moment/locale/nl.js',
         'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
         'node_modules/jquery/dist/jquery.min.js',
-        'node_modules/@fullcalendar/core/main.min.js',
-        'node_modules/@fullcalendar/list/main.min.js',
-        'node_modules/@fullcalendar/bootstrap/main.min.js',
-        'node_modules/@fullcalendar/daygrid/main.min.js',
-        'node_modules/@fullcalendar/interaction/main.min.js',
-        'node_modules/@fullcalendar/core/locales/nl.js',
         'node_modules/cookieconsent/build/cookieconsent.min.js',
         'node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js'
     ], {
         base: 'node_modules/'
     })
     .pipe(dest("public/dist/"))
+}
+
+function fullcalendar_js() {
+    return src([
+            'node_modules/@fullcalendar/core/main.min.js',
+            'node_modules/@fullcalendar/list/main.min.js',
+            'node_modules/@fullcalendar/bootstrap/main.min.js',
+            'node_modules/@fullcalendar/daygrid/main.min.js',
+            'node_modules/@fullcalendar/interaction/main.min.js',
+            'node_modules/@fullcalendar/core/locales/nl.js',
+        ], {
+            base: 'node_modules/'
+        })
+        .pipe(concat('fullcalendar.min.js'))
+        .pipe(dest("public/dist/merged/@fullcalendar/"));
 }
 
 function woff() {
@@ -80,4 +104,4 @@ exports.css = css;
 exports.woff = woff;
 exports.woff2 = woff2;
 exports.ttf = ttf;
-exports.default = parallel(js, css, woff, woff2, ttf);
+exports.default = parallel(js, css, fullcalendar_js, fullcalendar_css, woff, woff2, ttf);
