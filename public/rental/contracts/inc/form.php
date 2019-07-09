@@ -1,28 +1,14 @@
-<form method="post">
-<!-- <form method="post" validate=true> -->
+<form method="post" validate=true>
     <div class="row">
         <div class="col-md-12">
             <div class="form-group row">
                 <div class="col-md-8">
                     <label class="col-form-label">Huurder</label>
-                    <?php
-                        echo '<input type="text" name="band_naam" class="form-control form-control-sm" placeholder="" value="';
-                        if ($loadData) {
-                            echo $contract['band_naam'];
-                        }
-                        echo '" required>';
-                    ?>
+                    <input type="text" name="band_naam" class="form-control form-control-sm" placeholder="" value="<?php if ($loadData) { echo $contract['band_naam']; } ?>" required>
                 </div>
                 <div class="col-md-4">
                     <label class="col-form-label">bandcode</label>
-                    <?php
-                        echo '<input type="text" name="bandcode" class="form-control form-control-sm" placeholder="" value="';
-                        if ($loadData) {
-                            echo $contract['bandcode'];
-                        }
-                        echo '" required>';
-                    ?>
-
+                    <input type="text" name="bandcode" class="form-control form-control-sm" placeholder="" value="<?php if ($loadData) { echo $contract['bandcode']; } ?>" required>
                 </div>
             </div>
             <div class="form-group">
@@ -35,13 +21,7 @@
                             <div class="input-group-text">
                                 <i class="fas fa-euro-sign"></i>
                             </div>
-<?php
-echo '<input type="text" name="kosten_ruimte" class="form-control form-control-sm" placeholder="" value="';
-if ($loadData) {
-    echo $contract['kosten_ruimte'];
-}
-echo '">';
-?></div>
+                            <input type="text" name="kosten_ruimte" class="form-control form-control-sm" placeholder="" value="<?php if ($loadData) { echo $contract['kosten_ruimte']; ?>"></div>
                     </div>
                 </div>
 

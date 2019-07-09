@@ -44,8 +44,7 @@ $(function () {
     });
 });
 </script>
-<script src="/includes/js/jquery-simple-validator.nl.js"></script>
-<link rel="stylesheet" type="text/css" href="/includes/css/jquery-simple-validator.css">
+<?php //PortalCMS_JS_JQuery_Simple_validator(); ?>
 </head>
 <body>
     <?php require DIR_INCLUDES."nav.php"; ?>

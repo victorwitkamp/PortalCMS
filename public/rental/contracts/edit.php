@@ -1,6 +1,5 @@
 <?php
 $loadData = true;
-$pageType = 'edit';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Auth::checkAuthentication();
 if (!Auth::checkPrivilege("rental-contracts")) {
@@ -50,8 +49,7 @@ $(function () {
     });
 });
 </script>
-<script src="../includes/js/jquery-simple-validator.nl.js"></script>
-<link rel="stylesheet" type="text/css" href="/includes/css/jquery-simple-validator.css">
+<?php //PortalCMS_JS_JQuery_Simple_validator(); ?>
 </head>
 <body>
 <?php require DIR_INCLUDES.'nav.php'; ?>
@@ -59,7 +57,7 @@ $(function () {
     <div class="content">
         <div class="container">
             <div class="row mt-5">
-            <h3><?php echo $pageName ?></h3>
+                <h3><?php echo $pageName ?></h3>
             </div>
         </div>
         <div class="container">

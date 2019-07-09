@@ -34,7 +34,7 @@
         "use strict";
 
         function r(t) {
-            return t.endsWith("kb") ? 1024 * parseInt(t) : t.endsWith("mb") ? 1024 * parseInt(t) * 1024 : t.endsWith("gb") ? 1024 * parseInt(t) * 1024 * 1024 : void 0
+            return t.endsWith("kb") ? 1024 * parseInt(t) : t.endsWith("mb") ? 1024 * parseInt(t) * 1024 : t.endsWith("gb") ? 1024 * parseInt(t) * 1024 * 1024 : undefined
         }
         Object.defineProperty(a, "__esModule", {
             value: !0
@@ -68,7 +68,7 @@
                     a = $(t.input).attr("data-file-types").split(","),
                     r = !1;
                 return Object.values(e).forEach(function (t) {
-                    "object" != (void 0 === t ? "undefined" : n(t)) || (r = a.find(function (e) {
+                    "object" != (undefined === t ? "undefined" : n(t)) || (r = a.find(function (e) {
                         return t.type == e
                     }))
                 }), r
@@ -78,7 +78,7 @@
                     a = $(t.input).attr("data-file-max-size").toLowerCase(),
                     u = !0;
                 return i = r(a), Object.values(e).forEach(function (t) {
-                    "object" == (void 0 === t ? "undefined" : n(t)) && t.size > i && (u = !1)
+                    "object" == (undefined === t ? "undefined" : n(t)) && t.size > i && (u = !1)
                 }), u
             },
             fileMinSize: function (t) {
@@ -86,7 +86,7 @@
                     a = $(t.input).attr("data-file-min-size").toLowerCase(),
                     u = !0;
                 return i = r(a), Object.values(e).forEach(function (t) {
-                    "object" == (void 0 === t ? "undefined" : n(t)) && t.size < i && (u = !1)
+                    "object" == (undefined === t ? "undefined" : n(t)) && t.size < i && (u = !1)
                 }), u
             },
             isNumber: function (t) {
@@ -114,7 +114,7 @@
         "use strict";
         Object.defineProperty(a, "__esModule", {
             value: !0
-        }), a.validateForms = void 0;
+        }), a.validateForms = undefined;
         var r = t("./validations"),
             n = (a.validateForms = function () {
                 $("form[validate=true]").toArray().forEach(function (t, e) {
@@ -180,7 +180,7 @@
             },
             l = function (t) {
                 var e = $(t).attr("data-uid") + "-error",
-                    a = void 0;
+                    a = undefined;
                 return 0 == $("#" + e).length ? ((a = document.createElement("div")).setAttribute("id", e), a.className = "error-field", $(t).after(a)) : a = document.getElementById(e), a
             }
     }, {
