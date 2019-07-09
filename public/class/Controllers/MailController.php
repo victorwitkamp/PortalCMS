@@ -27,23 +27,6 @@ class MailController extends Controller
         if (isset($_POST['deleteScheduledMailById'])) {
             MailSchedule::deleteById();
         }
-        if (isset($_POST['uploadAttachment'])) {
-            if (MailAttachment::uploadAttachment()) {
-                Session::add('feedback_positive', Text::get('MAIL_ATTACHMENT_UPLOAD_SUCCESSFUL'));
-                Redirect::to("mail/templates/edit.php?id=".Request::get('id'));
-            } else {
-                Redirect::to("mail/templates/edit.php?id=".Request::get('id'));
-            }
-        }
-        if (isset($_POST['newtemplate'])) {
-            MailTemplate::new();
-        }
-        if (isset($_POST['edittemplate'])) {
-            MailTemplate::edit();
-        }
-        if (isset($_POST['deleteMailTemplateAttachments'])) {
-            MailAttachment::deleteById();
-        }
     }
 
     public static function sendMail($sender, $recipient, $subject, $body, $attachments)

@@ -54,7 +54,7 @@ spl_autoload_register(
         $sources = array(
             DIR_CLASS."Core/$class.php",
             DIR_CLASS."Models/$class.php",
-            DIR_CLASS."controller/$class.php",
+            DIR_CLASS."Controllers/$class.php",
             DIR_CLASS."DataMapper/$class.php"
         );
         foreach ($sources as $source) {
@@ -71,6 +71,7 @@ $EventController = new EventController;
 $InvoiceController = new InvoiceController;
 $login = new LoginController;
 $MailController = new MailController;
+$MailTemplateController = new MailTemplateController;
 $MembershipController = new MembershipController;
 $PageController = new PageController;
 $PasswordResetController = new PasswordResetController;
