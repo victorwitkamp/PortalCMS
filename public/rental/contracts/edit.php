@@ -62,7 +62,7 @@ $(function () {
         </div>
         <div class="container">
         <?php Alert::renderFeedbackMessages(); ?>
-        <?php require 'inc/form.php'; ?>
+        <?php require 'inc/form_edit.php'; ?>
         </div>
     </div>
 </main>

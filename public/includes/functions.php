@@ -21,8 +21,8 @@ function PortalCMS_CSS_tempusdominus()
 
 function PortalCMS_JS_JQuery_Simple_validator()
 {
-    echo '<script src="/includes/js/jquery-simple-validator.nl.js"></script>
-    <link rel="stylesheet" type="text/css" href="/includes/css/jquery-simple-validator.css">';
+    // echo '<script src="/includes/js/jquery-simple-validator.nl.js"></script>
+    // <link rel="stylesheet" type="text/css" href="/includes/css/jquery-simple-validator.css">';
 }
 
 function PortalCMS_CSS_dataTables()
