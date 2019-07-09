@@ -15,6 +15,13 @@
     "bootstrap": "4.3.1",
     "bootswatch": "4",
     "jquery": "3.4.0",
-    "moment": "2.24.0"
+    "moment": "2.24.0",
+    "cookieconsent": "3.1.1",
+    "tempusdominus-bootstrap-4": "5.0.1"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-csso": "^3.0.1"
   }
 }

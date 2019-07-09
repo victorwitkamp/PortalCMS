@@ -11,12 +11,12 @@
 function PortalCMS_JS_tempusdominus()
 {
     PortalCMS_JS_moment();
-    echo '<script src="//cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>';
+    echo '<script src="/dist/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js"></script>';
 }
 
 function PortalCMS_CSS_tempusdominus()
 {
-    echo '<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />';
+    echo '<link rel="stylesheet" type="text/css" href="/dist/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css"gu>';
 }
 
 function PortalCMS_JS_JQuery_Simple_validator()
@@ -27,8 +27,7 @@ function PortalCMS_JS_JQuery_Simple_validator()
 
 function PortalCMS_CSS_dataTables()
 {
-    echo '<!-- <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"> -->
-    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">';
+    echo '<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">';
 }
 
 function PortalCMS_JS_dataTables()
@@ -56,9 +55,9 @@ function displayHeadCSS()
 {
     $theme = SiteSetting::getStaticSiteSetting('site_theme');
     echo '<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">';
-    echo '<link rel="stylesheet" type="text/css" href="/node_modules/@fortawesome/fontawesome-free/css/all.min.css">';
-    echo '<link rel="stylesheet" type="text/css" href="/node_modules/bootswatch/dist/'.$theme.'/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+    echo '<link rel="stylesheet" type="text/css" href="/dist/@fortawesome/fontawesome-free/css/all.min.css">';
+    echo '<link rel="stylesheet" type="text/css" href="/dist/bootswatch/dist/'.$theme.'/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/dist/cookieconsent/build/cookieconsent.min.css" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" type="text/css" href="/includes/css/style.css">';
 }
@@ -75,10 +74,10 @@ function PortalCMS_CSS_loadingAnimation()
 
 function PortalCMS_CSS_calendar()
 {
-    echo '<link rel="stylesheet" type="text/css" href="/node_modules/@fullcalendar/core/main.min.css"/>
-    <link rel="stylesheet" type="text/css" href="/node_modules/@fullcalendar/list/main.min.css"/>
-    <link rel="stylesheet" type="text/css" href="/node_modules/@fullcalendar/bootstrap/main.min.css"/>
-    <link rel="stylesheet" type="text/css" href="/node_modules/@fullcalendar/daygrid/main.min.css"/>';
+    echo '<link rel="stylesheet" type="text/css" href="/dist/@fullcalendar/core/main.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/dist/@fullcalendar/list/main.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/dist/@fullcalendar/bootstrap/main.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/dist/@fullcalendar/daygrid/main.min.css"/>';
 }
 
 function PortalCMS_JS_headJS()
@@ -87,25 +86,26 @@ function PortalCMS_JS_headJS()
     <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>';
+    <script src="/dist/jquery/dist/jquery.min.js"></script>
+    <script src="/dist/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/dist/cookieconsent/build/cookieconsent.min.js"></script>
+    <script src="/includes/js/cookieconsent.init.js"></script>';
 }
 
 function PortalCMS_JS_moment()
 {
-    echo '<script src="/node_modules/moment/min/moment.min.js"></script>
-    <script src="/node_modules/moment/locale/nl.js"></script>';
+    echo '<script src="/dist/moment/min/moment.min.js"></script>
+    <script src="/dist/moment/locale/nl.js"></script>';
 }
 
 function PortalCMS_JS_calendar()
 {
     PortalCMS_JS_moment();
-    echo '<script src="/node_modules/@fullcalendar/core/main.min.js"></script>
-    <script src="/node_modules/@fullcalendar/list/main.min.js"></script>
-    <script src="/node_modules/@fullcalendar/bootstrap/main.min.js"></script>
-    <script src="/node_modules/@fullcalendar/daygrid/main.min.js"></script>
-    <script src="/node_modules/@fullcalendar/interaction/main.min.js"></script>
-    <script src="/node_modules/@fullcalendar/core/locales/nl.js"></script>
+    echo '<script src="/dist/@fullcalendar/core/main.min.js"></script>
+    <script src="/dist/@fullcalendar/list/main.min.js"></script>
+    <script src="/dist/@fullcalendar/bootstrap/main.min.js"></script>
+    <script src="/dist/@fullcalendar/daygrid/main.min.js"></script>
+    <script src="/dist/@fullcalendar/interaction/main.min.js"></script>
+    <script src="/dist/@fullcalendar/core/locales/nl.js"></script>
     <script src="/includes/js/calendar.js"></script>';
 }

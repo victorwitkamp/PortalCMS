@@ -57,6 +57,9 @@ This may work on other configurations as well.
 
 ## Installation
 
+npm install --global gulp-cli
+
+
 Install node_modules by running "yarn" from the project folder.
 Install composer requirements by running "composer update".
 

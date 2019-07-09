@@ -10,13 +10,13 @@ class PDF
          * Installation path (/var/www/tcpdf/).
          * By default it is automatically calculated but you can also set it as a fixed string to improve performances.
          */
-        define('K_PATH_MAIN', $_SERVER["DOCUMENT_ROOT"].'/vendor/tecnickcom/tcpdf/');
+        define('K_PATH_MAIN', DIR_VENDOR . 'tecnickcom/tcpdf/');
 
         /**
          * URL path to tcpdf installation folder (http://localhost/tcpdf/).
          * By default it is automatically set but you can also set it as a fixed string to improve performances.
          */
-        define('K_PATH_URL', Config::get('URL').'vendor/tecnickcom/tcpdf/');
+        define('K_PATH_URL', DIR_VENDOR . 'tecnickcom/tcpdf/');
 
         /**
          * Path for PDF fonts.
