@@ -21,22 +21,13 @@ class SiteSetting
         return true;
     }
 
-    static function setSiteSetting($value, $setting)
+    public static function setSiteSetting($value, $setting)
     {
         $stmt = DB::conn()->prepare("UPDATE site_settings SET string_value = ? WHERE setting = ?");
         if (!$stmt->execute([$value, $setting])) {
             return false;
         }
         return true;
-    }
-
-    function getSiteSetting($setting)
-    {
-        $stmt = DB::conn()->prepare("SELECT * FROM site_settings WHERE setting = ?");
-        $stmt->execute([$setting]);
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            return $row['string_value'];
-        }
     }
 
     public static function getStaticSiteSetting($setting)
@@ -129,7 +120,7 @@ class SiteSetting
         // get the image width, height and mime type
         $image_proportions = getimagesize($_FILES['logo_file']['tmp_name']);
         // if input file too small
-        if ($image_proportions[0] < Config::get('AVATAR_SIZE') or $image_proportions[1] < Config::get('AVATAR_SIZE')) {
+        if ($image_proportions[0] < Config::get('AVATAR_SIZE') || $image_proportions[1] < Config::get('AVATAR_SIZE')) {
             Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_UPLOAD_TOO_SMALL'));
             return false;
         }

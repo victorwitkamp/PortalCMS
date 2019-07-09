@@ -21,14 +21,13 @@ class Invoice
         $createdMailId = MailScheduleMapper::lastInsertedId();
 
         $attachmentPath = "content/invoices/";
-        $attachmentName = $invoice['factuurnummer'];
         $attachmentExtension = ".pdf";
         $attachmentName = $invoice['factuurnummer'];
         MailAttachmentMapper::create($createdMailId, $attachmentPath, $attachmentName, $attachmentExtension);
 
         InvoiceMapper::updateMailId($invoiceId, $createdMailId);
         InvoiceMapper::updateStatus($invoiceId, 2);
-        Session::add('feedback_positive', "Email toegevoegd (ID = ".$createdMailId.')');
+        Session::add('feedback_positive', 'Email toegevoegd (ID = '.$createdMailId.')');
         Redirect::mail();
         return true;
     }

@@ -80,7 +80,7 @@ class Login
 
         $user_id = Encryption::decrypt($user_id);
 
-        if ($hash !== hash('sha256', $user_id.':'.$token) or empty($token) or empty($user_id)) {
+        if ($hash !== hash('sha256', $user_id.':'.$token) || empty($token) || empty($user_id)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
             return false;
         }

@@ -9,14 +9,12 @@ class Event
     {
         $result = EventMapper::getByDate($startDate, $endDate);
         foreach ($result as $row) {
-            if ($row['status'] == 0) {
-                $color = 'var(--info)';
-            }
-            if ($row['status'] == 1) {
+            if ($row['status'] === '1') {
                 $color = 'var(--success)';
-            }
-            if ($row['status'] == 2) {
+            } else if ($row['status'] === '2') {
                 $color = 'var(--danger)';
+            } else {
+                $color = 'var(--info)';
             }
             $data[] = array(
                 'id'   => $row["id"],
@@ -26,8 +24,8 @@ class Event
                 'backgroundColor' => $color
             );
         }
-        $returndata = json_encode($data);
-        if (!empty($returndata)) {
+        if (!empty($data)) {
+            $returndata = json_encode($data);
             echo $returndata;
         }
     }
