@@ -9,7 +9,7 @@
 /public/.scrutenizer.yml
 /public/codelingo.yaml
 
-/vendor/
+/public/vendor/
 composer.lock
 package-lock.json
 yarn-error.log

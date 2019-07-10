@@ -8,6 +8,14 @@ class Member
         $stmt->execute([]);
         return $stmt->fetchAll();
     }
+
+    public static function getMembersWithValidEmail()
+    {
+        $stmt = DB::conn()->prepare("SELECT * FROM members WHERE emailadres IS NOT NULL ORDER BY id");
+        $stmt->execute([]);
+        return $stmt->fetchAll();
+    }
+
     public static function doesMemberIdExist($memberId)
     {
         $stmt = DB::conn()->prepare("SELECT id FROM members WHERE id = ? LIMIT 1");
