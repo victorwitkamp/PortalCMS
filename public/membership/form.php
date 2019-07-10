@@ -130,7 +130,7 @@
                     <option value="1" <?php if ($pageType === 'edit') { if ($row ['vrijwilliger'] === '1') { echo 'selected'; } } ?>>Ja</option>
                     <option value="0" <?php if ($pageType === 'edit') { if ($row ['vrijwilliger'] === '0') { echo 'selected'; } } ?>>Nee</option>
                 </select>
-            </div>   
+            </div>
         </div>
 
         <div class="card">
@@ -185,6 +185,7 @@
             <option value="contant" <?php if ($pageType === 'edit') { if ($row ['betalingswijze'] === 'contant') { echo 'selected'; } } ?>>Contant</option>
             <option value="pin" <?php if ($pageType === 'edit') { if ($row ['betalingswijze'] === 'pin') { echo 'selected'; } } ?>>Pin</option>
             <option value="incasso" <?php if ($pageType === 'edit') { if ($row ['betalingswijze'] === 'incasso') { echo 'selected'; } } ?>>Automatische incasso</option>
+            <option value="gratisbestuur" <?php if ($pageType === 'edit') { if ($row ['betalingswijze'] === 'gratisbestuur') { echo 'selected'; } } ?>>Gratis (bestuur)</option>
         </select>
     </div>
 </div>

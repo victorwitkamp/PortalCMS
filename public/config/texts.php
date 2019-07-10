@@ -25,7 +25,7 @@ return array(
     "MONTH_04" => "April",
     "MONTH_05" => "Mei",
     "MONTH_06" => "Juni",
-    "MONTH_07" => "July",
+    "MONTH_07" => "Juli",
     "MONTH_08" => "Augustus",
     "MONTH_09" => "September",
     "MONTH_10" => "Oktober",

@@ -6,12 +6,21 @@ class Invoice
     {
         $sender_email = Config::get('EMAIL_SMTP_USERNAME');
         $invoiceId = Request::post('id', true);
-        $subject = 'Factuur: '.$invoice['factuurnummer'];
-        $body = 'Beste huurder,<br><br>Er is een nieuwe factuur voor u klaargezet. U treft de nieuwe factuur, met factuurnummer '.$invoice['factuurnummer'].', in de bijlage van dit e-mailbericht.<br><br>Met vriendelijke groet,<br><br>Poppodium de Beuk';
+
 
         $invoice = InvoiceMapper::getById($invoiceId);
         $contract = ContractMapper::getById($invoice['contract_id']);
         $recipient_email = $contract['bandleider_email'];
+        if ($invoice['month'] < '10') {
+            $maand = Text::get('MONTH_0'.$invoice['month']);
+        } else {
+            $maand = Text::get('MONTH_'.$invoice['month']);
+        }
+
+        $template = MailTemplateMapper::getSystemTemplateByName('InvoiceMail');
+        $subject = MailTemplate::replaceholder('MAAND', $maand, $template['subject']);
+
+        $body = MailTemplate::replaceholder('FACTUURNUMMER', $invoice['factuurnummer'], $template['body']);
 
         $create = MailScheduleMapper::create($sender_email, $recipient_email, NULL, $subject, $body);
         if (!$create) {

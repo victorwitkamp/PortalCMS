@@ -123,7 +123,11 @@ class PDF
         $pdf->Multicell(0, 2, "Poppodium de Beuk\n1e Barendrechtseweg 53-55\n2992XE, Barendrecht\n\nKVK: 40341794\nIBAN: NL19RABO1017541353", $border = 0, $align = 'R');
 
         $pdf->SetXY(20, 70);
-        $pdf->Write(0, $contract['bandleider_naam']." (".$contract['band_naam'].")\n", '', 0, 'L', true, 0, false, false, 0);
+        $pdf->SetFont('dejavusans', 'B', 11, '', true);
+        $pdf->Write(0, $contract['band_naam']."\n", '', 0, 'L', true, 0, false, false, 0);
+        $pdf->SetFont('dejavusans', '', 11, '', true);
+        $pdf->SetX(20);
+        $pdf->Write(0, 'T.a.v. '.$contract['bandleider_naam']."\n", '', 0, 'L', true, 0, false, false, 0);
         // $pdf->Ln();
         $pdf->SetX(20);
         $pdf->Write(0, $contract['bandleider_adres']."\n", '', 0, 'L', true, 0, false, false, 0);
@@ -164,7 +168,7 @@ class PDF
         foreach ($invoiceitems as $invoiceitem) {
             $pdf->SetX(20);
             $pdf->Write(0, $invoiceitem['name'], '', 0, 'L', false, 0, false, false, 0);
-            $pdf->SetX(140);
+            $pdf->SetX(165);
             $pdf->Write(0, '€', '', 0, 'L', false, 0, false, false, 0);
 
             $pdf->SetX(150);
@@ -175,18 +179,17 @@ class PDF
         $pdf->Ln();
         $pdf->SetX(20);
         $pdf->Write(0, 'Totaal:', '', 0, 'L', false, 0, false, false, 0);
-        $pdf->SetX(140);
+        $pdf->SetX(165);
         $pdf->Write(0, '€', '', 0, 'L', false, 0, false, false, 0);
         $pdf->SetX(150);
-        $pdf->Write(0, $totaalbedrag, '', 0, 'R', false, 0, false, false, 0);
-        $pdf->Ln();
-        $pdf->Ln();
-        $pdf->SetX(20);
-        $gelieve  = 'Gelieve het verschuldigde bedrag binnen 14 dagen te storten op IBAN: ';
-        $gelieve2 = 'NL19 RABO 1017 5413 53 t.n.v. Sociëteit de Beuk te Barendrecht';
-        $gelieve3 = 'onder vermelding van het factuurnummer. Neem voor vragen over';
-        $gelieve4 = 'facturatie contact op met penningmeester@beukonline.nl.';
+        $pdf->Write(0, $totaalbedrag."\n\n\n", '', 0, 'R', false, 0, false, false, 0);
 
+        $pdf->SetX(20);
+        $gelieve  = 'Wij verzoeken u het bedrag binnen 14 dagen over te maken naar NL19 RABO 1017';
+        $gelieve2 = '5413 53 o.v.v. het factuurnummer t.n.v. Sociëteit de Beuk.';
+
+        $gelieve4 = 'Neem voor vragen over facturatie contact op met penningmeester@beukonline.nl.'."\n\n";
+        $gelieve5 = '';
         $pdf->SetX(20);
         $pdf->Write(0, $gelieve, '', 0, '', true, 0, false, false, 0);
         $pdf->SetX(20);
@@ -195,11 +198,8 @@ class PDF
         $pdf->Write(0, $gelieve3, '', 0, 'L', true, 0, false, false, 0);
         $pdf->SetX(20);
         $pdf->Write(0, $gelieve4, '', 0, 'L', true, 0, false, false, 0);
-        $pdf->Ln();
-        $pdf->Ln();
         $pdf->SetX(20);
-        $pdf->Write(0, 'Met vriendelijke groet,', '', 0, 'L', true, 0, false, false, 0);
-        $pdf->Ln();
+        $pdf->Write(0, 'Met vriendelijke groet,'."\n", '', 0, 'L', true, 0, false, false, 0);
         $pdf->SetX(20);
         $pdf->Write(0, 'De penningmeester van Poppodium de Beuk.', '', 0, 'L', true, 0, false, false, 0);
         return $pdf;
@@ -225,7 +225,7 @@ class PDF
             Session::add('feedback_negative', "Bestand bestaat al.");
             return false;
         }
-        ob_end_clean();
+        // ob_end_clean();
         $pdf->Output($_SERVER["DOCUMENT_ROOT"].'content/invoices/'.$invoice['factuurnummer'].'.pdf', 'F');
         return true;
     }

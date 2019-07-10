@@ -13,3 +13,10 @@ INSERT INTO mail_templates (id, type, name, subject, body) VALUES (NULL,
             'Wachtwoord herstellen',
             '<p>Beste {USERNAME},<br><br>Open onderstaande link om je wachtwoord te resetten:<br><a href="{RESETLINK}">Reset wachtwoord</a><br><br>Indien de link niet werkt navigeer dan in uw browser naar deze URL:<br>{RESETLINK}<br><br>Met vriendelijke groet,<br><br>{SITENAME}</p>'
             )
+
+INSERT INTO mail_templates (id, type, name, subject, body) VALUES (NULL,
+            'system',
+            'InvoiceMail',
+            'Factuur {MAAND}',
+            'Beste huurder,<br><br>Er is een nieuwe factuur voor u klaargezet. U treft de nieuwe factuur, met factuurnummer {FACTUURNUMMER} in de bijlage van dit e-mailbericht.<br><br>Met vriendelijke groet,<br><br>Poppodium de Beuk'
+            )
