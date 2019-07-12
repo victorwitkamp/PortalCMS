@@ -19,17 +19,17 @@ class MailSender
      * The main mail sending method, this simply calls a certain mail sending method depending on which mail provider
      * you've selected in the application's config.
      *
-     * @param  $recipient_email string email
+     * @param  $recipients array email recipients
      * @param  $from_email string sender's email
      * @param  $from_name string sender's name
      * @param  $subject string subject
      * @param  $body string full mail body text
      * @return bool the success status of the according mail sending method
      */
-    public function sendMail($recipient_email, $from_email, $from_name, $subject, $body, $attachments = NULL)
+    public function sendMail($recipients, $from_email, $from_name, $subject, $body, $attachments = NULL, $cc_recipient = NULL)
     {
         return $this->sendMailWithPHPMailer(
-            $recipient_email, $from_email, $from_name, $subject, $body, $attachments
+            $recipients, $from_email, $from_name, $subject, $body, $attachments, $cc_recipient
         );
     }
 
@@ -59,7 +59,7 @@ class MailSender
      * @throws Exception
      * @throws phpmailerException
      */
-    public function sendMailWithPHPMailer($recipient_email, $from_email, $from_name, $subject, $body, $attachments)
+    public function sendMailWithPHPMailer($recipients, $from_email, $from_name, $subject, $body, $attachments, $cc_recipient)
     {
         $mail = new PHPMailer(true);
         try {
@@ -87,7 +87,12 @@ class MailSender
 
             $mail->From = $from_email;
             $mail->FromName = $from_name;
-            $mail->AddAddress($recipient_email);
+            foreach ($recipients as $recipient) {
+                $mail->AddAddress($recipient['recipient']);
+            }
+            if (!empty($cc_recipient))
+                $mail->AddCC($cc_recipient);
+            }
             $mail->Subject = $subject;
             $mail->Body = $body;
             if (!empty($attachments)) {

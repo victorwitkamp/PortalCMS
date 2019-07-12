@@ -51,12 +51,14 @@ class MailSchedule
                     return false;
                 } else {
                     $sender = $row['sender_email'];
-                    $recipient = $row['recipient_email'];
+                    // $recipient = $row['recipient_email'];
+                    $recipients = MailRecipientMapper::getByMailId($id);
                     $title = $row['subject'];
                     $body = $row['body'];
                     $attachments = MailAttachmentMapper::getByMailId($id);
-                    if (!empty($recipient) && !empty($title) && !empty($body)) {
-                        if (MailController::sendMail($sender, $recipient, $title, $body, $attachments)) {
+                    $cc_recipient = ? //TODO! -- Or make it $cc_recipients for multiple
+                    if (!empty($recipients) && !empty($title) && !empty($body)) {
+                        if (MailController::sendMail($sender, $recipients, $title, $body, $attachments, $cc_recipient)) {
                             MailScheduleMapper::updateStatus($id, '2');
                             MailScheduleMapper::updateDateSent($id);
                             $count_success += 1;
@@ -80,7 +82,7 @@ class MailSchedule
                 Session::add('feedback_negative', $count_failed.' berichte(n) mislukt.');
             }
         } else {
-            Session::add('feedback_negative', $count_success.' bericht(en) succesvol verstuurd. ');
+            Session::add('feedback_positive', $count_success.' bericht(en) succesvol verstuurd. ');
         }
         Redirect::mail();
     }

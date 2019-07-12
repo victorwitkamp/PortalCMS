@@ -50,7 +50,7 @@ class MailScheduleMapper
         return true;
     }
 
-    public static function create($sender_email, $recipient_email, $member_id, $subject, $body, $status = '1')
+    public static function create($sender_email, $recipient_email = NULL, $member_id, $subject, $body, $status = '1')
     {
         $stmt = DB::conn()->prepare(
             "INSERT INTO mail_schedule(id, sender_email, recipient_email, member_id, subject, body, status) VALUES (NULL,?,?,?,?,?,?)"

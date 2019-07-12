@@ -21,13 +21,16 @@ class Invoice
         $subject = MailTemplate::replaceholder('MAAND', $maand, $template['subject']);
 
         $body = MailTemplate::replaceholder('FACTUURNUMMER', $invoice['factuurnummer'], $template['body']);
-
-        $create = MailScheduleMapper::create($sender_email, $recipient_email, NULL, $subject, $body);
+        $create = MailScheduleMapper::create($sender_email, NULL, NULL, $subject, $body);
         if (!$create) {
             Session::add('feedback_negative', "Nieuwe email aanmaken mislukt.");
             return false;
         }
         $createdMailId = MailScheduleMapper::lastInsertedId();
+        $recipients = array($recipient_email, 'victor@victorwitkamp.nl');
+        foreach ($recipients as $recipient) {
+            MailRecipientMapper::create($recipient, $createdMailId);
+        }
 
         $attachmentPath = "content/invoices/";
         $attachmentExtension = ".pdf";

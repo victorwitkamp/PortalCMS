@@ -55,7 +55,9 @@ if (MailSchedule::exists($id)) {
                     $attachments = MailAttachmentMapper::getByMailId($row['id']);
                     if (!empty($attachments)) {
                         foreach ($attachments as $attachment) {
-                            echo $attachment['path'].$attachment['name'].$attachment['extension'].'<br>';
+                            $file = $attachment['path'].$attachment['name'].$attachment['extension'];
+
+                            echo '<a href="'.Config::get('URL').$file.'">'.$file.'</a><br>';
                         }
                     } else {
                         echo 'n/a';

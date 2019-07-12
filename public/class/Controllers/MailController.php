@@ -29,22 +29,23 @@ class MailController extends Controller
         }
     }
 
-    public static function sendMail($sender, $recipient, $subject, $body, $attachments)
+    public static function sendMail($sender, $recipients, $subject, $body, $attachments, $cc_recipient = NULL)
     {
         $senderName = SiteSetting::getStaticSiteSetting('site_name');
-        if (empty($recipient) || empty($subject) || empty($body)) {
+        if (empty($recipients) || empty($subject) || empty($body)) {
             Session::add('feedback_negative', "MailController: Ongeldig verzoek");
             return false;
         }
 
         $MailSender = new MailSender;
-        if (!$MailSender->sendMail($recipient, $sender, $senderName, $subject, $body, $attachments)) {
+        if (!$MailSender->sendMail($recipients, $sender, $senderName, $subject, $body, $attachments, $cc_recipient)) {
             self::$error = $MailSender->error;
             // Session::add('feedback_negative', "MailController: Niet verstuurd. Fout: ".self::$error);
             return false;
         } else {
             // Session::add('feedback_positive', "MailController: Mail verstuurd naar: ".$recipient);
-            return $recipient;
+            // return $recipient;
+            return true;
         }
     }
 
