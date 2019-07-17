@@ -56,9 +56,10 @@ class MailSchedule
                     $title = $row['subject'];
                     $body = $row['body'];
                     $attachments = MailAttachmentMapper::getByMailId($id);
-                    $cc_recipient = ? //TODO! -- Or make it $cc_recipients for multiple
+                    // $cc_recipient = ? //TODO! -- Or make it $cc_recipients for multiple
                     if (!empty($recipients) && !empty($title) && !empty($body)) {
-                        if (MailController::sendMail($sender, $recipients, $title, $body, $attachments, $cc_recipient)) {
+                        // if (MailController::sendMail($sender, $recipients, $title, $body, $attachments, $cc_recipient)) {
+                        if (MailController::sendMail($sender, $recipients, $title, $body, $attachments)) {
                             MailScheduleMapper::updateStatus($id, '2');
                             MailScheduleMapper::updateDateSent($id);
                             $count_success += 1;
@@ -154,7 +155,7 @@ class MailSchedule
         }
         $created = MailScheduleMapper::lastInsertedId();
         Session::add('feedback_positive', "Email toegevoegd (ID = ".$created.')');
-        Redirect::mail();
+        Redirect::invoices();
         return true;
     }
 

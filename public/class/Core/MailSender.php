@@ -26,10 +26,14 @@ class MailSender
      * @param  $body string full mail body text
      * @return bool the success status of the according mail sending method
      */
-    public function sendMail($recipients, $from_email, $from_name, $subject, $body, $attachments = NULL, $cc_recipient = NULL)
+    // public function sendMail($recipients, $from_email, $from_name, $subject, $body, $attachments = NULL, $cc_recipient = NULL)
+    public function sendMail($recipients, $from_email, $from_name, $subject, $body, $attachments = NULL)
     {
+        // return $this->sendMailWithPHPMailer(
+        //     $recipients, $from_email, $from_name, $subject, $body, $attachments, $cc_recipient
+        // );
         return $this->sendMailWithPHPMailer(
-            $recipients, $from_email, $from_name, $subject, $body, $attachments, $cc_recipient
+            $recipients, $from_email, $from_name, $subject, $body, $attachments
         );
     }
 
@@ -59,7 +63,9 @@ class MailSender
      * @throws Exception
      * @throws phpmailerException
      */
-    public function sendMailWithPHPMailer($recipients, $from_email, $from_name, $subject, $body, $attachments, $cc_recipient)
+    // public function sendMailWithPHPMailer($recipients, $from_email, $from_name, $subject, $body, $attachments, $cc_recipient)
+
+    public function sendMailWithPHPMailer($recipients, $from_email, $from_name, $subject, $body, $attachments)
     {
         $mail = new PHPMailer(true);
         try {
@@ -90,7 +96,7 @@ class MailSender
             foreach ($recipients as $recipient) {
                 $mail->AddAddress($recipient['recipient']);
             }
-            if (!empty($cc_recipient))
+            if (!empty($cc_recipient)) {
                 $mail->AddCC($cc_recipient);
             }
             $mail->Subject = $subject;
@@ -101,7 +107,6 @@ class MailSender
                     $attachmentFullName = $attachment['name'].$attachment['extension'];
                     $mail->addAttachment($attachmentFullFilePath, $attachmentFullName, $attachment['encoding'], $attachment['type']);
                 }
-
             }
             $mail->isHTML(true);
             return $mail->Send();
