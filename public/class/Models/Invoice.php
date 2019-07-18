@@ -27,7 +27,7 @@ class Invoice
             return false;
         }
         $createdMailId = MailScheduleMapper::lastInsertedId();
-        $recipients = array($recipient_email, 'victor@victorwitkamp.nl');
+        $recipients = array($recipient_email);
         foreach ($recipients as $recipient) {
             MailRecipientMapper::create($recipient, $createdMailId);
         }

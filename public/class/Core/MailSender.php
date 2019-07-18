@@ -63,8 +63,6 @@ class MailSender
      * @throws Exception
      * @throws phpmailerException
      */
-    // public function sendMailWithPHPMailer($recipients, $from_email, $from_name, $subject, $body, $attachments, $cc_recipient)
-
     public function sendMailWithPHPMailer($recipients, $from_email, $from_name, $subject, $body, $attachments)
     {
         $mail = new PHPMailer(true);
@@ -96,9 +94,9 @@ class MailSender
             foreach ($recipients as $recipient) {
                 $mail->AddAddress($recipient['recipient']);
             }
-            if (!empty($cc_recipient)) {
-                $mail->AddCC($cc_recipient);
-            }
+            // if (!empty($cc_recipient)) {
+            //     $mail->AddCC($cc_recipient);
+            // }
             $mail->Subject = $subject;
             $mail->Body = $body;
             if (!empty($attachments)) {
