@@ -1,5 +1,4 @@
-<?php
-
+<?
 class PDF
 {
     public static function configPDF()
