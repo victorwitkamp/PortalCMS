@@ -170,7 +170,7 @@ class UserMapper
                 WHERE user_name = ?
                 LIMIT 1"
         );
-        $stmt->execute([date('Y-m-d H:i:s'),$username]);
+        $stmt->execute([date('Y-m-d H:i:s'), $username]);
         if (!$stmt->rowCount() == 1) {
             return false;
         }
