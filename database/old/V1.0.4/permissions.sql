@@ -18,3 +18,4 @@ INSERT INTO permissions (perm_id, perm_desc) VALUES (9,'rental-invoices');
 INSERT INTO permissions (perm_id, perm_desc) VALUES (10,'rental-products');
 INSERT INTO permissions (perm_id, perm_desc) VALUES (11,'events');
 INSERT INTO permissions (perm_id, perm_desc) VALUES (12,'membership');
+INSERT INTO permissions (perm_id, perm_desc) VALUES (13,'marketing-bar');
