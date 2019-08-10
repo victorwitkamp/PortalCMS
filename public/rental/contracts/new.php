@@ -56,7 +56,7 @@ $(function () {
                 </div>
             </div>
             <div class="container">
-                <?php require "inc/form.php"; ?>
+                <?php require "inc/form_new.php"; ?>
             </div>
         </div>
     </main>
