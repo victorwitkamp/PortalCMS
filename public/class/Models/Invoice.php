@@ -119,7 +119,7 @@ class Invoice
                 return Redirect::error();
             }
         }
-        if($invoice['status'] > 0) {
+        if ($invoice['status'] > 0) {
             unlink(DIR_ROOT.'content/invoices/'.$invoice['factuurnummer'].'.pdf');
         }
         if (!InvoiceMapper::delete($id)) {

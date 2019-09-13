@@ -2,7 +2,8 @@
 
 class Alert
 {
-    public static function render($feedback, $style) {
+    public static function render($feedback, $style)
+    {
         if (!empty($feedback)) {
             if (!empty($style)) {
                 echo '<div class="alert alert-';

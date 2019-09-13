@@ -50,7 +50,7 @@ if (!file_exists(DIR_VENDOR.'autoload.php')) {
 }
 
 spl_autoload_register(
-    function ($class) {
+    function($class) {
         $sources = array(
             DIR_CLASS."Core/$class.php",
             DIR_CLASS."Models/$class.php",
