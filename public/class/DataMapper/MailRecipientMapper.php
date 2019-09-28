@@ -25,4 +25,12 @@ class MailRecipientMapper
         }
         return $stmt->fetchAll();
     }
+
+    public static function CountByMailId($mail_id)
+    {
+
+        $stmt = DB::conn()->prepare("SELECT COUNT(*) FROM mail_recipients where mail_id = ?");
+        $stmt->execute([$mail_id]);
+        return $stmt->rowCount();
+    }
 }

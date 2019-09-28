@@ -50,12 +50,12 @@ class MailScheduleMapper
         return true;
     }
 
-    public static function create($sender_email, $recipient_email = NULL, $member_id, $subject, $body, $status = '1')
+    public static function create($batch_id, $sender_email, $recipient_email = NULL, $member_id, $subject, $body, $status = '1')
     {
         $stmt = DB::conn()->prepare(
-            "INSERT INTO mail_schedule(id, sender_email, recipient_email, member_id, subject, body, status) VALUES (NULL,?,?,?,?,?,?)"
+            "INSERT INTO mail_schedule(id, batch_id, sender_email, recipient_email, member_id, subject, body, status) VALUES (NULL,?,?,?,?,?,?,?)"
         );
-        $stmt->execute([$sender_email, $recipient_email, $member_id, $subject, $body, $status]);
+        $stmt->execute([$batch_id, $sender_email, $recipient_email, $member_id, $subject, $body, $status]);
         if (!$stmt) {
             return false;
         }

@@ -1,6 +1,9 @@
 <h4><?php echo Text::get('TITLE_WIDGET_COMING_EVENTS'); ?></h4>
-<div id="show-events"></div>
+<div class="card" id="show-events"></div>
+
+
 <script>
+
 $(document).ready(function () {
 // $('#get-data').click(function () {
     var showData = $('#show-events');
@@ -8,7 +11,7 @@ $(document).ready(function () {
     $.getJSON('../../../api/loadComingEvents.php', function (data) {
       //console.log(data);
       var records = data.map(function (item) {
-        
+
         var tempdisplaydatetime = new Date(0);
         tempdisplaydatetime.setUTCSeconds(item.date_time);
         displaydate = tempdisplaydatetime.toLocaleDateString();
@@ -20,9 +23,10 @@ $(document).ready(function () {
       showData.empty();
 
       if (records.length) {
-        var content = '<li>' + records.join('</li><li>') + '</li>';
-        var list = $('<ul />').html(content);
-        showData.append(list);
+        var content = '<li class="list-group-item">' + records.join('</li><li>') + '</li>';
+        // var list = $('<ul />').html(content);
+        var listContent = '<ul class="list-group list-group-flush">' + content + '</ul>';
+        showData.append(listContent);
       }
     });
 

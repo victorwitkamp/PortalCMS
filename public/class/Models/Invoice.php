@@ -21,7 +21,7 @@ class Invoice
         $subject = MailTemplate::replaceholder('MAAND', $maand, $template['subject']);
 
         $body = MailTemplate::replaceholder('FACTUURNUMMER', $invoice['factuurnummer'], $template['body']);
-        $create = MailScheduleMapper::create($sender_email, NULL, NULL, $subject, $body);
+        $create = MailScheduleMapper::create(NULL, $sender_email, NULL, NULL, $subject, $body);
         if (!$create) {
             Session::add('feedback_negative', "Nieuwe email aanmaken mislukt.");
             return false;

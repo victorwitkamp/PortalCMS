@@ -87,8 +87,8 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
 
                 <div class="form-group form-group-sm row">
                     <input type="hidden" name="id" value="<?php echo $row ['id']; ?>">
-                    <input type="submit" name="updateEvent" class="btn btn-sm btn-primary" value="Opslaan">
-                    <a href="index.php" class="btn btn-sm btn-danger">Annuleren</a>
+                    <button type="submit" name="updateEvent" class="btn btn-sm btn-primary">Opslaan <i class="far fa-save"></i></button>
+                    <a href="index.php" class="btn btn-sm btn-danger">Annuleren <i class="fas fa-times"></i></a>
                 </div>
             </form>
         </div>

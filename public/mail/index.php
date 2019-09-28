@@ -38,8 +38,13 @@ PortalCMS_JS_dataTables();
             if (!$result) {
                 echo 'Ontbrekende gegevens..';
             } else {
-                include 'inc/table.php';
+                echo '<h2>Losse berichten</h2><p>Dit zijn losse berichten die geen deel uitmaken van een batch.</p>';
+                include 'inc/table_messages.php';
             }
+            echo '<hr>';
+            $result = MailBatch::getScheduled();
+            echo '<h2>Batches</h2>';
+            include 'inc/table_batches.php';
             ?>
         </div>
     </div>

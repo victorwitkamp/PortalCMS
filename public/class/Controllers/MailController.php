@@ -38,15 +38,14 @@ class MailController extends Controller
         }
 
         $MailSender = new MailSender;
-        if (!$MailSender->sendMail($recipients, $sender, $senderName, $subject, $body, $attachments, $cc_recipient)) {
-            self::$error = $MailSender->error;
-            // Session::add('feedback_negative', "MailController: Niet verstuurd. Fout: ".self::$error);
-            return false;
-        } else {
+        if ($MailSender->sendMail($recipients, $sender, $senderName, $subject, $body, $attachments, $cc_recipient)) {
             // Session::add('feedback_positive', "MailController: Mail verstuurd naar: ".$recipient);
             // return $recipient;
             return true;
         }
+        self::$error = $MailSender->error;
+        // Session::add('feedback_negative', "MailController: Niet verstuurd. Fout: ".self::$error);
+        return false;
     }
 
     public static function sendEventMail($recipient)

@@ -98,10 +98,12 @@ class MailSchedule
         $count_failed = 0;
         if ($type === 'member') {
             if (!empty($_POST['recipients'])) {
+                MailBatch::create();
+                $batch_id = MailBatch::lastInsertedId();
                 foreach ($_POST['recipients'] as $value) {
                     $member = Member::getMemberById($value);
                     $body = self::replaceholdersMember($value, $template['body']);
-                    $return = MailScheduleMapper::create($sender_email, $member['emailadres'], $value, $template['subject'], $body);
+                    $return = MailScheduleMapper::create($batch_id, $sender_email, $member['emailadres'], $value, $template['subject'], $body);
                     if (!$return) {
                         $count_failed += 1;
                     } else {
@@ -148,7 +150,7 @@ class MailSchedule
         $recipient_email = Request::post('recipient_email', true);
         $subject = Request::post('subject', true);
         $body = Request::post('body', true);
-        $create = MailScheduleMapper::create($sender_email, $recipient_email, $subject, $body);
+        $create = MailScheduleMapper::create(NULL, $sender_email, $recipient_email, $subject, $body);
         if (!$create) {
             Session::add('feedback_negative', "Nieuwe email aanmaken mislukt.");
             return false;
