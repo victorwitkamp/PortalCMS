@@ -6,14 +6,16 @@
             <th class="text-center" ><input type="checkbox" id="selectall"/></th>
 
             <th>Batch ID</th>
-            <th>Recipient(s)</th>
-            <th>Subject</th>
+            <th>Messages</th>
+            <th>UsedTemplate</th>
+
             <?php
             if ($pageType === 'history') {
                 echo '<th>Verzonden op</th>';
             }
             ?>
             <th>Status</th>
+            <th>CreationDate</th>
                     <th></th>
 
         </tr>
@@ -22,7 +24,7 @@
     <tbody>
         <?php
 
-        foreach ($result as $row) {  ?>
+        foreach ($batches as $row) {  ?>
         <tr>
 
             <td class="text-center" >
@@ -32,8 +34,9 @@
             </td>
 
             <td><?php echo $row['id']; ?></td>
-            <td><?php $recipients =  MailRecipientMapper::CountByMailId($row['id']); echo $recipients; ?></td>
-            <td><?php echo $row['subject']; ?></td>
+            <td><a href="messages.php?batch_id=<?php echo $row['id']; ?>"><?php echo MailBatch::countMessages($row['id']); ?></a></td>
+                        <td><?php echo $row['UsedTemplate']; ?></td>
+
             <?php if ($pageType === 'history') { echo '<td>'.$row['DateSent'].'</td>';
             } ?>
             <td>
@@ -47,8 +50,10 @@
                 ?>
 
             </td>
+                        <td><?php echo $row['CreationDate']; ?></td>
+
                                                 <td>
-                <a href="details.php?id=<?php echo $row['id']; ?>" title="Details" class="btn btn-success btn-sm">
+                <a href="batches.php?id=<?php echo $row['id']; ?>" title="Details" class="btn btn-success btn-sm">
                 <i class="fas fa-info"></i></a>
 
             </td>

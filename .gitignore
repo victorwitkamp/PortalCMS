@@ -10,6 +10,8 @@
 /public/codelingo.yaml
 
 /public/vendor/
+/vendor/
+
 composer.lock
 package-lock.json
 yarn-error.log

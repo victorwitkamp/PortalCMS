@@ -1,7 +1,7 @@
 <?php
-$pageType = 'history';
+$pageType = 'index';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
-$pageName = Text::get('TITLE_MAIL_HISTORY');
+$pageName = Text::get('TITLE_MAIL_SCHEDULER');
 Auth::checkAuthentication();
 if (!Auth::checkPrivilege("mail-scheduler")) {
     Redirect::permissionError();
@@ -13,6 +13,10 @@ displayHeadCSS();
 PortalCMS_CSS_dataTables();
 PortalCMS_JS_headJS();
 PortalCMS_JS_dataTables();
+
+
+
+
 ?>
 </head>
 <body>
@@ -34,13 +38,22 @@ PortalCMS_JS_dataTables();
             <?php
             Alert::renderFeedbackMessages();
             PortalCMS_JS_Init_dataTables();
-            // $stmt = DB::conn()->prepare("SELECT * FROM mail_schedule WHERE status > 1 ORDER BY id ASC");
-            $result = MailSchedule::getHistory();
+
+            if (isset($_GET['batch_id']) && !empty($_GET['batch_id'])) {
+                $result = MailSchedule::getScheduledByBatchId($_GET['batch_id']);
+
+            } else {
+                $result = MailSchedule::getScheduled();
+            }
+            $mailcount = count($result);
             if (!$result) {
                 echo 'Ontbrekende gegevens..';
             } else {
+                echo '<h2>Alle berichten</h2><p>Aantal: ' . $mailcount . '</p>';
                 include 'inc/table_messages.php';
             }
+            echo '<hr>';
+
             ?>
         </div>
     </div>

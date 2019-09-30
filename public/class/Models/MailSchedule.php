@@ -6,6 +6,10 @@ class MailSchedule
     {
         return MailScheduleMapper::getScheduled();
     }
+    public static function getScheduledByBatchId($batch_id)
+    {
+        return MailScheduleMapper::getScheduledByBatchId($batch_id);
+    }
     public static function getHistory()
     {
         return MailScheduleMapper::getHistory();
@@ -98,7 +102,7 @@ class MailSchedule
         $count_failed = 0;
         if ($type === 'member') {
             if (!empty($_POST['recipients'])) {
-                MailBatch::create();
+                MailBatch::create($templateId);
                 $batch_id = MailBatch::lastInsertedId();
                 foreach ($_POST['recipients'] as $value) {
                     $member = Member::getMemberById($value);

@@ -7,7 +7,7 @@
 
             <th>Mail ID</th>
             <th>Batch ID</th>
-            <th>Recipient(s)</th>
+            <th>Recipient</th>
             <th>Subject</th>
             <?php
             if ($pageType === 'history') {
@@ -34,7 +34,7 @@
 
             <td><?php echo $row['id']; ?></td>
             <td><?php echo($row['batch_id']); ?></td>
-            <td><?php $recipients =  MailRecipientMapper::CountByMailId($row['id']); echo $recipients; ?></td>
+            <td><?php echo($row['recipient_email']) ?></td>
             <td><?php echo $row['subject']; ?></td>
             <?php if ($pageType === 'history') { echo '<td>'.$row['DateSent'].'</td>';
             } ?>

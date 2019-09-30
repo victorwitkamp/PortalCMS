@@ -19,15 +19,18 @@ class MailScheduleMapper
         return $stmt->fetchAll();
     }
 
+    public static function getScheduledByBatchId($batch_id)
+    {
+        $stmt = DB::conn()->prepare("SELECT * FROM mail_schedule WHERE status = 1 and batch_id = ? ORDER BY id ASC");
+        $stmt->execute([$batch_id]);
+        return $stmt->fetchAll();
+    }
+
     public static function getHistory()
     {
         $stmt = DB::conn()->prepare("SELECT * FROM mail_schedule WHERE status > 1 ORDER BY id ASC");
         $stmt->execute([]);
         return $stmt->fetchAll();
-    }
-    public static function count()
-    {
-        return DB::conn()->query("SELECT count(1) FROM mail_schedule")->fetchColumn();
     }
 
     public static function getById($id)

@@ -5,7 +5,7 @@
 class MailBatch {
     public static function getScheduled()
     {
-        $stmt = DB::conn()->prepare("SELECT * FROM mail_batches WHERE status = 0 ORDER BY id ASC");
+        $stmt = DB::conn()->prepare("SELECT * FROM mail_batches WHERE status = 1 ORDER BY id ASC");
         $stmt->execute([]);
         return $stmt->fetchAll();
     }
@@ -14,14 +14,20 @@ class MailBatch {
         $stmt = DB::conn()->query("SELECT max(id) from mail_batches");
         return $stmt->fetchColumn();
     }
-    public static function create() {
+    public static function create($used_template = NULL) {
         $stmt = DB::conn()->prepare(
-            "INSERT INTO mail_batches(id, status) VALUES (NULL,0)"
+            "INSERT INTO mail_batches(id, status, UsedTemplate) VALUES (NULL,1,?)"
         );
-        $stmt->execute();
+        $stmt->execute([$used_template]);
         if (!$stmt) {
             return false;
         }
         return true;
+    }
+    public static function countMessages($batch_id)
+    {
+        $stmt = DB::conn()->prepare("SELECT count(1) FROM mail_schedule where batch_id = ?");
+        $stmt->execute([$batch_id]);
+        return $stmt->fetchColumn();
     }
 }
