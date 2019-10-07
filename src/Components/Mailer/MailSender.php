@@ -66,7 +66,7 @@ class MailSender
     public function sendMail()
     {
         if (empty($this->_recipients) || empty($this->_subject) || empty($this->_body)) {
-            $this->error = 'Incompleet';
+            $this->_error = 'Incompleet';
             return false;
         }
         if ($this->_from_email == NULL) {
