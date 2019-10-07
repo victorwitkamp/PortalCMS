@@ -64,11 +64,11 @@
 <hr>
 <?php
 if ($pageType === 'index') {
-    echo '<input type="submit" class="btn btn-primary" name="sendScheduledMailById" value="';
+    echo '<input type="submit" class="btn btn-primary" name="sendBatchById" value="';
     echo Text::get('LABEL_SEND_EMAIL');
     echo '">';
 }
-echo '<input type="submit" class="btn btn-danger" name="deleteScheduledMailById" value="';
+echo '<input type="submit" class="btn btn-danger" name="deleteBatchById" value="';
 echo Text::get('LABEL_DELETE_EMAIL');
 echo '">';
 ?>

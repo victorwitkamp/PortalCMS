@@ -55,8 +55,6 @@ class MailSchedule
                             $count_success += 1;
                         } else {
                             MailScheduleMapper::updateStatus($id, '3');
-                            echo 'error: '.$MailSender->getError();
-                            die;
                             MailScheduleMapper::setErrorMessageById($id, $MailSender->getError());
                             $count_failed += 1;
                         }

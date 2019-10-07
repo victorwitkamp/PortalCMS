@@ -25,6 +25,9 @@ class MailController extends Controller
         if (isset($_POST['deleteScheduledMailById'])) {
             MailSchedule::deleteById();
         }
+        if (isset($_POST['sendBatchById'])) {
+            MailBatch::sendById();
+        }
     }
 
     public static function sendEventMail($recipient)
