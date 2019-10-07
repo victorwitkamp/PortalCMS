@@ -13,15 +13,21 @@ class MailSender
     /**
      * @var mixed variable to collect errors
      */
-    public $error;
+    private $_error;
+    private $_subject;
+    private $_body;
+    private $_recipients;
+    private $_attachments;
+    private $_from_email;
+    private $_from_name;
 
     public function __construct(
         $subject,
         $body,
         $recipients,
-        $attachments = null,
-        $from_email = null,
-        $from_name = null
+        $attachments = NULL,
+        $from_email = NULL,
+        $from_name = NULL
     ) {
         $this->_subject = $subject;
         $this->_body = $body;
@@ -39,7 +45,7 @@ class MailSender
      */
     public function getError()
     {
-        return $this->error;
+        return $this->_error;
     }
 
     /**
@@ -63,10 +69,10 @@ class MailSender
             $this->error = 'Incompleet';
             return false;
         }
-        if ($this->_from_email == null) {
+        if ($this->_from_email == NULL) {
             $this->_from_email = Config::get('EMAIL_SMTP_USERNAME');
         }
-        if ($this->_from_name == null) {
+        if ($this->_from_name == NULL) {
                 $this->_from_name = SiteSetting::getStaticSiteSetting('site_name');
         }
 
@@ -115,7 +121,7 @@ class MailSender
             $mail->isHTML(true);
             return $mail->Send();
         } catch (Exception $e) {
-            $this->error = $e->errorMessage();
+            $this->_error = $e->errorMessage();
             return false;
         } catch (\Exception $e) { //The leading slash means the Global PHP Exception class will be caught
             echo $e->getMessage(); //Boring error messages from anything else!
