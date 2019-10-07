@@ -11,12 +11,9 @@ date_default_timezone_set('Europe/Amsterdam');
 /**
  * Configuration for: Error reporting
  */
-error_reporting(E_ALL); // Error engine - always true!
-// Passing in the value -1 will show every possible error, even when new levels and constants are added in future PHP versions.
-// The E_ALL constant also behaves this way as of PHP 5.4.
-//error_reporting(-1);
-ini_set('ignore_repeated_errors', 0); // always true
-ini_set('display_errors', 1); // Error display - false only in production environment or real server
+error_reporting(E_ALL);
+ini_set('ignore_repeated_errors', 0);
+ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 ini_set('log_errors', 1);
 ini_set('error_log', $_SERVER["DOCUMENT_ROOT"].'/errors.log');
@@ -38,9 +35,9 @@ ini_set('session.use_strict_mode', 1);
  * Configuration for: Named constants
  */
 define("DIR_ROOT", $_SERVER["DOCUMENT_ROOT"]."/");
-define("DIR_CLASS", DIR_ROOT."class/");
-define("DIR_INCLUDES", DIR_ROOT."includes/");
-define("DIR_VENDOR", DIR_ROOT."/vendor/");
+define("DIR_CLASS", DIR_ROOT . "../src/");
+define("DIR_INCLUDES", DIR_ROOT . "includes/");
+define("DIR_VENDOR", DIR_ROOT . "../vendor/");
 
 if (!file_exists(DIR_VENDOR.'autoload.php')) {
     echo 'No autoloader found in the "vendor" directory. Run "composer update" to get started.';
@@ -55,7 +52,8 @@ spl_autoload_register(
             DIR_CLASS."Core/$class.php",
             DIR_CLASS."Models/$class.php",
             DIR_CLASS."Controllers/$class.php",
-            DIR_CLASS."DataMapper/$class.php"
+            DIR_CLASS."DataMapper/$class.php",
+            DIR_CLASS."Components/Mailer/$class.php"
         );
         foreach ($sources as $source) {
             if (file_exists($source)) {

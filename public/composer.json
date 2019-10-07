@@ -1,7 +1,0 @@
-{
-    "require": {
-        "facebook/graph-sdk": "^5.7",
-        "tecnickcom/tcpdf": "6.2.26",
-        "phpmailer/phpmailer": "~6.0"
-    }
-}

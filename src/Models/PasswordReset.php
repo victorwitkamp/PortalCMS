@@ -103,15 +103,15 @@ class PasswordReset
         $MailText = MailTemplate::replaceholder('SITENAME', SiteSetting::getStaticSiteSetting('site_name'), $MailText);
         $MailText = MailTemplate::replaceholder('RESETLINK', $resetlink, $MailText);
 
-        $mail = new MailSender;
-        $mail_sent = $mail->sendMail(
-            $user_email,
-            Config::get('EMAIL_SMTP_USERNAME'),
-            SiteSetting::getStaticSiteSetting('site_name'),
+        $mail = new MailSender(
             Config::get('EMAIL_PASSWORD_RESET_SUBJECT'),
-            $MailText
+            $MailText,
+            $user_email,
+            null,
+            Config::get('EMAIL_SMTP_USERNAME'),
+            SiteSetting::getStaticSiteSetting('site_name')
         );
-        if ($mail_sent) {
+        if ($mail->sendMail()) {
             Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_RESET_MAIL_SENDING_SUCCESSFUL'));
             return true;
         }

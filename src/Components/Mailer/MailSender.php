@@ -15,26 +15,20 @@ class MailSender
      */
     public $error;
 
-    /**
-     * The main mail sending method, this simply calls a certain mail sending method depending on which mail provider
-     * you've selected in the application's config.
-     *
-     * @param  $recipients array email recipients
-     * @param  $from_email string sender's email
-     * @param  $from_name string sender's name
-     * @param  $subject string subject
-     * @param  $body string full mail body text
-     * @return bool the success status of the according mail sending method
-     */
-    // public function sendMail($recipients, $from_email, $from_name, $subject, $body, $attachments = NULL, $cc_recipient = NULL)
-    public function sendMail($recipients, $from_email, $from_name, $subject, $body, $attachments = NULL)
-    {
-        // return $this->sendMailWithPHPMailer(
-        //     $recipients, $from_email, $from_name, $subject, $body, $attachments, $cc_recipient
-        // );
-        return $this->sendMailWithPHPMailer(
-            $recipients, $from_email, $from_name, $subject, $body, $attachments
-        );
+    public function __construct(
+        $subject,
+        $body,
+        $recipients,
+        $attachments = null,
+        $from_email = null,
+        $from_name = null
+    ) {
+        $this->_subject = $subject;
+        $this->_body = $body;
+        $this->_recipients = $recipients;
+        $this->_attachments = $attachments;
+        $this->_from_email = $from_email;
+        $this->_from_name = $from_name;
     }
 
     /**
@@ -63,8 +57,19 @@ class MailSender
      * @throws Exception
      * @throws phpmailerException
      */
-    public function sendMailWithPHPMailer($recipients, $from_email, $from_name, $subject, $body, $attachments)
+    public function sendMail()
     {
+        if (empty($this->_recipients) || empty($this->_subject) || empty($this->_body)) {
+            $this->error = 'Incompleet';
+            return false;
+        }
+        if ($this->_from_email == null) {
+            $this->_from_email = Config::get('EMAIL_SMTP_USERNAME');
+        }
+        if ($this->_from_name == null) {
+                $this->_from_name = SiteSetting::getStaticSiteSetting('site_name');
+        }
+
         $mail = new PHPMailer(true);
         try {
             $mail->CharSet = 'UTF-8';
@@ -89,18 +94,19 @@ class MailSender
                 $mail->IsMail();
             }
 
-            $mail->From = $from_email;
-            $mail->FromName = $from_name;
-            foreach ($recipients as $recipient) {
-                $mail->AddAddress($recipient['recipient']);
+            $mail->From = $this->_from_email;
+            $mail->FromName = $this->_from_name;
+            foreach ($this->_recipients as $recipient) {
+                $mail->AddAddress($recipient['email'], $recipient['name']);
             }
+            // $mail->AddAddress($recipient);
             // if (!empty($cc_recipient)) {
             //     $mail->AddCC($cc_recipient);
             // }
-            $mail->Subject = $subject;
-            $mail->Body = $body;
-            if (!empty($attachments)) {
-                foreach ($attachments as $attachment) {
+            $mail->Subject = $this->_subject;
+            $mail->Body = $this->_body;
+            if (!empty($this->_attachments)) {
+                foreach ($this->_attachments as $attachment) {
                     $attachmentFullFilePath = DIR_ROOT.$attachment['path'].$attachment['name'].$attachment['extension'];
                     $attachmentFullName = $attachment['name'].$attachment['extension'];
                     $mail->addAttachment($attachmentFullFilePath, $attachmentFullName, $attachment['encoding'], $attachment['type']);

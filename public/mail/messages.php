@@ -40,10 +40,10 @@ PortalCMS_JS_dataTables();
             PortalCMS_JS_Init_dataTables();
 
             if (isset($_GET['batch_id']) && !empty($_GET['batch_id'])) {
-                $result = MailSchedule::getScheduledByBatchId($_GET['batch_id']);
+                $result = MailScheduleMapper::getScheduledByBatchId($_GET['batch_id']);
 
             } else {
-                $result = MailSchedule::getScheduled();
+                $result = MailScheduleMapper::getScheduled();
             }
             $mailcount = count($result);
             if (!$result) {

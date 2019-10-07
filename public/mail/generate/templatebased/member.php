@@ -64,7 +64,7 @@ PortalCMS_JS_headJS(); ?>
                         } else {
                             ?>
                         <div class="col-md-4">
-                            <input type="checkbox" name='recipients[]' id="checkbox" value="<?php echo $row['id']; ?>" disabled><s> <?php echo $row['voornaam'].' '.$row['achternaam']; ?></s><br/>
+                            <input type="checkbox" name='recipients[]' value="<?php echo $row['id']; ?>" disabled><s> <?php echo $row['voornaam'].' '.$row['achternaam']; ?></s><br/>
                         </div>
                         <?php
                         }

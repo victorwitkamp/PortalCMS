@@ -29,7 +29,7 @@
 
             <td class="text-center" >
                 <?php
-                    echo '<input type="checkbox" name="id[]" id="checkbox" value="'.$row['id'].'"/>';
+                    echo '<input type="checkbox" name="id[]" id="checkbox-batch" value="'.$row['id'].'"/>';
                 ?>
             </td>
 
@@ -75,6 +75,6 @@ echo '">';
 </form>
 <script>
 $( '#selectall' ).click( function () {
-    $( '#batches #checkbox' ).prop('checked', this.checked)
+    $( '#checkbox-batch' ).prop('checked', this.checked)
 })
 </script>

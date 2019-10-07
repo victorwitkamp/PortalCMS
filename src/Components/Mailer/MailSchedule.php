@@ -2,29 +2,16 @@
 
 class MailSchedule
 {
-    public static function getScheduled()
-    {
-        return MailScheduleMapper::getScheduled();
-    }
-    public static function getScheduledByBatchId($batch_id)
-    {
-        return MailScheduleMapper::getScheduledByBatchId($batch_id);
-    }
-    public static function getHistory()
-    {
-        return MailScheduleMapper::getHistory();
-    }
-    public static function exists($id)
-    {
-        return MailScheduleMapper::exists($id);
-    }
 
     public static function deleteById()
     {
         $deleted = 0;
         $error = 0;
-        if (!empty($_POST['id'])) {
-            foreach ($_POST['id'] as $id) {
+
+        $IDs = Request::post('id');
+
+        if (!empty($IDs)) {
+            foreach ($IDs as $id) {
                 if (!MailScheduleMapper::deleteById($id)) {
                     $error += 1;
                 } else {
@@ -55,21 +42,22 @@ class MailSchedule
                     return false;
                 } else {
                     $sender = $row['sender_email'];
-                    // $recipient = $row['recipient_email'];
                     $recipients = MailRecipientMapper::getByMailId($id);
                     $title = $row['subject'];
                     $body = $row['body'];
                     $attachments = MailAttachmentMapper::getByMailId($id);
-                    // $cc_recipient = ? //TODO! -- Or make it $cc_recipients for multiple
+
                     if (!empty($recipients) && !empty($title) && !empty($body)) {
-                        // if (MailController::sendMail($sender, $recipients, $title, $body, $attachments, $cc_recipient)) {
-                        if (MailController::sendMail($sender, $recipients, $title, $body, $attachments)) {
+                        $MailSender = new MailSender($title, $body, $recipients, $attachments, $sender);
+                        if ($MailSender->sendMail()) {
                             MailScheduleMapper::updateStatus($id, '2');
                             MailScheduleMapper::updateDateSent($id);
                             $count_success += 1;
                         } else {
                             MailScheduleMapper::updateStatus($id, '3');
-                            MailScheduleMapper::setErrorMessageById($id, MailController::$error);
+                            echo 'error: '.$MailSender->getError();
+                            die;
+                            MailScheduleMapper::setErrorMessageById($id, $MailSender->getError());
                             $count_failed += 1;
                         }
                     } else {
@@ -104,22 +92,26 @@ class MailSchedule
             if (!empty($_POST['recipients'])) {
                 MailBatch::create($templateId);
                 $batch_id = MailBatch::lastInsertedId();
-                foreach ($_POST['recipients'] as $value) {
-                    $member = Member::getMemberById($value);
-                    $body = self::replaceholdersMember($value, $template['body']);
-                    $return = MailScheduleMapper::create($batch_id, $sender_email, $member['emailadres'], $value, $template['subject'], $body);
+                foreach ($_POST['recipients'] as $memberId) {
+                    $member = Member::getMemberById($memberId);
+                    $body = self::replaceholdersMember($memberId, $template['body']);
+                    $return = MailScheduleMapper::create($batch_id, $sender_email, $memberId, $template['subject'], $body);
                     if (!$return) {
                         $count_failed += 1;
                     } else {
                         $count_created += 1;
-                    }
-                    $templateAttachments = MailAttachmentMapper::getByTemplateId($templateId);
-                    $mailid = MailScheduleMapper::lastInsertedId();
-                    if (!empty($templateAttachments)) {
-                        foreach ($templateAttachments as $templateAttachment) {
-                            MailAttachmentMapper::create($mailid, $templateAttachment['path'], $templateAttachment['name'], $templateAttachment['extension'], $templateAttachment['encoding'], $templateAttachment['type']);
+                        $mailid = MailScheduleMapper::lastInsertedId();
+                        $memberFullname = $member['voornaam'].' '.$member['achternaam'];
+                        MailRecipientMapper::create($member['emailadres'], $mailid, 1, $memberFullname);
+
+                        $templateAttachments = MailAttachmentMapper::getByTemplateId($templateId);
+                        if (!empty($templateAttachments)) {
+                            foreach ($templateAttachments as $templateAttachment) {
+                                MailAttachmentMapper::create($mailid, $templateAttachment['path'], $templateAttachment['name'], $templateAttachment['extension'], $templateAttachment['encoding'], $templateAttachment['type']);
+                            }
                         }
                     }
+
                 }
                 if ($count_failed === 0) {
                     Session::add('feedback_positive', "Totaal aantal berichten aangemaakt:".$count_created);

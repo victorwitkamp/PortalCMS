@@ -7,7 +7,6 @@ class MailTemplateMapper
         $stmt = DB::conn()->prepare("SELECT * FROM mail_templates ORDER BY id");
         $stmt->execute([]);
         return $stmt->fetchAll();
-
     }
 
     public static function getTemplatesByType($type)

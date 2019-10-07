@@ -16,7 +16,7 @@ PortalCMS_JS_headJS(); ?>
 <?php
 $id = $_GET['id'];
 
-if (MailSchedule::exists($id)) {
+if (MailScheduleMapper::exists($id)) {
     $row = MailScheduleMapper::getById($id);
 } else {
     Session::add('feedback_negative', "Geen resultaten voor opgegeven mail ID.");
@@ -41,7 +41,57 @@ if (MailSchedule::exists($id)) {
                     <th><?php echo Text::get('LABEL_MAILDETAILS_SENDER'); ?></th><td><?php echo $row['sender_email']; ?></td>
                 </tr>
                 <tr>
-                    <th><?php echo Text::get('LABEL_MAILDETAILS_RECIPIENT'); ?></th><td><?php echo $row['recipient_email']; ?></td>
+                    <th><?php echo Text::get('LABEL_MAILDETAILS_RECIPIENT_TO'); ?></th>
+                    <td>
+                        <?php
+                        $recipients = MailRecipientMapper::getByMailIdAndType($row['id'], 1);
+                        if (!empty($recipients)) {
+                            foreach ($recipients as $recipient) {
+                                if (!empty($recipient['name'])) {
+                                    echo $recipient['name'].' - ';
+                                }
+                                echo $recipient['email'];
+                                echo '<br>';
+                            }
+                        }
+                        ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th><?php echo Text::get('LABEL_MAILDETAILS_RECIPIENT_CC'); ?></th>
+                    <td>
+                        <?php
+                        $ccrecipients = MailRecipientMapper::getByMailIdAndType($row['id'], 2);
+                        if (!empty($ccrecipients)) {
+                            foreach ($ccrecipients as $ccrecipient) {
+                                if (!empty($ccrecipient['name'])) {
+                                    echo $ccrecipient['name'].' - ';
+                                }
+                                echo $ccrecipient['email'];
+                                echo '<br>';
+                            }
+                        }
+                        ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th><?php echo Text::get('LABEL_MAILDETAILS_RECIPIENT_BCC'); ?></th>
+                    <td>
+                        <?php
+                        $bccrecipients = MailRecipientMapper::getByMailIdAndType($row['id'], 3);
+                        if (!empty($bccrecipients)) {
+                            echo 'BCC: <br>';
+                            foreach ($bccrecipients as $bccrecipient) {
+                                if (!empty($bccrecipient['name'])) {
+                                    echo $bccrecipient['name'].' - ';
+                                }
+                                echo $bccrecipient['email'];
+                                echo '<br>';
+                            }
+                        }
+
+                        ?>
+                    </td>
                 </tr>
                 <tr>
                     <th><?php echo Text::get('LABEL_MAILDETAILS_SUBJECT'); ?></th><td><?php echo $row['subject']; ?></td>

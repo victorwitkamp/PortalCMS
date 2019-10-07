@@ -3,7 +3,7 @@
 <table id="messages" class="table table-sm" style="width:100%" data-page-length='25'>
     <thead class="thead-dark">
         <tr>
-            <th class="text-center" ><input type="checkbox" id="selectall"/></th>
+            <th class="text-center" ><input type="checkbox" id="selectallmessages"/></th>
 
             <th>Mail ID</th>
             <th>Batch ID</th>
@@ -28,7 +28,7 @@
 
             <td class="text-center" >
                 <?php
-                    echo '<input type="checkbox" name="id[]" id="checkbox" value="'.$row['id'].'"/>';
+                    echo '<input type="checkbox" name="id[]" id="checkbox-message" value="'.$row['id'].'"/>';
                 ?>
             </td>
 
@@ -74,7 +74,7 @@ echo '">';
 ?>
 </form>
 <script>
-$( '#selectall' ).click( function () {
-    $( '#messages #checkbox' ).prop('checked', this.checked)
+$( '#selectallmessages' ).click( function () {
+    $( '#checkbox-message' ).prop('checked', this.checked)
 })
 </script>

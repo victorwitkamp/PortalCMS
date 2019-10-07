@@ -40,7 +40,7 @@ PortalCMS_JS_dataTables();
             echo '<h2>Batches</h2><p>Aantal: ' . $batchcount . '</p>';
             require 'inc/table_batches.php';
 
-            $result = MailSchedule::getScheduled();
+            $result = MailScheduleMapper::getScheduled();
             $mailcount = count($result);
             if (!$result) {
                 echo 'Ontbrekende gegevens..';
