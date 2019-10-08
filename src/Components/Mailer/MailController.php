@@ -17,7 +17,7 @@ class MailController extends Controller
             MailSchedule::new();
         }
         if (isset($_POST['sendScheduledMailById'])) {
-            MailSchedule::sendbyid();
+            MailSchedule::sendbyid(Request::post('id'));
         }
         if (isset($_POST['createMailWithTemplate'])) {
             MailSchedule::newWithTemplate();
@@ -26,7 +26,10 @@ class MailController extends Controller
             MailSchedule::deleteById();
         }
         if (isset($_POST['sendBatchById'])) {
-            MailBatch::sendById();
+            MailBatch::sendById(Request::post('id'));
+        }
+        if (isset($_POST['deleteBatchById'])) {
+            MailBatch::deleteById(Request::post('id'));
         }
     }
 

@@ -29,17 +29,17 @@ class MailSchedule
     }
 
 
-    public static function sendbyid()
+    public static function sendbyid($mail_IDs)
     {
+
         $count_success = 0;
         $count_failed = 0;
-        if (!empty($_POST['id'])) {
-            foreach ($_POST['id'] as $id) {
+        $count_already_sent = 0;
+        if (!empty($mail_IDs)) {
+            foreach ($mail_IDs as $id) {
                 $row = MailScheduleMapper::getById($id);
                 if ($row['status'] !== '1') {
-                    Session::add('feedback_negative', "Reeds verstuurd");
-                    Redirect::mail();
-                    return false;
+                    $count_already_sent += 1;
                 } else {
                     $sender = $row['sender_email'];
                     $recipients = MailRecipientMapper::getByMailId($id);
@@ -74,6 +74,10 @@ class MailSchedule
             }
         } else {
             Session::add('feedback_positive', $count_success.' bericht(en) succesvol verstuurd. ');
+        }
+        if ($count_already_sent > 0) {
+                Session::add('feedback_positive', $count_already_sent.' bericht(en) reeds verstuurd. ');
+
         }
         Redirect::mail();
     }

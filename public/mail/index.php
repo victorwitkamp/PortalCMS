@@ -19,7 +19,7 @@ PortalCMS_JS_dataTables();
 <?php require DIR_INCLUDES.'nav.php'; ?>
 <main>
     <div class="content">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row mt-5">
                 <div class="col-sm-8"><h1><?php echo $pageName ?></h1></div>
                 <div class="col-sm-4">
@@ -28,27 +28,29 @@ PortalCMS_JS_dataTables();
                     </a>
                 </div>
             </div>
-            <hr>
-        </div>
-        <div class="container">
+
             <?php
             Alert::renderFeedbackMessages();
+
+            ?>
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active" id="nav-home-tab" href="index.php" role="tab">Batches</a>
+    <a class="nav-item nav-link" id="nav-profile-tab" href="messages.php" role="tab">Messages</a>
+  </div>
+</nav>
+
+        </div>
+        <div class="container">
+
+            <?php
             PortalCMS_JS_Init_dataTables();
 
-            $batches = MailBatch::getScheduled();
+            $batches = MailBatch::getAll();
             $batchcount = count($batches);
             echo '<h2>Batches</h2><p>Aantal: ' . $batchcount . '</p>';
             require 'inc/table_batches.php';
 
-            $result = MailScheduleMapper::getScheduled();
-            $mailcount = count($result);
-            if (!$result) {
-                echo 'Ontbrekende gegevens..';
-            } else {
-                echo '<h2>Alle berichten</h2><p>Aantal: ' . $mailcount . '</p>';
-                include 'inc/table_messages.php';
-            }
-            echo '<hr>';
 
             ?>
         </div>

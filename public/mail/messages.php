@@ -23,7 +23,7 @@ PortalCMS_JS_dataTables();
 <?php require DIR_INCLUDES.'nav.php'; ?>
 <main>
     <div class="content">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row mt-5">
                 <div class="col-sm-8"><h1><?php echo $pageName ?></h1></div>
                 <div class="col-sm-4">
@@ -32,18 +32,27 @@ PortalCMS_JS_dataTables();
                     </a>
                 </div>
             </div>
-            <hr>
+
+                        <?php
+            Alert::renderFeedbackMessages();
+            ?>
+            <nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link" id="nav-home-tab" href="index.php" role="tab">Batches</a>
+    <a class="nav-item nav-link active" id="nav-profile-tab" href="messages.php" role="tab">Messages</a>
+  </div>
+</nav>
         </div>
         <div class="container">
+
             <?php
-            Alert::renderFeedbackMessages();
             PortalCMS_JS_Init_dataTables();
 
             if (isset($_GET['batch_id']) && !empty($_GET['batch_id'])) {
                 $result = MailScheduleMapper::getScheduledByBatchId($_GET['batch_id']);
 
             } else {
-                $result = MailScheduleMapper::getScheduled();
+                $result = MailScheduleMapper::getAll();
             }
             $mailcount = count($result);
             if (!$result) {
