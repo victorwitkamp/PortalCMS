@@ -9,7 +9,7 @@
         "ext-json": "*",
         "phpmailer/phpmailer": "~6.0",
                 "facebook/graph-sdk": "^5.7",
-                "tecnickcom/tcpdf": "6.2.26"
+                "tecnickcom/tcpdf": "6.3.2"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "3.*"
