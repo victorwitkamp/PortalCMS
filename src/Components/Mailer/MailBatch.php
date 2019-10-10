@@ -1,7 +1,9 @@
 <?php
-// Statussen:
-// 1 Klaar voor verzending
-// 2 Uitgevoerd
+
+
+/**
+ * Statussen: 1 Klaar voor verzending, 2 Uitgevoerd
+ */
 class MailBatch
 {
     public static function getAll()
