@@ -46,22 +46,22 @@ if (!file_exists(DIR_VENDOR.'autoload.php')) {
     include_once DIR_VENDOR.'autoload.php';
 }
 
-spl_autoload_register(
-    function ($class) {
-        $sources = array(
-            DIR_CLASS."Core/$class.php",
-            DIR_CLASS."Models/$class.php",
-            DIR_CLASS."Controllers/$class.php",
-            DIR_CLASS."DataMapper/$class.php",
-            DIR_CLASS."Components/Mailer/$class.php"
-        );
-        foreach ($sources as $source) {
-            if (file_exists($source)) {
-                include_once $source;
-            }
-        }
-    }
-);
+// spl_autoload_register(
+//     function ($class) {
+//         $sources = array(
+//             DIR_CLASS."Core/$class.php",
+//             DIR_CLASS."Models/$class.php",
+//             DIR_CLASS."Controllers/$class.php",
+//             DIR_CLASS."DataMapper/$class.php",
+//             DIR_CLASS."Components/Mailer/$class.php"
+//         );
+//         foreach ($sources as $source) {
+//             if (file_exists($source)) {
+//                 include_once $source;
+//             }
+//         }
+//     }
+// );
 
 $AccountController = new AccountController;
 $ContractController = new ContractController;
