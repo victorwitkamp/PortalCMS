@@ -10,13 +10,13 @@ class PDF
          * Installation path (/var/www/tcpdf/).
          * By default it is automatically calculated but you can also set it as a fixed string to improve performances.
          */
-        define('K_PATH_MAIN', DIR_VENDOR . 'tecnickcom/tcpdf/');
+        define('K_PATH_MAIN', DIR_VENDOR.'tecnickcom/tcpdf/');
 
         /**
          * URL path to tcpdf installation folder (http://localhost/tcpdf/).
          * By default it is automatically set but you can also set it as a fixed string to improve performances.
          */
-        define('K_PATH_URL', DIR_VENDOR . 'tecnickcom/tcpdf/');
+        define('K_PATH_URL', DIR_VENDOR.'tecnickcom/tcpdf/');
 
         /**
          * Path for PDF fonts.
@@ -189,7 +189,7 @@ class PDF
         $gelieve2 = '5413 53 o.v.v. het factuurnummer t.n.v. Sociëteit de Beuk.';
 
         $gelieve4 = 'Neem voor vragen over facturatie contact op met penningmeester@beukonline.nl.'."\n\n";
-          $pdf->SetX(20);
+            $pdf->SetX(20);
         $pdf->Write(0, $gelieve, '', 0, '', true, 0, false, false, 0);
         $pdf->SetX(20);
         $pdf->Write(0, $gelieve2, '', 0, 'L', true, 0, false, false, 0);

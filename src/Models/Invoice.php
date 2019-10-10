@@ -21,7 +21,7 @@ class Invoice
         $subject = MailTemplate::replaceholder('MAAND', $maand, $template['subject']);
 
         $body = MailTemplate::replaceholder('FACTUURNUMMER', $invoice['factuurnummer'], $template['body']);
-        $create = MailScheduleMapper::create(NULL, $sender_email, NULL, NULL, $subject, $body);
+        $create = MailScheduleMapper::create(null, $sender_email, null, null, $subject, $body);
         if (!$create) {
             Session::add('feedback_negative', "Nieuwe email aanmaken mislukt.");
             return false;
@@ -119,7 +119,7 @@ class Invoice
                 return Redirect::error();
             }
         }
-        if($invoice['status'] > 0) {
+        if ($invoice['status'] > 0) {
             unlink(DIR_ROOT.'content/invoices/'.$invoice['factuurnummer'].'.pdf');
         }
         if (!InvoiceMapper::delete($id)) {
@@ -130,7 +130,7 @@ class Invoice
         return Redirect::to("rental/invoices/index.php");
     }
 
-    public static function render($id = NULL)
+    public static function render($id = null)
     {
         if (empty($id)) {
             return false;

@@ -148,7 +148,7 @@ class MailSchedule
         $recipient_email = Request::post('recipient_email', true);
         $subject = Request::post('subject', true);
         $body = Request::post('body', true);
-        $create = MailScheduleMapper::create(NULL, $sender_email, $recipient_email, $subject, $body);
+        $create = MailScheduleMapper::create(null, $sender_email, $recipient_email, $subject, $body);
         if (!$create) {
             Session::add('feedback_negative', "Nieuwe email aanmaken mislukt.");
             return false;
