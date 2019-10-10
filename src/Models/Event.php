@@ -8,6 +8,7 @@ class Event
     public static function loadCalendarEvents($startDate, $endDate)
     {
         $result = EventMapper::getByDate($startDate, $endDate);
+        if(!empty($result)) {
         foreach ($result as $row) {
             if ($row['status'] === '1') {
                 $color = 'var(--success)';
@@ -24,6 +25,8 @@ class Event
                 'backgroundColor' => $color
             );
         }
+        }
+
         if (!empty($data)) {
             $returndata = json_encode($data);
             echo $returndata;

@@ -22,8 +22,8 @@ class EventMapper
     {
         $startDateTime = $startDate.' 00:00:00';
         $endDateTime = $endDate.' 00:00:00';
-        $stmt = DB::conn()->prepare("SELECT * FROM events where start_event > ? and end_event < ? ORDER BY id");
-        $stmt->execute([$startDateTime, $endDateTime]);
+        $stmt = DB::conn()->prepare("SELECT * FROM events where start_event < ? and end_event > ? ORDER BY id");
+        $stmt->execute([$endDateTime, $startDateTime]);
         if ($stmt->rowCount() == 0) {
             return false;
         }
