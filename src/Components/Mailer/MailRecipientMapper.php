@@ -13,7 +13,7 @@ class MailRecipientMapper
      *
      * @return void
      */
-    public static function create($email, $mail_id, $type = 1, $name = NULL)
+    public static function create($email, $mail_id, $type = 1, $name = null)
     {
         $stmt = DB::conn()->prepare(
             "INSERT INTO mail_recipients(id, email, mail_id, type, name) VALUES (NULL,?,?,?,?)"

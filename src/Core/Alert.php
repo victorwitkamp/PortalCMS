@@ -2,7 +2,8 @@
 
 class Alert
 {
-    public static function render($feedback, $style) {
+    public static function render($feedback, $style)
+    {
         if (!empty($feedback)) {
             if (!empty($style)) {
                 echo '<div class="alert alert-';
@@ -45,9 +46,9 @@ class Alert
             }
         }
 
-        Session::set('feedback_positive', NULL);
+        Session::set('feedback_positive', null);
         // unset($_SESSION['feedback_positive']);
-        Session::set('feedback_warning', NULL);
-        Session::set('feedback_negative', NULL);
+        Session::set('feedback_warning', null);
+        Session::set('feedback_negative', null);
     }
 }

@@ -48,7 +48,7 @@ PortalCMS_JS_dataTables();
 
             $batches = MailBatch::getAll();
             $batchcount = count($batches);
-            echo '<h2>Batches</h2><p>Aantal: ' . $batchcount . '</p>';
+            echo '<h2>Batches</h2><p>Aantal: '.$batchcount.'</p>';
             require 'inc/table_batches.php';
 
 

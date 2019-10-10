@@ -35,9 +35,9 @@ ini_set('session.use_strict_mode', 1);
  * Configuration for: Named constants
  */
 define("DIR_ROOT", $_SERVER["DOCUMENT_ROOT"]."/");
-define("DIR_CLASS", DIR_ROOT . "../src/");
-define("DIR_INCLUDES", DIR_ROOT . "includes/");
-define("DIR_VENDOR", DIR_ROOT . "../vendor/");
+define("DIR_CLASS", DIR_ROOT."../src/");
+define("DIR_INCLUDES", DIR_ROOT."includes/");
+define("DIR_VENDOR", DIR_ROOT."../vendor/");
 
 if (!file_exists(DIR_VENDOR.'autoload.php')) {
     echo 'No autoloader found in the "vendor" directory. Run "composer update" to get started.';

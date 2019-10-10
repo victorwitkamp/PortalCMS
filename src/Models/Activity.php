@@ -19,12 +19,12 @@ class Activity
         return $ip;
     }
 
-    public static function registerUserActivity($activity, $details = NULL)
+    public static function registerUserActivity($activity, $details = null)
     {
         if (!empty(Session::get('user_id'))) {
             $user_id = Session::get('user_id');
         }
-        self::saveUserActivity(NULL, NULL, $activity, $details);
+        self::saveUserActivity(null, null, $activity, $details);
     }
 
     public static function registerUserActivityByUserId($user_id, $activity, $details)
@@ -34,20 +34,20 @@ class Activity
         self::saveUserActivity($user_id, $user_name, $activity, $details);
     }
 
-    public static function registerUserActivityByUsername($user_name, $activity = NULL, $details = NULL)
+    public static function registerUserActivityByUsername($user_name, $activity = null, $details = null)
     {
         $user = UserMapper::getByUserName($user_name);
         $user_id = $user['user_id'];
         self::saveUserActivity($user_id, $user_name, $activity, $details);
     }
 
-    public static function saveUserActivity($user_id = NULL, $user_name = NULL, $activity = NULL, $details = NULL)
+    public static function saveUserActivity($user_id = null, $user_name = null, $activity = null, $details = null)
     {
         $ip = self::getVisitorIP();
         self::saveUserActivityAction($user_id, $user_name, $ip, $activity, $details);
     }
 
-    public static function saveUserActivityAction($user_id = NULL, $user_name = NULL, $ip = NULL, $activity = NULL, $details = NULL)
+    public static function saveUserActivityAction($user_id = null, $user_name = null, $ip = null, $activity = null, $details = null)
     {
         $sql = 'INSERT INTO activity (id, user_id, user_name, ip_address, activity, details) VALUES (NULL, ?, ?, ?, ?, ?)';
         $stmt = DB::conn()->prepare($sql);
