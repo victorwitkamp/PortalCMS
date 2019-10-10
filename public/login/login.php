@@ -48,7 +48,7 @@ PortalCMS_CSS_floatingLabels();
           </div>
         </section>
         <script src="/includes/js/newlogin.js"></script>
-        <?php Util::displayPopup(); ?>
+        <?php Popup::show(); ?>
       </div>
     </div>
   </main>

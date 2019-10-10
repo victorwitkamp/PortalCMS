@@ -1,8 +1,8 @@
 <?php
 
-if (!isset($_SESSION)) { 
-    session_start(); 
-} 
+if (!isset($_SESSION)) {
+    session_start();
+}
 
 ?>
 <!DOCTYPE html>
@@ -38,18 +38,18 @@ if (!isset($_SESSION)) {
                 <div class="card">
                     <div class="card-header text-center">
                         <h1 class="h3 mb-3 font-weight-normal">Database error</h1>
-                        
+
                     </div>
                     <div class="card-body">
 
                         <h2 class="h3 mb-3 font-weight-normal">Error</h2><hr>
-                        <?php $Util->displayMessage(); ?><hr>
-                        <a class="btn btn-primary" href="/login/login.php"><span class="fas fa-sync"></span> Opnieuw proberen</a> 
+                        <?php Alert::renderFeedbackMessages(); ?><hr>
+                        <a class="btn btn-primary" href="/login/login.php"><span class="fas fa-sync"></span> Opnieuw proberen</a>
                     </div>
                 </div>
 
         </div>
-    </main> 
+    </main>
 
 </body>
 </html>

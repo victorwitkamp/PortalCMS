@@ -13,12 +13,6 @@ displayHeadCSS();
 PortalCMS_CSS_floatingLabels();
 PortalCMS_JS_headJS();
 
-if (isset($_GET['activate'])) {
-    if ($_GET['activate'] = '1') {
-        $u->activate($_GET['email'], $_GET['code']);
-        Util::redirectPage(SiteSetting::getStaticSiteSetting('site_url')."/login/login.php");
-    }
-}
 ?>
 </head>
 <body class="bg">

@@ -141,6 +141,7 @@ class Invoice
         if (PDF::renderInvoice($invoice, $invoiceitems, $contract)) {
             return true;
         }
+        return false;
     }
 
     public static function write()
