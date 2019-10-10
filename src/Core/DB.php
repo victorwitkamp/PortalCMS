@@ -22,8 +22,8 @@ class DB
         $options = array(
             //PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
-        $conn = NULL;
-        if ($conn == NULL) {
+        $conn = null;
+        if ($conn == null) {
             /**
              * Check DB connection in try/catch block. Also when PDO is not constructed properly,
              * prevent to exposing database host, username and password in plain text as:

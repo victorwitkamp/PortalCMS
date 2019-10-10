@@ -25,9 +25,9 @@ class MailSender
         $subject,
         $body,
         $recipients,
-        $attachments = NULL,
-        $from_email = NULL,
-        $from_name = NULL
+        $attachments = null,
+        $from_email = null,
+        $from_name = null
     ) {
         $this->_subject = $subject;
         $this->_body = $body;
@@ -69,10 +69,10 @@ class MailSender
             $this->_error = 'Incompleet';
             return false;
         }
-        if ($this->_from_email == NULL) {
+        if ($this->_from_email == null) {
             $this->_from_email = Config::get('EMAIL_SMTP_USERNAME');
         }
-        if ($this->_from_name == NULL) {
+        if ($this->_from_name == null) {
                 $this->_from_name = SiteSetting::getStaticSiteSetting('site_name');
         }
 

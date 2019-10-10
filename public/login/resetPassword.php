@@ -42,18 +42,18 @@ PortalCMS_JS_headJS();
                             title="Use at least 8 characters. Please include at least 1 uppercase character,
                             1 lowercase character and 1 number." id="inputPassword" class="form-control"
                             placeholder="wachtwoord" autocomplete="new-password" required=""
-                            autofocus="" <?php if (empty($_GET['password_reset_hash'])) {echo 'disabled';} ?>>
+                            autofocus="" <?php if (empty($_GET['password_reset_hash'])) {echo 'disabled'; } ?>>
                             <label for="inputPassword">Wachtwoord</label>
                         </div>
                         <div class="form-label-group">
                             <input type="password" name="confirm_password" id="inputConfirmPassword" class="form-control" placeholder="Bevestig wachtwoord" data-match="wachtwoord" data-match-field="#inputPassword" autocomplete="new-password" required="" <?php if (empty($_GET['password_reset_hash'])) { echo 'disabled';
-                                                                                                                                                                                                                                                              } ?>>
+                                                                                                                                                                                                                                                                } ?>>
                             <label for="inputConfirmPassword">Bevestig wachtwoord</label>
                         </div>
                         <input type="hidden" name="username" value="<?php echo $_GET['username']; ?>"/>
                         <input type="hidden" name="password_reset_hash" value="<?php echo $_GET['password_reset_hash']; ?>"/>
                         <input type="submit" name="resetSubmit" value="Wachtwoord wijzigen" class="btn btn-secondary mb-sm-2" <?php if (empty($_GET['password_reset_hash'])) {echo 'disabled';
-                                                                                                                              } ?>>
+                                                                                                                                } ?>>
                     </div>
                 </div>
             </form>

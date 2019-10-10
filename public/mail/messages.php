@@ -58,7 +58,7 @@ PortalCMS_JS_dataTables();
             if (!$result) {
                 echo 'Ontbrekende gegevens..';
             } else {
-                echo '<h2>Alle berichten</h2><p>Aantal: ' . $mailcount . '</p>';
+                echo '<h2>Alle berichten</h2><p>Aantal: '.$mailcount.'</p>';
                 include 'inc/table_messages.php';
             }
             echo '<hr>';

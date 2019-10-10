@@ -74,7 +74,7 @@ class Member
         $betalingswijze         = Request::post('betalingswijze', true);
         $iban                   = Request::post('iban', true);
         $machtigingskenmerk     = Request::post('machtigingskenmerk', true);
-        $status         = Request::post('status', true);
+        $status = Request::post('status', true);
         // $opmerking              = Request::post('opmerking', true);
 
         $sql = "UPDATE members
@@ -127,7 +127,7 @@ class Member
         $betalingswijze         = Request::post('betalingswijze', true);
         $iban                   = Request::post('iban', true);
         $machtigingskenmerk     = Request::post('machtigingskenmerk', true);
-        $status         = Request::post('status', true);
+        $status = Request::post('status', true);
         // $opmerking              = Request::post('opmerking', true);
 
         if (self::doesEmailforYearExist($jaarlidmaatschap, $emailadres)) {

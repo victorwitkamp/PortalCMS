@@ -4,11 +4,11 @@ class Text
 {
     private static $texts;
 
-    public static function get($key, $data = NULL)
+    public static function get($key, $data = null)
     {
         // if not $key
         if (!$key) {
-            return NULL;
+            return null;
         }
 
         if ($data) {

@@ -51,7 +51,7 @@ class Redirect
         self::to('includes/Error.php');
     }
         public static function preError()
-    {
+        {
         self::to('login/error.php');
     }
 

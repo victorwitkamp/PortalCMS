@@ -79,7 +79,7 @@ class Session
      * @param  string $userId
      * @param  string $sessionId
      */
-    public static function updateSessionId($userId, $sessionId = NULL)
+    public static function updateSessionId($userId, $sessionId = null)
     {
         $sql = "UPDATE users SET session_id = :session_id WHERE user_id = :user_id";
 

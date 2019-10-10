@@ -15,7 +15,7 @@ class Login
      *
      * @return bool success state
      */
-    public static function loginWithPassword($user_name, $user_password, $set_remember_me_cookie = NULL)
+    public static function loginWithPassword($user_name, $user_password, $set_remember_me_cookie = null)
     {
         // we do negative-first checks here, for simplicity empty username and empty password in one line
         if (empty($user_name) or empty($user_password)) {
