@@ -6,13 +6,10 @@
 /public/.well-known
 /public/web.config
 /public/errors.log
-.scrutenizer.yml
-codelingo.yaml
-
-
 /vendor/
+.scrutenizer.yml
+/codelingo.yaml
 
-composer.lock
-package-lock.json
-yarn-error.log
-yarn.lock
+
+/yarn-error.log
+/yarn.lock

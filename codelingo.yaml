@@ -1,4 +1,0 @@
-tenets:
-- import: codelingo/php
-- import: codelingo/psr1
-- import: codelingo/psr2
