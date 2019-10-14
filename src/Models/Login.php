@@ -18,7 +18,7 @@ class Login
     public static function loginWithPassword($user_name, $user_password, $set_remember_me_cookie = null)
     {
         // we do negative-first checks here, for simplicity empty username and empty password in one line
-        if (empty($user_name) or empty($user_password)) {
+        if (empty($user_name) || empty($user_password)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
             return false;
         }
@@ -44,7 +44,11 @@ class Login
 
         // successfully logged in, so we write all necessary data into the session and set "user_logged_in" to true
         self::setSuccessfulLoginIntoSession(
-            $result->user_id, $result->user_name, $result->user_email, $result->user_account_type, $result->user_fbid
+            $result->user_id,
+            $result->user_name,
+            $result->user_email,
+            $result->user_account_type,
+            $result->user_fbid
         );
 
         // return true to make clear the login was successful
