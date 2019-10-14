@@ -25,7 +25,7 @@ class Role
                             LIMIT 1"
         );
         $stmt->execute([$role_id]);
-        if ($stmt->rowCount() == 1) {
+        if ($stmt->rowCount() === 1) {
             return $stmt->fetch();
         }
         return false;

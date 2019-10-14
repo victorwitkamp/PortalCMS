@@ -17,7 +17,7 @@ class UserMapper
                         LIMIT 1"
         );
         $stmt->execute([$username]);
-        if ($stmt->rowCount() == 0) {
+        if ($stmt->rowCount() === 0) {
             return false;
         }
         return true;
@@ -39,7 +39,7 @@ class UserMapper
                         LIMIT 1"
         );
         $stmt->execute(array(':user_email' => $user_email));
-        if ($stmt->rowCount() == 0) {
+        if ($stmt->rowCount() === 0) {
             return false;
         }
         return true;
@@ -67,7 +67,7 @@ class UserMapper
                 ':user_id' => $user_id
             )
         );
-        if ($stmt->rowCount() == 0) {
+        if ($stmt->rowCount() === 0) {
             return false;
         }
         return true;
@@ -82,7 +82,7 @@ class UserMapper
                     LIMIT 1"
         );
         $stmt->execute([$fbid, $user_id]);
-        if ($stmt->rowCount() == 0) {
+        if ($stmt->rowCount() === 0) {
             return false;
         }
         return true;
@@ -97,7 +97,7 @@ class UserMapper
                     LIMIT 1"
         );
         $stmt->execute([$token, $user_id]);
-        if ($stmt->rowCount() == 0) {
+        if ($stmt->rowCount() === 0) {
             return false;
         }
         return true;
@@ -261,7 +261,7 @@ class UserMapper
                         LIMIT 1"
         );
         $stmt->execute(array(':user_name' => $username, ':provider_type' => 'DEFAULT'));
-        if ($stmt->rowCount() == 0) {
+        if ($stmt->rowCount() === 0) {
             return false;
         }
         return $stmt->fetch(PDO::FETCH_OBJ);
@@ -301,7 +301,7 @@ class UserMapper
             ':user_remember_me_token' => $token,
             ':provider_type' => 'DEFAULT')
         );
-        if ($stmt->rowCount() == 0) {
+        if ($stmt->rowCount() === 0) {
             return false;
         }
         return $stmt->fetch(PDO::FETCH_OBJ);
@@ -318,7 +318,7 @@ class UserMapper
                         LIMIT 1"
         );
         $stmt->execute(array(':user_fbid' => $user_fbid));
-        if ($stmt->rowCount() == 0) {
+        if ($stmt->rowCount() === 0) {
             return false;
         }
         return $stmt->fetch(PDO::FETCH_OBJ);
@@ -340,7 +340,7 @@ class UserMapper
                         LIMIT 1"
         );
         $stmt->execute(array(':user_name_or_email' => $usernameOrEmail, ':provider_type' => 'DEFAULT'));
-        if ($stmt->rowCount() == 0) {
+        if ($stmt->rowCount() === 0) {
             return false;
         }
         return $stmt->fetch(PDO::FETCH_OBJ);

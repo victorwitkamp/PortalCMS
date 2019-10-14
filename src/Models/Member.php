@@ -20,7 +20,7 @@ class Member
     {
         $stmt = DB::conn()->prepare("SELECT id FROM members WHERE id = ? LIMIT 1");
         $stmt->execute([$memberId]);
-        if ($stmt->rowCount() == 0) {
+        if ($stmt->rowCount() === 0) {
             return false;
         }
         return true;
@@ -30,7 +30,7 @@ class Member
     {
         $stmt = DB::conn()->prepare("SELECT id FROM members WHERE jaarlidmaatschap = ? AND emailadres = ? LIMIT 1");
         $stmt->execute([$jaarlidmaatschap, $email]);
-        if ($stmt->rowCount() == 0) {
+        if ($stmt->rowCount() === 0) {
             return false;
         }
         return true;

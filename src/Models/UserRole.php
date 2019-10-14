@@ -20,7 +20,7 @@ class UserRole
                                 LIMIT 1"
         );
         $stmt->execute([$user_id, $role_id]);
-        if ($stmt->rowCount() == 1) {
+        if ($stmt->rowCount() === 1) {
             return true;
         }
         return false;

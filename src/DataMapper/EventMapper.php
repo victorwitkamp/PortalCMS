@@ -12,7 +12,7 @@ class EventMapper
     {
         $stmt = DB::conn()->prepare("SELECT id FROM events WHERE id = ? LIMIT 1");
         $stmt->execute([$id]);
-        if ($stmt->rowCount() == 0) {
+        if ($stmt->rowCount() === 0) {
             return false;
         }
         return true;
@@ -24,7 +24,7 @@ class EventMapper
         $endDateTime = $endDate.' 00:00:00';
         $stmt = DB::conn()->prepare("SELECT * FROM events where start_event < ? and end_event > ? ORDER BY id");
         $stmt->execute([$endDateTime, $startDateTime]);
-        if ($stmt->rowCount() == 0) {
+        if ($stmt->rowCount() === 0) {
             return false;
         }
         return $stmt->fetchAll();

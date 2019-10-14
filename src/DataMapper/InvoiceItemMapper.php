@@ -60,7 +60,7 @@ class InvoiceItemMapper
             WHERE id = ?"
         );
         $stmt->execute([$id]);
-        if ($stmt->rowCount() == 0) {
+        if ($stmt->rowCount() === 0) {
             return false;
         }
         return true;
@@ -103,7 +103,7 @@ class InvoiceItemMapper
                         LIMIT 1"
         );
         $stmt->execute([$id]);
-        if ($stmt->rowCount() == 0) {
+        if ($stmt->rowCount() === 0) {
             return false;
         }
         return true;
@@ -127,7 +127,7 @@ class InvoiceItemMapper
     //                     AND name = ?
     //                     LIMIT 1");
     //     $stmt->execute([$invoiceId, $name]);
-    //     if ($stmt->rowCount() == 0) {
+    //     if ($stmt->rowCount() === 0) {
     //         return false;
     //     }
     //     return true;
@@ -151,7 +151,7 @@ class InvoiceItemMapper
     //                     AND name = ?
     //                     LIMIT 1");
     //     $stmt->execute([$invoiceId, $name]);
-    //     if ($stmt->rowCount() == 0) {
+    //     if ($stmt->rowCount() === 0) {
     //         return false;
     //     }
     //     return true;

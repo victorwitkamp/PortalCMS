@@ -1,0 +1,223 @@
+
+
+ ------ ------------------------------------------------------------------------------------ 
+  Line   Components\Mailer\MailAttachment.php                                                
+ ------ ------------------------------------------------------------------------------------ 
+  9      Parameter #1 $finfo of function finfo_file expects resource, resource|false given.  
+  9      Parameter #2 $file_name of function finfo_file expects string, string|false given.  
+ ------ ------------------------------------------------------------------------------------ 
+
+ ------ --------------------------------------------------------------------------------------------------------------------------- 
+  Line   Components\Mailer\MailRecipientMapper.php                                                                                  
+ ------ --------------------------------------------------------------------------------------------------------------------------- 
+  16     PHPDoc tag @param has invalid value ([type] $email   The e-mailaddress of the recipient): Unexpected token "[", expected   
+         TOKEN_IDENTIFIER at offset 57                                                                                              
+  16     PHPDoc tag @param has invalid value ([type] $mail_id The ID of the e-mail that was scheduled in the MailSchedule table.):  
+         Unexpected token "[", expected TOKEN_IDENTIFIER at offset 123                                                              
+  16     PHPDoc tag @param has invalid value ([type] $name    The name of the recipient): Unexpected token "[", expected            
+         TOKEN_IDENTIFIER at offset 306                                                                                             
+  23     Method MailRecipientMapper::create() with return type void returns false but should not return anything.                   
+  25     Method MailRecipientMapper::create() with return type void returns true but should not return anything.                    
+ ------ --------------------------------------------------------------------------------------------------------------------------- 
+
+ ------ ---------------------------------------------------------------------------------------------------------------------------- 
+  Line   Components\Mailer\MailSender.php                                                                                            
+ ------ ---------------------------------------------------------------------------------------------------------------------------- 
+  66     PHPDoc tag @param has invalid value ($body): Unexpected token "$body", expected TOKEN_IDENTIFIER at offset 347              
+  66     PHPDoc tag @param has invalid value ($from_email): Unexpected token "$from_email", expected TOKEN_IDENTIFIER at offset 270  
+  66     PHPDoc tag @param has invalid value ($from_name): Unexpected token "$from_name", expected TOKEN_IDENTIFIER at offset 297    
+  66     PHPDoc tag @param has invalid value ($recipient_email): Unexpected token "$recipient_email", expected TOKEN_IDENTIFIER at   
+         offset 238                                                                                                                  
+  66     PHPDoc tag @param has invalid value ($subject): Unexpected token "$subject", expected TOKEN_IDENTIFIER at offset 323        
+  66     PHPDoc tag @throws with type PHPMailer\PHPMailer\Exception|phpmailerException is not subtype of Throwable                   
+  116    Constant DIR_ROOT not found.                                                                                                
+ ------ ---------------------------------------------------------------------------------------------------------------------------- 
+
+ ------ ---------------------------------------------------------------------------- 
+  Line   Components\Mailer\MailTemplate.php                                          
+ ------ ---------------------------------------------------------------------------- 
+  45     Parameter #1 $str of function strtoupper expects string, int|string given.  
+  47     Variable $body_out might not be defined.                                    
+ ------ ---------------------------------------------------------------------------- 
+
+ ------ ---------------------------------------------------------------------------------------------------------------------------- 
+  Line   Controllers\PasswordResetController.php                                                                                     
+ ------ ---------------------------------------------------------------------------------------------------------------------------- 
+  26     Parameter #2 $user_password_hash of static method PasswordReset::saveNewUserPassword() expects string, string|false given.  
+ ------ ---------------------------------------------------------------------------------------------------------------------------- 
+
+ ------ ------------------------------ 
+  Line   Core\Config.php               
+ ------ ------------------------------ 
+  16     Constant DIR_ROOT not found.  
+ ------ ------------------------------ 
+
+ ------ ------------------------------------------------------------------------ 
+  Line   Core\Cookie.php                                                         
+ ------ ------------------------------------------------------------------------ 
+  55     Parameter #2 $value of function setcookie expects string, false given.  
+ ------ ------------------------------------------------------------------------ 
+
+ ------ -------------------------------------------------------------------- 
+  Line   Core\Csrf.php                                                       
+ ------ -------------------------------------------------------------------- 
+  40     Parameter #1 $prefix of function uniqid expects string, int given.  
+ ------ -------------------------------------------------------------------- 
+
+ ------ -------------------------------------------------------------------------------------------- 
+  Line   Core\Encryption.php                                                                         
+ ------ -------------------------------------------------------------------------------------------- 
+  55     Parameter #1 $length of function openssl_random_pseudo_bytes expects int, int|false given.  
+  61     Parameter #5 $iv of function openssl_encrypt expects string, string|false given.            
+  103    Method Encryption::decrypt() should return string but returns false.                        
+  108    Parameter #3 $length of function mb_substr expects int|null, int|false given.               
+  109    Parameter #2 $start of function mb_substr expects int, int|false given.                     
+  111    Method Encryption::decrypt() should return string but returns string|false.                 
+ ------ -------------------------------------------------------------------------------------------- 
+
+ ------ ----------------------------------------------------------------------------------------------------------------------------- 
+  Line   Core\Filter.php                                                                                                              
+ ------ ----------------------------------------------------------------------------------------------------------------------------- 
+  53     PHPDoc tag @param has invalid value ($value The value to be filtered): Unexpected token "$value", expected TOKEN_IDENTIFIER  
+         at offset 2317                                                                                                               
+  71     Argument of an invalid type array|object supplied for foreach, only iterables are supported.                                 
+ ------ ----------------------------------------------------------------------------------------------------------------------------- 
+
+ ------ ----------------------------------------------------------------------------------------------------------------------- 
+  Line   Core\Redirect.php                                                                                                      
+ ------ ----------------------------------------------------------------------------------------------------------------------- 
+  19     PHPDoc tag @param has invalid value ($path string): Unexpected token "$path", expected TOKEN_IDENTIFIER at offset 557  
+  79     PHPDoc tag @param has invalid value ($path string): Unexpected token "$path", expected TOKEN_IDENTIFIER at offset 379  
+ ------ ----------------------------------------------------------------------------------------------------------------------- 
+
+ ------ ------------------------------ 
+  Line   Core\Text.php                 
+ ------ ------------------------------ 
+  24     Constant DIR_ROOT not found.  
+ ------ ------------------------------ 
+
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  Line   Core\View.php                                                                                                  
+ ------ --------------------------------------------------------------------------------------------------------------- 
+  16     Constant DIR_INCLUDES not found.                                                                               
+  24     PHPDoc tag @param has invalid value ($data): Unexpected token "$data", expected TOKEN_IDENTIFIER at offset 97  
+ ------ --------------------------------------------------------------------------------------------------------------- 
+
+ ------ ------------------------------------------------------------------------------------------------------------------------------ 
+  Line   DataMapper\UserMapper.php                                                                                                     
+ ------ ------------------------------------------------------------------------------------------------------------------------------ 
+  11     PHPDoc tag @param has invalid value ($username string username): Unexpected token "$username", expected TOKEN_IDENTIFIER at   
+         offset 73                                                                                                                     
+  33     PHPDoc tag @param has invalid value ($user_email string email): Unexpected token "$user_email", expected TOKEN_IDENTIFIER at  
+         offset 69                                                                                                                     
+  56     PHPDoc tag @param has invalid value ($newUsername string new username): Unexpected token "$newUsername", expected             
+         TOKEN_IDENTIFIER at offset 103                                                                                                
+  56     PHPDoc tag @param has invalid value ($user_id int user id): Unexpected token "$user_id", expected TOKEN_IDENTIFIER at offset  
+         67                                                                                                                            
+  113    PHPDoc tag @param has invalid value ($username): Unexpected token "$username", expected TOKEN_IDENTIFIER at offset 54         
+  165    PHPDoc tag @param has invalid value ($username): Unexpected token "$username", expected TOKEN_IDENTIFIER at offset 195        
+  185    PHPDoc tag @param has invalid value ($username): Unexpected token "$username", expected TOKEN_IDENTIFIER at offset 87         
+  206    PHPDoc tag @param has invalid value ($username): Unexpected token "$username", expected TOKEN_IDENTIFIER at offset 81         
+  244    PHPDoc tag @param has invalid value ($username string User's name): Unexpected token "$username", expected TOKEN_IDENTIFIER   
+         at offset 68                                                                                                                  
+  278    PHPDoc tag @param has invalid value ($token): Unexpected token "$token", expected TOKEN_IDENTIFIER at offset 140              
+  278    PHPDoc tag @param has invalid value ($user_id): Unexpected token "$user_id", expected TOKEN_IDENTIFIER at offset 116          
+  332    PHPDoc tag @param has invalid value ($usernameOrEmail): Unexpected token "$usernameOrEmail", expected TOKEN_IDENTIFIER at     
+         offset 19                                                                                                                     
+ ------ ------------------------------------------------------------------------------------------------------------------------------ 
+
+ ------ -------------------------------------- 
+  Line   Models\Event.php                      
+ ------ -------------------------------------- 
+  48     Variable $data might not be defined.  
+ ------ -------------------------------------- 
+
+ ------ ------------------------------ 
+  Line   Models\Invoice.php            
+ ------ ------------------------------ 
+  123    Constant DIR_ROOT not found.  
+ ------ ------------------------------ 
+
+ ------ ------------------------------------------------------------------------------------------------------------------------------- 
+  Line   Models\Login.php                                                                                                               
+ ------ ------------------------------------------------------------------------------------------------------------------------------- 
+  18     PHPDoc tag @param has invalid value ($set_remember_me_cookie mixed Marker for usage of remember-me cookie feature):            
+         Unexpected token "$set_remember_me_cookie", expected TOKEN_IDENTIFIER at offset 184                                            
+  18     PHPDoc tag @param has invalid value ($user_name string The user's name): Unexpected token "$user_name", expected               
+         TOKEN_IDENTIFIER at offset 78                                                                                                  
+  18     PHPDoc tag @param has invalid value ($user_password string The user's password): Unexpected token "$user_password", expected   
+         TOKEN_IDENTIFIER at offset 127                                                                                                 
+  69     PHPDoc tag @param has invalid value ($cookie string The cookie "remember_me"): Unexpected token "$cookie", expected            
+         TOKEN_IDENTIFIER at offset 170                                                                                                 
+  137    PHPDoc tag @param has invalid value ($user_name): Unexpected token "$user_name", expected TOKEN_IDENTIFIER at offset 145       
+  137    PHPDoc tag @param has invalid value ($user_password): Unexpected token "$user_password", expected TOKEN_IDENTIFIER at offset   
+         171                                                                                                                            
+  236    PHPDoc tag @param has invalid value ($user_account_type): Unexpected token "$user_account_type", expected TOKEN_IDENTIFIER at  
+         offset 261                                                                                                                     
+  236    PHPDoc tag @param has invalid value ($user_email): Unexpected token "$user_email", expected TOKEN_IDENTIFIER at offset 234     
+  236    PHPDoc tag @param has invalid value ($user_id): Unexpected token "$user_id", expected TOKEN_IDENTIFIER at offset 184           
+  236    PHPDoc tag @param has invalid value ($user_name): Unexpected token "$user_name", expected TOKEN_IDENTIFIER at offset 208       
+  270    PHPDoc tag @param has invalid value ($user_id): Unexpected token "$user_id", expected TOKEN_IDENTIFIER at offset 150           
+  273    Parameter #2 $data of function hash expects string, int given.                                                                 
+ ------ ------------------------------------------------------------------------------------------------------------------------------- 
+
+ ------ -------------------------------- 
+  Line   Models\PDF.php                  
+ ------ -------------------------------- 
+  13     Constant DIR_VENDOR not found.  
+  19     Constant DIR_VENDOR not found.  
+ ------ -------------------------------- 
+
+ ------ ----------------------------------------------------------------------------------------------------------------------- 
+  Line   Models\Password.php                                                                                                    
+ ------ ----------------------------------------------------------------------------------------------------------------------- 
+  59     Parameter #2 $user_password_hash of static method Password::saveChangedPassword() expects string, string|false given.  
+ ------ ----------------------------------------------------------------------------------------------------------------------- 
+
+ ------ ------------------------------------------------------------------------------------------------------------------------------- 
+  Line   Models\PasswordReset.php                                                                                                       
+ ------ ------------------------------------------------------------------------------------------------------------------------------- 
+  38     Parameter #1 $prefix of function uniqid expects string, int given.                                                             
+  40     Parameter #3 $timestamp of static method PasswordReset::writeTokenToDatabase() expects int, string given.                      
+  222    Parameter #2 $user_password_hash of static method PasswordReset::saveNewUserPassword() expects string, string|false given.     
+  240    PHPDoc tag @param has invalid value ($password_reset_hash): Unexpected token "$password_reset_hash", expected                  
+         TOKEN_IDENTIFIER at offset 94                                                                                                  
+  240    PHPDoc tag @param has invalid value ($user_name): Unexpected token "$user_name", expected TOKEN_IDENTIFIER at offset 68        
+  240    PHPDoc tag @param has invalid value ($user_password_new): Unexpected token "$user_password_new", expected TOKEN_IDENTIFIER at  
+         offset 130                                                                                                                     
+  240    PHPDoc tag @param has invalid value ($user_password_repeat): Unexpected token "$user_password_repeat", expected                
+         TOKEN_IDENTIFIER at offset 164                                                                                                 
+ ------ ------------------------------------------------------------------------------------------------------------------------------- 
+
+ ------ ------------------------------------------------------------------------------------------------------------------------------ 
+  Line   Models\Registration.php                                                                                                       
+ ------ ------------------------------------------------------------------------------------------------------------------------------ 
+  16     PHPDoc tag @param has invalid value ($userID): Unexpected token "$userID", expected TOKEN_IDENTIFIER at offset 171            
+  33     PHPDoc tag @param has invalid value ($activationCode): Unexpected token "$activationCode", expected TOKEN_IDENTIFIER at       
+         offset 153                                                                                                                    
+  33     PHPDoc tag @param has invalid value ($email): Unexpected token "$email", expected TOKEN_IDENTIFIER at offset 103              
+  33     PHPDoc tag @param has invalid value ($md5password): Unexpected token "$md5password", expected TOKEN_IDENTIFIER at offset 125  
+  33     PHPDoc tag @param has invalid value ($username): Unexpected token "$username", expected TOKEN_IDENTIFIER at offset 78         
+ ------ ------------------------------------------------------------------------------------------------------------------------------ 
+
+ ------ --------------------------------------------------------------------------------------------------------------------- 
+  Line   Models\SiteSetting.php                                                                                               
+ ------ --------------------------------------------------------------------------------------------------------------------- 
+  139    PHPDoc tag @param has invalid value ($user_id): Unexpected token "$user_id", expected TOKEN_IDENTIFIER at offset 92  
+  188    Parameter #1 $dst_im of function imagecopyresampled expects resource, resource|false given.                          
+  188    Parameter #2 $src_im of function imagecopyresampled expects resource, resource|false given.                          
+  188    Parameter #5 $src_x of function imagecopyresampled expects int, float|int given.                                     
+  188    Parameter #6 $src_y of function imagecopyresampled expects int, float|int given.                                     
+  191    Parameter #1 $im of function imagejpeg expects resource, resource|false given.                                       
+  193    Parameter #1 $im of function imagedestroy expects resource, resource|false given.                                    
+ ------ --------------------------------------------------------------------------------------------------------------------- 
+
+ ------ ----------------------------------------------------------------------------------------------------------------------- 
+  Line   Models\User.php                                                                                                        
+ ------ ----------------------------------------------------------------------------------------------------------------------- 
+  17     PHPDoc tag @param has invalid value ($newUsername string The new username): Unexpected token "$newUsername", expected  
+         TOKEN_IDENTIFIER at offset 86                                                                                          
+ ------ ----------------------------------------------------------------------------------------------------------------------- 
+
+ [ERROR] Found 82 errors                                                                                                
+

@@ -29,7 +29,7 @@ class MailRecipientMapper
     {
         $stmt = DB::conn()->prepare("SELECT * FROM mail_recipients where mail_id = ?");
         $stmt->execute([$mail_id]);
-        if ($stmt->rowCount() == 0) {
+        if ($stmt->rowCount() === 0) {
             return false;
         }
         return $stmt->fetchAll();
@@ -39,7 +39,7 @@ class MailRecipientMapper
     {
         $stmt = DB::conn()->prepare("SELECT * FROM mail_recipients where mail_id = ? and type = ?");
         $stmt->execute([$mail_id, $type]);
-        if ($stmt->rowCount() == 0) {
+        if ($stmt->rowCount() === 0) {
             return false;
         }
         return $stmt->fetchAll();

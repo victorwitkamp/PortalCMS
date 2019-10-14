@@ -74,7 +74,7 @@ class PasswordReset
                 ':user_password_reset_timestamp' => $timestamp, ':provider_type' => 'DEFAULT'
             )
         );
-        if ($stmt->rowCount() == 1) {
+        if ($stmt->rowCount() === 1) {
             return true;
         }
         Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_TOKEN_FAIL'));
@@ -184,7 +184,7 @@ class PasswordReset
                 ':password_reset_hash' => $password_reset_hash, ':user_provider_type' => 'DEFAULT'
             )
         );
-        if ($stmt->rowCount() == 1) {
+        if ($stmt->rowCount() === 1) {
             Session::add('feedback_positive', 'Wachtwoord gewijzigd.');
             return true;
         }

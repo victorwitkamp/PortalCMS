@@ -7,7 +7,7 @@ class ContractMapper
             "SELECT * FROM contracts ORDER BY id"
         );
         $stmt->execute([]);
-        if ($stmt->rowCount() == 0) {
+        if ($stmt->rowCount() === 0) {
             return false;
         }
         return $stmt->fetchAll();
@@ -19,7 +19,7 @@ class ContractMapper
             "SELECT id FROM contracts WHERE id = ? LIMIT 1"
         );
         $stmt->execute([$Id]);
-        if ($stmt->rowCount() == 0) {
+        if ($stmt->rowCount() === 0) {
             return false;
         }
         return true;
