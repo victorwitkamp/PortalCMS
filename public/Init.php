@@ -76,8 +76,3 @@ $PasswordResetController = new PasswordResetController;
 $RoleController = new RoleController;
 $SiteSettingController = new SiteSettingController;
 $UserController = new UserController;
-
-
-
-// use Tracy\Debugger;
-// Debugger::enable(Debugger::DEVELOPMENT);

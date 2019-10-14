@@ -8,7 +8,7 @@ if (!Auth::checkPrivilege('events')) {
     die();
 }
 require_once DIR_INCLUDES . 'functions.php';
-require_once DIR_INCLUDES . 'head.php';
+require_once DIR_INCLUDES. 'head.php';
 displayHeadCSS();
 PortalCMS_CSS_calendar();
 PortalCMS_JS_headJS();

@@ -30,5 +30,4 @@ class InvoiceItem
         Session::add('feedback_positive', "Factuuritem verwijderd.");
         return Redirect::to("rental/invoices/details.php?id=".$invoiceId);
     }
-
 }
