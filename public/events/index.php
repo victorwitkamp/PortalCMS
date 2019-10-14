@@ -33,7 +33,7 @@ PortalCMS_JS_calendar(); ?>
             <hr>
             <div class="row justify-content-center">
 
-<div class="col-sm-10">
+<div class="col-sm-12">
 
     <div id="calendar"></div>
 </div>

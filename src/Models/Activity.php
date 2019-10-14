@@ -8,7 +8,7 @@ class Activity
 {
     public static function load()
     {
-        $stmt = DB::conn()->prepare("SELECT * FROM activity ORDER BY id desc LIMIT 50");
+        $stmt = DB::conn()->prepare('SELECT * FROM activity ORDER BY id desc LIMIT 50');
         $stmt->execute();
         return $stmt->fetchAll();
     }
