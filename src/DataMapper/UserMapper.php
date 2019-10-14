@@ -13,7 +13,7 @@ class UserMapper
         $stmt = DB::conn()->prepare(
             "SELECT user_id
                     FROM users
-                        WHERE user_name = :user_name
+                        WHERE user_name = ?
                         LIMIT 1"
         );
         $stmt->execute([$username]);

@@ -16,8 +16,7 @@ class User
      */
     public static function editUsername($newUsername)
     {
-        // Check if new password is indeed different.
-        if ($newUsername == Session::get('user_name')) {
+        if ($newUsername === Session::get('user_name')) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_SAME_AS_OLD_ONE'));
             return false;
         }
@@ -47,5 +46,4 @@ class User
             return false;
         }
     }
-
 }

@@ -120,7 +120,7 @@ class Event
         $id = Request::post('id', true);
         $event = EventMapper::getById($id);
         if (!$event) {
-            Session::add('feedback_negative', 'Verwijderen van evenement mislukt.<br>Evenement bestaat niet.');
+            Session::add('feedback_negative', 'Verwijderen van evenement mislukt. Evenement bestaat niet.');
             return false;
         }
         if (EventMapper::delete($id)) {

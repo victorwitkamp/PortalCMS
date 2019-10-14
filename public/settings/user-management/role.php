@@ -2,10 +2,10 @@
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_ROLE');
 Auth::checkAuthentication();
-// if (!Auth::checkPrivilege("user-management")) {
-//     Redirect::permissionError();
-//     die();
-// }
+if (!Auth::checkPrivilege("user-management")) {
+    Redirect::permissionError();
+    die();
+}
 require DIR_ROOT.'includes/functions.php';
 require DIR_ROOT.'includes/head.php';
 displayHeadCSS();
@@ -26,7 +26,7 @@ if (!$Role) {
             <div class="container">
                 <div class="row mt-5">
                     <h1><?php echo Text::get('TITLE_ROLE'); ?>: <?php
-                    if (!empty($Role['role_name'])) { echo $Role['role_name'].' (rol)'; 
+                    if (!empty($Role['role_name'])) { echo $Role['role_name'].' (rol)';
                     }?></h1>
                 </div>
 

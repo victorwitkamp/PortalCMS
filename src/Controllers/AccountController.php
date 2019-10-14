@@ -12,6 +12,7 @@ class AccountController extends Controller
 
         if (isset($_POST['changeUsername'])) {
             User::editUsername(Request::post('user_name'));
+            Redirect::myAccount();
         }
         if (isset($_POST['changepassword'])) {
             Password::changePassword(

@@ -88,7 +88,8 @@ class RolePermission
         $stmt = DB::conn()->prepare(
             "SELECT perm_id
                     FROM role_perm
-                        WHERE role_id = ?"
+                        WHERE role_id = ?
+                            ORDER BY perm_id "
         );
         $stmt->execute([$role_id]);
         if ($stmt->rowCount() > 0) {
