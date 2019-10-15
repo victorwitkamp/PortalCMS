@@ -144,7 +144,7 @@ class Login
             }
         }
 
-        $result = UserMapper::getByUserName($user_name);
+        $result = UserMapper::getByUsername($user_name);
 
         if (!$result) {
             self::incrementUserNotFoundCounter();
