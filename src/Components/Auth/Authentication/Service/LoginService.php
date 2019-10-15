@@ -1,6 +1,6 @@
 <?php
 
-Class LoginService
+class LoginService
 {
     /**
      * Login process (for DEFAULT user accounts).

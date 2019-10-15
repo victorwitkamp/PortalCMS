@@ -8,7 +8,7 @@ class Event
     public static function loadCalendarEvents($startDate, $endDate)
     {
         $result = EventMapper::getByDate($startDate, $endDate);
-        if(!empty($result)) {
+        if (!empty($result)) {
         foreach ($result as $row) {
             if ($row['status'] === '1') {
                 $color = 'var(--success)';
