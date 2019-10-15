@@ -29,7 +29,7 @@ class Password
                 ':user_provider_type' => 'DEFAULT'
             )
         );
-        return ($stmt->rowCount() == 1 ? true : false);
+        return ($stmt->rowCount() === 1 ? true : false);
     }
 
     /**

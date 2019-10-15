@@ -17,7 +17,6 @@ class Login
      */
     public static function loginWithPassword($user_name, $user_password, $set_remember_me_cookie = null)
     {
-        // we do negative-first checks here, for simplicity empty username and empty password in one line
         if (empty($user_name) || empty($user_password)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
             return false;
@@ -168,13 +167,11 @@ class Login
             return false;
         }
 
-        // if user is not active (= has not verified account by verification mail)
         if ($result->user_active != 1) {
             Session::add('feedback_negative', Text::get('FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET'));
             return false;
         }
 
-        // reset the user not found counter
         self::resetUserNotFoundCounter();
         return $result;
     }
@@ -199,30 +196,7 @@ class Login
         Session::set('last-failed-login', time());
     }
 
-    /**
-     * Log out process: delete cookie, delete session
-     */
-    public static function logout()
-    {
-        if (Login::isUserLoggedIn()) {
 
-        $user_id = Session::get('user_id');
-
-        if (!empty($user_id)) {
-            UserMapper::clearRememberMeToken($user_id);
-            if (Cookie::delete()) {
-                if (Session::destroy()) {
-                    Session::init();
-                    Session::add('feedback_positive', Text::get('FEEDBACK_LOGOUT_SUCCESSFUL'));
-                    Redirect::login();
-                }
-            }
-        }
-        } else {
-            Session::add('feedback_positive', Text::get('FEEDBACK_LOGOUT_INVALID'));
-            Redirect::login();
-        }
-    }
 
     /**
      * The real login process: The user's data is written into the session.
@@ -256,7 +230,7 @@ class Login
         // Session::set('user_gravatar_image_url', AvatarModel::getGravatarLinkByEmail($user_email));
 
         Session::set('user_logged_in', true);
-        Session::updateSessionId($user_id, session_id());
+        UserMapper::updateSessionId($user_id, session_id());
 
         Cookie::setSessionCookie();
     }
@@ -281,17 +255,5 @@ class Login
         $cookie_string            = $cookie_string_first_part.':'.$cookie_string_hash;
 
         Cookie::setRememberMe($cookie_string);
-    }
-
-
-
-    /**
-     * Returns the current state of the user's login
-     *
-     * @return bool user's login status
-     */
-    public static function isUserLoggedIn()
-    {
-        return Session::userIsLoggedIn();
     }
 }

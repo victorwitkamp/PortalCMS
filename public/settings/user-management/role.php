@@ -52,7 +52,9 @@ if (!$Role) {
 
                             <h3><?php //echo Text::get('LABEL_ROLE_PERMISSIONS'); ?></h3>
                                 <?php
-                                $Permissions = RolePermission::getPermissionIds($_GET['role_id']);
+                                // $Permissions = RolePermission::getPermissionIds($_GET['role_id']);
+                                $Permissions = RolePermissionMapper::getRolePermissions($_GET['role_id']);
+
                                 if ($Permissions) { ?>
                                     <table class="table table-sm table-striped table-hover table-dark">
                                             <thead class="thead-dark">                                <tr>
@@ -63,9 +65,12 @@ if (!$Role) {
                                             </thead>
                                             <tbody>
                                             <?php
-                                            foreach ($Permissions as $row) { ?>
+                                            // foreach ($Permissions as $row) {
+                                            foreach ($Permissions as $Permission) {
+                                                ?>
 
-                                                <?php $Permission = Permission::get($row['perm_id']); ?>
+
+                                                <?php //$Permission = PermissionMapper::getById($row['perm_id']); ?>
                                                     <tr>
                                                         <!-- <td><?php //echo $row['perm_id']; ?></td> -->
                                                         <td><?php echo $Permission['perm_desc']; ?></td>
@@ -105,7 +110,7 @@ if (!$Role) {
                     een gewenste permissie om toe te voegen aan de rol.<p>
                     <?php
 
-                    $stmt = DB::conn()->prepare("SELECT * FROM permissions ORDER BY perm_id ASC");
+                    $stmt = DB::conn()->prepare("SELECT * FROM permissions ORDER BY perm_desc ASC");
                     $stmt->execute();
                     if ($stmt->rowCount() > 0) { ?>
 

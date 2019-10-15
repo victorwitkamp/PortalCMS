@@ -1,7 +1,15 @@
 <?php
 
-class UserRole
+class UserRoleMapper
 {
+    public static function getByUserId($Id)
+    {
+        $stmt = DB::conn()->prepare("SELECT role_id FROM user_role where user_id = ? ORDER BY role_id");
+        $stmt->execute([$Id]);
+        return $stmt->fetchAll();
+    }
+
+
     /**
      * Check whether a user has a specific role
      *
@@ -20,10 +28,7 @@ class UserRole
                                 LIMIT 1"
         );
         $stmt->execute([$user_id, $role_id]);
-        if ($stmt->rowCount() === 1) {
-            return true;
-        }
-        return false;
+        return ($stmt->rowCount() === 1 ? true : false);
     }
 
     /**

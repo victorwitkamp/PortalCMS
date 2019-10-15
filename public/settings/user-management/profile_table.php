@@ -66,7 +66,7 @@
         <th>Permissies</th>
         <td>
         <?php
-        $UserPermissions = Permission::getUserPermissions($row['user_id']);
+        $UserPermissions = PermissionMapper::getPermissionsByUserId($row['user_id']);
         foreach ($UserPermissions as $UserPermission) {
             echo '<li>';
             echo $UserPermission['perm_desc'];

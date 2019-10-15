@@ -1,8 +1,8 @@
 <?php
 
-class Permission
+class PermissionMapper
 {
-    public static function get($perm_id)
+    public static function getById($perm_id)
     {
         $stmt = DB::conn()->prepare(
             "SELECT *
@@ -16,7 +16,7 @@ class Permission
         return false;
     }
 
-    public static function getUserPermissions($user_id)
+    public static function getPermissionsByUserId($user_id)
     {
         $stmt = DB::conn()->prepare(
             "SELECT DISTINCT t2.perm_desc
@@ -30,6 +30,4 @@ class Permission
         $stmt->execute([$user_id]);
         return $stmt->fetchAll();
     }
-
-
 }

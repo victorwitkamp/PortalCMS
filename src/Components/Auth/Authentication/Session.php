@@ -28,7 +28,6 @@ class Session
     public static function set($key, $value)
     {
         $_SESSION[$key] = $value;
-
     }
 
     /**
@@ -69,31 +68,5 @@ class Session
             return true;
         }
         return false;
-    }
-
-    /**
-     * update session id in database
-     *
-     * @access public
-     * @static static method
-     * @param  string $userId
-     * @param  string $sessionId
-     */
-    public static function updateSessionId($userId, $sessionId = null)
-    {
-        $sql = "UPDATE users SET session_id = :session_id WHERE user_id = :user_id";
-
-        $stmt = DB::conn()->prepare($sql);
-        $stmt->execute(array(':session_id' => $sessionId, ":user_id" => $userId));
-    }
-
-    /**
-     * Checks if the user is logged in or not
-     *
-     * @return bool user's login status
-     */
-    public static function userIsLoggedIn()
-    {
-        return (self::get('user_logged_in') ? true : false);
     }
 }

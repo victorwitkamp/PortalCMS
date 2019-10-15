@@ -26,7 +26,6 @@ class LoginController extends Controller
         //         Redirect::to("login/login.php");
         //     }
         // }
-
     }
 
     /**
@@ -34,13 +33,10 @@ class LoginController extends Controller
      */
     public static function index()
     {
-        if (!Login::isUserLoggedIn()) {
+        if (!Auth::userIsLoggedIn()) {
             // $data = array('redirect' => Request::get('redirect') ? Request::get('redirect') : NULL);
             // $this->View->render('login/index', $data);
-
             LoginController::loginWithCookie();
-
-
         }
         return Redirect::home();
     }
@@ -51,8 +47,7 @@ class LoginController extends Controller
     public static function loginWithPassword()
     {
         if (!Csrf::isTokenValid()) {
-            Login::logout();
-            return Redirect::login();
+            return LogoutService::logout();
         }
         $login_successful = Login::loginWithPassword(
             Request::post('user_name'),
@@ -76,8 +71,7 @@ class LoginController extends Controller
      */
     public static function loginWithCookie()
     {
-        $login_successful = Login::loginWithCookie(Request::cookie('remember_me'));
-        if ($login_successful) {
+        if (Login::loginWithCookie(Request::cookie('remember_me'))) {
             return Redirect::home();
         }
         // if not, delete cookie (outdated? attack?) and route user to login form to prevent infinite login loops
@@ -90,8 +84,7 @@ class LoginController extends Controller
      */
     public static function loginWithFacebook($fbid)
     {
-        $login_successful = Login::loginWithFacebook($fbid);
-        if ($login_successful) {
+        if (Login::loginWithFacebook($fbid)) {
             // if (Request::post('redirect')) {
             //     return Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
             // }
@@ -102,17 +95,4 @@ class LoginController extends Controller
         // }
         return Redirect::login();
     }
-
-    /**
-     * The logout action
-     * Perform logout, redirect user to main-page
-     */
-    public static function logout()
-    {
-        // if (Login::logout()) {
-                Login::Logout();
-
-        // }
-    }
-
 }

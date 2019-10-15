@@ -13,10 +13,10 @@ class RoleController extends Controller
             self::create($_POST['role_name']);
         }
         if (isset($_POST['setrolepermission'])) {
-            self::assignPermission($_POST['role_id'], $_POST['perm_id']);
+            RolePermission::assignPermission($_POST['role_id'], $_POST['perm_id']);
         }
         if (isset($_POST['deleterolepermission'])) {
-            self::unassignPermission($_POST['role_id'], $_POST['perm_id']);
+            RolePermission::unassignPermission($_POST['role_id'], $_POST['perm_id']);
         }
     }
 
@@ -42,26 +42,6 @@ class RoleController extends Controller
         }
     }
 
-    public static function assignPermission($role_id, $perm_id)
-    {
-        if (RolePermission::assign($role_id, $perm_id)) {
-            Session::add('feedback_positive', "Permissie toegewezen.");
-            Redirect::to("settings/user-management/role.php?role_id=".$role_id);
-        } else {
-            Session::add('feedback_negative', "Fout bij het toewijzen van de permissie.");
-            Redirect::error();
-        }
-    }
 
-    public static function unassignPermission($role_id, $perm_id)
-    {
-        if (RolePermission::unassign($role_id, $perm_id)) {
-            Session::add('feedback_positive', "Permissie verwijderd.");
-            Redirect::to("settings/user-management/role.php?role_id=".$role_id);
-        } else {
-            Session::add('feedback_negative', "Fout bij het verwijderen van de permissie.");
-            Redirect::error();
-        }
-    }
 
 }

@@ -11,7 +11,7 @@ class MailController extends Controller
         parent::__construct();
 
         if (isset($_POST['testeventmail'])) {
-            MailController::sendEventMail($_POST['testeventmail_recipientemail']);
+            MailSchedule::sendEventMail($_POST['testeventmail_recipientemail']);
         }
         if (isset($_POST['newScheduledMail'])) {
             MailSchedule::new();
@@ -32,23 +32,5 @@ class MailController extends Controller
             MailBatch::deleteById(Request::post('id'));
         }
     }
-
-    public static function sendEventMail($recipient)
-    {
-        $body = Event::loadMailEvents();
-        if (!empty($body)) {
-            $MailSender = new MailSender('Komende evenementen', $body, $recipient);
-            if ($MailSender->sendMail()) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            Session::add('feedback_negative', "MailController: Geen evenementen om te versturen");
-            return false;
-        }
-    }
-
-
 
 }

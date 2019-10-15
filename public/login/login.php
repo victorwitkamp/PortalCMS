@@ -22,12 +22,13 @@ PortalCMS_CSS_floatingLabels();
       <a class="navbar-brand" href="<?php echo SiteSetting::getStaticSiteSetting('site_url'); ?>"><?php echo SiteSetting::getStaticSiteSetting('site_name'); ?></a>
     </nav>
   <main>
+              <div class="alert-container">
+                <?php Alert::renderFeedbackMessages(); ?>
+          </div>
     <div class="content">
       <div class="container-fluid">
         <section class="bglogin">
-          <div class="alert-container">
-                <?php Alert::renderFeedbackMessages(); ?>
-          </div>
+
           <div class="user_options-container">
             <div class="user_options-text">
               <div class="user_options-unregistered">

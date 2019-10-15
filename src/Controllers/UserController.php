@@ -19,12 +19,12 @@ class UserController extends Controller
 
     public static function assignRole($user_id, $role_id)
     {
-        if (UserRole::isAssigned($user_id, $role_id)) {
+        if (UserRoleMapper::isAssigned($user_id, $role_id)) {
             Session::add('feedback_negative', "Rol is reeds toegewezen aan deze gebruiker.");
             Redirect::error();
             return false;
         }
-        if (UserRole::assign($user_id, $role_id)) {
+        if (UserRoleMapper::assign($user_id, $role_id)) {
             Session::add('feedback_positive', "Rol toegewezen.");
             Redirect::to('settings/user-management/profile.php?id='.$user_id);
             return true;
@@ -36,12 +36,12 @@ class UserController extends Controller
 
     public static function unassignRole($user_id, $role_id)
     {
-        if (!UserRole::isAssigned($user_id, $role_id)) {
+        if (!UserRoleMapper::isAssigned($user_id, $role_id)) {
             Session::add('feedback_negative', "Rol is niet aan deze gebruiker toegewezen. Er is geen toewijzing om te verwijderen.");
             Redirect::error();
             return false;
         }
-        if (UserRole::unassign($user_id, $role_id)) {
+        if (UserRoleMapper::unassign($user_id, $role_id)) {
             Session::add('feedback_positive', "Rol voor gebruiker verwijderd.");
             Redirect::to('settings/user-management/profile.php?id='.$user_id);
             return true;

@@ -66,5 +66,4 @@ class Cookie
         }
         return false;
     }
-
 }

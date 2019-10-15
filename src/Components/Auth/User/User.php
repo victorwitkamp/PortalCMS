@@ -37,13 +37,13 @@ class User
         }
 
         $status_of_action = UserMapper::updateUsername(Session::get('user_id'), $newUsername);
-        if ($status_of_action) {
-            Session::set('user_name', $newUsername);
-            Session::add('feedback_positive', Text::get('FEEDBACK_USERNAME_CHANGE_SUCCESSFUL'));
-            return true;
-        } else {
+        if (!$status_of_action) {
             Session::add('feedback_negative', Text::get('FEEDBACK_UNKNOWN_ERROR'));
             return false;
         }
+        Session::set('user_name', $newUsername);
+        Session::add('feedback_positive', Text::get('FEEDBACK_USERNAME_CHANGE_SUCCESSFUL'));
+        Redirect::myAccount();
+        return true;
     }
 }

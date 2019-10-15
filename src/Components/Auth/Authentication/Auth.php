@@ -19,7 +19,7 @@ class Auth
 
         // if user is NOT logged in...
         // (if user IS logged in the application will not run the code below and therefore just go on)
-        if (!Session::userIsLoggedIn()) {
+        if (!self::userIsLoggedIn()) {
 
             // ... then treat user as "not logged in", destroy session, redirect to login page
             Session::destroy();
@@ -41,11 +41,20 @@ class Auth
         // if (!Cookie::isValid()) {
 
         // }
-
     }
 
     /**
-     * Check whether the user that is currently logged on has a specific permission
+     * Checks if the user is logged in or not
+     *
+     * @return bool user's login status
+     */
+    public static function userIsLoggedIn()
+    {
+        return (Session::get('user_logged_in') ? true : false);
+    }
+
+    /**
+     * Check whether the authenticated user has a specific permission
      *
      * @param string $perm_desc
      *
@@ -53,13 +62,20 @@ class Auth
      */
     public static function checkPrivilege($perm_desc)
     {
-        $Roles = UserRoleMapper::getByUserId(Session::get('user_id'));
-        foreach ($Roles as $Role) {
-            if (RolePermission::isAssigned($Role['role_id'], $perm_desc)) {
+        // $Roles = UserRoleMapper::getByUserId(Session::get('user_id'));
+        // foreach ($Roles as $Role) {
+        //     if (RolePermission::isAssigned($Role['role_id'], $perm_desc)) {
+        //         // If we find this permission in one of the roles we can immediately return
+        //         return true;
+        //     }
+        // }
+        // return false;
+        $Permissions = PermissionMapper::getPermissionsByUserId(Session::get('user_id'));
+        foreach ($Permissions as $Permission) {
+            if ($Permission['perm_desc'] === $perm_desc) {
                 return true;
             }
         }
         return false;
     }
-
 }

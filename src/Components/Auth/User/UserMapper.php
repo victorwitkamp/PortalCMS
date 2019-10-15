@@ -1,4 +1,7 @@
 <?php
+/**
+ * UserMapper
+ */
 class UserMapper
 {
     /**
@@ -8,7 +11,7 @@ class UserMapper
      *
      * @return bool
      */
-    public static function usernameExists($username)
+    public static function usernameExists($user_name)
     {
         $stmt = DB::conn()->prepare(
             "SELECT user_id
@@ -16,11 +19,8 @@ class UserMapper
                         WHERE user_name = ?
                         LIMIT 1"
         );
-        $stmt->execute([$username]);
-        if ($stmt->rowCount() === 0) {
-            return false;
-        }
-        return true;
+        $stmt->execute([$user_name]);
+        return ($stmt->rowCount() === 1 ? true : false);
     }
 
     /**
@@ -39,10 +39,7 @@ class UserMapper
                         LIMIT 1"
         );
         $stmt->execute(array(':user_email' => $user_email));
-        if ($stmt->rowCount() === 0) {
-            return false;
-        }
-        return true;
+        return ($stmt->rowCount() === 1 ? true : false);
     }
 
     /**
@@ -61,16 +58,8 @@ class UserMapper
                     WHERE user_id = :user_id
                     LIMIT 1"
         );
-        $stmt->execute(
-            array(
-                ':user_name' => $newUsername,
-                ':user_id' => $user_id
-            )
-        );
-        if ($stmt->rowCount() === 0) {
-            return false;
-        }
-        return true;
+        $stmt->execute(array(':user_name' => $newUsername, ':user_id' => $user_id));
+        return ($stmt->rowCount() === 1 ? true : false);
     }
 
     public static function updateFbid($user_id, $fbid)
@@ -82,10 +71,7 @@ class UserMapper
                     LIMIT 1"
         );
         $stmt->execute([$fbid, $user_id]);
-        if ($stmt->rowCount() === 0) {
-            return false;
-        }
-        return true;
+        return ($stmt->rowCount() === 1 ? true : false);
     }
 
     public static function updateRememberMeToken($user_id, $token)
@@ -97,10 +83,26 @@ class UserMapper
                     LIMIT 1"
         );
         $stmt->execute([$token, $user_id]);
-        if ($stmt->rowCount() === 0) {
-            return false;
-        }
-        return true;
+        return ($stmt->rowCount() === 1 ? true : false);
+    }
+
+    /**
+     * update session id in database
+     *
+     * @access public
+     * @static static method
+     * @param  string $userId
+     * @param  string $sessionId
+     */
+    public static function updateSessionId($userId, $sessionId = null)
+    {
+        $stmt = DB::conn()->prepare(
+            "UPDATE users
+                    SET session_id = :session_id
+                    WHERE user_id = :user_id"
+        );
+        $stmt->execute(array(':session_id' => $sessionId, ":user_id" => $userId));
+        return ($stmt->rowCount() === 1 ? true : false);
     }
 
     /**
@@ -171,10 +173,7 @@ class UserMapper
                 LIMIT 1"
         );
         $stmt->execute([date('Y-m-d H:i:s'), $username]);
-        if (!$stmt->rowCount() == 1) {
-            return false;
-        }
-        return true;
+        return ($stmt->rowCount() === 1 ? true : false);
     }
 
     /**
@@ -192,10 +191,7 @@ class UserMapper
                 LIMIT 1"
         );
         $stmt->execute([$username]);
-        if (!$stmt->rowCount() == 1) {
-            return false;
-        }
-        return true;
+        return ($stmt->rowCount() === 1 ? true : false);
     }
 
     /**
@@ -213,10 +209,7 @@ class UserMapper
                     LIMIT 1"
         );
         $stmt->execute(array(':user_name' => $username, ':user_last_failed_login' => date('Y-m-d H:i:s')));
-        if (!$stmt->rowCount() == 1) {
-            return false;
-        }
-        return true;
+        return ($stmt->rowCount() === 1 ? true : false);
     }
 
     public static function clearRememberMeToken($user_id)
@@ -228,19 +221,16 @@ class UserMapper
                     LIMIT 1"
         );
         $stmt->execute(array(':user_remember_me_token' => null, ':user_id' => $user_id));
-        if (!$stmt->rowCount() == 1) {
-            return false;
-        }
-        return true;
+        return ($stmt->rowCount() === 1 ? true : false);
     }
 
-        /**
-         * Gets the user's data
-         *
-         * @param $username string User's name
-         *
-         * @return mixed Returns false if user does not exist, returns object with user's data when user exists
-         */
+    /**
+     * Gets the user's data
+     *
+     * @param $username string User's name
+     *
+     * @return mixed Returns false if user does not exist, returns object with user's data when user exists
+     */
     public static function getByUsername($username)
     {
         $stmt = DB::conn()->prepare(
