@@ -2,12 +2,10 @@
 
 class MailAttachment
 {
-
     public static function _mime_content_type($filename)
     {
         $realpath = realpath($filename);
         return finfo_file(finfo_open(FILEINFO_MIME_TYPE), $realpath);
-
     }
 
     /**
@@ -51,11 +49,11 @@ class MailAttachment
         return true;
     }
 
-        /**
-         * Checks if the avatar folder exists and is writable
-         *
-         * @return bool success status
-         */
+    /**
+     * Checks if the avatar folder exists and is writable
+     *
+     * @return bool success status
+     */
     public static function isAttachmentFolderWritable()
     {
         $path_attachment = Config::get('PATH_ATTACHMENTS');
@@ -71,12 +69,12 @@ class MailAttachment
         return true;
     }
 
-        /**
-         * Validates the image
-         * TODO totally decouple
-         *
-         * @return bool
-         */
+    /**
+     * Validates the image
+     * TODO totally decouple
+     *
+     * @return bool
+     */
     public static function validateAttachmentFile()
     {
         if (!isset($_FILES['attachment_file'])) {
@@ -101,6 +99,7 @@ class MailAttachment
         // }
         return true;
     }
+
     public static function deleteById()
     {
         $mailid = Request::get('id');
@@ -120,7 +119,6 @@ class MailAttachment
             return false;
         }
         Session::add('feedback_positive', "Er zijn ".$deleted." berichten verwijderd.");
-
         Redirect::to('mail/templates/edit.php?id='.$mailid);
     }
 }

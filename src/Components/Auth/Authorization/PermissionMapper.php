@@ -7,13 +7,15 @@ class PermissionMapper
         $stmt = DB::conn()->prepare(
             "SELECT *
                     FROM permissions
-                        WHERE perm_id = ?"
+                        WHERE perm_id = ?
+                            LIMIT 1"
         );
         $stmt->execute([$perm_id]);
-        if ($stmt->rowCount() > 0) {
-            return $stmt->fetch();
+        if ($stmt->rowCount() === 0) {
+            return false;
         }
-        return false;
+        return $stmt->fetch();
+
     }
 
     public static function getPermissionsByUserId($user_id)
@@ -28,6 +30,9 @@ class PermissionMapper
                                         WHERE user_id = ?)"
         );
         $stmt->execute([$user_id]);
+        if ($stmt->rowCount() === 0) {
+            return false;
+        }
         return $stmt->fetchAll();
     }
 }

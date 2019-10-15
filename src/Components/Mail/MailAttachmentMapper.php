@@ -51,13 +51,11 @@ class MailAttachmentMapper
         $stmt = DB::conn()->query("SELECT max(id) from mail_attachments");
         return $stmt->fetchColumn();
     }
+
     public static function deleteById($id)
     {
         $stmt = DB::conn()->prepare("DELETE FROM mail_attachments WHERE id = ? LIMIT 1");
         $stmt->execute([$id]);
-        if (!$stmt->rowCount() == 1) {
-            return false;
-        }
-        return true;
+        return ($stmt->rowCount() === 1 ? true : false);
     }
 }

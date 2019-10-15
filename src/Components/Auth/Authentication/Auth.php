@@ -78,4 +78,137 @@ class Auth
         }
         return false;
     }
+
+    /**
+     * Validates the inputs of the users, checks if password is correct etc.
+     * If successful, user is returned
+     *
+     * @param $user_name
+     * @param $user_password
+     *
+     * @return mixed
+     */
+    public static function validateAndGetUser($user_name, $user_password)
+    {
+        // Brute force attack mitigation:
+        // block login attempt if somebody has already failed 3 times and the last login attempt is less than 30sec ago
+        if (Session::get('failed-login-count') >= 3) {
+            if (Session::get('last-failed-login') > (time() - 30)) {
+                Session::add('feedback_negative', Text::get('FEEDBACK_LOGIN_FAILED_3_TIMES'));
+                return false;
+            }
+        }
+
+        $result = UserMapper::getByUsername($user_name);
+
+        if (!$result) {
+            self::incrementUserNotFoundCounter();
+            Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
+            return false;
+        }
+
+        // block login attempt if somebody has already failed 3 times and the last login attempt is less than 30sec ago
+        if ($result->user_failed_logins >= 3) {
+            if (strtotime($result->user_last_failed_login) > (strtotime(date('Y-m-d H:i:s')) - 30)) {
+                Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_WRONG_3_TIMES'));
+                return false;
+            }
+        }
+
+        // if hash of provided password does NOT match the hash in the database: +1 failed-login counter
+        if (!password_verify(base64_encode($user_password), $result->user_password_hash)) {
+            UserMapper::setFailedLoginByUsername($result->user_name);
+            Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
+            return false;
+        }
+
+        if ($result->user_active != 1) {
+            Session::add('feedback_negative', Text::get('FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET'));
+            return false;
+        }
+
+        self::resetUserNotFoundCounter();
+        return $result;
+    }
+
+    /**
+     * Reset the failed-login-count to 0.
+     * Reset the last-failed-login to an empty string.
+     */
+    public static function resetUserNotFoundCounter()
+    {
+        Session::set('failed-login-count', 0);
+        Session::set('last-failed-login', '');
+    }
+
+    /**
+     * Increment the failed-login-count by 1.
+     * Add timestamp to last-failed-login.
+     */
+    public static function incrementUserNotFoundCounter()
+    {
+        Session::set('failed-login-count', Session::get('failed-login-count') + 1);
+        Session::set('last-failed-login', time());
+    }
+
+
+
+    /**
+     * The real login process: The user's data is written into the session.
+     * Cheesy name, maybe rename. Also maybe refactoring this, using an array.
+     *
+     * @param $user_id
+     * @param $user_name
+     * @param $user_email
+     * @param $user_account_type
+     */
+    public static function setSuccessfulLoginIntoSession($user_id, $user_name, $user_email, $user_account_type, $user_fbid)
+    {
+        Session::init();
+
+        // remove old and regenerate session ID.
+        // It's important to regenerate session on sensitive actions,
+        // and to avoid fixated session.
+        // e.g. when a user logs in
+        session_regenerate_id(true);
+        // $_SESSION = array();
+
+        Session::set('user_id', $user_id);
+        Session::set('user_name', $user_name);
+        Session::set('user_email', $user_email);
+        Session::set('user_account_type', $user_account_type);
+        Session::set('user_provider_type', 'DEFAULT');
+        Session::set('user_fbid', $user_fbid);
+
+        // get and set avatars
+        // Session::set('user_avatar_file', AvatarModel::getPublicUserAvatarFilePathByUserId($user_id));
+        // Session::set('user_gravatar_image_url', AvatarModel::getGravatarLinkByEmail($user_email));
+
+        Session::set('user_logged_in', true);
+        UserMapper::updateSessionId($user_id, session_id());
+
+        Cookie::setSessionCookie();
+    }
+
+    /**
+     * Write remember-me token into database and into cookie
+     * Maybe splitting this into database and cookie part ?
+     *
+     * @param $user_id
+     */
+    public static function setRememberMe($user_id)
+    {
+        // generate 64 char random string
+        $token = hash('sha256', mt_rand());
+
+        UserMapper::updateRememberMeToken($user_id, $token);
+
+        // generate cookie string that consists of user id, random string and combined hash of both
+        // never expose the original user id, instead, encrypt it.
+        $cookie_string_first_part = Encryption::encrypt($user_id).':'.$token;
+        $cookie_string_hash       = hash('sha256', $user_id.':'.$token);
+        $cookie_string            = $cookie_string_first_part.':'.$cookie_string_hash;
+
+        Cookie::setRememberMe($cookie_string);
+    }
 }

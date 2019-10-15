@@ -4,38 +4,62 @@ class MailTemplateMapper
 {
     public static function getTemplates()
     {
-        $stmt = DB::conn()->prepare("SELECT * FROM mail_templates ORDER BY id");
+        $stmt = DB::conn()->prepare(
+            "SELECT *
+                FROM mail_templates
+                    ORDER BY id"
+        );
         $stmt->execute([]);
+        if ($stmt->rowCount() === 0) {
+            return false;
+        }
         return $stmt->fetchAll();
     }
 
     public static function getTemplatesByType($type)
     {
-        $stmt = DB::conn()->prepare("SELECT * FROM mail_templates WHERE type = ? ORDER BY id");
+        $stmt = DB::conn()->prepare(
+            "SELECT *
+                FROM mail_templates
+                    WHERE type = ?
+                    ORDER BY id"
+        );
         $stmt->execute([$type]);
+        if ($stmt->rowCount() === 0) {
+            return false;
+        }
         return $stmt->fetchAll();
     }
 
     public static function getTemplateById($id)
     {
-        $stmt = DB::conn()->prepare("SELECT * FROM mail_templates WHERE id = ? LIMIT 1");
+        $stmt = DB::conn()->prepare(
+            "SELECT *
+                FROM mail_templates
+                    WHERE id = ?
+                    LIMIT 1"
+        );
         $stmt->execute([$id]);
-        if (!$stmt->rowCount() == 1) {
+        if (!$stmt->rowCount() === 1) {
             return false;
-        } else {
-            return $stmt->fetch();
         }
+        return $stmt->fetch();
     }
 
     public static function getSystemTemplateByName($name)
     {
-        $stmt = DB::conn()->prepare("SELECT * FROM mail_templates WHERE type = 'system' AND name = ? LIMIT 1");
+        $stmt = DB::conn()->prepare(
+            "SELECT *
+                FROM mail_templates
+                    WHERE type = 'system'
+                    AND name = ?
+                    LIMIT 1"
+        );
         $stmt->execute([$name]);
-        if (!$stmt->rowCount() == 1) {
+        if (!$stmt->rowCount() === 1) {
             return false;
-        } else {
-            return $stmt->fetch();
         }
+        return $stmt->fetch();
     }
 
     public static function create($type, $subject, $body, $status)
@@ -53,7 +77,7 @@ class MailTemplateMapper
     {
         $stmt = DB::conn()->prepare("UPDATE mail_templates SET type = ?, subject = ?, body = ?, status = ? WHERE id = ?");
         $stmt->execute([$type, $subject, $body, $status, $id]);
-        if (!$stmt->rowCount() > 0) {
+        if ($stmt->rowCount() === 0) {
             return false;
         }
         return true;

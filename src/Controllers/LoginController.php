@@ -49,7 +49,7 @@ class LoginController extends Controller
         if (!Csrf::isTokenValid()) {
             return LogoutService::logout();
         }
-        $login_successful = Login::loginWithPassword(
+        $login_successful = LoginService::loginWithPassword(
             Request::post('user_name'),
             Request::post('user_password'),
             Request::post('set_remember_me_cookie')
@@ -71,7 +71,7 @@ class LoginController extends Controller
      */
     public static function loginWithCookie()
     {
-        if (Login::loginWithCookie(Request::cookie('remember_me'))) {
+        if (LoginService::loginWithCookie(Request::cookie('remember_me'))) {
             return Redirect::home();
         }
         // if not, delete cookie (outdated? attack?) and route user to login form to prevent infinite login loops
@@ -84,7 +84,7 @@ class LoginController extends Controller
      */
     public static function loginWithFacebook($fbid)
     {
-        if (Login::loginWithFacebook($fbid)) {
+        if (LoginService::loginWithFacebook($fbid)) {
             // if (Request::post('redirect')) {
             //     return Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
             // }

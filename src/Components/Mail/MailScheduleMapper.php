@@ -6,10 +6,7 @@ class MailScheduleMapper
     {
         $stmt = DB::conn()->prepare("SELECT id FROM mail_schedule WHERE id = ? LIMIT 1");
         $stmt->execute([$id]);
-        if (!$stmt->rowCount() == 1) {
-            return false;
-        }
-        return true;
+        return ($stmt->rowCount() === 1 ? true : false);
     }
 
     public static function getAll()
@@ -47,13 +44,11 @@ class MailScheduleMapper
         return $stmt->fetchAll();
     }
 
-
-
     public static function getById($id)
     {
         $stmt = DB::conn()->prepare("SELECT * FROM mail_schedule WHERE id = ? LIMIT 1");
         $stmt->execute([$id]);
-        if (!$stmt->rowCount() == 1) {
+        if (!$stmt->rowCount() === 1) {
             return false;
         }
         return $stmt->fetch();
@@ -61,7 +56,7 @@ class MailScheduleMapper
 
     public static function deleteByBatchId($batch_id)
     {
-        $stmt = DB::conn()->prepare("DELETE FROM mail_schedule WHERE batch_id = ? LIMIT 1");
+        $stmt = DB::conn()->prepare("DELETE FROM mail_schedule WHERE batch_id = ?");
         $stmt->execute([$batch_id]);
         return $stmt->rowCount();
     }
@@ -70,10 +65,7 @@ class MailScheduleMapper
     {
         $stmt = DB::conn()->prepare("DELETE FROM mail_schedule WHERE id = ? LIMIT 1");
         $stmt->execute([$id]);
-        if (!$stmt->rowCount() > 0) {
-            return false;
-        }
-        return true;
+        return ($stmt->rowCount() === 1 ? true : false);
     }
 
     public static function create($batch_id, $sender_email, $member_id, $subject, $body, $status = '1')
