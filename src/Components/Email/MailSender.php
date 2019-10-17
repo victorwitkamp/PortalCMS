@@ -53,23 +53,16 @@ class MailSender
     {
         if (empty($this->mail->recipients)) {
             $this->_error = 'Recipients incompleet';
-            // var_dump($this->mail->recipients);
-            // die;
             return false;
         }
         if (empty($this->mail->subject)) {
             $this->_error = 'Subject incompleet';
-            // var_dump($this->mail->subject);
-            // die;
             return false;
         }
         if (empty($this->mail->body)) {
             $this->_error = 'Body incompleet';
-            // var_dump($this->mail->body);
-            // die;
             return false;
         }
-
         $mailTransport = new PHPMailer(true);
         try {
             $mailTransport->CharSet = $this->config->charset;
@@ -100,23 +93,20 @@ class MailSender
                 $mailTransport->Body = $this->mail->body;
                 // $mailTransport = $this->addAttachments($mailTransport);
 
-                        if (!empty($this->mail->attachments)) {
-            foreach ($this->mail->attachments as $attachment) {
-                $attachmentFullFilePath = DIR_ROOT.$attachment['path'].$attachment['name'].$attachment['extension'];
-                $attachmentFullName = $attachment['name'].$attachment['extension'];
-                $mailTransport->addAttachment($attachmentFullFilePath, $attachmentFullName, $attachment['encoding'], $attachment['type']);
+                if (!empty($this->mail->attachments)) {
+                    foreach ($this->mail->attachments as $attachment) {
+                        $attachmentFullFilePath = DIR_ROOT.$attachment['path'].$attachment['name'].$attachment['extension'];
+                        $attachmentFullName = $attachment['name'].$attachment['extension'];
+                        $mailTransport->addAttachment($attachmentFullFilePath, $attachmentFullName, $attachment['encoding'], $attachment['type']);
+                    }
+                }
+                $mailTransport->isHTML(true);
+                return $mailTransport->Send();
+            } catch (Exception $e) {
+                $this->_error = $e->errorMessage();
+                return false;
+            } catch (\Exception $e) { //The leading slash means the Global PHP Exception class will be caught
+                echo $e->getMessage(); //Boring error messages from anything else!
             }
         }
-        $mailTransport->isHTML(true);
-                return $mailTransport->Send();
-        } catch (Exception $e) {
-            $this->_error = $e->errorMessage();
-            return false;
-        } catch (\Exception $e) { //The leading slash means the Global PHP Exception class will be caught
-            echo $e->getMessage(); //Boring error messages from anything else!
-        }
-    }
-
-
-
 }
