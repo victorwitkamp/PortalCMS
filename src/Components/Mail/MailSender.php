@@ -10,44 +10,16 @@ use PHPMailer\PHPMailer\Exception;
  */
 class MailSender
 {
-    public $config;
+    // private $mail;
+    private $config;
     /**
      * @var mixed variable to collect errors
      */
     private $_error;
 
-    private $subject;
-    private $body;
+    public function __construct() {
 
-    /**
-     * Recipients
-     *
-     * @var array
-     */
-    protected $recipients = [];
-
-    /**
-     * Attachment data
-     *
-     * @var array
-     */
-    protected $attachments = [];
-
-    public function __construct(
-        $subject,
-        $body,
-        $recipients,
-        $attachments = null
-    ) {
-        $this->subject = $subject;
-        $this->body = $body;
-        $this->recipients = $recipients;
-        $this->attachments = $attachments;
-        // $this->_from_email = $from_email;
-        // $this->_from_name = $from_name;
     }
-
-
 
     /**
      * The different mail sending methods write errors to the error property $this->error,
@@ -75,48 +47,55 @@ class MailSender
      * @throws Exception
      * @throws phpmailerException
      */
-    public function sendMail($config = null)
+    public function sendMail($mail = null, $config = null)
     {
         if ($config = null) {
             $config = new \PortalCMS\Email\MailConfiguration;
-            $config = $config->initialize();
         }
-        if (empty($this->recipients) || empty($this->subject) || empty($this->body)) {
+        if (empty($mail->recipients) || empty($mail->subject) || empty($mail->body)) {
             $this->_error = 'Incompleet';
             return false;
         }
 
-        $mail = new PHPMailer(true);
+        $mailTransport = new PHPMailer(true);
         try {
-            $mail->CharSet = $config->charset;
-                $mail->IsSMTP();
-                $mail->SMTPOptions = array(
+            $mailTransport->CharSet = $config->charset;
+                $mailTransport->IsSMTP();
+                $mailTransport->SMTPOptions = array(
                     'ssl' => array(
                         'verify_peer' => false,
                         'verify_peer_name' => false,
                         'allow_self_signed' => true)
                     );
-                $mail->SMTPDebug = $config->SMTPDebug;
-                $mail->SMTPAuth = $config->SMTPAuth;
+                $mailTransport->SMTPDebug = $config->SMTPDebug;
+                $mailTransport->SMTPAuth = $config->SMTPAuth;
 
-                $mail->SMTPSecure = SiteSetting::getStaticSiteSetting('MailServerSecure');
-                $mail->Host = SiteSetting::getStaticSiteSetting('MailServer');
-                $mail->Username = SiteSetting::getStaticSiteSetting('MailServerUsername');
-                $mail->Password = SiteSetting::getStaticSiteSetting('MailServerPassword');
-                $mail->Port = SiteSetting::getStaticSiteSetting('MailServerPort');
+                $mailTransport->SMTPSecure = SiteSetting::getStaticSiteSetting('MailServerSecure');
+                $mailTransport->Host = SiteSetting::getStaticSiteSetting('MailServer');
+                $mailTransport->Username = SiteSetting::getStaticSiteSetting('MailServerUsername');
+                $mailTransport->Password = SiteSetting::getStaticSiteSetting('MailServerPassword');
+                $mailTransport->Port = SiteSetting::getStaticSiteSetting('MailServerPort');
 
-                $mail->From = $config->fromEmail;
-                $mail->FromName = $config->fromName;
+                $mailTransport->From = $config->fromEmail;
+                $mailTransport->FromName = $config->fromName;
 
-                foreach ($this->recipients as $recipient) {
-                    $mail->AddAddress($recipient['email'], $recipient['name']);
+                foreach ($mail->recipients as $recipient) {
+                    $mailTransport->AddAddress($recipient['email'], $recipient['name']);
                 }
 
-                $mail->Subject = $this->subject;
-                $mail->Body = $this->body;
-                $mail = $this->addAttachments($mail);
-                $mail->isHTML(true);
-                return $mail->Send();
+                $mailTransport->Subject = $mail->subject;
+                $mailTransport->Body = $mail->body;
+                // $mailTransport = $this->addAttachments($mailTransport);
+
+                        if (!empty($mail->attachments)) {
+            foreach ($mail->attachments as $attachment) {
+                $attachmentFullFilePath = DIR_ROOT.$attachment['path'].$attachment['name'].$attachment['extension'];
+                $attachmentFullName = $attachment['name'].$attachment['extension'];
+                $mailTransport->addAttachment($attachmentFullFilePath, $attachmentFullName, $attachment['encoding'], $attachment['type']);
+            }
+        }
+        $mailTransport->isHTML(true);
+                return $mailTransport->Send();
         } catch (Exception $e) {
             $this->_error = $e->errorMessage();
             return false;
@@ -128,13 +107,7 @@ class MailSender
 
     private function addAttachments($mail)
     {
-        if (!empty($this->attachments)) {
-            foreach ($this->attachments as $attachment) {
-                $attachmentFullFilePath = DIR_ROOT.$attachment['path'].$attachment['name'].$attachment['extension'];
-                $attachmentFullName = $attachment['name'].$attachment['extension'];
-                $mail->addAttachment($attachmentFullFilePath, $attachmentFullName, $attachment['encoding'], $attachment['type']);
-            }
-        }
+
         return $mail;
     }
 

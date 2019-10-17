@@ -47,7 +47,8 @@ class MailSchedule
                     $attachments = MailAttachmentMapper::getByMailId($id);
 
                     if (!empty($recipients) && !empty($title) && !empty($body)) {
-                        $MailSender = new MailSender($title, $body, $recipients, $attachments);
+                        $Mail = new Mail($title, $body, $recipients, $attachments);
+                        $MailSender = new MailSender($Mail);
                         if ($MailSender->sendMail()) {
                             MailScheduleMapper::updateStatus($id, '2');
                             MailScheduleMapper::updateDateSent($id);
