@@ -2,14 +2,11 @@
 
 class MailSchedule
 {
-
     public static function deleteById()
     {
         $deleted = 0;
         $error = 0;
-
         $IDs = Request::post('id');
-
         if (!empty($IDs)) {
             foreach ($IDs as $id) {
                 if (!MailScheduleMapper::deleteById($id)) {
@@ -31,7 +28,6 @@ class MailSchedule
 
     public static function sendbyid($mail_IDs)
     {
-
         $count_success = 0;
         $count_failed = 0;
         $count_already_sent = 0;
@@ -47,11 +43,11 @@ class MailSchedule
                     $attachments = MailAttachmentMapper::getByMailId($id);
 
                     if (!empty($recipients) && !empty($title) && !empty($body)) {
-                        $Mail = new \PortalCMS\Email\Message($title, $body, $recipients, $attachments);
-                        $config = new \PortalCMS\Email\MailConfiguration();
+                        $Mail = new PortalCMS\Email\Message($title, $body, $recipients, $attachments);
+                        $config = new PortalCMS\Email\MailConfiguration();
 
                         $MailSender = new MailSender($Mail, $config);
-                                                        // var_dump($MailSender);
+                        // var_dump($MailSender);
                         // die;
                         if ($MailSender->sendMail()) {
                             MailScheduleMapper::updateStatus($id, '2');

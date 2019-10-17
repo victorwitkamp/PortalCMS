@@ -103,7 +103,7 @@ class PasswordReset
         $MailText = MailTemplate::replaceholder('SITENAME', SiteSetting::getStaticSiteSetting('site_name'), $MailText);
         $MailText = MailTemplate::replaceholder('RESETLINK', $resetlink, $MailText);
 
-        $mail = new PortalCMS\Email\EmailMessage(
+        $mail = new PortalCMS\Email\Message(
             Config::get('EMAIL_PASSWORD_RESET_SUBJECT'),
             $MailText,
             $user_email,

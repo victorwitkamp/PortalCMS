@@ -17,7 +17,8 @@ class MailSender
      */
     private $_error;
 
-    public function __construct($mail, $config) {
+    public function __construct($mail, $config)
+    {
         $this->mail = $mail;
         $this->config = $config;
     }
@@ -50,15 +51,22 @@ class MailSender
      */
     public function sendMail()
     {
-
-        // if ($config = null) {
-        // }
-        if (
-            empty($this->mail->recipients) ||
-            empty($this->mail->subject) ||
-            empty($this->mail->body)
-        ) {
-            $this->_error = 'Incompleet';
+        if (empty($this->mail->recipients)) {
+            $this->_error = 'Recipients incompleet';
+            // var_dump($this->mail->recipients);
+            // die;
+            return false;
+        }
+        if (empty($this->mail->subject)) {
+            $this->_error = 'Subject incompleet';
+            // var_dump($this->mail->subject);
+            // die;
+            return false;
+        }
+        if (empty($this->mail->body)) {
+            $this->_error = 'Body incompleet';
+            // var_dump($this->mail->body);
+            // die;
             return false;
         }
 

@@ -8,27 +8,27 @@ class Message
      *
      * @var string
      */
-    private $subject;
+    public$subject;
     /**
      * Body
      *
      * @var string
      */
-    private $body;
+    public$body;
 
     /**
      * Recipients
      *
      * @var array
      */
-    private $recipients = [];
+    public$recipients = [];
 
     /**
      * Attachment data
      *
      * @var array
      */
-    private $attachments = [];
+    public$attachments = [];
 
     public function __construct($subject, $body, $recipients, $attachments)
     {
