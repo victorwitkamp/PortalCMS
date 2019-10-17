@@ -10,15 +10,16 @@ use PHPMailer\PHPMailer\Exception;
  */
 class MailSender
 {
-    // private $mail;
+    private $mail;
     private $config;
     /**
      * @var mixed variable to collect errors
      */
     private $_error;
 
-    public function __construct() {
-
+    public function __construct($mail, $config) {
+        $this->mail = $mail;
+        $this->config = $config;
     }
 
     /**
@@ -47,19 +48,23 @@ class MailSender
      * @throws Exception
      * @throws phpmailerException
      */
-    public function sendMail($mail = null, $config = null)
+    public function sendMail()
     {
-        if ($config = null) {
-            $config = new \PortalCMS\Email\MailConfiguration;
-        }
-        if (empty($mail->recipients) || empty($mail->subject) || empty($mail->body)) {
+
+        // if ($config = null) {
+        // }
+        if (
+            empty($this->mail->recipients) ||
+            empty($this->mail->subject) ||
+            empty($this->mail->body)
+        ) {
             $this->_error = 'Incompleet';
             return false;
         }
 
         $mailTransport = new PHPMailer(true);
         try {
-            $mailTransport->CharSet = $config->charset;
+            $mailTransport->CharSet = $this->config->charset;
                 $mailTransport->IsSMTP();
                 $mailTransport->SMTPOptions = array(
                     'ssl' => array(
@@ -67,8 +72,8 @@ class MailSender
                         'verify_peer_name' => false,
                         'allow_self_signed' => true)
                     );
-                $mailTransport->SMTPDebug = $config->SMTPDebug;
-                $mailTransport->SMTPAuth = $config->SMTPAuth;
+                $mailTransport->SMTPDebug = $this->config->SMTPDebug;
+                $mailTransport->SMTPAuth = $this->config->SMTPAuth;
 
                 $mailTransport->SMTPSecure = SiteSetting::getStaticSiteSetting('MailServerSecure');
                 $mailTransport->Host = SiteSetting::getStaticSiteSetting('MailServer');
@@ -76,19 +81,19 @@ class MailSender
                 $mailTransport->Password = SiteSetting::getStaticSiteSetting('MailServerPassword');
                 $mailTransport->Port = SiteSetting::getStaticSiteSetting('MailServerPort');
 
-                $mailTransport->From = $config->fromEmail;
-                $mailTransport->FromName = $config->fromName;
+                $mailTransport->From = $this->config->fromEmail;
+                $mailTransport->FromName = $this->config->fromName;
 
-                foreach ($mail->recipients as $recipient) {
+                foreach ($this->mail->recipients as $recipient) {
                     $mailTransport->AddAddress($recipient['email'], $recipient['name']);
                 }
 
-                $mailTransport->Subject = $mail->subject;
-                $mailTransport->Body = $mail->body;
+                $mailTransport->Subject = $this->mail->subject;
+                $mailTransport->Body = $this->mail->body;
                 // $mailTransport = $this->addAttachments($mailTransport);
 
-                        if (!empty($mail->attachments)) {
-            foreach ($mail->attachments as $attachment) {
+                        if (!empty($this->mail->attachments)) {
+            foreach ($this->mail->attachments as $attachment) {
                 $attachmentFullFilePath = DIR_ROOT.$attachment['path'].$attachment['name'].$attachment['extension'];
                 $attachmentFullName = $attachment['name'].$attachment['extension'];
                 $mailTransport->addAttachment($attachmentFullFilePath, $attachmentFullName, $attachment['encoding'], $attachment['type']);
@@ -105,10 +110,5 @@ class MailSender
     }
 
 
-    private function addAttachments($mail)
-    {
-
-        return $mail;
-    }
 
 }

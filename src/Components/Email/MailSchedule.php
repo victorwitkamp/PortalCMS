@@ -47,8 +47,12 @@ class MailSchedule
                     $attachments = MailAttachmentMapper::getByMailId($id);
 
                     if (!empty($recipients) && !empty($title) && !empty($body)) {
-                        $Mail = new Mail($title, $body, $recipients, $attachments);
-                        $MailSender = new MailSender($Mail);
+                        $Mail = new \PortalCMS\Email\Message($title, $body, $recipients, $attachments);
+                        $config = new \PortalCMS\Email\MailConfiguration();
+
+                        $MailSender = new MailSender($Mail, $config);
+                                                        // var_dump($MailSender);
+                        // die;
                         if ($MailSender->sendMail()) {
                             MailScheduleMapper::updateStatus($id, '2');
                             MailScheduleMapper::updateDateSent($id);
