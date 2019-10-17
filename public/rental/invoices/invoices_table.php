@@ -60,7 +60,7 @@
             ?>
             </td>
             <td>
-                <a href="createpdf.php?id=<?php echo $invoice['id'] ?>" title="PDF maken" class="btn btn-success">
+                <a href="/rental/invoices/createpdf.php?id=<?php echo $invoice['id'] ?>" title="PDF maken" class="btn btn-success">
                     <span class="fas fa-file-pdf"></span>
                 </a>
             </td>

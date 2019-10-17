@@ -41,14 +41,13 @@ class MailSchedule
                 if ($row['status'] !== '1') {
                     $count_already_sent += 1;
                 } else {
-                    $sender = $row['sender_email'];
                     $recipients = MailRecipientMapper::getByMailId($id);
                     $title = $row['subject'];
                     $body = $row['body'];
                     $attachments = MailAttachmentMapper::getByMailId($id);
 
                     if (!empty($recipients) && !empty($title) && !empty($body)) {
-                        $MailSender = new MailSender($title, $body, $recipients, $attachments, $sender);
+                        $MailSender = new MailSender($title, $body, $recipients, $attachments);
                         if ($MailSender->sendMail()) {
                             MailScheduleMapper::updateStatus($id, '2');
                             MailScheduleMapper::updateDateSent($id);

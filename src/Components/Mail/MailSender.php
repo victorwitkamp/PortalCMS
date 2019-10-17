@@ -10,32 +10,44 @@ use PHPMailer\PHPMailer\Exception;
  */
 class MailSender
 {
+    public $config;
     /**
      * @var mixed variable to collect errors
      */
     private $_error;
-    private $_subject;
-    private $_body;
-    private $_recipients;
-    private $_attachments;
-    private $_from_email;
-    private $_from_name;
+
+    private $subject;
+    private $body;
+
+    /**
+     * Recipients
+     *
+     * @var array
+     */
+    protected $recipients = [];
+
+    /**
+     * Attachment data
+     *
+     * @var array
+     */
+    protected $attachments = [];
 
     public function __construct(
         $subject,
         $body,
         $recipients,
-        $attachments = null,
-        $from_email = null,
-        $from_name = null
+        $attachments = null
     ) {
-        $this->_subject = $subject;
-        $this->_body = $body;
-        $this->_recipients = $recipients;
-        $this->_attachments = $attachments;
-        $this->_from_email = $from_email;
-        $this->_from_name = $from_name;
+        $this->subject = $subject;
+        $this->body = $body;
+        $this->recipients = $recipients;
+        $this->attachments = $attachments;
+        // $this->_from_email = $from_email;
+        // $this->_from_name = $from_name;
     }
+
+
 
     /**
      * The different mail sending methods write errors to the error property $this->error,
@@ -63,23 +75,20 @@ class MailSender
      * @throws Exception
      * @throws phpmailerException
      */
-    public function sendMail()
+    public function sendMail($config = null)
     {
-        if (empty($this->_recipients) || empty($this->_subject) || empty($this->_body)) {
+        if ($config = null) {
+            $config = new \PortalCMS\Email\MailConfiguration;
+            $config = $config->initialize();
+        }
+        if (empty($this->recipients) || empty($this->subject) || empty($this->body)) {
             $this->_error = 'Incompleet';
             return false;
-        }
-        if ($this->_from_email == null) {
-            $this->_from_email = Config::get('EMAIL_SMTP_USERNAME');
-        }
-        if ($this->_from_name == null) {
-                $this->_from_name = SiteSetting::getStaticSiteSetting('site_name');
         }
 
         $mail = new PHPMailer(true);
         try {
-            $mail->CharSet = 'UTF-8';
-            if (Config::get('EMAIL_USE_SMTP')) {
+            $mail->CharSet = $config->charset;
                 $mail->IsSMTP();
                 $mail->SMTPOptions = array(
                     'ssl' => array(
@@ -87,46 +96,46 @@ class MailSender
                         'verify_peer_name' => false,
                         'allow_self_signed' => true)
                     );
-                $mail->SMTPDebug = Config::get('EMAIL_SMTP_DEBUG');
-                $mail->SMTPAuth = Config::get('EMAIL_SMTP_AUTH');
-                if (Config::get('EMAIL_SMTP_ENCRYPTION')) {
-                    $mail->SMTPSecure = Config::get('EMAIL_SMTP_ENCRYPTION');
-                }
-                $mail->Host = Config::get('EMAIL_SMTP_HOST');
-                $mail->Username = Config::get('EMAIL_SMTP_USERNAME');
-                $mail->Password = Config::get('EMAIL_SMTP_PASSWORD');
-                $mail->Port = Config::get('EMAIL_SMTP_PORT');
-            } else {
-                $mail->IsMail();
-            }
+                $mail->SMTPDebug = $config->SMTPDebug;
+                $mail->SMTPAuth = $config->SMTPAuth;
 
-            $mail->From = $this->_from_email;
-            $mail->FromName = $this->_from_name;
-            foreach ($this->_recipients as $recipient) {
-                $mail->AddAddress($recipient['email'], $recipient['name']);
-            }
-            // $mail->AddAddress($recipient);
-            // if (!empty($cc_recipient)) {
-            //     $mail->AddCC($cc_recipient);
-            // }
-            $mail->Subject = $this->_subject;
-            $mail->Body = $this->_body;
-            if (!empty($this->_attachments)) {
-                foreach ($this->_attachments as $attachment) {
-                    $attachmentFullFilePath = DIR_ROOT.$attachment['path'].$attachment['name'].$attachment['extension'];
-                    $attachmentFullName = $attachment['name'].$attachment['extension'];
-                    $mail->addAttachment($attachmentFullFilePath, $attachmentFullName, $attachment['encoding'], $attachment['type']);
+                $mail->SMTPSecure = SiteSetting::getStaticSiteSetting('MailServerSecure');
+                $mail->Host = SiteSetting::getStaticSiteSetting('MailServer');
+                $mail->Username = SiteSetting::getStaticSiteSetting('MailServerUsername');
+                $mail->Password = SiteSetting::getStaticSiteSetting('MailServerPassword');
+                $mail->Port = SiteSetting::getStaticSiteSetting('MailServerPort');
+
+                $mail->From = $config->fromEmail;
+                $mail->FromName = $config->fromName;
+
+                foreach ($this->recipients as $recipient) {
+                    $mail->AddAddress($recipient['email'], $recipient['name']);
                 }
-            }
-            $mail->isHTML(true);
-            return $mail->Send();
+
+                $mail->Subject = $this->subject;
+                $mail->Body = $this->body;
+                $mail = $this->addAttachments($mail);
+                $mail->isHTML(true);
+                return $mail->Send();
         } catch (Exception $e) {
             $this->_error = $e->errorMessage();
             return false;
         } catch (\Exception $e) { //The leading slash means the Global PHP Exception class will be caught
             echo $e->getMessage(); //Boring error messages from anything else!
         }
+    }
 
+
+    private function addAttachments($mail)
+    {
+        if (!empty($this->attachments)) {
+            foreach ($this->attachments as $attachment) {
+                $attachmentFullFilePath = DIR_ROOT.$attachment['path'].$attachment['name'].$attachment['extension'];
+                $attachmentFullName = $attachment['name'].$attachment['extension'];
+                $mail->addAttachment($attachmentFullFilePath, $attachmentFullName, $attachment['encoding'], $attachment['type']);
+            }
+        }
+        return $mail;
     }
 
 }

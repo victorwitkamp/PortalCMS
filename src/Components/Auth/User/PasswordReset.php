@@ -107,9 +107,7 @@ class PasswordReset
             Config::get('EMAIL_PASSWORD_RESET_SUBJECT'),
             $MailText,
             $user_email,
-            null,
-            Config::get('EMAIL_SMTP_USERNAME'),
-            SiteSetting::getStaticSiteSetting('site_name')
+            null
         );
         if ($mail->sendMail()) {
             Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_RESET_MAIL_SENDING_SUCCESSFUL'));

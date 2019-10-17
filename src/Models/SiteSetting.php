@@ -18,6 +18,16 @@ class SiteSetting
         self::setSiteSetting(Request::post('site_layout'), 'site_layout');
         self::setSiteSetting(Request::post('WidgetComingEvents'), 'WidgetComingEvents');
         self::setSiteSetting(Request::post('WidgetDebug'), 'WidgetDebug');
+
+        self::setSiteSetting(Request::post('MailServer'), 'MailServer');
+        self::setSiteSetting(Request::post('MailServerPort'), 'MailServerPort');
+        self::setSiteSetting(Request::post('MailServerSecure'), 'MailServerSecure');
+        self::setSiteSetting(Request::post('MailServerAuth'), 'MailServerAuth');
+        self::setSiteSetting(Request::post('MailServerUsername'), 'MailServerUsername');
+        self::setSiteSetting(Request::post('MailServerPassword'), 'MailServerPassword');
+        self::setSiteSetting(Request::post('MailServerDebug'), 'MailServerDebug');
+        self::setSiteSetting(Request::post('MailFromName'), 'MailFromName');
+        self::setSiteSetting(Request::post('MailFromEmail'), 'MailFromEmail');
         return true;
     }
 
