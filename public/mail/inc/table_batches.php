@@ -53,7 +53,7 @@
                         <td><?php echo $row['CreationDate']; ?></td>
 
                                                 <td>
-                <a href="batches.php?id=<?php echo $row['id']; ?>" title="Details" class="btn btn-success btn-sm">
+                <a href="messages.php?batch_id=<?php echo $row['id']; ?>" title="Details" class="btn btn-success btn-sm">
                 <i class="fas fa-info"></i></a>
 
             </td>

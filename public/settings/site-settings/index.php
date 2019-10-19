@@ -29,7 +29,11 @@ PortalCMS_JS_headJS();
                     </div>
                 </div>
                 <?php Alert::renderFeedbackMessages();
-                require 'form.php'; ?>
+                require 'inc\general.php'; ?>
+                <hr>
+                <?php require 'inc\widgets.php'; ?>
+                <hr>
+                <?php require 'inc\mailserver.php'; ?>
             </form>
         </div>
     </div>

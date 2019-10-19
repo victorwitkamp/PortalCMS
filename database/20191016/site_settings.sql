@@ -7,3 +7,4 @@ INSERT INTO `site_settings` (`setting`, `string_value`) VALUES ('MailServerPassw
 INSERT INTO `site_settings` (`setting`, `string_value`) VALUES ('MailServerDebug','0');
 INSERT INTO `site_settings` (`setting`, `string_value`) VALUES ('MailFromName','');
 INSERT INTO `site_settings` (`setting`, `string_value`) VALUES ('MailFromEmail','');
+INSERT INTO `site_settings` (`setting`, `string_value`) VALUES ('MailIsHTML', '1');

@@ -1,7 +1,7 @@
 <?php
 namespace PortalCMS\Email;
 
-class Message
+class EmailMessage
 {
     /**
      * Subject
@@ -36,7 +36,5 @@ class Message
         $this->body = $body;
         $this->recipients = $recipients;
         $this->attachments = $attachments;
-        // return $this;
     }
-
 }

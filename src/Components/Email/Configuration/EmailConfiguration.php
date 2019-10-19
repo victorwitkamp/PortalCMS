@@ -1,25 +1,21 @@
 <?php
 namespace PortalCMS\Email;
 
-class MailConfiguration
+class EmailConfiguration
 {
     /**
      * @var string
      */
-    public $fromEmail;
-    /**
-     * @var string
-     */
-    public $fromName;
-    /**
-     * @var string
-     */
-    public $SMTPHost;
+    public $SMTPHost = 'localhost';
+
     /**
      * @var integer
      */
     public $SMTPPort = 25;
+
     /**
+     * Encryption type for the SMTP connection (tls, ssl or empty)
+     *
      * @var string
      */
     public $SMTPCrypto = 'tls';
@@ -27,21 +23,38 @@ class MailConfiguration
     /**
      * @var boolean
      */
-    public $SMTPAuth;
+    public $SMTPAuth = 0;
+
     /**
      * @var string
      */
     public $SMTPUser;
+
     /**
      * @var string
      */
     public $SMTPPass;
 
+    /**
+     * @var boolean
+     */
+    public $SMTPDebug = 0;
 
     /**
      * @var string
      */
-    // public $mailType = 'text';
+    public $fromEmail;
+
+    /**
+     * @var string
+     */
+    public $fromName;
+
+    /**
+     * @var boolean
+     */
+    public $isHTML;
+
     /**
      * Character set (utf-8, iso-8859-1, etc.)
      *
@@ -49,12 +62,10 @@ class MailConfiguration
      */
     public $charset = 'UTF-8';
 
-        /**
+    /**
      * Initialize preferences
      *
-     * @param array|\Config\Email $config
-     *
-     * @return Email
+     * @return EmailConfiguration
      */
     public function __construct()
     {
@@ -63,8 +74,6 @@ class MailConfiguration
         $this->SMTPHost = \SiteSetting::getStaticSiteSetting('MailServer');
         $this->SMTPPort = \SiteSetting::getStaticSiteSetting('MailServerPort');
         $this->SMTPCrypto = \SiteSetting::getStaticSiteSetting('MailServerSecure');
-        // $this->SMTPAuth = \SiteSetting::getStaticSiteSetting('MailServerAuth');
-
         if (\SiteSetting::getStaticSiteSetting('MailServerAuth') === 1) {
             $this->SMTPAuth = true;
         } else {
@@ -72,16 +81,17 @@ class MailConfiguration
         }
         $this->SMTPUser = \SiteSetting::getStaticSiteSetting('MailServerUsername');
         $this->SMTPPass = \SiteSetting::getStaticSiteSetting('MailServerPassword');
-
         if (\SiteSetting::getStaticSiteSetting('MailServerDebug') === 1) {
             $this->SMTPDebug = true;
         } else {
             $this->SMTPDebug = false;
         }
-
-
+        if (\SiteSetting::getStaticSiteSetting('MailIsHTML') === 1) {
+            $this->isHTML = true;
+        } else {
+            $this->isHTML = false;
+        }
         $this->charset  = strtoupper($this->charset);
-        // $this->SMTPAuth = isset($this->SMTPUser[0], $this->SMTPPass[0]);
         return $this;
     }
 }

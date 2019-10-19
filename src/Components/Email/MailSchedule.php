@@ -1,5 +1,8 @@
 <?php
 
+use PortalCMS\Email\EmailMessage;
+use PortalCMS\Email\EmailConfiguration;
+
 class MailSchedule
 {
     public static function deleteById()
@@ -43,13 +46,10 @@ class MailSchedule
                     $attachments = MailAttachmentMapper::getByMailId($id);
 
                     if (!empty($recipients) && !empty($title) && !empty($body)) {
-                        $Mail = new PortalCMS\Email\Message($title, $body, $recipients, $attachments);
-                        $config = new PortalCMS\Email\MailConfiguration();
-
-                        $MailSender = new MailSender($Mail, $config);
-                        // var_dump($MailSender);
-                        // die;
-                        if ($MailSender->sendMail()) {
+                        $EmailMessage = new EmailMessage($title, $body, $recipients, $attachments);
+                        $EmailConfiguration = new EmailConfiguration();
+                        $MailSender = new MailSender($EmailConfiguration);
+                        if ($MailSender->sendMail($EmailMessage)) {
                             MailScheduleMapper::updateStatus($id, '2');
                             MailScheduleMapper::updateDateSent($id);
                             $count_success += 1;
@@ -76,8 +76,7 @@ class MailSchedule
             Session::add('feedback_positive', $count_success.' bericht(en) succesvol verstuurd. ');
         }
         if ($count_already_sent > 0) {
-                Session::add('feedback_positive', $count_already_sent.' bericht(en) reeds verstuurd. ');
-
+            Session::add('feedback_positive', $count_already_sent.' bericht(en) reeds verstuurd. ');
         }
         Redirect::mail();
     }
@@ -113,7 +112,6 @@ class MailSchedule
                             }
                         }
                     }
-
                 }
                 if ($count_failed === 0) {
                     Session::add('feedback_positive', "Totaal aantal berichten aangemaakt:".$count_created);
@@ -174,6 +172,4 @@ class MailSchedule
             return false;
         }
     }
-
-
 }
