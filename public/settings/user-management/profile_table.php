@@ -1,9 +1,7 @@
 <?php
-use PDO;
-use Role;
-use UserRoleMapper;
-use PermissionMapper;
+
 use PortalCMS\Core\DB;
+
 ?>
 <div class="row">
     <div class="col-6">

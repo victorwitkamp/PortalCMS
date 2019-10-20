@@ -3,8 +3,8 @@
  * Main navigation
  */
 
-use PortalCMS\Core\Text;
 use PortalCMS\Core\Session;
+use PortalCMS\Core\Text;
 use PortalCMS\Models\SiteSetting;
 
 ?>

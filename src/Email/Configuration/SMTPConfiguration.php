@@ -2,7 +2,6 @@
 namespace PortalCMS\Email\Configuration;
 
 use PortalCMS\Models\SiteSetting;
-use PortalCMS\Models\SiteSetting;
 
 class SMTPConfiguration
 {

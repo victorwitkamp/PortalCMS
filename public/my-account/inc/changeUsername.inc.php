@@ -2,6 +2,7 @@
 
 use PortalCMS\Core\Csrf;
 use PortalCMS\Core\Text;
+
 ?><h3><?php
 
     echo Text::get('LABEL_CHANGE_USERNAME'); ?></h3>

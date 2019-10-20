@@ -1,5 +1,7 @@
 <?php
+
 use PortalCMS\Core\Text;
+
 ?>
 <h4><?php echo Text::get('TITLE_WIDGET_COMING_EVENTS'); ?></h4>
 <div class="card" id="show-events"></div>

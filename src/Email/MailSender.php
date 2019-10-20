@@ -16,7 +16,7 @@ class MailSender
      *
      * @var SMTPConfiguration Mail configuration object
      */
-    private $config = null;
+    private $config;
 
     /**
      * @var mixed variable to collect errors

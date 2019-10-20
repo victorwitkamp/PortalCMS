@@ -5,11 +5,11 @@
  * Details :
  */
 
-use PortalCMS\Core\Text;
+use PortalCMS\Authentication\Authentication;
 use PortalCMS\Core\Alert;
+use PortalCMS\Core\Text;
 use PortalCMS\Models\Page;
 use PortalCMS\Models\SiteSetting;
-use PortalCMS\Authentication\Authentication;
 
 ?>
 <div class="col-sm-4">

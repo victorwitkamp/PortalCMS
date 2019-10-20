@@ -1,10 +1,10 @@
 <?php
 
-use PortalCMS\Core\Text;
-use PortalCMS\Core\View;
+use PortalCMS\Authentication\Authentication;
 use PortalCMS\Core\Alert;
 use PortalCMS\Core\Redirect;
-use PortalCMS\Authentication\Authentication;
+use PortalCMS\Core\Text;
+use PortalCMS\Core\View;
 
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_SITE_SETTINGS');

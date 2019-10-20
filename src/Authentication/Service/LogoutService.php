@@ -8,7 +8,6 @@ use PortalCMS\Core\Redirect;
 use PortalCMS\Core\Session;
 use PortalCMS\Core\Text;
 use PortalCMS\User\UserMapper;
-use PortalCMS\User\UserMapper;
 
 /**
  * LogoutService

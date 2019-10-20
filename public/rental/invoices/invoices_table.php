@@ -1,6 +1,8 @@
 <?php
+
 use PortalCMS\Core\Config;
 use PortalCMS\Models\Invoice;
+
 ?>
 <table id="example" class="table table-sm table-striped table-hover table-dark" style="width:100%">
     <thead class="thead-dark">

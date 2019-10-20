@@ -1,8 +1,8 @@
 
 <?php
 
-use PortalCMS\Core\Text;
 use PortalCMS\Core\Session;
+use PortalCMS\Core\Text;
 use PortalCMS\User\UserMapper;
 
 $user = UserMapper::getProfileById(Session::get('user_id'));

@@ -1,5 +1,7 @@
 <?php
+
 use PortalCMS\Core\Text;
+
 ?>
 <li class="nav-item dropdown">
     <a class="nav-link" href="/home/index.php"><?php echo Text::get('NAV_TITLE_HOME'); ?></a>

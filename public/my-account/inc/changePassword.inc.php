@@ -1,6 +1,7 @@
 <?php
 
 use PortalCMS\Core\Text;
+
 ?>
 <h3><?php echo Text::get('LABEL_CHANGE_PASSWORD'); ?></h3>
 <form method="post" validate=true>

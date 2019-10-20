@@ -1,8 +1,8 @@
 
-<?php use PortalCMS\Core\Csrf;
-use PortalCMS\Core\Text;
-use PortalCMS\Core\Config;
+<?php use PortalCMS\Core\Config;
+use PortalCMS\Core\Csrf;
 use PortalCMS\Core\Request;
+use PortalCMS\Core\Text;
 
 ?>
 <div class="user_forms-login">

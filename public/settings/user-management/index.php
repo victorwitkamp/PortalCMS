@@ -1,12 +1,12 @@
 <?php
 
 // use PDO;
+use PortalCMS\Authentication\Authentication;
+use PortalCMS\Core\Alert;
 use PortalCMS\Core\DB;
+use PortalCMS\Core\Redirect;
 use PortalCMS\Core\Text;
 use PortalCMS\Core\View;
-use PortalCMS\Core\Alert;
-use PortalCMS\Core\Redirect;
-use PortalCMS\Authentication\Authentication;
 
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_USER_MANAGEMENT');

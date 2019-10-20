@@ -1,5 +1,7 @@
 <?php
+
 use PortalCMS\Core\Text;
+
 ?>
 <form method="post" validate=true>
     <div class="row">
