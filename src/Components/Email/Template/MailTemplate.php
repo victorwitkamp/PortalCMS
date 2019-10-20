@@ -46,5 +46,4 @@ class MailTemplate
         }
         return $body_out;
     }
-
 }

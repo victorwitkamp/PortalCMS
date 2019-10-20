@@ -80,8 +80,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 // document.addEventListener("DOMContentLoaded", function () {
 
-    // function myFunction() {
-    // var element = document.getElementsByClassName("table-bordered");
-    // element.classList.add("card");
-    // }
+// function myFunction() {
+// var element = document.getElementsByClassName("table-bordered");
+// element.classList.add("card");
+// }
 // });
