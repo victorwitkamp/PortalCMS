@@ -2,58 +2,24 @@
 
 class PDF
 {
+    /**
+     * @var mixed variable to collect errors
+     */
+    public static $error;
+
     public static function configPDF()
     {
         define('K_TCPDF_EXTERNAL_CONFIG', true);
-
-        /**
-         * Installation path (/var/www/tcpdf/).
-         * By default it is automatically calculated but you can also set it as a fixed string to improve performances.
-         */
         define('K_PATH_MAIN', DIR_VENDOR.'tecnickcom/tcpdf/');
-
-        /**
-         * URL path to tcpdf installation folder (http://localhost/tcpdf/).
-         * By default it is automatically set but you can also set it as a fixed string to improve performances.
-         */
         define('K_PATH_URL', DIR_VENDOR.'tecnickcom/tcpdf/');
-
-        /**
-         * Path for PDF fonts.
-         * By default it is automatically set but you can also set it as a fixed string to improve performances.
-         */
         define('K_PATH_FONTS', K_PATH_MAIN.'fonts/');
-
-        /**
-         * Default images directory.
-         * By default it is automatically set but you can also set it as a fixed string to improve performances.
-         */
         define('K_PATH_IMAGES', dirname(__FILE__).'/../images/');
-
-
         define('PDF_HEADER_LOGO', 'logo.jpg');
         define('PDF_HEADER_LOGO_WIDTH', 30);
-
-        /**
-         * Cache directory for temporary files (full path).
-         */
-        define('K_PATH_CACHE', sys_get_temp_dir().'/');
-
-        /**
-         * Generic name for a blank image.
-         */
+        define('K_PATH_CACHE', DIR_TEMP);
         define('K_BLANK_IMAGE', '_blank.png');
-
-        /**
-         * Page format.
-         */
         define('PDF_PAGE_FORMAT', 'A4');
-
-        /**
-         * Page orientation (P=portrait, L=landscape).
-         */
         define('PDF_PAGE_ORIENTATION', 'P');
-
         define('PDF_CREATOR', SiteSetting::getStaticSiteSetting('site_name'));
         define('PDF_AUTHOR', SiteSetting::getStaticSiteSetting('site_name'));
         define('PDF_HEADER_TITLE', 'Factuur');
@@ -75,24 +41,10 @@ class PDF
         define('K_CELL_HEIGHT_RATIO', 1.25);
         define('K_TITLE_MAGNIFICATION', 1.3);
         define('K_SMALL_RATIO', 2 / 3);
-
-        /**
-         * Set to true to enable the special procedure used to avoid the overlappind of symbols on Thai language.
-         */
         define('K_THAI_TOPCHARS', true);
-
-        /**
-         * If true allows to call TCPDF methods using HTML syntax
-         * IMPORTANT: For security reason, disable this feature if you are printing user HTML content.
-         */
         define('K_TCPDF_CALLS_IN_HTML', true);
-
-        /**
-         * If true and PHP version is greater than 5, then the Error() method throw new exception instead of terminating the execution.
-         */
         define('K_TCPDF_THROW_EXCEPTION_ERROR', false);
-
-        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', true);
         $pdf->setPrintHeader(false);
         $pdf->setPrintFooter(false);
         $pdf->SetCreator(PDF_CREATOR);
@@ -105,7 +57,6 @@ class PDF
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
         // $pdf->setFontSubsetting(true);
         $pdf->setFontSubsetting(false);
-
         // $pdf->SetFont('dejavusans', '', 11, '', true);
         $pdf->AddPage();
         // $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196, 196, 196), 'opacity'=>1, 'blend_mode'=>'Normal'));
@@ -206,11 +157,8 @@ class PDF
     {
         $pdf = self::configPDF();
         $pdf = self::createInvoice($pdf, $invoice, $invoiceitems, $contract);
-        ob_end_clean();
-        if ($pdf->Output($invoice['factuurnummer'].'.pdf', 'I')) {
-            return true;
-        }
-        return false;
+        // ob_end_clean();
+        $pdf->Output($invoice['factuurnummer'].'.pdf', 'I');
     }
 
     public static function writeInvoice($invoice, $invoiceitems, $contract)
@@ -224,6 +172,9 @@ class PDF
         }
         // ob_end_clean();
         $pdf->Output($_SERVER["DOCUMENT_ROOT"].'content/invoices/'.$invoice['factuurnummer'].'.pdf', 'F');
-        return true;
+        if (file_exists($_SERVER["DOCUMENT_ROOT"].'content/invoices/'.$invoice['factuurnummer'].'.pdf')) {
+            return true;
+        }
+        return false;
     }
 }

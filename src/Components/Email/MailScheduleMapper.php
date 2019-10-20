@@ -68,12 +68,12 @@ class MailScheduleMapper
         return ($stmt->rowCount() === 1 ? true : false);
     }
 
-    public static function create($batch_id, $sender_email, $member_id, $subject, $body, $status = '1')
+    public static function create($batch_id, $member_id, $subject, $body, $status = '1')
     {
         $stmt = DB::conn()->prepare(
-            "INSERT INTO mail_schedule(id, batch_id, sender_email, member_id, subject, body, status) VALUES (NULL,?,?,?,?,?,?)"
+            "INSERT INTO mail_schedule(id, batch_id, sender_email, member_id, subject, body, status) VALUES (NULL,?,NULL,?,?,?,?)"
         );
-        $stmt->execute([$batch_id, $sender_email, $member_id, $subject, $body, $status]);
+        $stmt->execute([$batch_id, $member_id, $subject, $body, $status]);
         if (!$stmt) {
             return false;
         }

@@ -35,9 +35,12 @@ ini_set('session.use_strict_mode', 1);
  * Configuration for: Named constants
  */
 define("DIR_ROOT", $_SERVER["DOCUMENT_ROOT"]."/");
-// define("DIR_CLASS", DIR_ROOT . "../src/");
 define("DIR_INCLUDES", DIR_ROOT."includes/");
 define("DIR_VENDOR", DIR_ROOT."../vendor/");
+define("DIR_TEMP", DIR_ROOT."content/temp/");
+if (!file_exists(DIR_TEMP)) {
+    mkdir(DIR_TEMP, 0777, true);
+}
 
 if (!file_exists(DIR_VENDOR.'autoload.php')) {
     echo 'No autoloader found in the "vendor" directory. Run "composer update" to get started.';
@@ -45,23 +48,6 @@ if (!file_exists(DIR_VENDOR.'autoload.php')) {
 } else {
     include_once DIR_VENDOR.'autoload.php';
 }
-
-// spl_autoload_register(
-//     function ($class) {
-//         $sources = array(
-//             DIR_CLASS."Core/$class.php",
-//             DIR_CLASS."Models/$class.php",
-//             DIR_CLASS."Controllers/$class.php",
-//             DIR_CLASS."DataMapper/$class.php",
-//             DIR_CLASS."Components/Mailer/$class.php"
-//         );
-//         foreach ($sources as $source) {
-//             if (file_exists($source)) {
-//                 include_once $source;
-//             }
-//         }
-//     }
-// );
 
 $AccountController = new AccountController;
 $ContractController = new ContractController;

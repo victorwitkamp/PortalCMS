@@ -3,6 +3,7 @@
 // These must be at the top of your script, not inside a function
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use PortalCMS\Email\SMTPConfiguration;
 use PortalCMS\Email\EmailMessage;
 
 /**
@@ -13,7 +14,7 @@ class MailSender
     /**
      * Undocumented variable
      *
-     * @var [type]
+     * @var [type] Mail configuration object
      */
     private $config;
     /**
@@ -69,6 +70,10 @@ class MailSender
      */
     public function sendMail($message)
     {
+        if (!$this->config instanceof \PortalCMS\Email\SMTPConfiguration) {
+            $this->error = 'Configuratie is geen instance van SMTPConfiguration';
+            return false;
+        }
         $verifiedMessage = $this->verifyMessage($message);
         if (!$verifiedMessage) {
             return false;
@@ -91,8 +96,14 @@ class MailSender
             $mailTransport->Username = $this->config->SMTPUser;
             $mailTransport->Password = $this->config->SMTPPass;
             $mailTransport->SMTPDebug = $this->config->SMTPDebug;
+            $mailTransport->Debugoutput = function ($str, $level) {
+                file_put_contents(DIR_ROOT.'phpmailer.log', gmdate('Y-m-d H:i:s'). "\t$level\t$str\n", FILE_APPEND | LOCK_EX);
+            };
             $mailTransport->From = $this->config->fromEmail;
             $mailTransport->FromName = $this->config->fromName;
+            if ($this->config->isHTML) {
+                $mailTransport->isHTML(true);
+            }
             foreach ($verifiedMessage->recipients as $recipient) {
                 $mailTransport->AddAddress($recipient['email'], $recipient['name']);
             }
@@ -105,7 +116,7 @@ class MailSender
                     $mailTransport->addAttachment($attachmentFullFilePath, $attachmentFullName, $attachment['encoding'], $attachment['type']);
                 }
             }
-            $mailTransport->isHTML = $this->config->isHTML;
+
             return $mailTransport->Send();
         } catch (Exception $e) {
             $this->error = $e->errorMessage();

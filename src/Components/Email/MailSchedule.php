@@ -1,7 +1,7 @@
 <?php
 
 use PortalCMS\Email\EmailMessage;
-use PortalCMS\Email\EmailConfiguration;
+use PortalCMS\Email\SMTPConfiguration;
 
 class MailSchedule
 {
@@ -15,6 +15,7 @@ class MailSchedule
                 if (!MailScheduleMapper::deleteById($id)) {
                     $error += 1;
                 } else {
+                    MailAttachmentMapper::deleteByMailId($id);
                     $deleted += 1;
                 }
             }
@@ -47,8 +48,8 @@ class MailSchedule
 
                     if (!empty($recipients) && !empty($title) && !empty($body)) {
                         $EmailMessage = new EmailMessage($title, $body, $recipients, $attachments);
-                        $EmailConfiguration = new EmailConfiguration();
-                        $MailSender = new MailSender($EmailConfiguration);
+                        $SMTPConfiguration = new SMTPConfiguration();
+                        $MailSender = new MailSender($SMTPConfiguration);
                         if ($MailSender->sendMail($EmailMessage)) {
                             MailScheduleMapper::updateStatus($id, '2');
                             MailScheduleMapper::updateDateSent($id);
@@ -83,7 +84,6 @@ class MailSchedule
 
     public static function newWithTemplate()
     {
-        $sender_email = Config::get('EMAIL_SMTP_USERNAME');
         $type = Request::post('type', true);
         $templateId = Request::post('templateid', true);
         $template = MailTemplateMapper::getTemplateById($templateId);
@@ -96,7 +96,7 @@ class MailSchedule
                 foreach ($_POST['recipients'] as $memberId) {
                     $member = Member::getMemberById($memberId);
                     $body = self::replaceholdersMember($memberId, $template['body']);
-                    $return = MailScheduleMapper::create($batch_id, $sender_email, $memberId, $template['subject'], $body);
+                    $return = MailScheduleMapper::create($batch_id, $memberId, $template['subject'], $body);
                     if (!$return) {
                         $count_failed += 1;
                     } else {
@@ -142,11 +142,10 @@ class MailSchedule
 
     public static function new()
     {
-        $sender_email = Config::get('EMAIL_SMTP_USERNAME');
         $recipient_email = Request::post('recipient_email', true);
         $subject = Request::post('subject', true);
         $body = Request::post('body', true);
-        $create = MailScheduleMapper::create(null, $sender_email, $recipient_email, $subject, $body);
+        $create = MailScheduleMapper::create(null, $recipient_email, $subject, $body);
         if (!$create) {
             Session::add('feedback_negative', "Nieuwe email aanmaken mislukt.");
             return false;

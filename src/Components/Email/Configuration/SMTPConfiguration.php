@@ -1,7 +1,7 @@
 <?php
-namespace PortalCMS\Email;
+namespace PortalCMS\Email\Configuration\SMTPConfiguration;
 
-class EmailConfiguration
+class SMTPConfiguration
 {
     /**
      * @var string
@@ -65,7 +65,7 @@ class EmailConfiguration
     /**
      * Initialize preferences
      *
-     * @return EmailConfiguration
+     * @return SMTPConfiguration
      */
     public function __construct()
     {
@@ -81,17 +81,13 @@ class EmailConfiguration
         }
         $this->SMTPUser = \SiteSetting::getStaticSiteSetting('MailServerUsername');
         $this->SMTPPass = \SiteSetting::getStaticSiteSetting('MailServerPassword');
-        if (\SiteSetting::getStaticSiteSetting('MailServerDebug') === 1) {
-            $this->SMTPDebug = true;
-        } else {
-            $this->SMTPDebug = false;
-        }
-        if (\SiteSetting::getStaticSiteSetting('MailIsHTML') === 1) {
+        $this->SMTPDebug = \SiteSetting::getStaticSiteSetting('MailServerDebug');
+        if (\SiteSetting::getStaticSiteSetting('MailIsHTML') == 1) {
             $this->isHTML = true;
         } else {
             $this->isHTML = false;
         }
         $this->charset  = strtoupper($this->charset);
-        return $this;
+        // return $this;
     }
 }

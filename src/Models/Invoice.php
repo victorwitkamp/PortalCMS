@@ -4,33 +4,27 @@ class Invoice
 {
     public static function createMail()
     {
-        $sender_email = Config::get('EMAIL_SMTP_USERNAME');
         $invoiceId = Request::post('id', true);
-
-
         $invoice = InvoiceMapper::getById($invoiceId);
         $contract = ContractMapper::getById($invoice['contract_id']);
-        $recipient_email = $contract['bandleider_email'];
         if ($invoice['month'] < '10') {
             $maand = Text::get('MONTH_0'.$invoice['month']);
         } else {
             $maand = Text::get('MONTH_'.$invoice['month']);
         }
-
         $template = MailTemplateMapper::getSystemTemplateByName('InvoiceMail');
         $subject = MailTemplate::replaceholder('MAAND', $maand, $template['subject']);
-
         $body = MailTemplate::replaceholder('FACTUURNUMMER', $invoice['factuurnummer'], $template['body']);
-        $create = MailScheduleMapper::create(null, $sender_email, null, null, $subject, $body);
+        $create = MailScheduleMapper::create(null, null, $subject, $body);
         if (!$create) {
             Session::add('feedback_negative', "Nieuwe email aanmaken mislukt.");
             return false;
         }
         $createdMailId = MailScheduleMapper::lastInsertedId();
-        $recipients = array($recipient_email);
-        foreach ($recipients as $recipient) {
-            MailRecipientMapper::create($recipient, $createdMailId);
-        }
+        // $recipients = array($recipient_email);
+        // foreach ($recipients as $recipient) {
+            MailRecipientMapper::create($contract['bandleider_email'], $createdMailId);
+        // }
 
         $attachmentPath = "content/invoices/";
         $attachmentExtension = ".pdf";
@@ -138,27 +132,27 @@ class Invoice
         $invoice = InvoiceMapper::getById($id);
         $invoiceitems = InvoiceItemMapper::getByInvoiceId($id);
         $contract = ContractMapper::getById($invoice['contract_id']);
-        if (PDF::renderInvoice($invoice, $invoiceitems, $contract)) {
-            return true;
-        }
-        return false;
+        // if (PDF::renderInvoice($invoice, $invoiceitems, $contract)) {
+        //     Session::add('feedback_negative', 'Fout bij het weergeven');
+        //     return true;
+        // }
+        // return false;
+        PDF::renderInvoice($invoice, $invoiceitems, $contract);
     }
 
-    public static function write()
+    public static function write($id = null)
     {
-        $id = Request::post('id', true);
-
-        if (empty($id)) {
+        if (!isset($id) || empty($id)) {
             return false;
         }
         $invoice = InvoiceMapper::getById($id);
         $contract = ContractMapper::getById($invoice['contract_id']);
         $invoiceitems = InvoiceItemMapper::getByInvoiceId($id);
         if (!PDF::writeInvoice($invoice, $invoiceitems, $contract)) {
-            return Redirect::error();
+            Session::add('feedback_negative', 'Fout bij het opslaan');
+            return false;
         }
         InvoiceMapper::updateStatus($id, 1);
-        // return Redirect::to("content/invoices/".$invoice['factuurnummer'].".pdf");
         return true;
     }
 }

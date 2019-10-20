@@ -28,6 +28,8 @@ PortalCMS_JS_headJS();
         <div class="container">
             <h2>var_dump($_SESSION)</h2>
             <?php var_dump($_SESSION); echo '<br>'; ?>
+            <h2>sys_get_temp_dir().'/'</h2>
+            <p><?php echo sys_get_temp_dir().'/'; ?></p>
         </div>
                 <div class="container">
 <iframe width="800" height="600" src="phpinfo.inc.php" frameborder="0"></iframe>

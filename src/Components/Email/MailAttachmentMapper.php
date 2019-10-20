@@ -58,4 +58,11 @@ class MailAttachmentMapper
         $stmt->execute([$id]);
         return ($stmt->rowCount() === 1 ? true : false);
     }
+
+    public static function deleteByMailId($id)
+    {
+        $stmt = DB::conn()->prepare("DELETE FROM mail_attachments WHERE mail_id = ? LIMIT 1");
+        $stmt->execute([$id]);
+        return ($stmt->rowCount() === 1 ? true : false);
+    }
 }

@@ -12,10 +12,12 @@ class InvoiceController extends Controller
 
         if (isset($_POST['createInvoiceMail'])) {
             Invoice::createMail();
-            // Invoice::write();
         }
         if (isset($_POST['writeInvoice'])) {
-            Invoice::write();
+            $id = Request::post('id', true);
+            if (!Invoice::write($id)) {
+                Redirect::error();
+            }
         }
         if (isset($_POST['createInvoice'])) {
             Invoice::create();

@@ -35,7 +35,7 @@ PortalCMS_JS_dataTables();
                 include 'invoices_table.php';
                 PortalCMS_JS_Init_dataTables();
             } else {
-                echo 'Ontbrekende gegevens..';
+                echo 'Geen facturen gevonden.';
             }
             ?>
         </div>

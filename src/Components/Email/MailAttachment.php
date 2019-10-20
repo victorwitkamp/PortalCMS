@@ -65,7 +65,6 @@ class MailAttachment
             Session::add('feedback_negative', 'Directory '.$path_attachment.' is not writeable');
             return false;
         }
-        //Session::add('feedback_positive', 'Directory '.$path_attachment.' exists and is writeable');
         return true;
     }
 
