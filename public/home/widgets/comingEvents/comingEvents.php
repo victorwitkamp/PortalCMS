@@ -15,7 +15,9 @@ $(document).ready(function () {
 
     $.getJSON('../../../api/loadComingEvents.php', function (data) {
       //console.log(data);
-      var records = data.map(function (item) {
+      var content;
+        var listContent;
+        var records = data.map(function (item) {
 
         var tempdisplaydatetime = new Date(0);
         tempdisplaydatetime.setUTCSeconds(item.date_time);
@@ -28,9 +30,9 @@ $(document).ready(function () {
       showData.empty();
 
       if (records.length) {
-        var content = '<li class="list-group-item">' + records.join('</li><li>') + '</li>';
+        content = '<li class="list-group-item">' + records.join('</li><li>') + '</li>';
         // var list = $('<ul />').html(content);
-        var listContent = '<ul class="list-group list-group-flush">' + content + '</ul>';
+        listContent = '<ul class="list-group list-group-flush">' + content + '</ul>';
         showData.append(listContent);
       }
     });

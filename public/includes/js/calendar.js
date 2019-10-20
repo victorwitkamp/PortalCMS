@@ -1,8 +1,11 @@
+
+
 document.addEventListener("DOMContentLoaded", function () {
+    var a, n, r;
     var e = getComputedStyle(document.body),
         t = {};
     t.primary = e.getPropertyValue("--primary"), t.secondary = e.getPropertyValue("--secondary"), t.success = e.getPropertyValue("--success"), t.info = e.getPropertyValue("--info"), t.warning = e.getPropertyValue("--warning"), t.danger = e.getPropertyValue("--danger"), t.light = e.getPropertyValue("--light"), t.dark = e.getPropertyValue("--dark");
-    var a = moment.now.getDate,
+    a = moment.now.getDate,
         n = document.getElementById("calendar"),
         r = new FullCalendar.Calendar(n, {
             plugins: ["list", "dayGrid", "interaction", "bootstrap"],

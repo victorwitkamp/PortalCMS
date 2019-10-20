@@ -54,9 +54,9 @@ class SiteSetting
     {
         $stmt = DB::conn()->prepare("SELECT * FROM site_settings WHERE setting = ?");
         $stmt->execute([$setting]);
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            return $row['string_value'];
-        }
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row['string_value'];
+
     }
 
     /**

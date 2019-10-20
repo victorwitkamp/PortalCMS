@@ -35,16 +35,17 @@ class Event
             }
         }
         if (!empty($data)) {
-            $returndata = json_encode($data);
-            echo $returndata;
+            echo json_encode($data);
+        } else {
+            echo '{}';
+
         }
     }
 
     public static function loadComingEvents()
     {
         $now = date("Y-m-d H:i:s");
-        $result = EventMapper::getEventsAfter($now);
-        foreach ($result as $row) {
+        foreach (EventMapper::getEventsAfter($now) as $row) {
             $data[] = array(
                 'id'   => $row["id"],
                 'title'   => $row["title"],
@@ -61,8 +62,7 @@ class Event
     public static function loadMailEvents()
     {
         $now = date("Y-m-d H:i:s");
-        $result = EventMapper::getEventsAfter($now);
-        foreach ($result as $row) {
+        foreach (EventMapper::getEventsAfter($now) as $row) {
             $title = $row["title"];
             $start = $row["start_event"];
             $end = $row["end_event"];

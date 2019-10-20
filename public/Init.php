@@ -37,7 +37,9 @@ define("DIR_INCLUDES", DIR_ROOT."includes/");
 define("DIR_VENDOR", DIR_ROOT."../vendor/");
 define("DIR_TEMP", DIR_ROOT."content/temp/");
 if (!file_exists(DIR_TEMP)) {
-    mkdir(DIR_TEMP, 0777, true);
+    if (!mkdir($concurrentDirectory = DIR_TEMP, 0777, true) && !is_dir($concurrentDirectory)) {
+        throw new \RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
+    }
 }
 
 if (!file_exists(DIR_VENDOR.'autoload.php')) {

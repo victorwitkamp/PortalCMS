@@ -119,8 +119,7 @@ if (!$Role) {
                     een gewenste permissie om toe te voegen aan de rol.<p>
                     <?php
 
-                    $stmt = DB::conn()->prepare("SELECT * FROM permissions ORDER BY perm_desc ASC");
-                    $stmt->execute();
+                    $stmt = DB::conn()->query("SELECT * FROM permissions ORDER BY perm_desc ASC");
                     if ($stmt->rowCount() > 0) { ?>
 
                         <form method="post">

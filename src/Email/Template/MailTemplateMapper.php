@@ -71,8 +71,7 @@ class MailTemplateMapper
         if (!$stmt) {
             return false;
         }
-        $id = self::lastInsertedId();
-        return $id;
+        return self::lastInsertedId();
     }
 
     public static function update($id, $type, $subject, $body, $status)
@@ -88,8 +87,7 @@ class MailTemplateMapper
     public static function lastInsertedId()
     {
         $stmt = DB::conn()->query("SELECT max(id) from mail_templates");
-        $lastId = $stmt->fetchColumn();
-        return $lastId;
+        return $stmt->fetchColumn();
     }
 
 }

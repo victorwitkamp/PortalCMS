@@ -4,10 +4,25 @@
     <list default="true" id="10cd1690-6b40-469b-8cb6-7411aa27a75c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/Init.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/Init.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/home/widgets/comingEvents/comingEvents.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/home/widgets/comingEvents/comingEvents.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/includes/js/calendar.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/includes/js/calendar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/membership/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/membership/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/my-account/inc/changeUsername.inc.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/my-account/inc/changeUsername.inc.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/rental/overview/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/rental/overview/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/settings/user-management/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/settings/user-management/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/settings/user-management/profile_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/settings/user-management/profile_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Authentication/Service/LogoutService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Authentication/Service/LogoutService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Email/Configuration/SMTPConfiguration.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Email/Configuration/SMTPConfiguration.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/settings/user-management/role.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/settings/user-management/role.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/settings/user-management/roles.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/settings/user-management/roles.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Authentication/Authentication.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Authentication/Authentication.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Cookie.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Cookie.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DataMapper/InvoiceMapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataMapper/InvoiceMapper.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Email/MailSender.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Email/MailSender.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Email/Template/MailTemplateMapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Email/Template/MailTemplateMapper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/Activity.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Activity.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/Event.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Event.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/Page.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Page.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/SiteSetting.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/SiteSetting.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -93,6 +108,15 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.jscs" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.jscs" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.jscs" value="" />
+    <property name="node.js.selected.package.standard" value="" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -142,7 +166,9 @@
       <workItem from="1571594522810" duration="324000" />
       <workItem from="1571594864287" duration="3058000" />
       <workItem from="1571598743913" duration="598000" />
-      <workItem from="1571600180139" duration="1315000" />
+      <workItem from="1571600180139" duration="3448000" />
+      <workItem from="1571603682319" duration="24000" />
+      <workItem from="1571603729410" duration="579000" />
     </task>
     <servers />
   </component>
@@ -161,16 +187,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/src/Email/Configuration/SMTPConfiguration.php</url>
-          <line>3</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

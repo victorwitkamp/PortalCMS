@@ -18,7 +18,7 @@ class Cookie
             Config::get('COOKIE_PATH'),
             Config::get('COOKIE_DOMAIN'),
             // Config::get('COOKIE_SECURE'),
-            $secure = true,
+            true,
             Config::get('COOKIE_HTTP')
         );
     }
@@ -36,7 +36,7 @@ class Cookie
             Config::get('COOKIE_PATH'),
             Config::get('COOKIE_DOMAIN'),
             // Config::get('COOKIE_SECURE'),
-            $secure = true,
+            true,
             Config::get('COOKIE_HTTP')
         );
     }

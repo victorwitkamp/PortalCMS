@@ -82,8 +82,7 @@ class Authentication
         //     }
         // }
         // return false;
-        $Permissions = PermissionMapper::getPermissionsByUserId(Session::get('user_id'));
-        foreach ($Permissions as $Permission) {
+        foreach (PermissionMapper::getPermissionsByUserId(Session::get('user_id')); as $Permission) {
             if ($Permission['perm_desc'] === $perm_desc) {
                 return true;
             }

@@ -63,8 +63,7 @@ class InvoiceMapper
 
     public static function getAll()
     {
-        $stmt = DB::conn()->prepare("SELECT * FROM invoices");
-        $stmt->execute();
+        $stmt = DB::conn()->query("SELECT * FROM invoices");
         if (!$stmt->rowCount() > 0) {
             return false;
         }

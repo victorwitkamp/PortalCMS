@@ -46,8 +46,7 @@ PortalCMS_JS_headJS();
                     </thead>
                     <?php
                     // $sql = "SELECT * FROM users ORDER BY id ASC";
-                    $stmt = DB::conn()->prepare("SELECT * FROM users ORDER BY user_id ASC");
-                    $stmt->execute();
+                    $stmt = DB::conn()->query("SELECT * FROM users ORDER BY user_id ASC");
 
                     // $result = $u->Database->db->query($sql);
                     if ($stmt->rowCount() > 0) {

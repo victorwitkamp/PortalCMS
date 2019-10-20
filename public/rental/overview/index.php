@@ -35,12 +35,10 @@ PortalCMS_JS_dataTables();
             <hr>
             <?php
             Alert::renderFeedbackMessages();
-            $stmt = DB::conn()->prepare("SELECT count(id) as NumberOfContracts FROM contracts");
-            $stmt->execute();
+            $stmt = DB::conn()->query("SELECT count(id) as NumberOfContracts FROM contracts");
             $row = $stmt->fetchColumn();
             echo 'Totaal aantal contracten: '.$row.'<br>';
-            $stmt = DB::conn()->prepare("SELECT count(id) as NumberOfInvoices FROM invoices");
-            $stmt->execute();
+            $stmt = DB::conn()->query("SELECT count(id) as NumberOfInvoices FROM invoices");
             $row = $stmt->fetchColumn();
             echo 'Totaal aantal facturen: '.$row;
             ?>

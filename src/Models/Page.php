@@ -30,8 +30,7 @@ class Page
         $stmt = DB::conn()->prepare('SELECT * FROM pages WHERE id = ? LIMIT 1');
         $stmt->execute([$page_id]);
         if ($stmt->rowCount() > 0) {
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                return $row;
+                return $row = $stmt->fetch(PDO::FETCH_ASSOC);
             }
         } else {
             Session::add('feedback_negative', "Geen pagina gevonden voor weergave.");
