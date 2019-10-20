@@ -1,9 +1,5 @@
 # PHP
-- task: Gulp@1
-  inputs:
-    gulpFile: 'gulpfile.js'
-    targets: 
-    enableCodeCoverage: false
+
 # Test and package your PHP project.
 # Add steps that run tests, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/php
@@ -29,3 +25,9 @@ steps:
 
 - script: composer install --no-interaction --prefer-dist
   displayName: 'composer install'
+
+- task: Gulp@1
+  inputs:
+    gulpFile: 'gulpfile.js'
+    targets: 
+    enableCodeCoverage: false
