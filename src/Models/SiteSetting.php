@@ -56,7 +56,6 @@ class SiteSetting
         $stmt->execute([$setting]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return $row['string_value'];
-
     }
 
     /**
@@ -162,7 +161,7 @@ class SiteSetting
     {
         $stmt = DB::conn()->prepare("UPDATE site_settings SET string_value = ? WHERE setting = 'site_logo' LIMIT 1");
         if (!$stmt->execute([$fileName])) {
-                    Session::add('feedback_negative', 'DB error');
+            Session::add('feedback_negative', 'DB error');
 
             return false;
         } else {

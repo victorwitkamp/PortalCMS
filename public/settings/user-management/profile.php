@@ -44,7 +44,7 @@ PortalCMS_JS_headJS(); ?>
             <?php
             require 'profile_table.php'; ?>
             <!-- <hr> -->
-            <?php //require 'profile_buttons.php'; ?>
+            <?php //require 'profile_buttons.php';?>
         </div>
     </div>
 </main>

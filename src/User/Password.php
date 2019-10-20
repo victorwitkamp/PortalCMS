@@ -102,16 +102,16 @@ class Password
         ) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CURRENT_INCORRECT'));
             return false;
-        } else if (empty($user_password_new) || empty($user_password_repeat)) {
+        } elseif (empty($user_password_new) || empty($user_password_repeat)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_FIELD_EMPTY'));
             return false;
-        } else if ($user_password_new !== $user_password_repeat) {
+        } elseif ($user_password_new !== $user_password_repeat) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_REPEAT_WRONG'));
             return false;
-        } else if (strlen($user_password_new) < 6) {
+        } elseif (strlen($user_password_new) < 6) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_TOO_SHORT'));
             return false;
-        } else if ($user_password_current == $user_password_new) {
+        } elseif ($user_password_current == $user_password_new) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_NEW_SAME_AS_CURRENT'));
             return false;
         }

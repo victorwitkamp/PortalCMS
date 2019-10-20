@@ -48,7 +48,7 @@ class MailTemplate
         foreach ($variables as $key => $value) {
             $body_out = str_replace('{'.strtoupper($key).'}', $value, $body_in);
         }
-        if(empty($body_out)) {
+        if (empty($body_out)) {
             return false;
         }
         return $body_out;

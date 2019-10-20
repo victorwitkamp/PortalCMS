@@ -6,7 +6,7 @@
                     <label class="col-form-label">Huurder</label>
                     <input type="text" name="band_naam" class="form-control form-control-sm" value="<?php use PortalCMS\Core\Text;
 
-                    echo $contract['band_naam']; ?>" required>
+echo $contract['band_naam']; ?>" required>
                 </div>
                 <div class="col-md-4">
                     <label class="col-form-label">bandcode</label>
@@ -172,12 +172,16 @@
                 <div class="col-sm-10">
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="huur_oefenruimte_nr" value="1"
-                            <?php if ($contract['huur_oefenruimte_nr'] === '1') { echo 'checked'; } ?>>
+                            <?php if ($contract['huur_oefenruimte_nr'] === '1') {
+    echo 'checked';
+} ?>>
                         <label class="form-check-label">Oefenruimte 1</label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="huur_oefenruimte_nr" value="2"
-                            <?php if ($contract['huur_oefenruimte_nr'] === '2') { echo 'checked'; } ?>>
+                            <?php if ($contract['huur_oefenruimte_nr'] === '2') {
+    echo 'checked';
+} ?>>
                         <label class="form-check-label">Oefenruimte 2</label>
                     </div>
                 </div>
@@ -188,25 +192,39 @@
                 <div class="col-sm-10">
                     <select name="huur_dag" class="form-control">
                         <option>Selecteer een dag....</option>
-                        <option value="<?php echo Text::get('DAY_01'); ?>" <?php if (Text::get('DAY_01') === $contract['huur_dag']) { echo 'selected'; } ?>>
+                        <option value="<?php echo Text::get('DAY_01'); ?>" <?php if (Text::get('DAY_01') === $contract['huur_dag']) {
+    echo 'selected';
+} ?>>
                             <?php echo Text::get('DAY_01'); ?>
                         </option>
-                        <option value="<?php echo Text::get('DAY_02'); ?>" <?php if (Text::get('DAY_02') === $contract['huur_dag']) { echo 'selected'; } ?>>
+                        <option value="<?php echo Text::get('DAY_02'); ?>" <?php if (Text::get('DAY_02') === $contract['huur_dag']) {
+    echo 'selected';
+} ?>>
                             <?php echo Text::get('DAY_02'); ?>
                         </option>
-                        <option value="<?php echo Text::get('DAY_03'); ?>" <?php if (Text::get('DAY_03') === $contract['huur_dag']) { echo 'selected'; } ?>>
+                        <option value="<?php echo Text::get('DAY_03'); ?>" <?php if (Text::get('DAY_03') === $contract['huur_dag']) {
+    echo 'selected';
+} ?>>
                             <?php echo Text::get('DAY_03'); ?>
                         </option>
-                        <option value="<?php echo Text::get('DAY_04'); ?>" <?php if (Text::get('DAY_04') === $contract['huur_dag']) { echo 'selected'; } ?>>
+                        <option value="<?php echo Text::get('DAY_04'); ?>" <?php if (Text::get('DAY_04') === $contract['huur_dag']) {
+    echo 'selected';
+} ?>>
                             <?php echo Text::get('DAY_04'); ?>
                         </option>
-                        <option value="<?php echo Text::get('DAY_05'); ?>" <?php if (Text::get('DAY_05') === $contract['huur_dag']) { echo 'selected'; } ?>>
+                        <option value="<?php echo Text::get('DAY_05'); ?>" <?php if (Text::get('DAY_05') === $contract['huur_dag']) {
+    echo 'selected';
+} ?>>
                             <?php echo Text::get('DAY_05'); ?>
                         </option>
-                        <option value="<?php echo Text::get('DAY_06'); ?>" <?php if (Text::get('DAY_06') === $contract['huur_dag']) { echo 'selected'; } ?>>
+                        <option value="<?php echo Text::get('DAY_06'); ?>" <?php if (Text::get('DAY_06') === $contract['huur_dag']) {
+    echo 'selected';
+} ?>>
                             <?php echo Text::get('DAY_06'); ?>
                         </option>
-                        <option value="<?php echo Text::get('DAY_07'); ?>" <?php if (Text::get('DAY_07') === $contract['huur_dag']) { echo 'selected'; } ?>>
+                        <option value="<?php echo Text::get('DAY_07'); ?>" <?php if (Text::get('DAY_07') === $contract['huur_dag']) {
+    echo 'selected';
+} ?>>
                             <?php echo Text::get('DAY_07'); ?>
                         </option>
                     </select>

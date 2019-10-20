@@ -40,8 +40,9 @@
             <td><a href="messages.php?batch_id=<?php echo $row['id']; ?>"><?php echo MailBatch::countMessages($row['id']); ?></a></td>
                         <td><?php echo $row['UsedTemplate']; ?></td>
 
-            <?php if ($pageType === 'history') { echo '<td>'.$row['DateSent'].'</td>';
-            } ?>
+            <?php if ($pageType === 'history') {
+                    echo '<td>'.$row['DateSent'].'</td>';
+                } ?>
             <td>
                 <?php
                 if ($row['status'] === '1') {
@@ -67,10 +68,10 @@
 <hr>
 <?php
 if ($pageType === 'index') {
-    echo '<input type="submit" class="btn btn-primary" name="sendBatchById" value="';
-    echo Text::get('LABEL_SEND_EMAIL');
-    echo '">';
-}
+                    echo '<input type="submit" class="btn btn-primary" name="sendBatchById" value="';
+                    echo Text::get('LABEL_SEND_EMAIL');
+                    echo '">';
+                }
 echo '<input type="submit" class="btn btn-danger" name="deleteBatchById" value="';
 echo Text::get('LABEL_DELETE_EMAIL');
 echo '">';

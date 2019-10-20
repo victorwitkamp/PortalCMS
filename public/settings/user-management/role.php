@@ -35,14 +35,15 @@ if (!$Role) {
             <div class="container">
                 <div class="row mt-5">
                     <h1><?php echo Text::get('TITLE_ROLE'); ?>: <?php
-                    if (!empty($Role['role_name'])) { echo $Role['role_name'].' (rol)';
+                    if (!empty($Role['role_name'])) {
+                        echo $Role['role_name'].' (rol)';
                     }?></h1>
                 </div>
 
                 <?php Alert::renderFeedbackMessages();
 
                 if ($Role) { ?>
-                    <!-- <h3><?php //echo Text::get('LABEL_ROLE_GENERAL'); ?></h3> -->
+                    <!-- <h3><?php //echo Text::get('LABEL_ROLE_GENERAL');?></h3> -->
                     <table class="table table-striped table-condensed">
                         <!-- <thead class="thead-dark"> -->
                         <tbody>
@@ -59,7 +60,7 @@ if (!$Role) {
                             <th>Permissies</th>
                             <td>
 
-                            <h3><?php //echo Text::get('LABEL_ROLE_PERMISSIONS'); ?></h3>
+                            <h3><?php //echo Text::get('LABEL_ROLE_PERMISSIONS');?></h3>
                                 <?php
                                 // $Permissions = RolePermission::getPermissionIds($_GET['role_id']);
                                 $Permissions = RolePermissionMapper::getRolePermissions($_GET['role_id']);
@@ -79,24 +80,24 @@ if (!$Role) {
                                                 ?>
 
 
-                                                <?php //$Permission = PermissionMapper::getById($row['perm_id']); ?>
+                                                <?php //$Permission = PermissionMapper::getById($row['perm_id']);?>
                                                     <tr>
-                                                        <!-- <td><?php //echo $row['perm_id']; ?></td> -->
+                                                        <!-- <td><?php //echo $row['perm_id'];?></td> -->
                                                         <td><?php echo $Permission['perm_desc']; ?></td>
                                                         <td>
                                                             <form method="post">
                                                                 <input type="hidden" name="role_id" value="<?php echo $_GET['role_id']; ?>">
                                                                 <input type="hidden" name="perm_id" value="<?php echo $Permission['perm_id']; ?>">
                                                                             <?php
-                                                                            $msg = 'Weet u zeker dat u '.$Permission['perm_desc'].' wilt verwijderen?';
-                                                                            ?>
+                                                                            $msg = 'Weet u zeker dat u '.$Permission['perm_desc'].' wilt verwijderen?'; ?>
 
                                                                 <button type="submit" name="deleterolepermission" onclick="return confirm('<?php echo $msg; ?>')" class="btn btn-danger ml-2"><span class="fa fa-trash"></span></button>
                                                             </form>
                                                         </td>
                                                     </tr>
 
-                                            <?php } ?>
+                                            <?php
+                                            } ?>
                                             </tbody>
                                     </table>
                                     <?php
@@ -146,7 +147,7 @@ if (!$Role) {
 
                 // if ($Role) {
 
-                // } ?>
+                // }?>
 
             </div>
         </div>

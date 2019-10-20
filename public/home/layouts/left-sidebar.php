@@ -19,8 +19,8 @@ use PortalCMS\Models\SiteSetting;
     }
     ?><hr><?php
 if (SiteSetting::getStaticSiteSetting('WidgetDebug') == '1') {
-    include 'widgets/debug/debug.php';
-}
+        include 'widgets/debug/debug.php';
+    }
 ?>
 </div>
 <div class="col-sm-8">

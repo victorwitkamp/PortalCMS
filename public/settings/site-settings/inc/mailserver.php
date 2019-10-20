@@ -25,9 +25,15 @@ use PortalCMS\Models\SiteSetting;
         <div class="input-group">
             <select class="form-control" name="MailServerSecure">
                 <?php $MailServerSecure = SiteSetting::getStaticSiteSetting('MailServerSecure'); ?>
-                <option value="tls" <?php if ($MailServerSecure == 'tls') { echo 'selected'; } ?>>tls</option>
-                <option value="ssl" <?php if ($MailServerSecure == 'ssl') { echo 'selected'; } ?>>ssl</option>
-                <option value="0" <?php if ($MailServerSecure == '0') { echo 'selected'; } ?>>Disabled</option>
+                <option value="tls" <?php if ($MailServerSecure == 'tls') {
+    echo 'selected';
+} ?>>tls</option>
+                <option value="ssl" <?php if ($MailServerSecure == 'ssl') {
+    echo 'selected';
+} ?>>ssl</option>
+                <option value="0" <?php if ($MailServerSecure == '0') {
+    echo 'selected';
+} ?>>Disabled</option>
             </select>
         </div>
 
@@ -38,8 +44,12 @@ use PortalCMS\Models\SiteSetting;
         <div class="input-group">
             <select class="form-control" name="MailServerAuth">
                 <?php $MailServerAuth = SiteSetting::getStaticSiteSetting('MailServerAuth'); ?>
-                <option value="1" <?php if ($MailServerAuth == '1') { echo 'selected'; } ?>>Enabled</option>
-                <option value="0" <?php if ($MailServerAuth == '0') { echo 'selected'; } ?>>Disabled</option>
+                <option value="1" <?php if ($MailServerAuth == '1') {
+    echo 'selected';
+} ?>>Enabled</option>
+                <option value="0" <?php if ($MailServerAuth == '0') {
+    echo 'selected';
+} ?>>Disabled</option>
             </select>
         </div>
     </div>
@@ -59,11 +69,21 @@ use PortalCMS\Models\SiteSetting;
         <div class="input-group">
             <select class="form-control" name="MailServerDebug">
                 <?php $MailServerDebug = SiteSetting::getStaticSiteSetting('MailServerDebug'); ?>
-                <option value="0" <?php if ($MailServerDebug == '0') { echo 'selected'; } ?>>0. SMTP::DEBUG_OFF</option>
-                <option value="1" <?php if ($MailServerDebug == '1') { echo 'selected'; } ?>>1. SMTP::DEBUG_CLIENT</option>
-                <option value="2" <?php if ($MailServerDebug == '2') { echo 'selected'; } ?>>2. SMTP::DEBUG_SERVER</option>
-                <option value="3" <?php if ($MailServerDebug == '3') { echo 'selected'; } ?>>3. SMTP::DEBUG_CONNECTION</option>
-                <option value="4" <?php if ($MailServerDebug == '4') { echo 'selected'; } ?>>4. SMTP::DEBUG_LOWLEVEL</option>
+                <option value="0" <?php if ($MailServerDebug == '0') {
+    echo 'selected';
+} ?>>0. SMTP::DEBUG_OFF</option>
+                <option value="1" <?php if ($MailServerDebug == '1') {
+    echo 'selected';
+} ?>>1. SMTP::DEBUG_CLIENT</option>
+                <option value="2" <?php if ($MailServerDebug == '2') {
+    echo 'selected';
+} ?>>2. SMTP::DEBUG_SERVER</option>
+                <option value="3" <?php if ($MailServerDebug == '3') {
+    echo 'selected';
+} ?>>3. SMTP::DEBUG_CONNECTION</option>
+                <option value="4" <?php if ($MailServerDebug == '4') {
+    echo 'selected';
+} ?>>4. SMTP::DEBUG_LOWLEVEL</option>
             </select>
         </div>
     </div>
@@ -83,8 +103,12 @@ use PortalCMS\Models\SiteSetting;
         <div class="input-group">
             <select class="form-control" name="MailIsHTML">
                 <?php $MailIsHTML = SiteSetting::getStaticSiteSetting('MailIsHTML'); ?>
-                <option value="1" <?php if ($MailIsHTML == '1') { echo 'selected'; } ?>>Enabled</option>
-                <option value="0" <?php if ($MailIsHTML == '0') { echo 'selected'; } ?>>Disabled</option>
+                <option value="1" <?php if ($MailIsHTML == '1') {
+    echo 'selected';
+} ?>>Enabled</option>
+                <option value="0" <?php if ($MailIsHTML == '0') {
+    echo 'selected';
+} ?>>Disabled</option>
             </select>
         </div>
     </div>

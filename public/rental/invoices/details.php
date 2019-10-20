@@ -114,7 +114,8 @@ PortalCMS_JS_headJS(); ?>
                     <?php echo '&euro; '.$invoiceitem['price']; ?>
                     </td>
                 </tr>
-                <?php } ?>
+                <?php
+                } ?>
             </table>
 
             <h3>Items toevoegen</h3>

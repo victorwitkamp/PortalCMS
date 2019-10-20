@@ -48,7 +48,7 @@ $(function () {
     });
 });
 </script>
-<?php //PortalCMS_JS_JQuery_Simple_validator(); ?>
+<?php //PortalCMS_JS_JQuery_Simple_validator();?>
 </head>
 <body>
     <?php require DIR_INCLUDES."nav.php"; ?>

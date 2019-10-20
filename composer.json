@@ -10,7 +10,8 @@
         "phpmailer/phpmailer": "~6.0",
                 "facebook/graph-sdk": "^5.7",
                 "tecnickcom/tcpdf": "6.3.2",
-        "ext-fileinfo": "*"
+        "ext-fileinfo": "*",
+        "friendsofphp/php-cs-fixer": "^2.15"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "3.*",

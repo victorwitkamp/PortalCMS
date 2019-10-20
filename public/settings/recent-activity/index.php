@@ -33,7 +33,7 @@ PortalCMS_JS_headJS();
             <?php Alert::renderFeedbackMessages(); ?>
         </div>
         <div class="container">
-            <?php //require 'content.php'; ?>
+            <?php //require 'content.php';?>
             <table class="table table-sm table-striped table-hover table-dark">
                 <thead>
                     <th>CreationDate</th>

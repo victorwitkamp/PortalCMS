@@ -31,7 +31,7 @@ $user = UserMapper::getProfileById(Session::get('user_id'));
                 </tr>
 
                 <!-- <tr>
-                    <th width="20%"><?php //echo Text::get('LABEL_USER_ACCOUNT_TYPE'); ?></th><td><?php
+                    <th width="20%"><?php //echo Text::get('LABEL_USER_ACCOUNT_TYPE');?></th><td><?php
                     //echo Session::get('user_account_type');
                     ?></td>
                 </tr> -->
@@ -64,12 +64,12 @@ $user = UserMapper::getProfileById(Session::get('user_id'));
                 <!-- <tr>
                     <th width="20%">Geregistreerd op</th>
                     <td> -->
-                    <?php //echo $userData['CreationDate']; ?>
+                    <?php //echo $userData['CreationDate'];?>
                     <!-- </td>
                 </tr> -->
                 <!-- <tr>
                     <th width="20%">Laatst gewijzigd</th><td> -->
-                    <?php //echo $userData['ModificationDate']; ?>
+                    <?php //echo $userData['ModificationDate'];?>
                     <!-- </td>
                 </tr> -->
             </table>

@@ -38,7 +38,7 @@ class Invoice
         $createdMailId = MailScheduleMapper::lastInsertedId();
         // $recipients = array($recipient_email);
         // foreach ($recipients as $recipient) {
-            MailRecipientMapper::create($contract['bandleider_email'], $createdMailId);
+        MailRecipientMapper::create($contract['bandleider_email'], $createdMailId);
         // }
 
         $attachmentPath = "content/invoices/";
@@ -78,7 +78,6 @@ class Invoice
                 }
                 // if (!InvoiceMapper::create($contract_id, $factuurnummer, $year, $month, $factuurdatum, $vervaldatum)) {
                 if (!InvoiceMapper::create($contract_id, $factuurnummer, $year, $month, $factuurdatum)) {
-
                     Session::add('feedback_negative', "Toevoegen van factuur mislukt.");
                     return Redirect::error();
                 }

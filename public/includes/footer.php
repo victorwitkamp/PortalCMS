@@ -2,6 +2,6 @@
     <div class="container">
         <p>© <?php use PortalCMS\Models\SiteSetting;
 
-            echo date("Y"); ?> <?php echo SiteSetting::getStaticSiteSetting('site_name'); ?></p>
+echo date("Y"); ?> <?php echo SiteSetting::getStaticSiteSetting('site_name'); ?></p>
     </div>
 </footer>

@@ -144,7 +144,7 @@ class PDF
         $gelieve2 = '5413 53 o.v.v. het factuurnummer t.n.v. Sociëteit de Beuk.';
 
         $gelieve4 = 'Neem voor vragen over facturatie contact op met penningmeester@beukonline.nl.'."\n\n";
-            $pdf->SetX(20);
+        $pdf->SetX(20);
         $pdf->Write(0, $gelieve, '', 0, '', true, 0, false, false, 0);
         $pdf->SetX(20);
         $pdf->Write(0, $gelieve2, '', 0, 'L', true, 0, false, false, 0);

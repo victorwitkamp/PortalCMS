@@ -16,8 +16,12 @@ use PortalCMS\Models\SiteSetting;
         <div class="input-group">
             <select class="form-control" name="WidgetComingEvents">
                 <?php $WidgetComingEvents = SiteSetting::getStaticSiteSetting('WidgetComingEvents'); ?>
-                <option value="1" <?php if ($WidgetComingEvents == '1') { echo 'selected'; } ?>>Enabled</option>
-                <option value="0" <?php if ($WidgetComingEvents == '0') { echo 'selected'; } ?>>Disabled</option>
+                <option value="1" <?php if ($WidgetComingEvents == '1') {
+    echo 'selected';
+} ?>>Enabled</option>
+                <option value="0" <?php if ($WidgetComingEvents == '0') {
+    echo 'selected';
+} ?>>Disabled</option>
             </select>
         </div>
     </div>
@@ -27,8 +31,12 @@ use PortalCMS\Models\SiteSetting;
         <div class="input-group">
             <select class="form-control" name="WidgetDebug">
                 <?php $WidgetDebug = SiteSetting::getStaticSiteSetting('WidgetDebug'); ?>
-                <option value="1" <?php if ($WidgetDebug == '1') { echo 'selected'; } ?>>Enabled</option>
-                <option value="0" <?php if ($WidgetDebug == '0') { echo 'selected'; } ?>>Disabled</option>
+                <option value="1" <?php if ($WidgetDebug == '1') {
+    echo 'selected';
+} ?>>Enabled</option>
+                <option value="0" <?php if ($WidgetDebug == '0') {
+    echo 'selected';
+} ?>>Disabled</option>
             </select>
         </div>
     </div>

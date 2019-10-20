@@ -60,7 +60,7 @@ PortalCMS_JS_headJS(); ?>
                     <?php
                     foreach (Member::getMembers() as $row):
                         if (!empty($row['emailadres'])) {
-                        ?>
+                            ?>
 
                         <div class="col-md-4">
                             <input type="checkbox" name='recipients[]' id="checkbox" value="<?php echo $row['id']; ?>"> <?php echo $row['voornaam'].' '.$row['achternaam']; ?><br/>
