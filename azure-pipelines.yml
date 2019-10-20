@@ -26,6 +26,10 @@ steps:
 - script: composer install --no-interaction --prefer-dist
   displayName: 'composer install'
 
+- task: Npm@1
+  inputs:
+    command: 'install'
+
 - task: Gulp@1
   inputs:
     gulpFile: 'gulpfile.js'
