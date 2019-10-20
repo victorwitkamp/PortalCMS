@@ -1,5 +1,16 @@
 <?php
 
+namespace PortalCMS\Controllers;
+
+use PortalCMS\Core\Controller;
+use PortalCMS\Core\Redirect;
+use PortalCMS\Core\Request;
+use PortalCMS\Core\Session;
+use PortalCMS\Core\Text;
+use PortalCMS\User\Password;
+use PortalCMS\User\User;
+use PortalCMS\User\UserMapper;
+
 /**
  * AccountController
  * Controls everything that is account-related

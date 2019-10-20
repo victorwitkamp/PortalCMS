@@ -1,4 +1,12 @@
 <?php
+
+namespace PortalCMS\Models;
+
+use EventMapper;
+use PortalCMS\Core\DB;
+use PortalCMS\Core\Request;
+use PortalCMS\Core\Session;
+
 /**
  * Class : Event (Event.php)
  * Details : Event Class.

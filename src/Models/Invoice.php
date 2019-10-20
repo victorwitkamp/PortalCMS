@@ -1,5 +1,20 @@
 <?php
 
+namespace PortalCMS\Models;
+
+use ContractMapper;
+use InvoiceItemMapper;
+use InvoiceMapper;
+use MailAttachmentMapper;
+use MailRecipientMapper;
+use MailScheduleMapper;
+use MailTemplate;
+use MailTemplateMapper;
+use PortalCMS\Core\Redirect;
+use PortalCMS\Core\Request;
+use PortalCMS\Core\Text;
+use PortalCMS\Core\Session;
+
 class Invoice
 {
     public static function createMail()

@@ -1,5 +1,12 @@
 <?php
 
+namespace PortalCMS\Models;
+
+use InvoiceItemMapper;
+use PortalCMS\Core\Redirect;
+use PortalCMS\Core\Request;
+use PortalCMS\Core\Session;
+
 class InvoiceItem
 {
     public static function create()

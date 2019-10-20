@@ -1,8 +1,15 @@
 <?php
+
+use PortalCMS\Authentication\Authentication;
+use PortalCMS\Core\Alert;
+use PortalCMS\Core\Redirect;
+use PortalCMS\Core\Text;
+use PortalCMS\Core\View;
+
 $pageName = 'Factuur toevoegen';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
-Auth::checkAuthentication();
-if (!Auth::checkPrivilege("rental-invoices")) {
+Authentication::checkAuthentication();
+if (!Authentication::checkPrivilege("rental-invoices")) {
     Redirect::permissionError();
     die();
 }
@@ -40,7 +47,7 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
                         <label class="col-sm-2 col-form-label">Contract</label>
                         <div class="col-sm-10">
                             <!-- <select name="contract_id" class="form-control"> -->
-                                <?php foreach (ContractMapper::get() as $row): ?>
+                                <?php foreach (ContractMapper::get() as $row) : ?>
                                     <!-- <option value="<?php echo $row['id']; ?>"><?php echo $row['bandcode'].': '.$row['band_naam']; ?></option> -->
                                     <input type="checkbox" name='contract_id[]' value="<?php echo $row['id']; ?>"><?php echo $row['bandcode'].': '.$row['band_naam']; ?><br/>
                                 <?php endforeach ?>

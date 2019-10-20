@@ -1,9 +1,19 @@
 <?php
 
+namespace PortalCMS\Models;
+
 /**
  * Class : SiteSettings (SiteSettings.class.php)
  * Details : SiteSettings.
  */
+
+use PDO;
+use PortalCMS\Authentication\Authentication;
+use PortalCMS\Core\Config;
+use PortalCMS\Core\DB;
+use PortalCMS\Core\Request;
+use PortalCMS\Core\Session;
+use PortalCMS\Core\Text;
 
 class SiteSetting
 {
@@ -51,12 +61,12 @@ class SiteSetting
 
     /**
      * Perform the upload of the avatar
-     * Auth::checkAuthentication() makes sure that only logged in users can use this action and see this page
+     * Authentication::checkAuthentication() makes sure that only logged in users can use this action and see this page
      * POST-request
      */
     public static function uploadLogo()
     {
-        Auth::checkAuthentication();
+        Authentication::checkAuthentication();
         if (self::createLogo()) {
             return true;
         }
@@ -144,7 +154,9 @@ class SiteSetting
     /**
      * Writes marker to database, saying user has an avatar now
      *
-     * @param $user_id
+     * @param $fileName
+     * @return bool
+     * @return bool
      */
     public static function writeLogoToDatabase($fileName)
     {

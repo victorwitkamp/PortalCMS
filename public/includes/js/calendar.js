@@ -76,12 +76,5 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     r.render()
-    $("div.fc-dayGrid-view table.table-bordered").addClass("card");
+    // $("div.fc-dayGrid-view table.table-bordered").addClass("card");
 });
-// document.addEventListener("DOMContentLoaded", function () {
-
-// function myFunction() {
-// var element = document.getElementsByClassName("table-bordered");
-// element.classList.add("card");
-// }
-// });

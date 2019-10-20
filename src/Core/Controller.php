@@ -1,5 +1,10 @@
 <?php
 
+namespace PortalCMS\Core;
+
+use PortalCMS\Authentication\Authentication;
+use PortalCMS\Controllers\LoginController;
+
 /**
  * This is the "base controller class". All other "real" controllers extend this class.
  * Whenever a controller is created, we also
@@ -23,7 +28,7 @@ class Controller
         Session::init();
 
         // user is not logged in but has remember-me-cookie ? then try to login with cookie ("remember me" feature)
-        if (!Auth::userIsLoggedIn() && Request::cookie('remember_me')) {
+        if (!Authentication::userIsLoggedIn() && Request::cookie('remember_me')) {
             LoginController::loginWithCookie();
         }
 

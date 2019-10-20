@@ -1,7 +1,12 @@
 <?php
+
+use PortalCMS\Authentication\Authentication;
+use PortalCMS\Core\Redirect;
+use PortalCMS\Models\Invoice;
+
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
-Auth::checkAuthentication();
-if (!Auth::checkPrivilege("rental-invoices")) {
+Authentication::checkAuthentication();
+if (!Authentication::checkPrivilege("rental-invoices")) {
     Redirect::permissionError();
     die();
 }

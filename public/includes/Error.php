@@ -1,4 +1,8 @@
 <?php
+
+use PortalCMS\Core\Alert;
+use PortalCMS\Core\View;
+
 $pageName = 'Fout';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 require DIR_ROOT.'includes/functions.php';

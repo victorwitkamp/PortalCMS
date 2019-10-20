@@ -1,4 +1,10 @@
 <?php
+
+use PortalCMS\Core\Alert;
+use PortalCMS\Core\Config;
+use PortalCMS\Core\Popup;
+use PortalCMS\Models\SiteSetting;
+
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 
 $pageName = 'Login';

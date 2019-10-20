@@ -1,4 +1,11 @@
 <?php
+
+use PortalCMS\Core\Alert;
+use PortalCMS\Core\Redirect;
+use PortalCMS\Core\Session;
+use PortalCMS\Core\View;
+use PortalCMS\Models\SiteSetting;
+
 $pageName = 'Wachtwoord resetten';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 require_once DIR_INCLUDES.'functions.php';

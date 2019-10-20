@@ -1,5 +1,10 @@
 
 <?php
+
+use PortalCMS\Core\Text;
+use PortalCMS\Core\Session;
+use PortalCMS\User\UserMapper;
+
 $user = UserMapper::getProfileById(Session::get('user_id'));
 ?>
 <h3><?php echo Text::get('LABEL_ACCOUNT_DETAILS'); ?></h3>

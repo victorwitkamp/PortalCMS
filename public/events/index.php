@@ -1,9 +1,15 @@
 <?php
 
+use PortalCMS\Authentication\Authentication;
+use PortalCMS\Core\Alert;
+use PortalCMS\Core\Redirect;
+use PortalCMS\Core\Text;
+use PortalCMS\Core\View;
+
 require $_SERVER['DOCUMENT_ROOT'].'/Init.php';
 $pageName = Text::get('TITLE_EVENTS');
-Auth::checkAuthentication();
-if (!Auth::checkPrivilege('events')) {
+Authentication::checkAuthentication();
+if (!Authentication::checkPrivilege('events')) {
     Redirect::permissionError();
     die();
 }

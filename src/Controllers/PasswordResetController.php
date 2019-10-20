@@ -1,5 +1,11 @@
 <?php
 
+namespace PortalCMS\Controllers;
+
+use PortalCMS\Core\Controller;
+use PortalCMS\Core\Redirect;
+use PortalCMS\User\PasswordReset;
+
 /**
  * PasswordResetController
  * Submitting a password reset and resetting the password.

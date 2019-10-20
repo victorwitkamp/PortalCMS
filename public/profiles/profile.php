@@ -1,7 +1,12 @@
 <?php
+
+use PortalCMS\Authentication\Authentication;
+use PortalCMS\Core\View;
+use PortalCMS\User\UserMapper;
+
 $pageName = 'Gebruikersprofiel weergeven';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
-Auth::checkAuthentication();
+Authentication::checkAuthentication();
 require_once DIR_INCLUDES.'functions.php';
 
 require_once DIR_INCLUDES.'head.php';

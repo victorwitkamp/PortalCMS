@@ -1,5 +1,10 @@
 <?php
 
+namespace PortalCMS\Controllers;
+
+use PortalCMS\Models\Member;
+use PortalCMS\Core\Controller;
+
 class MembershipController extends Controller
 {
     public function __construct()

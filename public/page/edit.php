@@ -1,7 +1,13 @@
 <?php
+
+use PortalCMS\Authentication\Authentication;
+use PortalCMS\Core\Alert;
+use PortalCMS\Core\View;
+use PortalCMS\Models\Page;
+
 $pageName = 'Pagina bewerken';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
-Auth::checkAuthentication();
+Authentication::checkAuthentication();
 require_once DIR_INCLUDES.'functions.php';
 if (!Page::checkPage($_GET['id'])) {
     header("Location: /index.php");

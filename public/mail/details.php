@@ -1,9 +1,16 @@
 <?php
 
+use PortalCMS\Authentication\Authentication;
+use PortalCMS\Core\Config;
+use PortalCMS\Core\Redirect;
+use PortalCMS\Core\Session;
+use PortalCMS\Core\Text;
+use PortalCMS\Core\View;
+
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_MAIL_DETAILS');
-Auth::checkAuthentication();
-if (!Auth::checkPrivilege("mail-scheduler")) {
+Authentication::checkAuthentication();
+if (!Authentication::checkPrivilege("mail-scheduler")) {
     Redirect::permissionError();
     die();
 }

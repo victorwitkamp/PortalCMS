@@ -1,4 +1,9 @@
 <?php
+
+use PortalCMS\Core\Alert;
+use PortalCMS\Core\View;
+use PortalCMS\Models\SiteSetting;
+
 $pageName = 'Account activeren';
 
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";

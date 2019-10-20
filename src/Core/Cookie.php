@@ -1,5 +1,9 @@
 <?php
 
+namespace PortalCMS\Core;
+
+use PortalCMS\User\UserMapper;
+
 class Cookie
 {
     public static function setSessionCookie()
@@ -44,6 +48,7 @@ class Cookie
      * that's obviously the best practice to kill a cookie @see http://stackoverflow.com/a/686166/1114320
      *
      * @param string $user_id
+     * @return bool
      */
     public static function delete($user_id = null)
     {

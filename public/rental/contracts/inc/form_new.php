@@ -1,3 +1,6 @@
+<?php
+use PortalCMS\Core\Text;
+?>
 <form method="post" validate=true>
     <div class="row">
         <div class="col-md-12">
@@ -175,7 +178,9 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label"><?php echo Text::get('DAY'); ?></label>
+                <label class="col-sm-2 col-form-label"><?php
+
+                    echo Text::get('DAY'); ?></label>
                 <div class="col-sm-10">
                     <select name="huur_dag" class="form-control">
                         <option>Selecteer een dag....</option>

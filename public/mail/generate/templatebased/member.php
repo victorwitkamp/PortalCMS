@@ -1,8 +1,13 @@
 <?php
+
+use PortalCMS\Authentication\Authentication;
+use PortalCMS\Core\Redirect;
+use PortalCMS\Models\Member;
+
 $pageName = 'Nieuw bericht';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
-Auth::checkAuthentication();
-if (!Auth::checkPrivilege("mail-scheduler")) {
+Authentication::checkAuthentication();
+if (!Authentication::checkPrivilege("mail-scheduler")) {
     Redirect::permissionError();
     die();
 }

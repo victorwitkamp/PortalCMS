@@ -1,4 +1,7 @@
 <?php
+
+use PortalCMS\Models\SiteSetting;
+
 /**
  * PortalCMS Framework: Functions
  *

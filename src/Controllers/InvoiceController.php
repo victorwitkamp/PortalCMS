@@ -1,5 +1,13 @@
 <?php
 
+namespace PortalCMS\Controllers;
+
+use PortalCMS\Core\Controller;
+use PortalCMS\Core\Redirect;
+use PortalCMS\Core\Request;
+use PortalCMS\Models\Invoice;
+use PortalCMS\Models\InvoiceItem;
+
 /**
  * InvoiceController
  * Controls everything that is invoice-related

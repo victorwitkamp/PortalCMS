@@ -1,5 +1,12 @@
 <?php
 
+namespace PortalCMS\Models;
+
+use ContractMapper;
+use PortalCMS\Core\Redirect;
+use PortalCMS\Core\Request;
+use PortalCMS\Core\Session;
+
 /**
  * Class : Contract (Contract.php)
  * Details : Class for the contracts of bands who rent a practice room
@@ -37,8 +44,7 @@ class Contract
             Request::post('contract_ingangsdatum', true),
             Request::post('contract_einddatumm', true),
             Request::post('contract_datum', true)
-        )
-        ) {
+        )) {
             Session::add('feedback_negative', "Toevoegen van contract mislukt.");
             Redirect::to("rental/contracts/");
         } else {
@@ -76,13 +82,14 @@ class Contract
             Request::post('huur_start', true),
             Request::post('huur_einde', true),
             Request::post('huur_kast_nr', true),
-            $kosten_ruimte, $kosten_kast, $kosten_totaal,
+            $kosten_ruimte,
+            $kosten_kast,
+            $kosten_totaal,
             Request::post('kosten_borg', true),
             Request::post('contract_ingangsdatum', true),
             Request::post('contract_einddatumm', true),
             Request::post('contract_datum', true)
-        )
-        ) {
+        )) {
             Session::add('feedback_negative', "Wijzigen van contract mislukt.");
             Redirect::to("rental/contracts/");
         } else {
@@ -114,7 +121,4 @@ class Contract
         Redirect::contracts();
         return false;
     }
-
-
-
 }

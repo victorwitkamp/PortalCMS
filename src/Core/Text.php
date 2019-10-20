@@ -1,5 +1,7 @@
 <?php
 
+namespace PortalCMS\Core;
+
 class Text
 {
     private static $texts;

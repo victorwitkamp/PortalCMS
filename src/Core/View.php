@@ -1,5 +1,7 @@
 <?php
 
+namespace PortalCMS\Core;
+
 /**
  * Class View
  * The part that handles all the output

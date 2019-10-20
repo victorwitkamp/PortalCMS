@@ -1,5 +1,7 @@
 <?php
 
+namespace PortalCMS\Core;
+
 class Alert
 {
     public static function render($feedback, $style)

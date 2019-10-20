@@ -1,5 +1,9 @@
 <?php
 
+namespace PortalCMS\Models;
+
+use PortalCMS\Core\DB;
+
 /**
  * Class : Activity (Activity.php)
  * Details :
@@ -19,38 +23,38 @@ class Activity
     //     return $ip;
     // }
 
-//    public static function registerUserActivity($activity, $details = NULL)
-//    {
-//        if (!empty(Session::get('user_id'))) {
-//            $user_id = Session::get('user_id');
-//        }
-//        self::saveUserActivity(NULL, NULL, $activity, $details);
-//    }
-//
-//    public static function registerUserActivityByUserId($user_id, $activity, $details)
-//    {
-//        $user = UserMapper::getProfileById($user_id);
-//        $user_name = $user['user_name'];
-//        self::saveUserActivity($user_id, $user_name, $activity, $details);
-//    }
-//
-//    public static function registerUserActivityByUsername($user_name, $activity = NULL, $details = NULL)
-//    {
-//        $user = UserMapper::getByUserName($user_name);
-//        $user_id = $user['user_id'];
-//        self::saveUserActivity($user_id, $user_name, $activity, $details);
-//    }
-//
-//    public static function saveUserActivity($user_id = NULL, $user_name = NULL, $activity = NULL, $details = NULL)
-//    {
-//        $ip = self::getVisitorIP();
-//        self::saveUserActivityAction($user_id, $user_name, $ip, $activity, $details);
-//    }
-//
-//    public static function saveUserActivityAction($user_id = NULL, $user_name = NULL, $ip = NULL, $activity = NULL, $details = NULL)
-//    {
-//        $sql = 'INSERT INTO activity (id, user_id, user_name, ip_address, activity, details) VALUES (NULL, ?, ?, ?, ?, ?)';
-//        $stmt = DB::conn()->prepare($sql);
-//        $stmt->execute([$user_id, $user_name, $ip, $activity, $details]);
-//    }
+    //    public static function registerUserActivity($activity, $details = NULL)
+    //    {
+    //        if (!empty(Session::get('user_id'))) {
+    //            $user_id = Session::get('user_id');
+    //        }
+    //        self::saveUserActivity(NULL, NULL, $activity, $details);
+    //    }
+    //
+    //    public static function registerUserActivityByUserId($user_id, $activity, $details)
+    //    {
+    //        $user = UserMapper::getProfileById($user_id);
+    //        $user_name = $user['user_name'];
+    //        self::saveUserActivity($user_id, $user_name, $activity, $details);
+    //    }
+    //
+    //    public static function registerUserActivityByUsername($user_name, $activity = NULL, $details = NULL)
+    //    {
+    //        $user = UserMapper::getByUserName($user_name);
+    //        $user_id = $user['user_id'];
+    //        self::saveUserActivity($user_id, $user_name, $activity, $details);
+    //    }
+    //
+    //    public static function saveUserActivity($user_id = NULL, $user_name = NULL, $activity = NULL, $details = NULL)
+    //    {
+    //        $ip = self::getVisitorIP();
+    //        self::saveUserActivityAction($user_id, $user_name, $ip, $activity, $details);
+    //    }
+    //
+    //    public static function saveUserActivityAction($user_id = NULL, $user_name = NULL, $ip = NULL, $activity = NULL, $details = NULL)
+    //    {
+    //        $sql = 'INSERT INTO activity (id, user_id, user_name, ip_address, activity, details) VALUES (NULL, ?, ?, ?, ?, ?)';
+    //        $stmt = DB::conn()->prepare($sql);
+    //        $stmt->execute([$user_id, $user_name, $ip, $activity, $details]);
+    //    }
 }

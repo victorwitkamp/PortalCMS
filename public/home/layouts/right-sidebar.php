@@ -3,6 +3,13 @@
  * Layout : Right Sidebar (right-sidebar.php)
  * Details :
  */
+
+use PortalCMS\Core\Text;
+use PortalCMS\Core\Alert;
+use PortalCMS\Models\Page;
+use PortalCMS\Models\SiteSetting;
+use PortalCMS\Authentication\Authentication;
+
 ?>
 <div class="col-sm-8">
     <?php
@@ -10,7 +17,7 @@
 
     $page = Page::getPage('1');
     echo $page["content"];
-    if (Auth::checkPrivilege("site-settings")) {
+    if (Authentication::checkPrivilege("site-settings")) {
         echo '<hr><a href="/page/edit.php?id=1">'.Text::get('LABEL_EDIT_PAGE').'</a><p>'.Text::get('LABEL_LAST_MODIFIED').': '.$page["ModificationDate"].'</p>';
     }
     ?>

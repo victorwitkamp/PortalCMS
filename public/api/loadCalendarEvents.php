@@ -1,7 +1,10 @@
 <?php
+
+use PortalCMS\Authentication\Authentication;
+use PortalCMS\Models\Event;
+
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $startdate = $_GET['start'];
 $enddate = $_GET['end'];
-Auth::checkAuthentication();
+Authentication::checkAuthentication();
 Event::loadCalendarEvents($startdate, $enddate);
-

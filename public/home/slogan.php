@@ -1,4 +1,7 @@
 <?php
+
+use PortalCMS\Models\SiteSetting;
+
 if (SiteSetting::getStaticSiteSetting('site_description_type') === '2') {
     $request_headers = array();
     $request_headers[] = 'accept: (application/json|text/plain)';

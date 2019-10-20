@@ -1,9 +1,14 @@
 <?php
 
+use PortalCMS\Authentication\Authentication;
+use PortalCMS\Core\Alert;
+use PortalCMS\Core\Redirect;
+use PortalCMS\Core\Text;
+
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_INVOICES');
-Auth::checkAuthentication();
-if (!Auth::checkPrivilege("rental-invoices")) {
+Authentication::checkAuthentication();
+if (!Authentication::checkPrivilege("rental-invoices")) {
     Redirect::permissionError();
     die();
 }

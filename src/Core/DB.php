@@ -1,4 +1,10 @@
 <?php
+
+namespace PortalCMS\Core;
+
+use PDO;
+use PDOException;
+
 /**
  * Class DB
  *

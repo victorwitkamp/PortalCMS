@@ -2,6 +2,10 @@
 /**
  * Widget settings
  */
+
+use PortalCMS\Core\Text;
+use PortalCMS\Models\SiteSetting;
+
 ?>
 <h3><?php echo Text::get('LABEL_SITE_WIDGETS'); ?></h3>
 

@@ -1,10 +1,18 @@
 <?php
 
+use PortalCMS\Authentication\Authentication;
+use PortalCMS\Core\Alert;
+use PortalCMS\Core\DB;
+use PortalCMS\Core\Redirect;
+use PortalCMS\Core\Request;
+use PortalCMS\Core\Text;
+use PortalCMS\Core\View;
+
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_MEMBERS');
 $year = Request::get('year');
-Auth::checkAuthentication();
-if (!Auth::checkPrivilege("membership")) {
+Authentication::checkAuthentication();
+if (!Authentication::checkPrivilege("membership")) {
     Redirect::permissionError();
     die();
 }

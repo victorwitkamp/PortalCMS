@@ -1,9 +1,14 @@
 <?php
 
+use PortalCMS\Authentication\Authentication;
+use PortalCMS\Core\Redirect;
+use PortalCMS\Core\Text;
+use PortalCMS\Models\Invoice;
+
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('LABEL_CONTRACT_INVOICES_FOR_ID').': '.$_GET['id'];
-Auth::checkAuthentication();
-if (!Auth::checkPrivilege("rental-contracts")) {
+Authentication::checkAuthentication();
+if (!Authentication::checkPrivilege("rental-contracts")) {
     Redirect::permissionError();
     die();
 }

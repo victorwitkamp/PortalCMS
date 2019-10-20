@@ -1,5 +1,7 @@
 <?php
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
-// Auth::checkAuthentication();
-echo Event::loadComingEvents();
 
+use PortalCMS\Models\Event;
+
+require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+// Authentication::checkAuthentication();
+echo Event::loadComingEvents();

@@ -4,9 +4,15 @@
  *
  * Description of the homepage
  */
+
+use PortalCMS\Authentication\Authentication;
+use PortalCMS\Core\View;
+use PortalCMS\Core\Text;
+use PortalCMS\Models\SiteSetting;
+
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_HOME');
-Auth::checkAuthentication();
+Authentication::checkAuthentication();
 require_once DIR_INCLUDES.'functions.php';
 require_once DIR_INCLUDES.'head.php';
 displayHeadCSS();
@@ -23,7 +29,7 @@ PortalCMS_JS_headJS();
                 <div class="row">
                     <div class="col-sm-3">
                         <img src='<?php echo SiteSetting::getStaticSiteSetting('site_logo'); ?>' alt='logo' width='120px' height='120px' />
-                        <?php if (Auth::checkPrivilege("site-settings")) { ?>
+                        <?php if (Authentication::checkPrivilege("site-settings")) { ?>
                             <br><a href="/settings/logo/">Logo wijzigen</a>
                         <?php } ?>
 

@@ -1,5 +1,10 @@
 <?php
 
+namespace PortalCMS\Controllers;
+
+use PortalCMS\Core\Controller;
+use PortalCMS\Models\Contract;
+
 /**
  * ContractController
  * Controls everything that is contract-related

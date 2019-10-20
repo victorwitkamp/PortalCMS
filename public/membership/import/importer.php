@@ -1,6 +1,10 @@
 <?php
+
+use PortalCMS\Authentication\Authentication;
+use PortalCMS\Core\DB;
+
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
-Auth::checkAuthentication();
+Authentication::checkAuthentication();
 require_once DIR_INCLUDES.'functions.php';
 $jaarlidmaatschap = $_POST["jaarlidmaatschap"];
 if (isset($_POST["submit_file"])) {

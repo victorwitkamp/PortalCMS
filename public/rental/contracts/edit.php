@@ -1,8 +1,15 @@
 <?php
+
+use PortalCMS\Authentication\Authentication;
+use PortalCMS\Core\Alert;
+use PortalCMS\Core\Redirect;
+use PortalCMS\Core\Session;
+use PortalCMS\Core\View;
+
 $loadData = true;
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
-Auth::checkAuthentication();
-if (!Auth::checkPrivilege("rental-contracts")) {
+Authentication::checkAuthentication();
+if (!Authentication::checkPrivilege("rental-contracts")) {
     Redirect::permissionError();
     die();
 }

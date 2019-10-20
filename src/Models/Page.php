@@ -1,5 +1,11 @@
 <?php
 
+namespace PortalCMS\Models;
+
+use PDO;
+use PortalCMS\Core\DB;
+use PortalCMS\Core\Session;
+
 /**
  * Class : Page (Page.class.php)
  * Details : Page Class.
@@ -51,5 +57,4 @@ class Page
             return false;
         }
     }
-
 }

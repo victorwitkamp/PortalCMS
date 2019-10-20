@@ -1,5 +1,10 @@
 <?php
 
+namespace PortalCMS\Models;
+
+use PortalCMS\Core\Session;
+use TCPDF;
+
 class PDF
 {
     /**
@@ -104,7 +109,6 @@ class PDF
         $pdf->Write(0, $factuurtekstrechts, '', 0, 'R', true, 0, false, false, 0);
         // $pdf->Ln();
         // $pdf->Write(0, $factuurtekstrechts2, '', 0, 'R', true, 0, false, false, 0);
-
 
         $pdf->SetXY(20, 140);
         $pdf->SetFont('dejavusans', 'B', 11, '', true);

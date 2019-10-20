@@ -1,8 +1,17 @@
 <?php
+
+use PortalCMS\Authentication\Authentication;
+use PortalCMS\Core\Alert;
+use PortalCMS\Core\DB;
+use PortalCMS\Core\Redirect;
+use PortalCMS\Core\Session;
+use PortalCMS\Core\Text;
+use PortalCMS\Core\View;
+
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_ROLE');
-Auth::checkAuthentication();
-if (!Auth::checkPrivilege("user-management")) {
+Authentication::checkAuthentication();
+if (!Authentication::checkPrivilege("user-management")) {
     Redirect::permissionError();
     die();
 }

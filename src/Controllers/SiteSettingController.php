@@ -1,4 +1,13 @@
 <?php
+
+namespace PortalCMS\Controllers;
+
+use PortalCMS\Core\Controller;
+use PortalCMS\Core\Redirect;
+use PortalCMS\Core\Session;
+use PortalCMS\Core\Text;
+use PortalCMS\Models\SiteSetting;
+
 class SiteSettingController extends Controller
 {
     public function __construct()

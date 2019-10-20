@@ -1,4 +1,12 @@
 <?php
+
+namespace PortalCMS\Controllers;
+
+use PortalCMS\Core\Controller;
+use PortalCMS\Core\Redirect;
+use PortalCMS\Core\Session;
+use UserRoleMapper;
+
 class UserController extends Controller
 {
     public function __construct()

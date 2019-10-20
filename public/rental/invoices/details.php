@@ -1,8 +1,15 @@
 <?php
+
+use PortalCMS\Authentication\Authentication;
+use PortalCMS\Core\Alert;
+use PortalCMS\Core\Redirect;
+use PortalCMS\Core\Session;
+use PortalCMS\Core\View;
+
 $pageName = 'Factuur';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
-Auth::checkAuthentication();
-if (!Auth::checkPrivilege("rental-invoices")) {
+Authentication::checkAuthentication();
+if (!Authentication::checkPrivilege("rental-invoices")) {
     Redirect::permissionError();
     die();
 }

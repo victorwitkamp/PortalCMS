@@ -1,5 +1,8 @@
 <?php
 
+namespace PortalCMS\Core;
+
+
 /**
  * Class Filter
  *

@@ -1,5 +1,7 @@
 <?php
 
+use PortalCMS\Controllers\AccountController;
+
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 
 require 'config.php';

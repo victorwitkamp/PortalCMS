@@ -1,5 +1,12 @@
 <?php
 
+namespace PortalCMS\Models;
+
+use PortalCMS\Core\DB;
+use PortalCMS\Core\Redirect;
+use PortalCMS\Core\Request;
+use PortalCMS\Core\Session;
+
 class Member
 {
     public static function getMembers()
@@ -47,7 +54,7 @@ class Member
         return $stmt->fetch();
     }
 
-    static function saveMember()
+    public static function saveMember()
     {
         $id                     = Request::post('id', true);
         $jaarlidmaatschap       = Request::post('jaarlidmaatschap', true);
@@ -160,5 +167,4 @@ class Member
             Redirect::to("membership/");
         }
     }
-
 }

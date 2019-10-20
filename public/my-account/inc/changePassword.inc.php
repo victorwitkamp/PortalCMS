@@ -1,3 +1,7 @@
+<?php
+
+use PortalCMS\Core\Text;
+?>
 <h3><?php echo Text::get('LABEL_CHANGE_PASSWORD'); ?></h3>
 <form method="post" validate=true>
     <div class="form-group row">
@@ -13,7 +17,7 @@
             <small id="emailHelp" class="form-text text-muted">(Minimaal 8 tekens. Minimaal 1 hoofdletter, 1 kleine letter en 1 cijfer)</small>
         </div>
     </div>
-    <div class="form-group row">            
+    <div class="form-group row">
         <label for="newConfirmPassword" class="col-sm-4 col-form-label"><?php echo Text::get('LABEL_CONFIRM_PASSWORD'); ?></label>
         <div class="col-sm-8">
             <input type="password" name="newconfirmpassword" id="newConfirmPassword" class="form-control" data-match="wachtwoord" data-match-field="#newPassword" autocomplete="new-password" required/>

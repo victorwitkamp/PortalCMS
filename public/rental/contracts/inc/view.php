@@ -4,7 +4,9 @@
             <div class="form-group row">
                 <div class="col-md-8">
                     <label class="col-form-label">Huurder</label>
-                    <input type="text" class="form-control form-control-sm" value="<?php echo $contract['band_naam']; ?>" required disabled>
+                    <input type="text" class="form-control form-control-sm" value="<?php use PortalCMS\Core\Text;
+
+                    echo $contract['band_naam']; ?>" required disabled>
                 </div>
                 <div class="col-md-4">
                     <label class="col-form-label">bandcode</label>

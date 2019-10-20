@@ -1,5 +1,16 @@
 <?php
 
+namespace PortalCMS\Controllers;
+
+use PortalCMS\Authentication\Authentication;
+use PortalCMS\Authentication\Service\LoginService;
+use PortalCMS\Authentication\Service\LogoutService;
+use PortalCMS\Core\Controller;
+use PortalCMS\Core\Cookie;
+use PortalCMS\Core\Csrf;
+use PortalCMS\Core\Redirect;
+use PortalCMS\Core\Request;
+
 /**
  * LoginController
  * Controls everything that is authentication-related
@@ -33,7 +44,7 @@ class LoginController extends Controller
      */
     public static function index()
     {
-        if (!Auth::userIsLoggedIn()) {
+        if (!Authentication::userIsLoggedIn()) {
             // $data = array('redirect' => Request::get('redirect') ? Request::get('redirect') : NULL);
             // $this->View->render('login/index', $data);
             LoginController::loginWithCookie();
@@ -81,6 +92,7 @@ class LoginController extends Controller
 
     /**
      * Login with Facebook
+     * @param $fbid
      */
     public static function loginWithFacebook($fbid)
     {

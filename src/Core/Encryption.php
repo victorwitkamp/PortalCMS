@@ -1,11 +1,15 @@
 <?php
 
+namespace PortalCMS\Core;
+
+
+use Exception;
+
 /**
  * Encryption and Decryption Class
  */
 class Encryption
 {
-
     /**
      * Cipher algorithm
      *
@@ -21,7 +25,7 @@ class Encryption
     const HASH_FUNCTION = 'sha256';
 
     /**
-     * constructor for Encryption object.
+     * Constructor for Encryption object. This is empty and private so that this object cannot be instantiated.
      *
      * @access private
      */

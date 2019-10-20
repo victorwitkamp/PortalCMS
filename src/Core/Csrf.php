@@ -1,4 +1,7 @@
 <?php
+
+namespace PortalCMS\Core;
+
 /**
  * Cross Site Request Forgery Class
  */

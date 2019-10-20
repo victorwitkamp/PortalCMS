@@ -1,5 +1,15 @@
 <?php
 
+namespace PortalCMS\Controllers;
+
+use MailAttachment;
+use MailTemplate;
+use PortalCMS\Core\Controller;
+use PortalCMS\Core\Redirect;
+use PortalCMS\Core\Request;
+use PortalCMS\Core\Session;
+use PortalCMS\Core\Text;
+
 /**
  * MailTemplateController
  * Controls everything mail-template-related

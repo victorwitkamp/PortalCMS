@@ -1,5 +1,6 @@
 <?php
-
+use PortalCMS\Core\Config;
+use PortalCMS\Models\Invoice;
 ?>
 <table id="example" class="table table-sm table-striped table-hover table-dark" style="width:100%">
     <thead class="thead-dark">
@@ -18,6 +19,9 @@
     </thead>
     <tbody>
     <?php
+
+
+
     foreach ($invoices as $invoice) {
         ?>
         <tr>

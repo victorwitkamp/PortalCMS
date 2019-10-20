@@ -2,6 +2,11 @@
 /**
  * Main navigation
  */
+
+use PortalCMS\Core\Text;
+use PortalCMS\Core\Session;
+use PortalCMS\Models\SiteSetting;
+
 ?>
 <header>
     <nav class="navbar navbar-expand-sm navbar-dark bg-primary">

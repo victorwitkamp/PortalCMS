@@ -1,7 +1,13 @@
 <?php
+
+use PortalCMS\Authentication\Authentication;
+use PortalCMS\Core\Redirect;
+use PortalCMS\Core\Text;
+use PortalCMS\User\UserMapper;
+
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
-Auth::checkAuthentication();
-if (!Auth::checkPrivilege("events")) {
+Authentication::checkAuthentication();
+if (!Authentication::checkPrivilege("events")) {
     Redirect::permissionError();
     die();
 }

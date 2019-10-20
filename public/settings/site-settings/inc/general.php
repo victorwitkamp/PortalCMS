@@ -2,6 +2,10 @@
 /**
  * General settings
  */
+
+use PortalCMS\Core\Text;
+use PortalCMS\Models\SiteSetting;
+
 ?>
 <h3><?php echo Text::get('LABEL_SETTINGS_GENERAL'); ?></h3>
 

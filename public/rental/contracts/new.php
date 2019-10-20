@@ -1,9 +1,13 @@
 <?php
+
+use PortalCMS\Authentication\Authentication;
+use PortalCMS\Core\Redirect;
+
 $pageName = 'Contract toevoegen';
 $loadData = false;
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
-Auth::checkAuthentication();
-if (!Auth::checkPrivilege("rental-contracts")) {
+Authentication::checkAuthentication();
+if (!Authentication::checkPrivilege("rental-contracts")) {
     Redirect::permissionError();
     die();
 }

@@ -1,5 +1,7 @@
 <?php
 
+use PortalCMS\Core\Alert;
+
 if (!isset($_SESSION)) {
     session_start();
 }

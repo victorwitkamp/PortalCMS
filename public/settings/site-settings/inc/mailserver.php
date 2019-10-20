@@ -2,6 +2,9 @@
 /**
  * Mailserver settings
  */
+
+use PortalCMS\Models\SiteSetting;
+
 ?>
 <h3>Mailserver</h3>
 

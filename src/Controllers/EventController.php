@@ -1,5 +1,11 @@
 <?php
 
+namespace PortalCMS\Controllers;
+
+use PortalCMS\Core\Controller;
+use PortalCMS\Core\Redirect;
+use PortalCMS\Models\Event;
+
 /**
  * EventController
  * Controls everything that is event-related

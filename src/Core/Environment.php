@@ -1,4 +1,8 @@
 <?php
+
+namespace PortalCMS\Core;
+
+
 /**
  * Class Environment
  *

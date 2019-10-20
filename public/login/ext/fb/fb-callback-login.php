@@ -1,5 +1,8 @@
 <?php
 
+use PortalCMS\Controllers\LoginController;
+use PortalCMS\Core\Session;
+
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 
 require 'config.php';

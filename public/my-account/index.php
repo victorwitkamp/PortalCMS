@@ -1,6 +1,13 @@
 <?php
+
+use PortalCMS\Core\Text;
+use PortalCMS\Core\View;
+use PortalCMS\Core\Alert;
+use PortalCMS\Core\Config;
+use PortalCMS\Authentication\Authentication;
+
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
-Auth::checkAuthentication();
+Authentication::checkAuthentication();
 require_once DIR_INCLUDES.'functions.php';
 $pageName = Text::get('TITLE_MY_ACCOUNT');
 require $_SERVER["DOCUMENT_ROOT"]."/login/ext/fb/config.php";

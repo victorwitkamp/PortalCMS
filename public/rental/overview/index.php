@@ -1,8 +1,16 @@
 <?php
+
+use PortalCMS\Authentication\Authentication;
+use PortalCMS\Core\Alert;
+use PortalCMS\Core\DB;
+use PortalCMS\Core\Redirect;
+use PortalCMS\Core\Text;
+use PortalCMS\Core\View;
+
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_OVERVIEW');
-Auth::checkAuthentication();
-if (!Auth::checkPrivilege("rental-contracts")) {
+Authentication::checkAuthentication();
+if (!Authentication::checkPrivilege("rental-contracts")) {
     Redirect::permissionError();
     die();
 }

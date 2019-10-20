@@ -1,4 +1,7 @@
 <?php
+
+use PortalCMS\Core\DB;
+
 class EventMapper
 {
     /**

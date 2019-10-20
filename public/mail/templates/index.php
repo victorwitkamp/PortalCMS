@@ -1,8 +1,15 @@
 <?php
+
+use PortalCMS\Authentication\Authentication;
+use PortalCMS\Core\Alert;
+use PortalCMS\Core\Redirect;
+use PortalCMS\Core\Text;
+use PortalCMS\Core\View;
+
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_MAIL_TEMPLATES');
-Auth::checkAuthentication();
-if (!Auth::checkPrivilege("mail-templates")) {
+Authentication::checkAuthentication();
+if (!Authentication::checkPrivilege("mail-templates")) {
     Redirect::permissionError();
     die();
 }

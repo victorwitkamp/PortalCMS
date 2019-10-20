@@ -1,9 +1,18 @@
+
+<?php use PortalCMS\Core\Csrf;
+use PortalCMS\Core\Text;
+use PortalCMS\Core\Config;
+use PortalCMS\Core\Request;
+
+?>
 <div class="user_forms-login">
-    <h2 class="forms_title"><?php echo Text::get('LABEL_LOG_IN'); ?></h2>
+    <h2 class="forms_title"><?php
+
+        echo Text::get('LABEL_LOG_IN'); ?></h2>
     <p><?php
     $minutes = (Config::get('SESSION_RUNTIME') / 60);
-    if ($minutes > 1) { $minutestext = 'minutes'; 
-    } else { $minutestext = 'minute'; 
+    if ($minutes > 1) { $minutestext = 'minutes';
+    } else { $minutestext = 'minute';
     }
     ?>
     Session duration: <?php echo $minutes.' '.$minutestext; ?><br>

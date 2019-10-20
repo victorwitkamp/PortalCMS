@@ -1,5 +1,7 @@
 <?php
 
+use PortalCMS\Core\DB;
+
 class InvoiceMapper
 {
     /**
@@ -69,17 +71,17 @@ class InvoiceMapper
         return $stmt->fetchAll();
     }
 
-    public static function create($contract_id, $factuurnummer, $year, $month, $factuurdatum, $vervaldatum = null)
+    public static function create($contract_id, $factuurnummer, $year, $month, $factuurdatum)
     {
         $stmt = DB::conn()->prepare(
             "INSERT INTO invoices(id, contract_id, factuurnummer, year, month, factuurdatum, vervaldatum)
-            VALUES (NULL,?,?,?,?,?,?)"
+            VALUES (NULL,?,?,?,?,?,NULL)"
         );
-        // $stmt->execute([$contract_id, $factuurnummer, $year, $month, $factuurdatum, $vervaldatum]);
+        // $stmt->execute([$contract_id, $factuurnummer, $year, $month, $factuurdatum]);
 
         // todo: iets met vervaldatum doen.
         // voor nu dezelfde waarde als factuurdatum
-        $stmt->execute([$contract_id, $factuurnummer, $year, $month, $factuurdatum, $factuurdatum]);
+        $stmt->execute([$contract_id, $factuurnummer, $year, $month, $factuurdatum]);
 
         if (!$stmt) {
             return false;

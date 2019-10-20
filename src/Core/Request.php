@@ -1,5 +1,7 @@
 <?php
 
+namespace PortalCMS\Core;
+
 /**
  * This is under development. Expect changes!
  * Class Request

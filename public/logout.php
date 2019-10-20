@@ -1,5 +1,8 @@
 <?php
+
+use PortalCMS\Authentication\Service\LogoutService;
+
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
-// if (Auth::isUserLoggedIn()) {
+// if (Authentication::isUserLoggedIn()) {
     LogoutService::logout();
 // }

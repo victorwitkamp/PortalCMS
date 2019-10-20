@@ -1,5 +1,7 @@
 <?php
 
+use PortalCMS\Core\DB;
+
 class InvoiceItemMapper
 {
     /**

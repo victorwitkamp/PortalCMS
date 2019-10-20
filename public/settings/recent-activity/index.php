@@ -1,9 +1,16 @@
 <?php
 
+use PortalCMS\Authentication\Authentication;
+use PortalCMS\Core\Alert;
+use PortalCMS\Core\Redirect;
+use PortalCMS\Core\Text;
+use PortalCMS\Core\View;
+use PortalCMS\Models\Activity;
+
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_RECENT_ACTIVITY');
-Auth::checkAuthentication();
-if (!Auth::checkPrivilege("recent-activity")) {
+Authentication::checkAuthentication();
+if (!Authentication::checkPrivilege("recent-activity")) {
     Redirect::permissionError();
     die();
 }

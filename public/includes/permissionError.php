@@ -1,4 +1,7 @@
 <?php
+
+use PortalCMS\Core\View;
+
 $pageName = 'Geen toegang';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 require DIR_ROOT.'includes/functions.php';

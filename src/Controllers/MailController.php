@@ -1,5 +1,12 @@
 <?php
 
+namespace PortalCMS\Controllers;
+
+use MailBatch;
+use MailSchedule;
+use PortalCMS\Core\Controller;
+use PortalCMS\Core\Request;
+
 /**
  * MailController
  * Controls everything mail-related

@@ -1,5 +1,6 @@
 <?php
 
+namespace PortalCMS\Core;
 
 /**
  * Class : Popup (Popup.php)
