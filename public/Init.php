@@ -6,8 +6,6 @@
  * @link    https://portal.victorwitkamp.nl/
  */
 
-date_default_timezone_set('Europe/Amsterdam');
-
 /**
  * Configuration for: Error reporting
  */
@@ -49,16 +47,16 @@ if (!file_exists(DIR_VENDOR.'autoload.php')) {
     include_once DIR_VENDOR.'autoload.php';
 }
 
-$AccountController = new AccountController;
-$ContractController = new ContractController;
-$EventController = new EventController;
-$InvoiceController = new InvoiceController;
-$login = new LoginController;
-$MailController = new MailController;
-$MailTemplateController = new MailTemplateController;
-$MembershipController = new MembershipController;
-$PageController = new PageController;
-$PasswordResetController = new PasswordResetController;
-$RoleController = new RoleController;
-$SiteSettingController = new SiteSettingController;
-$UserController = new UserController;
+$AccountController = new AccountController();
+$ContractController = new ContractController();
+$EventController = new EventController();
+$InvoiceController = new InvoiceController();
+$login = new LoginController();
+$MailController = new MailController();
+$MailTemplateController = new MailTemplateController();
+$MembershipController = new MembershipController();
+$PageController = new PageController();
+$PasswordResetController = new PasswordResetController();
+$RoleController = new RoleController();
+$SiteSettingController = new SiteSettingController();
+$UserController = new UserController();

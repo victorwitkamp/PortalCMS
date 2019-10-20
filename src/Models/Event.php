@@ -9,24 +9,23 @@ class Event
     {
         $result = EventMapper::getByDate($startDate, $endDate);
         if (!empty($result)) {
-        foreach ($result as $row) {
-            if ($row['status'] === '1') {
-                $color = 'var(--success)';
-            } else if ($row['status'] === '2') {
-                $color = 'var(--danger)';
-            } else {
-                $color = 'var(--info)';
+            foreach ($result as $row) {
+                if ($row['status'] === '1') {
+                    $color = 'var(--success)';
+                } elseif ($row['status'] === '2') {
+                    $color = 'var(--danger)';
+                } else {
+                    $color = 'var(--info)';
+                }
+                $data[] = array(
+                    'id'   => $row["id"],
+                    'title'   => $row["title"],
+                    'start'   => $row["start_event"],
+                    'end'   => $row["end_event"],
+                    'backgroundColor' => $color
+                );
             }
-            $data[] = array(
-                'id'   => $row["id"],
-                'title'   => $row["title"],
-                'start'   => $row["start_event"],
-                'end'   => $row["end_event"],
-                'backgroundColor' => $color
-            );
         }
-        }
-
         if (!empty($data)) {
             $returndata = json_encode($data);
             echo $returndata;
@@ -130,5 +129,4 @@ class Event
         Session::add('feedback_negative', 'Verwijderen van evenement mislukt.');
         return false;
     }
-
 }

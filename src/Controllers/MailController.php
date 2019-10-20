@@ -23,7 +23,8 @@ class MailController extends Controller
             MailSchedule::newWithTemplate();
         }
         if (isset($_POST['deleteScheduledMailById'])) {
-            MailSchedule::deleteById();
+            $IDs = Request::post('id');
+            MailSchedule::deleteById($IDs);
         }
         if (isset($_POST['sendBatchById'])) {
             MailBatch::sendById(Request::post('id'));
@@ -32,5 +33,4 @@ class MailController extends Controller
             MailBatch::deleteById(Request::post('id'));
         }
     }
-
 }

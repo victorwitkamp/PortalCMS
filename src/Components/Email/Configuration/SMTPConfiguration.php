@@ -36,7 +36,7 @@ class SMTPConfiguration
     public $SMTPPass;
 
     /**
-     * @var boolean
+     * @var integer
      */
     public $SMTPDebug = 0;
 
@@ -53,7 +53,7 @@ class SMTPConfiguration
     /**
      * @var boolean
      */
-    public $isHTML;
+    public $isHTML = true;
 
     /**
      * Character set (utf-8, iso-8859-1, etc.)
@@ -87,7 +87,6 @@ class SMTPConfiguration
         } else {
             $this->isHTML = false;
         }
-        $this->charset  = strtoupper($this->charset);
-        // return $this;
+        $this->charset = strtoupper($this->charset);
     }
 }

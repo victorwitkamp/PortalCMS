@@ -27,6 +27,5 @@ class EventController extends Controller
                 Redirect::to("events/");
             }
         }
-
     }
 }

@@ -9,8 +9,6 @@
 class Controller
 {
     /**
-     *
-     *
      * @var View View The view object
      */
     public $View;
@@ -26,7 +24,6 @@ class Controller
 
         // user is not logged in but has remember-me-cookie ? then try to login with cookie ("remember me" feature)
         if (!Auth::userIsLoggedIn() && Request::cookie('remember_me')) {
-            // header('location:' . Config::get('URL') . 'login/loginWithCookie');
             LoginController::loginWithCookie();
         }
 

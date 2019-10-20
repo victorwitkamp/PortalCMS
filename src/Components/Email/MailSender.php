@@ -44,20 +44,12 @@ class MailSender
 
     public function verifyConfiguration(SMTPConfiguration $config)
     {
-        if (!$config instanceof SMTPConfiguration) {
-            $this->error = '$config is geen instance van SMTPConfiguration';
-            return false;
-        }
         $this->config = $config;
         return true;
     }
 
-    public function verifyMessage($message)
+    public function verifyMessage(EmailMessage $message)
     {
-        if (!$message instanceof EmailMessage) {
-            $this->error = 'Bericht is geen instance van EmailMessage';
-            return false;
-        }
         if (empty($message->recipients)) {
             $this->error = 'Recipients incompleet';
             return false;
@@ -85,10 +77,6 @@ class MailSender
      */
     public function sendMail(EmailMessage $message)
     {
-        if (!$this->config instanceof SMTPConfiguration) {
-            $this->error = '$this->config is geen instance van SMTPConfiguration';
-            return false;
-        }
         $verifiedMessage = $this->verifyMessage($message);
         if (!$verifiedMessage) {
             return false;

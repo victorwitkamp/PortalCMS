@@ -5,11 +5,10 @@ use PortalCMS\Email\Configuration\SMTPConfiguration;
 
 class MailSchedule
 {
-    public static function deleteById()
+    public static function deleteById($IDs)
     {
         $deleted = 0;
         $error = 0;
-        $IDs = Request::post('id');
         if (!empty($IDs)) {
             foreach ($IDs as $id) {
                 if (!MailScheduleMapper::deleteById($id)) {
@@ -25,7 +24,6 @@ class MailSchedule
             return false;
         }
         Session::add('feedback_positive', "Er zijn ".$deleted." berichten verwijderd.");
-
         Redirect::mail();
     }
 
