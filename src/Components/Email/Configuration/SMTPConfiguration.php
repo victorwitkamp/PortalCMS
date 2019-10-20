@@ -1,5 +1,5 @@
 <?php
-namespace PortalCMS\Email\Configuration\SMTPConfiguration;
+namespace PortalCMS\Email\Configuration;
 
 class SMTPConfiguration
 {

@@ -1,7 +1,7 @@
 <?php
 
 use PortalCMS\Email\EmailMessage;
-use PortalCMS\Email\SMTPConfiguration;
+use PortalCMS\Email\Configuration\SMTPConfiguration;
 
 class MailSchedule
 {
