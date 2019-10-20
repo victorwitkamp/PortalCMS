@@ -28,30 +28,21 @@ PortalCMS_JS_dataTables();
                     </a>
                 </div>
             </div>
-
-            <?php
-            Alert::renderFeedbackMessages();
-
-            ?>
-<nav>
-  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-    <a class="nav-item nav-link active" id="nav-home-tab" href="index.php" role="tab">Batches</a>
-    <a class="nav-item nav-link" id="nav-profile-tab" href="messages.php" role="tab">Messages</a>
-  </div>
-</nav>
-
+            <?php Alert::renderFeedbackMessages(); ?>
         </div>
         <div class="container">
-
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-home-tab" href="index.php" role="tab">Batches</a>
+                    <a class="nav-item nav-link" id="nav-profile-tab" href="messages.php" role="tab">Messages</a>
+                </div>
+            </nav>
             <?php
             PortalCMS_JS_Init_dataTables();
-
             $batches = MailBatch::getAll();
             $batchcount = count($batches);
             echo '<h2>Batches</h2><p>Aantal: '.$batchcount.'</p>';
             require 'inc/table_batches.php';
-
-
             ?>
         </div>
     </div>

@@ -1,9 +1,7 @@
 <?php
-// Import PHPMailer classes into the global namespace
-// These must be at the top of your script, not inside a function
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-use PortalCMS\Email\SMTPConfiguration;
+use PortalCMS\Email\Configuration\SMTPConfiguration;
 use PortalCMS\Email\EmailMessage;
 
 /**
@@ -14,17 +12,23 @@ class MailSender
     /**
      * Undocumented variable
      *
-     * @var [type] Mail configuration object
+     * @var SMTPConfiguration Mail configuration object
      */
-    private $config;
+    private $config = null;
+
     /**
      * @var mixed variable to collect errors
      */
     private $error;
 
-    public function __construct($config)
+    /**
+     * Constructor
+     *
+     * @param SMTPConfiguration $config
+     */
+    public function __construct(SMTPConfiguration $config)
     {
-        $this->config = $config;
+        $this->verifyConfiguration($config);
     }
 
     /**
@@ -38,7 +42,18 @@ class MailSender
         return $this->error;
     }
 
-    public function verifyMessage($message) {
+    public function verifyConfiguration(SMTPConfiguration $config)
+    {
+        if (!$config instanceof SMTPConfiguration) {
+            $this->error = '$config is geen instance van SMTPConfiguration';
+            return false;
+        }
+        $this->config = $config;
+        return true;
+    }
+
+    public function verifyMessage($message)
+    {
         if (!$message instanceof EmailMessage) {
             $this->error = 'Bericht is geen instance van EmailMessage';
             return false;
@@ -68,10 +83,10 @@ class MailSender
      * @throws Exception
      * @throws phpmailerException
      */
-    public function sendMail($message)
+    public function sendMail(EmailMessage $message)
     {
-        if (!$this->config instanceof \PortalCMS\Email\SMTPConfiguration) {
-            $this->error = 'Configuratie is geen instance van SMTPConfiguration';
+        if (!$this->config instanceof SMTPConfiguration) {
+            $this->error = '$this->config is geen instance van SMTPConfiguration';
             return false;
         }
         $verifiedMessage = $this->verifyMessage($message);

@@ -2,7 +2,7 @@
 
 class MailAttachment
 {
-    public static function _mime_content_type($filename)
+    public static function getMIMEType($filename)
     {
         $realpath = realpath($filename);
         return finfo_file(finfo_open(FILEINFO_MIME_TYPE), $realpath);
@@ -15,12 +15,10 @@ class MailAttachment
      */
     public static function uploadAttachment()
     {
-        Auth::checkAuthentication();
         if (self::createAttachment()) {
             return true;
         }
         return false;
-        // Redirect::to('login/editAvatar');
     }
 
     /**
@@ -37,15 +35,11 @@ class MailAttachment
             return false;
         }
         $target_file_path = Config::get('PATH_ATTACHMENTS').$_FILES['attachment_file']['name'];
-        $target_file_path_public = Config::get('URL').Config::get('PATH_ATTACHMENTS_PUBLIC').$_FILES['attachment_file']['name'];
-
         move_uploaded_file($_FILES['attachment_file']['tmp_name'], $target_file_path);
-        // self::writeAttachmentToDatabase($target_file_path_public);
-
         $name = pathinfo($_FILES['attachment_file']['name'], PATHINFO_FILENAME);
         $ext = pathinfo($_FILES['attachment_file']['name'], PATHINFO_EXTENSION);
-        $mime = self::_mime_content_type($_SERVER["DOCUMENT_ROOT"].'/content/attachments/'.$_FILES['attachment_file']['name']);
-        MailAttachmentMapper::createForTemplate(Request::get('id'), 'content/attachments/', $name, '.'.$ext, 'base64', $mime);
+        $mime = self::getMIMEType($target_file_path);
+        MailAttachmentMapper::createForTemplate(Request::get('id'), Config::get('PATH_ATTACHMENTS_PUBLIC'), $name, '.'.$ext, 'base64', $mime);
         return true;
     }
 

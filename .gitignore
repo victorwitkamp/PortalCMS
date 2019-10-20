@@ -1,5 +1,6 @@
 /public/config/config.development.php
 /public/config/config.beuk.php
+/public/content/attachments/
 /public/content/invoices/
 /node_modules/
 /public/dist/

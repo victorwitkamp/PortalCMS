@@ -160,8 +160,10 @@ class MailSchedule
     {
         $body = Event::loadMailEvents();
         if (!empty($body)) {
-            $MailSender = new MailSender('Komende evenementen', $body, $recipient);
-            if ($MailSender->sendMail()) {
+            $EmailMessage = new EmailMessage('Komende evenementen', $body, $recipient);
+            $SMTPConfiguration = new SMTPConfiguration();
+            $MailSender = new MailSender($SMTPConfiguration);
+            if ($MailSender->sendMail($EmailMessage)) {
                 return true;
             } else {
                 return false;
