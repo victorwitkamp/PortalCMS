@@ -2,15 +2,17 @@
 
 namespace PortalCMS\Core\Mail\Schedule;
 
-use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\Email\Configuration\SMTPConfiguration;
 use PortalCMS\Core\Email\MailSender;
+use PortalCMS\Core\Mail\Batch\MailBatch;
 use PortalCMS\Core\Email\Message\EmailMessage;
-use PortalCMS\Models\Event;
-use PortalCMS\Models\Member;
-use PortalCMS\Core\Config\SiteSetting;
+use PortalCMS\Core\Mail\Schedule\MailScheduleMapper;
+use PortalCMS\Core\Mail\Template\MailTemplateMapper;
+use PortalCMS\Core\Mail\Recipient\MailRecipientMapper;
+use PortalCMS\Core\Mail\Attachment\MailAttachmentMapper;
+use PortalCMS\Core\Email\Configuration\SMTPConfiguration;
 
 class MailSchedule
 {

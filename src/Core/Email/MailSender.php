@@ -1,5 +1,5 @@
 <?php
-namespace PortalCMS\Email;
+namespace PortalCMS\Core\Email;
 
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
