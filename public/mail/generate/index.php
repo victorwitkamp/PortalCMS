@@ -1,8 +1,8 @@
 <?php
 
-use PortalCMS\Authentication\Authentication;
-use PortalCMS\Core\Alert;
-use PortalCMS\Core\Redirect;
+use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\View\Alert;
+use PortalCMS\Core\HTTP\Redirect;
 
 $pageName = 'Nieuw bericht';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";

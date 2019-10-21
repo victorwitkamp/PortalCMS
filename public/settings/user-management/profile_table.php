@@ -1,6 +1,6 @@
 <?php
 
-use PortalCMS\Core\DB;
+use PortalCMS\Core\Database\DB;
 
 ?>
 <div class="row">

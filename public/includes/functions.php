@@ -1,6 +1,6 @@
 <?php
 
-use PortalCMS\Models\SiteSetting;
+use PortalCMS\Core\Config\SiteSetting;
 
 /**
  * PortalCMS Framework: Functions

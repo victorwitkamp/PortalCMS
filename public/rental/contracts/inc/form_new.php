@@ -1,6 +1,6 @@
 <?php
 
-use PortalCMS\Core\Text;
+use PortalCMS\Core\View\Text;
 
 ?>
 <form method="post" validate=true>

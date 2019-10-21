@@ -3,9 +3,9 @@
  * Main navigation
  */
 
-use PortalCMS\Core\Session;
-use PortalCMS\Core\Text;
-use PortalCMS\Models\SiteSetting;
+use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\View\Text;
+use PortalCMS\Core\Config\SiteSetting;
 
 ?>
 <header>

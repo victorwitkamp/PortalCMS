@@ -2,14 +2,14 @@
 
 namespace PortalCMS\Controllers;
 
-use PortalCMS\Authentication\Authentication;
-use PortalCMS\Authentication\Service\LoginService;
-use PortalCMS\Authentication\Service\LogoutService;
-use PortalCMS\Core\Controller;
-use PortalCMS\Core\Cookie;
-use PortalCMS\Core\Csrf;
-use PortalCMS\Core\Redirect;
-use PortalCMS\Core\Request;
+use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\Authentication\Service\LoginService;
+use PortalCMS\Core\Authentication\Service\LogoutService;
+use PortalCMS\Core\Controllers\Controller;
+use PortalCMS\Core\HTTP\Cookie;
+use PortalCMS\Core\Filter\Csrf;
+use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\HTTP\Request;
 
 /**
  * LoginController

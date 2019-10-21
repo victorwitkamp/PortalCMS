@@ -1,8 +1,8 @@
 <?php
 
-use PortalCMS\Authentication\Authentication;
-use PortalCMS\Core\Redirect;
-use PortalCMS\Core\Session;
+use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View;
 use PortalCMS\Models\Member;
 
@@ -46,6 +46,6 @@ PortalCMS_JS_Datepicker_membership();
         </div>
     </div>
 </main>
-<?php View::renderFooter(); ?>
+<?php include DIR_INCLUDES.'footer.php'; ?>
 </body>
 </html>

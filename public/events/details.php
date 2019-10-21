@@ -1,9 +1,9 @@
 <?php
 
-use PortalCMS\Authentication\Authentication;
-use PortalCMS\Core\Redirect;
-use PortalCMS\Core\Text;
-use PortalCMS\User\UserMapper;
+use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\View\Text;
+use PortalCMS\Core\User\UserMapper;
 
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Authentication::checkAuthentication();

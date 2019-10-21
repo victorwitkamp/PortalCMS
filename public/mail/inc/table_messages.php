@@ -11,7 +11,7 @@
             <th>Subject</th>
             <?php
 
-            use PortalCMS\Core\Text;
+            use PortalCMS\Core\View\Text;
 
             if ($pageType === 'history') {
                 echo '<th>Verzonden op</th>';

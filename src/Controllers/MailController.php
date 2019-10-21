@@ -4,8 +4,8 @@ namespace PortalCMS\Controllers;
 
 use MailBatch;
 use MailSchedule;
-use PortalCMS\Core\Controller;
-use PortalCMS\Core\Request;
+use PortalCMS\Core\Controllers\Controller;
+use PortalCMS\Core\HTTP\Request;
 
 /**
  * MailController

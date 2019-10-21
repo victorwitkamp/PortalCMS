@@ -1,7 +1,7 @@
 <?php
 
-use PortalCMS\Authentication\Authentication;
-use PortalCMS\Core\DB;
+use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\Database\DB;
 
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Authentication::checkAuthentication();

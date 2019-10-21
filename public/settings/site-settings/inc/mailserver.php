@@ -3,7 +3,7 @@
  * Mailserver settings
  */
 
-use PortalCMS\Models\SiteSetting;
+use PortalCMS\Core\Config\SiteSetting;
 
 ?>
 <h3>Mailserver</h3>

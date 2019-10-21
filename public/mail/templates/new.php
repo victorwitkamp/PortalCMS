@@ -1,9 +1,9 @@
 <?php
 
-use PortalCMS\Authentication\Authentication;
-use PortalCMS\Core\Alert;
-use PortalCMS\Core\Redirect;
-use PortalCMS\Core\Text;
+use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\View\Alert;
+use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\View\Text;
 use PortalCMS\Core\View;
 
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
@@ -58,6 +58,6 @@ plugins : 'advlist autolink link image lists charmap print preview'
         </div>
     </div>
 </main>
-<?php View::renderFooter(); ?>
+<?php include DIR_INCLUDES.'footer.php'; ?>
 </body>
 </html>

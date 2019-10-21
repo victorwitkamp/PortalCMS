@@ -2,8 +2,8 @@
 
 namespace PortalCMS\Controllers;
 
-use PortalCMS\Core\Controller;
-use PortalCMS\Models\Page;
+use PortalCMS\Core\Controllers\Controller;
+use PortalCMS\Core\Page\Page;
 
 class PageController extends Controller
 {

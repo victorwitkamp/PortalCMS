@@ -1,6 +1,6 @@
 <?php
 
-use PortalCMS\Core\Text;
+use PortalCMS\Core\View\Text;
 
 ?>
 <h3><?php echo Text::get('LABEL_CHANGE_PASSWORD'); ?></h3>

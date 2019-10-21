@@ -3,12 +3,12 @@
 namespace PortalCMS\Controllers;
 
 use MailAttachment;
-use MailTemplate;
-use PortalCMS\Core\Controller;
-use PortalCMS\Core\Redirect;
-use PortalCMS\Core\Request;
-use PortalCMS\Core\Session;
-use PortalCMS\Core\Text;
+use PortalCMS\Email\Template\MailTemplate;
+use PortalCMS\Core\Controllers\Controller;
+use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\View\Text;
 
 /**
  * MailTemplateController

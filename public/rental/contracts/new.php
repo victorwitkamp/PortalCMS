@@ -1,7 +1,7 @@
 <?php
 
-use PortalCMS\Authentication\Authentication;
-use PortalCMS\Core\Redirect;
+use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\HTTP\Redirect;
 
 $pageName = 'Contract toevoegen';
 $loadData = false;

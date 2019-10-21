@@ -1,6 +1,6 @@
 <?php
 
-use PortalCMS\Models\SiteSetting;
+use PortalCMS\Core\Config\SiteSetting;
 
 if (SiteSetting::getStaticSiteSetting('site_description_type') === '2') {
     $request_headers = array();

@@ -1,8 +1,8 @@
 <?php
 
-use PortalCMS\Authentication\Authentication;
-use PortalCMS\Core\Redirect;
-use PortalCMS\Models\Invoice;
+use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Modules\Invoices\InvoiceModel;
 
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Authentication::checkAuthentication();
@@ -10,4 +10,4 @@ if (!Authentication::checkPrivilege("rental-invoices")) {
     Redirect::permissionError();
     die();
 }
-Invoice::render($_GET['id']);
+InvoiceModel::render($_GET['id']);

@@ -1,9 +1,9 @@
 <?php
 
-use PortalCMS\Authentication\Authentication;
-use PortalCMS\Core\Redirect;
-use PortalCMS\Core\Text;
-use PortalCMS\Models\Invoice;
+use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\View\Text;
+use PortalCMS\Modules\Invoices\InvoiceModel;
 
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('LABEL_CONTRACT_INVOICES_FOR_ID').': '.$_GET['id'];

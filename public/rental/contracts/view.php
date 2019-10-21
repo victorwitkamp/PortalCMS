@@ -1,9 +1,9 @@
 <?php
 
-use PortalCMS\Authentication\Authentication;
-use PortalCMS\Core\Redirect;
-use PortalCMS\Core\Session;
-use PortalCMS\Core\View;
+use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\Session\Session;
+use PortalCMS\Modules\Contracts\ContractMapper;
+use PortalCMS\Core\Authentication\Authentication;
 
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Authentication::checkAuthentication();
@@ -42,6 +42,6 @@ PortalCMS_JS_headJS(); ?>
         </div>
     </div>
 </main>
-<?php View::renderFooter(); ?>
+<?php include DIR_INCLUDES.'footer.php'; ?>
 </body>
 </html>

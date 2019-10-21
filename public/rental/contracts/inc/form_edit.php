@@ -4,7 +4,7 @@
             <div class="form-group row">
                 <div class="col-md-8">
                     <label class="col-form-label">Huurder</label>
-                    <input type="text" name="band_naam" class="form-control form-control-sm" value="<?php use PortalCMS\Core\Text;
+                    <input type="text" name="band_naam" class="form-control form-control-sm" value="<?php use PortalCMS\Core\View\Text;
 
 echo $contract['band_naam']; ?>" required>
                 </div>

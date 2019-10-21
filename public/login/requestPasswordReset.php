@@ -1,8 +1,8 @@
 <?php
 
-use PortalCMS\Core\Alert;
+use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View;
-use PortalCMS\Models\SiteSetting;
+use PortalCMS\Core\Config\SiteSetting;
 
 $pageName = 'Wachtwoord vergeten';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
@@ -49,6 +49,6 @@ PortalCMS_JS_headJS();
             </form>
         </div>
     </main>
-    <?php View::renderFooter(); ?>
+    <?php include DIR_INCLUDES.'footer.php'; ?>
 </body>
 </html>

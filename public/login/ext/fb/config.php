@@ -1,6 +1,6 @@
 <?php
 
-use PortalCMS\Core\Config;
+use PortalCMS\Core\Config\Config;
 
 $fb = new Facebook\Facebook(
     [

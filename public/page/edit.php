@@ -1,9 +1,9 @@
 <?php
 
-use PortalCMS\Authentication\Authentication;
-use PortalCMS\Core\Alert;
+use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View;
-use PortalCMS\Models\Page;
+use PortalCMS\Core\Page\Page;
 
 $pageName = 'Pagina bewerken';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
@@ -53,6 +53,6 @@ plugins : 'advlist autolink link image lists charmap print preview'
             </div>
         </div>
     </main>
-    <?php View::renderFooter(); ?>
+    <?php include DIR_INCLUDES.'footer.php'; ?>
 </body>
 </html>

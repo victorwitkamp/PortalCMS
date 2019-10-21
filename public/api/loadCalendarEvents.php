@@ -1,6 +1,6 @@
 <?php
 
-use PortalCMS\Authentication\Authentication;
+use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Models\Event;
 
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";

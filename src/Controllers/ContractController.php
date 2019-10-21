@@ -2,7 +2,7 @@
 
 namespace PortalCMS\Controllers;
 
-use PortalCMS\Core\Controller;
+use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Models\Contract;
 
 /**

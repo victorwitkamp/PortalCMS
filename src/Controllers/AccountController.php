@@ -2,14 +2,14 @@
 
 namespace PortalCMS\Controllers;
 
-use PortalCMS\Core\Controller;
-use PortalCMS\Core\Redirect;
-use PortalCMS\Core\Request;
-use PortalCMS\Core\Session;
-use PortalCMS\Core\Text;
-use PortalCMS\User\Password;
-use PortalCMS\User\User;
-use PortalCMS\User\UserMapper;
+use PortalCMS\Core\Controllers\Controller;
+use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\View\Text;
+use PortalCMS\Core\User\Password;
+use PortalCMS\Core\User\User;
+use PortalCMS\Core\User\UserMapper;
 
 /**
  * AccountController

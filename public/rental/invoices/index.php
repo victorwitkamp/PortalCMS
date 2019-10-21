@@ -1,9 +1,9 @@
 <?php
 
-use PortalCMS\Authentication\Authentication;
-use PortalCMS\Core\Alert;
-use PortalCMS\Core\Redirect;
-use PortalCMS\Core\Text;
+use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\View\Alert;
+use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\View\Text;
 
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_INVOICES');

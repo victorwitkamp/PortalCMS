@@ -3,7 +3,7 @@
 namespace PortalCMS\Controllers;
 
 use PortalCMS\Models\Member;
-use PortalCMS\Core\Controller;
+use PortalCMS\Core\Controllers\Controller;
 
 class MembershipController extends Controller
 {

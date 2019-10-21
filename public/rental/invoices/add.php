@@ -1,9 +1,9 @@
 <?php
 
-use PortalCMS\Authentication\Authentication;
-use PortalCMS\Core\Alert;
-use PortalCMS\Core\Redirect;
-use PortalCMS\Core\Text;
+use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\View\Alert;
+use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\View\Text;
 use PortalCMS\Core\View;
 
 $pageName = 'Factuur toevoegen';
@@ -97,7 +97,7 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
 
         </div>
     </main>
-    <?php View::renderFooter(); ?>
+    <?php include DIR_INCLUDES.'footer.php'; ?>
 </body>
 
 </html>

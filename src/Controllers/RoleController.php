@@ -2,9 +2,9 @@
 
 namespace PortalCMS\Controllers;
 
-use PortalCMS\Core\Controller;
-use PortalCMS\Core\Redirect;
-use PortalCMS\Core\Session;
+use PortalCMS\Core\Controllers\Controller;
+use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\Session\Session;
 use Role;
 use RolePermission;
 

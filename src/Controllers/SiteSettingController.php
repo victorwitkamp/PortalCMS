@@ -2,11 +2,11 @@
 
 namespace PortalCMS\Controllers;
 
-use PortalCMS\Core\Controller;
-use PortalCMS\Core\Redirect;
-use PortalCMS\Core\Session;
-use PortalCMS\Core\Text;
-use PortalCMS\Models\SiteSetting;
+use PortalCMS\Core\Controllers\Controller;
+use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\View\Text;
+use PortalCMS\Core\Config\SiteSetting;
 
 class SiteSettingController extends Controller
 {

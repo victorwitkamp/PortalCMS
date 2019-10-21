@@ -1,6 +1,6 @@
 <?php
 
-use PortalCMS\Core\Text;
+use PortalCMS\Core\View\Text;
 
 ?>
 <h4><?php echo Text::get('TITLE_WIDGET_DEBUG'); ?></h4>

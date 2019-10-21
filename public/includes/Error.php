@@ -1,6 +1,6 @@
 <?php
 
-use PortalCMS\Core\Alert;
+use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View;
 
 $pageName = 'Fout';
@@ -24,7 +24,7 @@ PortalCMS_JS_headJS();
         </div>
     </div>
 </main>
-<?php View::renderFooter(); ?>
+<?php include DIR_INCLUDES.'footer.php'; ?>
 <script>
 function goBack() {
     window.history.back();

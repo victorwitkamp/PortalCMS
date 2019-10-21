@@ -1,9 +1,9 @@
 <?php
 
-use PortalCMS\Authentication\Authentication;
-use PortalCMS\Core\Alert;
-use PortalCMS\Core\Config;
-use PortalCMS\Core\Text;
+use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\View\Alert;
+use PortalCMS\Core\Config\Config;
+use PortalCMS\Core\View\Text;
 use PortalCMS\Core\View;
 
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
@@ -37,6 +37,6 @@ PortalCMS_JS_headJS(); ?>
         </div>
     </div>
 </main>
-<?php View::renderFooter(); ?>
+<?php include DIR_INCLUDES.'footer.php'; ?>
 </body>
 </html>

@@ -5,10 +5,10 @@
  * Description of the homepage
  */
 
-use PortalCMS\Authentication\Authentication;
-use PortalCMS\Core\Text;
+use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\View\Text;
 use PortalCMS\Core\View;
-use PortalCMS\Models\SiteSetting;
+use PortalCMS\Core\Config\SiteSetting;
 
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_HOME');
@@ -57,7 +57,7 @@ PortalCMS_JS_headJS();
         </div>
     </div>
 </main>
-<?php View::renderFooter(); ?>
+<?php include DIR_INCLUDES.'footer.php'; ?>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 <?php
 
-use PortalCMS\Core\Alert;
+use PortalCMS\Core\View\Alert;
 
 if (!isset($_SESSION)) {
     session_start();

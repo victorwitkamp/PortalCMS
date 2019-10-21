@@ -3,7 +3,7 @@
  * The header file
  */
 
-use PortalCMS\Models\SiteSetting;
+use PortalCMS\Core\Config\SiteSetting;
 
 ?>
 <!DOCTYPE html>

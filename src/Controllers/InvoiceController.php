@@ -2,10 +2,10 @@
 
 namespace PortalCMS\Controllers;
 
-use PortalCMS\Core\Controller;
-use PortalCMS\Core\Redirect;
-use PortalCMS\Core\Request;
-use PortalCMS\Models\Invoice;
+use PortalCMS\Core\Controllers\Controller;
+use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Modules\Invoices\InvoiceModel;
 use PortalCMS\Models\InvoiceItem;
 
 /**

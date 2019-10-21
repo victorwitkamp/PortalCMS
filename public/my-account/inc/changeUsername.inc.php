@@ -1,7 +1,7 @@
 <?php
 
-use PortalCMS\Core\Csrf;
-use PortalCMS\Core\Text;
+use PortalCMS\Core\Filter\Csrf;
+use PortalCMS\Core\View\Text;
 
 ?><h3><?php
 
