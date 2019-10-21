@@ -2,9 +2,9 @@
 
 namespace PortalCMS\Controllers;
 
-use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
-use PortalCMS\Models\Event;
+use PortalCMS\Models\CalendarEventModel;
+use PortalCMS\Core\Controllers\Controller;
 
 /**
  * EventController
@@ -17,19 +17,19 @@ class EventController extends Controller
         parent::__construct();
 
         if (isset($_POST['addEvent'])) {
-            if (Event::create()) {
+            if (CalendarEventModel::create()) {
                 Redirect::to("events/");
             }
         }
 
         if (isset($_POST['updateEvent'])) {
-            if (Event::update()) {
+            if (CalendarEventModel::update()) {
                 Redirect::to("events/");
             }
         }
 
         if (isset($_POST['deleteEvent'])) {
-            if (Event::delete()) {
+            if (CalendarEventModel::delete()) {
                 Redirect::to("events/");
             }
         }

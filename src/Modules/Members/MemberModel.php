@@ -7,7 +7,7 @@ use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Session\Session;
 
-class Member
+class MemberModel
 {
     public static function getMembers()
     {

@@ -4,7 +4,7 @@ use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View;
-use PortalCMS\Models\Member;
+use PortalCMS\Models\MemberModel;
 
 $pageName = 'Wijzigen';
 $pageType = 'edit';
@@ -15,8 +15,8 @@ if (!Authentication::checkPrivilege("membership")) {
     die();
 }
 require_once DIR_INCLUDES.'functions.php';
-if (Member::doesMemberIdExist($_GET['id'])) {
-    $row = Member::getMemberById($_GET['id']);
+if (MemberModel::doesMemberIdExist($_GET['id'])) {
+    $row = MemberModel::getMemberById($_GET['id']);
     $allowEdit = true;
     $pageName = 'Lidmaatschap van '.$row ['voornaam'].' '.$row ['achternaam'].' bewerken';
 } else {

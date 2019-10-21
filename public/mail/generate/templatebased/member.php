@@ -2,7 +2,7 @@
 
 use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\HTTP\Redirect;
-use PortalCMS\Models\Member;
+use PortalCMS\Models\MemberModel;
 
 $pageName = 'Nieuw bericht';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
@@ -58,7 +58,7 @@ PortalCMS_JS_headJS(); ?>
 
                     <div id="example" class="row">
                     <?php
-                    foreach (Member::getMembers() as $row):
+                    foreach (MemberModel::getMembers() as $row):
                         if (!empty($row['emailadres'])) {
                             ?>
 

@@ -4,9 +4,12 @@ namespace PortalCMS\Core\Mail\Schedule;
 
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Models\MemberModel;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\Email\MailSender;
+use PortalCMS\Core\Config\SiteSetting;
 use PortalCMS\Core\Mail\Batch\MailBatch;
+use PortalCMS\Models\CalendarEventModel;
 use PortalCMS\Core\Email\Message\EmailMessage;
 use PortalCMS\Core\Mail\Schedule\MailScheduleMapper;
 use PortalCMS\Core\Mail\Template\MailTemplateMapper;
@@ -103,7 +106,7 @@ class MailSchedule
                 MailBatch::create($templateId);
                 $batch_id = MailBatch::lastInsertedId();
                 foreach ($_POST['recipients'] as $memberId) {
-                    $member = Member::getMemberById($memberId);
+                    $member = MemberModel::getMemberById($memberId);
                     $body = self::replaceholdersMember($memberId, $template['body']);
                     $return = MailScheduleMapper::create($batch_id, $memberId, $template['subject'], $body);
                     if (!$return) {
@@ -135,7 +138,7 @@ class MailSchedule
 
     public static function replaceholdersMember($memberid, $templatebody)
     {
-        $member = Member::getMemberById($memberid);
+        $member = MemberModel::getMemberById($memberid);
         $afzender = SiteSetting::getStaticSiteSetting('site_name');
         $variables = array(
             "voornaam" => $member['voornaam'],
@@ -167,7 +170,7 @@ class MailSchedule
 
     public static function sendEventMail($recipient)
     {
-        $body = Event::loadMailEvents();
+        $body = CalendarEventModel::loadMailEvents();
         if (!empty($body)) {
             $EmailMessage = new EmailMessage('Komende evenementen', $body, $recipient);
             $SMTPConfiguration = new SMTPConfiguration();

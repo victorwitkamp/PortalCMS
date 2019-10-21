@@ -3,7 +3,7 @@
 use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\View;
-use PortalCMS\Models\Member;
+use PortalCMS\Models\MemberModel;
 
 $pageName = 'Profiel';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
@@ -13,7 +13,7 @@ if (!Authentication::checkPrivilege("membership")) {
     die();
 }
 require_once DIR_INCLUDES.'functions.php';
-$row = Member::getMemberById($_GET['id']);
+$row = MemberModel::getMemberById($_GET['id']);
 $pageName = 'Lidmaatschap van '.$row['voornaam'].' '.$row['achternaam'];
 
 require_once DIR_INCLUDES.'head.php';
