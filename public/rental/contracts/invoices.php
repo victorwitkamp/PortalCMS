@@ -36,7 +36,7 @@ PortalCMS_JS_dataTables();
 
         <hr>
         <?php
-        $invoices = Invoice::getByContractId($_GET['id']);
+        $invoices = InvoiceModel::getByContractId($_GET['id']);
         if ($invoices) {
             include '../invoices/invoices_table.php';
             PortalCMS_JS_Init_dataTables();

@@ -3,7 +3,7 @@
 namespace PortalCMS\Controllers;
 
 use PortalCMS\Core\Controllers\Controller;
-use PortalCMS\Models\Contract;
+use PortalCMS\Modules\Contracts\ContractModel;
 
 /**
  * ContractController
@@ -24,6 +24,5 @@ class ContractController extends Controller
         if (isset($_POST['deleteContract'])) {
             Contract::delete();
         }
-
     }
 }

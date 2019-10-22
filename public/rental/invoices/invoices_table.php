@@ -36,7 +36,7 @@ use PortalCMS\Modules\Invoices\InvoiceModel;
             <td><?php echo $invoice['factuurnummer'] ?></td>
             <td>
                 <?php
-                if (isset($invoice['contract_id']) and !empty($invoice['contract_id'])) {
+                if (isset($invoice['contract_id']) && !empty($invoice['contract_id'])) {
                     if ($contract = ContractMapper::getById($invoice['contract_id'])) {
                         echo $contract['band_naam'];
                     } else {
@@ -47,21 +47,21 @@ use PortalCMS\Modules\Invoices\InvoiceModel;
                 } ?>
             </td>
 
-            <td><?php echo Invoice::DisplayInvoiceSumById($invoice['id']); ?></td>
+            <td><?php echo InvoiceModel::DisplayInvoiceSumById($invoice['id']); ?></td>
             <td>
             <?php
             if ($invoice['status'] === '0') {
                 echo '<i class="fas fa-lock-open"></i> 0 - Concept';
             }
-        if ($invoice['status'] === '1') {
-            echo '<i class="fas fa-lock"></i> 1 - Klaar voor planning';
-        }
-        if ($invoice['status'] === '2') {
-            echo '<i class="fas fa-lock"></i> 2 - Gepland';
-        }
-        if ($invoice['status'] === '3') {
-            echo '<i class="fas fa-lock"></i> 3 - Verzonden ';
-        } ?>
+            if ($invoice['status'] === '1') {
+                echo '<i class="fas fa-lock"></i> 1 - Klaar voor planning';
+            }
+            if ($invoice['status'] === '2') {
+                echo '<i class="fas fa-lock"></i> 2 - Gepland';
+            }
+            if ($invoice['status'] === '3') {
+                echo '<i class="fas fa-lock"></i> 3 - Verzonden ';
+            } ?>
             </td>
             <td>
                 <a href="/rental/invoices/createpdf.php?id=<?php echo $invoice['id'] ?>" title="PDF maken" class="btn btn-success">

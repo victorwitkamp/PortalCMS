@@ -3,7 +3,7 @@
 use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\View;
-use PortalCMS\Models\MemberModel;
+use PortalCMS\Modules\Members\MemberModel;
 
 $pageName = 'Profiel';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";

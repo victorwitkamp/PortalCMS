@@ -2,7 +2,7 @@
 
 namespace PortalCMS\Controllers;
 
-use PortalCMS\Models\MemberModel;
+use PortalCMS\Modules\Members\MemberModel;
 use PortalCMS\Core\Controllers\Controller;
 
 class MembershipController extends Controller

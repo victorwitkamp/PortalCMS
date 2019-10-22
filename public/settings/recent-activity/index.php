@@ -4,8 +4,7 @@ use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\View\Text;
-use PortalCMS\Core\View;
-use PortalCMS\Models\Activity;
+use PortalCMS\Core\Activity\Activity;
 
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_RECENT_ACTIVITY');
@@ -33,7 +32,6 @@ PortalCMS_JS_headJS();
             <?php Alert::renderFeedbackMessages(); ?>
         </div>
         <div class="container">
-            <?php //require 'content.php';?>
             <table class="table table-sm table-striped table-hover table-dark">
                 <thead>
                     <th>CreationDate</th>

@@ -24,10 +24,10 @@ class Alert
 
     /**
      * Renders the feedback messages into the view
+     * Stored in $_SESSION["feedback_positive"] and $_SESSION["feedback_negative"]
      */
     public static function renderFeedbackMessages()
     {
-        // Stored in $_SESSION["feedback_positive"] and $_SESSION["feedback_negative"]
         $feedback_positive = Session::get('feedback_positive');
         $feedback_warning = Session::get('feedback_warning');
         $feedback_negative = Session::get('feedback_negative');

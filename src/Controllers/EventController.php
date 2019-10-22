@@ -3,7 +3,7 @@
 namespace PortalCMS\Controllers;
 
 use PortalCMS\Core\HTTP\Redirect;
-use PortalCMS\Models\CalendarEventModel;
+use PortalCMS\Modules\Calendar\CalendarEventModel;
 use PortalCMS\Core\Controllers\Controller;
 
 /**

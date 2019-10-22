@@ -4,13 +4,13 @@ namespace PortalCMS\Core\Mail\Schedule;
 
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Redirect;
-use PortalCMS\Models\MemberModel;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\Email\MailSender;
 use PortalCMS\Core\Config\SiteSetting;
 use PortalCMS\Core\Mail\Batch\MailBatch;
-use PortalCMS\Models\CalendarEventModel;
+use PortalCMS\Modules\Members\MemberModel;
 use PortalCMS\Core\Email\Message\EmailMessage;
+use PortalCMS\Modules\Calendar\CalendarEventModel;
 use PortalCMS\Core\Mail\Schedule\MailScheduleMapper;
 use PortalCMS\Core\Mail\Template\MailTemplateMapper;
 use PortalCMS\Core\Mail\Recipient\MailRecipientMapper;
