@@ -17,10 +17,10 @@ class CalendarEventMapper
     {
         $stmt = DB::conn()->prepare("SELECT id FROM events WHERE id = ? LIMIT 1");
         $stmt->execute([$id]);
-        if ($stmt->rowCount() === 0) {
-            return false;
+        if ($stmt->rowCount() === 1) {
+            return true;
         }
-        return true;
+        return false;
     }
 
     public static function getByDate($startDate, $endDate)
@@ -41,9 +41,11 @@ class CalendarEventMapper
             "SELECT * FROM events WHERE start_event > ? ORDER BY start_event asc limit 3"
         );
         $stmt->execute([$dateTime]);
+        if ($stmt->rowCount() === 0) {
+            return false;
+        }
         return $stmt->fetchAll();
     }
-
 
     /**
      * Fetches an Event by Id
@@ -56,7 +58,7 @@ class CalendarEventMapper
     {
         $stmt = DB::conn()->prepare("SELECT * FROM events WHERE id = ? LIMIT 1");
         $stmt->execute([$id]);
-        if (!$stmt->rowCount() == 1) {
+        if (!$stmt->rowCount() === 1) {
             return false;
         }
         return $stmt->fetch();
@@ -77,6 +79,7 @@ class CalendarEventMapper
         }
         return true;
     }
+
     public static function update($id, $title, $start_event, $end_event, $description, $status)
     {
         $stmt = DB::conn()->prepare(

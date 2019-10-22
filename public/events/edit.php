@@ -83,15 +83,18 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
                     <div class="col-sm-6">
                         <label class="control-label">Status</label>
                         <select name="status" class="form-control" required>
-                            <option value="0" <?php if ($row ['status'] == 0) {
-    echo 'selected';
-} ?>>0 - concept</option>
-                            <option value="1" <?php if ($row ['status'] == 1) {
-    echo 'selected';
-} ?>>1 - bevestigd</option>
-                            <option value="2" <?php if ($row ['status'] == 2) {
-    echo 'selected';
-} ?>>2 - geannuleerd</option>
+                            <option value="0" <?php
+                            if ($row ['status'] == 0) {
+                                echo 'selected';
+                            } ?>>0 - concept</option>
+                            <option value="1" <?php
+                            if ($row ['status'] == 1) {
+                                echo 'selected';
+                            } ?>>1 - bevestigd</option>
+                            <option value="2" <?php
+                            if ($row ['status'] == 2) {
+                                echo 'selected';
+                            } ?>>2 - geannuleerd</option>
                         </select>
                     </div>
                 </div>
