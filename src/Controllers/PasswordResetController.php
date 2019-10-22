@@ -4,7 +4,7 @@ namespace PortalCMS\Controllers;
 
 use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
-use PortalCMS\User\PasswordReset;
+use PortalCMS\Core\User\PasswordReset;
 
 /**
  * PasswordResetController

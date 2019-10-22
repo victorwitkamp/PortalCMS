@@ -2,8 +2,6 @@
 
 namespace PortalCMS\Core\Config;
 
-use PortalCMS\Core\Config\Environment;
-
 /**
  * Class Config
  *

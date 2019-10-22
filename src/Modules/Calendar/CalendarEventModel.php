@@ -5,7 +5,6 @@ namespace PortalCMS\Modules\Calendar;
 use PortalCMS\Core\Database\DB;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Modules\Calendar\CalendarEventMapper;
 
 /**
  * Class : Event (Event.php)

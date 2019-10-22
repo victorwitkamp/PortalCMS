@@ -3,6 +3,7 @@
 use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\View\Text;
+use PortalCMS\Modules\Contracts\ContractMapper;
 use PortalCMS\Modules\Invoices\InvoiceModel;
 
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";

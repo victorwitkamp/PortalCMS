@@ -1,6 +1,5 @@
 <?php
 
-use PDO;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\Database\DB;

@@ -1,6 +1,7 @@
 <?php
 
 use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\Email\Template\MailTemplateMapper;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Modules\Members\MemberModel;
 

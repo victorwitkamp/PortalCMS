@@ -11,7 +11,6 @@ use PortalCMS\Core\Email\Batch\MailBatch;
 use PortalCMS\Modules\Members\MemberModel;
 use PortalCMS\Core\Email\Message\EmailMessage;
 use PortalCMS\Modules\Calendar\CalendarEventModel;
-use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
 use PortalCMS\Core\Email\Template\MailTemplateMapper;
 use PortalCMS\Core\Email\Recipient\MailRecipientMapper;
 use PortalCMS\Core\Email\Attachment\MailAttachmentMapper;

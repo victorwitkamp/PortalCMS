@@ -9,7 +9,6 @@ namespace PortalCMS\Core\Config;
 
 use PDO;
 use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\Config\Config;
 use PortalCMS\Core\Database\DB;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Session\Session;

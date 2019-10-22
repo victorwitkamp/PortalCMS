@@ -2,7 +2,6 @@
 
 namespace PortalCMS\Modules\Invoices;
 
-use PortalCMS\Modules\Invoices\InvoiceItemMapper;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Session\Session;

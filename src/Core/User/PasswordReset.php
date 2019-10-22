@@ -2,8 +2,8 @@
 
 namespace PortalCMS\Core\User;
 
-use PortalCMS\Email\Template\MailTemplate;
-use PortalCMS\Email\Template\MailTemplateMapper;
+use PortalCMS\Core\Email\Template\MailTemplate;
+use PortalCMS\Core\Email\Template\MailTemplateMapper;
 use PortalCMS\Core\Config\Config;
 use PortalCMS\Core\Database\DB;
 use PortalCMS\Core\Session\Session;

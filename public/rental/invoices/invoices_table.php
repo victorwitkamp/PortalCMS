@@ -1,6 +1,7 @@
 <?php
 
 use PortalCMS\Core\Config\Config;
+use PortalCMS\Modules\Contracts\ContractMapper;
 use PortalCMS\Modules\Invoices\InvoiceModel;
 
 ?>

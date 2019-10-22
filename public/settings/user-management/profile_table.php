@@ -1,5 +1,8 @@
 <?php
 
+use PortalCMS\Core\Authorization\PermissionMapper;
+use PortalCMS\Core\Authorization\Role;
+use PortalCMS\Core\Authorization\UserRoleMapper;
 use PortalCMS\Core\Database\DB;
 
 ?>
