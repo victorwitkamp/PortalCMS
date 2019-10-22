@@ -19,7 +19,7 @@ class PDF
         define('K_PATH_MAIN', DIR_VENDOR.'tecnickcom/tcpdf/');
         define('K_PATH_URL', DIR_VENDOR.'tecnickcom/tcpdf/');
         define('K_PATH_FONTS', K_PATH_MAIN.'fonts/');
-        define('K_PATH_IMAGES', dirname(__FILE__).'/../images/');
+        define('K_PATH_IMAGES', __DIR__ .'/../images/');
         define('PDF_HEADER_LOGO', 'logo.jpg');
         define('PDF_HEADER_LOGO_WIDTH', 30);
         define('K_PATH_CACHE', DIR_TEMP);
@@ -57,8 +57,8 @@ class PDF
         $pdf->SetAuthor(PDF_AUTHOR);
         $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
         $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->setHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->setFooterMargin(PDF_MARGIN_FOOTER);
         $pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
         // $pdf->setFontSubsetting(true);

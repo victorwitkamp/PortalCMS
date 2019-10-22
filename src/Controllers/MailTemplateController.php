@@ -2,8 +2,8 @@
 
 namespace PortalCMS\Controllers;
 
-use MailAttachment;
-use PortalCMS\Email\Template\MailTemplate;
+use PortalCMS\Core\Email\Attachment\MailAttachment;
+use PortalCMS\Core\Email\Template\MailTemplate;
 use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;

@@ -16,13 +16,13 @@ class ContractController extends Controller
         parent::__construct();
 
         if (isset($_POST['updateContract'])) {
-            Contract::update();
+            ContractModel::update();
         }
         if (isset($_POST['newContract'])) {
-            Contract::new();
+            ContractModel::new();
         }
         if (isset($_POST['deleteContract'])) {
-            Contract::delete();
+            ContractModel::delete();
         }
     }
 }

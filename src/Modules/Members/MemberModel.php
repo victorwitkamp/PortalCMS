@@ -1,6 +1,6 @@
 <?php
 
-namespace PortalCMS\Models;
+namespace PortalCMS\Modules\Members;
 
 use PortalCMS\Core\Database\DB;
 use PortalCMS\Core\HTTP\Redirect;

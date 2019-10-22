@@ -83,7 +83,7 @@ class MailSender
         }
         $mailTransport = new PHPMailer(true);
         $mailTransport->CharSet = $this->config->charset;
-        $mailTransport->IsSMTP();
+        $mailTransport->isSMTP();
         $mailTransport->SMTPOptions = array(
             'ssl' => array(
                 'verify_peer' => false,
@@ -107,7 +107,7 @@ class MailSender
             $mailTransport->isHTML(true);
         }
         foreach ($verifiedMessage->recipients as $recipient) {
-            $mailTransport->AddAddress($recipient['email'], $recipient['name']);
+            $mailTransport->addAddress($recipient['email'], $recipient['name']);
         }
         $mailTransport->Subject = $verifiedMessage->subject;
         $mailTransport->Body = $verifiedMessage->body;
@@ -119,7 +119,7 @@ class MailSender
             }
         }
         try {
-            return $mailTransport->Send();
+            return $mailTransport->send();
         } catch (Exception $e) {
             $this->error = $e->errorMessage();
             return false;

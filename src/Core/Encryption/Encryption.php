@@ -2,6 +2,7 @@
 
 namespace PortalCMS\Core\Encryption;
 
+use PortalCMS\Core\Config\Config;
 use Exception;
 
 /**
@@ -14,14 +15,14 @@ class Encryption
      *
      * @var string
      */
-    const CIPHER = 'aes-256-cbc';
+    private const CIPHER = 'aes-256-cbc';
 
     /**
      * Hash function
      *
      * @var string
      */
-    const HASH_FUNCTION = 'sha256';
+    private const HASH_FUNCTION = 'sha256';
 
     /**
      * Constructor for Encryption object. This is empty and private so that this object cannot be instantiated.
@@ -85,10 +86,7 @@ class Encryption
             throw new Exception('The String to decrypt can\'t be empty');
         }
 
-        if (!function_exists('openssl_cipher_iv_length')
-            || !function_exists('openssl_decrypt')
-        ) {
-
+        if (!function_exists('openssl_cipher_iv_length') || !function_exists('openssl_decrypt')) {
             throw new Exception('Encryption function doesn\'t exist');
         }
 

@@ -3,7 +3,7 @@
 use PortalCMS\Core\View\Text;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\HTTP\Redirect;
-use PortalCMS\Core\Mail\Batch\MailBatch;
+use PortalCMS\Core\Email\Batch\MailBatch;
 use PortalCMS\Core\Authentication\Authentication;
 
 $pageType = 'index';

@@ -2,6 +2,7 @@
 
 namespace PortalCMS\Core\Authentication;
 
+use Exception;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Core\HTTP\Cookie;
 use PortalCMS\Core\HTTP\Redirect;
@@ -60,7 +61,7 @@ class Authentication
      *
      * @return bool user's login status
      */
-    public static function userIsLoggedIn()
+    public static function userIsLoggedIn(): bool
     {
         return (Session::get('user_logged_in') ? true : false);
     }
@@ -103,11 +104,9 @@ class Authentication
     {
         // Brute force attack mitigation:
         // block login attempt if somebody has already failed 3 times and the last login attempt is less than 30sec ago
-        if (Session::get('failed-login-count') >= 3) {
-            if (Session::get('last-failed-login') > (time() - 30)) {
-                Session::add('feedback_negative', Text::get('FEEDBACK_LOGIN_FAILED_3_TIMES'));
-                return false;
-            }
+        if ((Session::get('failed-login-count') >= 3) && Session::get('last-failed-login') > (time() - 30)) {
+            Session::add('feedback_negative', Text::get('FEEDBACK_LOGIN_FAILED_3_TIMES'));
+            return false;
         }
 
         $result = UserMapper::getByUsername($user_name);
@@ -119,11 +118,9 @@ class Authentication
         }
 
         // block login attempt if somebody has already failed 3 times and the last login attempt is less than 30sec ago
-        if ($result->user_failed_logins >= 3) {
-            if (strtotime($result->user_last_failed_login) > (strtotime(date('Y-m-d H:i:s')) - 30)) {
-                Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_WRONG_3_TIMES'));
-                return false;
-            }
+        if (($result->user_failed_logins >= 3) && strtotime($result->user_last_failed_login) > (strtotime(date('Y-m-d H:i:s')) - 30)) {
+            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_WRONG_3_TIMES'));
+            return false;
         }
 
         // if hash of provided password does NOT match the hash in the database: +1 failed-login counter
@@ -206,7 +203,7 @@ class Authentication
      * Maybe splitting this into database and cookie part ?
      *
      * @param $user_id
-     * @throws Exception
+     * @return bool
      */
     public static function setRememberMe($user_id)
     {
@@ -217,7 +214,11 @@ class Authentication
 
         // generate cookie string that consists of user id, random string and combined hash of both
         // never expose the original user id, instead, encrypt it.
-        $cookie_string_first_part = Encryption::encrypt($user_id).':'.$token;
+        try {
+            $cookie_string_first_part = Encryption::encrypt($user_id) . ':' . $token;
+        } catch (Exception $e) {
+            return false;
+        }
         $cookie_string_hash       = hash('sha256', $user_id.':'.$token);
         $cookie_string            = $cookie_string_first_part.':'.$cookie_string_hash;
 

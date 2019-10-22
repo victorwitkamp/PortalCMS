@@ -1,6 +1,6 @@
 <?php
 
-namespace PortalCMS\Core\Mail\Schedule;
+namespace PortalCMS\Core\Email\Schedule;
 
 use PortalCMS\Core\Database\DB;
 

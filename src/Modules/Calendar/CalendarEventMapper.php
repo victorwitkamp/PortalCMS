@@ -13,7 +13,7 @@ class CalendarEventMapper
      *
      * @return bool
      */
-    public static function exists($id)
+    public static function exists($id): bool
     {
         $stmt = DB::conn()->prepare("SELECT id FROM events WHERE id = ? LIMIT 1");
         $stmt->execute([$id]);
@@ -64,7 +64,7 @@ class CalendarEventMapper
         return $stmt->fetch();
     }
 
-    public static function new($title, $start_event, $end_event, $description, $CreatedBy)
+    public static function new($title, $start_event, $end_event, $description, $CreatedBy): bool
     {
         $stmt = DB::conn()->prepare(
             "INSERT INTO events(
@@ -80,7 +80,7 @@ class CalendarEventMapper
         return true;
     }
 
-    public static function update($id, $title, $start_event, $end_event, $description, $status)
+    public static function update($id, $title, $start_event, $end_event, $description, $status): bool
     {
         $stmt = DB::conn()->prepare(
             "UPDATE events
@@ -94,7 +94,7 @@ class CalendarEventMapper
         return true;
     }
 
-    public static function updateDate($event_id, $title, $start_event, $end_event)
+    public static function updateDate($event_id, $title, $start_event, $end_event): bool
     {
         $stmt = DB::conn()->prepare(
             "UPDATE events
@@ -108,7 +108,7 @@ class CalendarEventMapper
         return true;
     }
 
-    public static function delete($id)
+    public static function delete($id): bool
     {
         $stmt = DB::conn()->prepare("DELETE FROM events WHERE id = ?");
         if ($stmt->execute([$id])) {

@@ -4,6 +4,7 @@ use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Core\User\UserMapper;
+use PortalCMS\Modules\Calendar\CalendarEventMapper;
 
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Authentication::checkAuthentication();

@@ -47,7 +47,7 @@ use PortalCMS\Modules\Invoices\InvoiceModel;
                 } ?>
             </td>
 
-            <td><?php echo InvoiceModel::DisplayInvoiceSumById($invoice['id']); ?></td>
+            <td><?php echo InvoiceModel::displayInvoiceSumById($invoice['id']); ?></td>
             <td>
             <?php
             if ($invoice['status'] === '0') {

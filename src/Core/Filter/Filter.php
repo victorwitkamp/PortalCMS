@@ -49,7 +49,7 @@ class Filter
      *
      * @see http://www.php.net/manual/en/function.htmlspecialchars.php
      *
-     * @param  $value The value to be filtered
+     * @param mixed $value The value to be filtered
      * @return mixed
      */
     public static function XSSFilter(&$value)

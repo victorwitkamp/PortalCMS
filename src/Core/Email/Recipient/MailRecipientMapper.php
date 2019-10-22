@@ -1,6 +1,6 @@
 <?php
 
-namespace PortalCMS\Core\Mail\Recipient;
+namespace PortalCMS\Core\Email\Recipient;
 
 use PortalCMS\Core\Database\DB;
 

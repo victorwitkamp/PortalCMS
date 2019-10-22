@@ -25,19 +25,22 @@ use PortalCMS\Core\Config\SiteSetting;
     <div class="col-8">
         <div class="input-group">
             <select name="site_description_type" class="form-control">
-                <option value="1" <?php if (SiteSetting::getStaticSiteSetting('site_description_type') === '1') {
-    echo 'selected';
-} ?>>
+                <option value="1" <?php
+                if (SiteSetting::getStaticSiteSetting('site_description_type') === '1') {
+                    echo 'selected';
+                } ?>>
                     <label class="form-check-label">1. Site description text</label>
                 </option>
-                <option value="2" <?php if (SiteSetting::getStaticSiteSetting('site_description_type') === '2') {
-    echo 'selected';
-} ?>>
+                <option value="2" <?php
+                if (SiteSetting::getStaticSiteSetting('site_description_type') === '2') {
+                    echo 'selected';
+                } ?>>
                     <label class="form-check-label">2. Random joke</label>
                 </option>
-                <option value="3" <?php if (SiteSetting::getStaticSiteSetting('site_description_type') === '3') {
-    echo 'selected';
-} ?>>
+                <option value="3" <?php
+                if (SiteSetting::getStaticSiteSetting('site_description_type') === '3') {
+                    echo 'selected';
+                } ?>>
                     <label class="form-check-label">3. Random Chuck Norris joke</label>
                 </option>
             </select>
@@ -49,24 +52,30 @@ use PortalCMS\Core\Config\SiteSetting;
         <div class="input-group">
             <select class="form-control" name="site_theme">
                 <?php $SiteTheme = SiteSetting::getStaticSiteSetting('site_theme'); ?>
-                <option value="darkly" <?php if ($SiteTheme == 'darkly') {
-    echo 'selected';
-} ?>>darkly</option>
-                <option value="solar" <?php if ($SiteTheme == 'solar') {
-    echo 'selected';
-} ?>>solar</option>
-                <option value="superhero" <?php if ($SiteTheme == 'superhero') {
-    echo 'selected';
-} ?>>superhero</option>
-                <option value="cyborg" <?php if ($SiteTheme == 'cyborg') {
-    echo 'selected';
-} ?>>cyborg</option>
-                <option value="flatly" <?php if ($SiteTheme == 'flatly') {
-    echo 'selected';
-} ?>>flatly</option>
-                <option value="slate" <?php if ($SiteTheme == 'slate') {
-    echo 'selected';
-} ?>>slate</option>
+                <option value="darkly" <?php
+                if ($SiteTheme == 'darkly') {
+                    echo 'selected';
+                } ?>>darkly</option>
+                <option value="solar" <?php
+                if ($SiteTheme == 'solar') {
+                    echo 'selected';
+                } ?>>solar</option>
+                <option value="superhero" <?php
+                if ($SiteTheme == 'superhero') {
+                    echo 'selected';
+                } ?>>superhero</option>
+                <option value="cyborg" <?php
+                if ($SiteTheme == 'cyborg') {
+                    echo 'selected';
+                } ?>>cyborg</option>
+                <option value="flatly" <?php
+                if ($SiteTheme == 'flatly') {
+                    echo 'selected';
+                } ?>>flatly</option>
+                <option value="slate" <?php
+                if ($SiteTheme == 'slate') {
+                    echo 'selected';
+                } ?>>slate</option>
             </select>
         </div>
     </div>
@@ -76,12 +85,14 @@ use PortalCMS\Core\Config\SiteSetting;
         <div class="input-group">
             <select class="form-control" name="site_layout">
                 <?php $SiteLayout = SiteSetting::getStaticSiteSetting('site_layout'); ?>
-                <option value="right-sidebar" <?php if ($SiteLayout == 'right-sidebar') {
-    echo 'selected';
-} ?>>right-sidebar</option>
-                <option value="left-sidebar" <?php if ($SiteLayout == 'left-sidebar') {
-    echo 'selected';
-} ?>>left-sidebar</option>
+                <option value="right-sidebar" <?php
+                if ($SiteLayout == 'right-sidebar') {
+                    echo 'selected';
+                } ?>>right-sidebar</option>
+                <option value="left-sidebar" <?php
+                if ($SiteLayout == 'left-sidebar') {
+                    echo 'selected';
+                } ?>>left-sidebar</option>
             </select>
         </div>
     </div>

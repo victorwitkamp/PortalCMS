@@ -1,6 +1,6 @@
 <?php
 
-namespace PortalCMS\Core\Mail\Attachment;
+namespace PortalCMS\Core\Email\Attachment;
 
 use PortalCMS\Core\Database\DB;
 

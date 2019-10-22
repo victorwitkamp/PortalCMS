@@ -2,10 +2,10 @@
 
 namespace PortalCMS\Modules\Contracts;
 
-use PortalCMS\Modules\Contracts\ContractMapper;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Session\Session;
+use PortalCMS\Modules\Invoices\InvoiceModel;
 
 /**
  * Class : Contract (Contract.php)

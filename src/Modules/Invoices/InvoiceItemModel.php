@@ -7,7 +7,7 @@ use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Session\Session;
 
-class InvoiceItem
+class InvoiceItemModel
 {
     public static function create()
     {

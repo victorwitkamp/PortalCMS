@@ -5,9 +5,9 @@ use PortalCMS\Core\Config\Config;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\Mail\Schedule\MailScheduleMapper;
-use PortalCMS\Core\Mail\Recipient\MailRecipientMapper;
-use PortalCMS\Core\Mail\Attachment\MailAttachmentMapper;
+use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
+use PortalCMS\Core\Email\Recipient\MailRecipientMapper;
+use PortalCMS\Core\Email\Attachment\MailAttachmentMapper;
 
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_MAIL_DETAILS');

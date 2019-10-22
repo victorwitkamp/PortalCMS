@@ -1,6 +1,6 @@
 <?php
 
-namespace PortalCMS\Core\Mail\Template;
+namespace PortalCMS\Core\Email\Template;
 
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;

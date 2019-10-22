@@ -1,6 +1,6 @@
 <?php
 
-namespace PortalCMS\Authentication\Service;
+namespace PortalCMS\Core\Authentication\Service;
 
 use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\HTTP\Cookie;

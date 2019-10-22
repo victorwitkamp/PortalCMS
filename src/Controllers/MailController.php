@@ -2,9 +2,9 @@
 
 namespace PortalCMS\Controllers;
 
-use MailBatch;
-use MailSchedule;
+use PortalCMS\Core\Email\Batch\MailBatch;
 use PortalCMS\Core\Controllers\Controller;
+use PortalCMS\Core\Email\Schedule\MailSchedule;
 use PortalCMS\Core\HTTP\Request;
 
 /**

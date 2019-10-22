@@ -4,7 +4,7 @@ use PortalCMS\Core\View\Text;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\Mail\Schedule\MailScheduleMapper;
+use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
 
 $pageType = 'index';
 require $_SERVER["DOCUMENT_ROOT"] . "/Init.php";

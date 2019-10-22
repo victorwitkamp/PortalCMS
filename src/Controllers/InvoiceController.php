@@ -6,7 +6,7 @@ use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Modules\Invoices\InvoiceModel;
-use PortalCMS\Modules\Invoices\InvoiceItem;
+use PortalCMS\Modules\Invoices\InvoiceItemModel;
 
 /**
  * InvoiceController
@@ -34,10 +34,10 @@ class InvoiceController extends Controller
             InvoiceModel::delete();
         }
         if (isset($_POST['deleteInvoiceItem'])) {
-            InvoiceItem::delete();
+            InvoiceItemModel::delete();
         }
         if (isset($_POST['addInvoiceItem'])) {
-            InvoiceItem::create();
+            InvoiceItemModel::create();
         }
     }
 }
