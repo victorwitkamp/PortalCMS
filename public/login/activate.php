@@ -1,7 +1,6 @@
 <?php
 
 use PortalCMS\Core\View\Alert;
-use PortalCMS\Core\View;
 use PortalCMS\Core\Config\SiteSetting;
 
 $pageName = 'Account activeren';

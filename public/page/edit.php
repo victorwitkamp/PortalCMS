@@ -2,7 +2,6 @@
 
 use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\View\Alert;
-use PortalCMS\Core\View;
 use PortalCMS\Core\Page\Page;
 
 $pageName = 'Pagina bewerken';

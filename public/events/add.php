@@ -4,7 +4,6 @@ use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\View;
 
 $pageName = 'Evenement toevoegen';
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";

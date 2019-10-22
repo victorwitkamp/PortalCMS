@@ -5,7 +5,6 @@ use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
-use PortalCMS\Core\View;
 use PortalCMS\Core\User\UserMapper;
 
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";

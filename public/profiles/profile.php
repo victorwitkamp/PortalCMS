@@ -1,7 +1,6 @@
 <?php
 
 use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\View;
 use PortalCMS\Core\User\UserMapper;
 
 $pageName = 'Gebruikersprofiel weergeven';

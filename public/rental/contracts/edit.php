@@ -1,10 +1,10 @@
 <?php
 
-use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\View;
+use PortalCMS\Modules\Contracts\ContractMapper;
+use PortalCMS\Core\Authentication\Authentication;
 
 $loadData = true;
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";

@@ -1,8 +1,10 @@
 <?php
 
+namespace PortalCMS\Modules\Calendar;
+
 use PortalCMS\Core\Database\DB;
 
-class EventMapper
+class CalendarEventMapper
 {
     /**
      * Check if an Event ID exists

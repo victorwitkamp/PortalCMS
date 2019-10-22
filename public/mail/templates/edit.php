@@ -1,11 +1,12 @@
 <?php
 
-use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\View\Alert;
-use PortalCMS\Core\HTTP\Redirect;
-use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\View\Text;
-use PortalCMS\Core\View;
+use PortalCMS\Core\View\Alert;
+use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\Mail\Template\MailTemplateMapper;
+use PortalCMS\Core\Mail\Attachment\MailAttachmentMapper;
 
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Authentication::checkAuthentication();

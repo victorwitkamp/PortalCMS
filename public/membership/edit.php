@@ -3,7 +3,6 @@
 use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\View;
 use PortalCMS\Modules\Members\MemberModel;
 
 $pageName = 'Wijzigen';

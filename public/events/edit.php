@@ -1,10 +1,10 @@
 <?php
 
-use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\View;
+use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Modules\Calendar\CalendarEventMapper;
 
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 Authentication::checkAuthentication();
@@ -14,7 +14,7 @@ if (!Authentication::checkPrivilege("events")) {
 }
 require_once DIR_INCLUDES.'functions.php';
 
-if ($row = EventMapper::getById($_GET['id'])) {
+if ($row = CalendarEventMapper::getById($_GET['id'])) {
     $allowEdit = true;
     $pageName = 'Evenement '.$row ['title'].' bewerken';
 } else {

@@ -5,7 +5,6 @@ use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\Database\DB;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\View\Text;
-use PortalCMS\Core\View;
 
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
 $pageName = Text::get('TITLE_OVERVIEW');

@@ -7,7 +7,6 @@
 
 use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\View\Text;
-use PortalCMS\Core\View;
 use PortalCMS\Core\Config\SiteSetting;
 
 require $_SERVER["DOCUMENT_ROOT"]."/Init.php";

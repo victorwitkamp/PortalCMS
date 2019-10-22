@@ -1,21 +1,21 @@
 <?php
 
-namespace PortalCMS\Models;
+namespace PortalCMS\Modules\Calendar;
 
-use EventMapper;
 use PortalCMS\Core\Database\DB;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Session\Session;
+use PortalCMS\Modules\Calendar\CalendarEventMapper;
 
 /**
  * Class : Event (Event.php)
  * Details : Event Class.
  */
-class Event
+class CalendarEventModel
 {
     public static function loadCalendarEvents($startDate, $endDate)
     {
-        $result = EventMapper::getByDate($startDate, $endDate);
+        $result = CalendarEventMapper::getByDate($startDate, $endDate);
         if (!empty($result)) {
             foreach ($result as $row) {
                 if ($row['status'] === '1') {
@@ -45,7 +45,7 @@ class Event
     public static function loadComingEvents()
     {
         $now = date("Y-m-d H:i:s");
-        foreach (EventMapper::getEventsAfter($now) as $row) {
+        foreach (CalendarEventMapper::getEventsAfter($now) as $row) {
             $data[] = array(
                 'id'   => $row["id"],
                 'title'   => $row["title"],
@@ -62,7 +62,7 @@ class Event
     public static function loadMailEvents()
     {
         $now = date("Y-m-d H:i:s");
-        foreach (EventMapper::getEventsAfter($now) as $row) {
+        foreach (CalendarEventMapper::getEventsAfter($now) as $row) {
             $title = $row["title"];
             $start = $row["start_event"];
             $end = $row["end_event"];
@@ -94,7 +94,7 @@ class Event
             return false;
         }
         $CreatedBy = Session::get('user_id');
-        if (!EventMapper::new($title, $start_event, $end_event, $description, $CreatedBy)) {
+        if (!CalendarEventMapper::new($title, $start_event, $end_event, $description, $CreatedBy)) {
             Session::add('feedback_negative', 'Toevoegen van evenement mislukt.');
             return false;
         }
@@ -110,11 +110,11 @@ class Event
         $end_event = Request::post('end_event', true);
         $description = Request::post('description', true);
         $status = Request::post('status', true);
-        if (!EventMapper::exists($event_id)) {
+        if (!CalendarEventMapper::exists($event_id)) {
             Session::add('feedback_negative', 'Wijzigen van evenement mislukt.<br>Evenement bestaat niet.');
             return false;
         }
-        if (!EventMapper::update($event_id, $title, $start_event, $end_event, $description, $status)) {
+        if (!CalendarEventMapper::update($event_id, $title, $start_event, $end_event, $description, $status)) {
             Session::add('feedback_negative', 'Wijzigen van evenement mislukt.');
             return false;
         }
@@ -125,12 +125,12 @@ class Event
     public static function delete()
     {
         $id = Request::post('id', true);
-        $event = EventMapper::getById($id);
+        $event = CalendarEventMapper::getById($id);
         if (!$event) {
             Session::add('feedback_negative', 'Verwijderen van evenement mislukt. Evenement bestaat niet.');
             return false;
         }
-        if (EventMapper::delete($id)) {
+        if (CalendarEventMapper::delete($id)) {
             Session::add('feedback_positive', 'Evenement verwijderd.');
             return true;
         }

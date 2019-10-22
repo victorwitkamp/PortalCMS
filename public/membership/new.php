@@ -2,7 +2,6 @@
 
 use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\HTTP\Redirect;
-use PortalCMS\Core\View;
 
 $pageName = 'Lid toevoegen';
 $pageType = 'new';

@@ -11,7 +11,7 @@ if (!Authentication::checkPrivilege("events")) {
     Redirect::permissionError();
     die();
 }
-$row = EventMapper::getById($_GET['id']);
+$row = CalendarEventMapper::getById($_GET['id']);
 ?>
 
 <div class="row">

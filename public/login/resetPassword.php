@@ -3,7 +3,6 @@
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\View;
 use PortalCMS\Core\Config\SiteSetting;
 
 $pageName = 'Wachtwoord resetten';
