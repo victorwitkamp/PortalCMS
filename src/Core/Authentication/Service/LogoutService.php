@@ -28,6 +28,7 @@ class LogoutService
                         Session::init();
                         Session::add('feedback_positive', Text::get('FEEDBACK_LOGOUT_SUCCESSFUL'));
                         Redirect::login();
+                        return true;
                     }
                 }
             }
@@ -36,6 +37,7 @@ class LogoutService
                 Session::init();
                 Session::add('feedback_positive', Text::get('FEEDBACK_LOGOUT_INVALID'));
                 Redirect::login();
+                return false;
             }
         }
     }
