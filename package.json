@@ -14,14 +14,16 @@
     "@fullcalendar/list": "4.2.0",
     "bootstrap": "4.3.1",
     "bootswatch": "4",
-    "jquery": "3.4.0",
-    "moment": "2.24.0",
     "cookieconsent": "3.1.1",
-    "tempusdominus-bootstrap-4": "5.1.2",
     "datatables.net": "1.10.20",
-    "datatables.net-bs4": "1.10.20"
+    "datatables.net-bs4": "1.10.20",
+    "jquery": "3.4.0",
+    "jslint": "^0.12.1",
+    "moment": "2.24.0",
+    "tempusdominus-bootstrap-4": "5.1.2"
   },
   "devDependencies": {
+    "eslint": "^6.5.1",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
     "gulp-csso": "^3.0.1"

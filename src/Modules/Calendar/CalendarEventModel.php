@@ -37,7 +37,6 @@ class CalendarEventModel
             echo json_encode($data);
         } else {
             echo '{}';
-
         }
     }
 
