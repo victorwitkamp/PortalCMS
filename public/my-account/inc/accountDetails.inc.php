@@ -43,12 +43,12 @@ $user = UserMapper::getProfileById(Session::get('user_id'));
                 <tr>
                     <th width="20%"><?php echo Text::get('LABEL_USER_FBID'); ?></th><td><?php
                     if (!empty(Session::get('user_fbid'))) {
-                        echo Session::get('user_fbid').' ';
+                        echo Session::get('user_fbid') . ' ';
                         echo '<form method="post"><input type="submit" name="clearUserFbid" class="btn btn-outline-success user_registered-login" value="';
                         echo Text::get('LABEL_USER_CLEAR_FBID');
                         echo '"/></form>';
                     } else {
-                        echo '<a href="'.$loginUrl.'">Connect with Facebook!</a>';
+                        echo '<a href="' . $loginUrl . '">Connect with Facebook!</a>';
                     }
                     ?></td>
                 </tr>

@@ -31,7 +31,7 @@
 
             <td class="text-center" >
                 <?php
-                    echo '<input type="checkbox" name="id[]" id="checkbox" value="'.$row['id'].'"/>';
+                    echo '<input type="checkbox" name="id[]" id="checkbox" value="' . $row['id'] . '"/>';
                 ?>
             </td>
 
@@ -40,7 +40,7 @@
             <td><?php echo($row['recipient_email']) ?></td>
             <td><?php echo $row['subject']; ?></td>
             <?php if ($pageType === 'history') {
-                    echo '<td>'.$row['DateSent'].'</td>';
+                    echo '<td>' . $row['DateSent'] . '</td>';
                 } ?>
             <td>
                 <?php

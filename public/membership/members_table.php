@@ -22,13 +22,13 @@
             <span class="fa fa-edit"></span></a>
 
             <?php
-            $msg = 'Weet u zeker dat u '.$row['voornaam'].' '.$row['achternaam'].' wilt verwijderen?';
+            $msg = 'Weet u zeker dat u ' . $row['voornaam'] . ' ' . $row['achternaam'] . ' wilt verwijderen?';
             ?>
             <a href="index.php?action=delete&id=<?php echo $row['id']; ?>" title="Verwijderen" onclick="return confirm('<?php echo $msg; ?>')" class="btn btn-danger btn-sm"><span class="fa fa-trash"></span>
             </a>
 
             </td>
-            <td><?php echo $row['voornaam'].' '.$row['achternaam']; ?></td>
+            <td><?php echo $row['voornaam'] . ' ' . $row['achternaam']; ?></td>
             <td><?php echo $row['betalingswijze']; ?></td>
             <td><?php
 

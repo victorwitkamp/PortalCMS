@@ -5,22 +5,22 @@ use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\View\Text;
 
-require $_SERVER['DOCUMENT_ROOT'].'/Init.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_EVENTS');
 Authentication::checkAuthentication();
 if (!Authentication::checkPrivilege('events')) {
     Redirect::permissionError();
     die();
 }
-require_once DIR_INCLUDES.'functions.php';
-require_once DIR_INCLUDES.'head.php';
+require_once DIR_INCLUDES . 'functions.php';
+require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();
 PortalCMS_CSS_calendar();
 PortalCMS_JS_headJS();
 PortalCMS_JS_calendar(); ?>
 </head>
 <body>
-<?php require DIR_INCLUDES.'nav.php'; ?>
+<?php require DIR_INCLUDES . 'nav.php'; ?>
 <main>
     <div class="content">
         <div class="container">
@@ -48,7 +48,7 @@ PortalCMS_JS_calendar(); ?>
     </div>
 </main>
 
-<?php include DIR_INCLUDES.'footer.php'; ?>
+<?php include DIR_INCLUDES . 'footer.php'; ?>
 
 <div id="fullCalModal" class="modal fade">
     <div class="modal-dialog">

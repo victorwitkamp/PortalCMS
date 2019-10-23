@@ -98,8 +98,8 @@ class MailSender
         $mailTransport->Username = $this->config->SMTPUser;
         $mailTransport->Password = $this->config->SMTPPass;
         $mailTransport->SMTPDebug = $this->config->SMTPDebug;
-        $mailTransport->Debugoutput = function ($str, $level) {
-            file_put_contents(DIR_ROOT.'phpmailer.log', gmdate('Y-m-d H:i:s'). "\t$level\t$str\n", FILE_APPEND | LOCK_EX);
+        $mailTransport->Debugoutput = function($str, $level) {
+            file_put_contents(DIR_ROOT . 'phpmailer.log', gmdate('Y-m-d H:i:s') . "\t$level\t$str\n", FILE_APPEND | LOCK_EX);
         };
         $mailTransport->From = $this->config->fromEmail;
         $mailTransport->FromName = $this->config->fromName;

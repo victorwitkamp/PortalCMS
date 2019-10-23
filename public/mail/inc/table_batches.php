@@ -35,7 +35,7 @@ use PortalCMS\Core\Email\Batch\MailBatch;
 
             <td class="text-center" >
                 <?php
-                    echo '<input type="checkbox" name="id[]" id="checkbox" value="'.$row['id'].'"/>';
+                    echo '<input type="checkbox" name="id[]" id="checkbox" value="' . $row['id'] . '"/>';
                 ?>
             </td>
 
@@ -44,7 +44,7 @@ use PortalCMS\Core\Email\Batch\MailBatch;
                         <td><?php echo $row['UsedTemplate']; ?></td>
 
             <?php if ($pageType === 'history') {
-                    echo '<td>'.$row['DateSent'].'</td>';
+                    echo '<td>' . $row['DateSent'] . '</td>';
                 } ?>
             <td>
                 <?php
