@@ -16,10 +16,10 @@ class PDF
     public static function configPDF()
     {
         define('K_TCPDF_EXTERNAL_CONFIG', true);
-        define('K_PATH_MAIN', DIR_VENDOR.'tecnickcom/tcpdf/');
-        define('K_PATH_URL', DIR_VENDOR.'tecnickcom/tcpdf/');
-        define('K_PATH_FONTS', K_PATH_MAIN.'fonts/');
-        define('K_PATH_IMAGES', __DIR__ .'/../images/');
+        define('K_PATH_MAIN', DIR_VENDOR . 'tecnickcom/tcpdf/');
+        define('K_PATH_URL', DIR_VENDOR . 'tecnickcom/tcpdf/');
+        define('K_PATH_FONTS', K_PATH_MAIN . 'fonts/');
+        define('K_PATH_IMAGES', __DIR__ . '/../images/');
         define('PDF_HEADER_LOGO', 'logo.jpg');
         define('PDF_HEADER_LOGO_WIDTH', 30);
         define('K_PATH_CACHE', DIR_TEMP);
@@ -71,7 +71,7 @@ class PDF
 
     public static function createInvoice($pdf, $invoice, $invoiceitems, $contract)
     {
-        $pdf->SetTitle('Factuur '.$invoice['factuurnummer']);
+        $pdf->SetTitle('Factuur ' . $invoice['factuurnummer']);
         $pdf->SetXY(165, 15);
         // $logo = $_SERVER["DOCUMENT_ROOT"].'/rental/invoices/beuklogo_1866x1866.png';
         $pdf->Image('logo_new_280px.jpg', '', '', 25, 25, '', '', 'T', false, 300, '', false, false, 0, false, false, false);
@@ -81,16 +81,16 @@ class PDF
 
         $pdf->SetXY(20, 70);
         $pdf->SetFont('dejavusans', 'B', 11, '', true);
-        $pdf->Write(0, $contract['band_naam']."\n", '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Write(0, $contract['band_naam'] . "\n", '', 0, 'L', true, 0, false, false, 0);
         $pdf->SetFont('dejavusans', '', 11, '', true);
         $pdf->SetX(20);
-        $pdf->Write(0, 'T.a.v. '.$contract['bandleider_naam']."\n", '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Write(0, 'T.a.v. ' . $contract['bandleider_naam'] . "\n", '', 0, 'L', true, 0, false, false, 0);
         // $pdf->Ln();
         $pdf->SetX(20);
-        $pdf->Write(0, $contract['bandleider_adres']."\n", '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Write(0, $contract['bandleider_adres'] . "\n", '', 0, 'L', true, 0, false, false, 0);
         // $pdf->Ln();
         $pdf->SetX(20);
-        $postcodewoonplaats = $contract['bandleider_postcode']. ' ' .$contract['bandleider_woonplaats'];
+        $postcodewoonplaats = $contract['bandleider_postcode'] . ' ' . $contract['bandleider_woonplaats'];
         $pdf->Write(0, $postcodewoonplaats, '', 0, 'L', true, 0, false, false, 0);
 
         $pdf->SetXY(20, 110);
@@ -100,12 +100,12 @@ class PDF
 
         $pdf->SetXY(20, 120);
         $pdf->SetFont('dejavusans', '', 11, '', true);
-        $factuurnummertekst = 'Factuurnummer: '.$invoice['factuurnummer'];
+        $factuurnummertekst = 'Factuurnummer: ' . $invoice['factuurnummer'];
         $pdf->Write(0, $factuurnummertekst, '', 0, 'L', true, 0, false, false, 0);
 
         $pdf->SetXY(120, 120);
         $newDate = date('d-m-Y', strtotime($invoice['factuurdatum']));
-        $factuurtekstrechts = 'Factuurdatum: '.$newDate;
+        $factuurtekstrechts = 'Factuurdatum: ' . $newDate;
         // $factuurtekstrechts2 = 'Vervaldatum: '.$invoice['vervaldatum'];
         $pdf->Write(0, $factuurtekstrechts, '', 0, 'R', true, 0, false, false, 0);
         // $pdf->Ln();
@@ -138,13 +138,13 @@ class PDF
         $pdf->SetX(165);
         $pdf->Write(0, '€', '', 0, 'L', false, 0, false, false, 0);
         $pdf->SetX(150);
-        $pdf->Write(0, $totaalbedrag."\n\n\n", '', 0, 'R', false, 0, false, false, 0);
+        $pdf->Write(0, $totaalbedrag . "\n\n\n", '', 0, 'R', false, 0, false, false, 0);
 
         $pdf->SetX(20);
         $gelieve  = 'Wij verzoeken u het bedrag binnen 14 dagen over te maken naar NL19 RABO 1017';
         $gelieve2 = '5413 53 o.v.v. het factuurnummer t.n.v. Sociëteit de Beuk.';
 
-        $gelieve4 = 'Neem voor vragen over facturatie contact op met penningmeester@beukonline.nl.'."\n\n";
+        $gelieve4 = 'Neem voor vragen over facturatie contact op met penningmeester@beukonline.nl.' . "\n\n";
         $pdf->SetX(20);
         $pdf->Write(0, $gelieve, '', 0, '', true, 0, false, false, 0);
         $pdf->SetX(20);
@@ -152,7 +152,7 @@ class PDF
         $pdf->SetX(20);
         $pdf->Write(0, $gelieve4, '', 0, 'L', true, 0, false, false, 0);
         $pdf->SetX(20);
-        $pdf->Write(0, 'Met vriendelijke groet,'."\n", '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Write(0, 'Met vriendelijke groet,' . "\n", '', 0, 'L', true, 0, false, false, 0);
         $pdf->SetX(20);
         $pdf->Write(0, 'De penningmeester van Poppodium de Beuk.', '', 0, 'L', true, 0, false, false, 0);
         return $pdf;
@@ -163,7 +163,7 @@ class PDF
         $pdf = self::configPDF();
         $pdf = self::createInvoice($pdf, $invoice, $invoiceitems, $contract);
         // ob_end_clean();
-        $pdf->Output($invoice['factuurnummer'].'.pdf', 'I');
+        $pdf->Output($invoice['factuurnummer'] . '.pdf', 'I');
     }
 
     public static function writeInvoice($invoice, $invoiceitems, $contract)
@@ -171,13 +171,13 @@ class PDF
         $pdf = self::configPDF();
         $pdf = self::createInvoice($pdf, $invoice, $invoiceitems, $contract);
 
-        if (file_exists($_SERVER['DOCUMENT_ROOT'].'content/invoices/'.$invoice['factuurnummer'].'.pdf')) {
+        if (file_exists($_SERVER['DOCUMENT_ROOT'] . 'content/invoices/' . $invoice['factuurnummer'] . '.pdf')) {
             Session::add('feedback_negative', 'Bestand bestaat al.');
             return false;
         }
         // ob_end_clean();
-        $pdf->Output($_SERVER['DOCUMENT_ROOT'].'content/invoices/'.$invoice['factuurnummer'].'.pdf', 'F');
-        if (file_exists($_SERVER['DOCUMENT_ROOT'].'content/invoices/'.$invoice['factuurnummer'].'.pdf')) {
+        $pdf->Output($_SERVER['DOCUMENT_ROOT'] . 'content/invoices/' . $invoice['factuurnummer'] . '.pdf', 'F');
+        if (file_exists($_SERVER['DOCUMENT_ROOT'] . 'content/invoices/' . $invoice['factuurnummer'] . '.pdf')) {
             return true;
         }
         return false;

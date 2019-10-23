@@ -6,21 +6,21 @@ use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Core\Activity\Activity;
 
-require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_RECENT_ACTIVITY');
 Authentication::checkAuthentication();
 if (!Authentication::checkPrivilege('recent-activity')) {
     Redirect::permissionError();
     die();
 }
-require DIR_ROOT.'includes/functions.php';
-require DIR_ROOT.'includes/head.php';
+require DIR_ROOT . 'includes/functions.php';
+require DIR_ROOT . 'includes/head.php';
 displayHeadCSS();
 PortalCMS_JS_headJS();
 ?>
 </head>
 <body>
-<?php require DIR_ROOT.'includes/nav.php'; ?>
+<?php require DIR_ROOT . 'includes/nav.php'; ?>
 <main>
     <div class="content">
         <div class="container">
@@ -62,6 +62,6 @@ PortalCMS_JS_headJS();
         </div>
     </div>
 </main>
-<?php include DIR_INCLUDES.'footer.php'; ?>
+<?php include DIR_INCLUDES . 'footer.php'; ?>
 </body>
 </html>

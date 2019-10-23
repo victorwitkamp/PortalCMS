@@ -85,8 +85,8 @@ class SiteSetting
         if (!self::validateImageFile()) {
             return false;
         }
-        $target_file_path = Config::get('PATH_LOGO').'logo';
-        $target_file_path_public = Config::get('URL').Config::get('PATH_LOGO_PUBLIC').'logo';
+        $target_file_path = Config::get('PATH_LOGO') . 'logo';
+        $target_file_path_public = Config::get('URL') . Config::get('PATH_LOGO_PUBLIC') . 'logo';
         self::resizeLogo(
             $_FILES['logo_file']['tmp_name'],
             $target_file_path,
@@ -94,7 +94,7 @@ class SiteSetting
             Config::get('AVATAR_SIZE'),
             Config::get('AVATAR_JPEG_QUALITY')
         );
-        self::writeLogoToDatabase($target_file_path_public.'.jpg');
+        self::writeLogoToDatabase($target_file_path_public . '.jpg');
         return true;
     }
 
@@ -107,11 +107,11 @@ class SiteSetting
     {
         $path_logo = Config::get('PATH_LOGO');
         if (!is_dir(Config::get('PATH_LOGO'))) {
-            Session::add('feedback_negative', 'Directory '.$path_logo.' doesnt exist');
+            Session::add('feedback_negative', 'Directory ' . $path_logo . ' doesnt exist');
             return false;
         }
         if (!is_writable(Config::get('PATH_LOGO'))) {
-            Session::add('feedback_negative', 'Directory '.$path_logo.' is not writeable');
+            Session::add('feedback_negative', 'Directory ' . $path_logo . ' is not writeable');
             return false;
         }
         //Session::add('feedback_positive', 'Directory '.$path_logo.' exists and is writeable');

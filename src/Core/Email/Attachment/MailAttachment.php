@@ -42,12 +42,12 @@ class MailAttachment
         if (!self::validateAttachmentFile()) {
             return false;
         }
-        $target_file_path = Config::get('PATH_ATTACHMENTS').$_FILES['attachment_file']['name'];
+        $target_file_path = Config::get('PATH_ATTACHMENTS') . $_FILES['attachment_file']['name'];
         move_uploaded_file($_FILES['attachment_file']['tmp_name'], $target_file_path);
         $name = pathinfo($_FILES['attachment_file']['name'], PATHINFO_FILENAME);
         $ext = pathinfo($_FILES['attachment_file']['name'], PATHINFO_EXTENSION);
         $mime = self::getMIMEType($target_file_path);
-        MailAttachmentMapper::createForTemplate(Request::get('id'), Config::get('PATH_ATTACHMENTS_PUBLIC'), $name, '.'.$ext, 'base64', $mime);
+        MailAttachmentMapper::createForTemplate(Request::get('id'), Config::get('PATH_ATTACHMENTS_PUBLIC'), $name, '.' . $ext, 'base64', $mime);
         return true;
     }
 
@@ -60,11 +60,11 @@ class MailAttachment
     {
         $path_attachment = Config::get('PATH_ATTACHMENTS');
         if (!is_dir(Config::get('PATH_ATTACHMENTS'))) {
-            Session::add('feedback_negative', 'Directory '.$path_attachment.' doesnt exist');
+            Session::add('feedback_negative', 'Directory ' . $path_attachment . ' doesnt exist');
             return false;
         }
         if (!is_writable(Config::get('PATH_ATTACHMENTS'))) {
-            Session::add('feedback_negative', 'Directory '.$path_attachment.' is not writeable');
+            Session::add('feedback_negative', 'Directory ' . $path_attachment . ' is not writeable');
             return false;
         }
         return true;
@@ -116,10 +116,10 @@ class MailAttachment
             }
         }
         if (!$deleted > 0) {
-            Session::add('feedback_negative', 'Verwijderen mislukt. Aantal berichten met problemen: ' .$error);
+            Session::add('feedback_negative', 'Verwijderen mislukt. Aantal berichten met problemen: ' . $error);
             return false;
         }
-        Session::add('feedback_positive', 'Er zijn ' .$deleted. ' berichten verwijderd.');
-        Redirect::to('mail/templates/edit.php?id='.$mailid);
+        Session::add('feedback_positive', 'Er zijn ' . $deleted . ' berichten verwijderd.');
+        Redirect::to('mail/templates/edit.php?id=' . $mailid);
     }
 }

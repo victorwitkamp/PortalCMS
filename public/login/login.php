@@ -5,12 +5,12 @@ use PortalCMS\Core\Config\Config;
 use PortalCMS\Core\View\Popup;
 use PortalCMS\Core\Config\SiteSetting;
 
-require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 
 $pageName = 'Login';
-require_once DIR_INCLUDES.'functions.php';
-require_once DIR_INCLUDES.'head.php';
-require $_SERVER['DOCUMENT_ROOT']. '/login/ext/fb/config.php';
+require_once DIR_INCLUDES . 'functions.php';
+require_once DIR_INCLUDES . 'head.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/login/ext/fb/config.php';
 $helper = $fb->getRedirectLoginHelper();
 $permissions = ['email']; // Optional permissions
 $loginUrl = $helper->getLoginUrl(Config::get('FB_LOGIN_URL'), $permissions);
@@ -23,7 +23,7 @@ PortalCMS_CSS_floatingLabels();
 <?php PortalCMS_JS_headJS(); ?>
 </head>
 <body class='bg'>
-    <?php require DIR_INCLUDES.'loadingAnimation.php'; ?>
+    <?php require DIR_INCLUDES . 'loadingAnimation.php'; ?>
     <nav class="navbar navbar-light bg-light">
       <a class="navbar-brand" href="<?php echo SiteSetting::getStaticSiteSetting('site_url'); ?>"><?php echo SiteSetting::getStaticSiteSetting('site_name'); ?></a>
     </nav>

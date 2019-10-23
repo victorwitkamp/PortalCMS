@@ -6,21 +6,21 @@ use PortalCMS\Core\Database\DB;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Authentication\Authentication;
 
-require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_USER_MANAGEMENT');
 Authentication::checkAuthentication();
 if (!Authentication::checkPrivilege('user-management')) {
     Redirect::permissionError();
     die();
 }
-require DIR_ROOT.'includes/functions.php';
-require DIR_ROOT.'includes/head.php';
+require DIR_ROOT . 'includes/functions.php';
+require DIR_ROOT . 'includes/head.php';
 displayHeadCSS();
 PortalCMS_JS_headJS();
 ?>
 </head>
 <body>
-<?php require DIR_ROOT.'includes/nav.php'; ?>
+<?php require DIR_ROOT . 'includes/nav.php'; ?>
 
 <main>
     <div class="content">
@@ -51,12 +51,12 @@ PortalCMS_JS_headJS();
                         echo '<tbody>';
                         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                             echo '<tr>
-                            <td>'.$row['user_id'].'</td>
-                            <td>'.$row['user_name'].'</td>
-                            <td>'.$row['user_email'].'</td>
-                            <td>'.$row['user_last_login_timestamp'].'</td>
+                            <td>'.$row['user_id'] . '</td>
+                            <td>'.$row['user_name'] . '</td>
+                            <td>'.$row['user_email'] . '</td>
+                            <td>'.$row['user_last_login_timestamp'] . '</td>
                             <td>
-                            <a href="profile.php?id='.$row['user_id'].'" title="Profiel weergeven" class="btn btn-primary btn-sm"><span class="fa fa-user"></span></a>
+                            <a href="profile.php?id='.$row['user_id'] . '" title="Profiel weergeven" class="btn btn-primary btn-sm"><span class="fa fa-user"></span></a>
                             </td>
                             </tr>
                             ';
@@ -70,6 +70,6 @@ PortalCMS_JS_headJS();
         </div>
     </div>
 </main>
-<?php include DIR_INCLUDES.'footer.php'; ?>
+<?php include DIR_INCLUDES . 'footer.php'; ?>
 </body>
 </html>

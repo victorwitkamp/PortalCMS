@@ -25,7 +25,7 @@ class Redirect
     {
         // header('location: https://'.$_SERVER['HTTP_HOST'].'/'.$path);
 
-        header('location: '.Config::get('URL').$path);
+        header('location: ' . Config::get('URL') . $path);
     }
 
     public static function login()
@@ -83,6 +83,6 @@ class Redirect
      */
     public static function to($path)
     {
-        header('location: ' .Config::get('URL').$path);
+        header('location: ' . Config::get('URL') . $path);
     }
 }

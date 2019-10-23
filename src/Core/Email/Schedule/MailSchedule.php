@@ -33,10 +33,10 @@ class MailSchedule
             }
         }
         if (!$deleted > 0) {
-            Session::add('feedback_negative', 'Verwijderen mislukt. Aantal berichten met problemen: ' .$error);
+            Session::add('feedback_negative', 'Verwijderen mislukt. Aantal berichten met problemen: ' . $error);
             return false;
         }
-        Session::add('feedback_positive', 'Er zijn ' .$deleted. ' berichten verwijderd.');
+        Session::add('feedback_positive', 'Er zijn ' . $deleted . ' berichten verwijderd.');
         Redirect::mail();
     }
 
@@ -80,15 +80,15 @@ class MailSchedule
         }
         if ($count_failed > 0) {
             if ($count_success > 0) {
-                Session::add('feedback_warning', $count_success.' bericht(en) succesvol verstuurd. '.$count_failed.' bericht(en) mislukt.');
+                Session::add('feedback_warning', $count_success . ' bericht(en) succesvol verstuurd. ' . $count_failed . ' bericht(en) mislukt.');
             } else {
-                Session::add('feedback_negative', $count_failed.' berichte(n) mislukt.');
+                Session::add('feedback_negative', $count_failed . ' berichte(n) mislukt.');
             }
         } else {
-            Session::add('feedback_positive', $count_success.' bericht(en) succesvol verstuurd. ');
+            Session::add('feedback_positive', $count_success . ' bericht(en) succesvol verstuurd. ');
         }
         if ($count_already_sent > 0) {
-            Session::add('feedback_positive', $count_already_sent.' bericht(en) reeds verstuurd. ');
+            Session::add('feedback_positive', $count_already_sent . ' bericht(en) reeds verstuurd. ');
         }
         Redirect::mail();
     }
@@ -113,7 +113,7 @@ class MailSchedule
                     } else {
                         $count_created += 1;
                         $mailid = MailScheduleMapper::lastInsertedId();
-                        $memberFullname = $member['voornaam'].' '.$member['achternaam'];
+                        $memberFullname = $member['voornaam'] . ' ' . $member['achternaam'];
                         MailRecipientMapper::create($member['emailadres'], $mailid, 1, $memberFullname);
 
                         $templateAttachments = MailAttachmentMapper::getByTemplateId($templateId);
@@ -125,10 +125,10 @@ class MailSchedule
                     }
                 }
                 if ($count_failed === 0) {
-                    Session::add('feedback_positive', 'Totaal aantal berichten aangemaakt:' .$count_created);
+                    Session::add('feedback_positive', 'Totaal aantal berichten aangemaakt:' . $count_created);
                     Redirect::mail();
                 } else {
-                    Session::add('feedback_warning', 'Totaal aantal berichten aangemaakt: ' .$count_created. '. Berichten met fout: ' .$count_failed);
+                    Session::add('feedback_warning', 'Totaal aantal berichten aangemaakt: ' . $count_created . '. Berichten met fout: ' . $count_failed);
                     Redirect::mail();
                 }
             }
@@ -146,7 +146,7 @@ class MailSchedule
             'afzender' => $afzender
         );
         foreach ($variables as $key => $value) {
-            $templatebody = str_replace('{'.strtoupper($key).'}', $value, $templatebody);
+            $templatebody = str_replace('{' . strtoupper($key) . '}', $value, $templatebody);
         }
         return $templatebody;
     }
@@ -162,7 +162,7 @@ class MailSchedule
             return false;
         }
         $created = MailScheduleMapper::lastInsertedId();
-        Session::add('feedback_positive', 'Email toegevoegd (ID = ' .$created.')');
+        Session::add('feedback_positive', 'Email toegevoegd (ID = ' . $created . ')');
         Redirect::invoices();
         return true;
     }

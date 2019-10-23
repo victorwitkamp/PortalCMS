@@ -1,15 +1,15 @@
 <?php
 
 $pageName = 'Geen toegang';
-require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
-require DIR_ROOT.'includes/functions.php';
-require_once DIR_INCLUDES.'head.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
+require DIR_ROOT . 'includes/functions.php';
+require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();
 PortalCMS_JS_headJS();
 ?>
 </head>
 <body>
-<?php require DIR_INCLUDES.'nav.php'; ?>
+<?php require DIR_INCLUDES . 'nav.php'; ?>
 <main>
     <div class="content">
         <div class="container">
@@ -21,7 +21,7 @@ PortalCMS_JS_headJS();
         </div>
     </div>
 </main>
-<?php include DIR_INCLUDES.'footer.php'; ?>
+<?php include DIR_INCLUDES . 'footer.php'; ?>
 <script>
 function goBack() {
     window.history.back();

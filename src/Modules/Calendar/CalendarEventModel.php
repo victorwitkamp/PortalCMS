@@ -67,7 +67,7 @@ class CalendarEventModel
             $end = $row['end_event'];
             $description = $row['description'];
             $returndata = '';
-            $returndata .= '<strong>Naam evenement: '.$title.'</strong><br>Start: '.$start.'<br>Einde: '.$end.'<br><strong>Beschrijving</strong> '.$description.'<br>';
+            $returndata .= '<strong>Naam evenement: ' . $title . '</strong><br>Start: ' . $start . '<br>Einde: ' . $end . '<br><strong>Beschrijving</strong> ' . $description . '<br>';
         }
         if (!empty($returndata)) {
             return $returndata;

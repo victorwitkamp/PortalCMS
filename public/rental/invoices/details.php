@@ -9,27 +9,27 @@ use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Modules\Invoices\InvoiceItemMapper;
 
 $pageName = 'Factuur';
-require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();
 if (!Authentication::checkPrivilege('rental-invoices')) {
     Redirect::permissionError();
     die();
 }
-require DIR_ROOT.'includes/functions.php';
+require DIR_ROOT . 'includes/functions.php';
 
 if ($invoice = InvoiceMapper::getById($_GET['id'])) {
-    $pageName = 'Factuur: '.$invoice['factuurnummer'];
+    $pageName = 'Factuur: ' . $invoice['factuurnummer'];
 } else {
     Session::add('feedback_negative', 'Geen resultaten voor opgegeven factuur ID.');
     // Redirect::error();
 }
-require DIR_ROOT.'includes/head.php';
+require DIR_ROOT . 'includes/head.php';
 displayHeadCSS();
 PortalCMS_JS_headJS(); ?>
 </head>
 <body>
 
-<?php require DIR_ROOT.'includes/nav.php'; ?>
+<?php require DIR_ROOT . 'includes/nav.php'; ?>
 <main>
     <div class="content">
         <div class="container">
@@ -41,7 +41,7 @@ PortalCMS_JS_headJS(); ?>
 
             <form method="post">
             <a href="index.php" class="btn btn-sm btn-primary"><span class="fa fa-arrow-left"></span></a>
-            <?php $msg = 'Weet u zeker dat u factuur met nummer ' .$invoice['factuurnummer']. ' wilt verwijderen?'; ?>
+            <?php $msg = 'Weet u zeker dat u factuur met nummer ' . $invoice['factuurnummer'] . ' wilt verwijderen?'; ?>
                 <input type="hidden" name="id" value="<?php echo $invoice['id']; ?>">
                 <button type="submit" name="deleteInvoice" class="btn btn-danger btn-sm" title="Verwijderen" onclick="return confirm('<?php echo $msg; ?>')">
                     <span class="fa fa-trash"></span>
@@ -113,7 +113,7 @@ PortalCMS_JS_headJS(); ?>
                     <?php echo $invoiceitem['name']; ?>
                     </td>
                     <td>
-                    <?php echo '&euro; '.$invoiceitem['price']; ?>
+                    <?php echo '&euro; ' . $invoiceitem['price']; ?>
                     </td>
                 </tr>
                 <?php
@@ -144,6 +144,6 @@ PortalCMS_JS_headJS(); ?>
         </div>
     </div>
 </main>
-<?php include DIR_INCLUDES.'footer.php'; ?>
+<?php include DIR_INCLUDES . 'footer.php'; ?>
 </body>
 </html>

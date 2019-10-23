@@ -5,22 +5,22 @@ use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\View\Text;
 
-require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_SITE_SETTINGS');
 Authentication::checkAuthentication();
 if (!Authentication::checkPrivilege('site-settings')) {
     Redirect::permissionError();
     die();
 }
-require DIR_ROOT.'includes/functions.php';
-require DIR_ROOT.'includes/head.php';
+require DIR_ROOT . 'includes/functions.php';
+require DIR_ROOT . 'includes/head.php';
 displayHeadCSS();
 PortalCMS_JS_headJS();
 ?>
 
 </head>
 <body>
-<?php require DIR_ROOT.'includes/nav.php'; ?>
+<?php require DIR_ROOT . 'includes/nav.php'; ?>
 
 <main>
     <div class="content">
@@ -44,6 +44,6 @@ PortalCMS_JS_headJS();
         </div>
     </div>
 </main>
-<?php include DIR_INCLUDES.'footer.php'; ?>
+<?php include DIR_INCLUDES . 'footer.php'; ?>
 </body>
 </html>

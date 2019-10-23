@@ -7,15 +7,15 @@ use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
 
 $pageType = 'history';
-require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_MAIL_HISTORY');
 Authentication::checkAuthentication();
 if (!Authentication::checkPrivilege('mail-scheduler')) {
     Redirect::permissionError();
     die();
 }
-require_once DIR_INCLUDES.'functions.php';
-require_once DIR_INCLUDES.'head.php';
+require_once DIR_INCLUDES . 'functions.php';
+require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();
 PortalCMS_CSS_dataTables();
 PortalCMS_JS_headJS();
@@ -23,7 +23,7 @@ PortalCMS_JS_dataTables();
 ?>
 </head>
 <body>
-<?php require DIR_INCLUDES.'nav.php'; ?>
+<?php require DIR_INCLUDES . 'nav.php'; ?>
 <main>
     <div class="content">
         <div class="container">
@@ -51,5 +51,5 @@ PortalCMS_JS_dataTables();
         </div>
     </div>
 </main>
-<?php include DIR_INCLUDES.'footer.php'; ?>
+<?php include DIR_INCLUDES . 'footer.php'; ?>
 </body>

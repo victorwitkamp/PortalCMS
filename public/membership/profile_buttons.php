@@ -8,4 +8,4 @@ echo '<a href="edit.php?id=' . $row['id'] . '" class="btn btn-sm btn-warning"><s
 echo '<a href="index.php?action=delete&id='
 . $row['id']
 . '" onclick="return confirm("Weet je zeker dat je '
-. $row['voornaam']. ' ' .$row['achternaam']. ' wilt verwijderen?")" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></a>';
+. $row['voornaam'] . ' ' . $row['achternaam'] . ' wilt verwijderen?")" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></a>';

@@ -7,7 +7,7 @@ use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Core\User\UserMapper;
 
-require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_PROFILE');
 Authentication::checkAuthentication();
 if (!Authentication::checkPrivilege('user-management')) {
@@ -19,15 +19,15 @@ if (!$row) {
     Session::add('feedback_negative', 'De gebruiker bestaat niet.');
     Redirect::error();
 } else {
-    $pageName = Text::get('TITLE_PROFILE').$row['user_name'];
+    $pageName = Text::get('TITLE_PROFILE') . $row['user_name'];
 }
-require DIR_ROOT.'includes/functions.php';
-require DIR_ROOT.'includes/head.php';
+require DIR_ROOT . 'includes/functions.php';
+require DIR_ROOT . 'includes/head.php';
 displayHeadCSS();
 PortalCMS_JS_headJS(); ?>
 </head>
 <body>
-<?php require DIR_ROOT.'includes/nav.php'; ?>
+<?php require DIR_ROOT . 'includes/nav.php'; ?>
 <main>
     <div class="content">
         <div class="container">
@@ -47,6 +47,6 @@ PortalCMS_JS_headJS(); ?>
         </div>
     </div>
 </main>
-<?php include DIR_INCLUDES.'footer.php'; ?>
+<?php include DIR_INCLUDES . 'footer.php'; ?>
 </body>
 </html>

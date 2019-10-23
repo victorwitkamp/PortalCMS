@@ -86,7 +86,7 @@ use PortalCMS\Modules\Invoices\InvoiceModel;
             <?php } ?>
             <?php if ($invoice['status'] === '2') { ?>
                 <form method="post">
-                    <a href="<?php echo Config::get('URL').'mail/details.php?id='.$invoice['mail_id']; ?>">Mail openen</a>
+                    <a href="<?php echo Config::get('URL') . 'mail/details.php?id=' . $invoice['mail_id']; ?>">Mail openen</a>
                 </form>
             <?php } ?>
             </td>

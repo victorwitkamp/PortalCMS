@@ -7,14 +7,14 @@ use PortalCMS\Modules\Contracts\ContractMapper;
 use PortalCMS\Core\Authentication\Authentication;
 
 $pageName = 'Factuur toevoegen';
-require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();
 if (!Authentication::checkPrivilege('rental-invoices')) {
     Redirect::permissionError();
     die();
 }
-require_once DIR_INCLUDES.'functions.php';
-require_once DIR_INCLUDES.'head.php';
+require_once DIR_INCLUDES . 'functions.php';
+require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();
 
 PortalCMS_JS_headJS();
@@ -22,7 +22,7 @@ PortalCMS_JS_headJS();
 PortalCMS_JS_JQuery_Simple_validator(); ?>
 </head>
 <body>
-    <?php require DIR_INCLUDES.'nav.php'; ?>
+    <?php require DIR_INCLUDES . 'nav.php'; ?>
     <main>
         <div class="content">
             <div class="container">
@@ -48,8 +48,8 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
                         <div class="col-sm-10">
                             <!-- <select name="contract_id" class="form-control"> -->
                                 <?php foreach (ContractMapper::get() as $row) : ?>
-                                    <!-- <option value="<?php echo $row['id']; ?>"><?php echo $row['bandcode'].': '.$row['band_naam']; ?></option> -->
-                                    <input type="checkbox" name='contract_id[]' value="<?php echo $row['id']; ?>"><?php echo $row['bandcode'].': '.$row['band_naam']; ?><br/>
+                                    <!-- <option value="<?php echo $row['id']; ?>"><?php echo $row['bandcode'] . ': ' . $row['band_naam']; ?></option> -->
+                                    <input type="checkbox" name='contract_id[]' value="<?php echo $row['id']; ?>"><?php echo $row['bandcode'] . ': ' . $row['band_naam']; ?><br/>
                                 <?php endforeach ?>
                             <!-- </select> -->
                         </div>
@@ -97,7 +97,7 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
 
         </div>
     </main>
-    <?php include DIR_INCLUDES.'footer.php'; ?>
+    <?php include DIR_INCLUDES . 'footer.php'; ?>
 </body>
 
 </html>

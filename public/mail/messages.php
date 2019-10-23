@@ -76,5 +76,5 @@ PortalCMS_JS_dataTables();
             </div>
         </div>
     </main>
-    <?php include DIR_INCLUDES.'footer.php'; ?>
+    <?php include DIR_INCLUDES . 'footer.php'; ?>
 </body>

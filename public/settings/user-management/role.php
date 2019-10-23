@@ -9,15 +9,15 @@ use PortalCMS\Core\Authorization\Role;
 use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\Authorization\RolePermissionMapper;
 
-require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_ROLE');
 Authentication::checkAuthentication();
 if (!Authentication::checkPrivilege('user-management')) {
     Redirect::permissionError();
     die();
 }
-require DIR_ROOT.'includes/functions.php';
-require DIR_ROOT.'includes/head.php';
+require DIR_ROOT . 'includes/functions.php';
+require DIR_ROOT . 'includes/head.php';
 displayHeadCSS();
 PortalCMS_JS_headJS();
 
@@ -30,14 +30,14 @@ if (!$Role) {
 ?>
 </head>
 <body>
-    <?php require DIR_ROOT.'includes/nav.php'; ?>
+    <?php require DIR_ROOT . 'includes/nav.php'; ?>
     <main>
         <div class="content">
             <div class="container">
                 <div class="row mt-5">
                     <h1><?php echo Text::get('TITLE_ROLE'); ?>: <?php
                     if (!empty($Role['role_name'])) {
-                        echo $Role['role_name'].' (rol)';
+                        echo $Role['role_name'] . ' (rol)';
                     }?></h1>
                 </div>
 
@@ -90,7 +90,7 @@ if (!$Role) {
                                                                 <input type="hidden" name="role_id" value="<?php echo $_GET['role_id']; ?>">
                                                                 <input type="hidden" name="perm_id" value="<?php echo $Permission['perm_id']; ?>">
                                                                             <?php
-                                                                            $msg = 'Weet u zeker dat u '.$Permission['perm_desc'].' wilt verwijderen?'; ?>
+                                                                            $msg = 'Weet u zeker dat u ' . $Permission['perm_desc'] . ' wilt verwijderen?'; ?>
 
                                                                 <button type="submit" name="deleterolepermission" onclick="return confirm('<?php echo $msg; ?>')" class="btn btn-danger ml-2"><span class="fa fa-trash"></span></button>
                                                             </form>
@@ -153,7 +153,7 @@ if (!$Role) {
             </div>
         </div>
     </main>
-    <?php include DIR_INCLUDES.'footer.php'; ?>
+    <?php include DIR_INCLUDES . 'footer.php'; ?>
 </body>
 
 </html>

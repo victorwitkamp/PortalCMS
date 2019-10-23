@@ -14,7 +14,7 @@ ini_set('ignore_repeated_errors', 0);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 ini_set('log_errors', 1);
-ini_set('error_log', $_SERVER['DOCUMENT_ROOT'].'/errors.log');
+ini_set('error_log', $_SERVER['DOCUMENT_ROOT'] . '/errors.log');
 ini_set('log_errors_max_len', 1024);
 
 /**
@@ -32,21 +32,21 @@ ini_set('session.use_strict_mode', 1);
 /**
  * Configuration for: Named constants
  */
-define('DIR_ROOT', $_SERVER['DOCUMENT_ROOT']. '/');
-define('DIR_INCLUDES', DIR_ROOT. 'includes/');
-define('DIR_VENDOR', DIR_ROOT. '../vendor/');
-define('DIR_TEMP', DIR_ROOT. 'content/temp/');
+define('DIR_ROOT', $_SERVER['DOCUMENT_ROOT'] . '/');
+define('DIR_INCLUDES', DIR_ROOT . 'includes/');
+define('DIR_VENDOR', DIR_ROOT . '../vendor/');
+define('DIR_TEMP', DIR_ROOT . 'content/temp/');
 if (!file_exists(DIR_TEMP)) {
     if (!mkdir($concurrentDirectory = DIR_TEMP, 0777, true) && !is_dir($concurrentDirectory)) {
         throw new RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
     }
 }
 
-if (!file_exists(DIR_VENDOR.'autoload.php')) {
+if (!file_exists(DIR_VENDOR . 'autoload.php')) {
     echo 'No autoloader found in the "vendor" directory. Run "composer update" to get started.';
     die;
 } else {
-    include_once DIR_VENDOR.'autoload.php';
+    include_once DIR_VENDOR . 'autoload.php';
 }
 
 $AccountController = new PortalCMS\Controllers\AccountController();
