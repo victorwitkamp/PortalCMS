@@ -1,8 +1,7 @@
-/*global FullCalendar, moment*/
-/*jslint browser */
+/*global FullCalendar, moment, $*/
+/*jslint browser*/
 
 document.addEventListener("DOMContentLoaded", function () {
-
     "use strict";
     var calendarEl = document.getElementById("calendar");
     var calendar = new FullCalendar.Calendar(calendarEl, {
