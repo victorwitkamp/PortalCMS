@@ -6,14 +6,14 @@ use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
 
 $pageName = 'Evenement toevoegen';
-require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();
 if (!Authentication::checkPrivilege('events')) {
     Redirect::permissionError();
     die();
 }
-require_once DIR_INCLUDES.'functions.php';
-require_once DIR_INCLUDES.'head.php';
+require_once DIR_INCLUDES . 'functions.php';
+require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();
 PortalCMS_CSS_tempusdominus();
 PortalCMS_JS_headJS();
@@ -22,7 +22,7 @@ PortalCMS_JS_Datepicker_event();
 PortalCMS_JS_JQuery_Simple_validator(); ?>
 </head>
 <body>
-    <?php require DIR_INCLUDES.'nav.php'; ?>
+    <?php require DIR_INCLUDES . 'nav.php'; ?>
     <main>
         <div class="content">
             <div class="container">
@@ -86,7 +86,7 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
 
         </div>
     </main>
-    <?php include DIR_INCLUDES.'footer.php'; ?>
+    <?php include DIR_INCLUDES . 'footer.php'; ?>
 </body>
 
 </html>

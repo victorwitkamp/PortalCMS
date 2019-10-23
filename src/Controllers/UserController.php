@@ -34,7 +34,7 @@ class UserController extends Controller
         }
         if (UserRoleMapper::assign($user_id, $role_id)) {
             Session::add('feedback_positive', 'Rol toegewezen.');
-            Redirect::to('settings/user-management/profile.php?id='.$user_id);
+            Redirect::to('settings/user-management/profile.php?id=' . $user_id);
             return true;
         }
         Session::add('feedback_negative', 'Fout bij toewijzen van rol.');
@@ -51,7 +51,7 @@ class UserController extends Controller
         }
         if (UserRoleMapper::unassign($user_id, $role_id)) {
             Session::add('feedback_positive', 'Rol voor gebruiker verwijderd.');
-            Redirect::to('settings/user-management/profile.php?id='.$user_id);
+            Redirect::to('settings/user-management/profile.php?id=' . $user_id);
             return true;
         }
         Session::add('feedback_negative', 'Fout bij verwijderen van rol voor gebruiker.');

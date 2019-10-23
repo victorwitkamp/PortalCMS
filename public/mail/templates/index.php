@@ -6,21 +6,21 @@ use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\Email\Template\MailTemplateMapper;
 
-require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_MAIL_TEMPLATES');
 Authentication::checkAuthentication();
 if (!Authentication::checkPrivilege('mail-templates')) {
     Redirect::permissionError();
     die();
 }
-require_once DIR_INCLUDES.'functions.php';
-require_once DIR_INCLUDES.'head.php';
+require_once DIR_INCLUDES . 'functions.php';
+require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();
 PortalCMS_JS_headJS(); ?>
 
 </head>
 <body>
-<?php require DIR_INCLUDES.'nav.php'; ?>
+<?php require DIR_INCLUDES . 'nav.php'; ?>
 <main>
     <div class="content">
         <div class="container">
@@ -47,12 +47,12 @@ PortalCMS_JS_headJS(); ?>
                     <?php
                     foreach (MailTemplateMapper::getTemplates() as $row) {
                         echo '<tr>';
-                        echo '<td><a href="edit.php?id='.$row['id'].'" title="Gegevens wijzigen" class="btn btn-warning btn-sm">
+                        echo '<td><a href="edit.php?id=' . $row['id'] . '" title="Gegevens wijzigen" class="btn btn-warning btn-sm">
             <span class="fa fa-edit"></span></a></td>';
-                        echo '<td>'.$row['id'].'</td>';
-                        echo '<td>'.$row['name'].'</td>';
-                        echo '<td>'.$row['type'].'</td>';
-                        echo '<td>'.$row['subject'].'</td>';
+                        echo '<td>' . $row['id'] . '</td>';
+                        echo '<td>' . $row['name'] . '</td>';
+                        echo '<td>' . $row['type'] . '</td>';
+                        echo '<td>' . $row['subject'] . '</td>';
                         // echo '<td>'.$row['body'].'</td><tr>';
                     }
                     ?>
@@ -62,6 +62,6 @@ PortalCMS_JS_headJS(); ?>
         </div>
     </div>
 </main>
-<?php include DIR_INCLUDES.'footer.php'; ?>
+<?php include DIR_INCLUDES . 'footer.php'; ?>
 </body>
 </html>

@@ -15,7 +15,7 @@ class View
      */
     public static function renderFooter()
     {
-        include DIR_INCLUDES.'footer.php';
+        include DIR_INCLUDES . 'footer.php';
     }
 
     /**

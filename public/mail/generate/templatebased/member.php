@@ -6,20 +6,20 @@ use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Modules\Members\MemberModel;
 
 $pageName = 'Nieuw bericht';
-require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();
 if (!Authentication::checkPrivilege('mail-scheduler')) {
     Redirect::permissionError();
     die();
 }
-require_once DIR_INCLUDES.'functions.php';
-require_once DIR_INCLUDES.'head.php';
+require_once DIR_INCLUDES . 'functions.php';
+require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();
 PortalCMS_JS_headJS(); ?>
 
 </head>
 <body>
-<?php require DIR_INCLUDES.'nav.php'; ?>
+<?php require DIR_INCLUDES . 'nav.php'; ?>
 <main>
     <div class="content">
         <div class="container">
@@ -62,13 +62,13 @@ PortalCMS_JS_headJS(); ?>
                     foreach (MemberModel::getMembers() as $row) :
                         if (!empty($row['emailadres'])) { ?>
                         <div class="col-md-4">
-                            <input type="checkbox" name='recipients[]' id="checkbox" value="<?php echo $row['id']; ?>"> <?php echo $row['voornaam'].' '.$row['achternaam']; ?><br/>
+                            <input type="checkbox" name='recipients[]' id="checkbox" value="<?php echo $row['id']; ?>"> <?php echo $row['voornaam'] . ' ' . $row['achternaam']; ?><br/>
                         </div>
                             <?php
                         } else {
                             ?>
                         <div class="col-md-4">
-                            <input type="checkbox" name='recipients[]' value="<?php echo $row['id']; ?>" disabled><s> <?php echo $row['voornaam'].' '.$row['achternaam']; ?></s><br/>
+                            <input type="checkbox" name='recipients[]' value="<?php echo $row['id']; ?>" disabled><s> <?php echo $row['voornaam'] . ' ' . $row['achternaam']; ?></s><br/>
                         </div>
                             <?php
                         }

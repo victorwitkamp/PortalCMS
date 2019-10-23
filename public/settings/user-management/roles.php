@@ -6,21 +6,21 @@ use PortalCMS\Core\Database\DB;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Authentication\Authentication;
 
-require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_ROLE_MANAGEMENT');
 Authentication::checkAuthentication();
 if (!Authentication::checkPrivilege('role-management')) {
     Redirect::permissionError();
     die();
 }
-require DIR_ROOT.'includes/functions.php';
-require DIR_ROOT.'includes/head.php';
+require DIR_ROOT . 'includes/functions.php';
+require DIR_ROOT . 'includes/head.php';
 displayHeadCSS();
 PortalCMS_JS_headJS();
 ?>
 </head>
 <body>
-<?php require DIR_ROOT.'includes/nav.php'; ?>
+<?php require DIR_ROOT . 'includes/nav.php'; ?>
 
 <main>
     <div class="content">
@@ -47,13 +47,13 @@ PortalCMS_JS_headJS();
                         echo '<tbody>';
                         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                             echo '<tr>';
-                            echo '<td>'.$row['role_id'].'</td>';
-                            echo '<td>'.$row['role_name'].'</td>
+                            echo '<td>' . $row['role_id'] . '</td>';
+                            echo '<td>' . $row['role_name'] . '</td>
                             <td>
-                            <a href="role.php?role_id='.$row['role_id'].'" title="Rol beheren" class="btn btn-primary btn-sm"><span class="fa fa-cog"></span></a>
+                            <a href="role.php?role_id='.$row['role_id'] . '" title="Rol beheren" class="btn btn-primary btn-sm"><span class="fa fa-cog"></span></a>
                             <form method="post">
-                            <input type="hidden" name="role_id" value="'.$row['role_id'].'">
-                            <button type="submit" name="deleterole" class="btn btn-danger btn-sm" onclick="return confirm(\'Weet u zeker dat u de rol '.$row['role_name'].' wilt verwijderen?\')"><span class="fa fa-trash"></span></button>
+                            <input type="hidden" name="role_id" value="'.$row['role_id'] . '">
+                            <button type="submit" name="deleterole" class="btn btn-danger btn-sm" onclick="return confirm(\'Weet u zeker dat u de rol '.$row['role_name'] . ' wilt verwijderen?\')"><span class="fa fa-trash"></span></button>
                             </form>
                             </td>
                             </tr>';
@@ -74,6 +74,6 @@ PortalCMS_JS_headJS();
         </div>
     </div>
 </main>
-<?php include DIR_INCLUDES.'footer.php'; ?>
+<?php include DIR_INCLUDES . 'footer.php'; ?>
 </body>
 </html>

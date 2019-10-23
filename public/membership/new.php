@@ -5,14 +5,14 @@ use PortalCMS\Core\HTTP\Redirect;
 
 $pageName = 'Lid toevoegen';
 $pageType = 'new';
-require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();
 if (!Authentication::checkPrivilege('membership')) {
     Redirect::permissionError();
     die();
 }
-require_once DIR_INCLUDES.'functions.php';
-require_once DIR_INCLUDES.'head.php';
+require_once DIR_INCLUDES . 'functions.php';
+require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();
 PortalCMS_CSS_tempusdominus();
 PortalCMS_JS_headJS();
@@ -35,6 +35,6 @@ PortalCMS_JS_Datepicker_membership();
         </div>
     </div>
 </main>
-<?php include DIR_INCLUDES.'footer.php'; ?>
+<?php include DIR_INCLUDES . 'footer.php'; ?>
 </body>
 </html>

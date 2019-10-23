@@ -9,15 +9,15 @@ use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
 use PortalCMS\Core\Email\Recipient\MailRecipientMapper;
 use PortalCMS\Core\Email\Attachment\MailAttachmentMapper;
 
-require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_MAIL_DETAILS');
 Authentication::checkAuthentication();
 if (!Authentication::checkPrivilege('mail-scheduler')) {
     Redirect::permissionError();
     die();
 }
-require_once DIR_INCLUDES.'functions.php';
-require_once DIR_INCLUDES.'head.php';
+require_once DIR_INCLUDES . 'functions.php';
+require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();
 PortalCMS_JS_headJS(); ?>
 </head>
@@ -32,7 +32,7 @@ if (MailScheduleMapper::exists($id)) {
     Redirect::error();
 }
 ?>
-<?php require DIR_INCLUDES.'nav.php'; ?>
+<?php require DIR_INCLUDES . 'nav.php'; ?>
 <main>
     <div class="content">
         <div class="container">
@@ -57,7 +57,7 @@ if (MailScheduleMapper::exists($id)) {
                         if (!empty($recipients)) {
                             foreach ($recipients as $recipient) {
                                 if (!empty($recipient['name'])) {
-                                    echo $recipient['name'].' - ';
+                                    echo $recipient['name'] . ' - ';
                                 }
                                 echo $recipient['email'];
                                 echo '<br>';
@@ -74,7 +74,7 @@ if (MailScheduleMapper::exists($id)) {
                         if (!empty($ccrecipients)) {
                             foreach ($ccrecipients as $ccrecipient) {
                                 if (!empty($ccrecipient['name'])) {
-                                    echo $ccrecipient['name'].' - ';
+                                    echo $ccrecipient['name'] . ' - ';
                                 }
                                 echo $ccrecipient['email'];
                                 echo '<br>';
@@ -92,7 +92,7 @@ if (MailScheduleMapper::exists($id)) {
                             echo 'BCC: <br>';
                             foreach ($bccrecipients as $bccrecipient) {
                                 if (!empty($bccrecipient['name'])) {
-                                    echo $bccrecipient['name'].' - ';
+                                    echo $bccrecipient['name'] . ' - ';
                                 }
                                 echo $bccrecipient['email'];
                                 echo '<br>';
@@ -114,9 +114,9 @@ if (MailScheduleMapper::exists($id)) {
                     $attachments = MailAttachmentMapper::getByMailId($row['id']);
                     if (!empty($attachments)) {
                         foreach ($attachments as $attachment) {
-                            $file = $attachment['path'].$attachment['name'].$attachment['extension'];
+                            $file = $attachment['path'] . $attachment['name'] . $attachment['extension'];
 
-                            echo '<a href="'.Config::get('URL').$file.'">'.$file.'</a><br>';
+                            echo '<a href="' . Config::get('URL') . $file . '">' . $file . '</a><br>';
                         }
                     } else {
                         echo 'n/a';
@@ -148,6 +148,6 @@ if (MailScheduleMapper::exists($id)) {
         </div>
     </div>
 </main>
-<?php include DIR_INCLUDES.'footer.php'; ?>
+<?php include DIR_INCLUDES . 'footer.php'; ?>
 </body>
 </html>

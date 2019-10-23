@@ -22,9 +22,9 @@ class InvoiceModel
         $invoice = InvoiceMapper::getById($invoiceId);
         $contract = ContractMapper::getById($invoice['contract_id']);
         if ($invoice['month'] < '10') {
-            $maand = Text::get('MONTH_0'.$invoice['month']);
+            $maand = Text::get('MONTH_0' . $invoice['month']);
         } else {
-            $maand = Text::get('MONTH_'.$invoice['month']);
+            $maand = Text::get('MONTH_' . $invoice['month']);
         }
         $template = MailTemplateMapper::getSystemTemplateByName('InvoiceMail');
         $subject = MailTemplate::replaceholder('MAAND', $maand, $template['subject']);
@@ -47,7 +47,7 @@ class InvoiceModel
 
         InvoiceMapper::updateMailId($invoiceId, $createdMailId);
         InvoiceMapper::updateStatus($invoiceId, 2);
-        Session::add('feedback_positive', 'Email toegevoegd (ID = '.$createdMailId.')');
+        Session::add('feedback_positive', 'Email toegevoegd (ID = ' . $createdMailId . ')');
         // Redirect::mail();
         return true;
     }
@@ -68,7 +68,7 @@ class InvoiceModel
         if (!empty($_POST['contract_id'])) {
             foreach ($_POST['contract_id'] as $contract_id) {
                 $contract = ContractMapper::getById($contract_id);
-                $factuurnummer = $year.$contract['bandcode'].$month;
+                $factuurnummer = $year . $contract['bandcode'] . $month;
                 $factuurdatum = Request::post('factuurdatum', true);
                 // $vervaldatum = Request::post('vervaldatum', true);
                 if (InvoiceMapper::getByFactuurnummer($factuurnummer)) {
@@ -82,10 +82,10 @@ class InvoiceModel
                 }
                 $invoice = InvoiceMapper::getByFactuurnummer($factuurnummer);
                 if ($contract['kosten_ruimte'] > 0) {
-                    InvoiceItemMapper::create($invoice['id'], 'Huur oefenruimte - '.Text::get('MONTH_'.$month), $contract['kosten_ruimte']);
+                    InvoiceItemMapper::create($invoice['id'], 'Huur oefenruimte - ' . Text::get('MONTH_' . $month), $contract['kosten_ruimte']);
                 }
                 if ($contract['kosten_kast'] > 0) {
-                    InvoiceItemMapper::create($invoice['id'], 'Huur kast - '.Text::get('MONTH_'.$month), $contract['kosten_kast']);
+                    InvoiceItemMapper::create($invoice['id'], 'Huur kast - ' . Text::get('MONTH_' . $month), $contract['kosten_kast']);
                 }
             }
         }
@@ -99,7 +99,7 @@ class InvoiceModel
         if (!$sum) {
             return false;
         }
-        return '&euro; '.$sum;
+        return '&euro; ' . $sum;
     }
 
     public static function getInvoiceSumById($id)
@@ -126,7 +126,7 @@ class InvoiceModel
             }
         }
         if ($invoice['status'] > 0) {
-            unlink(DIR_ROOT.'content/invoices/'.$invoice['factuurnummer'].'.pdf');
+            unlink(DIR_ROOT . 'content/invoices/' . $invoice['factuurnummer'] . '.pdf');
         }
         if (!InvoiceMapper::delete($id)) {
             Session::add('feedback_negative', 'Verwijderen van factuur mislukt.');

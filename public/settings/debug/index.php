@@ -5,21 +5,21 @@ use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\View\Text;
 
-require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_DEBUG');
 Authentication::checkAuthentication();
 if (!Authentication::checkPrivilege('debug')) {
     Redirect::permissionError();
     die();
 }
-require DIR_ROOT.'includes/functions.php';
-require DIR_ROOT.'includes/head.php';
+require DIR_ROOT . 'includes/functions.php';
+require DIR_ROOT . 'includes/head.php';
 displayHeadCSS();
 PortalCMS_JS_headJS();
 ?>
 </head>
 <body>
-<?php require DIR_ROOT.'includes/nav.php'; ?>
+<?php require DIR_ROOT . 'includes/nav.php'; ?>
 <main>
     <div class="content">
         <div class="container">
@@ -38,7 +38,7 @@ PortalCMS_JS_headJS();
             echo '<br>';
             ?>
             <h2>sys_get_temp_dir().'/'</h2>
-            <p><?php echo sys_get_temp_dir().'/'; ?></p>
+            <p><?php echo sys_get_temp_dir() . '/'; ?></p>
         </div>
                 <div class="container">
 <iframe width="800" height="600" src="phpinfo.inc.php" frameborder="0"></iframe>
@@ -46,6 +46,6 @@ PortalCMS_JS_headJS();
         </div>
     </div>
 </main>
-<?php include DIR_INCLUDES.'footer.php'; ?>
+<?php include DIR_INCLUDES . 'footer.php'; ?>
 </body>
 </html>

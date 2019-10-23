@@ -3,9 +3,9 @@
 use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\Database\DB;
 
-require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();
-require_once DIR_INCLUDES.'functions.php';
+require_once DIR_INCLUDES . 'functions.php';
 $jaarlidmaatschap = $_POST['jaarlidmaatschap'];
 if (isset($_POST['submit_file'])) {
     if ($_FILES['photoname']['error'] > 0) {

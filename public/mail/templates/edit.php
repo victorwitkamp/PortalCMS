@@ -8,7 +8,7 @@ use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\Email\Template\MailTemplateMapper;
 use PortalCMS\Core\Email\Attachment\MailAttachmentMapper;
 
-require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();
 if (!Authentication::checkPrivilege('mail-templates')) {
     Redirect::permissionError();
@@ -17,8 +17,8 @@ if (!Authentication::checkPrivilege('mail-templates')) {
 $template = MailTemplateMapper::getTemplateById(Request::get('id'));
 $pageName = Text::get('TITLE_EDIT_MAIL_TEMPLATE');
 
-require_once DIR_INCLUDES.'functions.php';
-require_once DIR_INCLUDES.'head.php';
+require_once DIR_INCLUDES . 'functions.php';
+require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();
 PortalCMS_JS_headJS(); ?>
 <script src='https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=y6xawmw19w565wdi90wrtlow2ll6498emv0fozfrtrt7vb4y'></script>
@@ -31,7 +31,7 @@ plugins : 'advlist autolink link image lists charmap print preview'
 
 </head>
 <body>
-<?php require DIR_INCLUDES.'nav.php'; ?>
+<?php require DIR_INCLUDES . 'nav.php'; ?>
 <main>
     <div class="content">
         <div class="container">
@@ -67,8 +67,8 @@ plugins : 'advlist autolink link image lists charmap print preview'
                         echo '<ul id="currentattachments">';
                         foreach ($attachments as $attachment) {
                             echo '<li>';
-                            echo '<input type="checkbox" name="id[]" id="checkbox" value="'.$attachment['id'].'">';
-                            echo $attachment['path'].$attachment['name'].$attachment['extension'];
+                            echo '<input type="checkbox" name="id[]" id="checkbox" value="' . $attachment['id'] . '">';
+                            echo $attachment['path'] . $attachment['name'] . $attachment['extension'];
                             echo '</li>';
                         }
                         echo '</ul>';
@@ -91,6 +91,6 @@ plugins : 'advlist autolink link image lists charmap print preview'
         </div>
     </div>
 </main>
-<?php include DIR_INCLUDES.'footer.php'; ?>
+<?php include DIR_INCLUDES . 'footer.php'; ?>
 </body>
 </html>

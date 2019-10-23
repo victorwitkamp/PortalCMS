@@ -7,7 +7,7 @@ use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\View\Text;
 
-require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_MEMBERS');
 $year = Request::get('year');
 Authentication::checkAuthentication();
@@ -15,8 +15,8 @@ if (!Authentication::checkPrivilege('membership')) {
     Redirect::permissionError();
     die();
 }
-require_once DIR_INCLUDES.'functions.php';
-require_once DIR_INCLUDES.'head.php';
+require_once DIR_INCLUDES . 'functions.php';
+require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();
 PortalCMS_CSS_dataTables();
 PortalCMS_JS_headJS();
@@ -25,7 +25,7 @@ PortalCMS_JS_dataTables();
 </head>
 <body>
 
-<?php require DIR_INCLUDES.'nav.php'; ?>
+<?php require DIR_INCLUDES . 'nav.php'; ?>
 
 <main >
 
@@ -38,7 +38,7 @@ PortalCMS_JS_dataTables();
                     <a href="new.php" class="btn btn-success float-right"><span class="fa fa-plus"></span> <?php echo Text::get('LABEL_ADD'); ?></a>
                 </div>
             </div>
-            <p><?php echo Text::get('YEAR').': '.$year; ?></p>
+            <p><?php echo Text::get('YEAR') . ': ' . $year; ?></p>
         <hr>
         <?php
 
@@ -55,5 +55,5 @@ PortalCMS_JS_dataTables();
         </div>
     </div>
 </main>
-<?php include DIR_INCLUDES.'footer.php'; ?>
+<?php include DIR_INCLUDES . 'footer.php'; ?>
 </body>

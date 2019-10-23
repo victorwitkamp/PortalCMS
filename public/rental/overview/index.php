@@ -6,15 +6,15 @@ use PortalCMS\Core\Database\DB;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\View\Text;
 
-require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_OVERVIEW');
 Authentication::checkAuthentication();
 if (!Authentication::checkPrivilege('rental-contracts')) {
     Redirect::permissionError();
     die();
 }
-require_once DIR_INCLUDES.'functions.php';
-require_once DIR_INCLUDES.'head.php';
+require_once DIR_INCLUDES . 'functions.php';
+require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();
 PortalCMS_CSS_dataTables();
 PortalCMS_JS_headJS();
@@ -23,7 +23,7 @@ PortalCMS_JS_dataTables();
 
 </head>
 <body>
-<?php require DIR_INCLUDES.'nav.php'; ?>
+<?php require DIR_INCLUDES . 'nav.php'; ?>
 <main>
     <div class="content">
         <div class="container">
@@ -36,14 +36,14 @@ PortalCMS_JS_dataTables();
             Alert::renderFeedbackMessages();
             $stmt = DB::conn()->query('SELECT count(id) as NumberOfContracts FROM contracts');
             $row = $stmt->fetchColumn();
-            echo 'Totaal aantal contracten: '.$row.'<br>';
+            echo 'Totaal aantal contracten: ' . $row . '<br>';
             $stmt = DB::conn()->query('SELECT count(id) as NumberOfInvoices FROM invoices');
             $row = $stmt->fetchColumn();
-            echo 'Totaal aantal facturen: '.$row;
+            echo 'Totaal aantal facturen: ' . $row;
             ?>
 
         </div>
     </div>
 </main>
-<?php include DIR_INCLUDES.'footer.php'; ?>
+<?php include DIR_INCLUDES . 'footer.php'; ?>
 </body>

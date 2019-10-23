@@ -5,9 +5,9 @@ use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\Page\Page;
 
 $pageName = 'Pagina bewerken';
-require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();
-require_once DIR_INCLUDES.'functions.php';
+require_once DIR_INCLUDES . 'functions.php';
 if (!Page::checkPage($_GET['id'])) {
     header('Location: /index.php');
     die;
@@ -15,9 +15,9 @@ if (!Page::checkPage($_GET['id'])) {
     $row = Page::getPage($_GET['id']);
 }
 
-$pageName = 'Pagina '.$row ['name'].' bewerken';
+$pageName = 'Pagina ' . $row ['name'] . ' bewerken';
 
-require_once DIR_INCLUDES.'head.php';
+require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS(); ?>
 
 <?php PortalCMS_JS_headJS(); ?>
@@ -30,7 +30,7 @@ plugins : 'advlist autolink link image lists charmap print preview'
 </script>
 </head>
 <body>
-    <?php require DIR_INCLUDES.'nav.php'; ?>
+    <?php require DIR_INCLUDES . 'nav.php'; ?>
     <main>
         <div class="content">
             <div class="container">
@@ -52,6 +52,6 @@ plugins : 'advlist autolink link image lists charmap print preview'
             </div>
         </div>
     </main>
-    <?php include DIR_INCLUDES.'footer.php'; ?>
+    <?php include DIR_INCLUDES . 'footer.php'; ?>
 </body>
 </html>

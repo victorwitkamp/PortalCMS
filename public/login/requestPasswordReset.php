@@ -4,10 +4,10 @@ use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\Config\SiteSetting;
 
 $pageName = 'Wachtwoord vergeten';
-require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 
-require_once DIR_INCLUDES.'functions.php';
-require_once DIR_INCLUDES.'head.php';
+require_once DIR_INCLUDES . 'functions.php';
+require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();
 
 PortalCMS_CSS_floatingLabels();
@@ -48,6 +48,6 @@ PortalCMS_JS_headJS();
             </form>
         </div>
     </main>
-    <?php include DIR_INCLUDES.'footer.php'; ?>
+    <?php include DIR_INCLUDES . 'footer.php'; ?>
 </body>
 </html>

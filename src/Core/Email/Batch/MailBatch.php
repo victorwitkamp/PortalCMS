@@ -63,10 +63,10 @@ class MailBatch
             }
         }
         if (!$deleted > 0) {
-            Session::add('feedback_negative', 'Verwijderen mislukt. Aantal batches met problemen: ' .$error);
+            Session::add('feedback_negative', 'Verwijderen mislukt. Aantal batches met problemen: ' . $error);
             return false;
         }
-        Session::add('feedback_positive', 'Er zijn ' .$deleted. ' batches en ' .$deletedMessageCount. ' berichten verwijderd. ');
+        Session::add('feedback_positive', 'Er zijn ' . $deleted . ' batches en ' . $deletedMessageCount . ' berichten verwijderd. ');
 
         Redirect::mail();
     }

@@ -19,7 +19,7 @@ class MailTemplate
         if ($return === false) {
             Session::add('feedback_negative', 'Nieuwe template aanmaken mislukt.');
         } else {
-            Session::add('feedback_positive', 'Template toegevoegd (ID = ' .$return.')');
+            Session::add('feedback_positive', 'Template toegevoegd (ID = ' . $return . ')');
             Redirect::to('mail/templates/');
         }
     }
@@ -37,7 +37,7 @@ class MailTemplate
         if ($return === false) {
             Session::add('feedback_negative', 'Nieuwe template aanmaken mislukt.');
         } else {
-            Session::add('feedback_positive', 'Template toegevoegd (ID = ' .$return.')');
+            Session::add('feedback_positive', 'Template toegevoegd (ID = ' . $return . ')');
             Redirect::to('mail/templates/');
         }
     }
@@ -48,7 +48,7 @@ class MailTemplate
             $placeholder=>$placeholdervalue
         );
         foreach ($variables as $key => $value) {
-            $body_out = str_replace('{'.strtoupper($key).'}', $value, $body_in);
+            $body_out = str_replace('{' . strtoupper($key) . '}', $value, $body_in);
         }
         if (empty($body_out)) {
             return false;

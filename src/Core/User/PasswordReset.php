@@ -109,9 +109,9 @@ class PasswordReset
     {
         $Mail = MailTemplateMapper::getSystemTemplateByName('ResetPassword');
         $MailText = $Mail['body'];
-        $resetlink = Config::get('URL').
-                        Config::get('EMAIL_PASSWORD_RESET_URL').
-                        '?username='.$user_name.
+        $resetlink = Config::get('URL') .
+                        Config::get('EMAIL_PASSWORD_RESET_URL') .
+                        '?username=' . $user_name .
                         '&password_reset_hash='
                         .urlencode($password_reset_hash);
         $MailText = MailTemplate::replaceholder('USERNAME', $user_name, $MailText);
@@ -130,7 +130,7 @@ class PasswordReset
             Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_RESET_MAIL_SENDING_SUCCESSFUL'));
             return true;
         }
-        Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_MAIL_SENDING_ERROR').$mailSender->getError());
+        Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_MAIL_SENDING_ERROR') . $mailSender->getError());
         return false;
     }
 
@@ -160,7 +160,7 @@ class PasswordReset
         // if this user with exactly this verification hash code does NOT exist
         if ($stmt->rowCount() != 1) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_COMBINATION_DOES_NOT_EXIST'));
-            Session::add('feedback_negative', $user_name.' '.$sql);
+            Session::add('feedback_negative', $user_name . ' ' . $sql);
             return false;
         }
         // get result row (as an object)

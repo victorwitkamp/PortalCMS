@@ -85,7 +85,7 @@ class LoginService
 
         $user_id = Encryption::decrypt($user_id);
 
-        if (empty($token) || empty($user_id) || $hash !== hash('sha256', $user_id.':'.$token)) {
+        if (empty($token) || empty($user_id) || $hash !== hash('sha256', $user_id . ':' . $token)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
             return false;
         }

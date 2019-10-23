@@ -18,7 +18,7 @@ class InvoiceItemModel
             return Redirect::error();
         }
         Session::add('feedback_positive', 'Factuuritem toegevoegd.');
-        return Redirect::to('rental/invoices/details.php?id=' .$invoiceId);
+        return Redirect::to('rental/invoices/details.php?id=' . $invoiceId);
     }
 
     public static function delete()
@@ -34,6 +34,6 @@ class InvoiceItemModel
             return Redirect::error();
         }
         Session::add('feedback_positive', 'Factuuritem verwijderd.');
-        return Redirect::to('rental/invoices/details.php?id=' .$invoiceId);
+        return Redirect::to('rental/invoices/details.php?id=' . $invoiceId);
     }
 }

@@ -4,11 +4,11 @@ use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\User\UserMapper;
 
 $pageName = 'Gebruikersprofiel weergeven';
-require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();
-require_once DIR_INCLUDES.'functions.php';
+require_once DIR_INCLUDES . 'functions.php';
 
-require_once DIR_INCLUDES.'head.php';
+require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();
 PortalCMS_JS_headJS(); ?>
 </head>
@@ -17,7 +17,7 @@ PortalCMS_JS_headJS(); ?>
 $row = UserMapper::getProfileById($_GET['id']);
 
 ?>
-<?php require DIR_INCLUDES.'nav.php'; ?>
+<?php require DIR_INCLUDES . 'nav.php'; ?>
 <main>
     <div class="content">
         <div class="container">
@@ -28,6 +28,6 @@ $row = UserMapper::getProfileById($_GET['id']);
         </div>
     </div>
 </main>
-<?php include DIR_INCLUDES.'footer.php'; ?>
+<?php include DIR_INCLUDES . 'footer.php'; ?>
 </body>
 </html>

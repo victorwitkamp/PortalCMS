@@ -5,22 +5,22 @@ use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Modules\Members\MemberModel;
 
 $pageName = 'Profiel';
-require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();
 if (!Authentication::checkPrivilege('membership')) {
     Redirect::permissionError();
     die();
 }
-require_once DIR_INCLUDES.'functions.php';
+require_once DIR_INCLUDES . 'functions.php';
 $row = MemberModel::getMemberById($_GET['id']);
-$pageName = 'Lidmaatschap van '.$row['voornaam'].' '.$row['achternaam'];
+$pageName = 'Lidmaatschap van ' . $row['voornaam'] . ' ' . $row['achternaam'];
 
-require_once DIR_INCLUDES.'head.php';
+require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();
 PortalCMS_JS_headJS(); ?>
 </head>
 <body>
-<?php require DIR_INCLUDES.'nav.php'; ?>
+<?php require DIR_INCLUDES . 'nav.php'; ?>
 <main>
     <div class="content">
         <div class="container">
@@ -37,6 +37,6 @@ PortalCMS_JS_headJS(); ?>
         </div>
     </div>
 </main>
-<?php include DIR_INCLUDES.'footer.php'; ?>
+<?php include DIR_INCLUDES . 'footer.php'; ?>
 </body>
 </html>

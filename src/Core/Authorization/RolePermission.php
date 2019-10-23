@@ -17,7 +17,7 @@ class RolePermission
         } else {
             if (RolePermissionMapper::assign($role_id, $perm_id)) {
                 Session::add('feedback_positive', 'Permissie toegewezen.');
-                Redirect::to('settings/user-management/role.php?role_id=' .$role_id);
+                Redirect::to('settings/user-management/role.php?role_id=' . $role_id);
             } else {
                 Session::add('feedback_negative', 'Fout bij het toewijzen van de permissie.');
                 Redirect::error();
@@ -34,7 +34,7 @@ class RolePermission
         } else {
             if (RolePermissionMapper::unassign($role_id, $perm_id)) {
                 Session::add('feedback_positive', 'Permissie verwijderd.');
-                Redirect::to('settings/user-management/role.php?role_id=' .$role_id);
+                Redirect::to('settings/user-management/role.php?role_id=' . $role_id);
             } else {
                 Session::add('feedback_negative', 'Fout bij het verwijderen van de permissie.');
                 Redirect::error();
