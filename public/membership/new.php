@@ -5,9 +5,9 @@ use PortalCMS\Core\HTTP\Redirect;
 
 $pageName = 'Lid toevoegen';
 $pageType = 'new';
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege("membership")) {
+if (!Authentication::checkPrivilege('membership')) {
     Redirect::permissionError();
     die();
 }
@@ -31,7 +31,7 @@ PortalCMS_JS_Datepicker_membership();
             </div>
         </div>
         <div class="container">
-            <?php require "form.php"; ?>
+            <?php require 'form.php'; ?>
         </div>
     </div>
 </main>

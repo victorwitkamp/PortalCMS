@@ -5,7 +5,7 @@ use PortalCMS\Core\Config\SiteSetting;
 
 $pageName = 'Account activeren';
 
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 if (!isset($_SESSION)) {
     session_start();
 }

@@ -9,9 +9,9 @@ use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Modules\Invoices\InvoiceItemMapper;
 
 $pageName = 'Factuur';
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege("rental-invoices")) {
+if (!Authentication::checkPrivilege('rental-invoices')) {
     Redirect::permissionError();
     die();
 }
@@ -20,7 +20,7 @@ require DIR_ROOT.'includes/functions.php';
 if ($invoice = InvoiceMapper::getById($_GET['id'])) {
     $pageName = 'Factuur: '.$invoice['factuurnummer'];
 } else {
-    Session::add('feedback_negative', "Geen resultaten voor opgegeven factuur ID.");
+    Session::add('feedback_negative', 'Geen resultaten voor opgegeven factuur ID.');
     // Redirect::error();
 }
 require DIR_ROOT.'includes/head.php';
@@ -41,7 +41,7 @@ PortalCMS_JS_headJS(); ?>
 
             <form method="post">
             <a href="index.php" class="btn btn-sm btn-primary"><span class="fa fa-arrow-left"></span></a>
-            <?php $msg = "Weet u zeker dat u factuur met nummer ".$invoice['factuurnummer']." wilt verwijderen?"; ?>
+            <?php $msg = 'Weet u zeker dat u factuur met nummer ' .$invoice['factuurnummer']. ' wilt verwijderen?'; ?>
                 <input type="hidden" name="id" value="<?php echo $invoice['id']; ?>">
                 <button type="submit" name="deleteInvoice" class="btn btn-danger btn-sm" title="Verwijderen" onclick="return confirm('<?php echo $msg; ?>')">
                     <span class="fa fa-trash"></span>

@@ -6,10 +6,10 @@ use PortalCMS\Core\Database\DB;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\View\Text;
 
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 $pageName = Text::get('TITLE_OVERVIEW');
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege("rental-contracts")) {
+if (!Authentication::checkPrivilege('rental-contracts')) {
     Redirect::permissionError();
     die();
 }
@@ -34,10 +34,10 @@ PortalCMS_JS_dataTables();
             <hr>
             <?php
             Alert::renderFeedbackMessages();
-            $stmt = DB::conn()->query("SELECT count(id) as NumberOfContracts FROM contracts");
+            $stmt = DB::conn()->query('SELECT count(id) as NumberOfContracts FROM contracts');
             $row = $stmt->fetchColumn();
             echo 'Totaal aantal contracten: '.$row.'<br>';
-            $stmt = DB::conn()->query("SELECT count(id) as NumberOfInvoices FROM invoices");
+            $stmt = DB::conn()->query('SELECT count(id) as NumberOfInvoices FROM invoices');
             $row = $stmt->fetchColumn();
             echo 'Totaal aantal facturen: '.$row;
             ?>

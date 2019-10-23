@@ -5,15 +5,15 @@ use PortalCMS\Core\Session\Session;
 use PortalCMS\Modules\Contracts\ContractMapper;
 use PortalCMS\Core\Authentication\Authentication;
 
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege("rental-contracts")) {
+if (!Authentication::checkPrivilege('rental-contracts')) {
     Redirect::permissionError();
     die();
 }
 $contract = ContractMapper::getById($_GET['id']);
 if (!$contract) {
-    Session::add('feedback_negative', "Het contract bestaat niet.");
+    Session::add('feedback_negative', 'Het contract bestaat niet.');
     Redirect::error();
 }
 $pageName = 'Contract van '.$contract['band_naam'];

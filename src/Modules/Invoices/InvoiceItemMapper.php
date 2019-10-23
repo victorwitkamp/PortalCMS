@@ -16,9 +16,9 @@ class InvoiceItemMapper
     public static function getByInvoiceId($invoiceId)
     {
         $stmt = DB::conn()->prepare(
-            "SELECT *
+            'SELECT *
                 FROM invoice_items
-                WHERE invoice_id = ?"
+                WHERE invoice_id = ?'
         );
         $stmt->execute([$invoiceId]);
         if (!$stmt->rowCount() > 1) {
@@ -39,8 +39,8 @@ class InvoiceItemMapper
     public static function create($invoiceId, $name, $price)
     {
         $stmt = DB::conn()->prepare(
-            "INSERT INTO invoice_items(id, invoice_id, name, price)
-            VALUES (NULL,?,?,?)"
+            'INSERT INTO invoice_items(id, invoice_id, name, price)
+            VALUES (NULL,?,?,?)'
         );
         $stmt->execute([$invoiceId, $name, $price]);
         if (!$stmt) {
@@ -59,15 +59,12 @@ class InvoiceItemMapper
     public static function delete($id)
     {
         $stmt = DB::conn()->prepare(
-            "DELETE
+            'DELETE
             FROM invoice_items
-            WHERE id = ?"
+            WHERE id = ?'
         );
         $stmt->execute([$id]);
-        if ($stmt->rowCount() === 0) {
-            return false;
-        }
-        return true;
+        return ($stmt->rowCount() === 1);
     }
 
     /**
@@ -80,15 +77,12 @@ class InvoiceItemMapper
     public static function deleteByInvoiceId($id)
     {
         $stmt = DB::conn()->prepare(
-            "DELETE
+            'DELETE
             FROM invoice_items
-            WHERE invoice_id = ?"
+            WHERE invoice_id = ?'
         );
         $stmt->execute([$id]);
-        if (!$stmt->rowCount() > 0) {
-            return false;
-        }
-        return true;
+        return $stmt->rowCount() > 0;
     }
 
     /**
@@ -101,16 +95,13 @@ class InvoiceItemMapper
     public static function exists($id)
     {
         $stmt = DB::conn()->prepare(
-            "SELECT id
+            'SELECT id
                     FROM invoice_items
                         WHERE id = ?
-                        LIMIT 1"
+                        LIMIT 1'
         );
         $stmt->execute([$id]);
-        if ($stmt->rowCount() === 0) {
-            return false;
-        }
-        return true;
+        return $stmt->rowCount() === 1;
     }
 
     // /**

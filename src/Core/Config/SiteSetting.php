@@ -42,7 +42,7 @@ class SiteSetting
 
     public static function setSiteSetting($value, $setting)
     {
-        $stmt = DB::conn()->prepare("UPDATE site_settings SET string_value = ? WHERE setting = ?");
+        $stmt = DB::conn()->prepare('UPDATE site_settings SET string_value = ? WHERE setting = ?');
         if (!$stmt->execute([$value, $setting])) {
             return false;
         }
@@ -51,7 +51,7 @@ class SiteSetting
 
     public static function getStaticSiteSetting($setting)
     {
-        $stmt = DB::conn()->prepare("SELECT * FROM site_settings WHERE setting = ?");
+        $stmt = DB::conn()->prepare('SELECT * FROM site_settings WHERE setting = ?');
         $stmt->execute([$setting]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return $row['string_value'];

@@ -90,7 +90,7 @@ class PDF
         $pdf->Write(0, $contract['bandleider_adres']."\n", '', 0, 'L', true, 0, false, false, 0);
         // $pdf->Ln();
         $pdf->SetX(20);
-        $postcodewoonplaats = $contract['bandleider_postcode']." ".$contract['bandleider_woonplaats'];
+        $postcodewoonplaats = $contract['bandleider_postcode']. ' ' .$contract['bandleider_woonplaats'];
         $pdf->Write(0, $postcodewoonplaats, '', 0, 'L', true, 0, false, false, 0);
 
         $pdf->SetXY(20, 110);
@@ -104,7 +104,7 @@ class PDF
         $pdf->Write(0, $factuurnummertekst, '', 0, 'L', true, 0, false, false, 0);
 
         $pdf->SetXY(120, 120);
-        $newDate = date("d-m-Y", strtotime($invoice['factuurdatum']));
+        $newDate = date('d-m-Y', strtotime($invoice['factuurdatum']));
         $factuurtekstrechts = 'Factuurdatum: '.$newDate;
         // $factuurtekstrechts2 = 'Vervaldatum: '.$invoice['vervaldatum'];
         $pdf->Write(0, $factuurtekstrechts, '', 0, 'R', true, 0, false, false, 0);
@@ -130,7 +130,7 @@ class PDF
             $pdf->SetX(150);
             $pdf->Write(0, $invoiceitem['price'], '', 0, 'R', false, 0, false, false, 0);
             $pdf->Ln();
-            $totaalbedrag = $totaalbedrag + $invoiceitem['price'];
+            $totaalbedrag += $invoiceitem['price'];
         }
         $pdf->Ln();
         $pdf->SetX(20);
@@ -171,13 +171,13 @@ class PDF
         $pdf = self::configPDF();
         $pdf = self::createInvoice($pdf, $invoice, $invoiceitems, $contract);
 
-        if (file_exists($_SERVER["DOCUMENT_ROOT"].'content/invoices/'.$invoice['factuurnummer'].'.pdf')) {
-            Session::add('feedback_negative', "Bestand bestaat al.");
+        if (file_exists($_SERVER['DOCUMENT_ROOT'].'content/invoices/'.$invoice['factuurnummer'].'.pdf')) {
+            Session::add('feedback_negative', 'Bestand bestaat al.');
             return false;
         }
         // ob_end_clean();
-        $pdf->Output($_SERVER["DOCUMENT_ROOT"].'content/invoices/'.$invoice['factuurnummer'].'.pdf', 'F');
-        if (file_exists($_SERVER["DOCUMENT_ROOT"].'content/invoices/'.$invoice['factuurnummer'].'.pdf')) {
+        $pdf->Output($_SERVER['DOCUMENT_ROOT'].'content/invoices/'.$invoice['factuurnummer'].'.pdf', 'F');
+        if (file_exists($_SERVER['DOCUMENT_ROOT'].'content/invoices/'.$invoice['factuurnummer'].'.pdf')) {
             return true;
         }
         return false;

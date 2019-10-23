@@ -25,10 +25,10 @@ class CalendarEventModel
                     $color = 'var(--info)';
                 }
                 $data[] = array(
-                    'id'   => $row["id"],
-                    'title'   => $row["title"],
-                    'start'   => $row["start_event"],
-                    'end'   => $row["end_event"],
+                    'id'   => $row['id'],
+                    'title'   => $row['title'],
+                    'start'   => $row['start_event'],
+                    'end'   => $row['end_event'],
                     'backgroundColor' => $color
                 );
             }
@@ -43,13 +43,13 @@ class CalendarEventModel
 
     public static function loadComingEvents()
     {
-        $now = date("Y-m-d H:i:s");
+        $now = date('Y-m-d H:i:s');
         foreach (CalendarEventMapper::getEventsAfter($now) as $row) {
             $data[] = array(
-                'id'   => $row["id"],
-                'title'   => $row["title"],
-                'start'   => $row["start_event"],
-                'end'   => $row["end_event"]
+                'id'   => $row['id'],
+                'title'   => $row['title'],
+                'start'   => $row['start_event'],
+                'end'   => $row['end_event']
             );
         }
         $returndata = json_encode($data);
@@ -60,12 +60,12 @@ class CalendarEventModel
 
     public static function loadMailEvents()
     {
-        $now = date("Y-m-d H:i:s");
+        $now = date('Y-m-d H:i:s');
         foreach (CalendarEventMapper::getEventsAfter($now) as $row) {
-            $title = $row["title"];
-            $start = $row["start_event"];
-            $end = $row["end_event"];
-            $description = $row["description"];
+            $title = $row['title'];
+            $start = $row['start_event'];
+            $end = $row['end_event'];
+            $description = $row['description'];
             $returndata = '';
             $returndata .= '<strong>Naam evenement: '.$title.'</strong><br>Start: '.$start.'<br>Einde: '.$end.'<br><strong>Beschrijving</strong> '.$description.'<br>';
         }
@@ -82,10 +82,10 @@ class CalendarEventModel
         $end_event = Request::post('end_event', true);
         $description = Request::post('description', true);
         $stmt = DB::conn()->prepare(
-            "SELECT id
+            'SELECT id
             FROM events
             WHERE start_event = ?
-            AND end_event = ?"
+            AND end_event = ?'
         );
         $stmt->execute([$start_event, $end_event]);
         if (!$stmt->rowCount() == 0) {

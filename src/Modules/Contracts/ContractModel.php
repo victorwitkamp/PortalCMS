@@ -45,11 +45,11 @@ class ContractModel
             Request::post('contract_einddatumm', true),
             Request::post('contract_datum', true)
         )) {
-            Session::add('feedback_negative', "Toevoegen van contract mislukt.");
-            Redirect::to("rental/contracts/");
+            Session::add('feedback_negative', 'Toevoegen van contract mislukt.');
+            Redirect::to('rental/contracts/');
         } else {
-            Session::add('feedback_positive', "Contract toegevoegd.");
-            Redirect::to("rental/contracts/");
+            Session::add('feedback_positive', 'Contract toegevoegd.');
+            Redirect::to('rental/contracts/');
         }
     }
 
@@ -60,8 +60,8 @@ class ContractModel
         $kosten_kast                = Request::post('kosten_kast', true);
         $kosten_totaal              = $kosten_ruimte + $kosten_kast;
         if (!ContractMapper::exists($Id)) {
-            Session::add('feedback_negative', "Wijzigen van contract mislukt.<br>Contract bestaat niet.");
-            Redirect::to("rental/contracts/");
+            Session::add('feedback_negative', 'Wijzigen van contract mislukt.<br>Contract bestaat niet.');
+            Redirect::to('rental/contracts/');
         }
         if (!ContractMapper::update(
             $Id,
@@ -90,11 +90,11 @@ class ContractModel
             Request::post('contract_einddatumm', true),
             Request::post('contract_datum', true)
         )) {
-            Session::add('feedback_negative', "Wijzigen van contract mislukt.");
-            Redirect::to("rental/contracts/");
+            Session::add('feedback_negative', 'Wijzigen van contract mislukt.');
+            Redirect::to('rental/contracts/');
         } else {
-            Session::add('feedback_positive', "Contract gewijzigd.");
-            Redirect::to("rental/contracts/");
+            Session::add('feedback_positive', 'Contract gewijzigd.');
+            Redirect::to('rental/contracts/');
         }
     }
 
@@ -111,11 +111,10 @@ class ContractModel
                 Session::add('feedback_negative', 'Verwijderen van contract mislukt.');
                 Redirect::contracts();
                 return false;
-            } else {
-                Session::add('feedback_negative', 'Dit contract heeft al facturen.');
-                Redirect::contracts();
-                return false;
             }
+            Session::add('feedback_negative', 'Dit contract heeft al facturen.');
+            Redirect::contracts();
+            return false;
         }
         Session::add('feedback_negative', 'Verwijderen van contract mislukt.<br>Contract bestaat niet.');
         Redirect::contracts();

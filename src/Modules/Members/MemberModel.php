@@ -11,44 +11,38 @@ class MemberModel
 {
     public static function getMembers()
     {
-        $stmt = DB::conn()->prepare("SELECT * FROM members ORDER BY id");
+        $stmt = DB::conn()->prepare('SELECT * FROM members ORDER BY id');
         $stmt->execute([]);
         return $stmt->fetchAll();
     }
 
     public static function getMembersWithValidEmail()
     {
-        $stmt = DB::conn()->prepare("SELECT * FROM members WHERE emailadres IS NOT NULL ORDER BY id");
+        $stmt = DB::conn()->prepare('SELECT * FROM members WHERE emailadres IS NOT NULL ORDER BY id');
         $stmt->execute([]);
         return $stmt->fetchAll();
     }
 
     public static function doesMemberIdExist($memberId)
     {
-        $stmt = DB::conn()->prepare("SELECT id FROM members WHERE id = ? LIMIT 1");
+        $stmt = DB::conn()->prepare('SELECT id FROM members WHERE id = ? LIMIT 1');
         $stmt->execute([$memberId]);
-        if ($stmt->rowCount() === 0) {
-            return false;
-        }
-        return true;
+        return $stmt->rowCount() === 1;
     }
 
     public static function doesEmailforYearExist($jaarlidmaatschap, $email)
     {
-        $stmt = DB::conn()->prepare("SELECT id FROM members WHERE jaarlidmaatschap = ? AND emailadres = ? LIMIT 1");
+        $stmt = DB::conn()->prepare('SELECT id FROM members WHERE jaarlidmaatschap = ? AND emailadres = ? LIMIT 1');
         $stmt->execute([$jaarlidmaatschap, $email]);
-        if ($stmt->rowCount() === 0) {
-            return false;
-        }
-        return true;
+        return $stmt->rowCount() === 1;
     }
 
     public static function getMemberById($id)
     {
-        $stmt = DB::conn()->prepare("SELECT * FROM members WHERE id=? LIMIT 1");
+        $stmt = DB::conn()->prepare('SELECT * FROM members WHERE id=? LIMIT 1');
         $stmt->execute([$id]);
         if (!$stmt->rowCount() == 1) {
-            Session::add('feedback_negative', "Lid kan niet worden geladen.");
+            Session::add('feedback_negative', 'Lid kan niet worden geladen.');
             return false;
         }
         return $stmt->fetch();
@@ -84,14 +78,14 @@ class MemberModel
         $status = Request::post('status', true);
         // $opmerking              = Request::post('opmerking', true);
 
-        $sql = "UPDATE members
+        $sql = 'UPDATE members
         SET jaarlidmaatschap=?, voorletters=?, voornaam=?, achternaam=?,
         geboortedatum=?, adres=?, postcode=?, huisnummer=?,
         woonplaats=?, telefoon_vast=?, telefoon_mobiel=?,
         emailadres=?, ingangsdatum=?, geslacht=?, nieuwsbrief=?,
         vrijwilliger=?, vrijwilligeroptie1=?, vrijwilligeroptie2=?,
         vrijwilligeroptie3=?, vrijwilligeroptie4=?, vrijwilligeroptie5=?,
-        betalingswijze=?, iban=?, machtigingskenmerk=?, status=? WHERE id=?";
+        betalingswijze=?, iban=?, machtigingskenmerk=?, status=? WHERE id=?';
         $stmt = DB::conn()->prepare($sql);
         $stmt->execute(
             [$jaarlidmaatschap, $voorletters, $voornaam, $achternaam, $geboortedatum,
@@ -101,11 +95,11 @@ class MemberModel
             $status, $id]
         );
         if ($stmt) {
-            Session::add('feedback_positive', "Lid opgeslagen.");
-            Redirect::to("membership/");
+            Session::add('feedback_positive', 'Lid opgeslagen.');
+            Redirect::to('membership/');
         }
-        Session::add('feedback_negative', "Lid opslaan mislukt.");
-        Redirect::to("membership/");
+        Session::add('feedback_negative', 'Lid opslaan mislukt.');
+        Redirect::to('membership/');
     }
 
     public static function newMember()
@@ -138,10 +132,10 @@ class MemberModel
         // $opmerking              = Request::post('opmerking', true);
 
         if (self::doesEmailforYearExist($jaarlidmaatschap, $emailadres)) {
-            Session::add('feedback_negative', "Emailadres wordt dit jaar al gebruikt door een ander lid.");
-            Redirect::to("membership/");
+            Session::add('feedback_negative', 'Emailadres wordt dit jaar al gebruikt door een ander lid.');
+            Redirect::to('membership/');
         } else {
-            $sql = "INSERT INTO members
+            $sql = 'INSERT INTO members
                         (
                             id, jaarlidmaatschap, voorletters, voornaam, achternaam, geboortedatum,
                             adres, postcode, huisnummer, woonplaats, telefoon_vast, telefoon_mobiel,
@@ -151,7 +145,7 @@ class MemberModel
                         VALUES
                         (
                             NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
-                        )";
+                        )';
             $stmt = DB::conn()->prepare($sql);
             $stmt->execute(
                 [$jaarlidmaatschap, $voorletters, $voornaam, $achternaam, $geboortedatum,
@@ -160,11 +154,11 @@ class MemberModel
                 $vrijwilligeroptie2, $vrijwilligeroptie3, $vrijwilligeroptie4, $vrijwilligeroptie5, $betalingswijze, $iban, $machtigingskenmerk, $status]
             );
             if ($stmt) {
-                Session::add('feedback_positive', "Lid toegevoegd.");
-                Redirect::to("membership/");
+                Session::add('feedback_positive', 'Lid toegevoegd.');
+                Redirect::to('membership/');
             }
-            Session::add('feedback_negative', "Lid toevoegen mislukt.");
-            Redirect::to("membership/");
+            Session::add('feedback_negative', 'Lid toevoegen mislukt.');
+            Redirect::to('membership/');
         }
     }
 }

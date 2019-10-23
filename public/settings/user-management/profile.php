@@ -7,16 +7,16 @@ use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Core\User\UserMapper;
 
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 $pageName = Text::get('TITLE_PROFILE');
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege("user-management")) {
+if (!Authentication::checkPrivilege('user-management')) {
     Redirect::permissionError();
     die();
 }
 $row = UserMapper::getProfileById($_GET['id']);
 if (!$row) {
-    Session::add('feedback_negative', "De gebruiker bestaat niet.");
+    Session::add('feedback_negative', 'De gebruiker bestaat niet.');
     Redirect::error();
 } else {
     $pageName = Text::get('TITLE_PROFILE').$row['user_name'];

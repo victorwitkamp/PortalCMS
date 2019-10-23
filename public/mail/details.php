@@ -9,10 +9,10 @@ use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
 use PortalCMS\Core\Email\Recipient\MailRecipientMapper;
 use PortalCMS\Core\Email\Attachment\MailAttachmentMapper;
 
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 $pageName = Text::get('TITLE_MAIL_DETAILS');
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege("mail-scheduler")) {
+if (!Authentication::checkPrivilege('mail-scheduler')) {
     Redirect::permissionError();
     die();
 }
@@ -28,7 +28,7 @@ $id = $_GET['id'];
 if (MailScheduleMapper::exists($id)) {
     $row = MailScheduleMapper::getById($id);
 } else {
-    Session::add('feedback_negative', "Geen resultaten voor opgegeven mail ID.");
+    Session::add('feedback_negative', 'Geen resultaten voor opgegeven mail ID.');
     Redirect::error();
 }
 ?>

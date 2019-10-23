@@ -1,7 +1,7 @@
 <?php
 
 $pageName = 'Geen toegang';
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 require DIR_ROOT.'includes/functions.php';
 require_once DIR_INCLUDES.'head.php';
 displayHeadCSS();

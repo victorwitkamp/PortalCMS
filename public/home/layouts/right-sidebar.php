@@ -16,9 +16,9 @@ use PortalCMS\Core\Config\SiteSetting;
     Alert::renderFeedbackMessages();
 
     $page = Page::getPage('1');
-    echo $page["content"];
-    if (Authentication::checkPrivilege("site-settings")) {
-        echo '<hr><a href="/page/edit.php?id=1">'.Text::get('LABEL_EDIT_PAGE').'</a><p>'.Text::get('LABEL_LAST_MODIFIED').': '.$page["ModificationDate"].'</p>';
+    echo $page['content'];
+    if (Authentication::checkPrivilege('site-settings')) {
+        echo '<hr><a href="/page/edit.php?id=1">'.Text::get('LABEL_EDIT_PAGE').'</a><p>'.Text::get('LABEL_LAST_MODIFIED').': '.$page['ModificationDate'].'</p>';
     }
     ?>
 </div>

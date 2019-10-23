@@ -6,10 +6,10 @@ use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Contracts\ContractMapper;
 use PortalCMS\Modules\Invoices\InvoiceModel;
 
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 $pageName = Text::get('LABEL_CONTRACT_INVOICES_FOR_ID').': '.$_GET['id'];
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege("rental-contracts")) {
+if (!Authentication::checkPrivilege('rental-contracts')) {
     Redirect::permissionError();
     die();
 }
@@ -17,7 +17,7 @@ $contract = ContractMapper::getById($_GET['id']);
 if (!$contract) {
     Redirect::error();
 }
-$pageName = "Facturen voor ".$contract['band_naam'];
+$pageName = 'Facturen voor ' .$contract['band_naam'];
 require_once DIR_INCLUDES.'functions.php';
 require_once DIR_INCLUDES.'head.php';
 displayHeadCSS();
@@ -49,5 +49,5 @@ PortalCMS_JS_dataTables();
         </div>
     </div>
 </main>
-<?php require DIR_INCLUDES."footer.php"; ?>
+<?php require DIR_INCLUDES. 'footer.php'; ?>
 </body>

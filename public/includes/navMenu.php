@@ -11,7 +11,7 @@ use PortalCMS\Core\View\Text;
     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <?php echo Text::get('NAV_TITLE_MENU'); ?></a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
         <a class="dropdown-item" href="/events/" class="fa fa-calendar"> <?php echo Text::get('TITLE_EVENTS'); ?></a>
-        <a class="dropdown-item" href="/membership/?year=<?php echo date("Y"); ?>" class="fa fa-user"> <?php echo Text::get('TITLE_MEMBERS'); ?></a>
+        <a class="dropdown-item" href="/membership/?year=<?php echo date('Y'); ?>" class="fa fa-user"> <?php echo Text::get('TITLE_MEMBERS'); ?></a>
     </div>
 </li>
 

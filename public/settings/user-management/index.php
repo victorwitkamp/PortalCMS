@@ -6,10 +6,10 @@ use PortalCMS\Core\Database\DB;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Authentication\Authentication;
 
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 $pageName = Text::get('TITLE_USER_MANAGEMENT');
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege("user-management")) {
+if (!Authentication::checkPrivilege('user-management')) {
     Redirect::permissionError();
     die();
 }
@@ -44,7 +44,7 @@ PortalCMS_JS_headJS();
                     </thead>
                     <?php
                     // $sql = "SELECT * FROM users ORDER BY id ASC";
-                    $stmt = DB::conn()->query("SELECT * FROM users ORDER BY user_id ASC");
+                    $stmt = DB::conn()->query('SELECT * FROM users ORDER BY user_id ASC');
 
                     // $result = $u->Database->db->query($sql);
                     if ($stmt->rowCount() > 0) {

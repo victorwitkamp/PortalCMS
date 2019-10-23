@@ -19,10 +19,10 @@ class UserMapper
     public static function usernameExists($user_name)
     {
         $stmt = DB::conn()->prepare(
-            "SELECT user_id
+            'SELECT user_id
                     FROM users
                         WHERE user_name = ?
-                        LIMIT 1"
+                        LIMIT 1'
         );
         $stmt->execute([$user_name]);
         return ($stmt->rowCount() === 1 ? true : false);
@@ -39,10 +39,10 @@ class UserMapper
     public static function updateUsername($user_id, $newUsername)
     {
         $stmt = DB::conn()->prepare(
-            "UPDATE users
+            'UPDATE users
                 SET user_name = :user_name
                     WHERE user_id = :user_id
-                    LIMIT 1"
+                    LIMIT 1'
         );
         $stmt->execute(array(':user_name' => $newUsername, ':user_id' => $user_id));
         return ($stmt->rowCount() === 1 ? true : false);
@@ -51,10 +51,10 @@ class UserMapper
     public static function updateFbid($user_id, $fbid)
     {
         $stmt = DB::conn()->prepare(
-            "UPDATE users
+            'UPDATE users
                 SET user_fbid = ?
                     WHERE user_id = ?
-                    LIMIT 1"
+                    LIMIT 1'
         );
         $stmt->execute([$fbid, $user_id]);
         return ($stmt->rowCount() === 1 ? true : false);
@@ -63,10 +63,10 @@ class UserMapper
     public static function updateRememberMeToken($user_id, $token)
     {
         $stmt = DB::conn()->prepare(
-            "UPDATE users
+            'UPDATE users
                     SET user_remember_me_token = ?
                     WHERE user_id = ?
-                    LIMIT 1"
+                    LIMIT 1'
         );
         $stmt->execute([$token, $user_id]);
         return ($stmt->rowCount() === 1 ? true : false);
@@ -84,18 +84,18 @@ class UserMapper
     public static function updateSessionId($userId, $sessionId = null)
     {
         $stmt = DB::conn()->prepare(
-            "UPDATE users
+            'UPDATE users
                     SET session_id = :session_id
-                    WHERE user_id = :user_id"
+                    WHERE user_id = :user_id'
         );
-        $stmt->execute(array(':session_id' => $sessionId, ":user_id" => $userId));
+        $stmt->execute(array(':session_id' => $sessionId, ':user_id' => $userId));
         return ($stmt->rowCount() === 1 ? true : false);
     }
 
     public static function getProfileById($Id)
     {
         $stmt = DB::conn()->prepare(
-            "SELECT user_id,
+            'SELECT user_id,
             user_name,
             session_id,
             user_email,
@@ -113,7 +113,7 @@ class UserMapper
                     FROM users
                         WHERE user_id = :user_id
                         AND user_id IS NOT NULL
-                        LIMIT 1"
+                        LIMIT 1'
         );
         $stmt->execute(array(':user_id' => $Id));
         if (!$stmt->rowCount() > 0) {
@@ -132,10 +132,10 @@ class UserMapper
     public static function saveTimestampByUsername($username)
     {
         $stmt = DB::conn()->prepare(
-            "UPDATE users
+            'UPDATE users
                 SET user_last_login_timestamp = ?
                 WHERE user_name = ?
-                LIMIT 1"
+                LIMIT 1'
         );
         $stmt->execute([date('Y-m-d H:i:s'), $username]);
         return ($stmt->rowCount() === 1 ? true : false);
@@ -150,11 +150,11 @@ class UserMapper
     public static function resetFailedLoginsByUsername($username)
     {
         $stmt = DB::conn()->prepare(
-            "UPDATE users
+            'UPDATE users
                 SET user_failed_logins = 0, user_last_failed_login = NULL
                 WHERE user_name = ?
                 AND user_failed_logins != 0
-                LIMIT 1"
+                LIMIT 1'
         );
         $stmt->execute([$username]);
         return ($stmt->rowCount() === 1 ? true : false);
@@ -169,11 +169,11 @@ class UserMapper
     public static function setFailedLoginByUsername($username)
     {
         $stmt = DB::conn()->prepare(
-            "UPDATE users
+            'UPDATE users
                 SET user_failed_logins = user_failed_logins+1, user_last_failed_login = :user_last_failed_login
                     WHERE user_name = :user_name
                     OR user_email = :user_name
-                    LIMIT 1"
+                    LIMIT 1'
         );
         $stmt->execute(array(':user_name' => $username, ':user_last_failed_login' => date('Y-m-d H:i:s')));
         return ($stmt->rowCount() === 1 ? true : false);
@@ -182,10 +182,10 @@ class UserMapper
     public static function clearRememberMeToken($user_id)
     {
         $stmt = DB::conn()->prepare(
-            "UPDATE users
+            'UPDATE users
                     SET user_remember_me_token = :user_remember_me_token
                     WHERE user_id = :user_id
-                    LIMIT 1"
+                    LIMIT 1'
         );
         $stmt->execute(array(':user_remember_me_token' => null, ':user_id' => $user_id));
         return ($stmt->rowCount() === 1 ? true : false);
@@ -201,7 +201,7 @@ class UserMapper
     public static function getByUsername($username)
     {
         $stmt = DB::conn()->prepare(
-            "SELECT user_id,
+            'SELECT user_id,
                     user_name,
                     user_email,
                     user_password_hash,
@@ -215,7 +215,7 @@ class UserMapper
                     FROM users
                         WHERE (user_name = :user_name OR user_email = :user_name)
                         AND user_provider_type = :provider_type
-                        LIMIT 1"
+                        LIMIT 1'
         );
         $stmt->execute(array(':user_name' => $username, ':provider_type' => 'DEFAULT'));
         if ($stmt->rowCount() === 0) {
@@ -235,7 +235,7 @@ class UserMapper
     public static function getByIdAndToken($user_id, $token)
     {
         $stmt = DB::conn()->prepare(
-            "SELECT user_id,
+            'SELECT user_id,
                     user_name,
                     user_email,
                     user_password_hash,
@@ -250,7 +250,7 @@ class UserMapper
                         AND user_remember_me_token = :user_remember_me_token
                         AND user_remember_me_token IS NOT NULL
                         AND user_provider_type = :provider_type
-                        LIMIT 1"
+                        LIMIT 1'
         );
         $stmt->execute(
             array(
@@ -267,12 +267,12 @@ class UserMapper
     public static function getByFbid($user_fbid)
     {
         $stmt = DB::conn()->prepare(
-            "SELECT user_id, user_name, user_email, user_password_hash, user_active,
+            'SELECT user_id, user_name, user_email, user_password_hash, user_active,
                     user_account_type, user_has_avatar, user_failed_logins, user_last_failed_login
                     FROM users
                         WHERE user_fbid = :user_fbid
                         AND user_fbid IS NOT NULL
-                        LIMIT 1"
+                        LIMIT 1'
         );
         $stmt->execute(array(':user_fbid' => $user_fbid));
         if ($stmt->rowCount() === 0) {
@@ -289,12 +289,12 @@ class UserMapper
     public static function getByUsernameOrEmail($usernameOrEmail)
     {
         $stmt = DB::conn()->prepare(
-            "SELECT user_id, user_name, user_email
+            'SELECT user_id, user_name, user_email
                     FROM users
                         WHERE (user_name = :user_name_or_email
                         OR user_email = :user_name_or_email)
                         AND user_provider_type = :provider_type
-                        LIMIT 1"
+                        LIMIT 1'
         );
         $stmt->execute(array(':user_name_or_email' => $usernameOrEmail, ':provider_type' => 'DEFAULT'));
         if ($stmt->rowCount() === 0) {

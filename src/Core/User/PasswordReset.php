@@ -79,9 +79,9 @@ class PasswordReset
      */
     public static function writeTokenToDatabase($user_name, $password_reset_hash, $timestamp)
     {
-        $sql = "UPDATE users
+        $sql = 'UPDATE users
                 SET password_reset_hash = :password_reset_hash, user_password_reset_timestamp = :user_password_reset_timestamp
-                WHERE user_name = :user_name AND user_provider_type = :provider_type LIMIT 1";
+                WHERE user_name = :user_name AND user_provider_type = :provider_type LIMIT 1';
         $stmt = DB::conn()->prepare($sql);
         $stmt->execute(
             array(
@@ -144,12 +144,12 @@ class PasswordReset
     public static function verifyPasswordReset($user_name, $verification_code)
     {
         // check if user-provided username + verification code combination exists
-        $sql = "SELECT user_id, user_password_reset_timestamp
+        $sql = 'SELECT user_id, user_password_reset_timestamp
                   FROM users
                  WHERE user_name = :user_name
                        AND password_reset_hash = :password_reset_hash
                        AND user_provider_type = :user_provider_type
-                 LIMIT 1";
+                 LIMIT 1';
         $stmt = DB::conn()->prepare($sql);
         $stmt->execute(
             array(
@@ -188,10 +188,10 @@ class PasswordReset
      */
     public static function saveNewUserPassword($user_name, $user_password_hash, $password_reset_hash)
     {
-        $sql = "UPDATE users SET user_password_hash = :user_password_hash, password_reset_hash = NULL,
+        $sql = 'UPDATE users SET user_password_hash = :user_password_hash, password_reset_hash = NULL,
                        user_password_reset_timestamp = NULL
                  WHERE user_name = :user_name AND password_reset_hash = :password_reset_hash
-                       AND user_provider_type = :user_provider_type LIMIT 1";
+                       AND user_provider_type = :user_provider_type LIMIT 1';
         $stmt = DB::conn()->prepare($sql);
         $stmt->execute(
             array(

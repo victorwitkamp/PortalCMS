@@ -5,10 +5,10 @@ use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\View\Text;
 
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 $pageName = Text::get('TITLE_SITE_SETTINGS');
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege("site-settings")) {
+if (!Authentication::checkPrivilege('site-settings')) {
     Redirect::permissionError();
     die();
 }

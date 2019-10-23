@@ -7,10 +7,10 @@ use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
 
 $pageType = 'history';
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 $pageName = Text::get('TITLE_MAIL_HISTORY');
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege("mail-scheduler")) {
+if (!Authentication::checkPrivilege('mail-scheduler')) {
     Redirect::permissionError();
     die();
 }

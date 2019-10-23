@@ -7,9 +7,9 @@ use PortalCMS\Modules\Contracts\ContractMapper;
 use PortalCMS\Core\Authentication\Authentication;
 
 $pageName = 'Factuur toevoegen';
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege("rental-invoices")) {
+if (!Authentication::checkPrivilege('rental-invoices')) {
     Redirect::permissionError();
     die();
 }

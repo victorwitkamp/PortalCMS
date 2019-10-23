@@ -6,9 +6,9 @@ use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Modules\Members\MemberModel;
 
 $pageName = 'Nieuw bericht';
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege("mail-scheduler")) {
+if (!Authentication::checkPrivilege('mail-scheduler')) {
     Redirect::permissionError();
     die();
 }

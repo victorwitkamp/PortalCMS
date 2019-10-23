@@ -109,17 +109,17 @@ class MailAttachment
         if (!empty($_POST['id'])) {
             foreach ($_POST['id'] as $id) {
                 if (!MailAttachmentMapper::deleteById($id)) {
-                    $error += 1;
+                    ++$error;
                 } else {
-                    $deleted += 1;
+                    ++$deleted;
                 }
             }
         }
         if (!$deleted > 0) {
-            Session::add('feedback_negative', "Verwijderen mislukt. Aantal berichten met problemen: ".$error);
+            Session::add('feedback_negative', 'Verwijderen mislukt. Aantal berichten met problemen: ' .$error);
             return false;
         }
-        Session::add('feedback_positive', "Er zijn ".$deleted." berichten verwijderd.");
+        Session::add('feedback_positive', 'Er zijn ' .$deleted. ' berichten verwijderd.');
         Redirect::to('mail/templates/edit.php?id='.$mailid);
     }
 }

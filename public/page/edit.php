@@ -5,11 +5,11 @@ use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\Page\Page;
 
 $pageName = 'Pagina bewerken';
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 Authentication::checkAuthentication();
 require_once DIR_INCLUDES.'functions.php';
 if (!Page::checkPage($_GET['id'])) {
-    header("Location: /index.php");
+    header('Location: /index.php');
     die;
 } else {
     $row = Page::getPage($_GET['id']);

@@ -41,10 +41,10 @@ class AccountController extends Controller
     {
         if (UserMapper::updateFbid(Session::get('user_id'), null)) {
             Session::set('user_fbid', null);
-            Session::add('feedback_positive', Text::get("FEEDBACK_REMOVE_FACEBOOK_ACCOUNT_SUCCESS"));
+            Session::add('feedback_positive', Text::get('FEEDBACK_REMOVE_FACEBOOK_ACCOUNT_SUCCESS'));
             Redirect::myAccount();
         }
-        Session::add('feedback_negative', Text::get("FEEDBACK_REMOVE_FACEBOOK_ACCOUNT_FAILED"));
+        Session::add('feedback_negative', Text::get('FEEDBACK_REMOVE_FACEBOOK_ACCOUNT_FAILED'));
         Redirect::myAccount();
     }
     public static function setFbid($FbId)
@@ -52,14 +52,14 @@ class AccountController extends Controller
         if (!empty($FbId)) {
             if (UserMapper::updateFbid(Session::get('user_id'), $FbId)) {
                 Session::set('user_fbid', $FbId);
-                Session::add('feedback_positive', Text::get("FEEDBACK_CONNECT_FACEBOOK_ACCOUNT_SUCCESS"));
+                Session::add('feedback_positive', Text::get('FEEDBACK_CONNECT_FACEBOOK_ACCOUNT_SUCCESS'));
                 Redirect::myAccount();
             } else {
-                Session::add('feedback_negative', Text::get("FEEDBACK_CONNECT_FACEBOOK_ACCOUNT_FAILED"));
+                Session::add('feedback_negative', Text::get('FEEDBACK_CONNECT_FACEBOOK_ACCOUNT_FAILED'));
                 Redirect::myAccount();
             }
         } else {
-            Session::add('feedback_negative', Text::get("FEEDBACK_CONNECT_FACEBOOK_ACCOUNT_FAILED"));
+            Session::add('feedback_negative', Text::get('FEEDBACK_CONNECT_FACEBOOK_ACCOUNT_FAILED'));
             Redirect::myAccount();
         }
     }

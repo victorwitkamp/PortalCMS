@@ -5,9 +5,9 @@ use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\HTTP\Redirect;
 
 $pageName = 'New single message';
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege("mail-scheduler")) {
+if (!Authentication::checkPrivilege('mail-scheduler')) {
     Redirect::permissionError();
     die();
 }

@@ -6,10 +6,10 @@ use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Invoices\InvoiceMapper;
 
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 $pageName = Text::get('TITLE_INVOICES');
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege("rental-invoices")) {
+if (!Authentication::checkPrivilege('rental-invoices')) {
     Redirect::permissionError();
     die();
 }
@@ -47,5 +47,5 @@ PortalCMS_JS_dataTables();
         </div>
     </div>
 </main>
-<?php require DIR_INCLUDES."footer.php"; ?>
+<?php require DIR_INCLUDES. 'footer.php'; ?>
 </body>

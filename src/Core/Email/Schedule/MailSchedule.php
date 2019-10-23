@@ -33,10 +33,10 @@ class MailSchedule
             }
         }
         if (!$deleted > 0) {
-            Session::add('feedback_negative', "Verwijderen mislukt. Aantal berichten met problemen: ".$error);
+            Session::add('feedback_negative', 'Verwijderen mislukt. Aantal berichten met problemen: ' .$error);
             return false;
         }
-        Session::add('feedback_positive', "Er zijn ".$deleted." berichten verwijderd.");
+        Session::add('feedback_positive', 'Er zijn ' .$deleted. ' berichten verwijderd.');
         Redirect::mail();
     }
 
@@ -72,7 +72,7 @@ class MailSchedule
                         }
                     } else {
                         MailScheduleMapper::updateStatus($id, '3');
-                        MailScheduleMapper::setErrorMessageById($id, "Mail incompleet");
+                        MailScheduleMapper::setErrorMessageById($id, 'Mail incompleet');
                         $count_failed += 1;
                     }
                 }
@@ -125,10 +125,10 @@ class MailSchedule
                     }
                 }
                 if ($count_failed === 0) {
-                    Session::add('feedback_positive', "Totaal aantal berichten aangemaakt:".$count_created);
+                    Session::add('feedback_positive', 'Totaal aantal berichten aangemaakt:' .$count_created);
                     Redirect::mail();
                 } else {
-                    Session::add('feedback_warning', "Totaal aantal berichten aangemaakt: ".$count_created.". Berichten met fout: ".$count_failed);
+                    Session::add('feedback_warning', 'Totaal aantal berichten aangemaakt: ' .$count_created. '. Berichten met fout: ' .$count_failed);
                     Redirect::mail();
                 }
             }
@@ -140,10 +140,10 @@ class MailSchedule
         $member = MemberModel::getMemberById($memberid);
         $afzender = SiteSetting::getStaticSiteSetting('site_name');
         $variables = array(
-            "voornaam" => $member['voornaam'],
-            "achternaam" => $member['achternaam'],
-            "iban" => $member['iban'],
-            "afzender" => $afzender
+            'voornaam' => $member['voornaam'],
+            'achternaam' => $member['achternaam'],
+            'iban' => $member['iban'],
+            'afzender' => $afzender
         );
         foreach ($variables as $key => $value) {
             $templatebody = str_replace('{'.strtoupper($key).'}', $value, $templatebody);
@@ -158,11 +158,11 @@ class MailSchedule
         $body = Request::post('body', true);
         $create = MailScheduleMapper::create(null, $recipient_email, $subject, $body);
         if (!$create) {
-            Session::add('feedback_negative', "Nieuwe email aanmaken mislukt.");
+            Session::add('feedback_negative', 'Nieuwe email aanmaken mislukt.');
             return false;
         }
         $created = MailScheduleMapper::lastInsertedId();
-        Session::add('feedback_positive', "Email toegevoegd (ID = ".$created.')');
+        Session::add('feedback_positive', 'Email toegevoegd (ID = ' .$created.')');
         Redirect::invoices();
         return true;
     }
@@ -180,7 +180,7 @@ class MailSchedule
                 return false;
             }
         } else {
-            Session::add('feedback_negative', "MailController: Geen evenementen om te versturen");
+            Session::add('feedback_negative', 'MailController: Geen evenementen om te versturen');
             return false;
         }
     }

@@ -6,9 +6,9 @@ use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Modules\Calendar\CalendarEventMapper;
 
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege("events")) {
+if (!Authentication::checkPrivilege('events')) {
     Redirect::permissionError();
     die();
 }
@@ -18,7 +18,7 @@ if ($row = CalendarEventMapper::getById($_GET['id'])) {
     $allowEdit = true;
     $pageName = 'Evenement '.$row ['title'].' bewerken';
 } else {
-    Session::add('feedback_negative', "Geen resultaten voor opgegeven event ID.");
+    Session::add('feedback_negative', 'Geen resultaten voor opgegeven event ID.');
     Redirect::error();
 }
 

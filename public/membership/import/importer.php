@@ -3,22 +3,22 @@
 use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\Database\DB;
 
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 Authentication::checkAuthentication();
 require_once DIR_INCLUDES.'functions.php';
-$jaarlidmaatschap = $_POST["jaarlidmaatschap"];
-if (isset($_POST["submit_file"])) {
+$jaarlidmaatschap = $_POST['jaarlidmaatschap'];
+if (isset($_POST['submit_file'])) {
     if ($_FILES['photoname']['error'] > 0) {
         echo $_FILES['photoname']['error'];
         die;
     }
-    $file = $_FILES["file"]["tmp_name"];
-    $file_open = fopen($file, "r");
-    while (($csv = fgetcsv($file_open, 1000, ",")) !== false) {
-        $sql = "INSERT INTO members
+    $file = $_FILES['file']['tmp_name'];
+    $file_open = fopen($file, 'r');
+    while (($csv = fgetcsv($file_open, 1000, ',')) !== false) {
+        $sql = 'INSERT INTO members
         (jaarlidmaatschap, voornaam, achternaam, emailadres,
         iban, machtigingskenmerk, incasso_gelukt, opmerking)
-        VALUES (?,?,?,?,?,?,?,?)";
+        VALUES (?,?,?,?,?,?,?,?)';
         $stmt = DB::conn()->prepare($sql);
         $voornaam = $csv[0];
         $achternaam = $csv[1];

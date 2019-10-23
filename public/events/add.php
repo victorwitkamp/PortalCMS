@@ -6,9 +6,9 @@ use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
 
 $pageName = 'Evenement toevoegen';
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege("events")) {
+if (!Authentication::checkPrivilege('events')) {
     Redirect::permissionError();
     die();
 }

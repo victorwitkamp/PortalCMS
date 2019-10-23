@@ -97,7 +97,7 @@ use PortalCMS\Core\Database\DB;
                     <form method="post">
                         <input type="hidden" name="user_id" value="<?php echo $row['user_id']; ?>">
                         <?php
-                        $stmt = DB::conn()->query("SELECT * FROM roles ORDER BY role_id ASC");
+                        $stmt = DB::conn()->query('SELECT * FROM roles ORDER BY role_id ASC');
                         if ($stmt->rowCount() > 0) {
                             echo "<select name='role_id'>";
                             while ($rowroles = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -105,7 +105,7 @@ use PortalCMS\Core\Database\DB;
                                 <option value="<?php echo $rowroles['role_id']; ?>"><?php echo $rowroles['role_name']; ?>
                                 <?php
                             }
-                            echo "</select>";
+                            echo '</select>';
                         }
                         ?>
                             <input type="submit" name="assignrole" value="Toewijzen" class="btn btn-primary ml-2">

@@ -23,10 +23,10 @@ class Role
     public static function get($role_id)
     {
         $stmt = DB::conn()->prepare(
-            "SELECT *
+            'SELECT *
                     FROM roles
                         WHERE role_id = ?
-                            LIMIT 1"
+                            LIMIT 1'
         );
         $stmt->execute([$role_id]);
         if ($stmt->rowCount() === 1) {
@@ -45,9 +45,9 @@ class Role
     public static function create($role_name)
     {
         $stmt = DB::conn()->prepare(
-            "INSERT INTO roles
+            'INSERT INTO roles
                         (role_name)
-                        VALUES (?)"
+                        VALUES (?)'
         );
         if ($stmt->execute([$role_name])) {
             return true;
@@ -65,9 +65,9 @@ class Role
     public static function delete($role_id)
     {
         $stmt = DB::conn()->prepare(
-            "DELETE FROM roles
+            'DELETE FROM roles
                         where role_id=?
-                        LIMIT 1"
+                        LIMIT 1'
         );
         if ($stmt->execute([$role_id])) {
             return true;

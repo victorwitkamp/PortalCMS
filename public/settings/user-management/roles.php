@@ -6,10 +6,10 @@ use PortalCMS\Core\Database\DB;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Authentication\Authentication;
 
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 $pageName = Text::get('TITLE_ROLE_MANAGEMENT');
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege("role-management")) {
+if (!Authentication::checkPrivilege('role-management')) {
     Redirect::permissionError();
     die();
 }
@@ -42,7 +42,7 @@ PortalCMS_JS_headJS();
                     </thead>
                     <?php
 
-                    $stmt = DB::conn()->query("SELECT * FROM roles ORDER BY role_id ASC");
+                    $stmt = DB::conn()->query('SELECT * FROM roles ORDER BY role_id ASC');
                     if ($stmt->rowCount() > 0) {
                         echo '<tbody>';
                         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {

@@ -54,15 +54,15 @@ use PortalCMS\Modules\Invoices\InvoiceModel;
             if ($invoice['status'] === '0') {
                 echo '<i class="fas fa-lock-open"></i> 0 - Concept';
             }
-            if ($invoice['status'] === '1') {
-                echo '<i class="fas fa-lock"></i> 1 - Klaar voor planning';
-            }
-            if ($invoice['status'] === '2') {
-                echo '<i class="fas fa-lock"></i> 2 - Gepland';
-            }
-            if ($invoice['status'] === '3') {
-                echo '<i class="fas fa-lock"></i> 3 - Verzonden ';
-            } ?>
+        if ($invoice['status'] === '1') {
+            echo '<i class="fas fa-lock"></i> 1 - Klaar voor planning';
+        }
+        if ($invoice['status'] === '2') {
+            echo '<i class="fas fa-lock"></i> 2 - Gepland';
+        }
+        if ($invoice['status'] === '3') {
+            echo '<i class="fas fa-lock"></i> 3 - Verzonden ';
+        } ?>
             </td>
             <td>
                 <a href="/rental/invoices/createpdf.php?id=<?php echo $invoice['id'] ?>" title="PDF maken" class="btn btn-success">

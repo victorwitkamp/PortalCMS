@@ -18,19 +18,19 @@ class EventController extends Controller
 
         if (isset($_POST['addEvent'])) {
             if (CalendarEventModel::create()) {
-                Redirect::to("events/");
+                Redirect::to('events/');
             }
         }
 
         if (isset($_POST['updateEvent'])) {
             if (CalendarEventModel::update()) {
-                Redirect::to("events/");
+                Redirect::to('events/');
             }
         }
 
         if (isset($_POST['deleteEvent'])) {
             if (CalendarEventModel::delete()) {
-                Redirect::to("events/");
+                Redirect::to('events/');
             }
         }
     }

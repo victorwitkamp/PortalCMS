@@ -31,10 +31,10 @@ class RoleController extends Controller
     public static function create($role_name)
     {
         if (Role::create($role_name)) {
-            Session::add('feedback_positive', "Nieuwe rol aangemaakt.");
-            Redirect::to("settings/user-management/roles.php");
+            Session::add('feedback_positive', 'Nieuwe rol aangemaakt.');
+            Redirect::to('settings/user-management/roles.php');
         } else {
-            Session::add('feedback_negative', "Fout bij het aanmaken van nieuwe rol.");
+            Session::add('feedback_negative', 'Fout bij het aanmaken van nieuwe rol.');
             Redirect::error();
         }
     }
@@ -42,10 +42,10 @@ class RoleController extends Controller
     public static function delete($role_id)
     {
         if (Role::delete($role_id)) {
-            Session::add('feedback_positive', "Rol verwijderd.");
-            Redirect::to("settings/user-management/roles.php");
+            Session::add('feedback_positive', 'Rol verwijderd.');
+            Redirect::to('settings/user-management/roles.php');
         } else {
-            Session::add('feedback_negative', "Fout bij het verwijderen van rol.");
+            Session::add('feedback_negative', 'Fout bij het verwijderen van rol.');
             Redirect::error();
         }
     }

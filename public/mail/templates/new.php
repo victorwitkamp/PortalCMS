@@ -5,9 +5,9 @@ use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\View\Text;
 
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege("mail-templates")) {
+if (!Authentication::checkPrivilege('mail-templates')) {
     Redirect::permissionError();
     die();
 }

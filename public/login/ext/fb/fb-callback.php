@@ -2,7 +2,7 @@
 
 use PortalCMS\Controllers\AccountController;
 
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 
 require 'config.php';
 
@@ -21,10 +21,10 @@ try {
 if (!isset($accessToken)) {
     if ($helper->getError()) {
         header('HTTP/1.0 401 Unauthorized');
-        echo "Error: ".$helper->getError()."\n";
-        echo "Error Code: ".$helper->getErrorCode()."\n";
-        echo "Error Reason: ".$helper->getErrorReason()."\n";
-        echo "Error Description: ".$helper->getErrorDescription()."\n";
+        echo 'Error: ' .$helper->getError()."\n";
+        echo 'Error Code: ' .$helper->getErrorCode()."\n";
+        echo 'Error Reason: ' .$helper->getErrorReason()."\n";
+        echo 'Error Description: ' .$helper->getErrorDescription()."\n";
     } else {
         header('HTTP/1.0 400 Bad Request');
         echo 'Bad request';
@@ -55,7 +55,7 @@ if (!$accessToken->isLongLived()) {
     try {
         $accessToken = $oAuth2Client->getLongLivedAccessToken($accessToken);
     } catch (Facebook\Exceptions\FacebookSDKException $e) {
-        echo "<p>Error getting long-lived access token: ".$e->getMessage()."</p>\n\n";
+        echo '<p>Error getting long-lived access token: ' .$e->getMessage()."</p>\n\n";
         exit;
     }
     // echo '<h3>Long-lived</h3>';

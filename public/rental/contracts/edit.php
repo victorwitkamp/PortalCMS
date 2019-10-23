@@ -7,9 +7,9 @@ use PortalCMS\Modules\Contracts\ContractMapper;
 use PortalCMS\Core\Authentication\Authentication;
 
 $loadData = true;
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege("rental-contracts")) {
+if (!Authentication::checkPrivilege('rental-contracts')) {
     Redirect::permissionError();
     die();
 }
@@ -18,7 +18,7 @@ $contract = ContractMapper::getById($_GET['id']);
 if ($contract) {
     $pageName = 'Contract van '.$contract['band_naam'].' bewerken';
 } else {
-    Session::add('feedback_negative', "Geen resultaten voor opgegeven Id.");
+    Session::add('feedback_negative', 'Geen resultaten voor opgegeven Id.');
     Redirect::error();
 }
 require_once DIR_INCLUDES.'head.php';

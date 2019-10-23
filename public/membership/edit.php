@@ -7,9 +7,9 @@ use PortalCMS\Modules\Members\MemberModel;
 
 $pageName = 'Wijzigen';
 $pageType = 'edit';
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege("membership")) {
+if (!Authentication::checkPrivilege('membership')) {
     Redirect::permissionError();
     die();
 }
@@ -19,7 +19,7 @@ if (MemberModel::doesMemberIdExist($_GET['id'])) {
     $allowEdit = true;
     $pageName = 'Lidmaatschap van '.$row ['voornaam'].' '.$row ['achternaam'].' bewerken';
 } else {
-    Session::add('feedback_negative', "Geen resultaten voor opgegeven Id.");
+    Session::add('feedback_negative', 'Geen resultaten voor opgegeven Id.');
 }
 require_once DIR_INCLUDES.'head.php';
 displayHeadCSS();

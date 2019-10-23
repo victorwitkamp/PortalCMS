@@ -9,10 +9,10 @@ use PortalCMS\Core\Authorization\Role;
 use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\Authorization\RolePermissionMapper;
 
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 $pageName = Text::get('TITLE_ROLE');
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege("user-management")) {
+if (!Authentication::checkPrivilege('user-management')) {
     Redirect::permissionError();
     die();
 }
@@ -24,7 +24,7 @@ PortalCMS_JS_headJS();
 
 $Role = Role::get($_GET['role_id']);
 if (!$Role) {
-    Session::add('feedback_negative', "Geen resultaten voor opgegeven rol ID.");
+    Session::add('feedback_negative', 'Geen resultaten voor opgegeven rol ID.');
     Redirect::error();
 }
 ?>
@@ -121,7 +121,7 @@ if (!$Role) {
                     een gewenste permissie om toe te voegen aan de rol.<p>
                     <?php
 
-                    $stmt = DB::conn()->query("SELECT * FROM permissions ORDER BY perm_desc ASC");
+                    $stmt = DB::conn()->query('SELECT * FROM permissions ORDER BY perm_desc ASC');
                     if ($stmt->rowCount() > 0) { ?>
 
                         <form method="post">

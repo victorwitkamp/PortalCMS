@@ -9,9 +9,9 @@ class MailTemplateMapper
     public static function getTemplates()
     {
         $stmt = DB::conn()->prepare(
-            "SELECT *
+            'SELECT *
                 FROM mail_templates
-                    ORDER BY id"
+                    ORDER BY id'
         );
         $stmt->execute([]);
         if ($stmt->rowCount() === 0) {
@@ -23,10 +23,10 @@ class MailTemplateMapper
     public static function getTemplatesByType($type)
     {
         $stmt = DB::conn()->prepare(
-            "SELECT *
+            'SELECT *
                 FROM mail_templates
                     WHERE type = ?
-                    ORDER BY id"
+                    ORDER BY id'
         );
         $stmt->execute([$type]);
         if ($stmt->rowCount() === 0) {
@@ -38,10 +38,10 @@ class MailTemplateMapper
     public static function getTemplateById($id)
     {
         $stmt = DB::conn()->prepare(
-            "SELECT *
+            'SELECT *
                 FROM mail_templates
                     WHERE id = ?
-                    LIMIT 1"
+                    LIMIT 1'
         );
         $stmt->execute([$id]);
         if (!$stmt->rowCount() === 1) {
@@ -68,7 +68,7 @@ class MailTemplateMapper
 
     public static function create($type, $subject, $body, $status)
     {
-        $stmt = DB::conn()->prepare("INSERT INTO mail_templates(id, type, subject, body, status) VALUES (NULL,?,?,?,?)");
+        $stmt = DB::conn()->prepare('INSERT INTO mail_templates(id, type, subject, body, status) VALUES (NULL,?,?,?,?)');
         $stmt->execute([$type, $subject, $body, $status]);
         if (!$stmt) {
             return false;
@@ -78,18 +78,13 @@ class MailTemplateMapper
 
     public static function update($id, $type, $subject, $body, $status)
     {
-        $stmt = DB::conn()->prepare("UPDATE mail_templates SET type = ?, subject = ?, body = ?, status = ? WHERE id = ?");
+        $stmt = DB::conn()->prepare('UPDATE mail_templates SET type = ?, subject = ?, body = ?, status = ? WHERE id = ? LIMIT 1');
         $stmt->execute([$type, $subject, $body, $status, $id]);
-        if ($stmt->rowCount() === 0) {
-            return false;
-        }
-        return true;
+        return $stmt->rowCount() === 1;
     }
 
     public static function lastInsertedId()
     {
-        $stmt = DB::conn()->query("SELECT max(id) from mail_templates");
-        return $stmt->fetchColumn();
+        return DB::conn()->query('SELECT max(id) from mail_templates')->fetchColumn();
     }
-
 }

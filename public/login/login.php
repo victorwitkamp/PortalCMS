@@ -5,12 +5,12 @@ use PortalCMS\Core\Config\Config;
 use PortalCMS\Core\View\Popup;
 use PortalCMS\Core\Config\SiteSetting;
 
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 
 $pageName = 'Login';
 require_once DIR_INCLUDES.'functions.php';
 require_once DIR_INCLUDES.'head.php';
-require $_SERVER["DOCUMENT_ROOT"]."/login/ext/fb/config.php";
+require $_SERVER['DOCUMENT_ROOT']. '/login/ext/fb/config.php';
 $helper = $fb->getRedirectLoginHelper();
 $permissions = ['email']; // Optional permissions
 $loginUrl = $helper->getLoginUrl(Config::get('FB_LOGIN_URL'), $permissions);

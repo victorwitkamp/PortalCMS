@@ -5,9 +5,9 @@ use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Modules\Members\MemberModel;
 
 $pageName = 'Profiel';
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege("membership")) {
+if (!Authentication::checkPrivilege('membership')) {
     Redirect::permissionError();
     die();
 }

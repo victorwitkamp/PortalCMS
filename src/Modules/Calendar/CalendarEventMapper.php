@@ -15,19 +15,16 @@ class CalendarEventMapper
      */
     public static function exists($id): bool
     {
-        $stmt = DB::conn()->prepare("SELECT id FROM events WHERE id = ? LIMIT 1");
+        $stmt = DB::conn()->prepare('SELECT id FROM events WHERE id = ? LIMIT 1');
         $stmt->execute([$id]);
-        if ($stmt->rowCount() === 1) {
-            return true;
-        }
-        return false;
+        return $stmt->rowCount() === 1;
     }
 
     public static function getByDate($startDate, $endDate)
     {
         $startDateTime = $startDate.' 00:00:00';
         $endDateTime = $endDate.' 00:00:00';
-        $stmt = DB::conn()->prepare("SELECT * FROM events where start_event < ? and end_event > ? ORDER BY id");
+        $stmt = DB::conn()->prepare('SELECT * FROM events where start_event < ? and end_event > ? ORDER BY id');
         $stmt->execute([$endDateTime, $startDateTime]);
         if ($stmt->rowCount() === 0) {
             return false;
@@ -38,7 +35,7 @@ class CalendarEventMapper
     public static function getEventsAfter($dateTime)
     {
         $stmt = DB::conn()->prepare(
-            "SELECT * FROM events WHERE start_event > ? ORDER BY start_event asc limit 3"
+            'SELECT * FROM events WHERE start_event > ? ORDER BY start_event asc limit 3'
         );
         $stmt->execute([$dateTime]);
         if ($stmt->rowCount() === 0) {
@@ -56,7 +53,7 @@ class CalendarEventMapper
      */
     public static function getById($id)
     {
-        $stmt = DB::conn()->prepare("SELECT * FROM events WHERE id = ? LIMIT 1");
+        $stmt = DB::conn()->prepare('SELECT * FROM events WHERE id = ? LIMIT 1');
         $stmt->execute([$id]);
         if (!$stmt->rowCount() === 1) {
             return false;
@@ -67,11 +64,11 @@ class CalendarEventMapper
     public static function new($title, $start_event, $end_event, $description, $CreatedBy): bool
     {
         $stmt = DB::conn()->prepare(
-            "INSERT INTO events(
+            'INSERT INTO events(
                 id, title, CreatedBy, start_event, end_event, description
             ) VALUES (
                 NULL,?,?,?,?,?
-            )"
+            )'
         );
         $stmt->execute([$title, $CreatedBy, $start_event, $end_event, $description]);
         if (!$stmt) {
@@ -83,9 +80,9 @@ class CalendarEventMapper
     public static function update($id, $title, $start_event, $end_event, $description, $status): bool
     {
         $stmt = DB::conn()->prepare(
-            "UPDATE events
+            'UPDATE events
             SET title=?, start_event=?, end_event=?, description=?, status=?
-            WHERE id=?"
+            WHERE id=?'
         );
         $stmt->execute([$title, $start_event, $end_event, $description, $status, $id]);
         if (!$stmt) {
@@ -97,9 +94,9 @@ class CalendarEventMapper
     public static function updateDate($event_id, $title, $start_event, $end_event): bool
     {
         $stmt = DB::conn()->prepare(
-            "UPDATE events
+            'UPDATE events
             SET title=?, start_event=?, end_event=?
-            WHERE id=?"
+            WHERE id=?'
         );
         $stmt->execute([$title, $start_event, $end_event, $event_id]);
         if (!$stmt) {
@@ -110,7 +107,7 @@ class CalendarEventMapper
 
     public static function delete($id): bool
     {
-        $stmt = DB::conn()->prepare("DELETE FROM events WHERE id = ?");
+        $stmt = DB::conn()->prepare('DELETE FROM events WHERE id = ?');
         if ($stmt->execute([$id])) {
             return true;
         }

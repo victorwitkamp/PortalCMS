@@ -23,9 +23,9 @@ class MailTemplateController extends Controller
         if (isset($_POST['uploadAttachment'])) {
             if (MailAttachment::uploadAttachment()) {
                 Session::add('feedback_positive', Text::get('MAIL_ATTACHMENT_UPLOAD_SUCCESSFUL'));
-                Redirect::to("mail/templates/edit.php?id=".Request::get('id'));
+                Redirect::to('mail/templates/edit.php?id=' .Request::get('id'));
             } else {
-                Redirect::to("mail/templates/edit.php?id=".Request::get('id'));
+                Redirect::to('mail/templates/edit.php?id=' .Request::get('id'));
             }
         }
         if (isset($_POST['newtemplate'])) {

@@ -20,7 +20,7 @@ class MailRecipientMapper
     public static function create($email, $mail_id, $type = 1, $name = null)
     {
         $stmt = DB::conn()->prepare(
-            "INSERT INTO mail_recipients(id, email, mail_id, type, name) VALUES (NULL,?,?,?,?)"
+            'INSERT INTO mail_recipients(id, email, mail_id, type, name) VALUES (NULL,?,?,?,?)'
         );
         $stmt->execute([$email, $mail_id, $type, $name]);
         if (!$stmt) {
@@ -31,7 +31,7 @@ class MailRecipientMapper
 
     public static function getByMailId($mail_id)
     {
-        $stmt = DB::conn()->prepare("SELECT * FROM mail_recipients where mail_id = ?");
+        $stmt = DB::conn()->prepare('SELECT * FROM mail_recipients where mail_id = ?');
         $stmt->execute([$mail_id]);
         if ($stmt->rowCount() === 0) {
             return false;
@@ -41,7 +41,7 @@ class MailRecipientMapper
 
     public static function getByMailIdAndType($mail_id, $type)
     {
-        $stmt = DB::conn()->prepare("SELECT * FROM mail_recipients where mail_id = ? and type = ?");
+        $stmt = DB::conn()->prepare('SELECT * FROM mail_recipients where mail_id = ? and type = ?');
         $stmt->execute([$mail_id, $type]);
         if ($stmt->rowCount() === 0) {
             return false;

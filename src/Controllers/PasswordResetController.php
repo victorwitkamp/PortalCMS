@@ -18,7 +18,7 @@ class PasswordResetController extends Controller
 
         if (isset($_POST['requestPasswordReset'])) {
             if (PasswordReset::requestPasswordReset($_POST['user_name_or_email'])) {
-                Redirect::to("login/login.php");
+                Redirect::to('login/login.php');
             }
         }
         if (isset($_POST['resetSubmit'])) {
@@ -32,7 +32,7 @@ class PasswordResetController extends Controller
                 if (PasswordReset::saveNewUserPassword($_POST['username'], $user_password_hash, $_POST['password_reset_hash'])) {
                     Redirect::login();
                 } else {
-                    Redirect::to("login/passwordReset.php");
+                    Redirect::to('login/passwordReset.php');
                 }
             }
         }

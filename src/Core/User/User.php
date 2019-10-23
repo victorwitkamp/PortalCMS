@@ -28,7 +28,7 @@ class User
         }
 
         // username cannot be empty and must be azAZ09 and 2-64 characters
-        if (!preg_match("/^[a-zA-Z0-9]{2,64}$/", $newUsername)) {
+        if (!preg_match('/^[a-zA-Z0-9]{2,64}$/', $newUsername)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_DOES_NOT_FIT_PATTERN'));
             return false;
         }

@@ -75,7 +75,7 @@ class LoginService
         }
 
         // before list(), check it can be split into 3 strings.
-        if (count(explode(':', $cookie)) !== 3) {
+        if (substr_count($cookie, ':') + 1 !== 3) {
             Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
             return false;
         }
@@ -85,7 +85,7 @@ class LoginService
 
         $user_id = Encryption::decrypt($user_id);
 
-        if ($hash !== hash('sha256', $user_id.':'.$token) || empty($token) || empty($user_id)) {
+        if (empty($token) || empty($user_id) || $hash !== hash('sha256', $user_id.':'.$token)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
             return false;
         }

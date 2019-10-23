@@ -7,11 +7,11 @@ use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\View\Text;
 
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 $pageName = Text::get('TITLE_MEMBERS');
 $year = Request::get('year');
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege("membership")) {
+if (!Authentication::checkPrivilege('membership')) {
     Redirect::permissionError();
     die();
 }
@@ -45,7 +45,7 @@ PortalCMS_JS_dataTables();
 
         Alert::renderFeedbackMessages();
         PortalCMS_JS_Init_dataTables();
-        $stmt = DB::conn()->query("SELECT * FROM members ORDER BY voornaam ASC");
+        $stmt = DB::conn()->query('SELECT * FROM members ORDER BY voornaam ASC');
         if ($stmt->rowCount() === 0) {
             echo 'Ontbrekende gegevens..';
         } else {

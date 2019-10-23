@@ -31,7 +31,7 @@ class InvoiceModel
         $body = MailTemplate::replaceholder('FACTUURNUMMER', $invoice['factuurnummer'], $template['body']);
         $create = MailScheduleMapper::create(null, null, $subject, $body);
         if (!$create) {
-            Session::add('feedback_negative', "Nieuwe email aanmaken mislukt.");
+            Session::add('feedback_negative', 'Nieuwe email aanmaken mislukt.');
             return false;
         }
         $createdMailId = MailScheduleMapper::lastInsertedId();
@@ -40,8 +40,8 @@ class InvoiceModel
         MailRecipientMapper::create($contract['bandleider_email'], $createdMailId);
         // }
 
-        $attachmentPath = "content/invoices/";
-        $attachmentExtension = ".pdf";
+        $attachmentPath = 'content/invoices/';
+        $attachmentExtension = '.pdf';
         $attachmentName = $invoice['factuurnummer'];
         MailAttachmentMapper::create($createdMailId, $attachmentPath, $attachmentName, $attachmentExtension);
 
@@ -72,12 +72,12 @@ class InvoiceModel
                 $factuurdatum = Request::post('factuurdatum', true);
                 // $vervaldatum = Request::post('vervaldatum', true);
                 if (InvoiceMapper::getByFactuurnummer($factuurnummer)) {
-                    Session::add('feedback_negative', "Factuurnummer bestaat al.");
+                    Session::add('feedback_negative', 'Factuurnummer bestaat al.');
                     return Redirect::error();
                 }
                 // if (!InvoiceMapper::create($contract_id, $factuurnummer, $year, $month, $factuurdatum, $vervaldatum)) {
                 if (!InvoiceMapper::create($contract_id, $factuurnummer, $year, $month, $factuurdatum)) {
-                    Session::add('feedback_negative', "Toevoegen van factuur mislukt.");
+                    Session::add('feedback_negative', 'Toevoegen van factuur mislukt.');
                     return Redirect::error();
                 }
                 $invoice = InvoiceMapper::getByFactuurnummer($factuurnummer);
@@ -89,8 +89,8 @@ class InvoiceModel
                 }
             }
         }
-        Session::add('feedback_positive', "Factuur toegevoegd.");
-        return Redirect::to("rental/invoices/index.php");
+        Session::add('feedback_positive', 'Factuur toegevoegd.');
+        return Redirect::to('rental/invoices/index.php');
     }
 
     public static function displayInvoiceSumById($id)
@@ -105,9 +105,8 @@ class InvoiceModel
     public static function getInvoiceSumById($id)
     {
         $sum = 0;
-        $invoiceitems = InvoiceItemMapper::getByInvoiceId($id);
-        foreach ($invoiceitems as $row) {
-            $sum = $sum + $row['price'];
+        foreach (InvoiceItemMapper::getByInvoiceId($id) as $row) {
+            $sum += $row['price'];
         }
         return $sum;
     }
@@ -117,12 +116,12 @@ class InvoiceModel
         $id = (int) Request::post('id', true);
         $invoice = InvoiceMapper::getById($id);
         if (!$invoice) {
-            Session::add('feedback_negative', "Kan factuur niet verwijderen. Factuur bestaat niet.");
+            Session::add('feedback_negative', 'Kan factuur niet verwijderen. Factuur bestaat niet.');
             return Redirect::error();
         }
         if (InvoiceItemMapper::getByInvoiceId($id)) {
             if (!InvoiceItemMapper::deleteByInvoiceId($id)) {
-                Session::add('feedback_negative', "Verwijderen van factuuritems voor factuur mislukt.");
+                Session::add('feedback_negative', 'Verwijderen van factuuritems voor factuur mislukt.');
                 return Redirect::error();
             }
         }
@@ -130,11 +129,11 @@ class InvoiceModel
             unlink(DIR_ROOT.'content/invoices/'.$invoice['factuurnummer'].'.pdf');
         }
         if (!InvoiceMapper::delete($id)) {
-            Session::add('feedback_negative', "Verwijderen van factuur mislukt.");
+            Session::add('feedback_negative', 'Verwijderen van factuur mislukt.');
             return Redirect::error();
         }
-        Session::add('feedback_positive', "Factuur verwijderd.");
-        return Redirect::to("rental/invoices/index.php");
+        Session::add('feedback_positive', 'Factuur verwijderd.');
+        return Redirect::to('rental/invoices/index.php');
     }
 
     public static function render($id = null)

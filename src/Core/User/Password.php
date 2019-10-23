@@ -25,9 +25,9 @@ class Password
     public static function saveChangedPassword($user_name, $user_password_hash)
     {
         $stmt = DB::conn()->prepare(
-            "UPDATE users SET user_password_hash = :user_password_hash
+            'UPDATE users SET user_password_hash = :user_password_hash
                     WHERE user_name = :user_name
-                    AND user_provider_type = :user_provider_type LIMIT 1"
+                    AND user_provider_type = :user_provider_type LIMIT 1'
         );
         $stmt->execute(
             array(
@@ -84,9 +84,9 @@ class Password
      */
     public static function validatePasswordChange($user_name, $user_password_current, $user_password_new, $user_password_repeat)
     {
-        $stmt = DB::conn()->prepare("SELECT user_password_hash, user_failed_logins FROM users WHERE user_name = :user_name LIMIT 1;");
+        $stmt = DB::conn()->prepare('SELECT user_password_hash, user_failed_logins FROM users WHERE user_name = :user_name LIMIT 1;');
         $stmt->execute(array(':user_name' => $user_name));
-        if (!$stmt->rowCount() == 1) {
+        if (!$stmt->rowCount() === 1) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USER_DOES_NOT_EXIST'));
             return false;
         }

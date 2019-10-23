@@ -6,12 +6,12 @@ use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\Config\SiteSetting;
 
 $pageName = 'Wachtwoord resetten';
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 require_once DIR_INCLUDES.'functions.php';
 require_once DIR_INCLUDES.'head.php';
 
 if (empty($_GET['password_reset_hash'])) {
-    Session::add('feedback_negative', "Ongeldige token.");
+    Session::add('feedback_negative', 'Ongeldige token.');
     Redirect::preError();
 }
 displayHeadCSS();

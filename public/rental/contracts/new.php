@@ -5,9 +5,9 @@ use PortalCMS\Core\HTTP\Redirect;
 
 $pageName = 'Contract toevoegen';
 $loadData = false;
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege("rental-contracts")) {
+if (!Authentication::checkPrivilege('rental-contracts')) {
     Redirect::permissionError();
     die();
 }
@@ -51,7 +51,7 @@ $(function () {
 <?php //PortalCMS_JS_JQuery_Simple_validator();?>
 </head>
 <body>
-    <?php require DIR_INCLUDES."nav.php"; ?>
+    <?php require DIR_INCLUDES. 'nav.php'; ?>
     <main>
         <div class="content">
             <div class="container">
@@ -60,10 +60,10 @@ $(function () {
                 </div>
             </div>
             <div class="container">
-                <?php require "inc/form_new.php"; ?>
+                <?php require 'inc/form_new.php'; ?>
             </div>
         </div>
     </main>
-    <?php require DIR_INCLUDES."footer.php"; ?>
+    <?php require DIR_INCLUDES. 'footer.php'; ?>
 </body>
 </html>

@@ -3,7 +3,7 @@
 use PortalCMS\Core\Authentication\Authentication;
 
 $pageName = 'Leden importeren (CSV)';
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 Authentication::checkAuthentication();
 require_once DIR_INCLUDES.'functions.php';
 require_once DIR_INCLUDES.'head.php';

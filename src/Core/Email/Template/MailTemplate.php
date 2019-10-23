@@ -17,10 +17,10 @@ class MailTemplate
         $status = 1;
         $return = MailTemplateMapper::create($type, $subject, $body, $status);
         if ($return === false) {
-            Session::add('feedback_negative', "Nieuwe template aanmaken mislukt.");
+            Session::add('feedback_negative', 'Nieuwe template aanmaken mislukt.');
         } else {
-            Session::add('feedback_positive', "Template toegevoegd (ID = ".$return.')');
-            Redirect::to("mail/templates/");
+            Session::add('feedback_positive', 'Template toegevoegd (ID = ' .$return.')');
+            Redirect::to('mail/templates/');
         }
     }
 
@@ -35,10 +35,10 @@ class MailTemplate
         $status = 1;
         $return = MailTemplateMapper::update($id, $type, $subject, $body, $status);
         if ($return === false) {
-            Session::add('feedback_negative', "Nieuwe template aanmaken mislukt.");
+            Session::add('feedback_negative', 'Nieuwe template aanmaken mislukt.');
         } else {
-            Session::add('feedback_positive', "Template toegevoegd (ID = ".$return.')');
-            Redirect::to("mail/templates/");
+            Session::add('feedback_positive', 'Template toegevoegd (ID = ' .$return.')');
+            Redirect::to('mail/templates/');
         }
     }
 

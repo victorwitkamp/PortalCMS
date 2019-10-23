@@ -9,7 +9,7 @@ class ContractMapper
     public static function get()
     {
         $stmt = DB::conn()->prepare(
-            "SELECT * FROM contracts ORDER BY id"
+            'SELECT * FROM contracts ORDER BY id'
         );
         $stmt->execute([]);
         if ($stmt->rowCount() === 0) {
@@ -21,26 +21,22 @@ class ContractMapper
     public static function exists($Id)
     {
         $stmt = DB::conn()->prepare(
-            "SELECT id FROM contracts WHERE id = ? LIMIT 1"
+            'SELECT id FROM contracts WHERE id = ? LIMIT 1'
         );
         $stmt->execute([$Id]);
-        if ($stmt->rowCount() === 0) {
-            return false;
-        }
-        return true;
+        return !($stmt->rowCount() === 0);
     }
 
     public static function getById($Id)
     {
         $stmt = DB::conn()->prepare(
-            "SELECT * FROM contracts WHERE id = ? LIMIT 1"
+            'SELECT * FROM contracts WHERE id = ? LIMIT 1'
         );
         $stmt->execute([$Id]);
-        if (!$stmt->rowCount() == 1) {
-            return false;
-        } else {
+        if ($stmt->rowCount() === 1) {
             return $stmt->fetch();
         }
+        return false;
     }
 
     public static function new(
@@ -70,7 +66,7 @@ class ContractMapper
         $contract_datum
     ) {
         $stmt = DB::conn()->prepare(
-            "INSERT INTO contracts (
+            'INSERT INTO contracts (
                 id,
                 beuk_vertegenwoordiger,
                 band_naam,
@@ -82,7 +78,7 @@ class ContractMapper
                 contract_ingangsdatum, contract_einddatum, contract_datum
             ) VALUES (
                 NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?
-            )"
+            )'
         );
         $stmt->execute(
             [
@@ -146,7 +142,7 @@ class ContractMapper
         $contract_datum
     ) {
         $stmt = DB::conn()->prepare(
-            "UPDATE contracts
+            'UPDATE contracts
                     SET
                     beuk_vertegenwoordiger=?,
                     band_naam=?,
@@ -172,7 +168,7 @@ class ContractMapper
                     contract_ingangsdatum=?,
                     contract_einddatum=?,
                     contract_datum=?
-                    WHERE id=?"
+                    WHERE id=?'
         );
         $stmt->execute(
             [
@@ -211,7 +207,7 @@ class ContractMapper
 
     public static function delete($id)
     {
-        $stmt = DB::conn()->prepare("DELETE FROM contracts WHERE id = ?");
+        $stmt = DB::conn()->prepare('DELETE FROM contracts WHERE id = ?');
         if ($stmt->execute([$id])) {
             return true;
         }

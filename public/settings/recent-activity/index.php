@@ -6,10 +6,10 @@ use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Core\Activity\Activity;
 
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 $pageName = Text::get('TITLE_RECENT_ACTIVITY');
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege("recent-activity")) {
+if (!Authentication::checkPrivilege('recent-activity')) {
     Redirect::permissionError();
     die();
 }

@@ -5,11 +5,11 @@ use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\Config\Config;
 use PortalCMS\Core\View\Text;
 
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 Authentication::checkAuthentication();
 require_once DIR_INCLUDES.'functions.php';
 $pageName = Text::get('TITLE_MY_ACCOUNT');
-require $_SERVER["DOCUMENT_ROOT"]."/login/ext/fb/config.php";
+require $_SERVER['DOCUMENT_ROOT']. '/login/ext/fb/config.php';
 $helper = $fb->getRedirectLoginHelper();
 $permissions = ['email'];
 $loginUrl = $helper->getLoginUrl(Config::get('FB_ASSIGN_URL'), $permissions);

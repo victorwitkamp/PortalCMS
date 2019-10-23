@@ -8,9 +8,9 @@ use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\Email\Template\MailTemplateMapper;
 use PortalCMS\Core\Email\Attachment\MailAttachmentMapper;
 
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege("mail-templates")) {
+if (!Authentication::checkPrivilege('mail-templates')) {
     Redirect::permissionError();
     die();
 }

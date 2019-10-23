@@ -7,10 +7,10 @@ use PortalCMS\Core\Email\Batch\MailBatch;
 use PortalCMS\Core\Authentication\Authentication;
 
 $pageType = 'index';
-require $_SERVER["DOCUMENT_ROOT"]."/Init.php";
+require $_SERVER['DOCUMENT_ROOT']. '/Init.php';
 $pageName = Text::get('TITLE_MAIL_SCHEDULER');
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege("mail-scheduler")) {
+if (!Authentication::checkPrivilege('mail-scheduler')) {
     Redirect::permissionError();
     die();
 }
