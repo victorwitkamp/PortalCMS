@@ -14,12 +14,12 @@ use PortalCMS\Core\Config\SiteSetting;
 function PortalCMS_JS_tempusdominus()
 {
     PortalCMS_JS_moment();
-    echo '<script src="/dist/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js"></script>';
+    echo '<script src="/dist/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js" async></script>';
 }
 
 function PortalCMS_CSS_tempusdominus()
 {
-    echo '<link rel="stylesheet" type="text/css" href="/dist/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css"gu>';
+    echo '<link rel="stylesheet" type="text/css" href="/dist/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css">';
 }
 
 function PortalCMS_JS_JQuery_Simple_validator()
@@ -41,7 +41,7 @@ function PortalCMS_JS_dataTables()
 
 function PortalCMS_JS_Init_dataTables()
 {
-    echo '<script src="/includes/js/init.datatables.js"  class="init"></script>';
+    echo '<script src="/includes/js/init.datatables.js" class="init"></script>';
 }
 
 function PortalCMS_JS_Datepicker_membership()
@@ -88,8 +88,8 @@ function PortalCMS_JS_headJS()
     <![endif]-->
     <script src="/dist/jquery/dist/jquery.min.js"></script>
     <script src="/dist/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/dist/cookieconsent/build/cookieconsent.min.js"></script>
-    <script src="/includes/js/cookieconsent.init.js"></script>';
+    <script src="/dist/cookieconsent/build/cookieconsent.min.js" async></script>
+    <script src="/includes/js/cookieconsent.init.js" async></script>';
 }
 
 function PortalCMS_JS_moment()
