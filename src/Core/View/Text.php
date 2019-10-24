@@ -19,7 +19,7 @@ class Text
         }
 
         if (!self::$texts) {
-            self::$texts = include DIR_ROOT.'config/texts.php';
+            self::$texts = include DIR_ROOT . 'config/texts.php';
         }
 
         if (!array_key_exists($key, self::$texts)) {

@@ -59,7 +59,7 @@ function displayHeadCSS()
     $theme = SiteSetting::getStaticSiteSetting('site_theme');
     echo '<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">';
     echo '<link rel="stylesheet" type="text/css" href="/dist/@fortawesome/fontawesome-free/css/all.min.css">';
-    echo '<link rel="stylesheet" type="text/css" href="/dist/bootswatch/dist/'.$theme.'/bootstrap.min.css">
+    echo '<link rel="stylesheet" type="text/css" href="/dist/bootswatch/dist/' . $theme . '/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/dist/cookieconsent/build/cookieconsent.min.css" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" type="text/css" href="/includes/css/style.css">';

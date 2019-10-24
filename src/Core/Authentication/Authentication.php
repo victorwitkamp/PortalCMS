@@ -219,8 +219,8 @@ class Authentication
         } catch (Exception $e) {
             return false;
         }
-        $cookie_string_hash       = hash('sha256', $user_id.':'.$token);
-        $cookie_string            = $cookie_string_first_part.':'.$cookie_string_hash;
+        $cookie_string_hash       = hash('sha256', $user_id . ':' . $token);
+        $cookie_string            = $cookie_string_first_part . ':' . $cookie_string_hash;
 
         Cookie::setRememberMe($cookie_string);
     }
