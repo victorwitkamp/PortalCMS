@@ -120,7 +120,6 @@ class CalendarEventModel
             Session::add('feedback_negative', 'Wijzigen van evenement mislukt. Evenement bestaat niet.');
         }
         return false;
-
     }
 
     /**

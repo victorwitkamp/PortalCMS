@@ -18,10 +18,10 @@ class EventController extends Controller
         parent::__construct();
 
         if (isset($_POST['addEvent'])) {
-            $title = Request::post('title', true);
-            $start_event = Request::post('start_event', true);
-            $end_event = Request::post('end_event', true);
-            $description = Request::post('description', true);
+            $title = (string) Request::post('title', true);
+            $start_event = (string) Request::post('start_event', true);
+            $end_event = (string) Request::post('end_event', true);
+            $description = (string) Request::post('description', true);
             if (CalendarEventModel::create($title, $start_event, $end_event, $description)) {
                 Redirect::to('events/');
             } else {
@@ -30,12 +30,12 @@ class EventController extends Controller
         }
 
         if (isset($_POST['updateEvent'])) {
-            $event_id = Request::post('id', true);
-            $title = Request::post('title', true);
-            $start_event = Request::post('start_event', true);
-            $end_event = Request::post('end_event', true);
-            $description = Request::post('description', true);
-            $status = Request::post('status', true);
+            $event_id = (int) Request::post('id', true);
+            $title = (string) Request::post('title', true);
+            $start_event = (string) Request::post('start_event', true);
+            $end_event = (string) Request::post('end_event', true);
+            $description = (string) Request::post('description', true);
+            $status = (int) Request::post('status', true);
             if (CalendarEventModel::update($event_id, $title, $start_event, $end_event, $description, $status)) {
                 Redirect::to('events/');
             } else {
@@ -44,7 +44,7 @@ class EventController extends Controller
         }
 
         if (isset($_POST['deleteEvent'])) {
-            $id = Request::post('id', true);
+            $id = (int) Request::post('id', true);
             if (CalendarEventModel::delete($id)) {
                 Redirect::to('events/');
             } else {
