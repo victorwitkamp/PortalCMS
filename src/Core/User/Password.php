@@ -30,11 +30,11 @@ class Password
                     AND user_provider_type = :user_provider_type LIMIT 1'
         );
         $stmt->execute(
-            array(
+            [
                 ':user_password_hash' => $user_password_hash,
                 ':user_name' => $user_name,
                 ':user_provider_type' => 'DEFAULT'
-            )
+            ]
         );
         return ($stmt->rowCount() === 1 ? true : false);
     }
@@ -85,8 +85,8 @@ class Password
     public static function validatePasswordChange($user_name, $user_password_current, $user_password_new, $user_password_repeat)
     {
         $stmt = DB::conn()->prepare('SELECT user_password_hash, user_failed_logins FROM users WHERE user_name = :user_name LIMIT 1;');
-        $stmt->execute(array(':user_name' => $user_name));
-        if (!$stmt->rowCount() === 1) {
+        $stmt->execute([':user_name' => $user_name]);
+        if ($stmt->rowCount() !== 1) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USER_DOES_NOT_EXIST'));
             return false;
         }
@@ -108,7 +108,7 @@ class Password
         } elseif ($user_password_new !== $user_password_repeat) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_REPEAT_WRONG'));
             return false;
-        } elseif (strlen($user_password_new) < 6) {
+        } elseif (\strlen($user_password_new) < 6) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_TOO_SHORT'));
             return false;
         } elseif ($user_password_current == $user_password_new) {

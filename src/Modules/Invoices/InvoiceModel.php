@@ -73,12 +73,14 @@ class InvoiceModel
                 // $vervaldatum = Request::post('vervaldatum', true);
                 if (InvoiceMapper::getByFactuurnummer($factuurnummer)) {
                     Session::add('feedback_negative', 'Factuurnummer bestaat al.');
-                    return Redirect::error();
+                    Redirect::error();
+                    return false;
                 }
                 // if (!InvoiceMapper::create($contract_id, $factuurnummer, $year, $month, $factuurdatum, $vervaldatum)) {
                 if (!InvoiceMapper::create($contract_id, $factuurnummer, $year, $month, $factuurdatum)) {
                     Session::add('feedback_negative', 'Toevoegen van factuur mislukt.');
-                    return Redirect::error();
+                    Redirect::error();
+                    return false;
                 }
                 $invoice = InvoiceMapper::getByFactuurnummer($factuurnummer);
                 if ($contract['kosten_ruimte'] > 0) {
@@ -90,7 +92,8 @@ class InvoiceModel
             }
         }
         Session::add('feedback_positive', 'Factuur toegevoegd.');
-        return Redirect::to('rental/invoices/index.php');
+        Redirect::to('rental/invoices/index.php');
+        return true;
     }
 
     public static function displayInvoiceSumById($id)
@@ -117,12 +120,14 @@ class InvoiceModel
         $invoice = InvoiceMapper::getById($id);
         if (!$invoice) {
             Session::add('feedback_negative', 'Kan factuur niet verwijderen. Factuur bestaat niet.');
-            return Redirect::error();
+            Redirect::error();
+            return false;
         }
         if (InvoiceItemMapper::getByInvoiceId($id)) {
             if (!InvoiceItemMapper::deleteByInvoiceId($id)) {
                 Session::add('feedback_negative', 'Verwijderen van factuuritems voor factuur mislukt.');
-                return Redirect::error();
+                Redirect::error();
+                return false;
             }
         }
         if ($invoice['status'] > 0) {
@@ -130,10 +135,12 @@ class InvoiceModel
         }
         if (!InvoiceMapper::delete($id)) {
             Session::add('feedback_negative', 'Verwijderen van factuur mislukt.');
-            return Redirect::error();
+            Redirect::error();
+            return false;
         }
         Session::add('feedback_positive', 'Factuur verwijderd.');
-        return Redirect::to('rental/invoices/index.php');
+        Redirect::to('rental/invoices/index.php');
+        return true;
     }
 
     public static function render($id = null)

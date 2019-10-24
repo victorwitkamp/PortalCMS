@@ -31,8 +31,8 @@ class UserMapper
     /**
      * Writes new username to database
      *
-     * @param $user_id int user id
-     * @param $newUsername string new username
+     * @param int $user_id user id
+     * @param string $newUsername new username
      *
      * @return bool
      */
@@ -44,7 +44,7 @@ class UserMapper
                     WHERE user_id = :user_id
                     LIMIT 1'
         );
-        $stmt->execute(array(':user_name' => $newUsername, ':user_id' => $user_id));
+        $stmt->execute([':user_name' => $newUsername, ':user_id' => $user_id]);
         return ($stmt->rowCount() === 1 ? true : false);
     }
 
@@ -88,7 +88,7 @@ class UserMapper
                     SET session_id = :session_id
                     WHERE user_id = :user_id'
         );
-        $stmt->execute(array(':session_id' => $sessionId, ':user_id' => $userId));
+        $stmt->execute([':session_id' => $sessionId, ':user_id' => $userId]);
         return ($stmt->rowCount() === 1 ? true : false);
     }
 
@@ -115,11 +115,11 @@ class UserMapper
                         AND user_id IS NOT NULL
                         LIMIT 1'
         );
-        $stmt->execute(array(':user_id' => $Id));
-        if (!$stmt->rowCount() > 0) {
-            return false;
+        $stmt->execute([':user_id' => $Id]);
+        if ($stmt->rowCount() === 0) {
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         }
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return false;
     }
 
     /**
@@ -175,7 +175,7 @@ class UserMapper
                     OR user_email = :user_name
                     LIMIT 1'
         );
-        $stmt->execute(array(':user_name' => $username, ':user_last_failed_login' => date('Y-m-d H:i:s')));
+        $stmt->execute([':user_name' => $username, ':user_last_failed_login' => date('Y-m-d H:i:s')]);
         return ($stmt->rowCount() === 1 ? true : false);
     }
 
@@ -187,14 +187,14 @@ class UserMapper
                     WHERE user_id = :user_id
                     LIMIT 1'
         );
-        $stmt->execute(array(':user_remember_me_token' => null, ':user_id' => $user_id));
+        $stmt->execute([':user_remember_me_token' => null, ':user_id' => $user_id]);
         return ($stmt->rowCount() === 1 ? true : false);
     }
 
     /**
      * Gets the user's data
      *
-     * @param $username string User's name
+     * @param string $username User's name
      *
      * @return mixed Returns false if user does not exist, returns object with user's data when user exists
      */
@@ -217,7 +217,7 @@ class UserMapper
                         AND user_provider_type = :provider_type
                         LIMIT 1'
         );
-        $stmt->execute(array(':user_name' => $username, ':provider_type' => 'DEFAULT'));
+        $stmt->execute([':user_name' => $username, ':provider_type' => 'DEFAULT']);
         if ($stmt->rowCount() === 0) {
             return false;
         }
@@ -253,10 +253,10 @@ class UserMapper
                         LIMIT 1'
         );
         $stmt->execute(
-            array(
+            [
             ':user_id' => $user_id,
             ':user_remember_me_token' => $token,
-            ':provider_type' => 'DEFAULT')
+            ':provider_type' => 'DEFAULT']
         );
         if ($stmt->rowCount() === 0) {
             return false;
@@ -274,7 +274,7 @@ class UserMapper
                         AND user_fbid IS NOT NULL
                         LIMIT 1'
         );
-        $stmt->execute(array(':user_fbid' => $user_fbid));
+        $stmt->execute([':user_fbid' => $user_fbid]);
         if ($stmt->rowCount() === 0) {
             return false;
         }
@@ -296,7 +296,7 @@ class UserMapper
                         AND user_provider_type = :provider_type
                         LIMIT 1'
         );
-        $stmt->execute(array(':user_name_or_email' => $usernameOrEmail, ':provider_type' => 'DEFAULT'));
+        $stmt->execute([':user_name_or_email' => $usernameOrEmail, ':provider_type' => 'DEFAULT']);
         if ($stmt->rowCount() === 0) {
             return false;
         }

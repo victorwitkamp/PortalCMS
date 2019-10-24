@@ -44,9 +44,9 @@ class Encryption
      */
     public static function encrypt($plain)
     {
-        if (!function_exists('openssl_cipher_iv_length')
-            || !function_exists('openssl_random_pseudo_bytes')
-            || !function_exists('openssl_encrypt')
+        if (!\function_exists('openssl_cipher_iv_length')
+            || !\function_exists('openssl_random_pseudo_bytes')
+            || !\function_exists('openssl_encrypt')
         ) {
 
             throw new Exception('Encryption function doesn\'t exist');
@@ -86,7 +86,7 @@ class Encryption
             throw new Exception('The String to decrypt can\'t be empty');
         }
 
-        if (!function_exists('openssl_cipher_iv_length') || !function_exists('openssl_decrypt')) {
+        if (!\function_exists('openssl_cipher_iv_length') || !\function_exists('openssl_decrypt')) {
             throw new Exception('Encryption function doesn\'t exist');
         }
 
@@ -124,7 +124,7 @@ class Encryption
      */
     private static function hashEquals($hmac, $compare)
     {
-        if (function_exists('hash_equals')) {
+        if (\function_exists('hash_equals')) {
             return hash_equals($hmac, $compare);
         }
 
@@ -140,7 +140,7 @@ class Encryption
 
         $result = 0;
         for ($i = 0; $i < $hashLength; $i++) {
-            $result |= (ord($hmac[$i]) ^ ord($compare[$i]));
+            $result |= (\ord($hmac[$i]) ^ \ord($compare[$i]));
         }
 
         return $result === 0;

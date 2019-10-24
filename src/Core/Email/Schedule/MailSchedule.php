@@ -32,12 +32,13 @@ class MailSchedule
                 }
             }
         }
-        if (!$deleted > 0) {
-            Session::add('feedback_negative', 'Verwijderen mislukt. Aantal berichten met problemen: ' . $error);
-            return false;
+        if ($deleted > 0) {
+            Session::add('feedback_positive', 'Er zijn ' . $deleted . ' berichten verwijderd.');
+            Redirect::mail();
+            return true;
         }
-        Session::add('feedback_positive', 'Er zijn ' . $deleted . ' berichten verwijderd.');
-        Redirect::mail();
+        Session::add('feedback_negative', 'Verwijderen mislukt. Aantal berichten met problemen: ' . $error);
+        return false;
     }
 
 
@@ -139,12 +140,12 @@ class MailSchedule
     {
         $member = MemberModel::getMemberById($memberid);
         $afzender = SiteSetting::getStaticSiteSetting('site_name');
-        $variables = array(
+        $variables = [
             'voornaam' => $member['voornaam'],
             'achternaam' => $member['achternaam'],
             'iban' => $member['iban'],
             'afzender' => $afzender
-        );
+        ];
         foreach ($variables as $key => $value) {
             $templatebody = str_replace('{' . strtoupper($key) . '}', $value, $templatebody);
         }

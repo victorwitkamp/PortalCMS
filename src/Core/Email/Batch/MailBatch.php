@@ -54,21 +54,21 @@ class MailBatch
             foreach ($IDs as $id) {
                 $stmt = DB::conn()->prepare('DELETE FROM mail_batches WHERE id = ? LIMIT 1');
                 $stmt->execute([$id]);
-                if (!$stmt->rowCount() == 1) {
-                    $error += 1;
-                } else {
+                if ($stmt->rowCount() === 1) {
                     $deletedMessageCount += MailScheduleMapper::deleteByBatchId($id);
-                    $deleted += 1;
+                    ++$deleted;
+                } else {
+                    ++$error;
                 }
             }
         }
-        if (!$deleted > 0) {
-            Session::add('feedback_negative', 'Verwijderen mislukt. Aantal batches met problemen: ' . $error);
-            return false;
+        if ($deleted > 0) {
+            Session::add('feedback_positive', 'Er zijn ' . $deleted . ' batches en ' . $deletedMessageCount . ' berichten verwijderd. ');
+            Redirect::mail();
+            return true;
         }
-        Session::add('feedback_positive', 'Er zijn ' . $deleted . ' batches en ' . $deletedMessageCount . ' berichten verwijderd. ');
-
-        Redirect::mail();
+        Session::add('feedback_negative', 'Verwijderen mislukt. Aantal batches met problemen: ' . $error);
+        return false;
     }
 
     public static function countMessages($batch_id)
@@ -80,7 +80,7 @@ class MailBatch
 
     public static function sendById($batch_IDs)
     {
-        $scheduledMailIDs = array();
+        $scheduledMailIDs = [];
         foreach ($batch_IDs as $batch_id) {
             foreach (MailScheduleMapper::getScheduledIdsByBatchId($batch_id) as $scheduledBatchMail) {
                 $scheduledMailIDs[] = $scheduledBatchMail['id'];

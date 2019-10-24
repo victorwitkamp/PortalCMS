@@ -45,10 +45,10 @@ class MailScheduleMapper
     {
         $stmt = DB::conn()->prepare('SELECT * FROM mail_schedule WHERE id = ? LIMIT 1');
         $stmt->execute([$id]);
-        if (!$stmt->rowCount() === 1) {
-            return false;
+        if ($stmt->rowCount() === 1) {
+            return $stmt->fetch();
         }
-        return $stmt->fetch();
+        return false;
     }
 
     public static function deleteByBatchId($batch_id)

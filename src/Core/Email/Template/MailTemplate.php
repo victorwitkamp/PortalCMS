@@ -44,9 +44,9 @@ class MailTemplate
 
     public static function replaceholder($placeholder, $placeholdervalue, $body_in)
     {
-        $variables = array(
+        $variables = [
             $placeholder=>$placeholdervalue
-        );
+        ];
         foreach ($variables as $key => $value) {
             $body_out = str_replace('{' . strtoupper($key) . '}', $value, $body_in);
         }

@@ -34,20 +34,20 @@ class MailAttachmentMapper
     {
         $stmt = DB::conn()->prepare('SELECT * FROM mail_attachments where mail_id = ?');
         $stmt->execute([$mailId]);
-        if (!$stmt->rowCount() > 0) {
-            return false;
+        if ($stmt->rowCount() > 0) {
+            return $stmt->fetchAll();
         }
-        return $stmt->fetchAll();
+        return false;
     }
 
     public static function getByTemplateId($templateId)
     {
         $stmt = DB::conn()->prepare('SELECT * FROM mail_attachments where template_id = ?');
         $stmt->execute([$templateId]);
-        if (!$stmt->rowCount() > 0) {
-            return false;
+        if ($stmt->rowCount() > 0) {
+            return $stmt->fetchAll();
         }
-        return $stmt->fetchAll();
+        return false;
     }
 
     /**

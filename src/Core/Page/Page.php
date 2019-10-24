@@ -17,12 +17,11 @@ class Page
     {
         $stmt = DB::conn()->prepare('SELECT * FROM pages WHERE id = ? LIMIT 1');
         $stmt->execute([$page_id]);
-        if (!$stmt->rowCount() > 0) {
-            Session::add('feedback_negative', 'Pagina bestaat niet.');
-            return false;
-        } else {
+        if ($stmt->rowCount() === 1) {
             return true;
         }
+        Session::add('feedback_negative', 'Pagina bestaat niet.');
+        return false;
     }
 
     public static function getPage($page_id)

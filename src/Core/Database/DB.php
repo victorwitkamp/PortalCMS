@@ -26,9 +26,9 @@ class DB
         // $DB_COLLATE = Config::get('DB_COLLATE');
 
         $dsn = $DB_TYPE . ':host=' . $DB_HOST . ';port=' . $DB_PORT . ';dbname=' . $DB_NAME . ';charset=' . $DB_CHARSET;
-        $options = array(
+        $options = [
             //PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION];
         $conn = null;
         if ($conn == null) {
             /**

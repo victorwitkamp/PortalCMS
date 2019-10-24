@@ -21,7 +21,7 @@ class InvoiceItemMapper
                 WHERE invoice_id = ?'
         );
         $stmt->execute([$invoiceId]);
-        if (!$stmt->rowCount() > 1) {
+        if ($stmt->rowCount() === 0) {
             return false;
         }
         return $stmt->fetchAll();

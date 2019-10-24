@@ -23,7 +23,7 @@ class PasswordReset
     /**
      * Perform the necessary actions to send a password reset mail
      *
-     * @param $user_name_or_email string Username or user's email
+     * @param string $user_name_or_email Username or user's email
      * @return bool success status
      */
     // public static function requestPasswordReset($user_name_or_email, $captcha)
@@ -84,10 +84,10 @@ class PasswordReset
                 WHERE user_name = :user_name AND user_provider_type = :provider_type LIMIT 1';
         $stmt = DB::conn()->prepare($sql);
         $stmt->execute(
-            array(
+            [
                 ':password_reset_hash' => $password_reset_hash, ':user_name' => $user_name,
                 ':user_password_reset_timestamp' => $timestamp, ':provider_type' => 'DEFAULT'
-            )
+            ]
         );
         if ($stmt->rowCount() === 1) {
             return true;
@@ -152,10 +152,10 @@ class PasswordReset
                  LIMIT 1';
         $stmt = DB::conn()->prepare($sql);
         $stmt->execute(
-            array(
+            [
             ':password_reset_hash' => $verification_code,
             ':user_name' => $user_name,
-            ':user_provider_type' => 'DEFAULT')
+            ':user_provider_type' => 'DEFAULT']
         );
         // if this user with exactly this verification hash code does NOT exist
         if ($stmt->rowCount() != 1) {
@@ -194,10 +194,10 @@ class PasswordReset
                        AND user_provider_type = :user_provider_type LIMIT 1';
         $stmt = DB::conn()->prepare($sql);
         $stmt->execute(
-            array(
+            [
                 ':user_password_hash' => $user_password_hash, ':user_name' => $user_name,
                 ':password_reset_hash' => $password_reset_hash, ':user_provider_type' => 'DEFAULT'
-            )
+            ]
         );
         if ($stmt->rowCount() === 1) {
             Session::add('feedback_positive', 'Wachtwoord gewijzigd.');
@@ -266,7 +266,7 @@ class PasswordReset
         } elseif ($user_password_new !== $user_password_repeat) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_REPEAT_WRONG'));
             return false;
-        } elseif (strlen($user_password_new) < 6) {
+        } elseif (\strlen($user_password_new) < 6) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_TOO_SHORT'));
             return false;
         }

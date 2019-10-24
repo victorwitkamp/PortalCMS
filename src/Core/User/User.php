@@ -16,7 +16,7 @@ class User
     /**
      * Edit the user's name, provided in the editing form
      *
-     * @param $newUsername string The new username
+     * @param string $newUsername The new username
      *
      * @return bool success status
      */

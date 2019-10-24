@@ -55,10 +55,10 @@ class CalendarEventMapper
     {
         $stmt = DB::conn()->prepare('SELECT * FROM events WHERE id = ? LIMIT 1');
         $stmt->execute([$id]);
-        if (!$stmt->rowCount() === 1) {
-            return false;
+        if ($stmt->rowCount() === 1) {
+            return $stmt->fetch();
         }
-        return $stmt->fetch();
+        return false;
     }
 
     public static function new($title, $start_event, $end_event, $description, $CreatedBy): bool

@@ -19,7 +19,7 @@ class Redirect
      * "http://www.mydomain.com/user/profile", useful as people had problems with the RELATIVE URL path generated
      * by Redirect::to() when using HUGE inside sub-folders.
      *
-     * @param $path string
+     * @param string $path
      */
     public static function toPreviousViewedPageAfterLogin($path)
     {
@@ -79,7 +79,7 @@ class Redirect
      * @see https://github.com/panique/huge/issues/770
      * @see https://github.com/panique/huge/issues/754
      *
-     * @param $path string
+     * @param string $path
      */
     public static function to($path)
     {

@@ -115,11 +115,12 @@ class MailAttachment
                 }
             }
         }
-        if (!$deleted > 0) {
-            Session::add('feedback_negative', 'Verwijderen mislukt. Aantal berichten met problemen: ' . $error);
-            return false;
+        if ($deleted > 0) {
+            Session::add('feedback_positive', 'Er zijn ' . $deleted . ' berichten verwijderd.');
+            Redirect::to('mail/templates/edit.php?id=' . $mailid);
+            return true;
         }
-        Session::add('feedback_positive', 'Er zijn ' . $deleted . ' berichten verwijderd.');
-        Redirect::to('mail/templates/edit.php?id=' . $mailid);
+        Session::add('feedback_negative', 'Verwijderen mislukt. Aantal berichten met problemen: ' . $error);
+        return false;
     }
 }

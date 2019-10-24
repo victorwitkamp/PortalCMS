@@ -10,7 +10,7 @@ class Role
 
     protected function __construct()
     {
-        $this->permissions = array();
+        $this->permissions = [];
     }
 
     /**

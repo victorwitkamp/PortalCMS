@@ -15,10 +15,12 @@ class InvoiceItemModel
         $price = (int) Request::post('price', true);
         if (!InvoiceItemMapper::create($invoiceId, $name, $price)) {
             Session::add('feedback_negative', 'Toevoegen van factuuritem mislukt.');
-            return Redirect::error();
+            Redirect::error();
+            return false;
         }
         Session::add('feedback_positive', 'Factuuritem toegevoegd.');
-        return Redirect::to('rental/invoices/details.php?id=' . $invoiceId);
+        Redirect::to('rental/invoices/details.php?id=' . $invoiceId);
+        return true;
     }
 
     public static function delete()
@@ -27,13 +29,16 @@ class InvoiceItemModel
         $id = (int) Request::post('id', true);
         if (!InvoiceItemMapper::exists($id)) {
             Session::add('feedback_negative', 'Kan factuuritem niet verwijderen.<br>Factuuritem bestaat niet.');
-            return Redirect::error();
+            Redirect::error();
+            return false;
         }
         if (!InvoiceItemMapper::delete($id)) {
             Session::add('feedback_negative', 'Verwijderen van factuuritem mislukt.');
-            return Redirect::error();
+            Redirect::error();
+            return false;
         }
         Session::add('feedback_positive', 'Factuuritem verwijderd.');
-        return Redirect::to('rental/invoices/details.php?id=' . $invoiceId);
+        Redirect::to('rental/invoices/details.php?id=' . $invoiceId);
+        return true;
     }
 }

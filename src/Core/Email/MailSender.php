@@ -74,6 +74,7 @@ class MailSender
      * @param EmailMessage $message An e-mail that should be send
      *
      * @return bool
+     * @throws Exception
      */
     public function sendMail(EmailMessage $message)
     {
@@ -84,13 +85,13 @@ class MailSender
         $mailTransport = new PHPMailer(true);
         $mailTransport->CharSet = $this->config->charset;
         $mailTransport->isSMTP();
-        $mailTransport->SMTPOptions = array(
-            'ssl' => array(
+        $mailTransport->SMTPOptions = [
+            'ssl' => [
                 'verify_peer' => false,
                 'verify_peer_name' => false,
                 'allow_self_signed' => true
-            )
-        );
+            ]
+        ];
         $mailTransport->Host = $this->config->SMTPHost;
         $mailTransport->Port = $this->config->SMTPPort;
         $mailTransport->SMTPSecure = $this->config->SMTPCrypto;
@@ -98,7 +99,7 @@ class MailSender
         $mailTransport->Username = $this->config->SMTPUser;
         $mailTransport->Password = $this->config->SMTPPass;
         $mailTransport->SMTPDebug = $this->config->SMTPDebug;
-        $mailTransport->Debugoutput = function($str, $level) {
+        $mailTransport->Debugoutput = static function ($str, $level) {
             file_put_contents(DIR_ROOT . 'phpmailer.log', gmdate('Y-m-d H:i:s') . "\t$level\t$str\n", FILE_APPEND | LOCK_EX);
         };
         $mailTransport->From = $this->config->fromEmail;

@@ -41,11 +41,11 @@ class MemberModel
     {
         $stmt = DB::conn()->prepare('SELECT * FROM members WHERE id=? LIMIT 1');
         $stmt->execute([$id]);
-        if (!$stmt->rowCount() == 1) {
-            Session::add('feedback_negative', 'Lid kan niet worden geladen.');
-            return false;
+        if ($stmt->rowCount() === 1) {
+            return $stmt->fetch();
         }
-        return $stmt->fetch();
+        Session::add('feedback_negative', 'Lid kan niet worden geladen.');
+        return false;
     }
 
     public static function saveMember()

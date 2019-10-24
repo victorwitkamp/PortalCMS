@@ -2,6 +2,7 @@
 
 namespace PortalCMS\Core\Authentication\Service;
 
+use Exception;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\User\UserMapper;
@@ -13,9 +14,9 @@ class LoginService
     /**
      * Login process (for DEFAULT user accounts).
      *
-     * @param $user_name string The user's name
-     * @param $user_password string The user's password
-     * @param $set_remember_me_cookie mixed Marker for usage of remember-me cookie feature
+     * @param string $user_name The user's name
+     * @param string $user_password The user's password
+     * @param mixed $set_remember_me_cookie Marker for usage of remember-me cookie feature
      *
      * @return bool success state
      * @throws Exception
@@ -62,7 +63,7 @@ class LoginService
      * performs the login via cookie (for DEFAULT user account, FACEBOOK-accounts are handled differently)
      * TODO add throttling here ?
      *
-     * @param $cookie string The cookie "remember_me"
+     * @param string $cookie The cookie "remember_me"
      *
      * @return bool success state
      * @throws Exception
