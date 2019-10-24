@@ -25,10 +25,10 @@ class MailSchedule
         if (!empty($IDs)) {
             foreach ($IDs as $id) {
                 if (!MailScheduleMapper::deleteById($id)) {
-                    $error += 1;
+                    ++$error;
                 } else {
                     MailAttachmentMapper::deleteByMailId($id);
-                    $deleted += 1;
+                    ++$deleted;
                 }
             }
         }
@@ -51,7 +51,7 @@ class MailSchedule
             foreach ($mail_IDs as $id) {
                 $row = MailScheduleMapper::getById($id);
                 if ($row['status'] !== '1') {
-                    $count_already_sent += 1;
+                    ++$count_already_sent;
                 } else {
                     $recipients = MailRecipientMapper::getByMailId($id);
                     $title = $row['subject'];
@@ -65,16 +65,16 @@ class MailSchedule
                         if ($MailSender->sendMail($EmailMessage)) {
                             MailScheduleMapper::updateStatus($id, '2');
                             MailScheduleMapper::updateDateSent($id);
-                            $count_success += 1;
+                            ++$count_success;
                         } else {
                             MailScheduleMapper::updateStatus($id, '3');
                             MailScheduleMapper::setErrorMessageById($id, $MailSender->getError());
-                            $count_failed += 1;
+                            ++$count_failed;
                         }
                     } else {
                         MailScheduleMapper::updateStatus($id, '3');
                         MailScheduleMapper::setErrorMessageById($id, 'Mail incompleet');
-                        $count_failed += 1;
+                        ++$count_failed;
                     }
                 }
             }
@@ -110,9 +110,9 @@ class MailSchedule
                     $body = self::replaceholdersMember($memberId, $template['body']);
                     $return = MailScheduleMapper::create($batch_id, $memberId, $template['subject'], $body);
                     if (!$return) {
-                        $count_failed += 1;
+                        ++$count_failed;
                     } else {
-                        $count_created += 1;
+                        ++$count_created;
                         $mailid = MailScheduleMapper::lastInsertedId();
                         $memberFullname = $member['voornaam'] . ' ' . $member['achternaam'];
                         MailRecipientMapper::create($member['emailadres'], $mailid, 1, $memberFullname);

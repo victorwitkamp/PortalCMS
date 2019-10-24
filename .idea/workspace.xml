@@ -7,29 +7,10 @@
     <list default="true" id="10cd1690-6b40-469b-8cb6-7411aa27a75c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.php_cs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.php_cs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Authentication/Service/LoginService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Authentication/Service/LoginService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Email/Attachment/MailAttachment.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Attachment/MailAttachment.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Email/Attachment/MailAttachmentMapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Attachment/MailAttachmentMapper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Email/Batch/MailBatch.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Batch/MailBatch.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Email/MailSender.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/MailSender.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controllers/InvoiceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/InvoiceController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Core/Email/Schedule/MailSchedule.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Schedule/MailSchedule.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Email/Schedule/MailScheduleMapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Schedule/MailScheduleMapper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Email/Template/MailTemplateMapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Template/MailTemplateMapper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Encryption/Encryption.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Encryption/Encryption.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Filter/Filter.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Filter/Filter.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/HTTP/Redirect.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/HTTP/Redirect.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/PDF/PDF.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/PDF/PDF.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Page/Page.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Page/Page.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/User/Password.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/User/Password.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/User/PasswordReset.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/User/PasswordReset.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/User/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/User/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/User/UserMapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/User/UserMapper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/View/Text.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/View/Text.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Calendar/CalendarEventMapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Calendar/CalendarEventMapper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Invoices/InvoiceItemMapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Invoices/InvoiceItemMapper.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Modules/Invoices/InvoiceItemModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Invoices/InvoiceItemModel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Modules/Invoices/InvoiceModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Invoices/InvoiceModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Members/MemberModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Members/MemberModel.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -235,7 +216,7 @@
       <workItem from="1571710612042" duration="767000" />
       <workItem from="1571725987701" duration="563000" />
       <workItem from="1571733307952" duration="49640000" />
-      <workItem from="1571877208758" duration="4966000" />
+      <workItem from="1571877208758" duration="7599000" />
     </task>
     <servers />
   </component>

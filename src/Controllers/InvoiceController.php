@@ -28,16 +28,41 @@ class InvoiceController extends Controller
             }
         }
         if (isset($_POST['createInvoice'])) {
-            InvoiceModel::create();
+            $year = Request::post('year', true);
+            $month = Request::post('month', true);
+            $contracts = Request::post('contract_id', true);
+            if (InvoiceModel::create($year, $month, $contracts)) {
+                Redirect::to('rental/invoices/index.php');
+            } else {
+                Redirect::error();
+            }
         }
         if (isset($_POST['deleteInvoice'])) {
-            InvoiceModel::delete();
+            $id = (int) Request::post('id', true);
+            if (InvoiceModel::delete($id)) {
+                Redirect::to('rental/invoices/index.php');
+            } else {
+                Redirect::error();
+            }
         }
         if (isset($_POST['deleteInvoiceItem'])) {
-            InvoiceItemModel::delete();
+            $invoiceId = (int) Request::post('invoiceid', true);
+            $id = (int) Request::post('id', true);
+            if (InvoiceItemModel::delete($id)) {
+                Redirect::to('rental/invoices/details.php?id=' . $invoiceId);
+            } else {
+                Redirect::error();
+            }
         }
         if (isset($_POST['addInvoiceItem'])) {
-            InvoiceItemModel::create();
+            $invoiceId = (int) Request::post('invoiceid', true);
+            $name = Request::post('name', true);
+            $price = (int) Request::post('price', true);
+            if (InvoiceItemModel::create($invoiceId, $name, $price)) {
+                Redirect::to('rental/invoices/details.php?id=' . $invoiceId);
+            } else {
+                Redirect::error();
+            }
         }
     }
 }
