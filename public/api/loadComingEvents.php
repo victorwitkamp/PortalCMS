@@ -5,4 +5,4 @@ use PortalCMS\Modules\Calendar\CalendarEventModel;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 // Authentication::checkAuthentication();
-echo CalendarEventModel::loadComingEvents();
+echo json_encode(CalendarEventModel::loadComingEvents());

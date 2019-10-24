@@ -2,8 +2,6 @@
 
 namespace PortalCMS\Modules\Calendar;
 
-use PortalCMS\Core\Database\DB;
-use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Session\Session;
 
 /**
@@ -12,59 +10,69 @@ use PortalCMS\Core\Session\Session;
  */
 class CalendarEventModel
 {
-    public static function loadCalendarEvents($startDate, $endDate)
+    /**
+     * @param $startDate
+     * @param $endDate
+     * @return array|bool
+     */
+    public static function getByDate(string $startDate, string $endDate)
     {
-        $result = CalendarEventMapper::getByDate($startDate, $endDate);
-        if (!empty($result)) {
-            foreach ($result as $row) {
-                if ($row['status'] === '1') {
+        $eventsArray = [];
+        $events = CalendarEventMapper::getByDate($startDate, $endDate);
+        if (!empty($events)) {
+            foreach ($events as $event) {
+                if ($event['status'] === '1') {
                     $color = 'var(--success)';
-                } elseif ($row['status'] === '2') {
+                } elseif ($event['status'] === '2') {
                     $color = 'var(--danger)';
                 } else {
                     $color = 'var(--info)';
                 }
-                $data[] = array(
-                    'id'   => $row['id'],
-                    'title'   => $row['title'],
-                    'start'   => $row['start_event'],
-                    'end'   => $row['end_event'],
+                $eventsArray[] = [
+                    'id'   => $event['id'],
+                    'title'   => $event['title'],
+                    'start'   => $event['start_event'],
+                    'end'   => $event['end_event'],
                     'backgroundColor' => $color
-                );
+                ];
             }
         }
-        if (!empty($data)) {
-            echo json_encode($data);
-        } else {
-            echo '{}';
+        if (!empty($eventsArray)) {
+            return $eventsArray;
         }
+        return false;
     }
 
+    /**
+     * @return array|bool
+     */
     public static function loadComingEvents()
     {
-        $now = date('Y-m-d H:i:s');
-        foreach (CalendarEventMapper::getEventsAfter($now) as $row) {
-            $data[] = array(
-                'id'   => $row['id'],
-                'title'   => $row['title'],
-                'start'   => $row['start_event'],
-                'end'   => $row['end_event']
-            );
+        $eventsArray = [];
+        foreach (CalendarEventMapper::getEventsAfter(date('Y-m-d H:i:s')) as $event) {
+            $eventsArray[] = [
+                'id'   => $event['id'],
+                'title'   => $event['title'],
+                'start'   => $event['start_event'],
+                'end'   => $event['end_event']
+            ];
         }
-        $returndata = json_encode($data);
-        if (!empty($returndata)) {
-            echo $returndata;
+        if (!empty($eventsArray)) {
+            return $eventsArray;
         }
+        return false;
     }
 
+    /**
+     * @return bool|string
+     */
     public static function loadMailEvents()
     {
-        $now = date('Y-m-d H:i:s');
-        foreach (CalendarEventMapper::getEventsAfter($now) as $row) {
-            $title = $row['title'];
-            $start = $row['start_event'];
-            $end = $row['end_event'];
-            $description = $row['description'];
+        foreach (CalendarEventMapper::getEventsAfter(date('Y-m-d H:i:s')) as $event) {
+            $title = $event['title'];
+            $start = $event['start_event'];
+            $end = $event['end_event'];
+            $description = $event['description'];
             $returndata = '';
             $returndata .= '<strong>Naam evenement: ' . $title . '</strong><br>Start: ' . $start . '<br>Einde: ' . $end . '<br><strong>Beschrijving</strong> ' . $description . '<br>';
         }
@@ -74,25 +82,16 @@ class CalendarEventModel
         return false;
     }
 
-    public static function create()
+    /**
+     * @param string $title
+     * @param string $start_event
+     * @param string $end_event
+     * @param string $description
+     * @return bool
+     */
+    public static function create(string $title, string $start_event, string $end_event, string $description): bool
     {
-        $title = Request::post('title', true);
-        $start_event = Request::post('start_event', true);
-        $end_event = Request::post('end_event', true);
-        $description = Request::post('description', true);
-        $stmt = DB::conn()->prepare(
-            'SELECT id
-            FROM events
-            WHERE start_event = ?
-            AND end_event = ?'
-        );
-        $stmt->execute([$start_event, $end_event]);
-        if (!$stmt->rowCount() == 0) {
-            Session::add('feedback_negative', 'Kies een andere tijd.');
-            return false;
-        }
-        $CreatedBy = Session::get('user_id');
-        if (!CalendarEventMapper::new($title, $start_event, $end_event, $description, $CreatedBy)) {
+        if (!CalendarEventMapper::new($title, $start_event, $end_event, $description, Session::get('user_id'))) {
             Session::add('feedback_negative', 'Toevoegen van evenement mislukt.');
             return false;
         }
@@ -100,39 +99,44 @@ class CalendarEventModel
         return true;
     }
 
-    public static function update()
+    /**
+     * @param int $id
+     * @param string $title
+     * @param string $start
+     * @param string $end
+     * @param string $description
+     * @param int $status
+     * @return bool
+     */
+    public static function update(int $id, string $title, string $start, string $end, string $description, int $status): bool
     {
-        $event_id = Request::post('id', true);
-        $title = Request::post('title', true);
-        $start_event = Request::post('start_event', true);
-        $end_event = Request::post('end_event', true);
-        $description = Request::post('description', true);
-        $status = Request::post('status', true);
-        if (!CalendarEventMapper::exists($event_id)) {
-            Session::add('feedback_negative', 'Wijzigen van evenement mislukt.<br>Evenement bestaat niet.');
-            return false;
-        }
-        if (!CalendarEventMapper::update($event_id, $title, $start_event, $end_event, $description, $status)) {
+        if (CalendarEventMapper::exists($id)) {
+            if (CalendarEventMapper::update($id, $title, $start, $end, $description, $status)) {
+                Session::add('feedback_positive', 'Evenement gewijzigd.');
+                return true;
+            }
             Session::add('feedback_negative', 'Wijzigen van evenement mislukt.');
-            return false;
+        } else {
+            Session::add('feedback_negative', 'Wijzigen van evenement mislukt. Evenement bestaat niet.');
         }
-        Session::add('feedback_positive', 'Evenement gewijzigd.');
-        return true;
+        return false;
+
     }
 
-    public static function delete()
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public static function delete(int $id): bool
     {
-        $id = Request::post('id', true);
-        $event = CalendarEventMapper::getById($id);
-        if (!$event) {
-            Session::add('feedback_negative', 'Verwijderen van evenement mislukt. Evenement bestaat niet.');
-            return false;
+        if (CalendarEventMapper::getById($id)) {
+            if (CalendarEventMapper::delete($id)) {
+                Session::add('feedback_positive', 'Evenement verwijderd.');
+                return true;
+            }
+            Session::add('feedback_negative', 'Verwijderen van evenement mislukt.');
         }
-        if (CalendarEventMapper::delete($id)) {
-            Session::add('feedback_positive', 'Evenement verwijderd.');
-            return true;
-        }
-        Session::add('feedback_negative', 'Verwijderen van evenement mislukt.');
+        Session::add('feedback_negative', 'Verwijderen van evenement mislukt. Evenement bestaat niet.');
         return false;
     }
 }
