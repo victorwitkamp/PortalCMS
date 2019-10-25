@@ -69,7 +69,6 @@ class LoginController extends Controller
             // if (Request::post('redirect')) {
             //     return Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
             // }
-            $redir = null;
             $redir = Request::post('redirect');
             if (!empty($redir)) {
                 return Redirect::to($redir);

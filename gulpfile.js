@@ -36,7 +36,7 @@ function css () {
     .pipe(dest('public/dist/'))
 }
 
-function fullcalendar_css () {
+function fullcalendarCss () {
   return src([
     'node_modules/@fullcalendar/core/main.min.css',
     'node_modules/@fullcalendar/list/main.min.css',
@@ -67,7 +67,7 @@ function js () {
     .pipe(dest('public/dist/'))
 }
 
-function fullcalendar_js () {
+function fullcalendarJs () {
   return src([
     'node_modules/@fullcalendar/core/main.min.js',
     'node_modules/@fullcalendar/list/main.min.js',
@@ -106,4 +106,4 @@ exports.css = css
 exports.woff = woff
 exports.woff2 = woff2
 exports.ttf = ttf
-exports.default = parallel(js, css, fullcalendar_js, fullcalendar_css, woff, woff2, ttf)
+exports.default = parallel(js, css, fullcalendarJs, fullcalendarCss, woff, woff2, ttf)

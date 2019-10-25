@@ -1,4 +1,4 @@
-/* global FullCalendar, moment, $ */
+/* global FullCalendar, moment, $, alert */
 /* jslint browser */
 
 document.addEventListener('DOMContentLoaded', function () {
