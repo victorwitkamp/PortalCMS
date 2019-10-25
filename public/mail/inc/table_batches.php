@@ -11,10 +11,7 @@ use PortalCMS\Core\View\Text;
                 <th>Messages</th>
                 <th>UsedTemplate</th>
                 <?php
-                if ($pageType === 'history') {
-                    echo '<th>Verzonden op</th>';
-                }
-                ?>
+                if ($pageType === 'history') { ?><th>Verzonden op</th><?php } ?>
                 <th>Status</th>
                 <th>CreationDate</th>
                 <th></th>
@@ -40,7 +37,7 @@ use PortalCMS\Core\View\Text;
     </table>
     <hr>
     <?php
-    if ($pageType === 'index') { ?><input type="submit" class="btn btn-primary" name="sendBatchById" value="<?php Text::get('LABEL_SEND_EMAIL'); ?>"><?php } ?>
+    if ($pageType === 'index') { ?><input type="submit" class="btn btn-primary" name="sendBatchById" value="<?php echo Text::get('LABEL_SEND_EMAIL'); ?>"><?php } ?>
     <input type="submit" class="btn btn-danger" name="deleteBatchById" value="<?php echo Text::get('LABEL_DELETE_EMAIL'); ?>">
 </form>
 <script>

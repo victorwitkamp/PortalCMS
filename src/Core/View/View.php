@@ -40,4 +40,15 @@ class View
     {
         return htmlentities($str, ENT_QUOTES, 'UTF-8');
     }
+
+    /**
+     * Converts HTML entities back to characters
+     *
+     * @param  string $str The string.
+     * @return string
+     */
+    public function decodeHTML($str)
+    {
+        return html_entity_decode($str, ENT_QUOTES, 'UTF-8');
+    }
 }

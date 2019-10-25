@@ -1,46 +1,32 @@
+<?php
 
-<?php use PortalCMS\Core\Config\Config;
+use PortalCMS\Core\Config\Config;
 use PortalCMS\Core\Filter\Csrf;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\View\Text;
 
 ?>
 <div class="user_forms-login">
-    <h2 class="forms_title"><?php
-
-        echo Text::get('LABEL_LOG_IN'); ?></h2>
-    <p><?php
-    $minutes = (Config::get('SESSION_RUNTIME') / 60);
-    if ($minutes > 1) {
-        $minutestext = 'minutes';
-    } else {
-        $minutestext = 'minute';
-    }
-    ?>
-    Session duration: <?php echo $minutes . ' ' . $minutestext; ?><br>
+    <h2 class="forms_title"><?php echo Text::get('LABEL_LOG_IN'); ?></h2>
+    <p><?php $minutes = (Config::get('SESSION_RUNTIME') / 60); ?>
+    Session duration: <?php echo $minutes ?> <?php if ($minutes > 1) { echo 'minutes'; } else { echo 'minute'; } ?><br>
     Cookie duration: <?php echo(Config::get('COOKIE_RUNTIME') / 60) . ' minutes (' . ((Config::get('COOKIE_RUNTIME') / 60) / 24) . ' hours)'; ?>
     </p>
     <form method="post">
-            <div class="form-row">
-                <input type="text" name="user_name" placeholder="E-mailadres of gebruikersnaam" class="form-control" autocomplete="username" required autofocus/>
-            </div>
-            <div class="form-row">
-                <input type="password" name="user_password" placeholder="Wachtwoord" class="form-control" autocomplete="current-password" required/>
-            </div>
-            <div class="form-group form-check">
-                <input type="checkbox" id="rememberMe" name="set_remember_me_cookie" class="form-check-input">
-                <label class="form-check-label" for="rememberMe"><?php echo Text::get('LABEL_REMEMBER_ME'); ?></label>
-            </div>
+        <div class="form-row">
+            <input type="text" name="user_name" placeholder="E-mailadres of gebruikersnaam" class="form-control" autocomplete="username" required autofocus/>
+        </div>
+        <div class="form-row">
+            <input type="password" name="user_password" placeholder="Wachtwoord" class="form-control" autocomplete="current-password" required/>
+        </div>
+        <div class="form-group form-check">
+            <input type="checkbox" id="rememberMe" name="set_remember_me_cookie" class="form-check-input">
+            <label class="form-check-label" for="rememberMe"><?php echo Text::get('LABEL_REMEMBER_ME'); ?></label>
+        </div>
         <?php
-        // when a user navigates to a page that's only accessible for logged a logged-in user, then
-        // the user is sent to this page here, also having the page he/she came from in the URL parameter
-        // (have a look). This "where did you came from" value is put into this form to sent the user back
-        // there after being logged in successfully.
-        // Simple but powerful feature, big thanks to @tysonlist.
         if (!empty(Request::get('redirect'))) {
-            echo '<input type="hidden" name="redirect" value="' . $login->View->encodeHTML(Request::get('redirect')) . '" />';
+            ?><input type="hidden" name="redirect" value="<?php echo $login->View->encodeHTML(Request::get('redirect')); ?>"/><?php
         }
-
         // set CSRF token in login form, although sending fake login requests mightn't be interesting gap here.
         // If you want to get deeper, check these answers:
         //     1. natevw's http://stackoverflow.com/questions/6412813/do-login-forms-need-tokens-against-csrf-attacks?rq=1
