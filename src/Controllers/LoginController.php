@@ -34,7 +34,7 @@ class LoginController extends Controller
         // }
         // if (isset($_POST['activateSubmit'])) {
         //     if ($this->activate($_POST['email'], $_POST['code'])) {
-        //         Redirect::to("login/login.php");
+        //         Redirect::to("login");
         //     }
         // }
     }
@@ -72,7 +72,7 @@ class LoginController extends Controller
             return Redirect::home();
         }
         // if (Request::post('redirect')) {
-        //     return Redirect::to('login/login.php?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
+        //     return Redirect::to('login/?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
         // }
         return Redirect::login();
     }
@@ -103,7 +103,7 @@ class LoginController extends Controller
             return Redirect::home();
         }
         // if (Request::post('redirect')) {
-        //     return Redirect::to('login/login.php?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
+        //     return Redirect::to('login/?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
         // }
         return Redirect::login();
     }

@@ -24,37 +24,39 @@ class Redirect
     public static function toPreviousViewedPageAfterLogin($path)
     {
         // header('location: https://'.$_SERVER['HTTP_HOST'].'/'.$path);
-
         header('location: ' . Config::get('URL') . $path);
     }
 
     public static function login()
     {
-        self::to('login/login.php');
+        self::to('login');
     }
 
     public static function home()
     {
-        self::to('home/index.php');
+        self::to('home');
     }
 
     public static function myAccount()
     {
-        self::to('my-account/index.php');
+        self::to('my-account');
     }
 
     public static function contracts()
     {
-        self::to('rental/contracts/index.php');
+        self::to('rental/contracts');
     }
+
     public static function invoices()
     {
-        self::to('rental/invoices/index.php');
+        self::to('rental/invoices');
     }
+
     public static function error()
     {
         self::to('includes/Error.php');
     }
+
     public static function preError()
     {
         self::to('login/error.php');
@@ -67,7 +69,7 @@ class Redirect
 
     public static function mail()
     {
-        self::to('mail/index.php');
+        self::to('mail');
     }
 
     /**

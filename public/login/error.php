@@ -46,7 +46,7 @@ if (!isset($_SESSION)) {
 
                         <h2 class="h3 mb-3 font-weight-normal">Error</h2><hr>
                         <?php Alert::renderFeedbackMessages(); ?><hr>
-                        <a class="btn btn-primary" href="/login/login.php"><span class="fas fa-sync"></span> Opnieuw proberen</a>
+                        <a class="btn btn-primary" href="/login"><span class="fas fa-sync"></span> Opnieuw proberen</a>
                     </div>
                 </div>
 

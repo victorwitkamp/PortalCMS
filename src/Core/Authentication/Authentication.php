@@ -40,9 +40,9 @@ class Authentication
             // as a parameter argument, making it possible to send the user back to where he/she came from after a
             // successful login
 
-            // header('location: ' . Config::get('URL') . 'login/login.php?redirect=' . urlencode($_SERVER['REQUEST_URI']));
-            // Redirect::to('login/login.php?redirect='.ltrim(urlencode($_SERVER['REQUEST_URI']), '/'));
-            Redirect::to('login/login.php?redirect=' . urlencode($_SERVER['REQUEST_URI']));
+            // header('location: ' . Config::get('URL') . 'login/?redirect=' . urlencode($_SERVER['REQUEST_URI']));
+            // Redirect::to('login/?redirect='.ltrim(urlencode($_SERVER['REQUEST_URI']), '/'));
+            Redirect::to('login/?redirect=' . urlencode($_SERVER['REQUEST_URI']));
 
             // to prevent fetching views via cURL (which "ignores" the header-redirect above) we leave the application
             // the hard way, via exit(). @see https://github.com/panique/php-login/issues/453
