@@ -10,10 +10,10 @@ class MailRecipientMapper
     /**
      * Undocumented function
      *
-     * @param [type] $email   The e-mailaddress of the recipient
-     * @param [type] $mail_id The ID of the e-mail that was scheduled in the MailSchedule table.
+     * @param string $email   The e-mailaddress of the recipient
+     * @param int    $mail_id The ID of the e-mail that was scheduled in the MailSchedule table.
      * @param int    $type    Whether the recipient is: 1) recipient, 2) CC, 3) BCC
-     * @param [type] $name    The name of the recipient
+     * @param string $name    The name of the recipient
      *
      * @return boolean
      */
@@ -31,7 +31,9 @@ class MailRecipientMapper
 
     public static function getByMailId($mail_id)
     {
-        $stmt = DB::conn()->prepare('SELECT * FROM mail_recipients where mail_id = ?');
+        $stmt = DB::conn()->prepare('
+            SELECT * FROM mail_recipients where mail_id = ?
+        ');
         $stmt->execute([$mail_id]);
         if ($stmt->rowCount() === 0) {
             return false;
@@ -41,7 +43,9 @@ class MailRecipientMapper
 
     public static function getByMailIdAndType($mail_id, $type)
     {
-        $stmt = DB::conn()->prepare('SELECT * FROM mail_recipients where mail_id = ? and type = ?');
+        $stmt = DB::conn()->prepare('
+            SELECT * FROM mail_recipients where mail_id = ? and type = ?
+        ');
         $stmt->execute([$mail_id, $type]);
         if ($stmt->rowCount() === 0) {
             return false;

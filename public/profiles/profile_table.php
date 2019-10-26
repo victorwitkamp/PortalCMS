@@ -1,3 +1,6 @@
+<?php
+
+?>
 <table class="table table-striped table-condensed">
     <tr>
         <th width="20%">ID</th><td><?php echo $row['user_id']; ?></td>
