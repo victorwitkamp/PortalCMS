@@ -116,7 +116,7 @@ class UserMapper
                         LIMIT 1'
         );
         $stmt->execute([':user_id' => $Id]);
-        if ($stmt->rowCount() === 0) {
+        if ($stmt->rowCount() === 1) {
             return $stmt->fetch(PDO::FETCH_ASSOC);
         }
         return false;

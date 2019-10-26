@@ -21,7 +21,7 @@ class RolePermissionMapper
                     FROM role_perm as t1
                         JOIN permissions as t2 ON t1.perm_id = t2.perm_id
                             WHERE t1.role_id = ?
-                                ORDER BY perm_desc'
+                                ORDER BY perm_id'
         );
         $stmt->execute([$role_id]);
         if ($stmt->rowCount() > 0) {
@@ -29,6 +29,30 @@ class RolePermissionMapper
         }
         return false;
     }
+
+    /**
+     * Returns the permissions of a role as an array
+     *
+     * @param string $role_id
+     *
+     * @return mixed
+     */
+    public static function getRoleSelectablePermissions($role_id)
+    {
+        $stmt = DB::conn()->prepare(
+            'SELECT * FROM permissions where perm_id not in (
+            SELECT perm_id
+                FROM role_perm
+                    WHERE role_id = ?)
+                        ORDER BY perm_id'
+        );
+        $stmt->execute([$role_id]);
+        if ($stmt->rowCount() > 0) {
+            return $stmt->fetchAll();
+        }
+        return false;
+    }
+
 
     /**
      * Check whether a role has a specific permission
