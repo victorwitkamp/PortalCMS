@@ -24,21 +24,18 @@ class LogoutService
             if (!empty($user_id)) {
                 UserMapper::clearRememberMeToken($user_id);
                 if (Cookie::delete()) {
-                    if (Session::destroy()) {
-                        Session::init();
-                        Session::add('feedback_positive', Text::get('FEEDBACK_LOGOUT_SUCCESSFUL'));
-                        Redirect::login();
-                        return true;
-                    }
+                    Session::destroy();
+                    Session::init();
+                    Session::add('feedback_positive', Text::get('FEEDBACK_LOGOUT_SUCCESSFUL'));
+                    Redirect::login();
+                    return true;
                 }
             }
-        } else {
-            if (Session::destroy()) {
-                Session::init();
-                Session::add('feedback_positive', Text::get('FEEDBACK_LOGOUT_INVALID'));
-                Redirect::login();
-                return false;
-            }
         }
+        Session::destroy();
+        Session::init();
+        Session::add('feedback_positive', Text::get('FEEDBACK_LOGOUT_INVALID'));
+        Redirect::login();
+        return false;
     }
 }
