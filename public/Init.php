@@ -49,6 +49,8 @@ if (!file_exists(DIR_VENDOR . 'autoload.php')) {
     include_once DIR_VENDOR . 'autoload.php';
 }
 
+Sentry\init(['dsn' => 'https://50a3fff9edbd4a80aad3f089ad8ca0b9@sentry.io/1797297' ]);
+
 $AccountController = new PortalCMS\Controllers\AccountController();
 $ContractController = new PortalCMS\Controllers\ContractController();
 $EventController = new PortalCMS\Controllers\EventController();
