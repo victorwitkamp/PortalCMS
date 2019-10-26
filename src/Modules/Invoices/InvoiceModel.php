@@ -60,7 +60,7 @@ class InvoiceModel
         return $Invoices;
     }
 
-    public static function create($year, $month, array $contract_ids)
+    public static function create($year, $month, $contract_ids)
     {
         if (empty($contract_ids)) {
             return false;
