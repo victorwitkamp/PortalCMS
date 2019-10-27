@@ -49,7 +49,7 @@ class InvoiceController extends Controller
     {
         $year = Request::post('year', true);
         $month = Request::post('month', true);
-        $contracts = Request::post('contract_id', true);
+        $contracts = Request::post('contract_id', false);
         if (InvoiceModel::create($year, $month, $contracts)) {
             Redirect::to('rental/invoices');
         } else {

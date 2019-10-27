@@ -50,11 +50,13 @@ PortalCMS_JS_dataTables();
             </div>
             <div class="container">
                 <nav>
-                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
                         <a class="nav-item nav-link" id="nav-home-tab" href="index.php" role="tab">Batches</a>
                         <a class="nav-item nav-link active" id="nav-profile-tab" href="messages.php" role="tab">Messages</a>
                     </div>
                 </nav>
+                </div>
+                <div class="container">
                 <?php
                 PortalCMS_JS_Init_dataTables();
 
@@ -67,7 +69,12 @@ PortalCMS_JS_dataTables();
                 if (!$result) {
                     echo 'Ontbrekende gegevens..';
                 } else {
-                    echo '<h2>Alle berichten</h2><p>Aantal: ' . $mailcount . '</p>';
+                    if (isset($_GET['batch_id']) && !empty($_GET['batch_id'])) {
+                        echo '<h3>Berichten van batch '.$_GET['batch_id'].'</h3>';
+                    } else {
+                        echo '<h3>Alle berichten</h3>';
+                    }
+                    echo '<p>Aantal: ' . $mailcount . '</p>';
                     include 'inc/table_messages.php';
                 }
                 echo '<hr>';

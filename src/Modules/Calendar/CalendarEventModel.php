@@ -49,7 +49,9 @@ class CalendarEventModel
     public static function loadComingEvents()
     {
         $eventsArray = [];
-        foreach (CalendarEventMapper::getEventsAfter(date('Y-m-d H:i:s')) as $event) {
+        $events = CalendarEventMapper::getEventsAfter(date('Y-m-d H:i:s'));
+        if (empty($events)) { return false; }
+        foreach ($events as $event) {
             $eventsArray[] = [
                 'id'   => $event['id'],
                 'title'   => $event['title'],
