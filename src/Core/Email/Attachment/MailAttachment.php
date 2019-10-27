@@ -114,10 +114,10 @@ class MailAttachment
             }
         }
         if ($deleted > 0 && $error === 0) {
-            if ($deleted === 1) {
-                Session::add('feedback_positive', 'Er is ' . $deleted . ' bericht verwijderd.');
-            } else {
+            if ($deleted > 1) {
                 Session::add('feedback_positive', 'Er zijn ' . $deleted . ' berichten verwijderd.');
+            } else {
+                Session::add('feedback_positive', 'Er is ' . $deleted . ' bericht verwijderd.');
             }
             return true;
         }

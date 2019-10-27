@@ -31,7 +31,7 @@ class MailTemplateController extends Controller
             MailTemplate::edit();
         }
         if (isset($_POST['deleteMailTemplateAttachments'])) {
-            MailAttachment::deleteById(Request::post('id'), Request::get('id'));
+            MailAttachment::deleteById(Request::post('id'));
             Redirect::to('mail/templates/edit.php?id=' . Request::get('id'));
         }
     }

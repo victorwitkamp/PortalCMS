@@ -22,14 +22,16 @@ class MailSchedule
     {
         $deleted = 0;
         $error = 0;
-        if (!empty($mailIds)) {
-            foreach ($mailIds as $mailId) {
-                if (!MailScheduleMapper::deleteById($mailId)) {
-                    ++$error;
-                } else {
-                    MailAttachmentMapper::deleteByMailId($mailId);
-                    ++$deleted;
-                }
+        if (empty($mailIds)) {
+            Session::add('feedback_negative', 'Invalid request');
+            return false;
+        }
+        foreach ($mailIds as $mailId) {
+            if (!MailScheduleMapper::deleteById($mailId)) {
+                ++$error;
+            } else {
+                MailAttachmentMapper::deleteByMailId($mailId);
+                ++$deleted;
             }
         }
         if ($deleted > 0) {
@@ -72,34 +74,32 @@ class MailSchedule
 
     public static function sendFeedbackHandler($failed = 0, $success = 0, $alreadySent = 0)
     {
-        if ($success === 0) {
-            if ($failed === 0) {
-                if ($alreadySent === 0) {
-                    Session::add('feedback_warning', 'niets uitgevoerd');
-                } else {
-                    Session::add('feedback_warning', $alreadySent . ' bericht(en) reeds verstuurd.');
-                }
+        $text = '';
+        $successText = $success . ' bericht(en) succesvol verstuurd.';
+        $failedText = $failed . ' bericht(en) mislukt.';
+        $alreadySentText = $alreadySent . ' bericht(en) reeds verstuurd.';
+        if ($success = 0 && $failed = 0 && $alreadySent = 0) {
+            Session::add('feedback_negative', 'Invalid request.');
+        }
+        if ($success > 0) {
+            $text .= $successText;
+            if ($alreadySent > 0) {
+                $text .= ' '.$alreadySentText;
+            }
+            if ($failed > 0) {
+                $text .= ' '.$failedText;
+                Session::add('feedback_warning', $text);
             } else {
-                if ($alreadySent === 0) {
-                    Session::add('feedback_negative', $failed . ' bericht(en) mislukt.');
-                } else {
-                    Session::add('feedback_negative', $failed . ' bericht(en) mislukt. ' . $alreadySent . ' bericht(en) reeds verstuurd.');
-                }
+                Session::add('feedback_positive', $text);
             }
         } else {
-            if ($failed === 0) {
-                if ($alreadySent === 0) {
-                    Session::add('feedback_positive', $success . ' bericht(en) succesvol verstuurd.');
-                } else {
-                    Session::add('feedback_warning', $success . ' bericht(en) succesvol verstuurd. ' . $alreadySent . ' bericht(en) reeds verstuurd.');
-                }
-            } else {
-                if ($alreadySent === 0) {
-                    Session::add('feedback_warning', $success . ' bericht(en) succesvol verstuurd. ' . $failed . ' bericht(en) mislukt.');
-                } else {
-                    Session::add('feedback_warning', $success . ' bericht(en) succesvol verstuurd. ' . $failed . ' bericht(en) mislukt. ' . $alreadySent . ' bericht(en) reeds verstuurd.');
-                }
+            if ($failed > 0) {
+                $text .= $failedText;
             }
+            if ($alreadySent > 0) {
+                $text .= ' '.$alreadySentText;
+            }
+            Session::add('feedback_negative', $text);
         }
     }
 
@@ -138,10 +138,9 @@ class MailSchedule
         if ($template['type'] === 'member') {
             if (!empty($recipientIds)) {
                 MailBatch::create($templateId);
-                $batch_id = MailBatch::lastInsertedId();
                 foreach ($recipientIds as $memberId) {
                     $member = MemberModel::getMemberById($memberId);
-                    $return = MailScheduleMapper::create($batch_id, $memberId, $template['subject'], self::replaceholdersMember($memberId, $template['body']));
+                    $return = MailScheduleMapper::create(MailBatch::lastInsertedId(), $memberId, $template['subject'], self::replaceholdersMember($memberId, $template['body']));
                     if (!$return) {
                         ++$failed;
                     } else {
@@ -149,7 +148,6 @@ class MailSchedule
                         $mailid = MailScheduleMapper::lastInsertedId();
                         $memberFullname = $member['voornaam'] . ' ' . $member['achternaam'];
                         MailRecipientMapper::create($member['emailadres'], $mailid, 1, $memberFullname);
-
                         $templateAttachments = MailAttachmentMapper::getByTemplateId($template['id']);
                         if (!empty($templateAttachments)) {
                             foreach ($templateAttachments as $templateAttachment) {
