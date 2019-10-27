@@ -6,30 +6,60 @@ use PortalCMS\Core\Database\DB;
 
 class MailAttachmentMapper
 {
-    public static function create($mail_id, $path, $name, $extension, $encoding = 'base64', $type = 'application/octet-stream')
+    /**
+     * Create a new attachment for an e-mail in the schedule.
+     *
+     * @param int $mailId
+     * @param string $path
+     * @param string $name
+     * @param string $extension
+     * @param string $encoding
+     * @param string $type
+     *
+     * @return bool
+     */
+    public static function create(int $mailId, string $path, string $name, string $extension, string $encoding = 'base64', string $type = 'application/octet-stream')
     {
         $stmt = DB::conn()->prepare(
-            'INSERT INTO mail_attachments(id, mail_id, path, name, extension, encoding, type) VALUES (NULL,?,?,?,?,?,?)'
+            'INSERT INTO mail_attachments(id, mail_id, template_id, path, name, extension, encoding, type)
+                    VALUES (NULL,?,NULL,?,?,?,?,?)'
         );
-        $stmt->execute([$mail_id, $path, $name, $extension, $encoding, $type]);
+        $stmt->execute([$mailId, $path, $name, $extension, $encoding, $type]);
         if (!$stmt) {
             return false;
         }
         return true;
     }
 
-    public static function createForTemplate($template_id, $path, $name, $extension, $encoding = 'base64', $type = 'application/octet-stream')
+    /**
+     * Create a new attachment for a template.
+     *
+     * @param int $templateId
+     * @param string $path
+     * @param string $name
+     * @param string $extension
+     * @param string $encoding
+     * @param string $type
+     *
+     * @return bool
+     */
+    public static function createForTemplate(int $templateId, string $path, string $name, string $extension, string $encoding = 'base64', string $type = 'application/octet-stream')
     {
         $stmt = DB::conn()->prepare(
-            'INSERT INTO mail_attachments(id, template_id, path, name, extension, encoding, type) VALUES (NULL,?,?,?,?,?,?)'
+            'INSERT INTO mail_attachments(id, mail_id, template_id, path, name, extension, encoding, type)
+                    VALUES (NULL,NULL,?,?,?,?,?,?)'
         );
-        $stmt->execute([$template_id, $path, $name, $extension, $encoding, $type]);
+        $stmt->execute([$templateId, $path, $name, $extension, $encoding, $type]);
         if (!$stmt) {
             return false;
         }
         return true;
     }
 
+    /**
+     * @param $mailId
+     * @return array|bool
+     */
     public static function getByMailId($mailId)
     {
         $stmt = DB::conn()->prepare('SELECT * FROM mail_attachments where mail_id = ?');
@@ -40,6 +70,10 @@ class MailAttachmentMapper
         return false;
     }
 
+    /**
+     * @param $templateId
+     * @return array|bool
+     */
     public static function getByTemplateId($templateId)
     {
         $stmt = DB::conn()->prepare('SELECT * FROM mail_attachments where template_id = ?');
@@ -69,10 +103,14 @@ class MailAttachmentMapper
         return ($stmt->rowCount() === 1);
     }
 
+    /**
+     * @param $id
+     * @return bool
+     */
     public static function deleteByMailId($id)
     {
         $stmt = DB::conn()->prepare('DELETE FROM mail_attachments WHERE mail_id = ? LIMIT 1');
         $stmt->execute([$id]);
-        return ($stmt->rowCount() === 1 ? true : false);
+        return ($stmt->rowCount() === 1);
     }
 }

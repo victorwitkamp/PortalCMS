@@ -109,7 +109,7 @@ if (MailScheduleMapper::exists($id)) {
                     <th><?php echo Text::get('LABEL_MAILDETAILS_BODY'); ?></th><td><?php echo $row['body']; ?></td>
                 </tr>
                 <tr>
-                    <th><?php echo Text::get('LABEL_MAILDETAILS_ATTACHMENT'); ?></th>
+                    <th><?php echo Text::get('LABEL_MAILDETAILS_ATTACHMENTS'); ?></th>
                     <td><?php
                     $attachments = MailAttachmentMapper::getByMailId($row['id']);
                     if (!empty($attachments)) {

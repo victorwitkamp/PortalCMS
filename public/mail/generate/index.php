@@ -37,15 +37,6 @@ PortalCMS_JS_headJS(); ?>
             <a href="templatebased/member.php">Lid</a><br>
             <!-- <a href="user.php">Gebruiker</a> -->
         </div>
-        <hr>
-        <div class="container">
-            <h2>sendEventMail()</h2>
-            <form method="post">
-                <input type="text" name="testeventmail_recipientemail" placeholder="Email">
-                <input type="submit" name="testeventmail" value="Verzenden">
-            </form>
-        </div>
-
     </div>
 </main>
 </body>

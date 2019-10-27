@@ -13,6 +13,13 @@ class MailScheduleMapper
         return ($stmt->rowCount() === 1 ? true : false);
     }
 
+    public static function getStatusById($mailId)
+    {
+        $stmt = DB::conn()->prepare('SELECT status FROM mail_schedule WHERE id = ? LIMIT 1');
+        $stmt->execute([$mailId]);
+        return $stmt->fetchColumn();
+    }
+
     public static function getAll()
     {
         $stmt = DB::conn()->prepare('SELECT * FROM mail_schedule ORDER BY id ASC');
@@ -86,6 +93,17 @@ class MailScheduleMapper
     {
         $stmt = DB::conn()->prepare('UPDATE mail_schedule SET status =? where id=?');
         $stmt->execute([$status, $id]);
+        if (!$stmt) {
+            return false;
+        }
+        return true;
+    }
+
+    public static function updateSender($id, $senderName, $senderEmail)
+    {
+        $sender = $senderName . ' (' . $senderEmail . ')';
+        $stmt = DB::conn()->prepare('UPDATE mail_schedule SET sender_email =? where id=?');
+        $stmt->execute([$sender, $id]);
         if (!$stmt) {
             return false;
         }

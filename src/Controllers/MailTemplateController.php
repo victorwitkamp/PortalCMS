@@ -21,12 +21,8 @@ class MailTemplateController extends Controller
         parent::__construct();
 
         if (isset($_POST['uploadAttachment'])) {
-            if (MailAttachment::uploadAttachment()) {
-                Session::add('feedback_positive', Text::get('MAIL_ATTACHMENT_UPLOAD_SUCCESSFUL'));
-                Redirect::to('mail/templates/edit.php?id=' . Request::get('id'));
-            } else {
-                Redirect::to('mail/templates/edit.php?id=' . Request::get('id'));
-            }
+            MailAttachment::uploadAttachment();
+            Redirect::to('mail/templates/edit.php?id=' . Request::get('id'));
         }
         if (isset($_POST['newtemplate'])) {
             MailTemplate::new();
@@ -35,7 +31,8 @@ class MailTemplateController extends Controller
             MailTemplate::edit();
         }
         if (isset($_POST['deleteMailTemplateAttachments'])) {
-            MailAttachment::deleteById();
+            MailAttachment::deleteById(Request::post('id'), Request::get('id'));
+            Redirect::to('mail/templates/edit.php?id=' . Request::get('id'));
         }
     }
 }

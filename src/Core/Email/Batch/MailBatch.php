@@ -86,6 +86,6 @@ class MailBatch
                 $scheduledMailIDs[] = $scheduledBatchMail['id'];
             }
         }
-        MailSchedule::sendbyid($scheduledMailIDs);
+        MailSchedule::sendById($scheduledMailIDs);
     }
 }

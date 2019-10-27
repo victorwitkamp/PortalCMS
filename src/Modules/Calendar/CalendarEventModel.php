@@ -50,7 +50,9 @@ class CalendarEventModel
     {
         $eventsArray = [];
         $events = CalendarEventMapper::getEventsAfter(date('Y-m-d H:i:s'));
-        if (empty($events)) { return false; }
+        if (empty($events)) {
+            return false;
+        }
         foreach ($events as $event) {
             $eventsArray[] = [
                 'id'   => $event['id'],
@@ -59,29 +61,10 @@ class CalendarEventModel
                 'end'   => $event['end_event']
             ];
         }
-        if (!empty($eventsArray)) {
-            return $eventsArray;
+        if (empty($eventsArray)) {
+            return false;
         }
-        return false;
-    }
-
-    /**
-     * @return bool|string
-     */
-    public static function loadMailEvents()
-    {
-        foreach (CalendarEventMapper::getEventsAfter(date('Y-m-d H:i:s')) as $event) {
-            $title = $event['title'];
-            $start = $event['start_event'];
-            $end = $event['end_event'];
-            $description = $event['description'];
-            $returndata = '';
-            $returndata .= '<strong>Naam evenement: ' . $title . '</strong><br>Start: ' . $start . '<br>Einde: ' . $end . '<br><strong>Beschrijving</strong> ' . $description . '<br>';
-        }
-        if (!empty($returndata)) {
-            return $returndata;
-        }
-        return false;
+        return $eventsArray;
     }
 
     /**
@@ -136,8 +119,9 @@ class CalendarEventModel
                 return true;
             }
             Session::add('feedback_negative', 'Verwijderen van evenement mislukt.');
+        } else {
+            Session::add('feedback_negative', 'Verwijderen van evenement mislukt. Evenement bestaat niet.');
         }
-        Session::add('feedback_negative', 'Verwijderen van evenement mislukt. Evenement bestaat niet.');
         return false;
     }
 }

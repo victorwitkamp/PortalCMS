@@ -2,10 +2,11 @@
 
 namespace PortalCMS\Controllers;
 
+use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Email\Batch\MailBatch;
 use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\Email\Schedule\MailSchedule;
-use PortalCMS\Core\HTTP\Request;
 
 /**
  * MailController
@@ -17,21 +18,18 @@ class MailController extends Controller
     {
         parent::__construct();
 
-        if (isset($_POST['testeventmail'])) {
-            MailSchedule::sendEventMail($_POST['testeventmail_recipientemail']);
-        }
         if (isset($_POST['newScheduledMail'])) {
             MailSchedule::new();
         }
         if (isset($_POST['sendScheduledMailById'])) {
-            MailSchedule::sendbyid(Request::post('id'));
+            MailSchedule::sendById(Request::post('id'));
+            Redirect::mail();
         }
         if (isset($_POST['createMailWithTemplate'])) {
-            MailSchedule::newWithTemplate();
+            MailSchedule::newWithTemplate(Request::post('templateid', true), $_POST['recipients']);
         }
         if (isset($_POST['deleteScheduledMailById'])) {
-            $IDs = Request::post('id');
-            MailSchedule::deleteById($IDs);
+            MailSchedule::deleteById(Request::post('id'));
         }
         if (isset($_POST['sendBatchById'])) {
             MailBatch::sendById(Request::post('id'));
