@@ -10,7 +10,7 @@ use PortalCMS\Core\View\Text;
 
 class MailAttachment
 {
-    public static function uploadAttachment()
+    public static function uploadAttachment() : bool
     {
         if (!isset($_FILES['attachment_file'])) {
             Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_IMAGE_UPLOAD_FAILED'));
@@ -53,7 +53,7 @@ class MailAttachment
      *
      * @return bool success status
      */
-    public static function isFolderWritable()
+    public static function isFolderWritable() : bool
     {
         $path_attachment = Config::get('PATH_ATTACHMENTS');
         if (!is_dir(Config::get('PATH_ATTACHMENTS'))) {
@@ -72,24 +72,20 @@ class MailAttachment
      *
      * @return bool
      */
-    public static function validateFileSize()
+    public static function validateFileSize() : bool
     {
         if ($_FILES['attachment_file']['size'] > 5000000) {
             Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_UPLOAD_TOO_BIG'));
             return false;
         }
-        // get the image width, height and mime type
         // $image_proportions = getimagesize($_FILES['attachment_file']['tmp_name']);
-        // if input file too small
         // if ($image_proportions[0] < Config::get('AVATAR_SIZE') or $image_proportions[1] < Config::get('AVATAR_SIZE')) {
-        //     Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_UPLOAD_TOO_SMALL'));
         //     return false;
         // }
-
         return true;
     }
 
-    public static function validateType()
+    public static function validateType() : bool
     {
         if ($_FILES['attachment_file']['type'] === 'image/jpeg') {
             return true;
@@ -98,7 +94,14 @@ class MailAttachment
         return false;
     }
 
-    public static function deleteById($attachmentIds)
+    /**
+     * Delete attachment(s)
+     *
+     * @param array|int $attachmentIds
+     *
+     * @return bool
+     */
+    public static function deleteById($attachmentIds) : bool
     {
         $deleted = 0;
         $error = 0;
@@ -113,19 +116,33 @@ class MailAttachment
                 ++$deleted;
             }
         }
+        return self::deleteFeedbackHandler($deleted, $error);
+    }
+
+
+    /**
+     * Handle feedback for the deleteById method
+     *
+     * @param int $deleted
+     * @param int $error
+     *
+     * @return bool
+     */
+    public static function deleteFeedbackHandler($deleted, $error) : bool
+    {
         if ($deleted > 0 && $error === 0) {
             if ($deleted > 1) {
-                Session::add('feedback_positive', 'Er zijn ' . $deleted . ' berichten verwijderd.');
+                Session::add('feedback_positive', 'Er zijn ' . $deleted . ' bijlagen verwijderd.');
             } else {
-                Session::add('feedback_positive', 'Er is ' . $deleted . ' bericht verwijderd.');
+                Session::add('feedback_positive', 'Er is ' . $deleted . ' bijlage verwijderd.');
             }
             return true;
         }
         if ($deleted > 0 && $error > 0) {
-            Session::add('feedback_warning', 'Aantal berichten verwijderd: ' . $deleted . '. Aantal berichten met problemen: ' . $error);
+            Session::add('feedback_warning', 'Aantal bijlagen verwijderd: ' . $deleted . '. Aantal bijlagen met problemen: ' . $error);
             return true;
         }
-        Session::add('feedback_negative', 'Verwijderen mislukt. Aantal berichten met problemen: ' . $error);
+        Session::add('feedback_negative', 'Verwijderen mislukt. Aantal bijlagen met problemen: ' . $error);
         return false;
     }
 }
