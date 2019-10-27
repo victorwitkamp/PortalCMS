@@ -44,36 +44,40 @@ class MailSchedule
 
     public static function sendbyid($mail_IDs)
     {
-        $count_success = 0;
-        $count_failed = 0;
-        $count_already_sent = 0;
+        $success = 0;
+        $failed = 0;
+        $alreadySent = 0;
         if (!empty($mail_IDs)) {
             foreach ($mail_IDs as $id) {
                 $row = MailScheduleMapper::getById($id);
                 if ($row['status'] !== '1') {
-                    ++$count_already_sent;
+                    ++$alreadySent;
                 } else {
                     if (self::sendSingleMailHandler($id, $row)) {
-                        ++$count_success;
+                        ++$success;
                     } else {
-                        ++$count_failed;
+                        ++$failed;
                     }
                 }
             }
         }
-        if ($count_failed > 0) {
-            if ($count_success > 0) {
-                Session::add('feedback_warning', $count_success . ' bericht(en) succesvol verstuurd. ' . $count_failed . ' bericht(en) mislukt.');
+        self::handleFeedback($failed, $success, $alreadySent);
+        Redirect::mail();
+    }
+
+    public static function handleFeedback($failed, $success, $alreadySent) {
+        if ($failed > 0) {
+            if ($success > 0) {
+                Session::add('feedback_warning', $success . ' bericht(en) succesvol verstuurd. ' . $failed . ' bericht(en) mislukt.');
             } else {
-                Session::add('feedback_negative', $count_failed . ' berichte(n) mislukt.');
+                Session::add('feedback_negative', $failed . ' berichte(n) mislukt.');
             }
         } else {
-            Session::add('feedback_positive', $count_success . ' bericht(en) succesvol verstuurd. ');
+            Session::add('feedback_positive', $success . ' bericht(en) succesvol verstuurd. ');
         }
-        if ($count_already_sent > 0) {
-            Session::add('feedback_positive', $count_already_sent . ' bericht(en) reeds verstuurd. ');
+        if ($alreadySent > 0) {
+            Session::add('feedback_positive', $alreadySent . ' bericht(en) reeds verstuurd. ');
         }
-        Redirect::mail();
     }
 
     public static function sendSingleMailHandler($id, $row)
@@ -105,8 +109,8 @@ class MailSchedule
         $type = Request::post('type', true);
         $templateId = Request::post('templateid', true);
         $template = MailTemplateMapper::getTemplateById($templateId);
-        $count_created = 0;
-        $count_failed = 0;
+        $success = 0;
+        $failed = 0;
         if ($type === 'member') {
             if (!empty($_POST['recipients'])) {
                 MailBatch::create($templateId);
@@ -116,9 +120,9 @@ class MailSchedule
                     $body = self::replaceholdersMember($memberId, $template['body']);
                     $return = MailScheduleMapper::create($batch_id, $memberId, $template['subject'], $body);
                     if (!$return) {
-                        ++$count_failed;
+                        ++$failed;
                     } else {
-                        ++$count_created;
+                        ++$success;
                         $mailid = MailScheduleMapper::lastInsertedId();
                         $memberFullname = $member['voornaam'] . ' ' . $member['achternaam'];
                         MailRecipientMapper::create($member['emailadres'], $mailid, 1, $memberFullname);
@@ -131,13 +135,12 @@ class MailSchedule
                         }
                     }
                 }
-                if ($count_failed === 0) {
-                    Session::add('feedback_positive', 'Totaal aantal berichten aangemaakt:' . $count_created);
-                    Redirect::mail();
+                if ($failed === 0) {
+                    Session::add('feedback_positive', 'Totaal aantal berichten aangemaakt:' . $success);
                 } else {
-                    Session::add('feedback_warning', 'Totaal aantal berichten aangemaakt: ' . $count_created . '. Berichten met fout: ' . $count_failed);
-                    Redirect::mail();
+                    Session::add('feedback_warning', 'Totaal aantal berichten aangemaakt: ' . $success . '. Berichten met fout: ' . $failed);
                 }
+                Redirect::mail();
             }
         }
     }
@@ -160,10 +163,12 @@ class MailSchedule
 
     public static function new()
     {
-        $recipient_email = Request::post('recipient_email', true);
-        $subject = Request::post('subject', true);
-        $body = Request::post('body', true);
-        $create = MailScheduleMapper::create(null, $recipient_email, $subject, $body);
+        $create = MailScheduleMapper::create(
+            null,
+            Request::post('recipient_email', true),
+            Request::post('subject', true),
+            Request::post('body', true)
+        );
         if (!$create) {
             Session::add('feedback_negative', 'Nieuwe email aanmaken mislukt.');
             return false;
@@ -178,10 +183,12 @@ class MailSchedule
     {
         $body = CalendarEventModel::loadMailEvents();
         if (!empty($body)) {
-            $EmailMessage = new EmailMessage('Komende evenementen', $body, $recipient);
-            $SMTPConfiguration = new SMTPConfiguration();
-            $MailSender = new MailSender($SMTPConfiguration);
-            if ($MailSender->sendMail($EmailMessage)) {
+            $MailSender = new MailSender(new SMTPConfiguration());
+            if ($MailSender->sendMail(new EmailMessage(
+                'Komende evenementen',
+                $body,
+                $recipient
+            ))) {
                 return true;
             } else {
                 return false;
