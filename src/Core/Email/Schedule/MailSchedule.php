@@ -53,27 +53,9 @@ class MailSchedule
                 if ($row['status'] !== '1') {
                     ++$count_already_sent;
                 } else {
-                    $recipients = MailRecipientMapper::getByMailId($id);
-                    $title = $row['subject'];
-                    $body = $row['body'];
-                    $attachments = MailAttachmentMapper::getByMailId($id);
-
-                    if (!empty($recipients) && !empty($title) && !empty($body)) {
-                        $EmailMessage = new EmailMessage($title, $body, $recipients, $attachments);
-                        $SMTPConfiguration = new SMTPConfiguration();
-                        $MailSender = new MailSender($SMTPConfiguration);
-                        if ($MailSender->sendMail($EmailMessage)) {
-                            MailScheduleMapper::updateStatus($id, '2');
-                            MailScheduleMapper::updateDateSent($id);
-                            ++$count_success;
-                        } else {
-                            MailScheduleMapper::updateStatus($id, '3');
-                            MailScheduleMapper::setErrorMessageById($id, $MailSender->getError());
-                            ++$count_failed;
-                        }
+                    if (self::sendSingleMailHandler($id, $row)) {
+                        ++$count_success;
                     } else {
-                        MailScheduleMapper::updateStatus($id, '3');
-                        MailScheduleMapper::setErrorMessageById($id, 'Mail incompleet');
                         ++$count_failed;
                     }
                 }
@@ -92,6 +74,30 @@ class MailSchedule
             Session::add('feedback_positive', $count_already_sent . ' bericht(en) reeds verstuurd. ');
         }
         Redirect::mail();
+    }
+
+    public static function sendSingleMailHandler($id, $row)
+    {
+        $recipients = MailRecipientMapper::getByMailId($id);
+        $attachments = MailAttachmentMapper::getByMailId($id);
+        if (!empty($recipients) && !empty($row['subject']) && !empty($row['body'])) {
+            $EmailMessage = new EmailMessage($row['subject'], $row['body'], $recipients, $attachments);
+            $SMTPConfiguration = new SMTPConfiguration();
+            $MailSender = new MailSender($SMTPConfiguration);
+            if ($MailSender->sendMail($EmailMessage)) {
+                MailScheduleMapper::updateStatus($id, '2');
+                MailScheduleMapper::updateDateSent($id);
+                return true;
+            } else {
+                MailScheduleMapper::updateStatus($id, '3');
+                MailScheduleMapper::setErrorMessageById($id, $MailSender->getError());
+                return false;
+            }
+        } else {
+            MailScheduleMapper::updateStatus($id, '3');
+            MailScheduleMapper::setErrorMessageById($id, 'Mail incompleet');
+            return false;
+        }
     }
 
     public static function newWithTemplate()
