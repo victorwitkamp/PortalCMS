@@ -26,7 +26,7 @@ class Request
         if (isset($_POST[$key])) {
             // we use the Ternary Operator here which saves the if/else block
             // @see http://davidwalsh.name/php-shorthand-if-else-ternary-operators
-            if ($clean && is_string($key)) {
+            if ($clean && \is_string($key)) {
                 return trim(strip_tags($_POST[$key]));
             }
             return $_POST[$key];
@@ -41,9 +41,7 @@ class Request
      */
     public static function get($key)
     {
-        if (isset($_GET[$key])) {
-            return $_GET[$key];
-        }
+        return $_GET[$key] ?? null;
     }
 
     /**
@@ -54,8 +52,6 @@ class Request
      */
     public static function cookie($key)
     {
-        if (isset($_COOKIE[$key])) {
-            return $_COOKIE[$key];
-        }
+        return $_COOKIE[$key] ?? null;
     }
 }

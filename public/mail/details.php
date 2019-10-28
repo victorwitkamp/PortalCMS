@@ -87,7 +87,7 @@ if (MailScheduleMapper::exists($id)) {
                     <th><?php echo Text::get('LABEL_MAILDETAILS_RECIPIENT_BCC'); ?></th>
                     <td>
                         <?php
-                        $bccrecipients = EmailRecipientMapper::getBCC($row['id'], 3);
+                        $bccrecipients = EmailRecipientMapper::getBCC($row['id']);
                         if (!empty($bccrecipients)) {
                             echo 'BCC: <br>';
                             foreach ($bccrecipients as $bccrecipient) {

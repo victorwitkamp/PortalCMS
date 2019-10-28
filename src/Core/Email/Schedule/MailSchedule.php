@@ -45,10 +45,7 @@ class MailSchedule
 
     public static function isSent($mailId)
     {
-        if (MailScheduleMapper::getStatusById($mailId) !== '1') {
-            return true;
-        }
-        return false;
+        return MailScheduleMapper::getStatusById($mailId) !== '1';
     }
 
     public static function sendMailsById($mailIds)
@@ -75,7 +72,7 @@ class MailSchedule
 
     public static function sendFeedbackHandler($failed, $success, $alreadySent)
     {
-        if ($success = 0 && $failed = 0 && $alreadySent = 0) {
+        if (($success == 0) && ($failed == 0) && ($alreadySent == 0)) {
             Session::add('feedback_negative', 'Invalid request.');
         }
         if ($success > 0) {
