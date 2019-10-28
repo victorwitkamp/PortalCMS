@@ -71,6 +71,10 @@ class Redirect
     {
         self::to('mail');
     }
+    public static function mailMessages()
+    {
+        self::to('mail/messages.php');
+    }
 
     /**
      * To the defined page, uses a relative path (like "user/profile")

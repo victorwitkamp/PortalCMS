@@ -1,6 +1,6 @@
 <?php
 
-use PortalCMS\Core\Email\Recipient\MailRecipientMapper;
+use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
 use PortalCMS\Core\View\Text;
 
 ?>
@@ -34,7 +34,11 @@ use PortalCMS\Core\View\Text;
                         <?php echo $row['batch_id']; ?></td>
                     <td>
                         <?php echo $row['recipient_email'];
-                        echo count(MailRecipientMapper::getByMailId($row['id']));
+                        $recipients = EmailRecipientMapper::getRecipients($row['id']);
+                        if (!empty($recipients)) {
+                            echo count($recipients);
+                        }
+
                         ?></td>
                     <td>
                         <?php echo $row['subject']; ?></td>

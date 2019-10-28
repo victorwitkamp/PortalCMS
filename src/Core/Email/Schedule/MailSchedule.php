@@ -5,16 +5,16 @@ namespace PortalCMS\Core\Email\Schedule;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\Email\MailSender;
+use PortalCMS\Core\Email\SMTP\SMTPTransport;
 use PortalCMS\Core\Config\SiteSetting;
 use PortalCMS\Core\Email\Batch\MailBatch;
 use PortalCMS\Modules\Members\MemberModel;
 use PortalCMS\Core\Email\Message\EmailMessage;
 use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
 use PortalCMS\Core\Email\Template\MailTemplateMapper;
-use PortalCMS\Core\Email\Recipient\MailRecipientMapper;
-use PortalCMS\Core\Email\Attachment\MailAttachmentMapper;
-use PortalCMS\Core\Email\Configuration\SMTPConfiguration;
+use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
+use PortalCMS\Core\Email\Attachment\EmailAttachmentMapper;
+use PortalCMS\Core\Email\SMTP\SMTPConfiguration;
 
 class MailSchedule
 {
@@ -30,7 +30,7 @@ class MailSchedule
             if (!MailScheduleMapper::deleteById($mailId)) {
                 ++$error;
             } else {
-                MailAttachmentMapper::deleteByMailId($mailId);
+                EmailAttachmentMapper::deleteByMailId($mailId);
                 ++$deleted;
             }
         }
@@ -51,78 +51,66 @@ class MailSchedule
         return false;
     }
 
-    public static function sendById($mailIds)
+    public static function sendMailsById($mailIds)
     {
         $success = 0;
         $failed = 0;
         $alreadySent = 0;
         if (!empty($mailIds)) {
             foreach ($mailIds as $mailId) {
-                if (self::isSent($mailId)) {
-                    ++$alreadySent;
-                } else {
+                if (!self::isSent($mailId)) {
                     if (self::sendSingleMailHandler($mailId)) {
                         ++$success;
                     } else {
                         ++$failed;
                     }
+                } else {
+                    ++$alreadySent;
                 }
             }
             self::sendFeedbackHandler($failed, $success, $alreadySent);
+            Redirect::mailMessages();
         }
     }
 
-    public static function sendFeedbackHandler($failed = 0, $success = 0, $alreadySent = 0)
+    public static function sendFeedbackHandler($failed, $success, $alreadySent)
     {
-        $text = '';
-        $successText = $success . ' bericht(en) succesvol verstuurd.';
-        $failedText = $failed . ' bericht(en) mislukt.';
-        $alreadySentText = $alreadySent . ' bericht(en) reeds verstuurd.';
         if ($success = 0 && $failed = 0 && $alreadySent = 0) {
             Session::add('feedback_negative', 'Invalid request.');
         }
         if ($success > 0) {
-            $text .= $successText;
-            if ($alreadySent > 0) {
-                $text .= ' '.$alreadySentText;
-            }
-            if ($failed > 0) {
-                $text .= ' '.$failedText;
-                Session::add('feedback_warning', $text);
-            } else {
-                Session::add('feedback_positive', $text);
-            }
-        } else {
-            if ($failed > 0) {
-                $text .= $failedText;
-            }
-            if ($alreadySent > 0) {
-                $text .= ' '.$alreadySentText;
-            }
-            Session::add('feedback_negative', $text);
+            $successText = $success . ' bericht(en) succesvol verstuurd.';
+            Session::add('feedback_positive', $successText);
+        }
+        if ($failed > 0) {
+            $failedText = $failed . ' bericht(en) mislukt.';
+            Session::add('feedback_negative', $failedText);
+        }
+        if ($alreadySent > 0) {
+            $alreadySentText = $alreadySent . ' bericht(en) reeds verstuurd.';
+            Session::add('feedback_warning', $alreadySentText);
         }
     }
 
     public static function sendSingleMailHandler($mailId)
     {
         $scheduledMail = MailScheduleMapper::getById($mailId);
-        $recipients = MailRecipientMapper::getByMailId($mailId);
-        $attachments = MailAttachmentMapper::getByMailId($mailId);
+        $recipients = EmailRecipientMapper::getAll($mailId);
+        $attachments = EmailAttachmentMapper::getByMailId($mailId);
         if (!empty($recipients) && !empty($scheduledMail['subject']) && !empty($scheduledMail['body'])) {
             $EmailMessage = new EmailMessage($scheduledMail['subject'], $scheduledMail['body'], $recipients, $attachments);
             $SMTPConfiguration = new SMTPConfiguration();
-            $MailSender = new MailSender($SMTPConfiguration);
-            if ($MailSender->sendMail($EmailMessage)) {
+            $SMTPTransport = new SMTPTransport($SMTPConfiguration);
+            if ($SMTPTransport->sendMail($EmailMessage)) {
                 MailScheduleMapper::updateStatus($mailId, '2');
                 MailScheduleMapper::updateDateSent($mailId);
                 MailScheduleMapper::updateSender($mailId, $SMTPConfiguration->fromName, $SMTPConfiguration->fromEmail);
                 return true;
             } else {
                 MailScheduleMapper::updateStatus($mailId, '3');
-                MailScheduleMapper::setErrorMessageById($mailId, $MailSender->getError());
+                MailScheduleMapper::setErrorMessageById($mailId, $SMTPTransport->getError());
                 return false;
             }
-
         } else {
             MailScheduleMapper::updateStatus($mailId, '3');
             MailScheduleMapper::setErrorMessageById($mailId, 'Mail incompleet');
@@ -147,11 +135,11 @@ class MailSchedule
                         ++$success;
                         $mailid = MailScheduleMapper::lastInsertedId();
                         $memberFullname = $member['voornaam'] . ' ' . $member['achternaam'];
-                        MailRecipientMapper::create($member['emailadres'], $mailid, 1, $memberFullname);
-                        $templateAttachments = MailAttachmentMapper::getByTemplateId($template['id']);
+                        EmailRecipientMapper::createRecipient($mailid, $member['emailadres'], $memberFullname);
+                        $templateAttachments = EmailAttachmentMapper::getByTemplateId($template['id']);
                         if (!empty($templateAttachments)) {
                             foreach ($templateAttachments as $templateAttachment) {
-                                MailAttachmentMapper::create($mailid, $templateAttachment['path'], $templateAttachment['name'], $templateAttachment['extension'], $templateAttachment['encoding'], $templateAttachment['type']);
+                                EmailAttachmentMapper::create($mailid, $templateAttachment['path'], $templateAttachment['name'], $templateAttachment['extension'], $templateAttachment['encoding'], $templateAttachment['type']);
                             }
                         }
                     }
@@ -196,7 +184,7 @@ class MailSchedule
         }
         $created = MailScheduleMapper::lastInsertedId();
         Session::add('feedback_positive', 'Email toegevoegd (ID = ' . $created . ')');
-        Redirect::invoices();
+        // Redirect::invoices();
         return true;
     }
 }

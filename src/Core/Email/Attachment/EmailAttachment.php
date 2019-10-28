@@ -8,7 +8,7 @@ use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
 
-class MailAttachment
+class EmailAttachment
 {
     public static function uploadAttachment() : bool
     {
@@ -30,7 +30,7 @@ class MailAttachment
             return false;
         }
         $mime = self::getMIMEType($targetPath);
-        MailAttachmentMapper::createForTemplate(
+        EmailAttachmentMapper::createForTemplate(
             Request::get('id'),
             Config::get('PATH_ATTACHMENTS_PUBLIC'),
             pathinfo($targetPath, PATHINFO_FILENAME),
@@ -110,7 +110,7 @@ class MailAttachment
             return false;
         }
         foreach ($attachmentIds as $attachmentId) {
-            if (!MailAttachmentMapper::deleteById($attachmentId)) {
+            if (!EmailAttachmentMapper::deleteById($attachmentId)) {
                 ++$error;
             } else {
                 ++$deleted;

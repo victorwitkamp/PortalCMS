@@ -8,8 +8,8 @@ use PortalCMS\Core\Config\Config;
 use PortalCMS\Core\Database\DB;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
-use PortalCMS\Core\Email\Configuration\SMTPConfiguration;
-use PortalCMS\Core\Email\MailSender;
+use PortalCMS\Core\Email\SMTP\SMTPConfiguration;
+use PortalCMS\Core\Email\SMTP\SMTPTransport;
 use PortalCMS\Core\Email\Message\EmailMessage;
 use PortalCMS\Core\Config\SiteSetting;
 
@@ -124,13 +124,13 @@ class PasswordReset
             $user_email,
             null
         );
-        $mailConfiguration = new SMTPConfiguration();
-        $mailSender = new MailSender($mailConfiguration);
-        if ($mailSender->sendMail($mail)) {
+        $SMTPConfiguration = new SMTPConfiguration();
+        $SMTPTransport = new SMTPTransport($SMTPConfiguration);
+        if ($SMTPTransport->sendMail($mail)) {
             Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_RESET_MAIL_SENDING_SUCCESSFUL'));
             return true;
         }
-        Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_MAIL_SENDING_ERROR') . $mailSender->getError());
+        Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_MAIL_SENDING_ERROR') . $SMTPTransport->getError());
         return false;
     }
 

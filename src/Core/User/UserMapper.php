@@ -214,8 +214,8 @@ class UserMapper
                     user_fbid
                     FROM users
                         WHERE (user_name = :user_name OR user_email = :user_name)
-                        AND user_provider_type = :provider_type
-                        LIMIT 1'
+                            AND user_provider_type = :provider_type
+                                LIMIT 1'
         );
         $stmt->execute([':user_name' => $username, ':provider_type' => 'DEFAULT']);
         if ($stmt->rowCount() === 0) {

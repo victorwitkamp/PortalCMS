@@ -6,8 +6,8 @@ use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
-use PortalCMS\Core\Email\Recipient\MailRecipientMapper;
-use PortalCMS\Core\Email\Attachment\MailAttachmentMapper;
+use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
+use PortalCMS\Core\Email\Attachment\EmailAttachmentMapper;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_MAIL_DETAILS');
@@ -53,7 +53,7 @@ if (MailScheduleMapper::exists($id)) {
                     <th><?php echo Text::get('LABEL_MAILDETAILS_RECIPIENT_TO'); ?></th>
                     <td>
                         <?php
-                        $recipients = MailRecipientMapper::getByMailIdAndType($row['id'], 1);
+                        $recipients = EmailRecipientMapper::getRecipients($row['id']);
                         if (!empty($recipients)) {
                             foreach ($recipients as $recipient) {
                                 if (!empty($recipient['name'])) {
@@ -70,7 +70,7 @@ if (MailScheduleMapper::exists($id)) {
                     <th><?php echo Text::get('LABEL_MAILDETAILS_RECIPIENT_CC'); ?></th>
                     <td>
                         <?php
-                        $ccrecipients = MailRecipientMapper::getByMailIdAndType($row['id'], 2);
+                        $ccrecipients = EmailRecipientMapper::getCC($row['id']);
                         if (!empty($ccrecipients)) {
                             foreach ($ccrecipients as $ccrecipient) {
                                 if (!empty($ccrecipient['name'])) {
@@ -87,7 +87,7 @@ if (MailScheduleMapper::exists($id)) {
                     <th><?php echo Text::get('LABEL_MAILDETAILS_RECIPIENT_BCC'); ?></th>
                     <td>
                         <?php
-                        $bccrecipients = MailRecipientMapper::getByMailIdAndType($row['id'], 3);
+                        $bccrecipients = EmailRecipientMapper::getBCC($row['id'], 3);
                         if (!empty($bccrecipients)) {
                             echo 'BCC: <br>';
                             foreach ($bccrecipients as $bccrecipient) {
@@ -111,7 +111,7 @@ if (MailScheduleMapper::exists($id)) {
                 <tr>
                     <th><?php echo Text::get('LABEL_MAILDETAILS_ATTACHMENTS'); ?></th>
                     <td><?php
-                    $attachments = MailAttachmentMapper::getByMailId($row['id']);
+                    $attachments = EmailAttachmentMapper::getByMailId($row['id']);
                     if (!empty($attachments)) {
                         foreach ($attachments as $attachment) {
                             $file = $attachment['path'] . $attachment['name'] . $attachment['extension'];

@@ -4,7 +4,7 @@ namespace PortalCMS\Core\Email\Attachment;
 
 use PortalCMS\Core\Database\DB;
 
-class MailAttachmentMapper
+class EmailAttachmentMapper
 {
     /**
      * Create a new attachment for an e-mail in the schedule.

@@ -1,6 +1,6 @@
 <?php
 
-namespace PortalCMS\Core\Email\Configuration;
+namespace PortalCMS\Core\Email\SMTP;
 
 use PortalCMS\Core\Config\SiteSetting;
 

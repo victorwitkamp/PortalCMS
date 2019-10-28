@@ -1,29 +1,25 @@
 <?php
-namespace PortalCMS\Core\Email;
+namespace PortalCMS\Core\Email\SMTP;
 
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
-use PortalCMS\Core\Email\Configuration\SMTPConfiguration;
+use PortalCMS\Core\Email\SMTP\SMTPConfiguration;
 use PortalCMS\Core\Email\Message\EmailMessage;
 
 /**
  * Class Mail
  */
-class MailSender
+class SMTPTransport
 {
     /**
-     * Undocumented variable
-     *
-     * @var SMTPConfiguration Mail configuration object
+     * @var SMTPConfiguration SMTP configuration object
      */
     private $config;
 
     /**
-     * Undocumented variable
-     *
      * @var PHPMailer PHPMailer instance
      */
-    private $SMTPTransport;
+    private $PHPMailer;
 
     /**
      * @var mixed variable to collect errors
@@ -38,34 +34,34 @@ class MailSender
     public function __construct(SMTPConfiguration $config)
     {
         $this->config = $config;
-        $this->SMTPTransport = new PHPMailer(true);
+        $this->PHPMailer = new PHPMailer(true);
     }
 
     public function prepareConfiguration()
     {
-        $this->SMTPTransport->CharSet = $this->config->charset;
-        $this->SMTPTransport->isSMTP();
-        $this->SMTPTransport->SMTPOptions = [
+        $this->PHPMailer->CharSet = $this->config->charset;
+        $this->PHPMailer->isSMTP();
+        $this->PHPMailer->SMTPOptions = [
             'ssl' => [
                 'verify_peer' => false,
                 'verify_peer_name' => false,
                 'allow_self_signed' => true
             ]
         ];
-        $this->SMTPTransport->Host = $this->config->SMTPHost;
-        $this->SMTPTransport->Port = $this->config->SMTPPort;
-        $this->SMTPTransport->SMTPSecure = $this->config->SMTPCrypto;
-        $this->SMTPTransport->SMTPAuth = $this->config->SMTPAuth;
-        $this->SMTPTransport->Username = $this->config->SMTPUser;
-        $this->SMTPTransport->Password = $this->config->SMTPPass;
-        $this->SMTPTransport->SMTPDebug = $this->config->SMTPDebug;
-        $this->SMTPTransport->Debugoutput = static function ($str, $level) {
+        $this->PHPMailer->Host = $this->config->SMTPHost;
+        $this->PHPMailer->Port = $this->config->SMTPPort;
+        $this->PHPMailer->SMTPSecure = $this->config->SMTPCrypto;
+        $this->PHPMailer->SMTPAuth = $this->config->SMTPAuth;
+        $this->PHPMailer->Username = $this->config->SMTPUser;
+        $this->PHPMailer->Password = $this->config->SMTPPass;
+        $this->PHPMailer->SMTPDebug = $this->config->SMTPDebug;
+        $this->PHPMailer->Debugoutput = static function ($str, $level) {
             file_put_contents(DIR_ROOT . 'phpmailer.log', gmdate('Y-m-d H:i:s') . "\t$level\t$str\n", FILE_APPEND | LOCK_EX);
         };
-        $this->SMTPTransport->From = $this->config->fromEmail;
-        $this->SMTPTransport->FromName = $this->config->fromName;
+        $this->PHPMailer->From = $this->config->fromEmail;
+        $this->PHPMailer->FromName = $this->config->fromName;
         if ($this->config->isHTML) {
-            $this->SMTPTransport->isHTML(true);
+            $this->PHPMailer->isHTML(true);
         }
     }
 
@@ -114,19 +110,19 @@ class MailSender
         }
         $this->prepareConfiguration();
         foreach ($verifiedMessage->recipients as $recipient) {
-            $this->SMTPTransport->addAddress($recipient['email'], $recipient['name']);
+            $this->PHPMailer->addAddress($recipient['email'], $recipient['name']);
         }
-        $this->SMTPTransport->Subject = $verifiedMessage->subject;
-        $this->SMTPTransport->Body = $verifiedMessage->body;
+        $this->PHPMailer->Subject = $verifiedMessage->subject;
+        $this->PHPMailer->Body = $verifiedMessage->body;
         if (!empty($verifiedMessage->attachments)) {
             foreach ($verifiedMessage->attachments as $attachment) {
                 $attachmentFullFilePath = DIR_ROOT . $attachment['path'] . $attachment['name'] . $attachment['extension'];
                 $attachmentFullName = $attachment['name'] . $attachment['extension'];
-                $this->SMTPTransport->addAttachment($attachmentFullFilePath, $attachmentFullName, $attachment['encoding'], $attachment['type']);
+                $this->PHPMailer->addAttachment($attachmentFullFilePath, $attachmentFullName, $attachment['encoding'], $attachment['type']);
             }
         }
         try {
-            return $this->SMTPTransport->send();
+            return $this->PHPMailer->send();
         } catch (Exception $e) {
             $this->error = $e->errorMessage();
             return false;

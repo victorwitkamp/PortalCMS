@@ -2,7 +2,7 @@
 
 namespace PortalCMS\Controllers;
 
-use PortalCMS\Core\Email\Attachment\MailAttachment;
+use PortalCMS\Core\Email\Attachment\EmailAttachment;
 use PortalCMS\Core\Email\Template\MailTemplate;
 use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
@@ -21,7 +21,7 @@ class MailTemplateController extends Controller
         parent::__construct();
 
         if (isset($_POST['uploadAttachment'])) {
-            MailAttachment::uploadAttachment();
+            EmailAttachment::uploadAttachment();
             Redirect::to('mail/templates/edit.php?id=' . Request::get('id'));
         }
         if (isset($_POST['newtemplate'])) {
@@ -31,7 +31,7 @@ class MailTemplateController extends Controller
             MailTemplate::edit();
         }
         if (isset($_POST['deleteMailTemplateAttachments'])) {
-            MailAttachment::deleteById(Request::post('id'));
+            EmailAttachment::deleteById(Request::post('id'));
             Redirect::to('mail/templates/edit.php?id=' . Request::get('id'));
         }
     }

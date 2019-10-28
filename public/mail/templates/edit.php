@@ -6,7 +6,7 @@ use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\Email\Template\MailTemplateMapper;
-use PortalCMS\Core\Email\Attachment\MailAttachmentMapper;
+use PortalCMS\Core\Email\Attachment\EmailAttachmentMapper;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();
@@ -62,7 +62,7 @@ plugins : 'advlist autolink link image lists charmap print preview'
                 <div class="form-group">
                     <label for="currentattachments">Bijlage(s)</label>
                     <?php
-                        $attachments = MailAttachmentMapper::getByTemplateId(Request::get('id'));
+                        $attachments = EmailAttachmentMapper::getByTemplateId(Request::get('id'));
                     if (!empty($attachments)) {
                         echo '<ul id="currentattachments">';
                         foreach ($attachments as $attachment) {

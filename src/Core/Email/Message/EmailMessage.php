@@ -10,6 +10,7 @@ class EmailMessage
      * @var string
      */
     public $subject;
+
     /**
      * Body
      *
@@ -25,7 +26,7 @@ class EmailMessage
     public $recipients = [];
 
     /**
-     * Attachment data
+     * Attachments
      *
      * @var array
      */

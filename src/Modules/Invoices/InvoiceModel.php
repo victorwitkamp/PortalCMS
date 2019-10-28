@@ -10,8 +10,8 @@ use PortalCMS\Core\Email\Template\MailTemplate;
 use PortalCMS\Modules\Contracts\ContractMapper;
 use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
 use PortalCMS\Core\Email\Template\MailTemplateMapper;
-use PortalCMS\Core\Email\Recipient\MailRecipientMapper;
-use PortalCMS\Core\Email\Attachment\MailAttachmentMapper;
+use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
+use PortalCMS\Core\Email\Attachment\EmailAttachmentMapper;
 
 class InvoiceModel
 {
@@ -36,13 +36,13 @@ class InvoiceModel
         $createdMailId = MailScheduleMapper::lastInsertedId();
         // $recipients = array($recipient_email);
         // foreach ($recipients as $recipient) {
-        MailRecipientMapper::create($contract['bandleider_email'], $createdMailId);
+        EmailRecipientMapper::createRecipient($createdMailId, $contract['bandleider_email']);
         // }
 
         $attachmentPath = 'content/invoices/';
         $attachmentExtension = '.pdf';
         $attachmentName = $invoice['factuurnummer'];
-        MailAttachmentMapper::create($createdMailId, $attachmentPath, $attachmentName, $attachmentExtension);
+        EmailAttachmentMapper::create($createdMailId, $attachmentPath, $attachmentName, $attachmentExtension);
 
         InvoiceMapper::updateMailId($invoiceId, $createdMailId);
         InvoiceMapper::updateStatus($invoiceId, 2);
