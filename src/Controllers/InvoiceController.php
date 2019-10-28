@@ -19,7 +19,7 @@ class InvoiceController extends Controller
         parent::__construct();
 
         if (isset($_POST['createInvoiceMail'])) {
-            InvoiceModel::createMail();
+            self::createInvoiceMail();
         }
         if (isset($_POST['writeInvoice'])) {
             self::writeInvoiceHandler();
@@ -35,6 +35,15 @@ class InvoiceController extends Controller
         }
         if (isset($_POST['addInvoiceItem'])) {
             self::addItemHandler();
+        }
+    }
+
+    public static function createInvoiceMail()
+    {
+        if (InvoiceModel::createMail()) {
+            Redirect::invoices();
+        } else {
+            Redirect::error;
         }
     }
 

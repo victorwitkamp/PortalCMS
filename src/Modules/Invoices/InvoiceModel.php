@@ -47,7 +47,6 @@ class InvoiceModel
         InvoiceMapper::updateMailId($invoiceId, $createdMailId);
         InvoiceMapper::updateStatus($invoiceId, 2);
         Session::add('feedback_positive', 'Email toegevoegd (ID = ' . $createdMailId . ')');
-        // Redirect::mail();
         return true;
     }
 

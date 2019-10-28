@@ -185,7 +185,6 @@ class MailSchedule
         }
         $created = MailScheduleMapper::lastInsertedId();
         Session::add('feedback_positive', 'Email toegevoegd (ID = ' . $created . ')');
-        // Redirect::invoices();
         return true;
     }
 }
