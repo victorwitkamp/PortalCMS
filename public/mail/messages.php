@@ -20,13 +20,8 @@ displayHeadCSS();
 PortalCMS_CSS_dataTables();
 PortalCMS_JS_headJS();
 PortalCMS_JS_dataTables();
-
-
-
-
 ?>
 </head>
-
 <body>
     <?php require DIR_INCLUDES . 'nav.php'; ?>
     <main>
@@ -77,8 +72,6 @@ PortalCMS_JS_dataTables();
                     echo '<p>Aantal: ' . $mailcount . '</p>';
                     include 'inc/table_messages.php';
                 }
-                echo '<hr>';
-
                 ?>
             </div>
         </div>

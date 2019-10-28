@@ -40,12 +40,9 @@ use PortalCMS\Core\View\Text;
                         }
 
                         ?></td>
-                    <td>
-                        <?php echo $row['subject']; ?></td>
+                    <td><?php echo $row['subject']; ?></td>
                     <?php if ($pageType === 'history') { ?>
-                    <td>
-                        <?php echo $row['DateSent']; ?>
-                    </td>
+                    <td><?php echo $row['DateSent']; ?></td>
                     <?php } ?>
                     <td>
                         <?php

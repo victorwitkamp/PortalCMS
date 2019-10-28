@@ -60,7 +60,7 @@ class Session
     public static function add($key, $value)
     {
         $_SESSION[$key][] = $value;
-        session_write_close();
+        // session_write_close();
     }
 
     /**

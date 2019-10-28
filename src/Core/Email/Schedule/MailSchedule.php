@@ -53,7 +53,9 @@ class MailSchedule
         $success = 0;
         $failed = 0;
         $alreadySent = 0;
-        if (!empty($mailIds)) {
+        if (empty($mailIds)) {
+            return false;
+        } else {
             foreach ($mailIds as $mailId) {
                 if (!self::isSent($mailId)) {
                     if (self::sendSingleMailHandler($mailId)) {
@@ -66,7 +68,7 @@ class MailSchedule
                 }
             }
             self::sendFeedbackHandler($failed, $success, $alreadySent);
-            Redirect::mailMessages();
+            return true;
         }
     }
 
@@ -74,10 +76,6 @@ class MailSchedule
     {
         if (($success == 0) && ($failed == 0) && ($alreadySent == 0)) {
             Session::add('feedback_negative', 'Invalid request.');
-        }
-        if ($success > 0) {
-            $successText = $success . ' bericht(en) succesvol verstuurd.';
-            Session::add('feedback_positive', $successText);
         }
         if ($failed > 0) {
             $failedText = $failed . ' bericht(en) mislukt.';
@@ -87,6 +85,12 @@ class MailSchedule
             $alreadySentText = $alreadySent . ' bericht(en) reeds verstuurd.';
             Session::add('feedback_warning', $alreadySentText);
         }
+        if ($success > 0) {
+            $successText = $success . ' bericht(en) succesvol verstuurd.';
+            Session::add('feedback_positive', $successText);
+            return true;
+        }
+        return false;
     }
 
     public static function sendSingleMailHandler($mailId)

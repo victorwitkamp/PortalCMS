@@ -23,6 +23,8 @@ class MailController extends Controller
         }
         if (isset($_POST['sendScheduledMailById'])) {
             MailSchedule::sendMailsById(Request::post('id'));
+            session_write_close();
+            Redirect::mailMessages();
         }
         if (isset($_POST['createMailWithTemplate'])) {
             MailSchedule::newWithTemplate(Request::post('templateid', true), $_POST['recipients']);
