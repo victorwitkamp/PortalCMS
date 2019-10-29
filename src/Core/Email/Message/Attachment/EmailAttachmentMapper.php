@@ -1,6 +1,6 @@
 <?php
 
-namespace PortalCMS\Core\Email\Attachment;
+namespace PortalCMS\Core\Email\Message\Attachment;
 
 use PortalCMS\Core\Database\DB;
 
@@ -35,21 +35,17 @@ class EmailAttachmentMapper
      * Create a new attachment for a template.
      *
      * @param int $templateId
-     * @param string $path
-     * @param string $name
-     * @param string $extension
-     * @param string $encoding
-     * @param string $type
+     * @param EmailAttachment $attachment
      *
      * @return bool
      */
-    public static function createForTemplate(int $templateId, string $path, string $name, string $extension, string $encoding = 'base64', string $type = 'application/octet-stream')
+    public static function createForTemplate(int $templateId, EmailAttachment $attachment)
     {
         $stmt = DB::conn()->prepare(
             'INSERT INTO mail_attachments(id, mail_id, template_id, path, name, extension, encoding, type)
                     VALUES (NULL,NULL,?,?,?,?,?,?)'
         );
-        $stmt->execute([$templateId, $path, $name, $extension, $encoding, $type]);
+        $stmt->execute([$templateId, $attachment->path, $attachment->name, $attachment->extension, $attachment->encoding, $attachment->type]);
         if (!$stmt) {
             return false;
         }

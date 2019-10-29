@@ -1,67 +1,85 @@
 <?php
 
-namespace PortalCMS\Core\Email\Attachment;
+namespace PortalCMS\Core\Email\Message\Attachment;
 
-use PortalCMS\Core\Config\Config;
-use PortalCMS\Core\HTTP\Redirect;
-use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
+use PortalCMS\Core\Config\Config;
+use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
 
 class EmailAttachment
 {
-    public static function uploadAttachment() : bool
+    public $path;
+    public $name;
+    public $extension;
+    public $encoding = 'base64';
+    public $type = 'application/octet-stream';
+
+    public $mailId = null;
+    public $templateId = null;
+
+    public function __construct(array $file)
     {
-        if (!isset($_FILES['attachment_file'])) {
+        $this->path = Config::get('PATH_ATTACHMENTS');
+        $this->processUpload($file);
+        return $this;
+    }
+
+    public function processUpload(array $file) : bool
+    {
+        if (empty($file)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_IMAGE_UPLOAD_FAILED'));
             return false;
         }
-        if (!self::validateType()) {
+        if (!$this->isFolderWritable($this->path)) {
             return false;
         }
-        if (!self::validateFileSize()) {
+        // if (!$this->validateType($file)) {
+        //     return false;
+        // }
+        // if (!$this->validateFileSize($file)) {
+        //     return false;
+        // }
+        if (!move_uploaded_file($file['tmp_name'], $this->path . $file['name'])) {
             return false;
         }
-        if (!self::isFolderWritable()) {
-            return false;
+        $this->name = pathinfo($this->path . $file['name'], PATHINFO_FILENAME);
+        $this->extension = pathinfo($this->path . $file['name'], PATHINFO_EXTENSION);
+        $this->type = self::getMIMEType($this->path . $file['name']);
+        return true;
+    }
+
+    public function store(int $mailId = null, int $templateId = null)
+    {
+        if (!empty($this->path) && !empty($this->path) && !empty($this->name) && !empty($this->extension) && !empty($this->encoding) && !empty($this->type)) {
+            if (!empty($templateId)) {
+                EmailAttachmentMapper::createForTemplate($templateId, $this);
+            }
         }
-        $targetPath = Config::get('PATH_ATTACHMENTS') . $_FILES['attachment_file']['name'];
-        if (!move_uploaded_file($_FILES['attachment_file']['tmp_name'], $targetPath)) {
-            return false;
-        }
-        $mime = self::getMIMEType($targetPath);
-        EmailAttachmentMapper::createForTemplate(
-            Request::get('id'),
-            Config::get('PATH_ATTACHMENTS_PUBLIC'),
-            pathinfo($targetPath, PATHINFO_FILENAME),
-            '.' . pathinfo($targetPath, PATHINFO_EXTENSION),
-            'base64',
-            $mime
-        );
         Session::add('feedback_positive', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_SUCCESSFUL'));
         return true;
     }
 
-    public static function getMIMEType($filename)
+    public function getMIMEType($filename)
     {
         $realpath = realpath($filename);
         return finfo_file(finfo_open(FILEINFO_MIME_TYPE), $realpath);
     }
 
     /**
-     * Checks if the avatar folder exists and is writable
+     * Checks if the upload folder exists and if it is writable
      *
+     * @var string $path Path of the target upload folder
      * @return bool success status
      */
-    public static function isFolderWritable() : bool
+    public function isFolderWritable($path) : bool
     {
-        $path_attachment = Config::get('PATH_ATTACHMENTS');
-        if (!is_dir(Config::get('PATH_ATTACHMENTS'))) {
-            Session::add('feedback_negative', 'Directory ' . $path_attachment . ' doesnt exist');
+        if (!is_dir($path)) {
+            Session::add('feedback_negative', 'Directory ' . $path . ' doesnt exist');
             return false;
         }
-        if (!is_writable(Config::get('PATH_ATTACHMENTS'))) {
-            Session::add('feedback_negative', 'Directory ' . $path_attachment . ' is not writeable');
+        if (!is_writable($path)) {
+            Session::add('feedback_negative', 'Directory ' . $path . ' is not writeable');
             return false;
         }
         return true;
@@ -72,22 +90,22 @@ class EmailAttachment
      *
      * @return bool
      */
-    public static function validateFileSize() : bool
+    public function validateFileSize($attachmentFile) : bool
     {
-        if ($_FILES['attachment_file']['size'] > 5000000) {
+        if ($attachmentFile['size'] > 5000000) {
             Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_UPLOAD_TOO_BIG'));
             return false;
         }
-        // $image_proportions = getimagesize($_FILES['attachment_file']['tmp_name']);
+        // $image_proportions = getimagesize($attachmentFile['tmp_name']);
         // if ($image_proportions[0] < Config::get('AVATAR_SIZE') or $image_proportions[1] < Config::get('AVATAR_SIZE')) {
         //     return false;
         // }
         return true;
     }
 
-    public static function validateType() : bool
+    public function validateType($attachmentFile) : bool
     {
-        if ($_FILES['attachment_file']['type'] === 'image/jpeg') {
+        if ($attachmentFile['type'] === 'image/jpeg') {
             return true;
         }
         Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_UPLOAD_WRONG_TYPE'));

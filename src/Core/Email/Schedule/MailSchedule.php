@@ -13,7 +13,7 @@ use PortalCMS\Core\Email\Message\EmailMessage;
 use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
 use PortalCMS\Core\Email\Template\MailTemplateMapper;
 use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
-use PortalCMS\Core\Email\Attachment\EmailAttachmentMapper;
+use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
 use PortalCMS\Core\Email\SMTP\SMTPConfiguration;
 
 class MailSchedule

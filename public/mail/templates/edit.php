@@ -6,7 +6,7 @@ use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\Email\Template\MailTemplateMapper;
-use PortalCMS\Core\Email\Attachment\EmailAttachmentMapper;
+use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();

@@ -66,10 +66,10 @@ class MailTemplateMapper
         return false;
     }
 
-    public static function create($type, $subject, $body, $status)
+    public static function create(MailTemplate $mailTemplate)
     {
         $stmt = DB::conn()->prepare('INSERT INTO mail_templates(id, type, subject, body, status) VALUES (NULL,?,?,?,?)');
-        $stmt->execute([$type, $subject, $body, $status]);
+        $stmt->execute([$mailTemplate->type, $mailTemplate->subject, $mailTemplate->body, $mailTemplate->status]);
         if (!$stmt) {
             return false;
         }
