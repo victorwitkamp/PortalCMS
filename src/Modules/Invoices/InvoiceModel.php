@@ -6,7 +6,7 @@ use PortalCMS\Core\PDF\PDF;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\Email\Template\MailTemplate;
+use PortalCMS\Core\Email\Template\EmailTemplate;
 use PortalCMS\Modules\Contracts\ContractMapper;
 use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
 use PortalCMS\Core\Email\Template\MailTemplateMapper;
@@ -26,8 +26,8 @@ class InvoiceModel
             $maand = Text::get('MONTH_' . $invoice['month']);
         }
         $template = MailTemplateMapper::getSystemTemplateByName('InvoiceMail');
-        $subject = MailTemplate::replaceholder('MAAND', $maand, $template['subject']);
-        $body = MailTemplate::replaceholder('FACTUURNUMMER', $invoice['factuurnummer'], $template['body']);
+        $subject = EmailTemplate::replaceholder('MAAND', $maand, $template['subject']);
+        $body = EmailTemplate::replaceholder('FACTUURNUMMER', $invoice['factuurnummer'], $template['body']);
         $create = MailScheduleMapper::create(null, null, $subject, $body);
         if (!$create) {
             Session::add('feedback_negative', 'Nieuwe email aanmaken mislukt.');

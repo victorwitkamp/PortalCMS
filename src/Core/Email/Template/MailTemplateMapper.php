@@ -3,6 +3,7 @@
 namespace PortalCMS\Core\Email\Template;
 
 use PortalCMS\Core\Database\DB;
+use PortalCMS\Core\Email\Template\EmailTemplate;
 
 class MailTemplateMapper
 {
@@ -35,7 +36,7 @@ class MailTemplateMapper
         return $stmt->fetchAll();
     }
 
-    public static function getTemplateById($id)
+    public static function getById($id)
     {
         $stmt = DB::conn()->prepare(
             'SELECT *
@@ -66,13 +67,15 @@ class MailTemplateMapper
         return false;
     }
 
-    public static function create(MailTemplate $mailTemplate)
+    public function create(EmailTemplate $EmailTemplate)
     {
         $stmt = DB::conn()->prepare('INSERT INTO mail_templates(id, type, subject, body, status) VALUES (NULL,?,?,?,?)');
-        $stmt->execute([$mailTemplate->type, $mailTemplate->subject, $mailTemplate->body, $mailTemplate->status]);
+        $stmt->execute([$EmailTemplate->type, $EmailTemplate->emailMessage->subject, $EmailTemplate->emailMessage->body, $EmailTemplate->status]);
         if (!$stmt) {
+            Session::add('feedback_negative', 'MailTemplateMapper->create() failed.');
             return false;
         }
+        Session::add('feedback_positive', 'MailTemplateMapper->create() success.');
         return self::lastInsertedId();
     }
 

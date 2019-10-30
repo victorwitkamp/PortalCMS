@@ -14,7 +14,7 @@ if (!Authentication::checkPrivilege('mail-templates')) {
     Redirect::permissionError();
     die();
 }
-$template = MailTemplateMapper::getTemplateById(Request::get('id'));
+$template = MailTemplateMapper::getById(Request::get('id'));
 $pageName = Text::get('TITLE_EDIT_MAIL_TEMPLATE');
 
 require_once DIR_INCLUDES . 'functions.php';

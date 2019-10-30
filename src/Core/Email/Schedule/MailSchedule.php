@@ -121,7 +121,7 @@ class MailSchedule
 
     public static function newWithTemplate($templateId, $recipientIds)
     {
-        $template = MailTemplateMapper::getTemplateById($templateId);
+        $template = MailTemplateMapper::getById($templateId);
         $success = 0;
         $failed = 0;
         if ($template['type'] === 'member') {

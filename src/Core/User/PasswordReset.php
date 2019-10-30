@@ -2,7 +2,7 @@
 
 namespace PortalCMS\Core\User;
 
-use PortalCMS\Core\Email\Template\MailTemplate;
+use PortalCMS\Core\Email\Template\EmailTemplate;
 use PortalCMS\Core\Email\Template\MailTemplateMapper;
 use PortalCMS\Core\Config\Config;
 use PortalCMS\Core\Database\DB;
@@ -114,9 +114,9 @@ class PasswordReset
                         '?username=' . $user_name .
                         '&password_reset_hash='
                         .urlencode($password_reset_hash);
-        $MailText = MailTemplate::replaceholder('USERNAME', $user_name, $MailText);
-        $MailText = MailTemplate::replaceholder('SITENAME', SiteSetting::getStaticSiteSetting('site_name'), $MailText);
-        $MailText = MailTemplate::replaceholder('RESETLINK', $resetlink, $MailText);
+        $MailText = EmailTemplate::replaceholder('USERNAME', $user_name, $MailText);
+        $MailText = EmailTemplate::replaceholder('SITENAME', SiteSetting::getStaticSiteSetting('site_name'), $MailText);
+        $MailText = EmailTemplate::replaceholder('RESETLINK', $resetlink, $MailText);
 
         $mail = new EmailMessage(
             Config::get('EMAIL_PASSWORD_RESET_SUBJECT'),

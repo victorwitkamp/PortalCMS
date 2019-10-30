@@ -32,7 +32,7 @@ class EmailMessage
      */
     public $recipients = [];
 
-    public function __construct(string $subject, string $body, array $attachments = null, array $recipients = null) : object
+    public function __construct(string $subject, string $body, array $attachments = null, array $recipients = null)
     {
         $this->subject = $subject;
         $this->body = $body;
