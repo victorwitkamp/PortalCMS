@@ -26,7 +26,8 @@ class EmailTemplate
 
     }
 
-    public function set(string $type, EmailMessage $emailMessage, int $status = null) {
+    public function set(string $type, EmailMessage $emailMessage, int $status = null)
+    {
         $this->type = $type;
         $this->emailMessage = $emailMessage;
         $this->status = $status;
