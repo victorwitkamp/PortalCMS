@@ -3,6 +3,7 @@
 namespace PortalCMS\Core\Email\Template;
 
 use PortalCMS\Core\Database\DB;
+use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\Email\Template\EmailTemplate;
 
 class MailTemplateMapper
@@ -42,7 +43,7 @@ class MailTemplateMapper
             'SELECT *
                 FROM mail_templates
                     WHERE id = ?
-                    LIMIT 1'
+                        LIMIT 1'
         );
         $stmt->execute([$id]);
         if ($stmt->rowCount() === 1) {
@@ -57,14 +58,14 @@ class MailTemplateMapper
             "SELECT *
                 FROM mail_templates
                     WHERE type = 'system'
-                    AND name = ?
-                    LIMIT 1"
+                        AND name = ?
+                            LIMIT 1"
         );
         $stmt->execute([$name]);
-        if ($stmt->rowCount() === 1) {
-            return $stmt->fetch();
+        if ($stmt->rowCount() === 0) {
+            return false;
         }
-        return false;
+        return $stmt->fetch();
     }
 
     public function create(EmailTemplate $EmailTemplate)
@@ -72,10 +73,8 @@ class MailTemplateMapper
         $stmt = DB::conn()->prepare('INSERT INTO mail_templates(id, type, subject, body, status) VALUES (NULL,?,?,?,?)');
         $stmt->execute([$EmailTemplate->type, $EmailTemplate->emailMessage->subject, $EmailTemplate->emailMessage->body, $EmailTemplate->status]);
         if (!$stmt) {
-            Session::add('feedback_negative', 'MailTemplateMapper->create() failed.');
             return false;
         }
-        Session::add('feedback_positive', 'MailTemplateMapper->create() success.');
         return self::lastInsertedId();
     }
 
@@ -83,7 +82,10 @@ class MailTemplateMapper
     {
         $stmt = DB::conn()->prepare('UPDATE mail_templates SET type = ?, subject = ?, body = ?, status = ? WHERE id = ? LIMIT 1');
         $stmt->execute([$type, $subject, $body, $status, $id]);
-        return $stmt->rowCount() === 1;
+        if ($stmt->rowCount() === 0) {
+            return false;
+        }
+        return true;
     }
 
     public static function lastInsertedId()

@@ -26,7 +26,7 @@ PortalCMS_JS_dataTables();
 <?php require DIR_INCLUDES . 'nav.php'; ?>
 <main>
     <div class="content">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row mt-5">
                 <div class="col-sm-8"><h1><?php echo $pageName ?></h1></div>
                 <div class="col-sm-4">
@@ -47,8 +47,7 @@ PortalCMS_JS_dataTables();
             <?php
             PortalCMS_JS_Init_dataTables();
             $batches = MailBatch::getAll();
-            $batchcount = count($batches);
-            echo '<h2>Batches</h2><p>Aantal: ' . $batchcount . '</p>';
+            echo '<p>Aantal: ' . count($batches) . '</p>';
             require 'inc/table_batches.php';
             ?>
         </div>

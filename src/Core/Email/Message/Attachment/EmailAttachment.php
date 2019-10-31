@@ -51,13 +51,25 @@ class EmailAttachment
 
     public function store(int $mailId = null, int $templateId = null)
     {
-        if (!empty($this->path) && !empty($this->path) && !empty($this->name) && !empty($this->extension) && !empty($this->encoding) && !empty($this->type)) {
+        if (!empty($this->path) && !empty($this->name) && !empty($this->extension) && !empty($this->encoding) && !empty($this->type)) {
+            if (!empty($templateId) && !empty($mailId)) {
+                Session::add('feedback_negative', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_FAILED'));
+                return false;
+            }
             if (!empty($templateId)) {
-                EmailAttachmentMapper::createForTemplate($templateId, $this);
+                if (EmailAttachmentMapper::createForTemplate($templateId, $this)) {
+                    Session::add('feedback_positive', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_SUCCESSFUL'));
+                    return true;
+                }
+                Session::add('feedback_negative', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_FAILED'));
+                return false;
+            }
+            if (!empty($mailId)) {
+                Session::add('feedback_negative', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_FAILED'));
+                return false;
             }
         }
-        Session::add('feedback_positive', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_SUCCESSFUL'));
-        return true;
+
     }
 
     public function getMIMEType($filename)

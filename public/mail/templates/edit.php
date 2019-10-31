@@ -37,52 +37,52 @@ plugins : 'advlist autolink link image lists charmap print preview'
         <div class="container">
             <div class="row mt-5">
                 <div class="col-sm-8"><h1><?php echo $pageName ?></h1></div>
-                <div class="col-sm-4">
-                    <!-- <a href="#" class="btn btn-info float-right"><span class="fa fa-plus"></span> Nieuwe template</a> -->
-                </div>
+                <div class="col-sm-4"></div>
             </div>
             <hr>
-            <?php Alert::renderFeedbackMessages(); ?>
+            <?php Alert::renderFeedbackMessages();
 
+            $attachments = EmailAttachmentMapper::getByTemplateId(Request::get('id'));
+            if (empty($attachments)) { ?>
+                <p>Dit bericht heeft geen bijlagen</p>
+            <?php } else { ?>
+                <form method="post">
+                    <div class="form-group">
+                        <label for="currentattachments">Bijlage(s)</label>
+                        <ul id="currentattachments">
+                            <?php foreach ($attachments as $attachment) { ?>
+                            <li>
+                                <input type="checkbox" name="id[]" id="checkbox" value="<?php echo $attachment['id']; ?>">
+                                <?php echo $attachment['path'] . $attachment['name'] . $attachment['extension']; ?>
+                            </li>
+                            <?php } ?>
+                        </ul>
+                    </div>
+                    <input type="submit" class="btn btn-danger" name="deleteMailTemplateAttachments" value="Verwijderen">
+                </form>
+            <?php } ?>
+            <hr>
+            <form method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="attachment_file">Upload een bijlage:</label>
+                    <input type="file" name="attachment_file" required/>
+                </div>
+                <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
+                <input type="submit" name="uploadAttachment" value="Bijlage uploaden" />
+            </form>
+            <hr>
             <form method="post">
+                <input type="hidden" name="id" value="<?php echo $template['id']; ?>">
+                <input type="submit" class="btn btn-primary float-right" name="edittemplate"/>
                 <div class="form-group">
                     <label for="subject">Onderwerp</label>
                     <input type="text" name="subject" class="form-control" id="subject" placeholder="Onderwerp" value="<?php echo $template['subject']; ?>">
                 </div>
                 <div class="form-group">
+                    <label for="body">Bericht</label>
                     <textarea id="mytextarea" name="body" cols="50" rows="15" required>
                         <?php echo $template['body']; ?>
                     </textarea>
-                </div>
-                <input type="hidden" name="id" value="<?php echo $template['id']; ?>">
-                <input type="submit" class="btn btn-primary" name="edittemplate"/>
-            </form>
-            <hr>
-            <form method="post">
-                <div class="form-group">
-                    <label for="currentattachments">Bijlage(s)</label>
-                    <?php
-                        $attachments = EmailAttachmentMapper::getByTemplateId(Request::get('id'));
-                    if (!empty($attachments)) {
-                        echo '<ul id="currentattachments">';
-                        foreach ($attachments as $attachment) {
-                            echo '<li>';
-                            echo '<input type="checkbox" name="id[]" id="checkbox" value="' . $attachment['id'] . '">';
-                            echo $attachment['path'] . $attachment['name'] . $attachment['extension'];
-                            echo '</li>';
-                        }
-                        echo '</ul>';
-                    }
-                    ?>
-                </div>
-                <input type="submit" class="btn btn-danger" name="deleteMailTemplateAttachments" value="Verwijderen">
-            </form>
-            <form method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                <label for="attachment_file">Upload een bijlage:</label>
-                    <input type="file" name="attachment_file" required />
-                    <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
-                    <input type="submit" name="uploadAttachment" value="Bijlage uploaden" />
                 </div>
             </form>
             <hr>

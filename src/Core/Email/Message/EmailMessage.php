@@ -38,6 +38,6 @@ class EmailMessage
         $this->body = $body;
         $this->attachments = $attachments;
         $this->recipients = $recipients;
-        return $this;
+        // return $this;
     }
 }

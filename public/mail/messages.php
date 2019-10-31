@@ -26,7 +26,7 @@ PortalCMS_JS_dataTables();
     <?php require DIR_INCLUDES . 'nav.php'; ?>
     <main>
         <div class="content">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="row mt-5">
                     <div class="col-sm-8">
                         <h1><?php echo $pageName ?></h1>

@@ -22,13 +22,8 @@ class EmailTemplate
     public $emailMessage = null;
     public $status = null;
 
-    public function __contruct(string $type, EmailMessage $emailMessage, string $status = null)
+    public function __construct(string $type, EmailMessage $emailMessage, int $status = null)
     {
-        echo '<strong>EmailTemplate construct<strong>';
-        print_r($type);
-        print_r($emailMessage);
-        print_r($status);
-
         $this->type = $type;
         $this->emailMessage = $emailMessage;
         $this->status = $status;

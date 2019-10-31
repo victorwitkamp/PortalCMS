@@ -2,6 +2,7 @@
 
 namespace PortalCMS\Controllers;
 
+use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Controllers\Controller;
@@ -22,22 +23,19 @@ class MailTemplateController extends Controller
         parent::__construct();
 
         if (isset($_POST['uploadAttachment'])) {
-            // $TemplateBuilder = new TemplateCreator();
-            // $TemplateBuilder->addAttachment($_FILES['attachment_file'], Request::get('id'));
-            // Redirect::to('mail/templates/edit.php?id=' . Request::get('id'));
+            $attachment = new EmailAttachment($_FILES['attachment_file']);
+            $attachment->store(null, Request::get('id'));
+            session_write_close();
+            Redirect::to('mail/templates/edit.php?id=' . Request::get('id'));
         }
         if (isset($_POST['newtemplate'])) {
+            Authentication::checkAuthentication();
             $EmailMessage = new EmailMessage(Request::post('subject', true), Request::post('body', false));
-            // print_r($EmailMessage);
-            // echo '<hr>';
-            $TemplateBuilder = new TemplateCreator('member', $EmailMessage);
-            // print_r($TemplateBuilder);
-            // echo '<hr>';
-            // print_r($Template);
-            die;
-            // $Template->store(new MailTemplateMapper());
-            // session_write_close();
-            // Redirect::to('mail/templates/');
+            $TemplateBuilder = new TemplateCreator();
+            $Template = $TemplateBuilder->create('member', $EmailMessage, 1);
+            $Template->store(new MailTemplateMapper());
+            session_write_close();
+            Redirect::to('mail/templates/');
         }
         if (isset($_POST['edittemplate'])) {
             EmailTemplate::edit();

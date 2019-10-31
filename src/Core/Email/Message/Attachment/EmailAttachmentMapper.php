@@ -3,6 +3,7 @@
 namespace PortalCMS\Core\Email\Message\Attachment;
 
 use PortalCMS\Core\Database\DB;
+use PortalCMS\Core\Email\Message\Attachment\EmailAttachment;
 
 class EmailAttachmentMapper
 {
