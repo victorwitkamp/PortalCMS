@@ -36,7 +36,7 @@ PortalCMS_JS_dataTables();
         </div>
         <div class="container">
             <nav>
-                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <div class="nav nav-tabs mb-3 bg-secondary" id="nav-tab" role="tablist">
                     <a class="nav-item nav-link active" id="nav-home-tab" href="index.php" role="tab">Batches</a>
                     <a class="nav-item nav-link" id="nav-profile-tab" href="messages.php" role="tab">Messages</a>
                 </div>

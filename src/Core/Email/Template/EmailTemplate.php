@@ -21,8 +21,12 @@ class EmailTemplate
     public $emailMessage = null;
     public $status = null;
 
-    public function __construct(string $type, EmailMessage $emailMessage, int $status = null)
+    public function __construct()
     {
+
+    }
+
+    public function set(string $type, EmailMessage $emailMessage, int $status = null) {
         $this->type = $type;
         $this->emailMessage = $emailMessage;
         $this->status = $status;
@@ -48,7 +52,6 @@ class EmailTemplate
             Session::add('feedback_negative', 'Nieuwe template aanmaken mislukt. emailMessage is leeg.');
             return false;
         }
-
         $return = $mapper->create($this);
         if (!empty($return)) {
             Session::add('feedback_positive', 'Template toegevoegd (ID = ' . $return . ')');

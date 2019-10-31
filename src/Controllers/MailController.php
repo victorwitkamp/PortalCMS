@@ -19,7 +19,7 @@ class MailController extends Controller
         parent::__construct();
 
         if (isset($_POST['newScheduledMail'])) {
-            MailSchedule::new();
+            MailSchedule::create();
         }
         if (isset($_POST['sendScheduledMailById'])) {
             MailSchedule::sendMailsById(Request::post('id'));
@@ -27,7 +27,7 @@ class MailController extends Controller
             Redirect::to('mail/messages.php');
         }
         if (isset($_POST['createMailWithTemplate'])) {
-            MailSchedule::newWithTemplate(Request::post('templateid', true), Request::post('recipients'));
+            MailSchedule::createWithTemplate(Request::post('templateid', true), Request::post('recipients'));
         }
         if (isset($_POST['deleteScheduledMailById'])) {
             MailSchedule::deleteById(Request::post('id'));

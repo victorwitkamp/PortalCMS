@@ -118,7 +118,7 @@ class MailSchedule
         }
     }
 
-    public static function newWithTemplate($templateId, $recipientIds)
+    public static function createWithTemplate($templateId, $recipientIds)
     {
         $template = MailTemplateMapper::getById($templateId);
         $success = 0;
@@ -157,12 +157,11 @@ class MailSchedule
     public static function replaceholdersMember($memberid, $templatebody)
     {
         $member = MemberModel::getMemberById($memberid);
-        $afzender = SiteSetting::getStaticSiteSetting('site_name');
         $variables = [
             'voornaam' => $member['voornaam'],
             'achternaam' => $member['achternaam'],
             'iban' => $member['iban'],
-            'afzender' => $afzender
+            'afzender' => SiteSetting::getStaticSiteSetting('site_name')
         ];
         foreach ($variables as $key => $value) {
             $templatebody = str_replace('{' . strtoupper($key) . '}', $value, $templatebody);
@@ -170,7 +169,7 @@ class MailSchedule
         return $templatebody;
     }
 
-    public static function new()
+    public static function create()
     {
         $create = MailScheduleMapper::create(
             null,
