@@ -36,12 +36,13 @@ class EmailAttachment
         // if (!$this->validateFileSize($file)) {
         //     return false;
         // }
-        if (!move_uploaded_file($file['tmp_name'], $this->path . $file['name'])) {
+        if (!move_uploaded_file($file['tmp_name'], DIR_ROOT . $this->path . $file['name'])) {
+            Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_IMAGE_UPLOAD_FAILED'));
             return false;
         }
         $this->name = pathinfo($this->path . $file['name'], PATHINFO_FILENAME);
         $this->extension = pathinfo($this->path . $file['name'], PATHINFO_EXTENSION);
-        $this->type = self::getMIMEType($this->path . $file['name']);
+        $this->type = self::getMIMEType(DIR_ROOT . $this->path . $file['name']);
         return true;
     }
 
@@ -65,7 +66,6 @@ class EmailAttachment
                 return false;
             }
         }
-
     }
 
     public function getMIMEType($filename)
@@ -82,11 +82,11 @@ class EmailAttachment
      */
     public function isFolderWritable($path) : bool
     {
-        if (!is_dir($path)) {
+        if (!is_dir(DIR_ROOT . $path)) {
             Session::add('feedback_negative', 'Directory ' . $path . ' doesnt exist');
             return false;
         }
-        if (!is_writable($path)) {
+        if (!is_writable(DIR_ROOT . $path)) {
             Session::add('feedback_negative', 'Directory ' . $path . ' is not writeable');
             return false;
         }
@@ -144,7 +144,6 @@ class EmailAttachment
         }
         return self::deleteFeedbackHandler($deleted, $error);
     }
-
 
     /**
      * Handle feedback for the deleteById method

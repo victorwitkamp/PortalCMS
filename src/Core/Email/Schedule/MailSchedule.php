@@ -98,7 +98,7 @@ class MailSchedule
         $recipients = EmailRecipientMapper::getAll($mailId);
         $attachments = EmailAttachmentMapper::getByMailId($mailId);
         if (!empty($recipients) && !empty($scheduledMail['subject']) && !empty($scheduledMail['body'])) {
-            $EmailMessage = new EmailMessage($scheduledMail['subject'], $scheduledMail['body'], $recipients, $attachments);
+            $EmailMessage = new EmailMessage($scheduledMail['subject'], $scheduledMail['body'], $attachments, $recipients);
             $SMTPConfiguration = new SMTPConfiguration();
             $SMTPTransport = new SMTPTransport($SMTPConfiguration);
             if ($SMTPTransport->sendMail($EmailMessage)) {
