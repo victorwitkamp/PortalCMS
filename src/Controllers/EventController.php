@@ -30,7 +30,8 @@ class EventController extends Controller
         }
     }
 
-    public static function deleteHandler() {
+    public static function deleteHandler()
+    {
         $id = (int) Request::post('id', true);
         if (CalendarEventModel::delete($id)) {
             Redirect::to('events/');
@@ -39,7 +40,8 @@ class EventController extends Controller
         }
     }
 
-    public static function updateHandler() {
+    public static function updateHandler()
+    {
         $event_id = (int) Request::post('id', true);
         $title = (string) Request::post('title', true);
         $start_event = (string) Request::post('start_event', true);
@@ -53,7 +55,8 @@ class EventController extends Controller
         }
     }
 
-    public static function createHandler() {
+    public static function createHandler()
+    {
         $title = (string) Request::post('title', true);
         $start_event = (string) Request::post('start_event', true);
         $end_event = (string) Request::post('end_event', true);
