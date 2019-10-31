@@ -14,7 +14,7 @@
         "tecnickcom/tcpdf": "6.3.2",
         "ext-fileinfo": "*",
         "symfony/console": "^4.3",
-        "sentry/sdk": "2.0.3"
+        "sentry/sdk": "2.0.4"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.15",
