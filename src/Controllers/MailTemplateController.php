@@ -23,9 +23,9 @@ class MailTemplateController extends Controller
         parent::__construct();
 
         if (isset($_POST['uploadAttachment'])) {
+            Authentication::checkAuthentication();
             $attachment = new EmailAttachment($_FILES['attachment_file']);
             $attachment->store(null, Request::get('id'));
-            session_write_close();
             Redirect::to('mail/templates/edit.php?id=' . Request::get('id'));
         }
         if (isset($_POST['newtemplate'])) {

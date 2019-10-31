@@ -35,7 +35,7 @@ class EventController extends Controller
         if (CalendarEventModel::delete($id)) {
             Redirect::to('events/');
         } else {
-            Redirect::error();
+            Redirect::to('includes/error.php');
         }
     }
 
@@ -49,7 +49,7 @@ class EventController extends Controller
         if (CalendarEventModel::update($event_id, $title, $start_event, $end_event, $description, $status)) {
             Redirect::to('events/');
         } else {
-            Redirect::error();
+            Redirect::to('includes/error.php');
         }
     }
 
@@ -61,7 +61,7 @@ class EventController extends Controller
         if (CalendarEventModel::create($title, $start_event, $end_event, $description)) {
             Redirect::to('events/');
         } else {
-            Redirect::error();
+            Redirect::to('includes/error.php');
         }
     }
 }

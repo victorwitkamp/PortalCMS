@@ -1,17 +1,14 @@
 <?php
 
-use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Core\User\UserMapper;
+use PortalCMS\Core\Authorization\Authorization;
+use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Modules\Calendar\CalendarEventMapper;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege('events')) {
-    Redirect::permissionError();
-    die();
-}
+Authorization::verifyPermission('events');
 $row = CalendarEventMapper::getById($_GET['id']);
 ?>
 

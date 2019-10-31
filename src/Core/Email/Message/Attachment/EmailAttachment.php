@@ -5,7 +5,6 @@ namespace PortalCMS\Core\Email\Message\Attachment;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Core\Config\Config;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
 
 class EmailAttachment
 {
@@ -14,9 +13,6 @@ class EmailAttachment
     public $extension;
     public $encoding = 'base64';
     public $type = 'application/octet-stream';
-
-    public $mailId = null;
-    public $templateId = null;
 
     public function __construct(array $file)
     {

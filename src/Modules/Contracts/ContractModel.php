@@ -105,19 +105,19 @@ class ContractModel
             if (!InvoiceModel::getByContractId($contract_id)) {
                 if (ContractMapper::delete($contract_id)) {
                     Session::add('feedback_positive', 'Contract verwijderd.');
-                    Redirect::contracts();
+                    Redirect::to('rental/contracts');
                     return true;
                 }
                 Session::add('feedback_negative', 'Verwijderen van contract mislukt.');
-                Redirect::contracts();
+                Redirect::to('rental/contracts');
                 return false;
             }
             Session::add('feedback_negative', 'Dit contract heeft al facturen.');
-            Redirect::contracts();
+            Redirect::to('rental/contracts');
             return false;
         }
         Session::add('feedback_negative', 'Verwijderen van contract mislukt.<br>Contract bestaat niet.');
-        Redirect::contracts();
+        Redirect::to('rental/contracts');
         return false;
     }
 }

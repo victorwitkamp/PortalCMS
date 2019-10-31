@@ -4,6 +4,7 @@ use PortalCMS\Core\View\Text;
 use PortalCMS\Core\Config\Config;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
 use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
@@ -12,10 +13,7 @@ use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_MAIL_DETAILS');
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege('mail-scheduler')) {
-    Redirect::permissionError();
-    die();
-}
+Authorization::verifyPermission('mail-scheduler');
 require_once DIR_INCLUDES . 'functions.php';
 require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();
@@ -29,7 +27,7 @@ if (MailScheduleMapper::exists($id)) {
     $row = MailScheduleMapper::getById($id);
 } else {
     Session::add('feedback_negative', 'Geen resultaten voor opgegeven mail ID.');
-    Redirect::error();
+    Redirect::to('includes/error.php');
 }
 ?>
 <?php require DIR_INCLUDES . 'nav.php'; ?>

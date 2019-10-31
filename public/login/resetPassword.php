@@ -12,7 +12,7 @@ require_once DIR_INCLUDES . 'head.php';
 
 if (empty($_GET['password_reset_hash'])) {
     Session::add('feedback_negative', 'Ongeldige token.');
-    Redirect::preError();
+    Redirect::to('login/error.php');
 }
 displayHeadCSS();
 

@@ -29,7 +29,7 @@ class UserController extends Controller
     {
         if (UserRoleMapper::isAssigned($user_id, $role_id)) {
             Session::add('feedback_negative', 'Rol is reeds toegewezen aan deze gebruiker.');
-            Redirect::error();
+            Redirect::to('includes/error.php');
             return false;
         }
         if (UserRoleMapper::assign($user_id, $role_id)) {
@@ -38,7 +38,7 @@ class UserController extends Controller
             return true;
         }
         Session::add('feedback_negative', 'Fout bij toewijzen van rol.');
-        Redirect::error();
+        Redirect::to('includes/error.php');
         return false;
     }
 
@@ -46,7 +46,7 @@ class UserController extends Controller
     {
         if (!UserRoleMapper::isAssigned($user_id, $role_id)) {
             Session::add('feedback_negative', 'Rol is niet aan deze gebruiker toegewezen. Er is geen toewijzing om te verwijderen.');
-            Redirect::error();
+            Redirect::to('includes/error.php');
             return false;
         }
         if (UserRoleMapper::unassign($user_id, $role_id)) {
@@ -55,7 +55,7 @@ class UserController extends Controller
             return true;
         }
         Session::add('feedback_negative', 'Fout bij verwijderen van rol voor gebruiker.');
-        Redirect::error();
+        Redirect::to('includes/error.php');
         return false;
     }
 }

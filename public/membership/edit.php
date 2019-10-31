@@ -1,18 +1,15 @@
 <?php
 
-use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Modules\Members\MemberModel;
+use PortalCMS\Core\Authorization\Authorization;
+use PortalCMS\Core\Authentication\Authentication;
 
 $pageName = 'Wijzigen';
 $pageType = 'edit';
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege('membership')) {
-    Redirect::permissionError();
-    die();
-}
+Authorization::verifyPermission('membership');
 require_once DIR_INCLUDES . 'functions.php';
 if (MemberModel::doesMemberIdExist($_GET['id'])) {
     $row = MemberModel::getMemberById($_GET['id']);

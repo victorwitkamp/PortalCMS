@@ -41,7 +41,7 @@ class InvoiceController extends Controller
     public static function createInvoiceMail()
     {
         if (InvoiceModel::createMail()) {
-            Redirect::invoices();
+            Redirect::to('rental/invoices');
         } else {
             Redirect::error;
         }
@@ -51,7 +51,7 @@ class InvoiceController extends Controller
     {
         $id = Request::post('id', true);
         if (!InvoiceModel::write($id)) {
-            Redirect::error();
+            Redirect::to('includes/error.php');
         }
     }
     public static function createInvoiceHandler()
@@ -62,7 +62,7 @@ class InvoiceController extends Controller
         if (InvoiceModel::create($year, $month, $contracts)) {
             Redirect::to('rental/invoices');
         } else {
-            Redirect::error();
+            Redirect::to('includes/error.php');
         }
     }
     public static function deleteInvoiceHandler()
@@ -71,7 +71,7 @@ class InvoiceController extends Controller
         if (InvoiceModel::delete($id)) {
             Redirect::to('rental/invoices');
         } else {
-            Redirect::error();
+            Redirect::to('includes/error.php');
         }
     }
     public static function deleteItemHandler()
@@ -81,7 +81,7 @@ class InvoiceController extends Controller
         if (InvoiceItemModel::delete($id)) {
             Redirect::to('rental/invoices/details.php?id=' . $invoiceId);
         } else {
-            Redirect::error();
+            Redirect::to('includes/error.php');
         }
     }
     public static function addItemHandler()
@@ -92,7 +92,7 @@ class InvoiceController extends Controller
         if (InvoiceItemModel::create($invoiceId, $name, $price)) {
             Redirect::to('rental/invoices/details.php?id=' . $invoiceId);
         } else {
-            Redirect::error();
+            Redirect::to('includes/error.php');
         }
     }
 }

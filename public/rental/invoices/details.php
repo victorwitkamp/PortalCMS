@@ -1,9 +1,9 @@
 <?php
 
 use PortalCMS\Core\View\Alert;
-use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Modules\Invoices\InvoiceMapper;
+use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Modules\Contracts\ContractMapper;
 use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Modules\Invoices\InvoiceItemMapper;
@@ -11,17 +11,14 @@ use PortalCMS\Modules\Invoices\InvoiceItemMapper;
 $pageName = 'Factuur';
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege('rental-invoices')) {
-    Redirect::permissionError();
-    die();
-}
+Authorization::verifyPermission('rental-invoices');
 require DIR_ROOT . 'includes/functions.php';
 
 if ($invoice = InvoiceMapper::getById($_GET['id'])) {
     $pageName = 'Factuur: ' . $invoice['factuurnummer'];
 } else {
     Session::add('feedback_negative', 'Geen resultaten voor opgegeven factuur ID.');
-    // Redirect::error();
+    // Redirect::to('includes/error.php');
 }
 require DIR_ROOT . 'includes/head.php';
 displayHeadCSS();

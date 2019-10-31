@@ -2,17 +2,14 @@
 
 use PortalCMS\Core\View\Text;
 use PortalCMS\Core\View\Alert;
-use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Modules\Contracts\ContractMapper;
 use PortalCMS\Core\Authentication\Authentication;
 
 $pageName = 'Factuur toevoegen';
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege('rental-invoices')) {
-    Redirect::permissionError();
-    die();
-}
+Authorization::verifyPermission('rental-invoices');
 require_once DIR_INCLUDES . 'functions.php';
 require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();

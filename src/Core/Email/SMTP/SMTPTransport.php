@@ -3,7 +3,6 @@ namespace PortalCMS\Core\Email\SMTP;
 
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
-use PortalCMS\Core\Email\SMTP\SMTPConfiguration;
 use PortalCMS\Core\Email\Message\EmailMessage;
 
 /**

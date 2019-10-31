@@ -3,8 +3,6 @@
 namespace PortalCMS\Core\Email\Template;
 
 use PortalCMS\Core\Database\DB;
-use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\Email\Template\EmailTemplate;
 
 class MailTemplateMapper
 {

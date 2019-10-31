@@ -3,7 +3,6 @@
 namespace PortalCMS\Core\Email\Message\Attachment;
 
 use PortalCMS\Core\Database\DB;
-use PortalCMS\Core\Email\Message\Attachment\EmailAttachment;
 
 class EmailAttachmentMapper
 {
@@ -79,14 +78,6 @@ class EmailAttachmentMapper
             return $stmt->fetchAll();
         }
         return false;
-    }
-
-    /**
-     * @return mixed
-     */
-    public static function lastInsertedId()
-    {
-        return DB::conn()->query('SELECT max(id) from mail_attachments')->fetchColumn();
     }
 
     /**

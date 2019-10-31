@@ -1,18 +1,15 @@
 <?php
 
-use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\View\Text;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\Database\DB;
-use PortalCMS\Core\HTTP\Redirect;
-use PortalCMS\Core\View\Text;
+use PortalCMS\Core\Authorization\Authorization;
+use PortalCMS\Core\Authentication\Authentication;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_OVERVIEW');
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege('rental-contracts')) {
-    Redirect::permissionError();
-    die();
-}
+Authorization::verifyPermission('rental-contracts');
 require_once DIR_INCLUDES . 'functions.php';
 require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();

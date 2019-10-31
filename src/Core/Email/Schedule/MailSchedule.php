@@ -10,7 +10,6 @@ use PortalCMS\Core\Config\SiteSetting;
 use PortalCMS\Core\Email\Batch\MailBatch;
 use PortalCMS\Modules\Members\MemberModel;
 use PortalCMS\Core\Email\Message\EmailMessage;
-use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
 use PortalCMS\Core\Email\Template\MailTemplateMapper;
 use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
 use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
@@ -36,7 +35,7 @@ class MailSchedule
         }
         if ($deleted > 0) {
             Session::add('feedback_positive', 'Er zijn ' . $deleted . ' berichten verwijderd.');
-            Redirect::mail();
+            Redirect::to('mail');
             return true;
         }
         Session::add('feedback_negative', 'Verwijderen mislukt. Aantal berichten met problemen: ' . $error);
@@ -150,7 +149,7 @@ class MailSchedule
                 } else {
                     Session::add('feedback_warning', 'Totaal aantal berichten aangemaakt: ' . $success . '. Berichten met fout: ' . $failed);
                 }
-                Redirect::mail();
+                Redirect::to('mail');
             }
         }
     }

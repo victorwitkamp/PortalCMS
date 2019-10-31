@@ -3,16 +3,13 @@
 use PortalCMS\Core\View\Text;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\Database\DB;
-use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Core\Authentication\Authentication;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_USER_MANAGEMENT');
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege('user-management')) {
-    Redirect::permissionError();
-    die();
-}
+Authorization::verifyPermission('user-management');
 require DIR_ROOT . 'includes/functions.php';
 require DIR_ROOT . 'includes/head.php';
 displayHeadCSS();

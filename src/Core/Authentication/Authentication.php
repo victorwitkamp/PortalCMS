@@ -9,14 +9,10 @@ use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\User\UserMapper;
 use PortalCMS\Core\Encryption\Encryption;
-use PortalCMS\Core\Authorization\PermissionMapper;
 
 /**
  * Class Auth
  * Checks if user is logged in, if not then sends the user to "yourdomain.com/login".
- * Authentication::checkAuthentication() can be used in the constructor of a controller (to make the
- * entire controller only visible for logged-in users) or inside a controller-method to make only this part of the
- * application available for logged-in users.
  */
 class Authentication
 {
@@ -64,31 +60,6 @@ class Authentication
     public static function userIsLoggedIn(): bool
     {
         return (Session::get('user_logged_in') ? true : false);
-    }
-
-    /**
-     * Check whether the authenticated user has a specific permission
-     *
-     * @param string $perm_desc
-     *
-     * @return bool
-     */
-    public static function checkPrivilege($perm_desc)
-    {
-        // $Roles = UserRoleMapper::getByUserId(Session::get('user_id'));
-        // foreach ($Roles as $Role) {
-        //     if (RolePermission::isAssigned($Role['role_id'], $perm_desc)) {
-        //         // If we find this permission in one of the roles we can immediately return
-        //         return true;
-        //     }
-        // }
-        // return false;
-        foreach (PermissionMapper::getPermissionsByUserId(Session::get('user_id')) as $Permission) {
-            if ($Permission['perm_desc'] === $perm_desc) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /**

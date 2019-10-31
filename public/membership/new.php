@@ -1,16 +1,13 @@
 <?php
 
+use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\HTTP\Redirect;
 
 $pageName = 'Lid toevoegen';
 $pageType = 'new';
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege('membership')) {
-    Redirect::permissionError();
-    die();
-}
+Authorization::verifyPermission('membership');
 require_once DIR_INCLUDES . 'functions.php';
 require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();

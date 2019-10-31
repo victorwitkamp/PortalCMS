@@ -4,7 +4,6 @@ namespace PortalCMS\Core\Email\Template;
 
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\Email\Message\EmailMessage;
-use PortalCMS\Core\Email\Template\MailTemplateMapper;
 use PortalCMS\Core\Email\Message\Attachment\EmailAttachment;
 
 class EmailTemplate
@@ -57,11 +56,5 @@ class EmailTemplate
         }
         Session::add('feedback_negative', 'Nieuwe template aanmaken mislukt.');
         return false;
-    }
-
-    public function addAttachment($file, $templateId = null)
-    {
-        $attachment = new EmailAttachment($file);
-        $attachment->store(null, $templateId);
     }
 }

@@ -1,13 +1,10 @@
 <?php
 
-use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Modules\Invoices\InvoiceModel;
+use PortalCMS\Core\Authorization\Authorization;
+use PortalCMS\Core\Authentication\Authentication;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege('rental-invoices')) {
-    Redirect::permissionError();
-    die();
-}
+Authorization::verifyPermission('rental-invoices');
 InvoiceModel::render($_GET['id']);

@@ -1,23 +1,21 @@
 <?php
 
-use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\View\Text;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\View\Text;
 use PortalCMS\Core\User\UserMapper;
+use PortalCMS\Core\Authorization\Authorization;
+use PortalCMS\Core\Authentication\Authentication;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_PROFILE');
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege('user-management')) {
-    Redirect::permissionError();
-    die();
-}
+Authorization::verifyPermission('user-management');
 $row = UserMapper::getProfileById($_GET['id']);
 if (!$row) {
     Session::add('feedback_negative', 'De gebruiker bestaat niet.');
-    Redirect::error();
+    Redirect::to('includes/error.php');
 } else {
     $pageName = Text::get('TITLE_PROFILE') . $row['user_name'];
 }

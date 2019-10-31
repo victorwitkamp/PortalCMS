@@ -49,7 +49,7 @@ class User
         }
         Session::set('user_name', $newUsername);
         Session::add('feedback_positive', Text::get('FEEDBACK_USERNAME_CHANGE_SUCCESSFUL'));
-        Redirect::myAccount();
+        Redirect::to('my-account');
         return true;
     }
 }

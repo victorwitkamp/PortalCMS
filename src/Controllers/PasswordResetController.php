@@ -25,7 +25,7 @@ class PasswordResetController extends Controller
             if (PasswordReset::verifyPasswordReset($_POST['username'], $_POST['password_reset_hash'])) {
                 $user_password_hash = password_hash(base64_encode($_POST['password']), PASSWORD_DEFAULT);
                 if (PasswordReset::saveNewUserPassword($_POST['username'], $user_password_hash, $_POST['password_reset_hash'])) {
-                    Redirect::login();
+                    Redirect::to('login');
                 } else {
                     Redirect::to('login/passwordReset.php');
                 }

@@ -49,7 +49,7 @@ class LoginController extends Controller
             // $this->View->render('login/index', $data);
             LoginController::loginWithCookie();
         }
-        return Redirect::home();
+        return Redirect::to('home');
     }
 
     /**
@@ -73,12 +73,12 @@ class LoginController extends Controller
             if (!empty($redir)) {
                 return Redirect::to($redir);
             }
-            return Redirect::home();
+            return Redirect::to('home');
         }
         // if (Request::post('redirect')) {
         //     return Redirect::to('login/?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
         // }
-        return Redirect::login();
+        return Redirect::to('login');
     }
 
     /**
@@ -87,11 +87,11 @@ class LoginController extends Controller
     public static function loginWithCookie()
     {
         if (LoginService::loginWithCookie(Request::cookie('remember_me'))) {
-            return Redirect::home();
+            return Redirect::to('home');
         }
         // if not, delete cookie (outdated? attack?) and route user to login form to prevent infinite login loops
         Cookie::delete();
-        return Redirect::login();
+        return Redirect::to('login');
     }
 
     /**
@@ -104,11 +104,11 @@ class LoginController extends Controller
             // if (Request::post('redirect')) {
             //     return Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
             // }
-            return Redirect::home();
+            return Redirect::to('home');
         }
         // if (Request::post('redirect')) {
         //     return Redirect::to('login/?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
         // }
-        return Redirect::login();
+        return Redirect::to('login');
     }
 }

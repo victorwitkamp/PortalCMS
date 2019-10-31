@@ -1,17 +1,14 @@
 <?php
 
+use PortalCMS\Modules\Members\MemberModel;
+use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\Email\Template\MailTemplateMapper;
-use PortalCMS\Core\HTTP\Redirect;
-use PortalCMS\Modules\Members\MemberModel;
 
 $pageName = 'Nieuw bericht';
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege('mail-scheduler')) {
-    Redirect::permissionError();
-    die();
-}
+Authorization::verifyPermission('mail-scheduler');
 require_once DIR_INCLUDES . 'functions.php';
 require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();

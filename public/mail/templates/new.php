@@ -1,16 +1,13 @@
 <?php
 
-use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\View\Alert;
-use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\View\Text;
+use PortalCMS\Core\View\Alert;
+use PortalCMS\Core\Authorization\Authorization;
+use PortalCMS\Core\Authentication\Authentication;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege('mail-templates')) {
-    Redirect::permissionError();
-    die();
-}
+Authorization::verifyPermission('mail-templates');
 $pageName = Text::get('TITLE_NEW_MAIL_TEMPLATE');
 
 require_once DIR_INCLUDES . 'functions.php';

@@ -3,17 +3,14 @@
 use PortalCMS\Core\View\Text;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\Email\Template\MailTemplateMapper;
 use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege('mail-templates')) {
-    Redirect::permissionError();
-    die();
-}
+Authorization::verifyPermission('mail-templates');
 $template = MailTemplateMapper::getById(Request::get('id'));
 $pageName = Text::get('TITLE_EDIT_MAIL_TEMPLATE');
 

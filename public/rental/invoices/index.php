@@ -1,18 +1,15 @@
 <?php
 
-use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\View\Alert;
-use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\View\Text;
+use PortalCMS\Core\View\Alert;
 use PortalCMS\Modules\Invoices\InvoiceMapper;
+use PortalCMS\Core\Authorization\Authorization;
+use PortalCMS\Core\Authentication\Authentication;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_INVOICES');
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege('rental-invoices')) {
-    Redirect::permissionError();
-    die();
-}
+Authorization::verifyPermission('rental-invoices');
 require_once DIR_INCLUDES . 'functions.php';
 require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();

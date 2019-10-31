@@ -1,17 +1,14 @@
 <?php
 
-use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\View\Alert;
-use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\Authorization\Authorization;
+use PortalCMS\Core\Authentication\Authentication;
 
 $pageName = 'Evenement toevoegen';
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege('events')) {
-    Redirect::permissionError();
-    die();
-}
+Authorization::verifyPermission('events');
 require_once DIR_INCLUDES . 'functions.php';
 require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();

@@ -3,7 +3,6 @@
 namespace PortalCMS\Core\Email\Template;
 
 use PortalCMS\Core\Email\Message\EmailMessage;
-use PortalCMS\Core\Email\Template\EmailTemplate;
 
 class TemplateCreator
 {

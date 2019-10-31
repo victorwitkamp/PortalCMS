@@ -3,15 +3,13 @@
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Modules\Calendar\CalendarEventMapper;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege('events')) {
-    Redirect::permissionError();
-    die();
-}
+Authorization::verifyPermission('events');
 require_once DIR_INCLUDES . 'functions.php';
 
 if ($row = CalendarEventMapper::getById($_GET['id'])) {
@@ -19,7 +17,7 @@ if ($row = CalendarEventMapper::getById($_GET['id'])) {
     $pageName = 'Evenement ' . $row ['title'] . ' bewerken';
 } else {
     Session::add('feedback_negative', 'Geen resultaten voor opgegeven event ID.');
-    Redirect::error();
+    Redirect::to('includes/error.php');
 }
 
 require_once DIR_INCLUDES . 'head.php';

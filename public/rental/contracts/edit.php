@@ -3,23 +3,21 @@
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Modules\Contracts\ContractMapper;
 use PortalCMS\Core\Authentication\Authentication;
 
 $loadData = true;
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege('rental-contracts')) {
-    Redirect::permissionError();
-    die();
-}
+Authorization::verifyPermission('rental-contracts');
 require_once DIR_INCLUDES . 'functions.php';
 $contract = ContractMapper::getById($_GET['id']);
 if ($contract) {
     $pageName = 'Contract van ' . $contract['band_naam'] . ' bewerken';
 } else {
     Session::add('feedback_negative', 'Geen resultaten voor opgegeven Id.');
-    Redirect::error();
+    Redirect::to('includes/error.php');
 }
 require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();

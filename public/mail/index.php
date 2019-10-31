@@ -2,18 +2,15 @@
 
 use PortalCMS\Core\View\Text;
 use PortalCMS\Core\View\Alert;
-use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Email\Batch\MailBatch;
+use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Core\Authentication\Authentication;
 
 $pageType = 'index';
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_MAIL_SCHEDULER');
 Authentication::checkAuthentication();
-if (!Authentication::checkPrivilege('mail-scheduler')) {
-    Redirect::permissionError();
-    die();
-}
+Authorization::verifyPermission('mail-scheduler');
 require_once DIR_INCLUDES . 'functions.php';
 require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();
