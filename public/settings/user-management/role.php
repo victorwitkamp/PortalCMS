@@ -35,7 +35,7 @@ if (!$Role) {
                 </div>
                 <?php Alert::renderFeedbackMessages();
                 if ($Role) { ?>
-                    <h3><?php echo Text::get('LABEL_ROLE_GENERAL');?></h3>
+                    <h3><?php echo Text::get('LABEL_ROLE_GENERAL'); ?></h3>
                     <table class="table table-striped table-condensed">
                         <!-- <thead class="thead-dark"> -->
                         <tbody>
@@ -46,7 +46,7 @@ if (!$Role) {
                             <th>Naam</th>
                             <td><?php echo $Role['role_name']; ?></td>
                         </tr>
-                            <th><?php echo Text::get('LABEL_ROLE_PERMISSIONS');?></th>
+                            <th><?php echo Text::get('LABEL_ROLE_PERMISSIONS'); ?></th>
                             <td>
                                 <?php
                                 $ActivePerissions = RolePermissionMapper::getRolePermissions($_GET['role_id']);
@@ -63,7 +63,7 @@ if (!$Role) {
                                         <?php
                                         foreach ($ActivePerissions as $Permission) { ?>
                                             <tr>
-                                                <td><?php echo $Permission['perm_id'];?></td>
+                                                <td><?php echo $Permission['perm_id']; ?></td>
                                                 <td><?php echo $Permission['perm_desc']; ?></td>
                                                 <td>
                                                     <form method="post">
@@ -101,7 +101,7 @@ if (!$Role) {
                             <select name='perm_id'>
                                 <?php
                                 foreach ($selectablePermissions as $selectablePermission) { ?>
-                                    <option value="<?php echo $selectablePermission['perm_id']; ?>"><?php echo $selectablePermission['perm_id'].'. '.$selectablePermission['perm_desc']; ?>
+                                    <option value="<?php echo $selectablePermission['perm_id']; ?>"><?php echo $selectablePermission['perm_id'] . '. ' . $selectablePermission['perm_desc']; ?>
                                     </option>
                                 <?php } ?>
                             </select>

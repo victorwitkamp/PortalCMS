@@ -62,7 +62,7 @@ PortalCMS_JS_dataTables();
                     echo 'Ontbrekende gegevens..';
                 } else {
                     if (isset($_GET['batch_id']) && !empty($_GET['batch_id'])) {
-                        echo '<h3>Berichten van batch '.$_GET['batch_id'].'</h3>';
+                        echo '<h3>Berichten van batch ' . $_GET['batch_id'] . '</h3>';
                     } else {
                         echo '<h3>Alle berichten</h3>';
                     }
