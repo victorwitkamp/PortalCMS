@@ -126,7 +126,8 @@ class SMTPTransport
             $this->error = $e->errorMessage();
             return false;
         } catch (\Exception $e) {
-            echo $e->getMessage();
+            $this->error = $e->getMessage();
+            return false;
         }
     }
 }

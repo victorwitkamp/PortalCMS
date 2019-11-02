@@ -161,12 +161,10 @@ class SiteSetting
         $stmt = DB::conn()->prepare("UPDATE site_settings SET string_value = ? WHERE setting = 'site_logo' LIMIT 1");
         if (!$stmt->execute([$fileName])) {
             Session::add('feedback_negative', 'DB error');
-
             return false;
-        } else {
-            Session::add('feedback_negative', 'write to db succes');
-            return true;
         }
+        Session::add('feedback_negative', 'write to db succes');
+        return true;
     }
 
     /**

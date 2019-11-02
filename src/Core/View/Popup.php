@@ -15,7 +15,7 @@ class Popup
 {
     public static function show()
     {
-        if (isset($_SESSION['popup']) && !empty($_SESSION['popup'])) {
+        if (!empty($_SESSION['popup'])) {
             foreach ($_SESSION['popup'] as $key => $value) {
                 ?>
 

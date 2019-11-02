@@ -36,7 +36,6 @@ class MailSchedule
         }
         if ($deleted > 0) {
             Session::add('feedback_positive', 'Er zijn ' . $deleted . ' berichten verwijderd.');
-            Redirect::to('mail');
             return true;
         }
         Session::add('feedback_negative', 'Verwijderen mislukt. Aantal berichten met problemen: ' . $error);
@@ -99,9 +98,14 @@ class MailSchedule
         $creator = new EmailRecipientCollectionCreator();
         $recipients = $creator->createCollection($mailId);
         $attachments = EmailAttachmentMapper::getByMailId($mailId);
-        if (!empty($recipients) && !empty($scheduledMail['subject']) && !empty($scheduledMail['body'])) {
+        if (empty($recipients)) {
             MailScheduleMapper::updateStatus($mailId, '3');
-            MailScheduleMapper::setErrorMessageById($mailId, 'Mail incompleet');
+            MailScheduleMapper::setErrorMessageById($mailId, 'No recipient(s) were specified.');
+            return false;
+        }
+        if (empty($scheduledMail['subject']) || empty($scheduledMail['body'])) {
+            MailScheduleMapper::updateStatus($mailId, '3');
+            MailScheduleMapper::setErrorMessageById($mailId, 'Subject or body is empty.');
             return false;
         }
         $EmailMessage = new EmailMessage(

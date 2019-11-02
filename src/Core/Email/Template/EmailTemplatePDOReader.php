@@ -35,7 +35,7 @@ class EmailTemplatePDOReader
         return $stmt->fetchAll();
     }
 
-    public static function getById($id)
+    public function getById($id)
     {
         $stmt = DB::conn()->prepare(
             'SELECT *

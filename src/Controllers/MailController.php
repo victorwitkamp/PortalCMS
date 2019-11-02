@@ -23,7 +23,6 @@ class MailController extends Controller
         }
         if (isset($_POST['sendScheduledMailById'])) {
             MailSchedule::sendMailsById(Request::post('id'));
-            session_write_close();
             Redirect::to('mail/messages.php');
         }
         if (isset($_POST['createMailWithTemplate'])) {
@@ -31,6 +30,7 @@ class MailController extends Controller
         }
         if (isset($_POST['deleteScheduledMailById'])) {
             MailSchedule::deleteById(Request::post('id'));
+            Redirect::to('mail');
         }
         if (isset($_POST['sendBatchById'])) {
             MailBatch::sendById(Request::post('id'));

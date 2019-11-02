@@ -1,15 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AnalysisUIOptions">
-    <option name="FILTER_RESOLVED_ITEMS" value="false" />
-  </component>
   <component name="ChangeListManager">
     <list default="true" id="10cd1690-6b40-469b-8cb6-7411aa27a75c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.php_cs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.php_cs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/mail/details.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/mail/details.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Email/Recipient/EmailRecipientCollectionCreator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Recipient/EmailRecipientCollectionCreator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Email/Recipient/EmailRecipientMapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Recipient/EmailRecipientMapper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/mail/messages.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/mail/messages.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/mail/templates/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/mail/templates/edit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/mail/templates/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/mail/templates/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/rental/invoices/invoices_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/rental/invoices/invoices_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controllers/MailController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/MailController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controllers/MailTemplateController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/MailTemplateController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Config/SiteSetting.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Config/SiteSetting.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Email/Message/Attachment/EmailAttachment.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Message/Attachment/EmailAttachment.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Email/SMTP/SMTPTransport.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/SMTP/SMTPTransport.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Email/Schedule/MailSchedule.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Schedule/MailSchedule.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Email/Template/EmailTemplate.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Template/EmailTemplate.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Email/Template/EmailTemplateBuilder.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Template/EmailTemplateBuilder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Email/Template/EmailTemplatePDOReader.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Template/EmailTemplatePDOReader.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Email/Template/EmailTemplatePDOWriter.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Template/EmailTemplatePDOWriter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Page/Page.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Page/Page.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Session/Session.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Session/Session.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/User/Password.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/User/Password.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/User/PasswordReset.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/User/PasswordReset.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/View/Alert.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/View/Alert.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/View/Popup.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/View/Popup.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Invoices/InvoiceModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Invoices/InvoiceModel.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -140,7 +157,7 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="ComposerJson.settings" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.PHP" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -194,7 +211,10 @@
     </recent_temporary>
   </component>
   <component name="StructuralSearchPlugin">
-    <searchConfiguration name="user defined" created="1570695512858" text="displayMessage" recursive="true" caseInsensitive="true" type="PHP" scope_type="NAMED" scope_descriptor="All Places" history="1">
+    <searchConfiguration name="user defined" created="1572724762372" text="Mail incompleet" recursive="true" caseInsensitive="true" type="PHP" scope_type="PROJECT" scope_descriptor="" history="1">
+      <constraint name="__context__" within="" contains="" />
+    </searchConfiguration>
+    <searchConfiguration name="user defined" created="1572724751290" text="displayMessage" recursive="true" caseInsensitive="true" type="PHP" scope_type="NAMED" scope_descriptor="All Places" history="1">
       <constraint name="__context__" within="" contains="" />
     </searchConfiguration>
   </component>
@@ -243,7 +263,7 @@
       <workItem from="1572512164780" duration="2746000" />
       <workItem from="1572528574398" duration="1600000" />
       <workItem from="1572661956174" duration="587000" />
-      <workItem from="1572663036569" duration="2543000" />
+      <workItem from="1572663036569" duration="15317000" />
     </task>
     <servers />
   </component>

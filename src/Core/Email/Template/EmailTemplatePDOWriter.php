@@ -2,7 +2,6 @@
 
 namespace PortalCMS\Core\Email\Template;
 
-use EmailTemplatePDOReader;
 use PortalCMS\Core\Database\DB;
 
 class EmailTemplatePDOWriter
@@ -20,19 +19,23 @@ class EmailTemplatePDOWriter
             'INSERT INTO mail_templates(
                 id, type, subject, body, status
                 ) VALUES (
-                    NULL,?,?,?,?)
-                    '
+                    NULL,?,?,?,?)'
         );
-        $stmt->execute([$EmailTemplate->type, $EmailTemplate->emailMessage->subject, $EmailTemplate->emailMessage->body, $EmailTemplate->status]);
+        $stmt->execute([$EmailTemplate->type, $EmailTemplate->subject, $EmailTemplate->body, $EmailTemplate->status]);
         if (!$stmt) {
-            return false;
+            return null;
         }
         return EmailTemplatePDOReader::lastInsertedId();
     }
 
-    public static function update(EmailTemplate $emailTemplate)
+    /**
+     * @param EmailTemplate $emailTemplate
+     * @param $id
+     * @return bool
+     */
+    public function update(EmailTemplate $emailTemplate) : bool
     {
-        if (empty($emailTemplate->id) || ($emailTemplate->id) <= 0) {
+        if (empty($emailTemplate->id) || ($emailTemplate->id <= 0)) {
             return false;
         }
         $stmt = DB::conn()->prepare(
@@ -43,8 +46,8 @@ class EmailTemplatePDOWriter
         );
         $stmt->execute([
             $emailTemplate->type,
-            $emailTemplate->emailMessage->subject,
-            $emailTemplate->emailMessage->body,
+            $emailTemplate->subject,
+            $emailTemplate->body,
             $emailTemplate->status,
             $emailTemplate->id
         ]);

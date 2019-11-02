@@ -94,25 +94,23 @@ class Password
         $user = $stmt->fetch(PDO::FETCH_OBJ);
         $user_password_hash = $user->user_password_hash;
 
-        if (!password_verify(
-            base64_encode(
-                $user_password_current
-            ),
-            $user_password_hash
-        )
-        ) {
+        if (!password_verify(base64_encode($user_password_current), $user_password_hash)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CURRENT_INCORRECT'));
             return false;
-        } elseif (empty($user_password_new) || empty($user_password_repeat)) {
+        }
+        if (empty($user_password_new) || empty($user_password_repeat)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_FIELD_EMPTY'));
             return false;
-        } elseif ($user_password_new !== $user_password_repeat) {
+        }
+        if ($user_password_new !== $user_password_repeat) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_REPEAT_WRONG'));
             return false;
-        } elseif (strlen($user_password_new) < 6) {
+        }
+        if (strlen($user_password_new) < 6) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_TOO_SHORT'));
             return false;
-        } elseif ($user_password_current == $user_password_new) {
+        }
+        if ($user_password_current == $user_password_new) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_NEW_SAME_AS_CURRENT'));
             return false;
         }

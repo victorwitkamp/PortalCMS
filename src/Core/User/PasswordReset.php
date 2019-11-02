@@ -258,16 +258,20 @@ class PasswordReset
         if (empty($user_name)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_FIELD_EMPTY'));
             return false;
-        } elseif (empty($password_reset_hash)) {
+        }
+        if (empty($password_reset_hash)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_TOKEN_MISSING'));
             return false;
-        } elseif (empty($user_password_new) || empty($user_password_repeat)) {
+        }
+        if (empty($user_password_new) || empty($user_password_repeat)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_FIELD_EMPTY'));
             return false;
-        } elseif ($user_password_new !== $user_password_repeat) {
+        }
+        if ($user_password_new !== $user_password_repeat) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_REPEAT_WRONG'));
             return false;
-        } elseif (strlen($user_password_new) < 6) {
+        }
+        if (strlen($user_password_new) < 6) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_TOO_SHORT'));
             return false;
         }

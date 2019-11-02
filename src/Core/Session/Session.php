@@ -44,10 +44,10 @@ class Session
     {
         if (isset($_SESSION[$key])) {
             $value = $_SESSION[$key];
-
             // filter the value for XSS vulnerabilities
             return Filter::XSSFilter($value);
         }
+        return false;
     }
 
     /**

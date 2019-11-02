@@ -33,19 +33,19 @@ class Alert
         $feedback_negative = Session::get('feedback_negative');
 
         if (isset($feedback_positive)) {
-            foreach ($feedback_positive as $feedback) {
+            foreach ((array) $feedback_positive as $feedback) {
                 self::render($feedback, 'success');
             }
         }
 
         if (isset($feedback_warning)) {
-            foreach ($feedback_warning as $feedback) {
+            foreach ((array) $feedback_warning as $feedback) {
                 self::render($feedback, 'warning');
             }
         }
 
         if (isset($feedback_negative)) {
-            foreach ($feedback_negative as $feedback) {
+            foreach ((array) $feedback_negative as $feedback) {
                 self::render($feedback, 'danger');
             }
         }

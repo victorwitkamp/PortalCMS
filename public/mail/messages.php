@@ -52,7 +52,7 @@ PortalCMS_JS_dataTables();
                 <?php
                 PortalCMS_JS_Init_dataTables();
 
-                if (isset($_GET['batch_id']) && !empty($_GET['batch_id'])) {
+                if (!empty($_GET['batch_id'])) {
                     $result = MailScheduleMapper::getByBatchId($_GET['batch_id']);
                 } else {
                     $result = MailScheduleMapper::getAll();
@@ -61,7 +61,7 @@ PortalCMS_JS_dataTables();
                 if (!$result) {
                     echo 'Ontbrekende gegevens..';
                 } else {
-                    if (isset($_GET['batch_id']) && !empty($_GET['batch_id'])) {
+                    if (!empty($_GET['batch_id'])) {
                         echo '<h3>Berichten van batch ' . $_GET['batch_id'] . '</h3>';
                     } else {
                         echo '<h3>Alle berichten</h3>';

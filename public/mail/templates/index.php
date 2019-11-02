@@ -1,5 +1,6 @@
 <?php
 
+use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\Authorization\Authorization;
@@ -42,17 +43,15 @@ PortalCMS_JS_headJS(); ?>
                 </thead>
                 <tbody>
                     <?php
-                    foreach (MailTemplateMapper::getTemplates() as $row) {
-                        echo '<tr>';
-                        echo '<td><a href="edit.php?id=' . $row['id'] . '" title="Gegevens wijzigen" class="btn btn-warning btn-sm">
-            <span class="fa fa-edit"></span></a></td>';
-                        echo '<td>' . $row['id'] . '</td>';
-                        echo '<td>' . $row['name'] . '</td>';
-                        echo '<td>' . $row['type'] . '</td>';
-                        echo '<td>' . $row['subject'] . '</td>';
-                        // echo '<td>'.$row['body'].'</td><tr>';
-                    }
-                    ?>
+                    foreach (EmailTemplatePDOReader::get() as $template) {
+                        ?><tr>
+                            <td><a href="edit.php?id=<?= $template['id'] ?>" title="Gegevens wijzigen" class="btn btn-warning btn-sm"><span class="fa fa-edit"></span></a></td>
+                            <td><?= $template['id'] ?></td>
+                            <td><?= $template['name'] ?></td>
+                            <td><?= $template['type'] ?></td>
+                            <td><?= $template['subject'] ?></td>
+                        <tr><?php
+                    } ?>
                 </tbody>
             </table>
 

@@ -1,5 +1,6 @@
 <?php
 
+use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\HTTP\Request;
@@ -11,7 +12,8 @@ use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();
 Authorization::verifyPermission('mail-templates');
-$template = MailTemplateMapper::getById(Request::get('id'));
+$reader = new EmailTemplatePDOReader();
+$template = $reader->getById(Request::get('id'));
 $pageName = Text::get('TITLE_EDIT_MAIL_TEMPLATE');
 
 require_once DIR_INCLUDES . 'functions.php';

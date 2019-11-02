@@ -143,7 +143,7 @@ class InvoiceModel
 
     public static function write($id = null)
     {
-        if (!isset($id) || empty($id)) {
+        if (empty($id)) {
             return false;
         }
         $invoice = InvoiceMapper::getById($id);

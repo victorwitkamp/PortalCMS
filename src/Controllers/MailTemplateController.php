@@ -3,6 +3,8 @@
 namespace PortalCMS\Controllers;
 
 use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\Email\Template\EmailTemplateBuilder;
+use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Controllers\Controller;
@@ -30,18 +32,20 @@ class MailTemplateController extends Controller
         }
         if (isset($_POST['newtemplate'])) {
             Authentication::checkAuthentication();
-            $EmailMessage = new EmailMessage(
-                Request::post('subject', true),
-                Request::post('body', false)
-            );
-            $TemplateBuilder = new TemplateCreator();
-            $Template = $TemplateBuilder->create('member', $EmailMessage, 1);
-            $Template->store(new MailTemplateMapper());
-            session_write_close();
+            $subject = Request::post('subject', true);
+            $body = Request::post('body', false);
+            $templateBuilder = new EmailTemplateBuilder();
+            $templateBuilder->create('member', $subject, $body);
+            $templateBuilder->store();
             Redirect::to('mail/templates/');
         }
         if (isset($_POST['edittemplate'])) {
-            EmailTemplate::edit();
+            $templateBuilder = new EmailTemplateBuilder();
+            $template = $templateBuilder->getExisting(Request::get('id'));
+            $template->subject = Request::post('subject', true);
+            $template->body = Request::post('body', false);
+            $templateBuilder->update($template);
+            Redirect::to('mail/templates/');
         }
         if (isset($_POST['deleteMailTemplateAttachments'])) {
             EmailAttachment::deleteById(Request::post('id'));
