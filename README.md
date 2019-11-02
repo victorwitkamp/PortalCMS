@@ -50,18 +50,16 @@ A CMS-like PHP application/portal that I'm creation for a small non-profit music
 This may work on other configurations as well.
 
 - IIS webserver
-- PHP 7.2.13
+- PHP 7.2+
 - MySQL 5.7
 - Yarn
 - Composer
 
 ## Installation
-
-npm install --global gulp-cli
-
-
-Install node_modules by running "yarn" from the project folder.
-Install composer requirements by running "composer update".
+composer update
+npm install
+npm install gulp-cli
+gulp
 
 ## Credits
 

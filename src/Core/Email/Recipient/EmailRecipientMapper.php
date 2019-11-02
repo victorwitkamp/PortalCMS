@@ -92,11 +92,10 @@ class EmailRecipientMapper
      * getRecipients
      *
      * @param int    $mailId The ID of the e-mail that was scheduled in the MailSchedule table.
-     * @param int    $type    Whether the recipient is: 1) recipient, 2) CC, 3) BCC
      *
      * @return array|bool
      */
-    public static function getRecipients($mailId)
+    public function getRecipients($mailId)
     {
         $stmt = DB::conn()->prepare('
             SELECT * FROM mail_recipients where mail_id = ? and type = 1

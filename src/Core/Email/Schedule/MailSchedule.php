@@ -2,6 +2,7 @@
 
 namespace PortalCMS\Core\Email\Schedule;
 
+use EmailRecipientCollection;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
@@ -15,6 +16,7 @@ use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
 use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
 use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
 use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
+use PortalCMS\Core\Email\Recipient\EmailRecipientCollectionCreator;
 
 class MailSchedule
 {
@@ -96,7 +98,9 @@ class MailSchedule
     public static function sendSingleMailHandler($mailId)
     {
         $scheduledMail = MailScheduleMapper::getById($mailId);
-        $recipients = EmailRecipientMapper::getAll($mailId);
+        $creator = new EmailRecipientCollectionCreator();
+        $recipients = $creator->createCollection($mailId);
+        // $recipients = EmailRecipientMapper::getRecipients($mailId);
         $attachments = EmailAttachmentMapper::getByMailId($mailId);
         if (!empty($recipients) && !empty($scheduledMail['subject']) && !empty($scheduledMail['body'])) {
             $EmailMessage = new EmailMessage($scheduledMail['subject'], $scheduledMail['body'], $attachments, $recipients);

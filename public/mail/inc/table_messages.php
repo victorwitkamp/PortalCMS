@@ -1,7 +1,7 @@
 <?php
 
-use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
 use PortalCMS\Core\View\Text;
+use PortalCMS\Core\Email\Recipient\EmailRecipientCollectionCreator;
 
 ?>
 <form method="post">
@@ -34,7 +34,9 @@ use PortalCMS\Core\View\Text;
                         <?php echo $row['batch_id']; ?></td>
                     <td>
                         <?php echo $row['recipient_email'];
-                        $recipients = EmailRecipientMapper::getRecipients($row['id']);
+                        $creator = new EmailRecipientCollectionCreator();
+                        // $recipients = EmailRecipientMapper::getRecipients($row['id']);
+                        $recipients = $creator->createCollection($row['id']);
                         if (!empty($recipients)) {
                             echo count($recipients);
                         }
