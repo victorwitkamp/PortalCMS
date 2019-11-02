@@ -18,7 +18,6 @@ class EmailAttachment
     {
         $this->path = Config::get('PATH_ATTACHMENTS');
         $this->processUpload($file);
-        return $this;
     }
 
     public function processUpload(array $file) : bool

@@ -10,22 +10,22 @@ class EmailTemplate
     /**
      * @var int $id
      */
-    public $id = null;
+    public $id;
 
     /**
      * @var string $type
      */
-    public $type = null;
+    public $type;
 
     /**
      * @var EmailMessage $emailMessage
      */
-    public $emailMessage = null;
+    public $emailMessage;
 
     /**
      * @var string = null
      */
-    public $status = null;
+    public $status;
 
     public function __construct()
     {

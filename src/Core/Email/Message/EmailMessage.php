@@ -9,14 +9,14 @@ class EmailMessage
      *
      * @var string
      */
-    public $subject = null;
+    public $subject;
 
     /**
      * Body
      *
      * @var string
      */
-    public $body = null;
+    public $body;
 
     /**
      * Attachments
@@ -38,6 +38,5 @@ class EmailMessage
         $this->body = $body;
         $this->attachments = $attachments;
         $this->recipients = $recipients;
-        return $this;
     }
 }

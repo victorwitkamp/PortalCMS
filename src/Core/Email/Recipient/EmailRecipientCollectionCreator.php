@@ -12,8 +12,8 @@ class EmailRecipientCollectionCreator
      *
      * @var array
      */
-    public $recipients = null;
-    public $mapper = null;
+    public $recipients;
+    public $mapper;
 
     public function __construct()
     {

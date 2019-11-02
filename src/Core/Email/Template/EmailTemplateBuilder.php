@@ -12,14 +12,14 @@ class EmailTemplateBuilder
      *
      * @var EmailTemplate $emailTemplate
      */
-    public $emailTemplate = null;
+    public $emailTemplate;
 
     /**
      * Instance of the MailTemplateMapper class
      *
      * @var EmailTemplatePDOWriter $EmailTemplatePDOWriter
      */
-    public $EmailTemplatePDOWriter = null;
+    public $EmailTemplatePDOWriter;
 
     public function __construct()
     {

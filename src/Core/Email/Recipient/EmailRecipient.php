@@ -4,15 +4,14 @@ namespace PortalCMS\Core\Email\Recipient;
 
 class EmailRecipient
 {
-    public $name = null;
+    public $name;
 
-    public $email = null;
+    public $email;
 
-    public function __contruct($name, $email)
+    public function __construct($name, $email)
     {
         $this->name = $name;
         $this->email = $email;
-        // return this;
     }
 
     public function get() {
