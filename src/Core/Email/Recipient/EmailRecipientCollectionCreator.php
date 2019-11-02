@@ -2,9 +2,6 @@
 
 namespace PortalCMS\Core\Email\Recipient;
 
-use PortalCMS\Core\Email\Recipient\EmailRecipient;
-use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
-
 class EmailRecipientCollectionCreator
 {
     /**
@@ -23,9 +20,7 @@ class EmailRecipientCollectionCreator
     public function createCollection(int $mailId) {
         $emailRecipients = $this->mapper->getAll($mailId);
         foreach ($emailRecipients as $recipient) {
-            $EmailRecipient = new EmailRecipient();
-            $EmailRecipient->email = $recipient['email'];
-            $EmailRecipient->name = $recipient['name'];
+            $EmailRecipient = new EmailRecipient($recipient['name'], $recipient['email']);
             $this->recipients[] = $EmailRecipient->get();
         }
         return $this->recipients;

@@ -6,13 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="10cd1690-6b40-469b-8cb6-7411aa27a75c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Email/Message/Attachment/EmailAttachment.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Message/Attachment/EmailAttachment.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Email/Message/EmailMessage.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Message/EmailMessage.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Email/Recipient/EmailRecipient.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Recipient/EmailRecipient.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.php_cs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.php_cs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controllers/InvoiceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/InvoiceController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Core/Email/Recipient/EmailRecipientCollectionCreator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Recipient/EmailRecipientCollectionCreator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Email/Template/EmailTemplate.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Template/EmailTemplate.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Email/Recipient/EmailRecipientMapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Recipient/EmailRecipientMapper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Email/Schedule/MailSchedule.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Schedule/MailSchedule.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Core/Email/Template/EmailTemplateBuilder.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Template/EmailTemplateBuilder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Email/Template/EmailTemplatePDOWriter.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Template/EmailTemplatePDOWriter.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -246,7 +246,7 @@
       <workItem from="1572512164780" duration="2746000" />
       <workItem from="1572528574398" duration="1600000" />
       <workItem from="1572661956174" duration="587000" />
-      <workItem from="1572663036569" duration="824000" />
+      <workItem from="1572663036569" duration="1354000" />
     </task>
     <servers />
   </component>

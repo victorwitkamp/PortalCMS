@@ -11,7 +11,6 @@ use PortalCMS\Modules\Members\MemberModel;
 use PortalCMS\Core\Email\SMTP\SMTPTransport;
 use PortalCMS\Core\Email\Message\EmailMessage;
 use PortalCMS\Core\Email\SMTP\SMTPConfiguration;
-use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
 use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
 use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
 use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;

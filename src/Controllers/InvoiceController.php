@@ -43,7 +43,7 @@ class InvoiceController extends Controller
         if (InvoiceModel::createMail()) {
             Redirect::to('rental/invoices');
         } else {
-            Redirect::error;
+            Redirect::to('includes/error.php');
         }
     }
 

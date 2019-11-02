@@ -4,7 +4,6 @@ namespace PortalCMS\Core\Email\Template;
 
 use EmailTemplatePDOReader;
 use PortalCMS\Core\Database\DB;
-use PortalCMS\Core\Email\Template\EmailTemplate;
 
 class EmailTemplatePDOWriter
 {
