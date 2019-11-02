@@ -30,7 +30,10 @@ class MailTemplateController extends Controller
         }
         if (isset($_POST['newtemplate'])) {
             Authentication::checkAuthentication();
-            $EmailMessage = new EmailMessage(Request::post('subject', true), Request::post('body', false));
+            $EmailMessage = new EmailMessage(
+                Request::post('subject', true),
+                Request::post('body', false)
+            );
             $TemplateBuilder = new TemplateCreator();
             $Template = $TemplateBuilder->create('member', $EmailMessage, 1);
             $Template->store(new MailTemplateMapper());

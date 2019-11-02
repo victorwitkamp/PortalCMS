@@ -43,7 +43,7 @@ class EmailTemplate
         $template = $this->EmailTemplatePDOWriter->getById($id);
         $this->id = $template->id;
         $this->type = $template->type;
-        $this->emailMessage = new EmailMessage($template->subject, $template->body);
+        $this->emailMessage = new EmailMessage($template->subject, $template->body, null, null);
         $this->status = $template->status;
     }
 

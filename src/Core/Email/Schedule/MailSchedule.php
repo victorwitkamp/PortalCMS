@@ -108,8 +108,8 @@ class MailSchedule
         $EmailMessage = new EmailMessage(
             $scheduledMail['subject'],
             $scheduledMail['body'],
-            $attachments,
-            $recipients
+            $recipients,
+            $attachments
         );
         $SMTPConfiguration = new SMTPConfiguration();
         $SMTPTransport = new SMTPTransport($SMTPConfiguration);
