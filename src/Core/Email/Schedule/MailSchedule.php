@@ -2,7 +2,6 @@
 
 namespace PortalCMS\Core\Email\Schedule;
 
-use EmailRecipientCollection;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
@@ -100,25 +99,28 @@ class MailSchedule
         $scheduledMail = MailScheduleMapper::getById($mailId);
         $creator = new EmailRecipientCollectionCreator();
         $recipients = $creator->createCollection($mailId);
-        // $recipients = EmailRecipientMapper::getRecipients($mailId);
         $attachments = EmailAttachmentMapper::getByMailId($mailId);
         if (!empty($recipients) && !empty($scheduledMail['subject']) && !empty($scheduledMail['body'])) {
-            $EmailMessage = new EmailMessage($scheduledMail['subject'], $scheduledMail['body'], $attachments, $recipients);
-            $SMTPConfiguration = new SMTPConfiguration();
-            $SMTPTransport = new SMTPTransport($SMTPConfiguration);
-            if ($SMTPTransport->sendMail($EmailMessage)) {
-                MailScheduleMapper::updateStatus($mailId, '2');
-                MailScheduleMapper::updateDateSent($mailId);
-                MailScheduleMapper::updateSender($mailId, $SMTPConfiguration->fromName, $SMTPConfiguration->fromEmail);
-                return true;
-            } else {
-                MailScheduleMapper::updateStatus($mailId, '3');
-                MailScheduleMapper::setErrorMessageById($mailId, $SMTPTransport->getError());
-                return false;
-            }
-        } else {
             MailScheduleMapper::updateStatus($mailId, '3');
             MailScheduleMapper::setErrorMessageById($mailId, 'Mail incompleet');
+            return false;
+        }
+        $EmailMessage = new EmailMessage(
+            $scheduledMail['subject'],
+            $scheduledMail['body'],
+            $attachments,
+            $recipients
+        );
+        $SMTPConfiguration = new SMTPConfiguration();
+        $SMTPTransport = new SMTPTransport($SMTPConfiguration);
+        if ($SMTPTransport->sendMail($EmailMessage)) {
+            MailScheduleMapper::updateStatus($mailId, '2');
+            MailScheduleMapper::updateDateSent($mailId);
+            MailScheduleMapper::updateSender($mailId, $SMTPConfiguration->fromName, $SMTPConfiguration->fromEmail);
+            return true;
+        } else {
+            MailScheduleMapper::updateStatus($mailId, '3');
+            MailScheduleMapper::setErrorMessageById($mailId, $SMTPTransport->getError());
             return false;
         }
     }

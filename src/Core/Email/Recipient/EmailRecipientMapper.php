@@ -2,6 +2,7 @@
 
 namespace PortalCMS\Core\Email\Recipient;
 
+use PDO;
 use PortalCMS\Core\Database\DB;
 
 class EmailRecipientMapper

@@ -109,7 +109,7 @@ class SMTPTransport
         }
         $this->prepareConfiguration();
         foreach ($verifiedMessage->recipients as $recipient) {
-            $this->PHPMailer->addAddress($recipient['email'], $recipient['name']);
+            $this->PHPMailer->addAddress($recipient->email, $recipient->name);
         }
         $this->PHPMailer->Subject = $verifiedMessage->subject;
         $this->PHPMailer->Body = $verifiedMessage->body;

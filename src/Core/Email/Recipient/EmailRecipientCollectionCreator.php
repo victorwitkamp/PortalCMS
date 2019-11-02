@@ -12,7 +12,7 @@ class EmailRecipientCollectionCreator
      *
      * @var array
      */
-    public $recipients = [];
+    public $recipients = null;
     public $mapper = null;
 
     public function __construct()
@@ -21,15 +21,12 @@ class EmailRecipientCollectionCreator
     }
 
     public function createCollection(int $mailId) {
-        $emailRecipients = $this->mapper->getRecipients($mailId);
-        // var_dump($emailRecipients);
-        // die;
+        $emailRecipients = $this->mapper->getAll($mailId);
         foreach ($emailRecipients as $recipient) {
-            // var_dump($recipient);
-            // die;
-            // $emailRecipient = new EmailRecipient($recipient->name, $recipient->email);
-            $this->recipients[] = $recipient;
-            // $this->recipients[] = $emailRecipient;
+            $EmailRecipient = new EmailRecipient();
+            $EmailRecipient->email = $recipient['email'];
+            $EmailRecipient->name = $recipient['name'];
+            $this->recipients[] = $EmailRecipient->get();
         }
         return $this->recipients;
     }

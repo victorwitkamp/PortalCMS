@@ -31,4 +31,13 @@ class EmailMessage
      * @var array
      */
     public $recipients = [];
+
+    public function __construct($subject, $body, $attachments, $recipients)
+    {
+        $this->subject = $subject;
+        $this->body = $body;
+        $this->attachments = $attachments;
+        $this->recipients = $recipients;
+        return $this;
+    }
 }
