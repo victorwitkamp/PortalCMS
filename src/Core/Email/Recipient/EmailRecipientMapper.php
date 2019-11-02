@@ -76,14 +76,14 @@ class EmailRecipientMapper
      *
      * @return array|bool
      */
-    public static function getAll($mail_id)
+    public function getAll($mail_id)
     {
         $stmt = DB::conn()->prepare('
             SELECT * FROM mail_recipients where mail_id = ?
         ');
         $stmt->execute([$mail_id]);
         if ($stmt->rowCount() === 0) {
-            return false;
+            return null;
         }
         return $stmt->fetchAll();
     }

@@ -51,7 +51,8 @@ if (MailScheduleMapper::exists($id)) {
                     <th><?php echo Text::get('LABEL_MAILDETAILS_RECIPIENT_TO'); ?></th>
                     <td>
                         <?php
-                        $recipients = EmailRecipientMapper::getRecipients($row['id']);
+                        $EmailRecipientMapper = new EmailRecipientMapper();
+                        $recipients = $EmailRecipientMapper->getRecipients($row['id']);
                         if (!empty($recipients)) {
                             foreach ($recipients as $recipient) {
                                 if (!empty($recipient['name'])) {

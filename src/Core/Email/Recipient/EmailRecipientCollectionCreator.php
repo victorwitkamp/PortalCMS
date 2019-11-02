@@ -19,6 +19,9 @@ class EmailRecipientCollectionCreator
 
     public function createCollection(int $mailId) {
         $emailRecipients = $this->mapper->getAll($mailId);
+        if (empty($emailRecipients)) {
+            return false;
+        }
         foreach ($emailRecipients as $recipient) {
             $EmailRecipient = new EmailRecipient($recipient['name'], $recipient['email']);
             $this->recipients[] = $EmailRecipient->get();
