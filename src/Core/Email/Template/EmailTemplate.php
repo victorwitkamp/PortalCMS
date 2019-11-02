@@ -4,46 +4,52 @@ namespace PortalCMS\Core\Email\Template;
 
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\Email\Message\EmailMessage;
-use PortalCMS\Core\Email\Message\Attachment\EmailAttachment;
 
 class EmailTemplate
 {
     /**
-     * Type of the e-mail template.
      * @var int $id
      */
     public $id = null;
+
     /**
-     * Type of the e-mail template.
      * @var string $type
      */
     public $type = null;
+
+    /**
+     * @var EmailMessage $emailMessage
+     */
     public $emailMessage = null;
+
+    /**
+     * @var string = null
+     */
     public $status = null;
 
     public function __construct()
     {
-
     }
 
-    public function set(string $type, EmailMessage $emailMessage, int $status = null) {
+    public function set(string $type, EmailMessage $emailMessage, int $status = null, $id = null)
+    {
         $this->type = $type;
         $this->emailMessage = $emailMessage;
         $this->status = $status;
-        // return $this;
     }
 
-    public function get(MailTemplateMapper $mapper, $id)
+    public function setById($id)
     {
-        $template = $mapper->getById($id);
+        $template = $this->EmailTemplatePDOWriter->getById($id);
+        $this->id = $template->id;
         $this->type = $template->type;
         $this->emailMessage = new EmailMessage($template->subject, $template->body);
         $this->status = $template->status;
-        return $this;
     }
 
     public function store(MailTemplateMapper $mapper)
     {
+        $this->EmailTemplatePDOWriter;
         if (empty($this->type)) {
             Session::add('feedback_negative', 'Nieuwe template aanmaken mislukt. Type is leeg.');
             return false;

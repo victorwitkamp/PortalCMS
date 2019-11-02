@@ -9,14 +9,14 @@ class EmailMessage
      *
      * @var string
      */
-    public $subject;
+    public $subject = null;
 
     /**
      * Body
      *
      * @var string
      */
-    public $body;
+    public $body = null;
 
     /**
      * Attachments
@@ -31,13 +31,4 @@ class EmailMessage
      * @var array
      */
     public $recipients = [];
-
-    public function __construct(string $subject, string $body, array $attachments = null, array $recipients = null)
-    {
-        $this->subject = $subject;
-        $this->body = $body;
-        $this->attachments = $attachments;
-        $this->recipients = $recipients;
-        // return $this;
-    }
 }

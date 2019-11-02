@@ -3,7 +3,7 @@
 use PortalCMS\Modules\Members\MemberModel;
 use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\Email\Template\MailTemplateMapper;
+use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
 
 $pageName = 'Nieuw bericht';
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
@@ -32,7 +32,7 @@ PortalCMS_JS_headJS(); ?>
                         <div class="col-md-12">
                             <label>Template selecteren</label>
                             <select name='templateid'>
-                                <?php foreach (MailTemplateMapper::getTemplatesByType('member') as $row) : ?>
+                                <?php foreach (EmailTemplatePDOReader::getByType('member') as $row) : ?>
                                     <option value="<?php echo $row['id']; ?>"><?php echo $row['subject']; ?></option>
                                 <?php endforeach ?>
                             </select>
@@ -50,10 +50,8 @@ PortalCMS_JS_headJS(); ?>
                         </div>
                     </div>
                 </div>
+
                 <div class="form-group form-check">
-
-
-
                     <div id="example" class="row">
                     <?php
                     foreach (MemberModel::getMembers() as $row) :
@@ -61,14 +59,11 @@ PortalCMS_JS_headJS(); ?>
                         <div class="col-md-4">
                             <input type="checkbox" name='recipients[]' id="checkbox" value="<?php echo $row['id']; ?>"> <?php echo $row['voornaam'] . ' ' . $row['achternaam']; ?><br/>
                         </div>
-                            <?php
-                        } else {
-                            ?>
+                        <?php } else { ?>
                         <div class="col-md-4">
                             <input type="checkbox" name='recipients[]' value="<?php echo $row['id']; ?>" disabled><s> <?php echo $row['voornaam'] . ' ' . $row['achternaam']; ?></s><br/>
                         </div>
-                            <?php
-                        }
+                        <?php }
                     endforeach ?>
                     </div>
                 </div>

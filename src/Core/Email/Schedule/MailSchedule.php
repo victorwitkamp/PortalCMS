@@ -5,15 +5,16 @@ namespace PortalCMS\Core\Email\Schedule;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\Email\SMTP\SMTPTransport;
 use PortalCMS\Core\Config\SiteSetting;
 use PortalCMS\Core\Email\Batch\MailBatch;
 use PortalCMS\Modules\Members\MemberModel;
+use PortalCMS\Core\Email\SMTP\SMTPTransport;
 use PortalCMS\Core\Email\Message\EmailMessage;
-use PortalCMS\Core\Email\Template\MailTemplateMapper;
-use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
-use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
 use PortalCMS\Core\Email\SMTP\SMTPConfiguration;
+use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
+use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
+use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
+use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
 
 class MailSchedule
 {
@@ -120,7 +121,7 @@ class MailSchedule
 
     public static function createWithTemplate($templateId, $recipientIds)
     {
-        $template = MailTemplateMapper::getById($templateId);
+        $template = EmailTemplatePDOReader::getById($templateId);
         $success = 0;
         $failed = 0;
         if ($template['type'] === 'member') {

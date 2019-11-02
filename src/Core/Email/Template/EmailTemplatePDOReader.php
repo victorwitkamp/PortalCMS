@@ -4,9 +4,9 @@ namespace PortalCMS\Core\Email\Template;
 
 use PortalCMS\Core\Database\DB;
 
-class MailTemplateMapper
+class EmailTemplatePDOReader
 {
-    public static function getTemplates()
+    public static function get()
     {
         $stmt = DB::conn()->prepare(
             'SELECT *
@@ -20,7 +20,7 @@ class MailTemplateMapper
         return $stmt->fetchAll();
     }
 
-    public static function getTemplatesByType($type)
+    public static function getByType($type)
     {
         $stmt = DB::conn()->prepare(
             'SELECT *
@@ -64,26 +64,6 @@ class MailTemplateMapper
             return false;
         }
         return $stmt->fetch();
-    }
-
-    public function create(EmailTemplate $EmailTemplate)
-    {
-        $stmt = DB::conn()->prepare('INSERT INTO mail_templates(id, type, subject, body, status) VALUES (NULL,?,?,?,?)');
-        $stmt->execute([$EmailTemplate->type, $EmailTemplate->emailMessage->subject, $EmailTemplate->emailMessage->body, $EmailTemplate->status]);
-        if (!$stmt) {
-            return false;
-        }
-        return self::lastInsertedId();
-    }
-
-    public static function update($id, $type, $subject, $body, $status)
-    {
-        $stmt = DB::conn()->prepare('UPDATE mail_templates SET type = ?, subject = ?, body = ?, status = ? WHERE id = ? LIMIT 1');
-        $stmt->execute([$type, $subject, $body, $status, $id]);
-        if ($stmt->rowCount() === 0) {
-            return false;
-        }
-        return true;
     }
 
     public static function lastInsertedId()
