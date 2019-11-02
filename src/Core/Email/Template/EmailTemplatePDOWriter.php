@@ -4,6 +4,7 @@ namespace PortalCMS\Core\Email\Template;
 
 use EmailTemplatePDOReader;
 use PortalCMS\Core\Database\DB;
+use PortalCMS\Core\Email\Template\EmailTemplate;
 
 class EmailTemplatePDOWriter
 {
@@ -16,7 +17,13 @@ class EmailTemplatePDOWriter
      */
     public function create(EmailTemplate $EmailTemplate) : int
     {
-        $stmt = DB::conn()->prepare('INSERT INTO mail_templates(id, type, subject, body, status) VALUES (NULL,?,?,?,?)');
+        $stmt = DB::conn()->prepare(
+            'INSERT INTO mail_templates(
+                id, type, subject, body, status
+                ) VALUES (
+                    NULL,?,?,?,?)
+                    '
+        );
         $stmt->execute([$EmailTemplate->type, $EmailTemplate->emailMessage->subject, $EmailTemplate->emailMessage->body, $EmailTemplate->status]);
         if (!$stmt) {
             return false;
