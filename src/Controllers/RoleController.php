@@ -49,7 +49,4 @@ class RoleController extends Controller
             Redirect::to('includes/error.php');
         }
     }
-
-
-
 }

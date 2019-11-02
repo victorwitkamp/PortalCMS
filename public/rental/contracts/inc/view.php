@@ -9,7 +9,7 @@
                     <label class="col-form-label">Huurder</label>
                     <input type="text" class="form-control form-control-sm" value="<?php use PortalCMS\Core\View\Text;
 
-echo $contract['band_naam']; ?>" required disabled>
+                    echo $contract['band_naam']; ?>" required disabled>
                 </div>
                 <div class="col-md-4">
                     <label class="col-form-label">bandcode</label>

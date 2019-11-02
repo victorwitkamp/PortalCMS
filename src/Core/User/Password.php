@@ -6,6 +6,7 @@ use PDO;
 use PortalCMS\Core\Database\DB;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
+use function strlen;
 
 /**
  * Class Password
@@ -108,7 +109,7 @@ class Password
         } elseif ($user_password_new !== $user_password_repeat) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_REPEAT_WRONG'));
             return false;
-        } elseif (\strlen($user_password_new) < 6) {
+        } elseif (strlen($user_password_new) < 6) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_TOO_SHORT'));
             return false;
         } elseif ($user_password_current == $user_password_new) {

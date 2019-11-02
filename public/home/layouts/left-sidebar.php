@@ -20,7 +20,7 @@ use PortalCMS\Core\Config\SiteSetting;
     ?><hr><?php
 if (SiteSetting::getStaticSiteSetting('WidgetDebug') == '1') {
         include 'widgets/debug/debug.php';
-    }
+}
 ?>
 </div>
 <div class="col-sm-8">

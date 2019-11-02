@@ -1,8 +1,8 @@
-const { src, dest, parallel } = require('gulp')
+const { src, dest, parallel } = require('gulp');
 // const pug = require('gulp-pug');
 // const less = require('gulp-less');
-const minifyCSS = require('gulp-csso')
-const concat = require('gulp-concat')
+const minifyCSS = require('gulp-csso');
+const concat = require('gulp-concat');
 
 // function html() {
 //     return src('client/templates/*.pug')
@@ -101,9 +101,9 @@ function ttf () {
     .pipe(dest('public/dist/'))
 }
 
-exports.js = js
-exports.css = css
-exports.woff = woff
-exports.woff2 = woff2
-exports.ttf = ttf
-exports.default = parallel(js, css, fullcalendarJs, fullcalendarCss, woff, woff2, ttf)
+exports.js = js;
+exports.css = css;
+exports.woff = woff;
+exports.woff2 = woff2;
+exports.ttf = ttf;
+exports.default = parallel(js, css, fullcalendarJs, fullcalendarCss, woff, woff2, ttf);

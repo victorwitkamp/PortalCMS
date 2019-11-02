@@ -19,7 +19,6 @@ class PermissionMapper
             return false;
         }
         return $stmt->fetch();
-
     }
 
     public static function getPermissionsByUserId($user_id)

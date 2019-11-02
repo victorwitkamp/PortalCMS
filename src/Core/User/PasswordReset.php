@@ -12,6 +12,7 @@ use PortalCMS\Core\Email\SMTP\SMTPConfiguration;
 use PortalCMS\Core\Email\SMTP\SMTPTransport;
 use PortalCMS\Core\Email\Message\EmailMessage;
 use PortalCMS\Core\Config\SiteSetting;
+use function strlen;
 
 /**
  * Class PasswordReset
@@ -266,7 +267,7 @@ class PasswordReset
         } elseif ($user_password_new !== $user_password_repeat) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_REPEAT_WRONG'));
             return false;
-        } elseif (\strlen($user_password_new) < 6) {
+        } elseif (strlen($user_password_new) < 6) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_TOO_SHORT'));
             return false;
         }

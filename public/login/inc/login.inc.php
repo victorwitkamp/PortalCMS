@@ -9,7 +9,11 @@ use PortalCMS\Core\View\Text;
 <div class="user_forms-login">
     <h2 class="forms_title"><?php echo Text::get('LABEL_LOG_IN'); ?></h2>
     <p><?php $minutes = (Config::get('SESSION_RUNTIME') / 60); ?>
-    Session duration: <?php echo $minutes ?> <?php if ($minutes > 1) { echo 'minutes'; } else { echo 'minute'; } ?><br>
+    Session duration: <?php echo $minutes ?> <?php if ($minutes > 1) {
+    echo 'minutes';
+} else {
+    echo 'minute';
+} ?><br>
     Cookie duration: <?php echo(Config::get('COOKIE_RUNTIME') / 60) . ' minutes (' . ((Config::get('COOKIE_RUNTIME') / 60) / 24) . ' hours)'; ?>
     </p>
     <form method="post">

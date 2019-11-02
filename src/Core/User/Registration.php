@@ -40,5 +40,4 @@ class Registration
         $stmt->execute([$username, $email, $md5password, $activationCode]);
         return $stmt->rowCount() === 1;
     }
-
 }

@@ -79,8 +79,8 @@ if (!$Role) {
                                         </tbody>
                                     </table>
                                 <?php } else {
-                                    echo 'Nog geen permissies...';
-                                } ?>
+                                                            echo 'Nog geen permissies...';
+                                                        } ?>
                             </td>
                         </tr>
                         </tbody>
@@ -94,7 +94,7 @@ if (!$Role) {
                     <?php
                     $selectablePermissions = RolePermissionMapper::getRoleSelectablePermissions($_GET['role_id']);
                     if ($selectablePermissions) {
-                    ?>
+                        ?>
                         <form method="post">
                             <input type="hidden" name="role_id" value="<?php echo $_GET['role_id']; ?>">
                             <label class="control-label">Permission</label>
@@ -109,11 +109,11 @@ if (!$Role) {
                                 class="btn btn-primary ml-2">
                         </form>
 
-                <?php
+                        <?php
                     } else {
                         ?>
                     <p>Geen permissies om toe te wijzen</p>
-                <?php
+                        <?php
                     }
                 } ?>
 

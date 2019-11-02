@@ -30,6 +30,6 @@ use PortalCMS\Core\Config\SiteSetting;
     ?><hr><?php
 if (SiteSetting::getStaticSiteSetting('WidgetDebug') == '1') {
         include 'widgets/debug/debug.php';
-    }
+}
 ?>
 </div>

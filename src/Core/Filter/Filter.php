@@ -2,6 +2,10 @@
 
 namespace PortalCMS\Core\Filter;
 
+use function is_array;
+use function is_object;
+use function is_string;
+
 /**
  * Class Filter
  *
@@ -55,12 +59,12 @@ class Filter
     public static function XSSFilter(&$value)
     {
         // if argument is a string, filters that string
-        if (\is_string($value)) {
+        if (is_string($value)) {
             $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
 
         // if argument is an array or an object,
             // recursivly filters its content
-        } elseif (\is_array($value) || \is_object($value)) {
+        } elseif (is_array($value) || is_object($value)) {
 
             /**
              * Make sure the element is passed by reference,

@@ -2,6 +2,8 @@
 
 namespace PortalCMS\Core\HTTP;
 
+use function is_string;
+
 /**
  * This is under development. Expect changes!
  * Class Request
@@ -26,7 +28,7 @@ class Request
         if (isset($_POST[$key])) {
             // we use the Ternary Operator here which saves the if/else block
             // @see http://davidwalsh.name/php-shorthand-if-else-ternary-operators
-            if ($clean && \is_string($key)) {
+            if ($clean && is_string($key)) {
                 return trim(strip_tags($_POST[$key]));
             }
             return $_POST[$key];
