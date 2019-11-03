@@ -22,18 +22,18 @@ class CalendarEventModel
         $events = CalendarEventMapper::getByDate($startDate, $endDate);
         if (!empty($events)) {
             foreach ($events as $event) {
-                if ($event['status'] === '1') {
+                if ($event->status === '1') {
                     $color = 'var(--success)';
-                } elseif ($event['status'] === '2') {
+                } elseif ($event->status === '2') {
                     $color = 'var(--danger)';
                 } else {
                     $color = 'var(--info)';
                 }
                 $eventsArray[] = [
-                    'id'   => $event['id'],
-                    'title'   => $event['title'],
-                    'start'   => $event['start_event'],
-                    'end'   => $event['end_event'],
+                    'id'   => $event->id,
+                    'title'   => $event->title,
+                    'start'   => $event->start_event,
+                    'end'   => $event->end_event,
                     'backgroundColor' => $color
                 ];
             }
@@ -56,10 +56,10 @@ class CalendarEventModel
         }
         foreach ($events as $event) {
             $eventsArray[] = [
-                'id'   => $event['id'],
-                'title'   => $event['title'],
-                'start'   => $event['start_event'],
-                'end'   => $event['end_event']
+                'id'   => $event->id,
+                'title'   => $event->title,
+                'start'   => $event->start_event,
+                'end'   => $event->end_event
             ];
         }
         if (empty($eventsArray)) {
@@ -114,7 +114,7 @@ class CalendarEventModel
      */
     public static function delete(int $id): bool
     {
-        if (CalendarEventMapper::getById($id)) {
+        if (!empty(CalendarEventMapper::getById($id))) {
             if (CalendarEventMapper::delete($id)) {
                 Session::add('feedback_positive', 'Evenement verwijderd.');
                 return true;

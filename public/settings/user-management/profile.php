@@ -13,11 +13,11 @@ $pageName = Text::get('TITLE_PROFILE');
 Authentication::checkAuthentication();
 Authorization::verifyPermission('user-management');
 $row = UserPDOReader::getProfileById($_GET['id']);
-if (!$row) {
+if (empty($row)) {
     Session::add('feedback_negative', 'De gebruiker bestaat niet.');
     Redirect::to('includes/error.php');
 } else {
-    $pageName = Text::get('TITLE_PROFILE') . $row['user_name'];
+    $pageName = Text::get('TITLE_PROFILE') . $row->user_name;
 }
 require DIR_ROOT . 'includes/functions.php';
 require DIR_ROOT . 'includes/head.php';
@@ -30,7 +30,7 @@ PortalCMS_JS_headJS(); ?>
     <div class="content">
         <div class="container">
             <div class="row mt-5">
-                <h1>Profiel van: <?php echo $row['user_name']; ?></h1>
+                <h1>Profiel van: <?php echo $row->user_name; ?></h1>
             </div>
             <?php Alert::renderFeedbackMessages();
             require 'profile_buttons.php';

@@ -70,7 +70,7 @@ class LoginService
     {
         if (substr_count($cookie, ':') + 1 === 3) {
             [$user_id, $token, $hash] = explode(':', $cookie);
-            $user_id = Encryption::decrypt($user_id);
+            (int) $user_id = Encryption::decrypt($user_id);
             if (!empty($token) && !empty($user_id) && $hash === hash('sha256', $user_id . ':' . $token)) {
                 $user = UserPDOReader::getByIdAndToken($user_id, $token);
                 return $user;
@@ -137,18 +137,17 @@ class LoginService
     {
         if (self::checkBruteForce()) {
             $result = UserPDOReader::getByUsername($user_name);
-
-            if (!empty($result)) {
-                if (self::checkBruteForceByResult($result)) {
-                    if (self::verifyPassword($result, $user_password)) {
-                        if (self::verifyIsActive($result)) {
-                            return $result;
-                        }
-                        return null;
-                    }
-                    return null;
-                }
+            if (empty($result)) {
                 return null;
+            }
+            if (!self::checkBruteForceByResult($result)) {
+                return null;
+            }
+            if (!self::verifyPassword($result, $user_password)) {
+                return null;
+            }
+            if (self::verifyIsActive($result)) {
+                return $result;
             }
             self::incrementUserNotFoundCounter();
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
@@ -157,9 +156,9 @@ class LoginService
         return null;
     }
 
-    public static function verifyIsActive($result)
+    public static function verifyIsActive($result) : bool
     {
-        if ($result->user_active === '1') {
+        if ($result->user_active == '1') {
             self::resetUserNotFoundCounter();
             return true;
         }
@@ -167,14 +166,15 @@ class LoginService
         return false;
     }
 
-    public static function verifyPassword($result, $user_password)
+    public static function verifyPassword($result, $user_password) : bool
     {
         if (password_verify(base64_encode($user_password), $result->user_password_hash)) {
             return true;
+        } else {
+            UserPDOWriter::setFailedLoginByUsername($result->user_name);
+            Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
+            return false;
         }
-        UserPDOWriter::setFailedLoginByUsername($result->user_name);
-        Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
-        return false;
     }
 
     /**

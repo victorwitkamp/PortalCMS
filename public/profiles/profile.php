@@ -22,7 +22,7 @@ $row = UserPDOReader::getProfileById($_GET['id']);
     <div class="content">
         <div class="container">
             <div class="row mt-5">
-                <h1>Profiel van: <?php echo $row['user_name']; ?></h1>
+                <h1>Profiel van: <?php echo $row->user_name; ?></h1>
             </div>
             <?php require 'profile_table.php'; ?>
         </div>

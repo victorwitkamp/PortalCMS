@@ -12,7 +12,7 @@ Authentication::checkAuthentication();
 Authorization::verifyPermission('events');
 require_once DIR_INCLUDES . 'functions.php';
 
-if ($row = CalendarEventMapper::getById($_GET['id'])) {
+if (!empty($row = CalendarEventMapper::getById($_GET['id']))) {
     $allowEdit = true;
     $pageName = 'Evenement ' . $row ['title'] . ' bewerken';
 } else {

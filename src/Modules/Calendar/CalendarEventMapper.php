@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Modules\Calendar;
 
+use PDO;
 use PortalCMS\Core\Database\DB;
 
 class CalendarEventMapper
@@ -14,35 +15,35 @@ class CalendarEventMapper
      *
      * @return bool
      */
-    public static function exists($id): bool
+    public static function exists(int $id): bool
     {
         $stmt = DB::conn()->prepare('SELECT id FROM events WHERE id = ? LIMIT 1');
         $stmt->execute([$id]);
         return $stmt->rowCount() === 1;
     }
 
-    public static function getByDate($startDate, $endDate)
+    public static function getByDate($startDate, $endDate) : ?object
     {
         $startDateTime = $startDate . ' 00:00:00';
         $endDateTime = $endDate . ' 00:00:00';
         $stmt = DB::conn()->prepare('SELECT * FROM events where start_event < ? and end_event > ? ORDER BY id');
         $stmt->execute([$endDateTime, $startDateTime]);
         if ($stmt->rowCount() === 0) {
-            return false;
+            return null;
         }
-        return $stmt->fetchAll();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public static function getEventsAfter($dateTime)
+    public static function getEventsAfter($dateTime) : ?object
     {
         $stmt = DB::conn()->prepare(
             'SELECT * FROM events WHERE start_event > ? ORDER BY start_event limit 3'
         );
         $stmt->execute([$dateTime]);
         if ($stmt->rowCount() === 0) {
-            return false;
+            return null;
         }
-        return $stmt->fetchAll();
+        return $stmt->fetchAll(PDO::FETCH_CLASS, 'event');
     }
 
     /**
@@ -50,16 +51,16 @@ class CalendarEventMapper
      *
      * @param int $id The Id of the event
      *
-     * @return mixed
+     * @return object|null
      */
-    public static function getById($id)
+    public static function getById(int $id) : ?object
     {
         $stmt = DB::conn()->prepare('SELECT * FROM events WHERE id = ? LIMIT 1');
         $stmt->execute([$id]);
         if ($stmt->rowCount() === 1) {
-            return $stmt->fetch();
+            return $stmt->fetch(PDO::FETCH_OBJ);
         }
-        return false;
+        return null;
     }
 
     public static function new($title, $start_event, $end_event, $description, $CreatedBy): bool
@@ -78,7 +79,7 @@ class CalendarEventMapper
         return true;
     }
 
-    public static function update($id, $title, $start_event, $end_event, $description, $status): bool
+    public static function update(int $id, $title, $start_event, $end_event, $description, $status): bool
     {
         $stmt = DB::conn()->prepare(
             'UPDATE events
@@ -92,7 +93,7 @@ class CalendarEventMapper
         return true;
     }
 
-    public static function updateDate($event_id, $title, $start_event, $end_event): bool
+    public static function updateDate(int $event_id, $title, $start_event, $end_event): bool
     {
         $stmt = DB::conn()->prepare(
             'UPDATE events
@@ -106,7 +107,7 @@ class CalendarEventMapper
         return true;
     }
 
-    public static function delete($id): bool
+    public static function delete(int $id): bool
     {
         $stmt = DB::conn()->prepare('DELETE FROM events WHERE id = ?');
         if ($stmt->execute([$id])) {

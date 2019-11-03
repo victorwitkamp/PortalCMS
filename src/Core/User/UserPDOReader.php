@@ -26,7 +26,7 @@ class UserPDOReader
         return ($stmt->rowCount() === 1);
     }
 
-    public static function getProfileById($Id)
+    public static function getProfileById(int $Id) : ?object
     {
         $stmt = DB::conn()->prepare(
             'SELECT user_id,
@@ -51,19 +51,16 @@ class UserPDOReader
         );
         $stmt->execute([':user_id' => $Id]);
         if ($stmt->rowCount() === 1) {
-            return $stmt->fetch(PDO::FETCH_ASSOC);
+            return $stmt->fetch(PDO::FETCH_OBJ);
         }
-        return false;
+        return null;
     }
 
     /**
-     * Gets the user's data
-     *
      * @param string $username User's name
-     *
-     * @return mixed Returns false if user does not exist, returns object with user's data when user exists
+     * @return object|null
      */
-    public static function getByUsername($username)
+    public static function getByUsername(string $username) : ?object
     {
         $stmt = DB::conn()->prepare(
             'SELECT user_id,
@@ -78,26 +75,24 @@ class UserPDOReader
                     user_last_failed_login,
                     user_fbid
                     FROM users
-                        WHERE (user_name = :user_name OR user_email = :user_name)
-                            AND user_provider_type = :provider_type
+                        WHERE (user_name = ? OR user_email = ?)
+                            AND user_provider_type = "DEFAULT"
                                 LIMIT 1'
         );
-        $stmt->execute([':user_name' => $username, ':provider_type' => 'DEFAULT']);
+        $stmt->execute([$username, $username]);
         if ($stmt->rowCount() === 0) {
-            return false;
+            return null;
         }
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
     /**
      * Gets the user's data by user's id and a token (used by login-via-cookie process)
-     *
-     * @param $user_id
-     * @param $token
-     *
+     * @param int $user_id
+     * @param string $token
      * @return mixed Returns false if user does not exist, returns object with user's data when user exists
      */
-    public static function getByIdAndToken($user_id, $token) : ?object
+    public static function getByIdAndToken(int $user_id, string $token) : ?object
     {
         $stmt = DB::conn()->prepare(
             'SELECT user_id,
@@ -131,12 +126,10 @@ class UserPDOReader
     }
 
     /**
-     * Undocumented function
-     *
-     * @param [type] $user_fbid
+     * @param int $user_fbid
      * @return object|null
      */
-    public static function getByFbid($user_fbid) : ?object
+    public static function getByFbid(int $user_fbid) : ?object
     {
         $stmt = DB::conn()->prepare(
             // 'SELECT user_id, user_name, user_email, user_password_hash, user_active,
@@ -155,11 +148,10 @@ class UserPDOReader
     }
 
     /**
-     * @param $usernameOrEmail
-     *
-     * @return mixed
+     * @param string $usernameOrEmail
+     * @return object|null
      */
-    public static function getByUsernameOrEmail($usernameOrEmail)
+    public static function getByUsernameOrEmail(string $usernameOrEmail) : ?object
     {
         $stmt = DB::conn()->prepare(
             'SELECT user_id, user_name, user_email
@@ -171,7 +163,7 @@ class UserPDOReader
         );
         $stmt->execute([':user_name_or_email' => $usernameOrEmail, ':provider_type' => 'DEFAULT']);
         if ($stmt->rowCount() === 0) {
-            return false;
+            return null;
         }
         return $stmt->fetch(PDO::FETCH_OBJ);
     }

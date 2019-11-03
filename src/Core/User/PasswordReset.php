@@ -41,7 +41,7 @@ class PasswordReset
         }
         // check if that username exists
         $result = UserPDOReader::getByUsernameOrEmail($user_name_or_email);
-        if (!$result) {
+        if (!empty($result)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USER_DOES_NOT_EXIST'));
             return false;
         }

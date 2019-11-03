@@ -22,7 +22,7 @@ $user = UserPDOReader::getProfileById(Session::get('user_id'));
     </tr>
     <tr>
         <th><?php echo Text::get('LABEL_USER_LAST_LOGIN_TIMESTAMP'); ?></th>
-        <td><?php echo $user['user_last_login_timestamp']; ?></td>
+        <td><?php echo $user->user_last_login_timestamp; ?></td>
     </tr>
     <tr>
         <th><?php echo Text::get('LABEL_USER_PROVIDER_TYPE'); ?></th>

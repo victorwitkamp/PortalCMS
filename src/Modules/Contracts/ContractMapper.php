@@ -65,8 +65,7 @@ class ContractMapper
         $contract_ingangsdatum,
         $contract_einddatum,
         $contract_datum
-    ): bool
-    {
+    ): bool {
         $stmt = DB::conn()->prepare(
             'INSERT INTO contracts (
                 id,
@@ -142,8 +141,7 @@ class ContractMapper
         $contract_ingangsdatum,
         $contract_einddatum,
         $contract_datum
-    ): bool
-    {
+    ): bool {
         $stmt = DB::conn()->prepare(
             'UPDATE contracts
                     SET
