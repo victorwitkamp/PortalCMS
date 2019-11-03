@@ -37,12 +37,12 @@ class User
         $newUsername = substr(strip_tags($newUsername), 0, 64);
 
         // check if new username already exists
-        if (UserMapper::usernameExists($newUsername)) {
+        if (UserPDOReader::usernameExists($newUsername)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_ALREADY_TAKEN'));
             return false;
         }
 
-        $status_of_action = UserMapper::updateUsername(Session::get('user_id'), $newUsername);
+        $status_of_action = UserPDOWriter::updateUsername(Session::get('user_id'), $newUsername);
         if (!$status_of_action) {
             Session::add('feedback_negative', Text::get('FEEDBACK_UNKNOWN_ERROR'));
             return false;

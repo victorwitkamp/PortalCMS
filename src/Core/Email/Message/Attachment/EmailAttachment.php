@@ -45,7 +45,7 @@ class EmailAttachment
         return true;
     }
 
-    public function validate()
+    public function validate() : bool
     {
         if (empty($this->path) || empty($this->name) || empty($this->extension) || empty($this->encoding) || empty($this->type)) {
             return false;
@@ -53,7 +53,7 @@ class EmailAttachment
         return true;
     }
 
-    public function store(int $mailId = null, int $templateId = null)
+    public function store(int $mailId = null, int $templateId = null) : bool
     {
         if ($this->validate()) {
             //if (!empty($mailId) && empty($templateId)) {
@@ -70,7 +70,7 @@ class EmailAttachment
         return false;
     }
 
-    public function getMIMEType($filename)
+    public function getMIMEType($filename) : string
     {
         $realpath = realpath($filename);
         return finfo_file(finfo_open(FILEINFO_MIME_TYPE), $realpath);

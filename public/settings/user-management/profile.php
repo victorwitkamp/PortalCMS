@@ -4,7 +4,7 @@ use PortalCMS\Core\View\Text;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\User\UserMapper;
+use PortalCMS\Core\User\UserPDOReader;
 use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Core\Authentication\Authentication;
 
@@ -12,7 +12,7 @@ require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_PROFILE');
 Authentication::checkAuthentication();
 Authorization::verifyPermission('user-management');
-$row = UserMapper::getProfileById($_GET['id']);
+$row = UserPDOReader::getProfileById($_GET['id']);
 if (!$row) {
     Session::add('feedback_negative', 'De gebruiker bestaat niet.');
     Redirect::to('includes/error.php');

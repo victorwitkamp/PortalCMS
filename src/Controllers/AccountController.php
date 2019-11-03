@@ -2,14 +2,14 @@
 
 namespace PortalCMS\Controllers;
 
-use PortalCMS\Core\Controllers\Controller;
-use PortalCMS\Core\HTTP\Redirect;
-use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\View\Text;
-use PortalCMS\Core\User\Password;
 use PortalCMS\Core\User\User;
-use PortalCMS\Core\User\UserMapper;
+use PortalCMS\Core\View\Text;
+use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\User\Password;
+use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\User\UserPDOWriter;
+use PortalCMS\Core\Controllers\Controller;
 
 /**
  * AccountController
@@ -39,7 +39,7 @@ class AccountController extends Controller
 
     public static function clearFbid()
     {
-        if (UserMapper::updateFbid(Session::get('user_id'), null)) {
+        if (UserPDOWriter::updateFBid(Session::get('user_id'), null)) {
             Session::set('user_fbid', null);
             Session::add('feedback_positive', Text::get('FEEDBACK_REMOVE_FACEBOOK_ACCOUNT_SUCCESS'));
             Redirect::to('my-account');
@@ -50,7 +50,7 @@ class AccountController extends Controller
     public static function setFbid($FbId)
     {
         if (!empty($FbId)) {
-            if (UserMapper::updateFbid(Session::get('user_id'), $FbId)) {
+            if (UserPDOWriter::updateFBid(Session::get('user_id'), $FbId)) {
                 Session::set('user_fbid', $FbId);
                 Session::add('feedback_positive', Text::get('FEEDBACK_CONNECT_FACEBOOK_ACCOUNT_SUCCESS'));
                 Redirect::to('my-account');

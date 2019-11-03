@@ -7,7 +7,8 @@ use PortalCMS\Core\View\Text;
 use PortalCMS\Core\HTTP\Cookie;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\User\UserMapper;
+use PortalCMS\Core\User\UserPDOReader;
+use PortalCMS\Core\User\UserPDOWriter;
 use PortalCMS\Core\Encryption\Encryption;
 
 /**
@@ -80,7 +81,7 @@ class Authentication
             return false;
         }
 
-        $result = UserMapper::getByUsername($user_name);
+        $result = UserPDOReader::getByUsername($user_name);
 
         if (!$result) {
             self::incrementUserNotFoundCounter();
@@ -96,7 +97,7 @@ class Authentication
 
         // if hash of provided password does NOT match the hash in the database: +1 failed-login counter
         if (!password_verify(base64_encode($user_password), $result->user_password_hash)) {
-            UserMapper::setFailedLoginByUsername($result->user_name);
+            UserPDOWriter::setFailedLoginByUsername($result->user_name);
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
             return false;
         }
@@ -141,7 +142,7 @@ class Authentication
      * @param $user_account_type
      * @param $user_fbid
      */
-    public static function setSuccessfulLoginIntoSession($user_id, $user_name, $user_email, $user_account_type, $user_fbid)
+    public static function setSuccessfulLoginIntoSession($user)
     {
         Session::init();
 
@@ -152,20 +153,20 @@ class Authentication
         session_regenerate_id(true);
         // $_SESSION = array();
 
-        Session::set('user_id', $user_id);
-        Session::set('user_name', $user_name);
-        Session::set('user_email', $user_email);
-        Session::set('user_account_type', $user_account_type);
+        Session::set('user_id', $user->user_id);
+        Session::set('user_name', $user->user_name);
+        Session::set('user_email', $user->user_email);
+        Session::set('user_account_type', $user->user_account_type);
         Session::set('user_provider_type', 'DEFAULT');
-        Session::set('user_fbid', $user_fbid);
+        Session::set('user_fbid', $user->user_fbid);
 
         // get and set avatars
         // Session::set('user_avatar_file', AvatarModel::getPublicUserAvatarFilePathByUserId($user_id));
         // Session::set('user_gravatar_image_url', AvatarModel::getGravatarLinkByEmail($user_email));
 
         Session::set('user_logged_in', true);
-        UserMapper::updateSessionId($user_id, session_id());
-
+        UserPDOWriter::updateSessionId($user->user_id, session_id());
+        UserPDOWriter::saveTimestampByUsername($user->user_name);
         Cookie::setSessionCookie();
     }
 
@@ -181,7 +182,7 @@ class Authentication
         // generate 64 char random string
         $token = hash('sha256', mt_rand());
 
-        UserMapper::updateRememberMeToken($user_id, $token);
+        UserPDOWriter::updateRememberMeToken($user_id, $token);
 
         // generate cookie string that consists of user id, random string and combined hash of both
         // never expose the original user id, instead, encrypt it.

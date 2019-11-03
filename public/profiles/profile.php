@@ -1,7 +1,7 @@
 <?php
 
 use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\User\UserMapper;
+use PortalCMS\Core\User\UserPDOReader;
 
 $pageName = 'Gebruikersprofiel weergeven';
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
@@ -14,7 +14,7 @@ PortalCMS_JS_headJS(); ?>
 </head>
 <body>
 <?php
-$row = UserMapper::getProfileById($_GET['id']);
+$row = UserPDOReader::getProfileById($_GET['id']);
 
 ?>
 <?php require DIR_INCLUDES . 'nav.php'; ?>

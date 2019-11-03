@@ -2,12 +2,12 @@
 
 namespace PortalCMS\Core\Authentication\Service;
 
-use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\View\Text;
 use PortalCMS\Core\HTTP\Cookie;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\View\Text;
-use PortalCMS\Core\User\UserMapper;
+use PortalCMS\Core\User\UserPDOWriter;
+use PortalCMS\Core\Authentication\Authentication;
 
 /**
  * LogoutService
@@ -22,7 +22,7 @@ class LogoutService
         if (Authentication::userIsLoggedIn()) {
             $user_id = Session::get('user_id');
             if (!empty($user_id)) {
-                UserMapper::clearRememberMeToken($user_id);
+                UserPDOWriter::clearRememberMeToken($user_id);
                 if (Cookie::delete()) {
                     Session::destroy();
                     Session::init();
