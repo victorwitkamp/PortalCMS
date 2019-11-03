@@ -4,15 +4,10 @@ namespace PortalCMS\Controllers;
 
 use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\Email\Template\EmailTemplateBuilder;
-use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Controllers\Controller;
-use PortalCMS\Core\Email\Message\EmailMessage;
-use PortalCMS\Core\Email\Template\EmailTemplate;
-use PortalCMS\Core\Email\Template\MailTemplateMapper;
 use PortalCMS\Core\Email\Message\Attachment\EmailAttachment;
-use PortalCMS\Core\Email\Template\TemplateCreator;
 
 /**
  * MailTemplateController

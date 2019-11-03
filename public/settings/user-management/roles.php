@@ -39,7 +39,7 @@ PortalCMS_JS_headJS();
                     </thead>
                     <?php
 
-                    $stmt = DB::conn()->query('SELECT * FROM roles ORDER BY role_id ASC');
+                    $stmt = DB::conn()->query('SELECT * FROM roles ORDER BY role_id ');
                     if ($stmt->rowCount() > 0) {
                         echo '<tbody>';
                         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {

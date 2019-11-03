@@ -82,7 +82,7 @@ class LoginService
         }
 
         // check cookie's contents, check if cookie contents belong together or token is empty
-        list($user_id, $token, $hash) = explode(':', $cookie);
+        [$user_id, $token, $hash] = explode(':', $cookie);
 
         $user_id = Encryption::decrypt($user_id);
 

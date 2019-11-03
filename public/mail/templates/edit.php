@@ -6,7 +6,6 @@ use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\Email\Template\MailTemplateMapper;
 use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';

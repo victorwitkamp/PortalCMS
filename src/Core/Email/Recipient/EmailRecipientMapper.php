@@ -110,9 +110,7 @@ class EmailRecipientMapper
     /**
      * getCC
      *
-     * @param int    $mailId The ID of the e-mail that was scheduled in the MailSchedule table.
-     * @param int    $type    Whether the recipient is: 1) recipient, 2) CC, 3) BCC
-     *
+     * @param int $mailId The ID of the e-mail that was scheduled in the MailSchedule table.
      * @return array|bool
      */
     public static function getCC($mailId)
@@ -130,9 +128,7 @@ class EmailRecipientMapper
     /**
      * getBCC
      *
-     * @param int    $mailId The ID of the e-mail that was scheduled in the MailSchedule table.
-     * @param int    $type    Whether the recipient is: 1) recipient, 2) CC, 3) BCC
-     *
+     * @param int $mailId The ID of the e-mail that was scheduled in the MailSchedule table.
      * @return array|bool
      */
     public static function getBCC($mailId)

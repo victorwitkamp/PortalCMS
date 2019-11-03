@@ -2,7 +2,6 @@
 
 namespace PortalCMS\Core\Email\Template;
 
-use PortalCMS\Core\Email\Message\EmailMessage;
 use PortalCMS\Core\Session\Session;
 
 class EmailTemplateBuilder
@@ -46,9 +45,9 @@ class EmailTemplateBuilder
 
     /**
      * @param int $id
-     * @return bool
+     * @return EmailTemplate|null $emailTemplate
      */
-    public function getExisting(int $id) : EmailTemplate
+    public function getExisting(int $id) : ?EmailTemplate
     {
         $existing = $this->EmailTemplatePDOReader->getById($id);
         if ($existing) {
@@ -68,9 +67,9 @@ class EmailTemplateBuilder
     /**
      * Save the EmailTemplate to the database and return the id of the created record.
 
-     * @return int|null
+     * @return bool
      */
-    public function store() : ?int
+    public function store() : bool
     {
         if (empty($this->emailTemplate->type) || empty($this->emailTemplate->subject) || empty($this->emailTemplate->body)) {
             Session::add('feedback_negative', 'Nieuwe template aanmaken mislukt.');
@@ -79,7 +78,7 @@ class EmailTemplateBuilder
         $return = $this->EmailTemplatePDOWriter->create($this->emailTemplate);
         if (!empty($return)) {
             Session::add('feedback_positive', 'Template toegevoegd (ID = ' . $return . ')');
-            return $return;
+            return true;
         }
         Session::add('feedback_negative', 'Nieuwe template aanmaken mislukt.');
         return false;
@@ -99,7 +98,7 @@ class EmailTemplateBuilder
         $return = $this->EmailTemplatePDOWriter->update($emailTemplate);
         if (!empty($return)) {
             Session::add('feedback_positive', 'Template opgeslagen');
-            return $return;
+            return true;
         }
         Session::add('feedback_negative', 'Opslaan mislukt');
         return false;

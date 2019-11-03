@@ -13,7 +13,7 @@ class InvoiceMapper
      *
      * @return bool
      */
-    public static function delete($id)
+    public static function delete($id): bool
     {
         $stmt = DB::conn()->prepare(
             'DELETE
@@ -69,7 +69,7 @@ class InvoiceMapper
         return false;
     }
 
-    public static function create($contract_id, $factuurnummer, $year, $month, $factuurdatum)
+    public static function create($contract_id, $factuurnummer, $year, $month, $factuurdatum): bool
     {
         $stmt = DB::conn()->prepare(
             'INSERT INTO invoices(id, contract_id, factuurnummer, year, month, factuurdatum, vervaldatum)
@@ -87,7 +87,7 @@ class InvoiceMapper
         return true;
     }
 
-    public static function updateMailId($invoice_id, $mail_id)
+    public static function updateMailId($invoice_id, $mail_id): bool
     {
         $stmt = DB::conn()->prepare(
             'UPDATE invoices SET mail_id = ? WHERE id = ? LIMIT 1'
@@ -96,7 +96,7 @@ class InvoiceMapper
         return $stmt->rowCount() === 1;
     }
 
-    public static function updateStatus($invoice_id, $status)
+    public static function updateStatus($invoice_id, $status): bool
     {
         $stmt = DB::conn()->prepare(
             'UPDATE invoices SET status = ? WHERE id = ? LIMIT 1'

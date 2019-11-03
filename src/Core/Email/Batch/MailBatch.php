@@ -13,9 +13,9 @@ use PortalCMS\Core\Session\Session;
  */
 class MailBatch
 {
-    public static function getAll()
+    public static function getAll(): array
     {
-        $stmt = DB::conn()->prepare('SELECT * FROM mail_batches ORDER BY id ASC');
+        $stmt = DB::conn()->prepare('SELECT * FROM mail_batches ORDER BY id ');
         $stmt->execute([]);
         return $stmt->fetchAll();
     }
@@ -32,7 +32,7 @@ class MailBatch
      * @param null $used_template
      * @return bool
      */
-    public static function create($used_template = null)
+    public static function create($used_template = null): bool
     {
         $stmt = DB::conn()->prepare(
             'INSERT INTO mail_batches(id, status, UsedTemplate) VALUES (NULL,1,?)'
@@ -44,7 +44,7 @@ class MailBatch
         return true;
     }
 
-    public static function deleteById($IDs)
+    public static function deleteById($IDs): bool
     {
         $deleted = 0;
         $error = 0;

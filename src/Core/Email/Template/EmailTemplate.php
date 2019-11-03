@@ -2,9 +2,6 @@
 
 namespace PortalCMS\Core\Email\Template;
 
-use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\Email\Message\EmailMessage;
-
 class EmailTemplate
 {
     /**

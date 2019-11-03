@@ -35,7 +35,7 @@ class CalendarEventMapper
     public static function getEventsAfter($dateTime)
     {
         $stmt = DB::conn()->prepare(
-            'SELECT * FROM events WHERE start_event > ? ORDER BY start_event asc limit 3'
+            'SELECT * FROM events WHERE start_event > ? ORDER BY start_event limit 3'
         );
         $stmt->execute([$dateTime]);
         if ($stmt->rowCount() === 0) {

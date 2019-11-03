@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS invoices (
   FOREIGN KEY (contract_id) REFERENCES contracts(id),
   CreationDate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   ModificationDate timestamp  NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-)
+);
 
 
 ALTER TABLE invoices add mail_id int default NULL after status

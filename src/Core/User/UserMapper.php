@@ -25,7 +25,7 @@ class UserMapper
                         LIMIT 1'
         );
         $stmt->execute([$user_name]);
-        return ($stmt->rowCount() === 1 ? true : false);
+        return ($stmt->rowCount() === 1);
     }
 
     /**
@@ -45,7 +45,7 @@ class UserMapper
                     LIMIT 1'
         );
         $stmt->execute([':user_name' => $newUsername, ':user_id' => $user_id]);
-        return ($stmt->rowCount() === 1 ? true : false);
+        return ($stmt->rowCount() === 1);
     }
 
     public static function updateFbid($user_id, $fbid)
@@ -57,7 +57,7 @@ class UserMapper
                     LIMIT 1'
         );
         $stmt->execute([$fbid, $user_id]);
-        return ($stmt->rowCount() === 1 ? true : false);
+        return ($stmt->rowCount() === 1);
     }
 
     public static function updateRememberMeToken($user_id, $token)
@@ -69,7 +69,7 @@ class UserMapper
                     LIMIT 1'
         );
         $stmt->execute([$token, $user_id]);
-        return ($stmt->rowCount() === 1 ? true : false);
+        return ($stmt->rowCount() === 1);
     }
 
     /**
@@ -89,7 +89,7 @@ class UserMapper
                     WHERE user_id = :user_id'
         );
         $stmt->execute([':session_id' => $sessionId, ':user_id' => $userId]);
-        return ($stmt->rowCount() === 1 ? true : false);
+        return ($stmt->rowCount() === 1);
     }
 
     public static function getProfileById($Id)
@@ -138,7 +138,7 @@ class UserMapper
                 LIMIT 1'
         );
         $stmt->execute([date('Y-m-d H:i:s'), $username]);
-        return ($stmt->rowCount() === 1 ? true : false);
+        return ($stmt->rowCount() === 1);
     }
 
     /**
@@ -157,7 +157,7 @@ class UserMapper
                 LIMIT 1'
         );
         $stmt->execute([$username]);
-        return ($stmt->rowCount() === 1 ? true : false);
+        return ($stmt->rowCount() === 1);
     }
 
     /**
@@ -176,7 +176,7 @@ class UserMapper
                     LIMIT 1'
         );
         $stmt->execute([':user_name' => $username, ':user_last_failed_login' => date('Y-m-d H:i:s')]);
-        return ($stmt->rowCount() === 1 ? true : false);
+        return ($stmt->rowCount() === 1);
     }
 
     public static function clearRememberMeToken($user_id)
@@ -188,7 +188,7 @@ class UserMapper
                     LIMIT 1'
         );
         $stmt->execute([':user_remember_me_token' => null, ':user_id' => $user_id]);
-        return ($stmt->rowCount() === 1 ? true : false);
+        return ($stmt->rowCount() === 1);
     }
 
     /**

@@ -37,7 +37,7 @@ class UserRoleMapper
                                 LIMIT 1'
         );
         $stmt->execute([$user_id, $role_id]);
-        return ($stmt->rowCount() === 1 ? true : false);
+        return ($stmt->rowCount() === 1);
     }
 
     /**

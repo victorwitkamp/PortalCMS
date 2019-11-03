@@ -30,7 +30,6 @@ class EmailTemplatePDOWriter
 
     /**
      * @param EmailTemplate $emailTemplate
-     * @param $id
      * @return bool
      */
     public function update(EmailTemplate $emailTemplate) : bool

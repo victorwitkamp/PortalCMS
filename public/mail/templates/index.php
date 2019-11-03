@@ -5,7 +5,6 @@ use PortalCMS\Core\View\Text;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\Email\Template\MailTemplateMapper;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_MAIL_TEMPLATES');

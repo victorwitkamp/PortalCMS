@@ -185,7 +185,7 @@ class SiteSetting
     {
         // Session::add('feedback_negative', 'resizeLogo destination: '.$destination);
 
-        list($width, $height) = getimagesize($source_image);
+        [$width, $height] = getimagesize($source_image);
         if (!$width || !$height) {
             return false;
         }

@@ -3,7 +3,7 @@
 ?>
 <table class="table table-striped table-condensed">
     <tr>
-        <th width="20%">ID</th><td><?php echo $row['user_id']; ?></td>
+        <th>ID</th><td><?php echo $row['user_id']; ?></td>
     </tr>
     <tr>
         <th>user_emails</th><td><?php echo $row['user_email']; ?></td>

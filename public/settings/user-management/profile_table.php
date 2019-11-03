@@ -97,7 +97,7 @@ use PortalCMS\Core\Database\DB;
                     <form method="post">
                         <input type="hidden" name="user_id" value="<?php echo $row['user_id']; ?>">
                         <?php
-                        $stmt = DB::conn()->query('SELECT * FROM roles ORDER BY role_id ASC');
+                        $stmt = DB::conn()->query('SELECT * FROM roles ORDER BY role_id ');
                         if ($stmt->rowCount() > 0) {
                             echo "<select name='role_id'>";
                             while ($rowroles = $stmt->fetch(PDO::FETCH_ASSOC)) {

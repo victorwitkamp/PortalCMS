@@ -42,7 +42,7 @@ PortalCMS_JS_dataTables();
 
         Alert::renderFeedbackMessages();
         PortalCMS_JS_Init_dataTables();
-        $stmt = DB::conn()->query('SELECT * FROM members ORDER BY voornaam ASC');
+        $stmt = DB::conn()->query('SELECT * FROM members ORDER BY voornaam ');
         if ($stmt->rowCount() === 0) {
             echo 'Ontbrekende gegevens..';
         } else {

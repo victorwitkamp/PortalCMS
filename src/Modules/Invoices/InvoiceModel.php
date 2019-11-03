@@ -9,7 +9,7 @@ use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\Email\Template\EmailTemplate;
 use PortalCMS\Modules\Contracts\ContractMapper;
 use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
-use PortalCMS\Core\Email\Template\MailTemplateMapper;
+use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
 use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
 use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
 
@@ -25,7 +25,7 @@ class InvoiceModel
         } else {
             $maand = Text::get('MONTH_' . $invoice['month']);
         }
-        $template = MailTemplateMapper::getSystemTemplateByName('InvoiceMail');
+        $template = EmailTemplatePDOReader::getSystemTemplateByName('InvoiceMail');
         $subject = EmailTemplate::replaceholder('MAAND', $maand, $template['subject']);
         $body = EmailTemplate::replaceholder('FACTUURNUMMER', $invoice['factuurnummer'], $template['body']);
         $create = MailScheduleMapper::create(null, null, $subject, $body);

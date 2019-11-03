@@ -144,14 +144,16 @@ class MemberModel
                         )
                         VALUES
                         (
-                            NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+                            NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
                         )';
             $stmt = DB::conn()->prepare($sql);
             $stmt->execute(
-                [$jaarlidmaatschap, $voorletters, $voornaam, $achternaam, $geboortedatum,
-                $adres, $postcode, $huisnummer, $woonplaats, $telefoon_vast, $telefoon_mobiel,
-                $emailadres, $ingangsdatum, $geslacht, $nieuwsbrief, $vrijwilliger, $vrijwilligeroptie1,
-                $vrijwilligeroptie2, $vrijwilligeroptie3, $vrijwilligeroptie4, $vrijwilligeroptie5, $betalingswijze, $iban, $machtigingskenmerk, $status]
+                [
+                    $jaarlidmaatschap, $voorletters, $voornaam, $achternaam, $geboortedatum,
+                    $adres, $postcode, $huisnummer, $woonplaats, $telefoon_vast, $telefoon_mobiel,
+                    $emailadres, $ingangsdatum, $geslacht, $nieuwsbrief, $vrijwilliger, $vrijwilligeroptie1,
+                    $vrijwilligeroptie2, $vrijwilligeroptie3, $vrijwilligeroptie4, $vrijwilligeroptie5, $betalingswijze, $iban, $machtigingskenmerk, $status
+                ]
             );
             if ($stmt) {
                 Session::add('feedback_positive', 'Lid toegevoegd.');

@@ -45,7 +45,7 @@ if (MailScheduleMapper::exists($id)) {
             <div class="col-8">
                 <table class="table table-striped table-condensed">
                     <tr>
-                        <th width="20%"><?php echo Text::get('LABEL_MAILDETAILS_ID'); ?></th><td><?php echo $row['id']; ?></td>
+                        <th><?php echo Text::get('LABEL_MAILDETAILS_ID'); ?></th><td><?php echo $row['id']; ?></td>
                     </tr>
 
                     <tr>

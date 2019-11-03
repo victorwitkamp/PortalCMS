@@ -5,18 +5,18 @@ INSERT INTO mail_templates (id, type, name, subject, body) VALUES (NULL,
             'Signup',
             'Registratie',
             '<p>Beste {USERNAME},<br><br>Klik op <a href="{ACTIVATELINK}">deze</a> link om uw account te activeren.<br><br>Indien de link niet werkt kunt u navigeren naar {ACTIVATEFORMLINK} en de volgende code invoeren: {CONFCODE}<br><br>Met vriendelijke groet,<br><br>{SITENAME}</p>'
-)
+);
 
 INSERT INTO mail_templates (id, type, name, subject, body) VALUES (NULL,
             'system',
             'ResetPassword',
             'Wachtwoord herstellen',
             '<p>Beste {USERNAME},<br><br>Open onderstaande link om je wachtwoord te resetten:<br><a href="{RESETLINK}">Reset wachtwoord</a><br><br>Indien de link niet werkt navigeer dan in uw browser naar deze URL:<br>{RESETLINK}<br><br>Met vriendelijke groet,<br><br>{SITENAME}</p>'
-            )
+            );
 
 INSERT INTO mail_templates (id, type, name, subject, body) VALUES (NULL,
             'system',
             'InvoiceMail',
             'Factuur {MAAND}',
             'Beste huurder,<br><br>Er is een nieuwe factuur voor u klaargezet. U treft de nieuwe factuur, met factuurnummer {FACTUURNUMMER} in de bijlage van dit e-mailbericht.<br><br>Met vriendelijke groet,<br><br>Poppodium de Beuk'
-            )
+            );

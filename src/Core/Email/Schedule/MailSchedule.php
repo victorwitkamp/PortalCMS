@@ -2,23 +2,19 @@
 
 namespace PortalCMS\Core\Email\Schedule;
 
+use PortalCMS\Core\Email\Schedule\Helpers\MemberTemplateScheduler;
 use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\Config\SiteSetting;
-use PortalCMS\Core\Email\Batch\MailBatch;
-use PortalCMS\Modules\Members\MemberModel;
 use PortalCMS\Core\Email\SMTP\SMTPTransport;
 use PortalCMS\Core\Email\Message\EmailMessage;
 use PortalCMS\Core\Email\SMTP\SMTPConfiguration;
-use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
 use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
 use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
 use PortalCMS\Core\Email\Recipient\EmailRecipientCollectionCreator;
 
 class MailSchedule
 {
-    public static function deleteById($mailIds)
+    public static function deleteById($mailIds): bool
     {
         $deleted = 0;
         $error = 0;
@@ -42,7 +38,7 @@ class MailSchedule
         return false;
     }
 
-    public static function isSent($mailId)
+    public static function isSent($mailId): bool
     {
         return MailScheduleMapper::getStatusById($mailId) !== '1';
     }
@@ -71,7 +67,7 @@ class MailSchedule
         }
     }
 
-    public static function sendFeedbackHandler($failed, $success, $alreadySent)
+    public static function sendFeedbackHandler($failed, $success, $alreadySent): bool
     {
         if (($success == 0) && ($failed == 0) && ($alreadySent == 0)) {
             Session::add('feedback_negative', 'Invalid request.');
@@ -130,56 +126,16 @@ class MailSchedule
 
     public static function createWithTemplate($templateId, $recipientIds)
     {
-        $template = EmailTemplatePDOReader::getById($templateId);
-        $success = 0;
-        $failed = 0;
+        $templateReader = new EmailTemplatePDOReader();
+        $template = $templateReader->getById($templateId);
+
         if ($template['type'] === 'member') {
-            if (!empty($recipientIds)) {
-                MailBatch::create($templateId);
-                foreach ($recipientIds as $memberId) {
-                    $member = MemberModel::getMemberById($memberId);
-                    $return = MailScheduleMapper::create(MailBatch::lastInsertedId(), $memberId, $template['subject'], self::replaceholdersMember($memberId, $template['body']));
-                    if (!$return) {
-                        ++$failed;
-                    } else {
-                        ++$success;
-                        $mailid = MailScheduleMapper::lastInsertedId();
-                        $memberFullname = $member['voornaam'] . ' ' . $member['achternaam'];
-                        EmailRecipientMapper::createRecipient($mailid, $member['emailadres'], $memberFullname);
-                        $templateAttachments = EmailAttachmentMapper::getByTemplateId($template['id']);
-                        if (!empty($templateAttachments)) {
-                            foreach ($templateAttachments as $templateAttachment) {
-                                EmailAttachmentMapper::create($mailid, $templateAttachment['path'], $templateAttachment['name'], $templateAttachment['extension'], $templateAttachment['encoding'], $templateAttachment['type']);
-                            }
-                        }
-                    }
-                }
-                if ($failed === 0) {
-                    Session::add('feedback_positive', 'Totaal aantal berichten aangemaakt:' . $success);
-                } else {
-                    Session::add('feedback_warning', 'Totaal aantal berichten aangemaakt: ' . $success . '. Berichten met fout: ' . $failed);
-                }
-                Redirect::to('mail');
-            }
+            $scheduler = new MemberTemplateScheduler();
+            $scheduler->scheduleMails($template, $recipientIds);
         }
     }
 
-    public static function replaceholdersMember($memberid, $templatebody)
-    {
-        $member = MemberModel::getMemberById($memberid);
-        $variables = [
-            'voornaam' => $member['voornaam'],
-            'achternaam' => $member['achternaam'],
-            'iban' => $member['iban'],
-            'afzender' => SiteSetting::getStaticSiteSetting('site_name')
-        ];
-        foreach ($variables as $key => $value) {
-            $templatebody = str_replace('{' . strtoupper($key) . '}', $value, $templatebody);
-        }
-        return $templatebody;
-    }
-
-    public static function create()
+    public static function create(): bool
     {
         $create = MailScheduleMapper::create(
             null,

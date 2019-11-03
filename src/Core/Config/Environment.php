@@ -17,6 +17,6 @@ class Environment
         // if APPLICATION_ENV exists:  return content of APPLICATION_ENV
         //                      else:  return "development"
 
-        return (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'development');
+        return (getenv('APPLICATION_ENV') ?: 'development');
     }
 }

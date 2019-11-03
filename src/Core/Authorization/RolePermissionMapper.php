@@ -71,7 +71,7 @@ class RolePermissionMapper
                             WHERE t1.role_id = ? and t2.perm_desc = ?'
         );
         $stmt->execute([$role_id, $perm_desc]);
-        return ($stmt->rowCount() === 1 ? true : false);
+        return ($stmt->rowCount() === 1);
     }
 
     public static function assign($role_id, $perm_id)

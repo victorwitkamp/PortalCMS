@@ -97,6 +97,7 @@ class EmailAttachment
     /**
      * Validates is the file size of the attachment is within range.
      *
+     * @param $attachmentFile
      * @return bool
      */
     public function validateFileSize($attachmentFile) : bool

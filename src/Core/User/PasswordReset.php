@@ -3,7 +3,7 @@
 namespace PortalCMS\Core\User;
 
 use PortalCMS\Core\Email\Template\EmailTemplate;
-use PortalCMS\Core\Email\Template\MailTemplateMapper;
+use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
 use PortalCMS\Core\Config\Config;
 use PortalCMS\Core\Database\DB;
 use PortalCMS\Core\Session\Session;
@@ -108,7 +108,7 @@ class PasswordReset
      */
     public static function sendPasswordResetMail($user_name, $password_reset_hash, $user_email)
     {
-        $Mail = MailTemplateMapper::getSystemTemplateByName('ResetPassword');
+        $Mail = EmailTemplatePDOReader::getSystemTemplateByName('ResetPassword');
         $MailText = $Mail['body'];
         $resetlink = Config::get('URL') .
                         Config::get('EMAIL_PASSWORD_RESET_URL') .
