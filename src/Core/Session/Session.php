@@ -14,8 +14,10 @@ class Session
 {
     /**
      * starts the session
+     *
+     * @return void
      */
-    public static function init()
+    public static function init() : void
     {
         // if no session exist, start the session
         if (session_id() == '') {
@@ -28,8 +30,9 @@ class Session
      *
      * @param mixed $key   key
      * @param mixed $value value
+     * @return void
      */
-    public static function set($key, $value)
+    public static function set($key, $value) : void
     {
         $_SESSION[$key] = $value;
     }
@@ -47,7 +50,7 @@ class Session
             // filter the value for XSS vulnerabilities
             return Filter::XSSFilter($value);
         }
-        return false;
+        return null;
     }
 
     /**
@@ -56,8 +59,9 @@ class Session
      *
      * @param mixed $key
      * @param mixed $value
+     * @return void
      */
-    public static function add($key, $value)
+    public static function add($key, $value) : void
     {
         $_SESSION[$key][] = $value;
         // session_write_close();
@@ -65,8 +69,10 @@ class Session
 
     /**
      * Deletes the session (= logs the user out)
+     *
+     * @return bool
      */
-    public static function destroy()
+    public static function destroy() : bool
     {
         if (session_destroy()) {
             return true;
