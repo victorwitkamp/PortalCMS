@@ -33,10 +33,11 @@ class MemberTemplateScheduler
             }
         }
         $this->processFeedback($success, $failed);
-        Redirect::to('mail');
+        return true;
     }
 
-    public function processFeedback($success, $failed) {
+    public function processFeedback($success, $failed)
+    {
         if ($failed === 0) {
             Session::add('feedback_positive', 'Totaal aantal berichten aangemaakt:' . $success);
         } else {
@@ -44,7 +45,8 @@ class MemberTemplateScheduler
         }
     }
 
-    public function processSingleMail($memberId, $batchId, $template) {
+    public function processSingleMail($memberId, $batchId, $template)
+    {
         $member = MemberModel::getMemberById($memberId);
         $return = MailScheduleMapper::create($batchId, $memberId, $template['subject'], self::replaceholdersMember($memberId, $template['body']));
         if (!$return) {

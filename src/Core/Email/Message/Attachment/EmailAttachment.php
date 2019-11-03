@@ -47,25 +47,19 @@ class EmailAttachment
 
     public function store(int $mailId = null, int $templateId = null)
     {
-        if (!empty($this->path) && !empty($this->name) && !empty($this->extension) && !empty($this->encoding) && !empty($this->type)) {
-            if (isset($templateId, $mailId)) {
-                // If both the templateId and mailId are set
-                Session::add('feedback_negative', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_FAILED'));
-                return false;
-            }
-            if (!empty($mailId)) {
-                // No implementation yet
-                Session::add('feedback_negative', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_FAILED'));
-                return false;
-            }
-            if (!empty($templateId)) {
-                if (EmailAttachmentMapper::createForTemplate($templateId, $this)) {
-                    Session::add('feedback_positive', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_SUCCESSFUL'));
-                    return true;
-                }
+        if (empty($this->path) || empty($this->name) || empty($this->extension) || empty($this->encoding) || empty($this->type)) {
+            Session::add('feedback_negative', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_FAILED'));
+        }
+        if (!empty($mailId) && empty($templateId)) {
+            // No implementation yet
+            Session::add('feedback_negative', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_FAILED'));
+        }
+        if (empty($mailId) && !empty($templateId)) {
+            if (EmailAttachmentMapper::createForTemplate($templateId, $this)) {
+                Session::add('feedback_positive', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_SUCCESSFUL'));
+                return true;
             }
         }
-        Session::add('feedback_negative', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_FAILED'));
         return false;
     }
 
