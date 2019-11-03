@@ -36,7 +36,7 @@ class EmailMessage
     {
         $this->subject = $subject;
         $this->body = $body;
-        $this->attachments = $attachments;
         $this->recipients = $recipients;
+        $this->attachments = $attachments;
     }
 }

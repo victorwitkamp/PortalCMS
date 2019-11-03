@@ -19,18 +19,10 @@ class MailTemplateController extends Controller
     {
         parent::__construct();
 
-        if (isset($_POST['uploadAttachment'])) {
-            Authentication::checkAuthentication();
-            $attachment = new EmailAttachment($_FILES['attachment_file']);
-            $attachment->store(null, Request::get('id'));
-            Redirect::to('mail/templates/edit.php?id=' . Request::get('id'));
-        }
         if (isset($_POST['newtemplate'])) {
             Authentication::checkAuthentication();
-            $subject = Request::post('subject', true);
-            $body = Request::post('body', false);
             $templateBuilder = new EmailTemplateBuilder();
-            $templateBuilder->create('member', $subject, $body);
+            $templateBuilder->create('member', Request::post('subject', true), Request::post('body', false));
             $templateBuilder->store();
             Redirect::to('mail/templates/');
         }
@@ -41,6 +33,12 @@ class MailTemplateController extends Controller
             $template->body = Request::post('body', false);
             $templateBuilder->update($template);
             Redirect::to('mail/templates/');
+        }
+        if (isset($_POST['uploadAttachment'])) {
+            Authentication::checkAuthentication();
+            $attachment = new EmailAttachment($_FILES['attachment_file']);
+            $attachment->store(null, Request::get('id'));
+            Redirect::to('mail/templates/edit.php?id=' . Request::get('id'));
         }
         if (isset($_POST['deleteMailTemplateAttachments'])) {
             EmailAttachment::deleteById(Request::post('id'));

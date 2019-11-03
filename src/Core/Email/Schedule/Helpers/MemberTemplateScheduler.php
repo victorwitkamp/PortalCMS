@@ -18,32 +18,48 @@ class MemberTemplateScheduler
         $success = 0;
         $failed = 0;
 
-        if (!empty($recipientIds)) {
-            MailBatch::create($template['id']);
-            foreach ($recipientIds as $memberId) {
-                $member = MemberModel::getMemberById($memberId);
-                $return = MailScheduleMapper::create(MailBatch::lastInsertedId(), $memberId, $template['subject'], self::replaceholdersMember($memberId, $template['body']));
-                if (!$return) {
-                    ++$failed;
-                } else {
-                    ++$success;
-                    $mailid = MailScheduleMapper::lastInsertedId();
-                    $memberFullname = $member['voornaam'] . ' ' . $member['achternaam'];
-                    EmailRecipientMapper::createRecipient($mailid, $member['emailadres'], $memberFullname);
-                    $templateAttachments = EmailAttachmentMapper::getByTemplateId($template['id']);
-                    if (!empty($templateAttachments)) {
-                        foreach ($templateAttachments as $templateAttachment) {
-                            EmailAttachmentMapper::create($mailid, $templateAttachment['path'], $templateAttachment['name'], $templateAttachment['extension'], $templateAttachment['encoding'], $templateAttachment['type']);
-                        }
-                    }
+        if (empty($recipientIds) || empty($template)) {
+            return false;
+        }
+        if (!MailBatch::create($template['id'])) {
+            return false;
+        }
+        $batchId = MailBatch::lastInsertedId();
+        foreach ($recipientIds as $memberId) {
+            if ($this->processSingleMail($memberId, $batchId, $template)) {
+                ++$success;
+            } else {
+                ++$failed;
+            }
+        }
+        $this->processFeedback($success, $failed);
+        Redirect::to('mail');
+    }
+
+    public function processFeedback($success, $failed) {
+        if ($failed === 0) {
+            Session::add('feedback_positive', 'Totaal aantal berichten aangemaakt:' . $success);
+        } else {
+            Session::add('feedback_warning', 'Totaal aantal berichten aangemaakt: ' . $success . '. Berichten met fout: ' . $failed);
+        }
+    }
+
+    public function processSingleMail($memberId, $batchId, $template) {
+        $member = MemberModel::getMemberById($memberId);
+        $return = MailScheduleMapper::create($batchId, $memberId, $template['subject'], self::replaceholdersMember($memberId, $template['body']));
+        if (!$return) {
+            return false;
+        } else {
+            $mailid = MailScheduleMapper::lastInsertedId();
+            $memberFullname = $member['voornaam'] . ' ' . $member['achternaam'];
+            EmailRecipientMapper::createRecipient($mailid, $member['emailadres'], $memberFullname);
+            $templateAttachments = EmailAttachmentMapper::getByTemplateId($template['id']);
+            if (!empty($templateAttachments)) {
+                foreach ($templateAttachments as $templateAttachment) {
+                    EmailAttachmentMapper::create($mailid, $templateAttachment['path'], $templateAttachment['name'], $templateAttachment['extension'], $templateAttachment['encoding'], $templateAttachment['type']);
                 }
             }
-            if ($failed === 0) {
-                Session::add('feedback_positive', 'Totaal aantal berichten aangemaakt:' . $success);
-            } else {
-                Session::add('feedback_warning', 'Totaal aantal berichten aangemaakt: ' . $success . '. Berichten met fout: ' . $failed);
-            }
-            Redirect::to('mail');
+            return true;
         }
     }
 
