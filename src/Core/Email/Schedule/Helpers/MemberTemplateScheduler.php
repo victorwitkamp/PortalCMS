@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace PortalCMS\Core\Email\Schedule\Helpers;
 
@@ -7,7 +8,6 @@ use PortalCMS\Core\Email\Batch\MailBatch;
 use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
 use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
 use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
-use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Modules\Members\MemberModel;
 

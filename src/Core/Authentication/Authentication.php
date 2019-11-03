@@ -1,15 +1,10 @@
 <?php
+declare(strict_types=1);
 
 namespace PortalCMS\Core\Authentication;
 
-use Exception;
-use PortalCMS\Core\View\Text;
-use PortalCMS\Core\HTTP\Cookie;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\User\UserPDOReader;
-use PortalCMS\Core\User\UserPDOWriter;
-use PortalCMS\Core\Encryption\Encryption;
 
 /**
  * Class Auth

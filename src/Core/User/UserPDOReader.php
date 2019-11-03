@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace PortalCMS\Core\User;
 
@@ -13,7 +14,7 @@ class UserPDOReader
      * @param $user_name
      * @return bool
      */
-    public static function usernameExists($user_name)
+    public static function usernameExists($user_name): bool
     {
         $stmt = DB::conn()->prepare(
             'SELECT user_id
@@ -96,7 +97,7 @@ class UserPDOReader
      *
      * @return mixed Returns false if user does not exist, returns object with user's data when user exists
      */
-    public static function getByIdAndToken($user_id, $token)
+    public static function getByIdAndToken($user_id, $token) : ?object
     {
         $stmt = DB::conn()->prepare(
             'SELECT user_id,
@@ -124,16 +125,23 @@ class UserPDOReader
             ]
         );
         if ($stmt->rowCount() === 0) {
-            return false;
+            return null;
         }
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
-    public static function getByFbid($user_fbid)
+    /**
+     * Undocumented function
+     *
+     * @param [type] $user_fbid
+     * @return object|null
+     */
+    public static function getByFbid($user_fbid) : ?object
     {
         $stmt = DB::conn()->prepare(
-            'SELECT user_id, user_name, user_email, user_password_hash, user_active,
-                    user_account_type, user_has_avatar, user_failed_logins, user_last_failed_login
+            // 'SELECT user_id, user_name, user_email, user_password_hash, user_active,
+            //         user_account_type, user_has_avatar, user_failed_logins, user_last_failed_login
+                'SELECT *
                     FROM users
                         WHERE user_fbid = :user_fbid
                             AND user_fbid IS NOT NULL
@@ -141,7 +149,7 @@ class UserPDOReader
         );
         $stmt->execute([':user_fbid' => $user_fbid]);
         if ($stmt->rowCount() === 0) {
-            return false;
+            return null;
         }
         return $stmt->fetch(PDO::FETCH_OBJ);
     }

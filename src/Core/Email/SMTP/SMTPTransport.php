@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace PortalCMS\Core\Email\SMTP;
 
 use PHPMailer\PHPMailer\Exception;

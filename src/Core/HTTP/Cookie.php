@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace PortalCMS\Core\HTTP;
 
@@ -51,7 +52,7 @@ class Cookie
      * @param string $user_id
      * @return bool
      */
-    public static function delete($user_id = null)
+    public static function delete($user_id = null): bool
     {
         if (isset($user_id)) {
             UserPDOWriter::clearRememberMeToken($user_id);

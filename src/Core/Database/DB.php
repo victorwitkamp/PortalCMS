@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace PortalCMS\Core\Database;
 
@@ -28,7 +29,10 @@ class DB
         $dsn = $DB_TYPE . ':host=' . $DB_HOST . ';port=' . $DB_PORT . ';dbname=' . $DB_NAME . ';charset=' . $DB_CHARSET;
         $options = [
             //PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION];
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_EMULATE_PREPARES => false,
+            PDO::ATTR_STRINGIFY_FETCHES => false
+        ];
         $conn = null;
         if ($conn == null) {
             /**

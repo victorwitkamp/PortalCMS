@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace PortalCMS\Core\Authorization;
 
@@ -14,7 +15,7 @@ class Authorization
      *
      * @return bool
      */
-    public static function verifyPermission($perm_desc)
+    public static function verifyPermission($perm_desc): ?bool
     {
         foreach (PermissionMapper::getPermissionsByUserId(Session::get('user_id')) as $Permission) {
             if ($Permission['perm_desc'] === $perm_desc) {
@@ -32,7 +33,7 @@ class Authorization
      *
      * @return bool
      */
-    public static function hasPermission($perm_desc)
+    public static function hasPermission($perm_desc): bool
     {
         foreach (PermissionMapper::getPermissionsByUserId(Session::get('user_id')) as $Permission) {
             if ($Permission['perm_desc'] === $perm_desc) {

@@ -30,10 +30,11 @@ PortalCMS_JS_headJS();
         <hr>
         <div class="container">
             <h2>var_dump($_SESSION)</h2>
-            <?php
-            var_dump($_SESSION);
-            echo '<br>';
-            ?>
+            <?php var_dump($_SESSION); ?>
+            <br>
+            <h2>print_r($_SESSION)</h2>
+            <?php print_r($_SESSION); ?>
+            <br>
             <h2>sys_get_temp_dir().'/'</h2>
             <p><?php echo sys_get_temp_dir() . '/'; ?></p>
         </div>

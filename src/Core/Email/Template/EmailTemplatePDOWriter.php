@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace PortalCMS\Core\Email\Template;
 
@@ -13,7 +14,7 @@ class EmailTemplatePDOWriter
      *
      * @return int|bool
      */
-    public function create(EmailTemplate $EmailTemplate) : int
+    public function create(EmailTemplate $EmailTemplate) : ?int
     {
         $stmt = DB::conn()->prepare(
             'INSERT INTO mail_templates(

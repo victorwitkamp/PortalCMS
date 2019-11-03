@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace PortalCMS\Core\View;
 
@@ -36,7 +37,7 @@ class View
      * @param  string $str The string.
      * @return string
      */
-    public function encodeHTML($str)
+    public function encodeHTML($str): string
     {
         return htmlentities($str, ENT_QUOTES, 'UTF-8');
     }
@@ -47,7 +48,7 @@ class View
      * @param  string $str The string.
      * @return string
      */
-    public function decodeHTML($str)
+    public function decodeHTML($str): string
     {
         return html_entity_decode($str, ENT_QUOTES, 'UTF-8');
     }

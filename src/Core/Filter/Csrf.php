@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace PortalCMS\Core\Filter;
 
@@ -35,7 +36,7 @@ class Csrf
      * @static static method
      * @return string
      */
-    public static function makeToken()
+    public static function makeToken(): string
     {
         // token is valid for 1 day
         $max_time    = 60 * 60 * 24;
@@ -57,7 +58,7 @@ class Csrf
      * @static static method
      * @return bool
      */
-    public static function isTokenValid()
+    public static function isTokenValid(): bool
     {
         $token = Request::post('csrf_token');
         return $token === Session::get('csrf_token') && !empty($token);

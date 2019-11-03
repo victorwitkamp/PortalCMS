@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace PortalCMS\Modules\Contracts;
 
@@ -18,13 +19,13 @@ class ContractMapper
         return $stmt->fetchAll();
     }
 
-    public static function exists($Id)
+    public static function exists($Id): bool
     {
         $stmt = DB::conn()->prepare(
             'SELECT id FROM contracts WHERE id = ? LIMIT 1'
         );
         $stmt->execute([$Id]);
-        return !($stmt->rowCount() === 0);
+        return ($stmt->rowCount() === 1);
     }
 
     public static function getById($Id)
@@ -64,7 +65,8 @@ class ContractMapper
         $contract_ingangsdatum,
         $contract_einddatum,
         $contract_datum
-    ) {
+    ): bool
+    {
         $stmt = DB::conn()->prepare(
             'INSERT INTO contracts (
                 id,
@@ -140,7 +142,8 @@ class ContractMapper
         $contract_ingangsdatum,
         $contract_einddatum,
         $contract_datum
-    ) {
+    ): bool
+    {
         $stmt = DB::conn()->prepare(
             'UPDATE contracts
                     SET
@@ -205,7 +208,7 @@ class ContractMapper
         return true;
     }
 
-    public static function delete($id)
+    public static function delete($id): bool
     {
         $stmt = DB::conn()->prepare('DELETE FROM contracts WHERE id = ?');
         if ($stmt->execute([$id])) {

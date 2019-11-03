@@ -1,8 +1,8 @@
 <?php
+declare(strict_types=1);
 
 namespace PortalCMS\Core\User;
 
-use PDO;
 use PortalCMS\Core\Database\DB;
 
 class UserPDOWriter
@@ -15,7 +15,7 @@ class UserPDOWriter
      *
      * @return bool
      */
-    public static function updateUsername($user_id, $newUsername)
+    public static function updateUsername($user_id, $newUsername): bool
     {
         $stmt = DB::conn()->prepare(
             'UPDATE users
@@ -27,7 +27,7 @@ class UserPDOWriter
         return ($stmt->rowCount() === 1);
     }
 
-    public static function updateFBid($user_id, $fbid)
+    public static function updateFBid($user_id, $fbid): bool
     {
         $stmt = DB::conn()->prepare(
             'UPDATE users
@@ -39,7 +39,7 @@ class UserPDOWriter
         return ($stmt->rowCount() === 1);
     }
 
-    public static function updateRememberMeToken($user_id, $token)
+    public static function updateRememberMeToken($user_id, $token): bool
     {
         $stmt = DB::conn()->prepare(
             'UPDATE users
@@ -56,7 +56,7 @@ class UserPDOWriter
      * @param string $sessionId
      * @return bool
      */
-    public static function updateSessionId($userId, $sessionId = null)
+    public static function updateSessionId($userId, $sessionId = null): bool
     {
         $stmt = DB::conn()->prepare(
             'UPDATE users
@@ -74,7 +74,7 @@ class UserPDOWriter
      * @param $username
      * @return bool
      */
-    public static function saveTimestampByUsername($username)
+    public static function saveTimestampByUsername($username): bool
     {
         $stmt = DB::conn()->prepare(
             'UPDATE users
@@ -92,7 +92,7 @@ class UserPDOWriter
      * @param $username
      * @return bool
      */
-    public static function resetFailedLoginsByUsername($username)
+    public static function resetFailedLoginsByUsername($username): bool
     {
         $stmt = DB::conn()->prepare(
             'UPDATE users
@@ -111,7 +111,7 @@ class UserPDOWriter
      * @param $username
      * @return bool
      */
-    public static function setFailedLoginByUsername($username)
+    public static function setFailedLoginByUsername($username): bool
     {
         $stmt = DB::conn()->prepare(
             'UPDATE users
@@ -124,7 +124,7 @@ class UserPDOWriter
         return ($stmt->rowCount() === 1);
     }
 
-    public static function clearRememberMeToken($user_id)
+    public static function clearRememberMeToken($user_id): bool
     {
         $stmt = DB::conn()->prepare(
             'UPDATE users

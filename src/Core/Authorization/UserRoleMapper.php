@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace PortalCMS\Core\Authorization;
 
@@ -27,7 +28,7 @@ class UserRoleMapper
      *
      * @return bool
      */
-    public static function isAssigned($user_id, $role_id)
+    public static function isAssigned($user_id, $role_id): bool
     {
         $stmt = DB::conn()->prepare(
             'SELECT *
@@ -48,7 +49,7 @@ class UserRoleMapper
      *
      * @return bool
      */
-    public static function assign($user_id, $role_id)
+    public static function assign($user_id, $role_id): bool
     {
         $stmt = DB::conn()->prepare(
             'INSERT INTO user_role (user_id, role_id)
@@ -68,7 +69,7 @@ class UserRoleMapper
      *
      * @return bool
      */
-    public static function unassign($user_id, $role_id)
+    public static function unassign($user_id, $role_id): bool
     {
         $stmt = DB::conn()->prepare(
             'DELETE FROM user_role
