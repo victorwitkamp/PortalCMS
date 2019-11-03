@@ -65,7 +65,7 @@ class LoginService
         return false;
     }
 
-    public static function validateCookieLogin($cookie) : object
+    public static function validateCookieLogin($cookie) : ?object
     {
         if (substr_count($cookie, ':') + 1 === 3) {
             [$user_id, $token, $hash] = explode(':', $cookie);
