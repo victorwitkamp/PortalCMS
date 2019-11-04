@@ -32,8 +32,8 @@ PortalCMS_JS_headJS(); ?>
                         <div class="col-md-12">
                             <label>Template selecteren</label>
                             <select name='templateid'>
-                                <?php foreach (EmailTemplatePDOReader::getByType('member') as $row) : ?>
-                                    <option value="<?= $row['id'] ?>"><?= $row['subject'] ?></option>
+                                <?php foreach (EmailTemplatePDOReader::getByType('member') as $templaterow) : ?>
+                                    <option value="<?= $templaterow['id'] ?>"><?= $templaterow['subject'] ?></option>
                                 <?php endforeach ?>
                             </select>
                             <input type="hidden" name="type" value="member">
