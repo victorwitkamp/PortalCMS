@@ -15,7 +15,7 @@ use PortalCMS\Core\Config\Config;
 class DB
 {
 
-    public static function &conn()
+    public static function &conn(): ?PDO
     {
         $DB_TYPE = Config::get('DB_TYPE');
         $DB_HOST = Config::get('DB_HOST');
@@ -34,7 +34,7 @@ class DB
             PDO::ATTR_STRINGIFY_FETCHES => false
         ];
         $conn = null;
-        if ($conn == null) {
+        if ($conn === null) {
             /**
              * Check DB connection in try/catch block. Also when PDO is not constructed properly,
              * prevent to exposing database host, username and password in plain text as:
@@ -49,14 +49,10 @@ class DB
                     $options
                 );
             } catch (PDOException $e) {
-                // Echo custom message. Echo error code gives you some info.
                 echo 'Database connection can not be estabilished. Please try again later.' . '<br>';
                 echo 'Error message: ' . $e->getMessage();
                 echo '<br>';
                 echo 'Error code: ' . $e->getCode();
-
-                // Stop application :(
-                // No connection, reached limit connections etc. so no point to keep it running
                 exit;
             }
         }

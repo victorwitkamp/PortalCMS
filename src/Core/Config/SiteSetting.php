@@ -41,7 +41,7 @@ class SiteSetting
         return true;
     }
 
-    public static function setSiteSetting($value, $setting)
+    public static function setSiteSetting($value, $setting): bool
     {
         $stmt = DB::conn()->prepare('UPDATE site_settings SET string_value = ? WHERE setting = ?');
         if (!$stmt->execute([$value, $setting])) {
@@ -63,7 +63,7 @@ class SiteSetting
      * Authentication::checkAuthentication() makes sure that only logged in users can use this action and see this page
      * POST-request
      */
-    public static function uploadLogo()
+    public static function uploadLogo(): bool
     {
         Authentication::checkAuthentication();
         if (self::createLogo()) {
@@ -78,7 +78,7 @@ class SiteSetting
      * TODO decouple
      * TODO total rebuild
      */
-    public static function createLogo()
+    public static function createLogo(): bool
     {
         if (!self::isLogoFolderWritable()) {
             return false;
@@ -104,7 +104,7 @@ class SiteSetting
      *
      * @return bool success status
      */
-    public static function isLogoFolderWritable()
+    public static function isLogoFolderWritable(): bool
     {
         $path_logo = Config::get('PATH_LOGO');
         if (!is_dir(Config::get('PATH_LOGO'))) {
@@ -125,7 +125,7 @@ class SiteSetting
      *
      * @return bool
      */
-    public static function validateImageFile()
+    public static function validateImageFile(): bool
     {
         if (!isset($_FILES['logo_file'])) {
             Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_IMAGE_UPLOAD_FAILED'));
@@ -157,7 +157,7 @@ class SiteSetting
      * @return bool
      * @return bool
      */
-    public static function writeLogoToDatabase($fileName)
+    public static function writeLogoToDatabase($fileName): bool
     {
         $stmt = DB::conn()->prepare("UPDATE site_settings SET string_value = ? WHERE setting = 'site_logo' LIMIT 1");
         if (!$stmt->execute([$fileName])) {
@@ -182,7 +182,7 @@ class SiteSetting
      *
      * @return bool success state
      */
-    public static function resizeLogo($source_image, $destination, $final_width = 150, $final_height = 150, $quality = 100)
+    public static function resizeLogo($source_image, $destination, $final_width = 150, $final_height = 150, $quality = 100): bool
     {
         // Session::add('feedback_negative', 'resizeLogo destination: '.$destination);
 

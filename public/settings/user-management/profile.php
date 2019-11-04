@@ -30,7 +30,7 @@ PortalCMS_JS_headJS(); ?>
     <div class="content">
         <div class="container">
             <div class="row mt-5">
-                <h1>Profiel van: <?php echo $row->user_name; ?></h1>
+                <h1>Profiel van: <?= $row->user_name ?></h1>
             </div>
             <?php Alert::renderFeedbackMessages();
             require 'profile_buttons.php';

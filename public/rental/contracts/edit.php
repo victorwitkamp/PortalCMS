@@ -62,7 +62,7 @@ $(function () {
     <div class="content">
         <div class="container">
             <div class="row mt-5">
-                <h3><?php echo $pageName ?></h3>
+                <h3><?= $pageName ?></h3>
             </div>
         </div>
         <div class="container">

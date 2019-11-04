@@ -26,12 +26,12 @@ use PortalCMS\Core\Email\Recipient\EmailRecipientCollectionCreator;
             foreach ($result as $row) {  ?>
                 <tr>
                     <td class="text-center">
-                        <input type="checkbox" name="id[]" id="checkbox" value="<?php echo $row['id']; ?>"/>
+                        <input type="checkbox" name="id[]" id="checkbox" value="<?= $row['id'] ?>"/>
                     </td>
                     <td>
-                        <?php echo $row['id']; ?></td>
+                        <?= $row['id'] ?></td>
                     <td>
-                        <?php echo $row['batch_id']; ?></td>
+                        <?= $row['batch_id'] ?></td>
                     <td>
                         <?php echo $row['recipient_email'];
                         $creator = new EmailRecipientCollectionCreator();
@@ -42,9 +42,9 @@ use PortalCMS\Core\Email\Recipient\EmailRecipientCollectionCreator;
                         }
 
                         ?></td>
-                    <td><?php echo $row['subject']; ?></td>
+                    <td><?= $row['subject'] ?></td>
                     <?php if ($pageType === 'history') { ?>
-                    <td><?php echo $row['DateSent']; ?></td>
+                    <td><?= $row['DateSent'] ?></td>
                     <?php } ?>
                     <td>
                         <?php
@@ -59,10 +59,10 @@ use PortalCMS\Core\Email\Recipient\EmailRecipientCollectionCreator;
                         <?php } ?>
                     </td>
                     <td>
-                        <?php echo $row['CreationDate']; ?>
+                        <?= $row['CreationDate'] ?>
                     </td>
                     <td>
-                        <a href="details.php?id=<?php echo $row['id']; ?>" title="Details" class="btn btn-success btn-sm"><i class="fas fa-info"></i></a>
+                        <a href="details.php?id=<?= $row['id'] ?>" title="Details" class="btn btn-success btn-sm"><i class="fas fa-info"></i></a>
                     </td>
                 </tr>
             <?php } ?>
@@ -71,9 +71,9 @@ use PortalCMS\Core\Email\Recipient\EmailRecipientCollectionCreator;
     <hr>
     <?php
     if ($pageType === 'index') { ?>
-    <input type="submit" class="btn btn-primary" name="sendScheduledMailById" value="<?php echo Text::get('LABEL_SEND_EMAIL'); ?>"><?php
+    <input type="submit" class="btn btn-primary" name="sendScheduledMailById" value="<?= Text::get('LABEL_SEND_EMAIL') ?>"><?php
     } ?>
-    <input type="submit" class="btn btn-danger" name="deleteScheduledMailById" value="<?php echo Text::get('LABEL_DELETE_EMAIL'); ?>">
+    <input type="submit" class="btn btn-danger" name="deleteScheduledMailById" value="<?= Text::get('LABEL_DELETE_EMAIL') ?>">
 </form>
 <script>
     $("#selectall").on('change', function() {

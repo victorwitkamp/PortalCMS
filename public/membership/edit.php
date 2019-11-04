@@ -14,7 +14,7 @@ require_once DIR_INCLUDES . 'functions.php';
 if (MemberModel::doesMemberIdExist($_GET['id'])) {
     $row = MemberModel::getMemberById($_GET['id']);
     $allowEdit = true;
-    $pageName = 'Lidmaatschap van ' . $row ['voornaam'] . ' ' . $row ['achternaam'] . ' bewerken';
+    $pageName = 'Lidmaatschap van ' . $row->voornaam . ' ' . $row->achternaam . ' bewerken';
 } else {
     Session::add('feedback_negative', 'Geen resultaten voor opgegeven Id.');
 }
@@ -33,7 +33,7 @@ PortalCMS_JS_Datepicker_membership();
     <div class="content">
         <div class="container">
             <div class="row mt-5">
-                <h1><?php echo $pageName ?></h1>
+                <h1><?= $pageName ?></h1>
             </div>
         </div>
         <hr>

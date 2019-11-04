@@ -22,7 +22,7 @@ PortalCMS_JS_headJS();
 <main>
     <div class="content">
     <?php Alert::renderFeedbackMessages(); ?>
-            <label class="col-4 col-form-label"><?php echo Text::get('LABEL_SITE_LOGO'); ?></label>
+            <label class="col-4 col-form-label"><?= Text::get('LABEL_SITE_LOGO') ?></label>
         <div class="col-8">
             <form method="post" enctype="multipart/form-data">
                 <label for="avatar_file">

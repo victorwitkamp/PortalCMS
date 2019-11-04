@@ -1,16 +1,9 @@
 <?php
 
-
-
 use PortalCMS\Core\View\Text;
-
 use PortalCMS\Core\View\Alert;
-
 use PortalCMS\Core\Authorization\Authorization;
-
 use PortalCMS\Core\Authentication\Authentication;
-
-
 
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 
@@ -52,13 +45,13 @@ PortalCMS_JS_headJS();
 
                     <div class="col-sm-8">
 
-                        <h1><?php echo $pageName; ?></h1>
+                        <h1><?= $pageName ?></h1>
 
                     </div>
 
                     <div class="col-sm-4">
 
-                        <input type="submit" name="saveSiteSettings" class="btn btn-success navbar-btn float-right" value="<?php echo Text::get('LABEL_SUBMIT'); ?>">
+                        <input type="submit" name="saveSiteSettings" class="btn btn-success navbar-btn float-right" value="<?= Text::get('LABEL_SUBMIT') ?>">
 
                     </div>
 

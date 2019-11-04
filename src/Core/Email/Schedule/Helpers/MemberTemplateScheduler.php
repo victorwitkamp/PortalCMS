@@ -53,8 +53,8 @@ class MemberTemplateScheduler
             return false;
         } else {
             $mailid = MailScheduleMapper::lastInsertedId();
-            $memberFullname = $member['voornaam'] . ' ' . $member['achternaam'];
-            EmailRecipientMapper::createRecipient($mailid, $member['emailadres'], $memberFullname);
+            $memberFullname = $member->voornaam . ' ' . $member->achternaam;
+            EmailRecipientMapper::createRecipient($mailid, $member->emailadres, $memberFullname);
             $templateAttachments = EmailAttachmentMapper::getByTemplateId($template['id']);
             if (!empty($templateAttachments)) {
                 foreach ($templateAttachments as $templateAttachment) {
@@ -69,9 +69,9 @@ class MemberTemplateScheduler
     {
         $member = MemberModel::getMemberById($memberid);
         $variables = [
-            'voornaam' => $member['voornaam'],
-            'achternaam' => $member['achternaam'],
-            'iban' => $member['iban'],
+            'voornaam' => $member->voornaam,
+            'achternaam' => $member->achternaam,
+            'iban' => $member->iban,
             'afzender' => SiteSetting::getStaticSiteSetting('site_name')
         ];
         foreach ($variables as $key => $value) {

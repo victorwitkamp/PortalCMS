@@ -23,7 +23,7 @@ PortalCMS_JS_headJS();
         <div class="container">
             <div class="row mt-5">
                 <div class="col-sm-12">
-                    <h1><?php echo $pageName; ?></h1>
+                    <h1><?= $pageName ?></h1>
                 </div>
             </div>
             <?php Alert::renderFeedbackMessages(); ?>
@@ -42,14 +42,14 @@ PortalCMS_JS_headJS();
                 foreach ($Activities as $Activity) {
                     ?>
                         <tr>
-                            <td><?php echo $Activity['CreationDate']; ?></td>
-                            <td><?php echo $Activity['id']; ?></td>
-                            <td><?php echo $Activity['user_id']; ?></td>
-                            <td><?php echo $Activity['user_name']; ?></td>
-                            <td><?php echo $Activity['ip_address']; ?></td>
+                            <td><?= $Activity['CreationDate'] ?></td>
+                            <td><?= $Activity['id'] ?></td>
+                            <td><?= $Activity['user_id'] ?></td>
+                            <td><?= $Activity['user_name'] ?></td>
+                            <td><?= $Activity['ip_address'] ?></td>
 
-                            <td><?php echo $Activity['activity']; ?></td>
-                            <td><?php echo $Activity['details']; ?></td>
+                            <td><?= $Activity['activity'] ?></td>
+                            <td><?= $Activity['details'] ?></td>
 
                         </tr>
                     <?php

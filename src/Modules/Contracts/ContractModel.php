@@ -99,7 +99,7 @@ class ContractModel
         }
     }
 
-    public static function delete()
+    public static function delete(): bool
     {
         $contract_id = Request::post('id', true);
         if (ContractMapper::exists($contract_id)) {

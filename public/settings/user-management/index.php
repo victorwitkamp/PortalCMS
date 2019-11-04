@@ -23,7 +23,7 @@ PortalCMS_JS_headJS();
     <div class="content">
         <div class="container">
             <div class="row mt-5">
-                <div class="col-sm-8"><h1><?php echo $pageName ?></h1></div>
+                <div class="col-sm-8"><h1><?= $pageName ?></h1></div>
                 <!-- <div class="col-sm-4"><a href="#" class="btn btn-success navbar-btn float-right"><span class="fa fa-plus"></span> Toevoegen</a></div> -->
             </div>
             <?php
@@ -32,10 +32,10 @@ PortalCMS_JS_headJS();
                 <table class="table table-sm table-striped table-hover table-dark">
                     <thead class="thead-dark">
                         <tr>
-                            <th><?php echo Text::get('LABEL_USER_ID'); ?></th>
-                            <th><?php echo Text::get('LABEL_USER_NAME'); ?></th>
-                            <th><?php echo Text::get('LABEL_USER_EMAIL'); ?></th>
-                            <th><?php echo Text::get('LABEL_USER_LAST_LOGIN_TIMESTAMP'); ?></th>
+                            <th><?= Text::get('LABEL_USER_ID') ?></th>
+                            <th><?= Text::get('LABEL_USER_NAME') ?></th>
+                            <th><?= Text::get('LABEL_USER_EMAIL') ?></th>
+                            <th><?= Text::get('LABEL_USER_LAST_LOGIN_TIMESTAMP') ?></th>
                             <th>Profiel</th>
                         </tr>
                     </thead>

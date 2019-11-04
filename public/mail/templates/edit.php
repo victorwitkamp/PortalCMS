@@ -34,7 +34,7 @@ plugins : 'advlist autolink link image lists charmap print preview'
     <div class="content">
         <div class="container">
             <div class="row mt-5">
-                <div class="col-sm-8"><h1><?php echo $pageName ?></h1></div>
+                <div class="col-sm-8"><h1><?= $pageName ?></h1></div>
                 <div class="col-sm-4"></div>
             </div>
             <hr>
@@ -50,8 +50,8 @@ plugins : 'advlist autolink link image lists charmap print preview'
                         <ul id="currentattachments">
                             <?php foreach ($attachments as $attachment) { ?>
                             <li>
-                                <input type="checkbox" name="id[]" id="checkbox" value="<?php echo $attachment['id']; ?>">
-                                <?php echo $attachment['path'] . $attachment['name'] . $attachment['extension']; ?>
+                                <input type="checkbox" name="id[]" id="checkbox" value="<?= $attachment['id'] ?>">
+                                <?= $attachment['path'] . $attachment['name'] . $attachment['extension'] ?>
                             </li>
                             <?php } ?>
                         </ul>
@@ -70,16 +70,16 @@ plugins : 'advlist autolink link image lists charmap print preview'
             </form>
             <hr>
             <form method="post">
-                <input type="hidden" name="id" value="<?php echo $template['id']; ?>">
+                <input type="hidden" name="id" value="<?= $template['id'] ?>">
                 <input type="submit" class="btn btn-primary float-right" name="edittemplate"/>
                 <div class="form-group">
                     <label for="subject">Onderwerp</label>
-                    <input type="text" name="subject" class="form-control" id="subject" placeholder="Onderwerp" value="<?php echo $template['subject']; ?>">
+                    <input type="text" name="subject" class="form-control" id="subject" placeholder="Onderwerp" value="<?= $template['subject'] ?>">
                 </div>
                 <div class="form-group">
                     <label for="body">Bericht</label>
                     <textarea id="mytextarea" name="body" cols="50" rows="15" required>
-                        <?php echo $template['body']; ?>
+                        <?= $template['body'] ?>
                     </textarea>
                 </div>
             </form>

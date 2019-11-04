@@ -3,7 +3,7 @@
 use PortalCMS\Core\View\Text;
 
 ?>
-<h4><?php echo Text::get('TITLE_WIDGET_COMING_EVENTS'); ?></h4>
+<h4><?= Text::get('TITLE_WIDGET_COMING_EVENTS') ?></h4>
 <div class="card" id="show-events"></div>
 <script>
 $(document).ready(function () {

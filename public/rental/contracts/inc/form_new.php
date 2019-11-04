@@ -180,32 +180,32 @@ use PortalCMS\Core\View\Text;
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label"><?php
+                <label class="col-sm-2 col-form-label"><?=
 
-                    echo Text::get('DAY'); ?></label>
+                    Text::get('DAY') ?></label>
                 <div class="col-sm-10">
                     <select name="huur_dag" class="form-control">
                         <option>Selecteer een dag....</option>
-                        <option value="<?php echo Text::get('DAY_01'); ?>" >
-                            <?php echo Text::get('DAY_01'); ?>
+                        <option value="<?= Text::get('DAY_01') ?>" >
+                            <?= Text::get('DAY_01') ?>
                         </option>
-                        <option value="<?php echo Text::get('DAY_02'); ?>">
-                            <?php echo Text::get('DAY_02'); ?>
+                        <option value="<?= Text::get('DAY_02') ?>">
+                            <?= Text::get('DAY_02') ?>
                         </option>
-                        <option value="<?php echo Text::get('DAY_03'); ?>">
-                            <?php echo Text::get('DAY_03'); ?>
+                        <option value="<?= Text::get('DAY_03') ?>">
+                            <?= Text::get('DAY_03') ?>
                         </option>
-                        <option value="<?php echo Text::get('DAY_04'); ?>">
-                            <?php echo Text::get('DAY_04'); ?>
+                        <option value="<?= Text::get('DAY_04') ?>">
+                            <?= Text::get('DAY_04') ?>
                         </option>
-                        <option value="<?php echo Text::get('DAY_05'); ?>">
-                            <?php echo Text::get('DAY_05'); ?>
+                        <option value="<?= Text::get('DAY_05') ?>">
+                            <?= Text::get('DAY_05') ?>
                         </option>
-                        <option value="<?php echo Text::get('DAY_06'); ?>">
-                            <?php echo Text::get('DAY_06'); ?>
+                        <option value="<?= Text::get('DAY_06') ?>">
+                            <?= Text::get('DAY_06') ?>
                         </option>
-                        <option value="<?php echo Text::get('DAY_07'); ?>">
-                            <?php echo Text::get('DAY_07'); ?>
+                        <option value="<?= Text::get('DAY_07') ?>">
+                            <?= Text::get('DAY_07') ?>
                         </option>
                     </select>
                 </div>

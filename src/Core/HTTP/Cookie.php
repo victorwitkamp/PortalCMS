@@ -31,7 +31,7 @@ class Cookie
         // attacker could steal your remember-me cookie string and would login itself).
         // If you are using HTTPS, then you should set the "secure" flag (the second one from right) to true, too.
         // @see http://www.php.net/manual/en/function.setcookie.php
-        setcookie(
+        if (setcookie(
             'remember_me',
             $token,
             time() + Config::get('COOKIE_RUNTIME'),
@@ -40,7 +40,10 @@ class Cookie
             // Config::get('COOKIE_SECURE'),
             true,
             Config::get('COOKIE_HTTP')
-        );
+        )) {
+            return true;
+        }
+        return false;
     }
 
     /**

@@ -5,60 +5,60 @@
 <div class="col-md-8">
 <table class="table table-striped table-condensed">
     <tr>
-        <th>ID</th><td><?php echo $row['id']; ?></td>
+        <th>ID</th><td><?= $row->id ?></td>
     </tr>
     <tr>
-        <th>Jaar van lidmaatschap</th><td><?php echo $row['jaarlidmaatschap']; ?></td>
+        <th>Jaar van lidmaatschap</th><td><?= $row->jaarlidmaatschap ?></td>
     </tr>
     <tr>
-        <th>Voorletters</th><td><?php echo $row['voorletters']; ?></td>
+        <th>Voorletters</th><td><?= $row->voorletters ?></td>
     </tr>
     <tr>
-        <th>Voornaam</th><td><?php echo $row['voornaam']; ?></td>
+        <th>Voornaam</th><td><?= $row->voornaam ?></td>
     </tr>
     <tr>
-        <th>Achternaam</th><td><?php echo $row['achternaam']; ?></td>
+        <th>Achternaam</th><td><?= $row->achternaam ?></td>
     </tr>
     <tr>
-        <th>Geboortedatum</th><td><?php echo $row['geboortedatum']; ?></td>
+        <th>Geboortedatum</th><td><?= $row->geboortedatum ?></td>
     </tr>
     <tr>
-        <th>Adres</th><td><?php echo $row['adres']; ?></td>
+        <th>Adres</th><td><?= $row->adres ?></td>
     </tr>
     <tr>
-        <th>Postcode</th><td><?php echo $row['postcode']; ?></td>
+        <th>Postcode</th><td><?= $row->postcode ?></td>
     </tr>
     <tr>
-        <th>Huisnummer</th><td><?php echo $row['huisnummer']; ?></td>
+        <th>Huisnummer</th><td><?= $row->huisnummer ?></td>
     </tr>
     <tr>
-        <th>Woonplaats</th><td><?php echo $row['woonplaats']; ?></td>
+        <th>Woonplaats</th><td><?= $row->woonplaats ?></td>
     </tr>
     <tr>
-        <th>Telefoon vast</th><td><?php echo $row['telefoon_vast']; ?></td>
+        <th>Telefoon vast</th><td><?= $row->telefoon_vast ?></td>
     </tr>
     <tr>
-        <th>Telefoon mobiel</th><td><?php echo $row['telefoon_mobiel']; ?></td>
+        <th>Telefoon mobiel</th><td><?= $row->telefoon_mobiel ?></td>
     </tr>
     <tr>
-        <th>E-mailadres</th><td><?php echo $row['emailadres']; ?></td>
+        <th>E-mailadres</th><td><?= $row->emailadres ?></td>
     </tr>
     <tr>
-        <th>Lid vanaf</th><td><?php echo $row['ingangsdatum']; ?></td>
+        <th>Lid vanaf</th><td><?= $row->ingangsdatum ?></td>
     </tr>
 </table>
 </div>
 <div class="col-md-4">
 <table class="table table-striped table-condensed">
     <tr>
-        <th>Geslacht</th><td><?php echo $row['geslacht']; ?></td>
+        <th>Geslacht</th><td><?= $row->geslacht ?></td>
     </tr>
     <tr>
         <th>Nieuwsbrief</th>
         <td><?php
-        if ($row['nieuwsbrief'] === '1') {
+        if ($row->nieuwsbrief === '1') {
             echo 'ja';
-        } elseif ($row['nieuwsbrief'] === '0') {
+        } elseif ($row->nieuwsbrief === '0') {
             echo 'nee';
         } else {
             echo 'n/a';
@@ -67,9 +67,9 @@
     <tr>
         <th>Vrijwilliger</th>
         <td><?php
-        if ($row['vrijwilliger'] === '1') {
+        if ($row->vrijwilliger === '1') {
             echo 'ja';
-        } elseif ($row['vrijwilliger'] === '0') {
+        } elseif ($row->vrijwilliger === '0') {
             echo 'nee';
         } else {
             echo 'n/a';
@@ -78,9 +78,9 @@
     <tr>
         <th>Licht / geluid</th>
         <td><?php
-        if ($row['vrijwilligeroptie1'] === '1') {
+        if ($row->vrijwilligeroptie1 === '1') {
             echo 'ja';
-        } elseif ($row['vrijwilligeroptie1'] === '0') {
+        } elseif ($row->vrijwilligeroptie1 === '0') {
             echo 'nee';
         } else {
             echo 'n/a';
@@ -89,9 +89,9 @@
     <tr>
         <th>Bar</th>
         <td><?php
-        if ($row['vrijwilligeroptie2'] === '1') {
+        if ($row->vrijwilligeroptie2 === '1') {
             echo 'ja';
-        } elseif ($row['vrijwilligeroptie2'] === '0') {
+        } elseif ($row->vrijwilligeroptie2 === '0') {
             echo 'nee';
         } else {
             echo 'n/a';
@@ -100,9 +100,9 @@
     <tr>
         <th>Schoonmaken / klussen</th>
         <td><?php
-        if ($row['vrijwilligeroptie3'] === '1') {
+        if ($row->vrijwilligeroptie3 === '1') {
             echo 'ja';
-        } elseif ($row['vrijwilligeroptie3'] === '0') {
+        } elseif ($row->vrijwilligeroptie3 === '0') {
             echo 'nee';
         } else {
             echo 'n/a';
@@ -111,9 +111,9 @@
     <tr>
         <th>Promotie / flyeren</th>
         <td><?php
-        if ($row['vrijwilligeroptie4'] === '1') {
+        if ($row->vrijwilligeroptie4 === '1') {
             echo 'ja';
-        } elseif ($row['vrijwilligeroptie4'] === '0') {
+        } elseif ($row->vrijwilligeroptie4 === '0') {
             echo 'nee';
         } else {
             echo 'n/a';
@@ -122,9 +122,9 @@
     <tr>
         <th>Organisatie evenementen</th>
         <td><?php
-        if ($row['vrijwilligeroptie5'] === '1') {
+        if ($row->vrijwilligeroptie5 === '1') {
             echo 'ja';
-        } elseif ($row['vrijwilligeroptie5'] === '0') {
+        } elseif ($row->vrijwilligeroptie5 === '0') {
             echo 'nee';
         } else {
             echo 'n/a';
@@ -133,29 +133,29 @@
 </table>
 <table class="table table-striped table-condensed">
     <tr>
-        <th>CreationDate</th><td><?php echo $row['CreationDate']; ?></td>
+        <th>CreationDate</th><td><?= $row->CreationDate ?></td>
     </tr>
     <tr>
-        <th>ModificationDate</th><td><?php echo $row['ModificationDate']; ?></td>
+        <th>ModificationDate</th><td><?= $row->ModificationDate ?></td>
     </tr>
 </table>
 </div>
 
 <table class="table table-striped table-condensed">
     <tr>
-        <th>Betalingswijze</th><td><?php echo $row['betalingswijze']; ?></td>
+        <th>Betalingswijze</th><td><?= $row->betalingswijze ?></td>
     </tr>
     <tr>
-        <th>IBAN</th><td><?php echo $row['iban']; ?></td>
+        <th>IBAN</th><td><?= $row->iban ?></td>
     </tr>
     <tr>
-        <th>Machtigingskenmerk</th><td><?php echo $row['machtigingskenmerk']; ?></td>
+        <th>Machtigingskenmerk</th><td><?= $row->machtigingskenmerk ?></td>
     </tr>
+   <!--<tr>
+        <th>Incasso gelukt</th><td><?php //echo $row->incasso_gelukt; ?></td>
+    </tr>-->
     <tr>
-        <th>Incasso gelukt</th><td><?php echo $row['incasso_gelukt']; ?></td>
-    </tr>
-    <tr>
-        <th>Opmerking</th><td><?php echo $row['opmerking']; ?></td>
+        <th>Opmerking</th><td><?= $row->opmerking ?></td>
     </tr>
 </table>
 

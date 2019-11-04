@@ -29,16 +29,17 @@ use PortalCMS\Modules\Invoices\InvoiceModel;
         ?>
         <tr>
             <td>
-                <a href="/rental/invoices/details.php?id=<?php echo $invoice['id'] ?>" title="Details" class="btn btn-primary">
+                <a href="/rental/invoices/details.php?id=<?= $invoice['id'] ?>" title="Details" class="btn btn-primary">
                 <span class="fas fa-edit"></span>
                 </a>
             </td>
 
-            <td><?php echo $invoice['factuurnummer'] ?></td>
+            <td><?= $invoice['factuurnummer'] ?></td>
             <td>
                 <?php
                 if (!empty($invoice['contract_id'])) {
-                    if ($contract = ContractMapper::getById($invoice['contract_id'])) {
+                    $contract = ContractMapper::getById($invoice['contract_id'])
+                    if ($contract) {
                         echo $contract['band_naam'];
                     } else {
                         echo 'n/a';
@@ -48,7 +49,7 @@ use PortalCMS\Modules\Invoices\InvoiceModel;
                 } ?>
             </td>
 
-            <td><?php echo InvoiceModel::displayInvoiceSumById($invoice['id']); ?></td>
+            <td><?= InvoiceModel::displayInvoiceSumById($invoice['id']) ?></td>
             <td>
             <?php
             if ($invoice['status'] === '0') {
@@ -65,14 +66,14 @@ use PortalCMS\Modules\Invoices\InvoiceModel;
             } ?>
             </td>
             <td>
-                <a href="/rental/invoices/createpdf.php?id=<?php echo $invoice['id'] ?>" title="PDF maken" class="btn btn-success">
+                <a href="/rental/invoices/createpdf.php?id=<?= $invoice['id'] ?>" title="PDF maken" class="btn btn-success">
                     <span class="fas fa-file-pdf"></span>
                 </a>
             </td>
             <td>
                 <?php if ($invoice['status'] === '0') { ?>
                 <form method="post">
-                    <input type="hidden" name="id" value="<?php echo $invoice['id']; ?>">
+                    <input type="hidden" name="id" value="<?= $invoice['id'] ?>">
                     <button type="submit" name="writeInvoice" class="btn btn-success"><i class="fas fa-check"></i></button>
                 </form>
                 <?php } ?>
@@ -80,19 +81,19 @@ use PortalCMS\Modules\Invoices\InvoiceModel;
             <td>
             <?php if ($invoice['status'] === '1') { ?>
                 <form method="post">
-                    <input type="hidden" name="id" value="<?php echo $invoice['id']; ?>">
+                    <input type="hidden" name="id" value="<?= $invoice['id'] ?>">
                     <button type="submit" name="createInvoiceMail" class="btn btn-success"><i class="fas fa-check"></i></button>
                 </form>
             <?php } ?>
             <?php if ($invoice['status'] === '2') { ?>
                 <form method="post">
-                    <a href="<?php echo Config::get('URL') . 'mail/details.php?id=' . $invoice['mail_id']; ?>">Mail openen</a>
+                    <a href="<?= Config::get('URL') . 'mail/details.php?id=' . $invoice['mail_id'] ?>">Mail openen</a>
                 </form>
             <?php } ?>
             </td>
             <td>
                 <form method="post">
-                    <input type="hidden" name="ïd" value="<?php echo $invoice['id']; ?>">
+                    <input type="hidden" name="ïd" value="<?= $invoice['id'] ?>">
                     <button type="submit" name="confirmPayment" class="btn btn-success" disabled><i class="fas fa-check"></i></button>
                 </form>
             </td>

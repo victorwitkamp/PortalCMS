@@ -21,7 +21,7 @@ class User
      *
      * @return bool success status
      */
-    public static function editUsername($newUsername)
+    public static function editUsername($newUsername): bool
     {
         if ($newUsername === Session::get('user_name')) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_SAME_AS_OLD_ONE'));

@@ -16,10 +16,13 @@ use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
 
 class InvoiceModel
 {
-    public static function createMail()
+    public static function createMail(): bool
     {
         $invoiceId = Request::post('id', true);
         $invoice = InvoiceMapper::getById($invoiceId);
+        if (empty($invoice)) {
+            return false;
+        }
         $contract = ContractMapper::getById($invoice['contract_id']);
         if ($invoice['month'] < '10') {
             $maand = Text::get('MONTH_0' . $invoice['month']);
@@ -60,7 +63,7 @@ class InvoiceModel
         return $Invoices;
     }
 
-    public static function create($year, $month, $contract_ids)
+    public static function create($year, $month, $contract_ids): bool
     {
         if (empty($contract_ids)) {
             return false;
@@ -107,10 +110,10 @@ class InvoiceModel
         return $sum;
     }
 
-    public static function delete(int $id)
+    public static function delete(int $id): bool
     {
         $invoice = InvoiceMapper::getById($id);
-        if (!$invoice) {
+        if (empty($invoice)) {
             Session::add('feedback_negative', 'Kan factuur niet verwijderen. Factuur bestaat niet.');
             return false;
         }
@@ -137,17 +140,23 @@ class InvoiceModel
             return false;
         }
         $invoice = InvoiceMapper::getById($id);
+        if (empty($invoice)) {
+            return false;
+        }
         $invoiceitems = InvoiceItemMapper::getByInvoiceId($id);
         $contract = ContractMapper::getById($invoice['contract_id']);
         PDF::renderInvoice($invoice, $invoiceitems, $contract);
     }
 
-    public static function write($id = null)
+    public static function write($id = null): bool
     {
         if (empty($id)) {
             return false;
         }
         $invoice = InvoiceMapper::getById($id);
+        if (empty($invoice)) {
+            return false;
+        }
         $contract = ContractMapper::getById($invoice['contract_id']);
         $invoiceitems = InvoiceItemMapper::getByInvoiceId($id);
         if (!PDF::writeInvoice($invoice, $invoiceitems, $contract)) {

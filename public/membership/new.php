@@ -24,7 +24,7 @@ PortalCMS_JS_Datepicker_membership();
     <div class="content">
         <div class="container">
             <div class="row mt-5">
-                <h1><?php echo $pageName ?></h1>
+                <h1><?= $pageName ?></h1>
             </div>
         </div>
         <div class="container">

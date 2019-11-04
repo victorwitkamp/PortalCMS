@@ -27,12 +27,12 @@ PortalCMS_JS_headJS(); ?>
     <div class="content">
         <div class="container">
             <div class="row mt-5">
-                <h1><?php echo $pageName; ?></h1>
+                <h1><?= $pageName ?></h1>
             </div>
         </div>
         <div class="container">
             <?php require 'inc/buttons.php'; ?>
-            <a href="invoices.php?id=<?php echo $contract['id']; ?>">Facturen bekijken</a>
+            <a href="invoices.php?id=<?= $contract['id'] ?>">Facturen bekijken</a>
             <hr>
             <?php require 'inc/view.php'; ?>
             <hr>

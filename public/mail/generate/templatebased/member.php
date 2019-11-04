@@ -21,7 +21,7 @@ PortalCMS_JS_headJS(); ?>
     <div class="content">
         <div class="container">
             <div class="row mt-5">
-                <div class="col-sm-12"><h1><?php echo $pageName ?></h1></div>
+                <div class="col-sm-12"><h1><?= $pageName ?></h1></div>
             </div>
             <hr>
         </div>
@@ -33,7 +33,7 @@ PortalCMS_JS_headJS(); ?>
                             <label>Template selecteren</label>
                             <select name='templateid'>
                                 <?php foreach (EmailTemplatePDOReader::getByType('member') as $row) : ?>
-                                    <option value="<?php echo $row['id']; ?>"><?php echo $row['subject']; ?></option>
+                                    <option value="<?= $row['id'] ?>"><?= $row['subject'] ?></option>
                                 <?php endforeach ?>
                             </select>
                             <input type="hidden" name="type" value="member">
@@ -57,11 +57,11 @@ PortalCMS_JS_headJS(); ?>
                     foreach (MemberModel::getMembers() as $row) :
                         if (!empty($row['emailadres'])) { ?>
                         <div class="col-md-4">
-                            <input type="checkbox" name='recipients[]' id="checkbox" value="<?php echo $row['id']; ?>"> <?php echo $row['voornaam'] . ' ' . $row['achternaam']; ?><br/>
+                            <input type="checkbox" name='recipients[]' id="checkbox" value="<?= $row['id'] ?>"> <?= $row['voornaam'] . ' ' . $row['achternaam'] ?><br/>
                         </div>
                         <?php } else { ?>
                         <div class="col-md-4">
-                            <input type="checkbox" name='recipients[]' value="<?php echo $row['id']; ?>" disabled><s> <?php echo $row['voornaam'] . ' ' . $row['achternaam']; ?></s><br/>
+                            <input type="checkbox" name='recipients[]' value="<?= $row['id'] ?>" disabled><s> <?= $row['voornaam'] . ' ' . $row['achternaam'] ?></s><br/>
                         </div>
                         <?php }
                     endforeach ?>

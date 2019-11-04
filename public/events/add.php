@@ -24,7 +24,7 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
         <div class="content">
             <div class="container">
                 <div class="row mt-5">
-                    <h1><?php echo $pageName ?></h1>
+                    <h1><?= $pageName ?></h1>
                 </div>
             </div>
             <hr>
@@ -73,7 +73,7 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
                     </div>
                     <hr />
                     <div class="form-group form-group-sm">
-                        <input type="text" name="CreatedBy" value="<?php echo Session::get('user_id'); ?>" hidden>
+                        <input type="text" name="CreatedBy" value="<?= Session::get('user_id') ?>" hidden>
                         <input type="submit" name="addEvent" class="btn btn-sm btn-primary" value="Opslaan">
                         <a href="index.php" class="btn btn-sm btn-danger">Annuleren</a>
                     </div>

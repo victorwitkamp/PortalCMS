@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Modules\Members;
 
+use PDO;
 use PortalCMS\Core\Database\DB;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
@@ -10,43 +11,72 @@ use PortalCMS\Core\Session\Session;
 
 class MemberModel
 {
-    public static function getMembers()
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public static function delete(int $id): bool
     {
-        $stmt = DB::conn()->prepare('SELECT * FROM members ORDER BY id');
-        $stmt->execute([]);
-        return $stmt->fetchAll();
+        if (self::doesMemberIdExist($id)) {
+            if (self::deleteAction($id)) {
+                Session::add('feedback_positive', 'Lid verwijderd.');
+                return true;
+            }
+            Session::add('feedback_negative', 'Verwijderen van lid mislukt.');
+        } else {
+            Session::add('feedback_negative', 'Verwijderen van lid. Evenement bestaat niet.');
+        }
+        return false;
     }
 
-    public static function getMembersWithValidEmail()
+    public static function deleteAction(int $id): bool
     {
-        $stmt = DB::conn()->prepare('SELECT * FROM members WHERE emailadres IS NOT NULL ORDER BY id');
-        $stmt->execute([]);
-        return $stmt->fetchAll();
+        $stmt = DB::conn()->prepare('DELETE FROM members WHERE id = ? LIMIT 1');
+        $stmt->execute([$id]);
+        return $stmt->rowCount() === 1;
     }
 
-    public static function doesMemberIdExist($memberId)
+    public static function getMembers() : ?array
+    {
+        $stmt = DB::conn()->query('SELECT * FROM members ORDER BY id');
+        if ($stmt->rowCount() === 0) {
+            return null;
+        }
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public static function getMembersWithValidEmail() : ?array
+    {
+        $stmt = DB::conn()->query('SELECT * FROM members WHERE emailadres IS NOT NULL ORDER BY id');
+        if ($stmt->rowCount() === 0) {
+            return null;
+        }
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public static function doesMemberIdExist(int $memberId) : bool
     {
         $stmt = DB::conn()->prepare('SELECT id FROM members WHERE id = ? LIMIT 1');
         $stmt->execute([$memberId]);
         return $stmt->rowCount() === 1;
     }
 
-    public static function doesEmailforYearExist($jaarlidmaatschap, $email)
+    public static function doesEmailforYearExist($jaarlidmaatschap, $email) : bool
     {
         $stmt = DB::conn()->prepare('SELECT id FROM members WHERE jaarlidmaatschap = ? AND emailadres = ? LIMIT 1');
         $stmt->execute([$jaarlidmaatschap, $email]);
         return $stmt->rowCount() === 1;
     }
 
-    public static function getMemberById($id)
+    public static function getMemberById(int $id) : ?object
     {
         $stmt = DB::conn()->prepare('SELECT * FROM members WHERE id=? LIMIT 1');
         $stmt->execute([$id]);
         if ($stmt->rowCount() === 1) {
-            return $stmt->fetch();
+            return $stmt->fetch(PDO::FETCH_OBJ);
         }
         Session::add('feedback_negative', 'Lid kan niet worden geladen.');
-        return false;
+        return null;
     }
 
     public static function saveMember()
@@ -76,18 +106,20 @@ class MemberModel
         $betalingswijze         = Request::post('betalingswijze', true);
         $iban                   = Request::post('iban', true);
         $machtigingskenmerk     = Request::post('machtigingskenmerk', true);
-        $status = Request::post('status', true);
+        $status                 = Request::post('status', true);
         // $opmerking              = Request::post('opmerking', true);
 
-        $sql = 'UPDATE members
-        SET jaarlidmaatschap=?, voorletters=?, voornaam=?, achternaam=?,
-        geboortedatum=?, adres=?, postcode=?, huisnummer=?,
-        woonplaats=?, telefoon_vast=?, telefoon_mobiel=?,
-        emailadres=?, ingangsdatum=?, geslacht=?, nieuwsbrief=?,
-        vrijwilliger=?, vrijwilligeroptie1=?, vrijwilligeroptie2=?,
-        vrijwilligeroptie3=?, vrijwilligeroptie4=?, vrijwilligeroptie5=?,
-        betalingswijze=?, iban=?, machtigingskenmerk=?, status=? WHERE id=?';
-        $stmt = DB::conn()->prepare($sql);
+        $stmt = DB::conn()->prepare(
+            'UPDATE members
+                            SET jaarlidmaatschap=?, voorletters=?, voornaam=?, achternaam=?,
+                            geboortedatum=?, adres=?, postcode=?, huisnummer=?,
+                            woonplaats=?, telefoon_vast=?, telefoon_mobiel=?,
+                            emailadres=?, ingangsdatum=?, geslacht=?, nieuwsbrief=?,
+                            vrijwilliger=?, vrijwilligeroptie1=?, vrijwilligeroptie2=?,
+                            vrijwilligeroptie3=?, vrijwilligeroptie4=?, vrijwilligeroptie5=?,
+                            betalingswijze=?, iban=?, machtigingskenmerk=?, status=?
+                                WHERE id=?'
+        );
         $stmt->execute(
             [$jaarlidmaatschap, $voorletters, $voornaam, $achternaam, $geboortedatum,
             $adres, $postcode, $huisnummer, $woonplaats, $telefoon_vast, $telefoon_mobiel,
@@ -129,25 +161,22 @@ class MemberModel
         $betalingswijze         = Request::post('betalingswijze', true);
         $iban                   = Request::post('iban', true);
         $machtigingskenmerk     = Request::post('machtigingskenmerk', true);
-        $status = Request::post('status', true);
+        $status                 = Request::post('status', true);
         // $opmerking              = Request::post('opmerking', true);
 
         if (self::doesEmailforYearExist($jaarlidmaatschap, $emailadres)) {
             Session::add('feedback_negative', 'Emailadres wordt dit jaar al gebruikt door een ander lid.');
             Redirect::to('membership/');
         } else {
-            $sql = 'INSERT INTO members
+            $stmt = DB::conn()->prepare(
+                'INSERT INTO members
                         (
                             id, jaarlidmaatschap, voorletters, voornaam, achternaam, geboortedatum,
                             adres, postcode, huisnummer, woonplaats, telefoon_vast, telefoon_mobiel,
                             emailadres, ingangsdatum, geslacht, nieuwsbrief, vrijwilliger, vrijwilligeroptie1,
                             vrijwilligeroptie2, vrijwilligeroptie3, vrijwilligeroptie4, vrijwilligeroptie5, betalingswijze, iban, machtigingskenmerk, status
-                        )
-                        VALUES
-                        (
-                            NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
-                        )';
-            $stmt = DB::conn()->prepare($sql);
+                        ) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+            );
             $stmt->execute(
                 [
                     $jaarlidmaatschap, $voorletters, $voornaam, $achternaam, $geboortedatum,

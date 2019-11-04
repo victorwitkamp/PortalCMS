@@ -28,14 +28,14 @@ PortalCMS_JS_headJS();
             <div class="container">
                 <div class="row">
                     <div class="col-sm-3">
-                        <img src='<?php echo SiteSetting::getStaticSiteSetting('site_logo'); ?>' alt='logo' width='120px' height='120px' />
+                        <img src='<?= SiteSetting::getStaticSiteSetting('site_logo') ?>' alt='logo' width='120px' height='120px' />
                         <?php if (Authorization::hasPermission('site-settings')) { ?>
                             <br><a href="/settings/logo/">Logo wijzigen</a>
                         <?php } ?>
 
                     </div>
                     <div class="col-sm-9">
-                        <h1><?php echo SiteSetting::getStaticSiteSetting('site_name'); ?></h1>
+                        <h1><?= SiteSetting::getStaticSiteSetting('site_name') ?></h1>
                         <p class="lead">
                         <?php
                         if (SiteSetting::getStaticSiteSetting('site_description_type') === '1') {

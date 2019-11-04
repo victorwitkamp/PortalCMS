@@ -42,7 +42,7 @@ class EmailAttachment
         }
         $this->name = pathinfo($this->path . $file['name'], PATHINFO_FILENAME);
         $this->extension = pathinfo($this->path . $file['name'], PATHINFO_EXTENSION);
-        $this->type = self::getMIMEType(DIR_ROOT . $this->path . $file['name']);
+        $this->type = $this->getMIMEType(DIR_ROOT . $this->path . $file['name']);
         return true;
     }
 
@@ -57,9 +57,11 @@ class EmailAttachment
     public function store(int $mailId = null, int $templateId = null) : bool
     {
         if ($this->validate()) {
-            //if (!empty($mailId) && empty($templateId)) {
+            if (!empty($mailId) && empty($templateId)) {
                 // No implementation yet
-            //}
+                Session::add('feedback_negative', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_FAILED'));
+                return false;
+            }
             if (empty($mailId) && !empty($templateId)) {
                 if (EmailAttachmentMapper::createForTemplate($templateId, $this)) {
                     Session::add('feedback_positive', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_SUCCESSFUL'));
@@ -71,7 +73,7 @@ class EmailAttachment
         return false;
     }
 
-    public function getMIMEType($filename) : string
+    public function getMIMEType(string $filename) : string
     {
         $realpath = realpath($filename);
         return finfo_file(finfo_open(FILEINFO_MIME_TYPE), $realpath);
@@ -83,7 +85,7 @@ class EmailAttachment
      * @var string $path Path of the target upload folder
      * @return bool success status
      */
-    public function isFolderWritable($path) : bool
+    public function isFolderWritable(string $path) : bool
     {
         if (!is_dir(DIR_ROOT . $path)) {
             Session::add('feedback_negative', 'Directory ' . $path . ' doesnt exist');
@@ -102,36 +104,41 @@ class EmailAttachment
      * @param $attachmentFile
      * @return bool
      */
-    public function validateFileSize($attachmentFile) : bool
-    {
-        if ($attachmentFile['size'] > 5000000) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_UPLOAD_TOO_BIG'));
-            return false;
-        }
-        // $image_proportions = getimagesize($attachmentFile['tmp_name']);
-        // if ($image_proportions[0] < Config::get('AVATAR_SIZE') or $image_proportions[1] < Config::get('AVATAR_SIZE')) {
-        //     return false;
-        // }
-        return true;
-    }
+    //    public function validateFileSize($attachmentFile) : bool
+    //    {
+    //        if ($attachmentFile['size'] > 5000000) {
+    //            Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_UPLOAD_TOO_BIG'));
+    //            return false;
+    //        }
+    //        return true;
+    //    }
 
-    public function validateType($attachmentFile) : bool
-    {
-        if ($attachmentFile['type'] === 'image/jpeg') {
-            return true;
-        }
-        Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_UPLOAD_WRONG_TYPE'));
-        return false;
-    }
+    //    public function validateImageDimentions($attachmentFile) : bool
+    //    {
+    //         $image_proportions = getimagesize($attachmentFile['tmp_name']);
+    //         if ($image_proportions[0] < Config::get('AVATAR_SIZE') or $image_proportions[1] < Config::get('AVATAR_SIZE')) {
+    //             return false;
+    //         }
+    //         return true
+    //    }
+
+    //    public function validateType($attachmentFile) : bool
+    //    //    {
+    //    //        if ($attachmentFile['type'] === 'image/jpeg') {
+    //    //            return true;
+    //    //        }
+    //    //        Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_UPLOAD_WRONG_TYPE'));
+    //    //        return false;
+    //    //    }
 
     /**
      * Delete attachment(s)
      *
-     * @param array|int $attachmentIds
+     * @param array $attachmentIds
      *
      * @return bool
      */
-    public static function deleteById($attachmentIds) : bool
+    public static function deleteById(array $attachmentIds) : bool
     {
         $deleted = 0;
         $error = 0;
@@ -140,10 +147,10 @@ class EmailAttachment
             return false;
         }
         foreach ($attachmentIds as $attachmentId) {
-            if (!EmailAttachmentMapper::deleteById($attachmentId)) {
-                ++$error;
-            } else {
+            if (EmailAttachmentMapper::deleteById($attachmentId)) {
                 ++$deleted;
+            } else {
+                ++$error;
             }
         }
         return self::deleteFeedbackHandler($deleted, $error);
@@ -157,7 +164,7 @@ class EmailAttachment
      *
      * @return bool
      */
-    public static function deleteFeedbackHandler($deleted, $error) : bool
+    public static function deleteFeedbackHandler(int $deleted, int $error) : bool
     {
         if ($deleted > 0 && $error === 0) {
             if ($deleted > 1) {

@@ -158,7 +158,7 @@ class LoginService
 
     public static function verifyIsActive($result) : bool
     {
-        if ($result->user_active == '1') {
+        if ($result->user_active === 1) {
             self::resetUserNotFoundCounter();
             return true;
         }
@@ -243,7 +243,7 @@ class LoginService
      * @param $user_id
      * @return bool
      */
-    public static function setRememberMe($user_id)
+    public static function setRememberMe($user_id) : bool
     {
         // generate 64 char random string
         $token = hash('sha256', mt_rand());
@@ -260,6 +260,6 @@ class LoginService
         $cookie_string_hash       = hash('sha256', $user_id . ':' . $token);
         $cookie_string            = $cookie_string_first_part . ':' . $cookie_string_hash;
 
-        Cookie::setRememberMe($cookie_string);
+        return Cookie::setRememberMe($cookie_string);
     }
 }

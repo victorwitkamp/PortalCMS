@@ -45,12 +45,13 @@ class LoginController extends Controller
      */
     public static function index()
     {
-        if (!Authentication::userIsLoggedIn()) {
+        if (Authentication::userIsLoggedIn()) {
+            Redirect::to('home');
+        } else {
             // $data = array('redirect' => Request::get('redirect') ? Request::get('redirect') : NULL);
             // $this->View->render('login/index', $data);
             LoginController::loginWithCookie();
         }
-        return Redirect::to('home');
     }
 
     /**
@@ -58,28 +59,32 @@ class LoginController extends Controller
      */
     public static function loginWithPassword()
     {
-        if (!Csrf::isTokenValid()) {
-            return LogoutService::logout();
-        }
-        $login_successful = LoginService::loginWithPassword(
-            Request::post('user_name'),
-            Request::post('user_password'),
-            Request::post('set_remember_me_cookie')
-        );
-        if ($login_successful) {
-            // if (Request::post('redirect')) {
-            //     return Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
-            // }
-            $redir = Request::post('redirect');
-            if (!empty($redir)) {
-                return Redirect::to($redir);
+        if (Csrf::isTokenValid()) {
+            $login_successful = LoginService::loginWithPassword(
+                Request::post('user_name'),
+                Request::post('user_password'),
+                Request::post('set_remember_me_cookie')
+            );
+            if ($login_successful) {
+                // if (Request::post('redirect')) {
+                //     return Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
+                // }
+                $redir = Request::post('redirect');
+                if (empty($redir)) {
+                    Redirect::to('home');
+
+                } else {
+                    Redirect::to($redir);
+                }
+            } else {
+                // if (Request::post('redirect')) {
+                //     return Redirect::to('login/?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
+                // }
+                Redirect::to('login');
             }
-            return Redirect::to('home');
+        } else {
+            LogoutService::logout();
         }
-        // if (Request::post('redirect')) {
-        //     return Redirect::to('login/?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
-        // }
-        return Redirect::to('login');
     }
 
     /**
@@ -88,11 +93,12 @@ class LoginController extends Controller
     public static function loginWithCookie()
     {
         if (LoginService::loginWithCookie(Request::cookie('remember_me'))) {
-            return Redirect::to('home');
+            Redirect::to('home');
+        } else {
+            // if not, delete cookie (outdated? attack?) and route user to login form to prevent infinite login loops
+            Cookie::delete();
+            Redirect::to('login');
         }
-        // if not, delete cookie (outdated? attack?) and route user to login form to prevent infinite login loops
-        Cookie::delete();
-        return Redirect::to('login');
     }
 
     /**
@@ -105,11 +111,12 @@ class LoginController extends Controller
             // if (Request::post('redirect')) {
             //     return Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
             // }
-            return Redirect::to('home');
+            Redirect::to('home');
+        } else {
+            // if (Request::post('redirect')) {
+            //     return Redirect::to('login/?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
+            // }
+            Redirect::to('login');
         }
-        // if (Request::post('redirect')) {
-        //     return Redirect::to('login/?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
-        // }
-        return Redirect::to('login');
     }
 }

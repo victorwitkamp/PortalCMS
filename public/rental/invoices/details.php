@@ -14,7 +14,8 @@ Authentication::checkAuthentication();
 Authorization::verifyPermission('rental-invoices');
 require DIR_ROOT . 'includes/functions.php';
 
-if ($invoice = InvoiceMapper::getById($_GET['id'])) {
+$invoice = InvoiceMapper::getById($_GET['id']);
+if (!empty($invoice)) {
     $pageName = 'Factuur: ' . $invoice['factuurnummer'];
 } else {
     Session::add('feedback_negative', 'Geen resultaten voor opgegeven factuur ID.');
@@ -31,7 +32,7 @@ PortalCMS_JS_headJS(); ?>
     <div class="content">
         <div class="container">
             <div class="row mt-5">
-                <h1><?php echo $pageName; ?></h1>
+                <h1><?= $pageName ?></h1>
             </div>
 
 
@@ -39,8 +40,8 @@ PortalCMS_JS_headJS(); ?>
             <form method="post">
             <a href="index.php" class="btn btn-sm btn-primary"><span class="fa fa-arrow-left"></span></a>
             <?php $msg = 'Weet u zeker dat u factuur met nummer ' . $invoice['factuurnummer'] . ' wilt verwijderen?'; ?>
-                <input type="hidden" name="id" value="<?php echo $invoice['id']; ?>">
-                <button type="submit" name="deleteInvoice" class="btn btn-danger btn-sm" title="Verwijderen" onclick="return confirm('<?php echo $msg; ?>')">
+                <input type="hidden" name="id" value="<?= $invoice['id'] ?>">
+                <button type="submit" name="deleteInvoice" class="btn btn-danger btn-sm" title="Verwijderen" onclick="return confirm('<?= $msg ?>')">
                     <span class="fa fa-trash"></span>
                 </button>
             </form>
@@ -53,7 +54,7 @@ PortalCMS_JS_headJS(); ?>
                 <tr>
                     <th>Factuurnummer</th>
                     <td>
-                        <?php echo $invoice['factuurnummer']; ?>
+                        <?= $invoice['factuurnummer'] ?>
                     </td>
                 </tr>
                 <tr>
@@ -68,19 +69,19 @@ PortalCMS_JS_headJS(); ?>
                 <tr>
                     <th>CreationDate</th>
                     <td>
-                        <?php echo $invoice['CreationDate']; ?>
+                        <?= $invoice['CreationDate'] ?>
                     </td>
                 </tr>
                 <tr>
                     <th>Factuurdatum</th>
                     <td>
-                        <?php echo $invoice['factuurdatum']; ?>
+                        <?= $invoice['factuurdatum'] ?>
                     </td>
                 </tr>
                 <tr>
                     <th>Vervaldatum</th>
                     <td>
-                        <?php echo $invoice['vervaldatum']; ?>
+                        <?= $invoice['vervaldatum'] ?>
                     </td>
                 </tr>
             </table>
@@ -100,17 +101,17 @@ PortalCMS_JS_headJS(); ?>
                     <td>
                     <?php if ($invoice['status'] === '0') { ?>
                         <form method="post">
-                            <input type="hidden" name="invoiceid" value="<?php echo $invoice['id']; ?>">
-                            <input type="hidden" name="id" value="<?php echo $invoiceitem['id']; ?>">
-                            <button type="submit" name="deleteInvoiceItem" onclick="return confirm('Weet je zeker dat je <?php echo $invoiceitem['name']; ?> wilt verwijderen?')" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></button>
+                            <input type="hidden" name="invoiceid" value="<?= $invoice['id'] ?>">
+                            <input type="hidden" name="id" value="<?= $invoiceitem['id'] ?>">
+                            <button type="submit" name="deleteInvoiceItem" onclick="return confirm('Weet je zeker dat je <?= $invoiceitem['name'] ?> wilt verwijderen?')" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></button>
                         </form>
                     <?php } ?>
                     </td>
                     <td>
-                    <?php echo $invoiceitem['name']; ?>
+                        <?= $invoiceitem['name'] ?>
                     </td>
                     <td>
-                    <?php echo '&euro; ' . $invoiceitem['price']; ?>
+                        <?= '&euro; ' . $invoiceitem['price'] ?>
                     </td>
                 </tr>
                     <?php
@@ -131,7 +132,7 @@ PortalCMS_JS_headJS(); ?>
                         <input type="text" name="price" class="form-control">
                     </div>
                 </div>
-                <input type="hidden" name="invoiceid" value="<?php echo $invoice['id']; ?>">
+                <input type="hidden" name="invoiceid" value="<?= $invoice['id'] ?>">
                 <input type="submit" name="addInvoiceItem" class="btn btn-primary">
             </form>
             <?php } else { ?>

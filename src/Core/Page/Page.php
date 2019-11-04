@@ -14,7 +14,7 @@ use PortalCMS\Core\Session\Session;
 
 class Page
 {
-    public static function checkPage($page_id)
+    public static function checkPage($page_id): bool
     {
         $stmt = DB::conn()->prepare('SELECT * FROM pages WHERE id = ? LIMIT 1');
         $stmt->execute([$page_id]);
@@ -37,7 +37,7 @@ class Page
 
     }
 
-    public static function updatePage($page_id, $content)
+    public static function updatePage($page_id, $content): bool
     {
         $stmt = DB::conn()->prepare(
             'SELECT id 

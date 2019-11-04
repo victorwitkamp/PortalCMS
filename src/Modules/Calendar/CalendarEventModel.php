@@ -75,7 +75,7 @@ class CalendarEventModel
      * @param string $description
      * @return bool
      */
-    public static function create(string $title, string $start_event, string $end_event, string $description): bool
+    public static function create(string $title, $start_event, $end_event, string $description): bool
     {
         if (!CalendarEventMapper::new($title, $start_event, $end_event, $description, Session::get('user_id'))) {
             Session::add('feedback_negative', 'Toevoegen van evenement mislukt.');

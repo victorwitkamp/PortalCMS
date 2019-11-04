@@ -22,7 +22,7 @@ PortalCMS_JS_headJS();
         <div class="container">
             <div class="row mt-5">
                 <div class="col-sm-12">
-                    <h1><?php echo $pageName; ?></h1>
+                    <h1><?= $pageName ?></h1>
                 </div>
             </div>
             <?php Alert::renderFeedbackMessages(); ?>
@@ -36,7 +36,7 @@ PortalCMS_JS_headJS();
             <?php print_r($_SESSION); ?>
             <br>
             <h2>sys_get_temp_dir().'/'</h2>
-            <p><?php echo sys_get_temp_dir() . '/'; ?></p>
+            <p><?= sys_get_temp_dir() . '/' ?></p>
         </div>
                 <div class="container">
 <iframe width="800" height="600" src="phpinfo.inc.php" frameborder="0"></iframe>

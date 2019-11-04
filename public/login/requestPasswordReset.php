@@ -30,12 +30,12 @@ PortalCMS_JS_headJS();
             <form method="post" class="form-signin shadow" validate=true>
                 <div class="card">
                     <div class="card-header text-center">
-                        <img src='<?php echo SiteSetting::getStaticSiteSetting('site_logo'); ?>' alt='<?php echo SiteSetting::getStaticSiteSetting('site_name'); ?>' width='200px' height='200px'/>
-                        <h1 class="h3 mb-3 font-weight-normal"><?php echo SiteSetting::getStaticSiteSetting('site_name'); ?></h1><hr>
+                        <img src='<?= SiteSetting::getStaticSiteSetting('site_logo') ?>' alt='<?= SiteSetting::getStaticSiteSetting('site_name') ?>' width='200px' height='200px'/>
+                        <h1 class="h3 mb-3 font-weight-normal"><?= SiteSetting::getStaticSiteSetting('site_name') ?></h1><hr>
                         <?php Alert::renderFeedbackMessages(); ?>
                     </div>
                     <div class="card-body">
-                        <h2 class="h3 mb-3 font-weight-normal "><?php echo $pageName ?></h3>
+                        <h2 class="h3 mb-3 font-weight-normal "><?= $pageName ?></h3>
                         <div class="form-label-group">
                             <input type="text" name="user_name_or_email" id="inputEmail" placeholder="Gebruikersnaam of e-mailadres" class="form-control" required autofocus>
                             <label for="inputEmail">Gebruikersnaam of e-mailadres</label>

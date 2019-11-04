@@ -16,7 +16,7 @@ class EmailRecipientMapper
      *
      * @return boolean
      */
-    public static function createRecipient($mail_id, $email, $name = null)
+    public static function createRecipient($mail_id, $email, $name = null): bool
     {
         $stmt = DB::conn()->prepare(
             'INSERT INTO mail_recipients(id, email, mail_id, type, name) VALUES (NULL,?,?,1,?)'
@@ -37,7 +37,7 @@ class EmailRecipientMapper
      *
      * @return boolean
      */
-    public static function createCC($mail_id, $email, $name = null)
+    public static function createCC($mail_id, $email, $name = null): bool
     {
         $stmt = DB::conn()->prepare(
             'INSERT INTO mail_recipients(id, email, mail_id, type, name) VALUES (NULL,?,?,2,?)'
@@ -58,7 +58,7 @@ class EmailRecipientMapper
      *
      * @return boolean
      */
-    public static function createBCC($mail_id, $email, $name = null)
+    public static function createBCC($mail_id, $email, $name = null): bool
     {
         $stmt = DB::conn()->prepare(
             'INSERT INTO mail_recipients(id, email, mail_id, type, name) VALUES (NULL,?,?,3,?)'

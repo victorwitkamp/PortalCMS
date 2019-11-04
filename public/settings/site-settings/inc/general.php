@@ -7,21 +7,21 @@ use PortalCMS\Core\View\Text;
 use PortalCMS\Core\Config\SiteSetting;
 
 ?>
-<h3><?php echo Text::get('LABEL_SETTINGS_GENERAL'); ?></h3>
+<h3><?= Text::get('LABEL_SETTINGS_GENERAL') ?></h3>
 
 <div class="form-group row">
 
-    <label class="col-4 col-form-label"><?php echo Text::get('LABEL_SITE_NAME'); ?></label>
+    <label class="col-4 col-form-label"><?= Text::get('LABEL_SITE_NAME') ?></label>
     <div class="col-8">
-        <input type="text" name="site_name" value="<?php echo SiteSetting::getStaticSiteSetting('site_name'); ?>" class="form-control">
+        <input type="text" name="site_name" value="<?= SiteSetting::getStaticSiteSetting('site_name') ?>" class="form-control">
     </div>
 
-    <label class="col-4 col-form-label"><?php echo Text::get('LABEL_SITE_DESC'); ?></label>
+    <label class="col-4 col-form-label"><?= Text::get('LABEL_SITE_DESC') ?></label>
     <div class="col-8">
-        <input type="text" name="site_description" value="<?php echo SiteSetting::getStaticSiteSetting('site_description'); ?>" class="form-control">
+        <input type="text" name="site_description" value="<?= SiteSetting::getStaticSiteSetting('site_description') ?>" class="form-control">
     </div>
 
-    <label class="col-4 col-form-label"><?php echo Text::get('LABEL_SITE_DESC_TYPE'); ?></label>
+    <label class="col-4 col-form-label"><?= Text::get('LABEL_SITE_DESC_TYPE') ?></label>
     <div class="col-8">
         <div class="input-group">
             <select name="site_description_type" class="form-control">
@@ -47,7 +47,7 @@ use PortalCMS\Core\Config\SiteSetting;
         </div>
     </div>
 
-    <label class="col-4 col-form-label"><?php echo Text::get('LABEL_SITE_THEME'); ?></label>
+    <label class="col-4 col-form-label"><?= Text::get('LABEL_SITE_THEME') ?></label>
     <div class="col-8">
         <div class="input-group">
             <select class="form-control" name="site_theme">
@@ -80,7 +80,7 @@ use PortalCMS\Core\Config\SiteSetting;
         </div>
     </div>
 
-    <label class="col-4 col-form-label"><?php echo Text::get('LABEL_SITE_LAYOUT'); ?></label>
+    <label class="col-4 col-form-label"><?= Text::get('LABEL_SITE_LAYOUT') ?></label>
     <div class="col-8">
         <div class="input-group">
             <select class="form-control" name="site_layout">
@@ -97,14 +97,14 @@ use PortalCMS\Core\Config\SiteSetting;
         </div>
     </div>
 
-    <label class="col-4 col-form-label"><?php echo Text::get('LABEL_SITE_URL'); ?></label>
+    <label class="col-4 col-form-label"><?= Text::get('LABEL_SITE_URL') ?></label>
     <div class="col-8">
-        <input type="text" name="site_url" value="<?php echo SiteSetting::getStaticSiteSetting('site_url'); ?>" class="form-control">
+        <input type="text" name="site_url" value="<?= SiteSetting::getStaticSiteSetting('site_url') ?>" class="form-control">
     </div>
 
-    <label class="col-4 col-form-label"><?php echo Text::get('LABEL_SITE_LOGO'); ?></label>
+    <label class="col-4 col-form-label"><?= Text::get('LABEL_SITE_LOGO') ?></label>
     <div class="col-8">
-        <input type="text" name="site_logo" value="<?php echo SiteSetting::getStaticSiteSetting('site_logo'); ?>" class="form-control">
+        <input type="text" name="site_logo" value="<?= SiteSetting::getStaticSiteSetting('site_logo') ?>" class="form-control">
     </div>
 
 </div>

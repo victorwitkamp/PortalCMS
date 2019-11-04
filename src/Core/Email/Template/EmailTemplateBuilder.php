@@ -30,7 +30,7 @@ class EmailTemplateBuilder
         $this->EmailTemplatePDOWriter = new EmailTemplatePDOWriter();
     }
 
-    public function create(string $type, $subject, $body)
+    public function create(string $type, $subject, $body): bool
     {
         if (empty($type) || empty($subject) || empty($body)) {
             return false;

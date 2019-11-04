@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Modules\Invoices;
 
+use PDO;
 use PortalCMS\Core\Database\DB;
 
 class InvoiceMapper
@@ -26,14 +27,14 @@ class InvoiceMapper
         return $stmt->rowCount() === 1;
     }
 
-    public static function getById($id)
+    public static function getById($id) : ?object
     {
         $stmt = DB::conn()->prepare('SELECT * FROM invoices WHERE id = ? LIMIT 1');
         $stmt->execute([$id]);
         if ($stmt->rowCount() === 1) {
-            return $stmt->fetch();
+            return $stmt->fetch(PDO::FETCH_OBJ);
         }
-        return false;
+        return null;
     }
 
     public static function getByFactuurnummer($factuurnummer)

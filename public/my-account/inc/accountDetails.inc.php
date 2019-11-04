@@ -6,38 +6,38 @@ use PortalCMS\Core\User\UserPDOReader;
 
 $user = UserPDOReader::getProfileById(Session::get('user_id'));
 ?>
-<h3><?php echo Text::get('LABEL_ACCOUNT_DETAILS'); ?></h3>
+<h3><?= Text::get('LABEL_ACCOUNT_DETAILS') ?></h3>
 <table class="table table-striped table-condensed">
     <tr>
-        <th><?php echo Text::get('LABEL_USER_ID'); ?></th>
-        <td><?php echo Session::get('user_id'); ?></td>
+        <th><?= Text::get('LABEL_USER_ID') ?></th>
+        <td><?= Session::get('user_id') ?></td>
     </tr>
     <tr>
-        <th><?php echo Text::get('LABEL_USER_NAME'); ?></th>
-        <td><?php echo Session::get('user_name'); ?></td>
+        <th><?= Text::get('LABEL_USER_NAME') ?></th>
+        <td><?= Session::get('user_name') ?></td>
     </tr>
     <tr>
-        <th><?php echo Text::get('LABEL_USER_EMAIL'); ?></th>
-        <td><?php echo Session::get('user_email'); ?></td>
+        <th><?= Text::get('LABEL_USER_EMAIL') ?></th>
+        <td><?= Session::get('user_email') ?></td>
     </tr>
     <tr>
-        <th><?php echo Text::get('LABEL_USER_LAST_LOGIN_TIMESTAMP'); ?></th>
-        <td><?php echo $user->user_last_login_timestamp; ?></td>
+        <th><?= Text::get('LABEL_USER_LAST_LOGIN_TIMESTAMP') ?></th>
+        <td><?= $user->user_last_login_timestamp ?></td>
     </tr>
     <tr>
-        <th><?php echo Text::get('LABEL_USER_PROVIDER_TYPE'); ?></th>
-        <td><?php echo Session::get('user_provider_type'); ?></td>
+        <th><?= Text::get('LABEL_USER_PROVIDER_TYPE') ?></th>
+        <td><?= Session::get('user_provider_type') ?></td>
     </tr>
     <tr>
-        <th><?php echo Text::get('LABEL_USER_FBID'); ?></th>
+        <th><?= Text::get('LABEL_USER_FBID') ?></th>
         <td><?php
         if (!empty(Session::get('user_fbid'))) {
             echo Session::get('user_fbid') . ' '; ?>
             <form method="post">
-            <input type="submit" name="clearUserFbid" class="btn btn-outline-success user_registered-login" value="<?php echo Text::get('LABEL_USER_CLEAR_FBID'); ?>"/>
+            <input type="submit" name="clearUserFbid" class="btn btn-outline-success user_registered-login" value="<?= Text::get('LABEL_USER_CLEAR_FBID') ?>"/>
             </form><?php
         } else {
-            ?><a href="<?php echo $loginUrl; ?>">Connect with Facebook!</a><?php
+            ?><a href="<?= $loginUrl ?>">Connect with Facebook!</a><?php
         }
         ?></td>
     </tr>

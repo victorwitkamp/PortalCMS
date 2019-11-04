@@ -18,7 +18,7 @@ class LogoutService
     /**
      * Log out process: delete cookie, delete session
      */
-    public static function logout()
+    public static function logout(): bool
     {
         if (Authentication::userIsLoggedIn()) {
             $user_id = Session::get('user_id');

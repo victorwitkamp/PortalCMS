@@ -10,9 +10,7 @@ class CalendarEventMapper
 {
     /**
      * Check if an Event ID exists
-     *
      * @param int $id The Id of the event
-     *
      * @return bool
      */
     public static function exists(int $id): bool
@@ -22,7 +20,7 @@ class CalendarEventMapper
         return $stmt->rowCount() === 1;
     }
 
-    public static function getByDate($startDate, $endDate) : ?object
+    public static function getByDate($startDate, $endDate) : ?array
     {
         $startDateTime = $startDate . ' 00:00:00';
         $endDateTime = $endDate . ' 00:00:00';
@@ -34,7 +32,7 @@ class CalendarEventMapper
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public static function getEventsAfter($dateTime) : ?object
+    public static function getEventsAfter($dateTime) : ?array
     {
         $stmt = DB::conn()->prepare(
             'SELECT * FROM events WHERE start_event > ? ORDER BY start_event limit 3'
@@ -43,14 +41,12 @@ class CalendarEventMapper
         if ($stmt->rowCount() === 0) {
             return null;
         }
-        return $stmt->fetchAll(PDO::FETCH_CLASS, 'event');
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
     /**
      * Fetches an Event by Id
-     *
      * @param int $id The Id of the event
-     *
      * @return object|null
      */
     public static function getById(int $id) : ?object
@@ -72,7 +68,7 @@ class CalendarEventMapper
                 NULL,?,?,?,?,?
             )'
         );
-        $stmt->execute([$title, $CreatedBy, $start_event, $end_event, $description]);
+        $stmt->execute([$title, $CreatedBy, date('Y-m-d H:i:s', strtotime($start_event)), date('Y-m-d H:i:s', strtotime($end_event)), $description]);
         if (!$stmt) {
             return false;
         }

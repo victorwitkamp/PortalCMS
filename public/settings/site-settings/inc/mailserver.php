@@ -12,12 +12,12 @@ use PortalCMS\Core\Config\SiteSetting;
 
     <label class="col-4 col-form-label">SMTP server IP/hostname</label>
     <div class="col-8">
-        <input type="text" name="MailServer" value="<?php echo SiteSetting::getStaticSiteSetting('MailServer'); ?>" class="form-control">
+        <input type="text" name="MailServer" value="<?= SiteSetting::getStaticSiteSetting('MailServer') ?>" class="form-control">
     </div>
 
     <label class="col-4 col-form-label">SMTP server port</label>
     <div class="col-8">
-        <input type="text" name="MailServerPort" value="<?php echo SiteSetting::getStaticSiteSetting('MailServerPort'); ?>" class="form-control">
+        <input type="text" name="MailServerPort" value="<?= SiteSetting::getStaticSiteSetting('MailServerPort') ?>" class="form-control">
     </div>
 
     <label class="col-4 col-form-label">SMTP encryption</label>
@@ -61,12 +61,12 @@ use PortalCMS\Core\Config\SiteSetting;
 
     <label class="col-4 col-form-label">SMTP username</label>
     <div class="col-8">
-        <input type="text" name="MailServerUsername" value="<?php echo SiteSetting::getStaticSiteSetting('MailServerUsername'); ?>" class="form-control">
+        <input type="text" name="MailServerUsername" value="<?= SiteSetting::getStaticSiteSetting('MailServerUsername') ?>" class="form-control">
     </div>
 
     <label class="col-4 col-form-label">SMTP password</label>
     <div class="col-8">
-        <input type="password" name="MailServerPassword" value="<?php echo SiteSetting::getStaticSiteSetting('MailServerPassword'); ?>" class="form-control">
+        <input type="password" name="MailServerPassword" value="<?= SiteSetting::getStaticSiteSetting('MailServerPassword') ?>" class="form-control">
     </div>
 
     <label class="col-4 col-form-label">SMTP debug</label>
@@ -100,12 +100,12 @@ use PortalCMS\Core\Config\SiteSetting;
 
     <label class="col-4 col-form-label">MailFromName</label>
     <div class="col-8">
-        <input type="text" name="MailFromName" value="<?php echo SiteSetting::getStaticSiteSetting('MailFromName'); ?>" class="form-control">
+        <input type="text" name="MailFromName" value="<?= SiteSetting::getStaticSiteSetting('MailFromName') ?>" class="form-control">
     </div>
 
     <label class="col-4 col-form-label">MailFromEmail</label>
     <div class="col-8">
-        <input type="text" name="MailFromEmail" value="<?php echo SiteSetting::getStaticSiteSetting('MailFromEmail'); ?>" class="form-control">
+        <input type="text" name="MailFromEmail" value="<?= SiteSetting::getStaticSiteSetting('MailFromEmail') ?>" class="form-control">
     </div>
 
     <label class="col-4 col-form-label">MailIsHTML</label>

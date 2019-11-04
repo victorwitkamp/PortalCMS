@@ -9,11 +9,11 @@ use PortalCMS\Core\View\Text;
             <div class="form-group row">
                 <div class="col-md-8">
                     <label class="col-form-label">Huurder</label>
-                    <input type="text" name="band_naam" class="form-control form-control-sm" value="<?php echo $contract['band_naam']; ?>" required>
+                    <input type="text" name="band_naam" class="form-control form-control-sm" value="<?= $contract['band_naam'] ?>" required>
                 </div>
                 <div class="col-md-4">
                     <label class="col-form-label">bandcode</label>
-                    <input type="text" name="bandcode" class="form-control form-control-sm" value="<?php echo $contract['bandcode']; ?>" required>
+                    <input type="text" name="bandcode" class="form-control form-control-sm" value="<?= $contract['bandcode'] ?>" required>
                 </div>
             </div>
             <div class="form-group">
@@ -26,7 +26,7 @@ use PortalCMS\Core\View\Text;
                                 <div class="input-group-text">
                                     <i class="fas fa-euro-sign"></i>
                                 </div>
-                                <input type="text" name="kosten_ruimte" class="form-control form-control-sm" value="<?php echo $contract['kosten_ruimte']; ?>"></div>
+                                <input type="text" name="kosten_ruimte" class="form-control form-control-sm" value="<?= $contract['kosten_ruimte'] ?>"></div>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -36,7 +36,7 @@ use PortalCMS\Core\View\Text;
                                 <div class="input-group-text">
                                     <i class="fas fa-euro-sign"></i>
                                 </div>
-                                <input type="text" name="kosten_kast" class="form-control form-control-sm" value="<?php echo $contract['kosten_kast']; ?>">
+                                <input type="text" name="kosten_kast" class="form-control form-control-sm" value="<?= $contract['kosten_kast'] ?>">
                             </div>
                         </div>
                     </div>
@@ -47,7 +47,7 @@ use PortalCMS\Core\View\Text;
                                 <div class="input-group-text">
                                     <i class="fas fa-euro-sign"></i>
                                 </div>
-                                <input type="text" name="kosten_totaal" class="form-control form-control-sm" value="<?php echo $contract['kosten_totaal']; ?>" disabled>
+                                <input type="text" name="kosten_totaal" class="form-control form-control-sm" value="<?= $contract['kosten_totaal'] ?>" disabled>
                             </div>
                         </div>
                     </div>
@@ -58,7 +58,7 @@ use PortalCMS\Core\View\Text;
                                 <div class="input-group-text">
                                     <i class="fas fa-euro-sign"></i>
                                 </div>
-                                <input type="text" name="kosten_borg" class="form-control form-control-sm" value="<?php echo $contract['kosten_borg']; ?>">
+                                <input type="text" name="kosten_borg" class="form-control form-control-sm" value="<?= $contract['kosten_borg'] ?>">
                             </div>
                         </div>
                     </div>
@@ -74,7 +74,7 @@ use PortalCMS\Core\View\Text;
                                         <i class="fa fa-calendar"></i>
                                     </div>
                                 </div>
-                                <input type="text" name="contract_ingangsdatum" class="form-control form-control-sm  datetimepicker-input" data-target="#datetimepicker2" value="<?php echo $contract['contract_ingangsdatum']; ?>">
+                                <input type="text" name="contract_ingangsdatum" class="form-control form-control-sm  datetimepicker-input" data-target="#datetimepicker2" value="<?= $contract['contract_ingangsdatum'] ?>">
                             </div>
                         </div>
                     </div>
@@ -87,7 +87,7 @@ use PortalCMS\Core\View\Text;
                                         <i class="fa fa-calendar"></i>
                                     </div>
                                 </div>
-                                <input type="text" name="contract_einddatum" class="form-control form-control-sm  datetimepicker-input" data-target="#datetimepicker3" value="<?php echo $contract['contract_einddatum']; ?>">
+                                <input type="text" name="contract_einddatum" class="form-control form-control-sm  datetimepicker-input" data-target="#datetimepicker3" value="<?= $contract['contract_einddatum'] ?>">
                             </div>
                         </div>
                     </div>
@@ -100,7 +100,7 @@ use PortalCMS\Core\View\Text;
                                         <i class="fa fa-calendar"></i>
                                     </div>
                                 </div>
-                                <input type="text" name="contract_datum" class="form-control form-control-sm  datetimepicker-input" data-target="#datetimepicker4" value="<?php echo $contract['contract_datum']; ?>">
+                                <input type="text" name="contract_datum" class="form-control form-control-sm  datetimepicker-input" data-target="#datetimepicker4" value="<?= $contract['contract_datum'] ?>">
                             </div>
                         </div>
                     </div>
@@ -111,22 +111,22 @@ use PortalCMS\Core\View\Text;
                 <div class="row">
                     <div class="col-md-12">
                         <label class="col-form-label">Naam</label>
-                        <input type="text" name="bandleider_naam" class="form-control form-control-sm" value="<?php echo $contract['bandleider_naam']; ?>">
+                        <input type="text" name="bandleider_naam" class="form-control form-control-sm" value="<?= $contract['bandleider_naam'] ?>">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         <label class="col-form-label">Adres</label>
-                        <input type="text" name="bandleider_adres" class="form-control form-control-sm" placeholder="Voorbeeldadres 123" value="<?php echo $contract['bandleider_adres']; ?>">
+                        <input type="text" name="bandleider_adres" class="form-control form-control-sm" placeholder="Voorbeeldadres 123" value="<?= $contract['bandleider_adres'] ?>">
                     </div>
                     <div class="col-md-2">
                         <label class="col-form-label">Postcode</label>
-                        <input type="text" name="bandleider_postcode" class="form-control form-control-sm" maxlength="6" placeholder="1234AB" value="<?php echo $contract['bandleider_postcode']; ?>">
+                        <input type="text" name="bandleider_postcode" class="form-control form-control-sm" maxlength="6" placeholder="1234AB" value="<?= $contract['bandleider_postcode'] ?>">
                     </div>
 
                     <div class="col-md-4">
                         <label class="col-form-label">Woonplaats</label>
-                        <input type="text" name="bandleider_woonplaats" class="form-control form-control-sm" placeholder="Barendrecht" value="<?php echo $contract['bandleider_woonplaats']; ?>">
+                        <input type="text" name="bandleider_woonplaats" class="form-control form-control-sm" placeholder="Barendrecht" value="<?= $contract['bandleider_woonplaats'] ?>">
                     </div>
                 </div>
                 <div class="row">
@@ -139,7 +139,7 @@ use PortalCMS\Core\View\Text;
                                         <i class="fa fa-calendar"></i>
                                     </div>
                                 </div>
-                                <input type="text" name="bandleider_geboortedatum" class="form-control datetimepicker-input" data-target="#datetimepicker1" value="<?php echo $contract['bandleider_geboortedatum']; ?>">
+                                <input type="text" name="bandleider_geboortedatum" class="form-control datetimepicker-input" data-target="#datetimepicker1" value="<?= $contract['bandleider_geboortedatum'] ?>">
                             </div>
                         </div>
                     </div>
@@ -147,23 +147,23 @@ use PortalCMS\Core\View\Text;
                 <div class="row">
                     <div class="col-md-6">
                         <label class="col-form-label">Telefoonnummer 1</label>
-                        <input type="text" name="bandleider_telefoonnummer1" class="form-control form-control-sm" value="<?php echo $contract['bandleider_telefoonnummer1']; ?>">
+                        <input type="text" name="bandleider_telefoonnummer1" class="form-control form-control-sm" value="<?= $contract['bandleider_telefoonnummer1'] ?>">
                     </div>
                     <div class="col-md-6">
                         <label class="col-form-label">Telefoonnummer 2</label>
-                        <input type="text" name="bandleider_telefoonnummer2" class="form-control form-control-sm" value="<?php echo $contract['bandleider_telefoonnummer2']; ?>">
+                        <input type="text" name="bandleider_telefoonnummer2" class="form-control form-control-sm" value="<?= $contract['bandleider_telefoonnummer2'] ?>">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <label class="col-form-label">E-mail</label>
-                        <input type="text" name="bandleider_email" class="form-control form-control-sm" value="<?php echo $contract['bandleider_email']; ?>">
+                        <input type="text" name="bandleider_email" class="form-control form-control-sm" value="<?= $contract['bandleider_email'] ?>">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <label class="col-form-label">BSN</label>
-                        <input type="text" name="bandleider_bsn" class="form-control form-control-sm" value="<?php echo $contract['bandleider_bsn']; ?>">
+                        <input type="text" name="bandleider_bsn" class="form-control form-control-sm" value="<?= $contract['bandleider_bsn'] ?>">
                     </div>
                 </div>
             </div>
@@ -191,51 +191,51 @@ use PortalCMS\Core\View\Text;
             </div>
 
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label"><?php echo Text::get('DAY'); ?></label>
+                <label class="col-sm-2 col-form-label"><?= Text::get('DAY') ?></label>
                 <div class="col-sm-10">
                     <select name="huur_dag" class="form-control">
                         <option>Selecteer een dag....</option>
-                        <option value="<?php echo Text::get('DAY_01'); ?>" <?php
+                        <option value="<?= Text::get('DAY_01') ?>" <?php
                         if (Text::get('DAY_01') === $contract['huur_dag']) {
                             echo 'selected';
                         } ?>>
-                            <?php echo Text::get('DAY_01'); ?>
+                            <?= Text::get('DAY_01') ?>
                         </option>
-                        <option value="<?php echo Text::get('DAY_02'); ?>" <?php
+                        <option value="<?= Text::get('DAY_02') ?>" <?php
                         if (Text::get('DAY_02') === $contract['huur_dag']) {
                             echo 'selected';
                         } ?>>
-                            <?php echo Text::get('DAY_02'); ?>
+                            <?= Text::get('DAY_02') ?>
                         </option>
-                        <option value="<?php echo Text::get('DAY_03'); ?>" <?php
+                        <option value="<?= Text::get('DAY_03') ?>" <?php
                         if (Text::get('DAY_03') === $contract['huur_dag']) {
                             echo 'selected';
                         } ?>>
-                            <?php echo Text::get('DAY_03'); ?>
+                            <?= Text::get('DAY_03') ?>
                         </option>
-                        <option value="<?php echo Text::get('DAY_04'); ?>" <?php
+                        <option value="<?= Text::get('DAY_04') ?>" <?php
                         if (Text::get('DAY_04') === $contract['huur_dag']) {
                             echo 'selected';
                         } ?>>
-                            <?php echo Text::get('DAY_04'); ?>
+                            <?= Text::get('DAY_04') ?>
                         </option>
-                        <option value="<?php echo Text::get('DAY_05'); ?>" <?php
+                        <option value="<?= Text::get('DAY_05') ?>" <?php
                         if (Text::get('DAY_05') === $contract['huur_dag']) {
                             echo 'selected';
                         } ?>>
-                            <?php echo Text::get('DAY_05'); ?>
+                            <?= Text::get('DAY_05') ?>
                         </option>
-                        <option value="<?php echo Text::get('DAY_06'); ?>" <?php
+                        <option value="<?= Text::get('DAY_06') ?>" <?php
                         if (Text::get('DAY_06') === $contract['huur_dag']) {
                             echo 'selected';
                         } ?>>
-                            <?php echo Text::get('DAY_06'); ?>
+                            <?= Text::get('DAY_06') ?>
                         </option>
-                        <option value="<?php echo Text::get('DAY_07'); ?>" <?php
+                        <option value="<?= Text::get('DAY_07') ?>" <?php
                         if (Text::get('DAY_07') === $contract['huur_dag']) {
                             echo 'selected';
                         } ?>>
-                            <?php echo Text::get('DAY_07'); ?>
+                            <?= Text::get('DAY_07') ?>
                         </option>
                     </select>
                 </div>
@@ -244,23 +244,23 @@ use PortalCMS\Core\View\Text;
             <div class="form-group row">
                 <div class="col-md-6">
                     <label class="col-form-label">huur_start</label>
-                    <input type="text" name="huur_start" class="form-control form-control-sm" value="<?php echo $contract['huur_start']; ?>">
+                    <input type="text" name="huur_start" class="form-control form-control-sm" value="<?= $contract['huur_start'] ?>">
                 </div>
                 <div class="col-md-6">
                     <label class="col-form-label">huur_eind</label>
-                    <input type="text" name="huur_einde" class="form-control form-control-sm" value="<?php echo $contract['huur_einde']; ?>">
+                    <input type="text" name="huur_einde" class="form-control form-control-sm" value="<?= $contract['huur_einde'] ?>">
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-md-12">
                     <label class="col-form-label">huur_kast_nr</label>
-                    <input type="text" name="huur_kast_nr" class="form-control form-control-sm" value="<?php echo $contract['huur_kast_nr']; ?>">
+                    <input type="text" name="huur_kast_nr" class="form-control form-control-sm" value="<?= $contract['huur_kast_nr'] ?>">
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-md-4">
                     <label class="col-form-label">beuk_vertegenwoordiger</label>
-                    <input type="text" name="beuk_vertegenwoordiger" class="form-control form-control-sm" value="<?php echo $contract['beuk_vertegenwoordiger']; ?>">
+                    <input type="text" name="beuk_vertegenwoordiger" class="form-control form-control-sm" value="<?= $contract['beuk_vertegenwoordiger'] ?>">
                 </div>
             </div>
         </div>
@@ -273,7 +273,7 @@ use PortalCMS\Core\View\Text;
             <div class="form-group row">
                 <div class="col-md-6">
                     <label class="col-form-label">&#xA0;</label>
-                    <input type="hidden" name="id" value="<?php echo $contract['id']; ?>">
+                    <input type="hidden" name="id" value="<?= $contract['id'] ?>">
                     <input type="submit" name="updateContract" class="btn btn-sm btn-primary" value="Opslaan">
                     <!-- echo 'newContract'; -->
                     <a href="contracten.php" class="btn btn-sm btn-danger">Annuleren</a>

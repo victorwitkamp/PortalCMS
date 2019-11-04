@@ -36,7 +36,7 @@ if (MailScheduleMapper::exists($id)) {
     <div class="content">
         <div class="container">
             <div class="row mt-5">
-                <h1><?php echo $pageName; ?></h1>
+                <h1><?= $pageName ?></h1>
             </div>
             <?php Alert::renderFeedbackMessages(); ?>
         </div>
@@ -45,11 +45,11 @@ if (MailScheduleMapper::exists($id)) {
             <div class="col-8">
                 <table class="table table-striped table-condensed">
                     <tr>
-                        <th><?php echo Text::get('LABEL_MAILDETAILS_ID'); ?></th><td><?php echo $row['id']; ?></td>
+                        <th><?= Text::get('LABEL_MAILDETAILS_ID') ?></th><td><?= $row['id'] ?></td>
                     </tr>
 
                     <tr>
-                        <th><?php echo Text::get('LABEL_MAILDETAILS_RECIPIENT_TO'); ?></th>
+                        <th><?= Text::get('LABEL_MAILDETAILS_RECIPIENT_TO') ?></th>
                         <td>
                             <?php
                             $EmailRecipientMapper = new EmailRecipientMapper();
@@ -67,7 +67,7 @@ if (MailScheduleMapper::exists($id)) {
                         </td>
                     </tr>
                     <tr>
-                        <th><?php echo Text::get('LABEL_MAILDETAILS_RECIPIENT_CC'); ?></th>
+                        <th><?= Text::get('LABEL_MAILDETAILS_RECIPIENT_CC') ?></th>
                         <td>
                             <?php
                             $ccrecipients = EmailRecipientMapper::getCC($row['id']);
@@ -84,7 +84,7 @@ if (MailScheduleMapper::exists($id)) {
                         </td>
                     </tr>
                     <tr>
-                        <th><?php echo Text::get('LABEL_MAILDETAILS_RECIPIENT_BCC'); ?></th>
+                        <th><?= Text::get('LABEL_MAILDETAILS_RECIPIENT_BCC') ?></th>
                         <td>
                             <?php
                             $bccrecipients = EmailRecipientMapper::getBCC($row['id']);
@@ -103,13 +103,13 @@ if (MailScheduleMapper::exists($id)) {
                         </td>
                     </tr>
                     <tr>
-                        <th><?php echo Text::get('LABEL_MAILDETAILS_SUBJECT'); ?></th><td><?php echo $row['subject']; ?></td>
+                        <th><?= Text::get('LABEL_MAILDETAILS_SUBJECT') ?></th><td><?= $row['subject'] ?></td>
                     </tr>
                     <tr>
-                        <th><?php echo Text::get('LABEL_MAILDETAILS_BODY'); ?></th><td><?php echo $row['body']; ?></td>
+                        <th><?= Text::get('LABEL_MAILDETAILS_BODY') ?></th><td><?= $row['body'] ?></td>
                     </tr>
                     <tr>
-                        <th><?php echo Text::get('LABEL_MAILDETAILS_ATTACHMENTS'); ?></th>
+                        <th><?= Text::get('LABEL_MAILDETAILS_ATTACHMENTS') ?></th>
                         <td><?php
                             $attachments = EmailAttachmentMapper::getByMailId($row['id']);
                             if (!empty($attachments)) {
@@ -124,32 +124,32 @@ if (MailScheduleMapper::exists($id)) {
                             ?></td>
                     </tr>
                     <tr>
-                        <th><?php echo Text::get('LABEL_MAILDETAILS_MEMBER_ID'); ?></th><td><?php echo $row['member_id']; ?></td>
+                        <th><?= Text::get('LABEL_MAILDETAILS_MEMBER_ID') ?></th><td><?= $row['member_id'] ?></td>
                     </tr>
                     <tr>
-                        <th><?php echo Text::get('LABEL_MAILDETAILS_USER_ID'); ?></th><td><?php echo $row['user_id']; ?></td>
+                        <th><?= Text::get('LABEL_MAILDETAILS_USER_ID') ?></th><td><?= $row['user_id'] ?></td>
                     </tr>
                 </table>
             </div>
             <div class="col-4">
                 <table class="table table-striped table-condensed">
                     <tr>
-                        <th><?php echo Text::get('LABEL_MAILDETAILS_SENDER'); ?></th><td><?php echo $row['sender_email']; ?></td>
+                        <th><?= Text::get('LABEL_MAILDETAILS_SENDER') ?></th><td><?= $row['sender_email'] ?></td>
                     </tr>
                     <tr>
-                        <th><?php echo Text::get('LABEL_MAILDETAILS_DATE_SENT'); ?></th><td><?php echo $row['DateSent']; ?></td>
+                        <th><?= Text::get('LABEL_MAILDETAILS_DATE_SENT') ?></th><td><?= $row['DateSent'] ?></td>
                     </tr>
                     <tr>
-                        <th><?php echo Text::get('LABEL_MAILDETAILS_STATUS'); ?></th><td><?php echo $row['status']; ?></td>
+                        <th><?= Text::get('LABEL_MAILDETAILS_STATUS') ?></th><td><?= $row['status'] ?></td>
                     </tr>
                     <tr>
-                        <th><?php echo Text::get('LABEL_MAILDETAILS_ERROR'); ?></th><td><?php echo $row['errormessage']; ?></td>
+                        <th><?= Text::get('LABEL_MAILDETAILS_ERROR') ?></th><td><?= $row['errormessage'] ?></td>
                     </tr>
                     <tr>
-                        <th><?php echo Text::get('LABEL_MAILDETAILS_DATE_CREATION'); ?></th><td><?php echo $row['CreationDate']; ?></td>
+                        <th><?= Text::get('LABEL_MAILDETAILS_DATE_CREATION') ?></th><td><?= $row['CreationDate'] ?></td>
                     </tr>
                     <tr>
-                        <th><?php echo Text::get('LABEL_MAILDETAILS_DATE_MODIFICATION'); ?></th><td><?php echo $row['ModificationDate']; ?></td>
+                        <th><?= Text::get('LABEL_MAILDETAILS_DATE_MODIFICATION') ?></th><td><?= $row['ModificationDate'] ?></td>
                     </tr>
                 </table>
             </div>

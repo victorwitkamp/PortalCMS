@@ -7,7 +7,7 @@ use PortalCMS\Core\Session\Session;
 
 class InvoiceItemModel
 {
-    public static function create($invoiceId, $name, $price)
+    public static function create($invoiceId, $name, $price): bool
     {
         if (!InvoiceItemMapper::create($invoiceId, $name, $price)) {
             Session::add('feedback_negative', 'Toevoegen van factuuritem mislukt.');
@@ -17,7 +17,7 @@ class InvoiceItemModel
         return true;
     }
 
-    public static function delete(int $id)
+    public static function delete(int $id): bool
     {
         if (!InvoiceItemMapper::exists($id)) {
             Session::add('feedback_negative', 'Kan factuuritem niet verwijderen. Factuuritem bestaat niet.');

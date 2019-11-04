@@ -15,21 +15,21 @@ $row = CalendarEventMapper::getById($_GET['id']);
 <div class="row">
     <!-- <div class="col-sm-6"><strong>ID:</strong></div> -->
     <!-- <div class="col-sm-6"><p><?php //echo $row->id;?></p></div> -->
-    <div class="col-sm-6"><strong><?php echo Text::get('LABEL_EVENT_TITLE'); ?>:</strong></div>
-    <div class="col-sm-6"><p><?php echo $row->title; ?></p></div>
-    <div class="col-sm-6"><strong><?php echo Text::get('LABEL_EVENT_ADDED_BY'); ?>:</strong></div>
+    <div class="col-sm-6"><strong><?= Text::get('LABEL_EVENT_TITLE') ?>:</strong></div>
+    <div class="col-sm-6"><p><?= $row->title ?></p></div>
+    <div class="col-sm-6"><strong><?= Text::get('LABEL_EVENT_ADDED_BY') ?>:</strong></div>
     <div class="col-sm-6"><p><?php
     $User = UserPDOReader::getProfileById($row->CreatedBy);
     echo $User->user_name; ?></p></div>
 
-    <div class="col-sm-6"><strong><?php echo Text::get('LABEL_EVENT_START'); ?>:</strong></div>
-    <div class="col-sm-6"><p><?php echo $row->start_event; ?></p></div>
-    <div class="col-sm-6"><strong><?php echo Text::get('LABEL_EVENT_END'); ?>:</strong></div>
-    <div class="col-sm-6"><p><?php echo $row->end_event; ?></p></div>
-    <div class="col-sm-6"><strong><?php echo Text::get('LABEL_EVENT_DESC'); ?>:</strong></div>
-    <div class="col-sm-6"><p><?php echo $row->description; ?></p></div>
-    <div class="col-sm-6"><strong><?php echo Text::get('LABEL_EVENT_STATUS'); ?>:</strong></div>
-    <div class="col-sm-6"><p><?php echo $row->status; ?></p></div>
+    <div class="col-sm-6"><strong><?= Text::get('LABEL_EVENT_START') ?>:</strong></div>
+    <div class="col-sm-6"><p><?= $row->start_event ?></p></div>
+    <div class="col-sm-6"><strong><?= Text::get('LABEL_EVENT_END') ?>:</strong></div>
+    <div class="col-sm-6"><p><?= $row->end_event ?></p></div>
+    <div class="col-sm-6"><strong><?= Text::get('LABEL_EVENT_DESC') ?>:</strong></div>
+    <div class="col-sm-6"><p><?= $row->description ?></p></div>
+    <div class="col-sm-6"><strong><?= Text::get('LABEL_EVENT_STATUS') ?>:</strong></div>
+    <div class="col-sm-6"><p><?= $row->status ?></p></div>
 
             <!-- <div class="form-group"> -->
 

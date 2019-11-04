@@ -43,7 +43,7 @@ class Role
      *
      * @return bool
      */
-    public static function create($role_name)
+    public static function create($role_name): bool
     {
         $stmt = DB::conn()->prepare(
             'INSERT INTO roles
@@ -63,7 +63,7 @@ class Role
      *
      * @return bool
      */
-    public static function delete($role_id)
+    public static function delete($role_id): bool
     {
         $stmt = DB::conn()->prepare(
             'DELETE FROM roles

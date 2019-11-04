@@ -11,7 +11,7 @@ use PortalCMS\Core\Database\DB;
  */
 class Activity
 {
-    public static function load()
+    public static function load(): array
     {
         return DB::conn()->query('SELECT * FROM activity ORDER BY id desc LIMIT 50')->fetchAll();
     }

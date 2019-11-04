@@ -15,7 +15,8 @@ class EmailRecipient
         $this->email = $email;
     }
 
-    public function get() {
+    public function get(): EmailRecipient
+    {
         return $this;
     }
 }

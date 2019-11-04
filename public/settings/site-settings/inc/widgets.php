@@ -7,11 +7,11 @@ use PortalCMS\Core\View\Text;
 use PortalCMS\Core\Config\SiteSetting;
 
 ?>
-<h3><?php echo Text::get('LABEL_SITE_WIDGETS'); ?></h3>
+<h3><?= Text::get('LABEL_SITE_WIDGETS') ?></h3>
 
 <div class="form-group row">
 
-    <label class="col-4 col-form-label"><?php echo Text::get('TITLE_WIDGET_COMING_EVENTS'); ?></label>
+    <label class="col-4 col-form-label"><?= Text::get('TITLE_WIDGET_COMING_EVENTS') ?></label>
     <div class="col-8">
         <div class="input-group">
             <select class="form-control" name="WidgetComingEvents">
@@ -28,7 +28,7 @@ use PortalCMS\Core\Config\SiteSetting;
         </div>
     </div>
 
-    <label class="col-4 col-form-label"><?php echo Text::get('TITLE_WIDGET_DEBUG'); ?></label>
+    <label class="col-4 col-form-label"><?= Text::get('TITLE_WIDGET_DEBUG') ?></label>
     <div class="col-8">
         <div class="input-group">
             <select class="form-control" name="WidgetDebug">

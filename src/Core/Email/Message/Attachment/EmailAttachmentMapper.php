@@ -19,7 +19,7 @@ class EmailAttachmentMapper
      *
      * @return bool
      */
-    public static function create(int $mailId, string $path, string $name, string $extension, string $encoding = 'base64', string $type = 'application/octet-stream')
+    public static function create(int $mailId, string $path, string $name, string $extension, string $encoding = 'base64', string $type = 'application/octet-stream'): bool
     {
         $stmt = DB::conn()->prepare(
             'INSERT INTO mail_attachments(id, mail_id, template_id, path, name, extension, encoding, type)
@@ -40,7 +40,7 @@ class EmailAttachmentMapper
      *
      * @return bool
      */
-    public static function createForTemplate(int $templateId, EmailAttachment $attachment)
+    public static function createForTemplate(int $templateId, EmailAttachment $attachment): bool
     {
         $stmt = DB::conn()->prepare(
             'INSERT INTO mail_attachments(id, mail_id, template_id, path, name, extension, encoding, type)
@@ -57,7 +57,7 @@ class EmailAttachmentMapper
      * @param $mailId
      * @return array|bool
      */
-    public static function getByMailId($mailId)
+    public static function getByMailId(int $mailId)
     {
         $stmt = DB::conn()->prepare('SELECT * FROM mail_attachments where mail_id = ?');
         $stmt->execute([$mailId]);
@@ -71,7 +71,7 @@ class EmailAttachmentMapper
      * @param $templateId
      * @return array|bool
      */
-    public static function getByTemplateId($templateId)
+    public static function getByTemplateId(int $templateId)
     {
         $stmt = DB::conn()->prepare('SELECT * FROM mail_attachments where template_id = ?');
         $stmt->execute([$templateId]);
@@ -85,7 +85,7 @@ class EmailAttachmentMapper
      * @param $id
      * @return bool
      */
-    public static function deleteById($id)
+    public static function deleteById(int $id): bool
     {
         $stmt = DB::conn()->prepare('DELETE FROM mail_attachments WHERE id = ? LIMIT 1');
         $stmt->execute([$id]);
@@ -96,7 +96,7 @@ class EmailAttachmentMapper
      * @param $id
      * @return bool
      */
-    public static function deleteByMailId($id)
+    public static function deleteByMailId(int $id): bool
     {
         $stmt = DB::conn()->prepare('DELETE FROM mail_attachments WHERE mail_id = ? LIMIT 1');
         $stmt->execute([$id]);

@@ -23,10 +23,10 @@ PortalCMS_JS_calendar(); ?>
         <div class="container">
             <div class="row mt-5">
                 <div class="col-sm-8">
-                    <h1><?php echo $pageName ?></h1>
+                    <h1><?= $pageName ?></h1>
                 </div>
                 <div class="col-sm-4">
-                    <a href="add.php" class="btn btn-info float-right"><span class="fa fa-plus"></span> <?php echo Text::get('LABEL_ADD'); ?></a>
+                    <a href="add.php" class="btn btn-info float-right"><span class="fa fa-plus"></span> <?= Text::get('LABEL_ADD') ?></a>
                 </div>
             </div>
         </div>
@@ -51,19 +51,19 @@ PortalCMS_JS_calendar(); ?>
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 id="modalTitle" class="modal-title"><?php echo Text::get('LABEL_EVENT_DETAILS'); ?></h4>
+                <h4 id="modalTitle" class="modal-title"><?= Text::get('LABEL_EVENT_DETAILS') ?></h4>
                 <button type="button" class="close" data-dismiss="modal">
                     <span aria-hidden="true">×</span>
-                    <span class="sr-only"><?php echo Text::get('CLOSE'); ?></span>
+                    <span class="sr-only"><?= Text::get('CLOSE') ?></span>
                 </button>
             </div>
             <div id="modalBody" class="modal-body"></div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo Text::get('LABEL_CLOSE'); ?></button>
-                <a class="btn btn-primary" id="eventUrl" role="button"><i class="far fa-edit"></i> <?php echo Text::get('LABEL_EDIT'); ?></a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"><?= Text::get('LABEL_CLOSE') ?></button>
+                <a class="btn btn-primary" id="eventUrl" role="button"><i class="far fa-edit"></i> <?= Text::get('LABEL_EDIT') ?></a>
                 <form method="post">
                     <input name="id" type="hidden" id="deleteUrl" value="">
-                    <button name="deleteEvent" type="submit" class="btn btn-danger" ><i class="far fa-trash-alt"></i> <?php echo Text::get('LABEL_DELETE'); ?></button>
+                    <button name="deleteEvent" type="submit" class="btn btn-danger" ><i class="far fa-trash-alt"></i> <?= Text::get('LABEL_DELETE') ?></button>
                 </form>
             </div>
         </div>

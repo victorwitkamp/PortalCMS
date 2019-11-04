@@ -24,7 +24,7 @@ PortalCMS_JS_headJS(); ?>
     <div class="content">
         <div class="container">
             <div class="row mt-5">
-                <h1><?php echo $pageName ?></h1>
+                <h1><?= $pageName ?></h1>
             </div>
             <hr>
             <?php Alert::renderFeedbackMessages(); ?>

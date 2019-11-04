@@ -31,22 +31,22 @@ if (!$Role) {
         <div class="content">
             <div class="container">
                 <div class="row mt-5">
-                    <h1><?php echo Text::get('TITLE_ROLE'); ?>: <?php echo $Role['role_name']; ?> (rol)</h1>
+                    <h1><?= Text::get('TITLE_ROLE') ?>: <?= $Role['role_name'] ?> (rol)</h1>
                 </div>
                 <?php Alert::renderFeedbackMessages();
                 if ($Role) { ?>
-                    <h3><?php echo Text::get('LABEL_ROLE_GENERAL'); ?></h3>
+                    <h3><?= Text::get('LABEL_ROLE_GENERAL') ?></h3>
                     <table class="table table-striped table-condensed">
                         <!-- <thead class="thead-dark"> -->
                         <tbody>
                         <tr>
                             <th>ID</th>
-                            <td><?php echo $Role['role_id']; ?></td>
+                            <td><?= $Role['role_id'] ?></td>
                         </tr>
                             <th>Naam</th>
-                            <td><?php echo $Role['role_name']; ?></td>
+                            <td><?= $Role['role_name'] ?></td>
                         </tr>
-                            <th><?php echo Text::get('LABEL_ROLE_PERMISSIONS'); ?></th>
+                            <th><?= Text::get('LABEL_ROLE_PERMISSIONS') ?></th>
                             <td>
                                 <?php
                                 $ActivePerissions = RolePermissionMapper::getRolePermissions($_GET['role_id']);
@@ -63,15 +63,15 @@ if (!$Role) {
                                         <?php
                                         foreach ($ActivePerissions as $Permission) { ?>
                                             <tr>
-                                                <td><?php echo $Permission['perm_id']; ?></td>
-                                                <td><?php echo $Permission['perm_desc']; ?></td>
+                                                <td><?= $Permission['perm_id'] ?></td>
+                                                <td><?= $Permission['perm_desc'] ?></td>
                                                 <td>
                                                     <form method="post">
-                                                        <input type="hidden" name="role_id" value="<?php echo $_GET['role_id']; ?>">
-                                                        <input type="hidden" name="perm_id" value="<?php echo $Permission['perm_id']; ?>">
+                                                        <input type="hidden" name="role_id" value="<?= $_GET['role_id'] ?>">
+                                                        <input type="hidden" name="perm_id" value="<?= $Permission['perm_id'] ?>">
                                                         <?php
                                                         $msg = 'Weet u zeker dat u ' . $Permission['perm_desc'] . ' wilt verwijderen?'; ?>
-                                                        <button type="submit" name="deleterolepermission" onclick="return confirm('<?php echo $msg; ?>')" class="btn btn-danger ml-2"><span class="fa fa-trash"></span></button>
+                                                        <button type="submit" name="deleterolepermission" onclick="return confirm('<?= $msg ?>')" class="btn btn-danger ml-2"><span class="fa fa-trash"></span></button>
                                                     </form>
                                                 </td>
                                             </tr>
@@ -88,7 +88,7 @@ if (!$Role) {
                 <?php }
 
                 if ($Role) { ?>
-                    <h3><?php echo Text::get('LABEL_ROLE_ADD_PERMISSION'); ?></h3>
+                    <h3><?= Text::get('LABEL_ROLE_ADD_PERMISSION') ?></h3>
                     <p>Een rol kan meerdere permissies hebben. Kies hieronder
                     een gewenste permissie om toe te voegen aan de rol.<p>
                     <?php
@@ -96,12 +96,12 @@ if (!$Role) {
                     if ($selectablePermissions) {
                         ?>
                         <form method="post">
-                            <input type="hidden" name="role_id" value="<?php echo $_GET['role_id']; ?>">
+                            <input type="hidden" name="role_id" value="<?= $_GET['role_id'] ?>">
                             <label class="control-label">Permission</label>
                             <select name='perm_id'>
                                 <?php
                                 foreach ($selectablePermissions as $selectablePermission) { ?>
-                                    <option value="<?php echo $selectablePermission['perm_id']; ?>"><?php echo $selectablePermission['perm_id'] . '. ' . $selectablePermission['perm_desc']; ?>
+                                    <option value="<?= $selectablePermission['perm_id'] ?>"><?= $selectablePermission['perm_id'] . '. ' . $selectablePermission['perm_desc'] ?>
                                     </option>
                                 <?php } ?>
                             </select>

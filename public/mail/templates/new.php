@@ -29,7 +29,7 @@ plugins : 'advlist autolink link image lists charmap print preview'
     <div class="content">
         <div class="container">
             <div class="row mt-5">
-                <div class="col-sm-8"><h1><?php echo $pageName ?></h1></div>
+                <div class="col-sm-8"><h1><?= $pageName ?></h1></div>
                 <div class="col-sm-4">
                     <!-- <a href="#" class="btn btn-info float-right"><span class="fa fa-plus"></span> Nieuwe template</a> -->
                 </div>

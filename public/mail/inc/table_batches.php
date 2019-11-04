@@ -24,20 +24,20 @@ use PortalCMS\Core\View\Text;
             foreach ($batches as $row) {  ?>
                 <tr>
                     <td class="text-center">
-                        <input type="checkbox" name="id[]" id="checkbox" value="<?php echo $row['id']; ?>"/>
+                        <input type="checkbox" name="id[]" id="checkbox" value="<?= $row['id'] ?>"/>
                     </td>
                     <td>
-                        <?php echo $row['id']; ?>
+                        <?= $row['id'] ?>
                     </td>
                     <td>
-                        <a href="messages.php?batch_id=<?php echo $row['id']; ?>"><?php echo MailBatch::countMessages($row['id']); ?></a>
+                        <a href="messages.php?batch_id=<?= $row['id'] ?>"><?= MailBatch::countMessages($row['id']) ?></a>
                     </td>
                     <td>
-                        <?php echo $row['UsedTemplate']; ?>
+                        <?= $row['UsedTemplate'] ?>
                     </td>
                     <?php if ($pageType === 'history') { ?>
                     <td>
-                        <?php echo $row['DateSent']; ?>
+                        <?= $row['DateSent'] ?>
                     </td>
                     <?php } ?>
                     <td>
@@ -50,10 +50,10 @@ use PortalCMS\Core\View\Text;
                         <?php } ?>
                     </td>
                     <td>
-                        <?php echo $row['CreationDate']; ?>
+                        <?= $row['CreationDate'] ?>
                     </td>
                     <td>
-                        <a href="messages.php?batch_id=<?php echo $row['id']; ?>" title="Details" class="btn btn-success btn-sm"><i class="fas fa-info"></i></a>
+                        <a href="messages.php?batch_id=<?= $row['id'] ?>" title="Details" class="btn btn-success btn-sm"><i class="fas fa-info"></i></a>
                     </td>
                 </tr>
             <?php } ?>
@@ -62,9 +62,9 @@ use PortalCMS\Core\View\Text;
     <hr>
     <?php
     if ($pageType === 'index') { ?>
-    <input type="submit" class="btn btn-primary" name="sendBatchById" value="<?php echo Text::get('LABEL_SEND_EMAIL'); ?>"><?php
+    <input type="submit" class="btn btn-primary" name="sendBatchById" value="<?= Text::get('LABEL_SEND_EMAIL') ?>"><?php
     } ?>
-    <input type="submit" class="btn btn-danger" name="deleteBatchById" value="<?php echo Text::get('LABEL_DELETE_EMAIL'); ?>">
+    <input type="submit" class="btn btn-danger" name="deleteBatchById" value="<?= Text::get('LABEL_DELETE_EMAIL') ?>">
 </form>
 <script>
     $("#selectall").on('change', function() {
