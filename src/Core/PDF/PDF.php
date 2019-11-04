@@ -164,7 +164,7 @@ class PDF
     {
         $pdf = self::configPDF();
         $pdf = self::createInvoice($pdf, $invoice, $invoiceitems, $contract);
-        // ob_end_clean();
+        ob_end_clean();
         $pdf->Output($invoice['factuurnummer'] . '.pdf', 'I');
     }
 

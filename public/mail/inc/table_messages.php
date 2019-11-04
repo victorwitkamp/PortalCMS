@@ -48,13 +48,13 @@ use PortalCMS\Core\Email\Recipient\EmailRecipientCollectionCreator;
                     <?php } ?>
                     <td>
                         <?php
-                        if ($row['status'] === '1') { ?>
+                        if ($row['status'] === 1) { ?>
                         <span class="badge badge-secondary">Klaar voor verzending</span>
                         <?php }
-                        if ($row['status'] === '2') { ?>
+                        if ($row['status'] === 2) { ?>
                         <span class="badge badge-success">Verzonden</span>
                         <?php }
-                        if ($row['status'] === '3') { ?>
+                        if ($row['status'] === 3) { ?>
                         <span class="badge badge-danger">Fout bij verzenden</span>
                         <?php } ?>
                     </td>

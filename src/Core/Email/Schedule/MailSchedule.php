@@ -41,7 +41,7 @@ class MailSchedule
 
     public static function isSent($mailId): bool
     {
-        return MailScheduleMapper::getStatusById($mailId) !== '1';
+        return MailScheduleMapper::getStatusById($mailId) !== 1;
     }
 
     public static function sendMailsById($mailIds)
@@ -53,8 +53,8 @@ class MailSchedule
             return false;
         } else {
             foreach ($mailIds as $mailId) {
-                if (!self::isSent($mailId)) {
-                    if (self::sendSingleMailHandler($mailId)) {
+                if (!self::isSent((int) $mailId)) {
+                    if (self::sendSingleMailHandler((int) $mailId)) {
                         ++$success;
                     } else {
                         ++$failed;
@@ -96,12 +96,12 @@ class MailSchedule
         $recipients = $creator->createCollection($mailId);
         $attachments = EmailAttachmentMapper::getByMailId($mailId);
         if (empty($recipients)) {
-            MailScheduleMapper::updateStatus($mailId, '3');
+            MailScheduleMapper::updateStatus($mailId, 3);
             MailScheduleMapper::setErrorMessageById($mailId, 'No recipient(s) were specified.');
             return false;
         }
         if (empty($scheduledMail['subject']) || empty($scheduledMail['body'])) {
-            MailScheduleMapper::updateStatus($mailId, '3');
+            MailScheduleMapper::updateStatus($mailId, 3);
             MailScheduleMapper::setErrorMessageById($mailId, 'Subject or body is empty.');
             return false;
         }
@@ -114,12 +114,12 @@ class MailSchedule
         $SMTPConfiguration = new SMTPConfiguration();
         $SMTPTransport = new SMTPTransport($SMTPConfiguration);
         if ($SMTPTransport->sendMail($EmailMessage)) {
-            MailScheduleMapper::updateStatus($mailId, '2');
+            MailScheduleMapper::updateStatus($mailId, 2);
             MailScheduleMapper::updateDateSent($mailId);
             MailScheduleMapper::updateSender($mailId, $SMTPConfiguration->fromName, $SMTPConfiguration->fromEmail);
             return true;
         } else {
-            MailScheduleMapper::updateStatus($mailId, '3');
+            MailScheduleMapper::updateStatus($mailId, 3);
             MailScheduleMapper::setErrorMessageById($mailId, $SMTPTransport->getError());
             return false;
         }

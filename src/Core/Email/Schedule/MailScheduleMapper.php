@@ -90,7 +90,7 @@ class MailScheduleMapper
         return DB::conn()->query('SELECT max(id) from mail_schedule')->fetchColumn();
     }
 
-    public static function updateStatus($id, $status): bool
+    public static function updateStatus(int $id, int $status): bool
     {
         $stmt = DB::conn()->prepare('UPDATE mail_schedule SET status =? where id=?');
         $stmt->execute([$status, $id]);
