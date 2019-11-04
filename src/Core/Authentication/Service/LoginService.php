@@ -202,11 +202,7 @@ class LoginService
      * The real login process: The user's data is written into the session.
      * Cheesy name, maybe rename. Also maybe refactoring this, using an array.
      *
-     * @param $user_id
-     * @param $user_name
-     * @param $user_email
-     * @param $user_account_type
-     * @param $user_fbid
+     * @param $user
      */
     public static function setSuccessfulLoginIntoSession($user)
     {

@@ -38,7 +38,7 @@ use PortalCMS\Modules\Invoices\InvoiceModel;
             <td>
                 <?php
                 if (!empty($invoice['contract_id'])) {
-                    $contract = ContractMapper::getById($invoice['contract_id'])
+                    $contract = ContractMapper::getById($invoice['contract_id']);
                     if ($contract) {
                         echo $contract['band_naam'];
                     } else {
