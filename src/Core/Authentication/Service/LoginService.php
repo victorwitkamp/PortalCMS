@@ -70,7 +70,7 @@ class LoginService
     {
         if (substr_count($cookie, ':') + 1 === 3) {
             [$user_id, $token, $hash] = explode(':', $cookie);
-            (int) $user_id = Encryption::decrypt($user_id);
+            $user_id = (int) Encryption::decrypt($user_id);
             if (!empty($token) && !empty($user_id) && $hash === hash('sha256', $user_id . ':' . $token)) {
                 $user = UserPDOReader::getByIdAndToken($user_id, $token);
                 return $user;
@@ -80,7 +80,7 @@ class LoginService
         return null;
     }
 
-    public static function loginWithFacebook($fbid) : bool
+    public static function loginWithFacebook(int $fbid) : bool
     {
         if (!empty($fbid)) {
             $result = UserPDOReader::getByFbid($fbid);

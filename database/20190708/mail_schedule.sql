@@ -1,1 +1,1 @@
-ALTER TABLE mail_schedule ADD batch_id INT DEFAULT NULL AFTER mail_id
+ALTER TABLE mail_schedule ADD batch_id INT DEFAULT NULL AFTER id

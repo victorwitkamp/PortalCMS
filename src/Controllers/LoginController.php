@@ -99,7 +99,7 @@ class LoginController extends Controller
      * Login with Facebook
      * @param $fbid
      */
-    public static function loginWithFacebook($fbid)
+    public static function loginWithFacebook(int $fbid)
     {
         if (LoginService::loginWithFacebook($fbid)) {
             // if (Request::post('redirect')) {

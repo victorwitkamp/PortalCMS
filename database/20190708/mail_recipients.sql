@@ -7,13 +7,3 @@ CREATE TABLE IF NOT EXISTS mail_recipients (
   CreationDate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   ModificationDate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-
-CREATE TABLE IF NOT EXISTS mail_recipient_types (
-  id INT(1) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  name VARCHAR(64) DEFAULT NULL,
-  CreationDate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  ModificationDate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-INSERT INTO mail_recipient_types (id, name) VALUES (1, 'recipient');
-INSERT INTO mail_recipient_types (id, name) VALUES (2, 'cc');
-INSERT INTO mail_recipient_types (id, name) VALUES (3, 'bcc');

@@ -59,7 +59,7 @@ class Cookie
         }
         if (setcookie(
             'remember_me',
-            false,
+            '',
             time() - (3600 * 24 * 3650),
             Config::get('COOKIE_PATH'),
             Config::get('COOKIE_DOMAIN'),

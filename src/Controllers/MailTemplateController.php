@@ -38,7 +38,7 @@ class MailTemplateController extends Controller
         if (isset($_POST['uploadAttachment'])) {
             Authentication::checkAuthentication();
             $attachment = new EmailAttachment($_FILES['attachment_file']);
-            $attachment->store(null, Request::get('id'));
+            $attachment->store(null, (int) Request::get('id'));
             Redirect::to('mail/templates/edit.php?id=' . Request::get('id'));
         }
         if (isset($_POST['deleteMailTemplateAttachments'])) {
