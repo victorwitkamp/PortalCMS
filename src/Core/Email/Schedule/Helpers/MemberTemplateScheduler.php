@@ -26,7 +26,7 @@ class MemberTemplateScheduler
         }
         $batchId = MailBatch::lastInsertedId();
         foreach ($recipientIds as $memberId) {
-            if ($this->processSingleMail($memberId, $batchId, $template)) {
+            if ($this->processSingleMail((int) $memberId, $batchId, $template)) {
                 ++$success;
             } else {
                 ++$failed;
@@ -45,7 +45,7 @@ class MemberTemplateScheduler
         }
     }
 
-    public function processSingleMail($memberId, $batchId, $template)
+    public function processSingleMail(int $memberId, int $batchId, $template)
     {
         $member = MemberModel::getMemberById($memberId);
         $return = MailScheduleMapper::create($batchId, $memberId, $template['subject'], self::replaceholdersMember($memberId, $template['body']));
