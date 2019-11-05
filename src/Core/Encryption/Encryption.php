@@ -83,7 +83,7 @@ class Encryption
      * @return string
      * @throws Exception If $ciphertext is empty, or If functions don't exists
      */
-    public static function decrypt(string $ciphertext): string
+    public static function decrypt(string $ciphertext): ?string
     {
         if (empty($ciphertext)) {
             throw new Exception('The String to decrypt can\'t be empty');
@@ -104,7 +104,7 @@ class Encryption
         // generate original hmac & compare it with the one in $ciphertext
         $originalHmac = hash_hmac('sha256', $iv_cipher, $key);
         if (!self::hashEquals($hmac, $originalHmac)) {
-            return false;
+            return null;
         }
 
         // split out the initialization vector and cipher

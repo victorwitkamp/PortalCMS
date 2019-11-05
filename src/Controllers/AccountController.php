@@ -48,7 +48,7 @@ class AccountController extends Controller
         Session::add('feedback_negative', Text::get('FEEDBACK_REMOVE_FACEBOOK_ACCOUNT_FAILED'));
         Redirect::to('my-account');
     }
-    public static function setFbid($FbId)
+    public static function setFbid(int $FbId)
     {
         if (!empty($FbId)) {
             if (UserPDOWriter::updateFBid(Session::get('user_id'), $FbId)) {

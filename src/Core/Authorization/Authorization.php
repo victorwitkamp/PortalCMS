@@ -15,15 +15,18 @@ class Authorization
      *
      * @return bool
      */
-    public static function verifyPermission($perm_desc): ?bool
+    public static function verifyPermission(string $perm_desc): ?bool
     {
-        foreach (PermissionMapper::getPermissionsByUserId(Session::get('user_id')) as $Permission) {
-            if ($Permission['perm_desc'] === $perm_desc) {
-                return true;
+        $Permissions = PermissionMapper::getPermissionsByUserId((int) Session::get('user_id'));
+        if (!empty($Permissions)) {
+            foreach ($Permissions as $Permission) {
+                if ($Permission->perm_desc === $perm_desc) {
+                    return true;
+                }
             }
+            Redirect::to('includes/permissionError.php');
+            die;
         }
-        Redirect::to('includes/permissionError.php');
-        die;
     }
 
     /**
@@ -33,13 +36,16 @@ class Authorization
      *
      * @return bool
      */
-    public static function hasPermission($perm_desc): bool
+    public static function hasPermission(string $perm_desc): bool
     {
-        foreach (PermissionMapper::getPermissionsByUserId(Session::get('user_id')) as $Permission) {
-            if ($Permission['perm_desc'] === $perm_desc) {
-                return true;
+        $Permissions = PermissionMapper::getPermissionsByUserId((int) Session::get('user_id'));
+        if (!empty($Permissions)) {
+            foreach ($Permissions as $Permission) {
+                if ($Permission->perm_desc === $perm_desc) {
+                    return true;
+                }
             }
+            return false;
         }
-        return false;
     }
 }

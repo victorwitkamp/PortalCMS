@@ -76,8 +76,4 @@ try {
 }
 
 $user = $response->getGraphUser();
-
-
-
-
-AccountController::setFbid($user['id']);
+AccountController::setFbid((int) $user['id']);

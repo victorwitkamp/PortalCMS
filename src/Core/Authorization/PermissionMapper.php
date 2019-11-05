@@ -22,7 +22,7 @@ class PermissionMapper
         return $stmt->fetch();
     }
 
-    public static function getPermissionsByUserId($user_id)
+    public static function getPermissionsByUserId(int $user_id) : ?array
     {
         $stmt = DB::conn()->prepare(
             'SELECT DISTINCT t2.perm_desc
@@ -35,8 +35,8 @@ class PermissionMapper
         );
         $stmt->execute([$user_id]);
         if ($stmt->rowCount() === 0) {
-            return false;
+            return null;
         }
-        return $stmt->fetchAll();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 }

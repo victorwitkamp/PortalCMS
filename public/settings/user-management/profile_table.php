@@ -83,10 +83,12 @@ use PortalCMS\Core\Database\DB;
                 <td>
                     <?php
                     $UserPermissions = PermissionMapper::getPermissionsByUserId($row['user_id']);
-                    foreach ($UserPermissions as $UserPermission) {
-                        echo '<li>';
-                        echo $UserPermission['perm_desc'];
-                        echo '</li>';
+                    if (!empty($UserPermissions)) {
+                        foreach ($UserPermissions as $UserPermission) {
+                            echo '<li>';
+                            echo $UserPermission->perm_desc;
+                            echo '</li>';
+                        }
                     }
                     ?>
                 </td>

@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace PortalCMS\Core\Email\Schedule;
 
 use PortalCMS\Core\Email\Schedule\Helpers\MemberTemplateScheduler;
-use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\Email\SMTP\SMTPTransport;
 use PortalCMS\Core\Email\Message\EmailMessage;
@@ -54,7 +53,7 @@ class MailSchedule
         } else {
             foreach ($mailIds as $mailId) {
                 if (!self::isSent((int) $mailId)) {
-                    if (self::sendSingleMailHandler((int) $mailId)) {
+                    if (self::prepareMailData((int) $mailId)) {
                         ++$success;
                     } else {
                         ++$failed;
