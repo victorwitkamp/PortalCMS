@@ -89,9 +89,12 @@ class MailSchedule
         return false;
     }
 
-    public static function sendSingleMailHandler($mailId)
+    public static function prepareMailData(int $mailId)
     {
         $scheduledMail = MailScheduleMapper::getById($mailId);
+        if (empty($scheduledMail)) {
+            return false;
+        }
         $creator = new EmailRecipientCollectionCreator();
         $recipients = $creator->createCollection($mailId);
         $attachments = EmailAttachmentMapper::getByMailId($mailId);
@@ -100,39 +103,45 @@ class MailSchedule
             MailScheduleMapper::setErrorMessageById($mailId, 'No recipient(s) were specified.');
             return false;
         }
-        if (empty($scheduledMail['subject']) || empty($scheduledMail['body'])) {
+        if (empty($scheduledMail->subject) || empty($scheduledMail->body)) {
             MailScheduleMapper::updateStatus($mailId, 3);
             MailScheduleMapper::setErrorMessageById($mailId, 'Subject or body is empty.');
             return false;
         }
+        self::sendSingleMailHandler($mailId, $scheduledMail, $recipients, $attachments);
+        return true;
+    }
+
+    public static function sendSingleMailHandler(int $mailId, $scheduledMail, $recipients, $attachments)
+    {
         $EmailMessage = new EmailMessage(
-            $scheduledMail['subject'],
-            $scheduledMail['body'],
+            $scheduledMail->subject,
+            $scheduledMail->body,
             $recipients,
             $attachments
         );
         $SMTPConfiguration = new SMTPConfiguration();
         $SMTPTransport = new SMTPTransport($SMTPConfiguration);
-        if ($SMTPTransport->sendMail($EmailMessage)) {
-            MailScheduleMapper::updateStatus($mailId, 2);
-            MailScheduleMapper::updateDateSent($mailId);
-            MailScheduleMapper::updateSender($mailId, $SMTPConfiguration->fromName, $SMTPConfiguration->fromEmail);
-            return true;
-        } else {
+        if (!$SMTPTransport->sendMail($EmailMessage)) {
             MailScheduleMapper::updateStatus($mailId, 3);
             MailScheduleMapper::setErrorMessageById($mailId, $SMTPTransport->getError());
             return false;
         }
+        MailScheduleMapper::updateStatus($mailId, 2);
+        MailScheduleMapper::updateDateSent($mailId);
+        MailScheduleMapper::updateSender($mailId, $SMTPConfiguration->fromName, $SMTPConfiguration->fromEmail);
+        return true;
     }
 
-    public static function createWithTemplate($templateId, $recipientIds)
+    public static function createWithTemplate(int $templateId, array $recipientIds)
     {
         $templateReader = new EmailTemplatePDOReader();
         $template = $templateReader->getById($templateId);
-
-        if ($template['type'] === 'member') {
-            $scheduler = new MemberTemplateScheduler();
-            $scheduler->scheduleMails($template, $recipientIds);
+        if (!empty($template)) {
+            if ($template->type === 'member') {
+                $scheduler = new MemberTemplateScheduler();
+                $scheduler->scheduleMails($template, $recipientIds);
+            }
         }
     }
 

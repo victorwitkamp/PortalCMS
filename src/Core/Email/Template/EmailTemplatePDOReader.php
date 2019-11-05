@@ -37,7 +37,7 @@ class EmailTemplatePDOReader
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function getById($id)
+    public function getById(int $id)
     {
         $stmt = DB::conn()->prepare(
             'SELECT *
@@ -47,9 +47,9 @@ class EmailTemplatePDOReader
         );
         $stmt->execute([$id]);
         if ($stmt->rowCount() === 1) {
-            return $stmt->fetch();
+            return $stmt->fetch(PDO::FETCH_OBJ);
         }
-        return false;
+        return null;
     }
 
     public static function getSystemTemplateByName($name)

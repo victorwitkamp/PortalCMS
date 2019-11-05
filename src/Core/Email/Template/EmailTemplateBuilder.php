@@ -51,7 +51,7 @@ class EmailTemplateBuilder
     public function getExisting(int $id) : ?EmailTemplate
     {
         $existing = $this->EmailTemplatePDOReader->getById($id);
-        if ($existing) {
+        if (!empty($existing)) {
             $emailTemplate = new EmailTemplate();
             $emailTemplate->id = $existing['id'];
             $emailTemplate->type = $existing['type'];

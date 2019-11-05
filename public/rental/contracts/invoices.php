@@ -9,10 +9,10 @@ use PortalCMS\Modules\Contracts\ContractMapper;
 use PortalCMS\Core\Authentication\Authentication;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
-$pageName = Text::get('LABEL_CONTRACT_INVOICES_FOR_ID') . ': ' . Request::('id');
+$pageName = Text::get('LABEL_CONTRACT_INVOICES_FOR_ID') . ': ' . Request::get('id');
 Authentication::checkAuthentication();
 Authorization::verifyPermission('rental-contracts');
-$contract = ContractMapper::getById(Request::('id'));
+$contract = ContractMapper::getById(Request::get('id'));
 if (empty(contract)) {
     Redirect::to('includes/error.php');
 }
@@ -35,7 +35,7 @@ PortalCMS_JS_dataTables();
             </div>
             <hr>
             <?php
-            $invoices = InvoiceModel::getByContractId(Request::('id'));
+            $invoices = InvoiceModel::getByContractId(Request::get('id'));
             if (!empty($invoices)) {
                 include '../invoices/invoices_table.php';
                 PortalCMS_JS_Init_dataTables();

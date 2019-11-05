@@ -13,7 +13,12 @@ use PortalCMS\Modules\Members\MemberModel;
 
 class MemberTemplateScheduler
 {
-    public function scheduleMails($template, $recipientIds)
+    /**
+     * @param $template
+     * @param $recipientIds
+     * @return bool
+     */
+    public function scheduleMails($template, array $recipientIds) : bool
     {
         $success = 0;
         $failed = 0;
@@ -21,7 +26,7 @@ class MemberTemplateScheduler
         if (empty($recipientIds) || empty($template)) {
             return false;
         }
-        if (!MailBatch::create($template['id'])) {
+        if (!MailBatch::create($template->id)) {
             return false;
         }
         $batchId = MailBatch::lastInsertedId();
@@ -48,14 +53,22 @@ class MemberTemplateScheduler
     public function processSingleMail(int $memberId, int $batchId, $template)
     {
         $member = MemberModel::getMemberById($memberId);
-        $return = MailScheduleMapper::create($batchId, $memberId, $template['subject'], self::replaceholdersMember($memberId, $template['body']));
+        $return = MailScheduleMapper::create(
+            $batchId,
+            $memberId,
+            $template->subject,
+            self::replaceholdersMember(
+                $memberId,
+                $template->body
+            )
+        );
         if (!$return) {
             return false;
         } else {
             $mailid = MailScheduleMapper::lastInsertedId();
             $memberFullname = $member->voornaam . ' ' . $member->achternaam;
             EmailRecipientMapper::createRecipient($mailid, $member->emailadres, $memberFullname);
-            $templateAttachments = EmailAttachmentMapper::getByTemplateId($template['id']);
+            $templateAttachments = EmailAttachmentMapper::getByTemplateId($template->id);
             if (!empty($templateAttachments)) {
                 foreach ($templateAttachments as $templateAttachment) {
                     EmailAttachmentMapper::create($mailid, $templateAttachment['path'], $templateAttachment['name'], $templateAttachment['extension'], $templateAttachment['encoding'], $templateAttachment['type']);

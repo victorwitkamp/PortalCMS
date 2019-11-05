@@ -27,7 +27,12 @@ class MailController extends Controller
             Redirect::to('mail/messages.php');
         }
         if (isset($_POST['createMailWithTemplate'])) {
-            MailSchedule::createWithTemplate(Request::post('templateid', true), Request::post('recipients'));
+            $templateId = filter_input(INPUT_POST, 'templateid', FILTER_VALIDATE_INT);
+            $recipients = (array) Request::post('recipients');
+            MailSchedule::createWithTemplate(
+                $templateId,
+                $recipients
+            );
             Redirect::to('mail');
         }
         if (isset($_POST['deleteScheduledMailById'])) {

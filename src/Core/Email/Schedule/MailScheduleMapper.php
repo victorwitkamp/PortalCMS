@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Email\Schedule;
 
+use PDO;
 use PortalCMS\Core\Database\DB;
 
 class MailScheduleMapper
@@ -49,14 +50,14 @@ class MailScheduleMapper
         return $stmt->fetchAll();
     }
 
-    public static function getById($id)
+    public static function getById(int $id) : ?object
     {
         $stmt = DB::conn()->prepare('SELECT * FROM mail_schedule WHERE id = ? LIMIT 1');
         $stmt->execute([$id]);
         if ($stmt->rowCount() === 1) {
-            return $stmt->fetch();
+            return $stmt->fetch(PDO::FETCH_OBJ);
         }
-        return false;
+        return null;
     }
 
     public static function deleteByBatchId($batch_id): int
@@ -73,12 +74,16 @@ class MailScheduleMapper
         return ($stmt->rowCount() === 1);
     }
 
-    public static function create($batch_id, $member_id, $subject, $body, $status = '1'): bool
+    public static function create(int $batchId, int $memberId, string $subject, string $body, int $status = 1): bool
     {
         $stmt = DB::conn()->prepare(
-            'INSERT INTO mail_schedule(id, batch_id, sender_email, member_id, subject, body, status) VALUES (NULL,?,NULL,?,?,?,?)'
+            'INSERT INTO mail_schedule(
+                          id, batch_id, sender_email, member_id, subject, body, status
+                          ) VALUES (
+                            NULL,?,NULL,?,?,?,?
+                            )'
         );
-        $stmt->execute([$batch_id, $member_id, $subject, $body, $status]);
+        $stmt->execute([$batchId, $memberId, $subject, $body, $status]);
         if (!$stmt) {
             return false;
         }
