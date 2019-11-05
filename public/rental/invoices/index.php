@@ -34,7 +34,7 @@ PortalCMS_JS_dataTables();
         <div class="container-fluid">
             <?php
             $invoices = InvoiceMapper::getAll();
-            if ($invoices) {
+            if (!empty($invoices)) {
                 include 'invoices_table.php';
                 PortalCMS_JS_Init_dataTables();
             } else {

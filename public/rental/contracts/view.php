@@ -10,11 +10,11 @@ require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();
 Authorization::verifyPermission('rental-contracts');
 $contract = ContractMapper::getById($_GET['id']);
-if (!$contract) {
+if (empty($contract)) {
     Session::add('feedback_negative', 'Het contract bestaat niet.');
     Redirect::to('includes/error.php');
 }
-$pageName = 'Contract van ' . $contract['band_naam'];
+$pageName = 'Contract van ' . $contract->band_naam;
 require_once DIR_INCLUDES . 'functions.php';
 require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();
@@ -32,7 +32,7 @@ PortalCMS_JS_headJS(); ?>
         </div>
         <div class="container">
             <?php require 'inc/buttons.php'; ?>
-            <a href="invoices.php?id=<?= $contract['id'] ?>">Facturen bekijken</a>
+            <a href="invoices.php?id=<?= $contract->id ?>">Facturen bekijken</a>
             <hr>
             <?php require 'inc/view.php'; ?>
             <hr>

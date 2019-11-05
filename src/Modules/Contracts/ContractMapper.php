@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Modules\Contracts;
 
+use PDO;
 use PortalCMS\Core\Database\DB;
 
 class ContractMapper
@@ -19,7 +20,7 @@ class ContractMapper
         return $stmt->fetchAll();
     }
 
-    public static function exists($Id): bool
+    public static function exists(int $Id): bool
     {
         $stmt = DB::conn()->prepare(
             'SELECT id FROM contracts WHERE id = ? LIMIT 1'
@@ -28,16 +29,16 @@ class ContractMapper
         return ($stmt->rowCount() === 1);
     }
 
-    public static function getById($Id)
+    public static function getById(int $Id) : ?object
     {
         $stmt = DB::conn()->prepare(
             'SELECT * FROM contracts WHERE id = ? LIMIT 1'
         );
         $stmt->execute([$Id]);
         if ($stmt->rowCount() === 1) {
-            return $stmt->fetch();
+            return $stmt->fetch(PDO::FETCH_OBJ);
         }
-        return false;
+        return null;
     }
 
     public static function new(

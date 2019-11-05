@@ -12,13 +12,12 @@ require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();
 Authorization::verifyPermission('rental-contracts');
 require_once DIR_INCLUDES . 'functions.php';
-$contract = ContractMapper::getById($_GET['id']);
-if ($contract) {
-    $pageName = 'Contract van ' . $contract['band_naam'] . ' bewerken';
-} else {
+$contract = ContractMapper::getById(Request::get('id'));
+if (empty($contract)) {
     Session::add('feedback_negative', 'Geen resultaten voor opgegeven Id.');
     Redirect::to('includes/error.php');
 }
+$pageName = 'Contract van ' . $contract->band_naam . ' bewerken';
 require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();
 PortalCMS_CSS_tempusdominus();

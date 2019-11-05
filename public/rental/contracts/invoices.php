@@ -1,5 +1,6 @@
 <?php
 
+use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Modules\Invoices\InvoiceModel;
@@ -8,14 +9,14 @@ use PortalCMS\Modules\Contracts\ContractMapper;
 use PortalCMS\Core\Authentication\Authentication;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
-$pageName = Text::get('LABEL_CONTRACT_INVOICES_FOR_ID') . ': ' . $_GET['id'];
+$pageName = Text::get('LABEL_CONTRACT_INVOICES_FOR_ID') . ': ' . Request::('id');
 Authentication::checkAuthentication();
 Authorization::verifyPermission('rental-contracts');
-$contract = ContractMapper::getById($_GET['id']);
-if (!$contract) {
+$contract = ContractMapper::getById(Request::('id'));
+if (empty(contract)) {
     Redirect::to('includes/error.php');
 }
-$pageName = 'Facturen voor ' . $contract['band_naam'];
+$pageName = 'Facturen voor ' . $contract->band_naam;
 require_once DIR_INCLUDES . 'functions.php';
 require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();
@@ -32,18 +33,16 @@ PortalCMS_JS_dataTables();
             <div class="row mt-5">
                 <div class="col-sm-8"><h1><?= $pageName ?></h1></div>
             </div>
-
-        <hr>
-        <?php
-        $invoices = InvoiceModel::getByContractId($_GET['id']);
-        if ($invoices) {
-            include '../invoices/invoices_table.php';
-            PortalCMS_JS_Init_dataTables();
-        } else {
-            echo 'Ontbrekende gegevens..';
-        }
-        ?>
-
+            <hr>
+            <?php
+            $invoices = InvoiceModel::getByContractId(Request::('id'));
+            if (!empty($invoices)) {
+                include '../invoices/invoices_table.php';
+                PortalCMS_JS_Init_dataTables();
+            } else {
+                echo 'Ontbrekende gegevens..';
+            }
+            ?>
         </div>
     </div>
 </main>

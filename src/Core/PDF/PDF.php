@@ -123,17 +123,20 @@ class PDF
 
         $totaalbedrag = 0;
 
-        foreach ($invoiceitems as $invoiceitem) {
-            $pdf->SetX(20);
-            $pdf->Write(0, $invoiceitem['name'], '', 0, 'L', false, 0, false, false, 0);
-            $pdf->SetX(165);
-            $pdf->Write(0, '€', '', 0, 'L', false, 0, false, false, 0);
+        if (!empty($invoiceitems)) {
+            foreach ($invoiceitems as $invoiceitem) {
+                $pdf->SetX(20);
+                $pdf->Write(0, $invoiceitem->name, '', 0, 'L', false, 0, false, false, 0);
+                $pdf->SetX(165);
+                $pdf->Write(0, '€', '', 0, 'L', false, 0, false, false, 0);
 
-            $pdf->SetX(150);
-            $pdf->Write(0, $invoiceitem['price'], '', 0, 'R', false, 0, false, false, 0);
-            $pdf->Ln();
-            $totaalbedrag += $invoiceitem['price'];
+                $pdf->SetX(150);
+                $pdf->Write(0, $invoiceitem->price, '', 0, 'R', false, 0, false, false, 0);
+                $pdf->Ln();
+                $totaalbedrag += $invoiceitem->price;
+            }
         }
+
         $pdf->Ln();
         $pdf->SetX(20);
         $pdf->Write(0, 'Totaal:', '', 0, 'L', false, 0, false, false, 0);
@@ -160,7 +163,7 @@ class PDF
         return $pdf;
     }
 
-    public static function renderInvoice($invoice, $invoiceitems, $contract)
+    public static function renderInvoice($invoice, array $invoiceitems, $contract)
     {
         $pdf = self::configPDF();
         $pdf = self::createInvoice($pdf, $invoice, $invoiceitems, $contract);
@@ -168,7 +171,7 @@ class PDF
         $pdf->Output($invoice['factuurnummer'] . '.pdf', 'I');
     }
 
-    public static function writeInvoice($invoice, $invoiceitems, $contract)
+    public static function writeInvoice($invoice, array $invoiceitems, $contract) : bool
     {
         $pdf = self::configPDF();
         $pdf = self::createInvoice($pdf, $invoice, $invoiceitems, $contract);

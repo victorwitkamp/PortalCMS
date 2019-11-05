@@ -14,7 +14,7 @@ class InvoiceItemMapper
      *
      * @return mixed
      */
-    public static function getByInvoiceId($invoiceId)
+    public static function getByInvoiceId(int $invoiceId) : ?array
     {
         $stmt = DB::conn()->prepare(
             'SELECT *
@@ -23,7 +23,7 @@ class InvoiceItemMapper
         );
         $stmt->execute([$invoiceId]);
         if ($stmt->rowCount() === 0) {
-            return false;
+            return null;
         }
         return $stmt->fetchAll();
     }

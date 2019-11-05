@@ -25,15 +25,17 @@ PortalCMS_JS_headJS(); ?>
             </div>
             <hr>
         </div>
-        <div class="container-fluid">
+        <div class="container">
             <form method="post">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-12">
                             <label>Template selecteren</label>
                             <select name='templateid'>
-                                <?php foreach (EmailTemplatePDOReader::getByType('member') as $templaterow) : ?>
-                                    <option value="<?= $templaterow['id'] ?>"><?= $templaterow['subject'] ?></option>
+                                <?php 
+                                $templates = EmailTemplatePDOReader::getByType('member');
+                                foreach ($templates as $template) : ?>
+                                    <option value="<?= $template->id ?>"><?= $template->subject ?></option>
                                 <?php endforeach ?>
                             </select>
                             <input type="hidden" name="type" value="member">
@@ -54,14 +56,15 @@ PortalCMS_JS_headJS(); ?>
                 <div class="form-group form-check">
                     <div id="example" class="row">
                     <?php
-                    foreach (MemberModel::getMembers() as $row) :
-                        if (!empty($row['emailadres'])) { ?>
+                    $members = MemberModel::getMembers();
+                    foreach ($members as $member) :
+                        if (!empty($member->emailadres)) { ?>
                         <div class="col-md-4">
-                            <input type="checkbox" name='recipients[]' id="checkbox" value="<?= $row['id'] ?>"> <?= $row['voornaam'] . ' ' . $row['achternaam'] ?><br/>
+                            <input type="checkbox" name='recipients[]' id="checkbox" value="<?= $member->id ?>"> <?= $member->voornaam . ' ' . $member->achternaam ?><br/>
                         </div>
                         <?php } else { ?>
                         <div class="col-md-4">
-                            <input type="checkbox" name='recipients[]' value="<?= $row['id'] ?>" disabled><s> <?= $row['voornaam'] . ' ' . $row['achternaam'] ?></s><br/>
+                            <input type="checkbox" value="<?= $member->id ?>" disabled><s> <?= $member->voornaam . ' ' . $member->achternaam ?></s><br/>
                         </div>
                         <?php }
                     endforeach ?>

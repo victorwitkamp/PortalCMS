@@ -2,10 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="10cd1690-6b40-469b-8cb6-7411aa27a75c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.php_cs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.php_cs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/includes/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/includes/footer.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/mail/generate/templatebased/member.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/mail/generate/templatebased/member.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/rental/contracts/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/rental/contracts/edit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/rental/contracts/invoices.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/rental/contracts/invoices.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/rental/contracts/view.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/rental/contracts/view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/rental/invoices/details.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/rental/invoices/details.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/rental/invoices/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/rental/invoices/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/rental/invoices/invoices_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/rental/invoices/invoices_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Email/Template/EmailTemplatePDOReader.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Template/EmailTemplatePDOReader.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/PDF/PDF.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/PDF/PDF.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Contracts/ContractMapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Contracts/ContractMapper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Contracts/ContractModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Contracts/ContractModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Invoices/InvoiceItemMapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Invoices/InvoiceItemMapper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Invoices/InvoiceMapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Invoices/InvoiceMapper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Invoices/InvoiceModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Invoices/InvoiceModel.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -274,7 +287,7 @@
       <workItem from="1572661956174" duration="587000" />
       <workItem from="1572663036569" duration="20455000" />
       <workItem from="1572796716073" duration="10139000" />
-      <workItem from="1572870274843" duration="17501000" />
+      <workItem from="1572870274843" duration="23514000" />
     </task>
     <servers />
   </component>

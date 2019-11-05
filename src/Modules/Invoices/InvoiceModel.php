@@ -40,7 +40,7 @@ class InvoiceModel
         $createdMailId = MailScheduleMapper::lastInsertedId();
         // $recipients = array($recipient_email);
         // foreach ($recipients as $recipient) {
-        EmailRecipientMapper::createRecipient($createdMailId, $contract['bandleider_email']);
+        EmailRecipientMapper::createRecipient($createdMailId, $contract->bandleider_email);
         // }
 
         $attachmentPath = 'content/invoices/';
@@ -58,7 +58,7 @@ class InvoiceModel
     {
         $Invoices = InvoiceMapper::getByContractId($contract_id);
         if (!$Invoices) {
-            return false;
+            return null;
         }
         return $Invoices;
     }
@@ -70,9 +70,9 @@ class InvoiceModel
         }
         foreach ($contract_ids as $contract_id) {
             $contract = ContractMapper::getById($contract_id);
-            $factuurnummer = $year . $contract['bandcode'] . $month;
+            $factuurnummer = $year . $contract->bandcode . $month;
             $factuurdatum = Request::post('factuurdatum', true);
-            if (InvoiceMapper::getByFactuurnummer($factuurnummer)) {
+            if (!empty(InvoiceMapper::getByFactuurnummer($factuurnummer))) {
                 Session::add('feedback_negative', 'Factuurnummer bestaat al.');
                 return false;
             }
@@ -81,11 +81,11 @@ class InvoiceModel
                 return false;
             }
             $invoice = InvoiceMapper::getByFactuurnummer($factuurnummer);
-            if ($contract['kosten_ruimte'] > 0) {
-                InvoiceItemMapper::create($invoice['id'], 'Huur oefenruimte - ' . Text::get('MONTH_' . $month), $contract['kosten_ruimte']);
+            if ($contract->kosten_ruimte > 0) {
+                InvoiceItemMapper::create($invoice->id, 'Huur oefenruimte - ' . Text::get('MONTH_' . $month), $contract->kosten_ruimte);
             }
-            if ($contract['kosten_kast'] > 0) {
-                InvoiceItemMapper::create($invoice['id'], 'Huur kast - ' . Text::get('MONTH_' . $month), $contract['kosten_kast']);
+            if ($contract->kosten_kast > 0) {
+                InvoiceItemMapper::create($invoice->id, 'Huur kast - ' . Text::get('MONTH_' . $month), $contract->kosten_kast);
             }
         }
         Session::add('feedback_positive', 'Factuur toegevoegd.');
@@ -105,7 +105,7 @@ class InvoiceModel
     {
         $sum = 0;
         foreach (InvoiceItemMapper::getByInvoiceId($id) as $row) {
-            $sum += $row['price'];
+            $sum += $row->price;
         }
         return $sum;
     }
@@ -117,14 +117,14 @@ class InvoiceModel
             Session::add('feedback_negative', 'Kan factuur niet verwijderen. Factuur bestaat niet.');
             return false;
         }
-        if (InvoiceItemMapper::getByInvoiceId($id)) {
+        if (!empty(InvoiceItemMapper::getByInvoiceId($id))) {
             if (!InvoiceItemMapper::deleteByInvoiceId($id)) {
                 Session::add('feedback_negative', 'Verwijderen van factuuritems voor factuur mislukt.');
                 return false;
             }
         }
-        if ($invoice['status'] > 0) {
-            unlink(DIR_ROOT . 'content/invoices/' . $invoice['factuurnummer'] . '.pdf');
+        if ($invoice->status > 0) {
+            unlink(DIR_ROOT . 'content/invoices/' . $invoice->factuurnummer . '.pdf');
         }
         if (!InvoiceMapper::delete($id)) {
             Session::add('feedback_negative', 'Verwijderen van factuur mislukt.');
@@ -144,11 +144,11 @@ class InvoiceModel
             return false;
         }
         $invoiceitems = InvoiceItemMapper::getByInvoiceId($id);
-        $contract = ContractMapper::getById($invoice['contract_id']);
+        $contract = ContractMapper::getById($invoice->contract_id);
         PDF::renderInvoice($invoice, $invoiceitems, $contract);
     }
 
-    public static function write($id = null): bool
+    public static function write(int $id = null): bool
     {
         if (empty($id)) {
             return false;
@@ -157,7 +157,7 @@ class InvoiceModel
         if (empty($invoice)) {
             return false;
         }
-        $contract = ContractMapper::getById($invoice['contract_id']);
+        $contract = ContractMapper::getById($invoice->contract_id);
         $invoiceitems = InvoiceItemMapper::getByInvoiceId($id);
         if (!PDF::writeInvoice($invoice, $invoiceitems, $contract)) {
             Session::add('feedback_negative', 'Fout bij het opslaan');

@@ -47,7 +47,7 @@ class InvoiceMapper
         );
         $stmt->execute([$factuurnummer]);
         if ($stmt->rowCount() === 1) {
-            return $stmt->fetch();
+            return $stmt->fetch(PDO::FETCH_OBJ);
         }
         return false;
     }
@@ -62,13 +62,13 @@ class InvoiceMapper
         return false;
     }
 
-    public static function getAll()
+    public static function getAll() : ?array
     {
         $stmt = DB::conn()->query('SELECT * FROM invoices');
         if ($stmt->rowCount() > 0) {
-            return $stmt->fetchAll();
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
         }
-        return false;
+        return null;
     }
 
     public static function create($contract_id, $factuurnummer, $year, $month, $factuurdatum): bool

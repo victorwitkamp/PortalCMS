@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Email\Template;
 
+use PDO;
 use PortalCMS\Core\Database\DB;
 
 class EmailTemplatePDOReader
@@ -31,9 +32,9 @@ class EmailTemplatePDOReader
         );
         $stmt->execute([$type]);
         if ($stmt->rowCount() === 0) {
-            return false;
+            return null;
         }
-        return $stmt->fetchAll();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function getById($id)
