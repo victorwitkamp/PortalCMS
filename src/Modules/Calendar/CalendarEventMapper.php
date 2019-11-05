@@ -20,7 +20,7 @@ class CalendarEventMapper
         return $stmt->rowCount() === 1;
     }
 
-    public static function getByDate($startDate, $endDate) : ?array
+    public static function getByDate(string $startDate, string $endDate) : ?array
     {
         $startDateTime = $startDate . ' 00:00:00';
         $endDateTime = $endDate . ' 00:00:00';
@@ -32,7 +32,7 @@ class CalendarEventMapper
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public static function getEventsAfter($dateTime) : ?array
+    public static function getEventsAfter(string $dateTime) : ?array
     {
         $stmt = DB::conn()->prepare(
             'SELECT * FROM events WHERE start_event > ? ORDER BY start_event limit 3'
@@ -59,7 +59,7 @@ class CalendarEventMapper
         return null;
     }
 
-    public static function new($title, $start_event, $end_event, $description, $CreatedBy): bool
+    public static function new(string $title, string $start_event, string $end_event, string $description, int $CreatedBy): bool
     {
         $stmt = DB::conn()->prepare(
             'INSERT INTO events(
@@ -75,7 +75,7 @@ class CalendarEventMapper
         return true;
     }
 
-    public static function update(int $id, $title, $start_event, $end_event, $description, $status): bool
+    public static function update(int $id, string $title, string $start_event, string $end_event, string $description, string $status): bool
     {
         $stmt = DB::conn()->prepare(
             'UPDATE events

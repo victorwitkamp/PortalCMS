@@ -10,9 +10,7 @@ class Authorization
 {
     /**
      * Check whether the authenticated user has a specific permission
-     *
      * @param string $perm_desc
-     *
      * @return bool
      */
     public static function verifyPermission(string $perm_desc): ?bool
@@ -31,9 +29,7 @@ class Authorization
 
     /**
      * Check whether the logged on user has a specific permission
-     *
      * @param string $perm_desc
-     *
      * @return bool
      */
     public static function hasPermission(string $perm_desc): bool
