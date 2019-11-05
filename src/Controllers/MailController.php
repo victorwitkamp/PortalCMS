@@ -19,9 +19,9 @@ class MailController extends Controller
     {
         parent::__construct();
 
-        if (isset($_POST['newScheduledMail'])) {
-            MailSchedule::create();
-        }
+//        if (isset($_POST['newScheduledMail'])) {
+//            MailSchedule::create();
+//        }
         if (isset($_POST['sendScheduledMailById'])) {
             MailSchedule::sendMailsById(Request::post('id'));
             Redirect::to('mail/messages.php');

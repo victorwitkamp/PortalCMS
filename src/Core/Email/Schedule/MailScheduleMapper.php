@@ -74,7 +74,7 @@ class MailScheduleMapper
         return ($stmt->rowCount() === 1);
     }
 
-    public static function create(int $batchId, int $memberId, string $subject, string $body, int $status = 1): bool
+    public static function create(int $batchId = null, int $memberId = null, string $subject = null, string $body = null, int $status = 1): bool
     {
         $stmt = DB::conn()->prepare(
             'INSERT INTO mail_schedule(

@@ -145,20 +145,20 @@ class MailSchedule
         }
     }
 
-    public static function create(): bool
-    {
-        $create = MailScheduleMapper::create(
-            null,
-            Request::post('recipient_email', true),
-            Request::post('subject', true),
-            Request::post('body', true)
-        );
-        if (!$create) {
-            Session::add('feedback_negative', 'Nieuwe email aanmaken mislukt.');
-            return false;
-        }
-        $created = MailScheduleMapper::lastInsertedId();
-        Session::add('feedback_positive', 'Email toegevoegd (ID = ' . $created . ')');
-        return true;
-    }
+//    public static function create(): bool
+//    {
+//        $create = MailScheduleMapper::create(
+//            null,
+//            Request::post('recipient_email', true),
+//            Request::post('subject', true),
+//            Request::post('body', true)
+//        );
+//        if (!$create) {
+//            Session::add('feedback_negative', 'Nieuwe email aanmaken mislukt.');
+//            return false;
+//        }
+//        $created = MailScheduleMapper::lastInsertedId();
+//        Session::add('feedback_positive', 'Email toegevoegd (ID = ' . $created . ')');
+//        return true;
+//    }
 }
