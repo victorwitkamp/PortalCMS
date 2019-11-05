@@ -65,22 +65,22 @@ class MemberTemplateScheduler
         if (!$return) {
             return false;
         } else {
-            $mailid = MailScheduleMapper::lastInsertedId();
+            $mailId = MailScheduleMapper::lastInsertedId();
             $memberFullname = $member->voornaam . ' ' . $member->achternaam;
-            EmailRecipientMapper::createRecipient($mailid, $member->emailadres, $memberFullname);
-            $templateAttachments = EmailAttachmentMapper::getByTemplateId($template->id);
-            if (!empty($templateAttachments)) {
-                foreach ($templateAttachments as $templateAttachment) {
-                    EmailAttachmentMapper::create($mailid, $templateAttachment['path'], $templateAttachment['name'], $templateAttachment['extension'], $templateAttachment['encoding'], $templateAttachment['type']);
+            EmailRecipientMapper::createRecipient($mailId, $member->emailadres, $memberFullname);
+            $attachments = EmailAttachmentMapper::getByTemplateId($template->id);
+            if (!empty($attachments)) {
+                foreach ($attachments as $attachment) {
+                    EmailAttachmentMapper::create($mailId, $attachment->path, $attachment->name, $attachment->extension, $attachment->encoding, $attachment->type);
                 }
             }
             return true;
         }
     }
 
-    public static function replaceholdersMember($memberid, $templatebody)
+    public static function replaceholdersMember($memberId, $templatebody)
     {
-        $member = MemberModel::getMemberById($memberid);
+        $member = MemberModel::getMemberById($memberId);
         $variables = [
             'voornaam' => $member->voornaam,
             'achternaam' => $member->achternaam,

@@ -23,9 +23,7 @@ use PortalCMS\Core\Config\SiteSetting;
                 </ul>
 
                 <span class="navbar-text">
-                    <?= Text::get('LABEL_SIGNED_IN_AS') ?><strong> <?= Session::get('user_name') ?></strong><br>
-                    <a href="/my-account"><?= Text::get('TITLE_MY_ACCOUNT') ?></a>
-                    <a href="/logout.php"><span class="fa fa-sign-out-alt"></span><?= Text::get('LABEL_SIGN_OUT') ?></a>
+                    <?= Text::get('LABEL_SIGNED_IN_AS') ?><strong> <?= Session::get('user_name') ?></strong> | <a href="/my-account"><?= Text::get('TITLE_MY_ACCOUNT') ?></a> | <a href="/logout.php"><i class="fa fa-sign-out-alt"></i><?= Text::get('LABEL_SIGN_OUT') ?></a>
                 </span>
             </div>
         </div>

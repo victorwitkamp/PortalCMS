@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Email\Message\Attachment;
 
+use PDO;
 use PortalCMS\Core\Database\DB;
 
 class EmailAttachmentMapper
@@ -71,14 +72,14 @@ class EmailAttachmentMapper
      * @param $templateId
      * @return array|bool
      */
-    public static function getByTemplateId(int $templateId)
+    public static function getByTemplateId(int $templateId) : ?array
     {
         $stmt = DB::conn()->prepare('SELECT * FROM mail_attachments where template_id = ?');
         $stmt->execute([$templateId]);
         if ($stmt->rowCount() > 0) {
-            return $stmt->fetchAll();
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
         }
-        return false;
+        return null;
     }
 
     /**

@@ -29,7 +29,7 @@ class MailTemplateController extends Controller
         }
         if (isset($_POST['edittemplate'])) {
             $templateBuilder = new EmailTemplateBuilder();
-            $template = $templateBuilder->getExisting(Request::get('id'));
+            $template = $templateBuilder->getExisting((int) Request::get('id'));
             $template->subject = Request::post('subject', true);
             $template->body = Request::post('body', false);
             $templateBuilder->update($template);

@@ -1,6 +1,7 @@
 <?php
 
 use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
+use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\HTTP\Request;
@@ -13,12 +14,16 @@ Authentication::checkAuthentication();
 Authorization::verifyPermission('mail-templates');
 $reader = new EmailTemplatePDOReader();
 $template = $reader->getById(Request::get('id'));
+if (empty($template)) {
+    Redirect::to('error');
+}
 $pageName = Text::get('TITLE_EDIT_MAIL_TEMPLATE');
 
 require_once DIR_INCLUDES . 'functions.php';
 require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();
-PortalCMS_JS_headJS(); ?>
+PortalCMS_JS_headJS();
+?>
 <script src='https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=y6xawmw19w565wdi90wrtlow2ll6498emv0fozfrtrt7vb4y'></script>
 <script>
 tinymce.init({
@@ -50,8 +55,8 @@ plugins : 'advlist autolink link image lists charmap print preview'
                         <ul id="currentattachments">
                             <?php foreach ($attachments as $attachment) { ?>
                             <li>
-                                <input type="checkbox" name="id[]" id="checkbox" value="<?= $attachment['id'] ?>">
-                                <?= $attachment['path'] . $attachment['name'] . $attachment['extension'] ?>
+                                <input type="checkbox" name="id[]" id="checkbox" value="<?= $attachment->id ?>">
+                                <?= $attachment->path . $attachment->name . $attachment->extension ?>
                             </li>
                             <?php } ?>
                         </ul>
@@ -70,16 +75,16 @@ plugins : 'advlist autolink link image lists charmap print preview'
             </form>
             <hr>
             <form method="post">
-                <input type="hidden" name="id" value="<?= $template['id'] ?>">
+                <input type="hidden" name="id" value="<?= $template->id ?>">
                 <input type="submit" class="btn btn-primary float-right" name="edittemplate"/>
                 <div class="form-group">
                     <label for="subject">Onderwerp</label>
-                    <input type="text" name="subject" class="form-control" id="subject" placeholder="Onderwerp" value="<?= $template['subject'] ?>">
+                    <input type="text" name="subject" class="form-control" id="subject" placeholder="Onderwerp" value="<?= $template->subject ?>">
                 </div>
                 <div class="form-group">
                     <label for="body">Bericht</label>
                     <textarea id="mytextarea" name="body" cols="50" rows="15" required>
-                        <?= $template['body'] ?>
+                        <?= $template->body ?>
                     </textarea>
                 </div>
             </form>

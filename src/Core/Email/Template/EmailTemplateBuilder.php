@@ -53,13 +53,13 @@ class EmailTemplateBuilder
         $existing = $this->EmailTemplatePDOReader->getById($id);
         if (!empty($existing)) {
             $emailTemplate = new EmailTemplate();
-            $emailTemplate->id = $existing['id'];
-            $emailTemplate->type = $existing['type'];
-            $emailTemplate->name = $existing['name'];
-            $emailTemplate->subject = $existing['subject'];
-            $emailTemplate->body = $existing['body'];
-            $emailTemplate->status = $existing['status'];
-            $emailTemplate->CreatedBy = $existing['CreatedBy'];
+            $emailTemplate->id = $existing->id;
+            $emailTemplate->type = $existing->type;
+            $emailTemplate->name = $existing->name;
+            $emailTemplate->subject = $existing->subject;
+            $emailTemplate->body = $existing->body;
+            $emailTemplate->status = $existing->status;
+            $emailTemplate->CreatedBy = $existing->CreatedBy;
             return $emailTemplate;
         }
         return null;
