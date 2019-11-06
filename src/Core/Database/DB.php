@@ -1,4 +1,8 @@
 <?php
+/**
+ * Copyright Victor Witkamp (c) 2019.
+ */
+
 declare(strict_types=1);
 
 namespace PortalCMS\Core\Database;

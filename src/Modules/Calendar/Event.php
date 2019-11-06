@@ -1,4 +1,7 @@
 <?php
+/**
+ * Copyright Victor Witkamp (c) 2019.
+ */
 
 namespace PortalCMS\Modules\Calendar;
 
