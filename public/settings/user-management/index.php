@@ -46,11 +46,11 @@ PortalCMS_JS_headJS();
                         <tbody>
                         <?php foreach ($users as $user) { ?>
                             <tr>
-                            <td><?php echo $user->user_id; ?></td>
-                            <td><?php echo $user->user_name; ?></td>
-                            <td><?php echo $user->user_email; ?></td>
-                            <td><?php echo $user->user_last_login_timestamp; ?></td>
-                            <td><a href="profile.php?id=<?php echo $user->user_id; ?>" title="Profiel weergeven" class="btn btn-primary btn-sm"><span class="fa fa-user"></span></a></td>
+                            <td><?= $user->user_id ?></td>
+                            <td><?= $user->user_name ?></td>
+                            <td><?= $user->user_email ?></td>
+                            <td><?= $user->user_last_login_timestamp ?></td>
+                            <td><a href="profile.php?id=<?= $user->user_id ?>" title="Profiel weergeven" class="btn btn-primary btn-sm"><span class="fa fa-user"></span></a></td>
                             </tr>
                         <?php } ?>
                         </tbody>

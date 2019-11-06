@@ -54,21 +54,21 @@ class MailSchedule
         $alreadySent = 0;
         if (empty($mailIds)) {
             return false;
-        } else {
-            foreach ($mailIds as $mailId) {
-                if (!self::isSent((int) $mailId)) {
-                    if (self::prepareMailData((int) $mailId)) {
-                        ++$success;
-                    } else {
-                        ++$failed;
-                    }
-                } else {
-                    ++$alreadySent;
-                }
-            }
-            self::sendFeedbackHandler($failed, $success, $alreadySent);
-            return true;
         }
+        foreach ($mailIds as $mailId) {
+            if (!self::isSent((int) $mailId)) {
+                if (self::prepareMailData((int) $mailId)) {
+                    ++$success;
+                } else {
+                    ++$failed;
+                }
+            } else {
+                ++$alreadySent;
+            }
+        }
+        self::sendFeedbackHandler($failed, $success, $alreadySent);
+        return true;
+
     }
 
     public static function sendFeedbackHandler(int $failed, int $success, int $alreadySent): bool

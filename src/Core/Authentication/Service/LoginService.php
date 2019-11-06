@@ -174,11 +174,10 @@ class LoginService
     {
         if (password_verify(base64_encode($user_password), $result->user_password_hash)) {
             return true;
-        } else {
-            UserPDOWriter::setFailedLoginByUsername($result->user_name);
-            Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
-            return false;
         }
+        UserPDOWriter::setFailedLoginByUsername($result->user_name);
+        Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
+        return false;
     }
 
     /**

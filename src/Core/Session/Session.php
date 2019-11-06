@@ -80,7 +80,7 @@ class Session
     public static function destroy() : bool
     {
         if (!session_destroy()) {
-            Session::add('feedback_warning', 'Your session has expired. Please log-in.');
+            self::add('feedback_warning', 'Your session has expired. Please log-in.');
             return false;
         }
         return true;

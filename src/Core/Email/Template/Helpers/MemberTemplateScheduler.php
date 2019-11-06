@@ -67,18 +67,17 @@ class MemberTemplateScheduler
         );
         if (!$return) {
             return false;
-        } else {
-            $mailId = MailScheduleMapper::lastInsertedId();
-            $memberFullname = $member->voornaam . ' ' . $member->achternaam;
-            EmailRecipientMapper::createRecipient($mailId, $member->emailadres, $memberFullname);
-            $attachments = EmailAttachmentMapper::getByTemplateId($template->id);
-            if (!empty($attachments)) {
-                foreach ($attachments as $attachment) {
-                    EmailAttachmentMapper::create($mailId, $attachment->path, $attachment->name, $attachment->extension, $attachment->encoding, $attachment->type);
-                }
-            }
-            return true;
         }
+        $mailId = MailScheduleMapper::lastInsertedId();
+        $memberFullname = $member->voornaam . ' ' . $member->achternaam;
+        EmailRecipientMapper::createRecipient($mailId, $member->emailadres, $memberFullname);
+        $attachments = EmailAttachmentMapper::getByTemplateId($template->id);
+        if (!empty($attachments)) {
+            foreach ($attachments as $attachment) {
+                EmailAttachmentMapper::create($mailId, $attachment->path, $attachment->name, $attachment->extension, $attachment->encoding, $attachment->type);
+            }
+        }
+        return true;
     }
 
 
