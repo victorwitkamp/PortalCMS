@@ -2,9 +2,8 @@
 
 use PortalCMS\Modules\Calendar\CalendarEventModel;
 use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\HTTP\Request;
 
-require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
-$startdate = $_GET['start'];
-$enddate = $_GET['end'];
+require __DIR__ . '/../Init.php';
 Authentication::checkAuthentication();
-echo json_encode(CalendarEventModel::getByDate($startdate, $enddate));
+echo json_encode(!empty(CalendarEventModel::getByDate(Request::get('start'), Request::get('end'))));

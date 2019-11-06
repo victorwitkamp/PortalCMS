@@ -4,6 +4,10 @@
     <option name="languageLevel" value="ES6" />
   </component>
   <component name="PhpEntryPointsManager">
+    <entry_point>
+      <entry_point TYPE="phpMethod" FQNAME="\PortalCMS\Core\Encryption\Encryption __construct" />
+    </entry_point>
     <pattern value="\Encryption" member="__construct" />
+    <pattern value="\PortalCMS\Core\Encryption\Encryption" member="__construct" />
   </component>
 </project>

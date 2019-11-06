@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Encryption;
 
-use PortalCMS\Core\Config\Config;
 use Exception;
+use PortalCMS\Core\Config\Config;
 use function function_exists;
 use function ord;
 

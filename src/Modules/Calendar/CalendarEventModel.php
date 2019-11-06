@@ -12,19 +12,19 @@ use PortalCMS\Core\Session\Session;
 class CalendarEventModel
 {
     /**
-     * @param $startDate
-     * @param $endDate
-     * @return array|bool
+     * @param string $startDate
+     * @param string $endDate
+     * @return array
      */
-    public static function getByDate(string $startDate, string $endDate)
+    public static function getByDate(string $startDate, string $endDate) : array
     {
         $eventsArray = [];
         $events = CalendarEventMapper::getByDate($startDate, $endDate);
         if (!empty($events)) {
             foreach ($events as $event) {
-                if ($event->status === '1') {
+                if ($event->status === 1) {
                     $color = 'var(--success)';
-                } elseif ($event->status === '2') {
+                } elseif ($event->status === 2) {
                     $color = 'var(--danger)';
                 } else {
                     $color = 'var(--info)';
@@ -38,10 +38,7 @@ class CalendarEventModel
                 ];
             }
         }
-        if (!empty($eventsArray)) {
-            return $eventsArray;
-        }
-        return false;
+        return $eventsArray;
     }
 
     /**

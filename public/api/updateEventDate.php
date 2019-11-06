@@ -2,9 +2,13 @@
 
 use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Modules\Calendar\CalendarEventMapper;
+use PortalCMS\Core\HTTP\Request;
 
-require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
+require __DIR__ . '/../Init.php';
 Authentication::checkAuthentication();
-if (CalendarEventMapper::updateDate($_POST['id'], $_POST['title'], $_POST['start'], $_POST['end'])) {
-    return true;
-}
+return CalendarEventMapper::updateDate(
+    Request::post('id'),
+    Request::post('title'),
+    Request::post('start'),
+    Request::post('end')
+);

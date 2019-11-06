@@ -1,12 +1,8 @@
 <?php
 
 use PortalCMS\Modules\Calendar\CalendarEventModel;
+use PortalCMS\Core\Authentication\Authentication;
 
-// use PortalCMS\Core\Authentication\Authentication;
-
-require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
-// Authentication::checkAuthentication();
-$events = CalendarEventModel::loadComingEvents();
-if (!empty($events)) {
-    echo json_encode(CalendarEventModel::loadComingEvents());
-}
+require __DIR__ . '/../Init.php';
+Authentication::checkAuthentication();
+echo json_encode(!empty(CalendarEventModel::loadComingEvents()));
