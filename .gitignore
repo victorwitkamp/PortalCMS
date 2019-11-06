@@ -8,10 +8,6 @@
 /public/web.config
 /public/errors.log
 /vendor/
-.scrutenizer.yml
-/codelingo.yaml
-
-
-/yarn-error.log
-/yarn.lock
 /public/.well-known/
+/yarn.lock
+/.php_cs.cache
