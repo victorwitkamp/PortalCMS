@@ -19,7 +19,7 @@ class MailScheduleMapper
         return ($stmt->rowCount() === 1);
     }
 
-    public static function getStatusById(int $id): mixed
+    public static function getStatusById(int $id)
     {
         $stmt = DB::conn()->prepare('SELECT status FROM mail_schedule WHERE id = ? LIMIT 1');
         $stmt->execute([$id]);

@@ -45,7 +45,7 @@ class Authorization
                     return true;
                 }
             }
-            return false;
         }
+        return false;
     }
 }

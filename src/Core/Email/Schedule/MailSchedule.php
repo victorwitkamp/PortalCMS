@@ -68,7 +68,6 @@ class MailSchedule
         }
         self::sendFeedbackHandler($failed, $success, $alreadySent);
         return true;
-
     }
 
     public static function sendFeedbackHandler(int $failed, int $success, int $alreadySent): bool
@@ -92,7 +91,7 @@ class MailSchedule
         return false;
     }
 
-    public static function prepareMailData(int $mailId)
+    public static function prepareMailData(int $mailId): bool
     {
         $scheduledMail = MailScheduleMapper::getById($mailId);
         if (empty($scheduledMail)) {

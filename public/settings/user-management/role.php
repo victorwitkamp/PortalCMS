@@ -19,7 +19,7 @@ displayHeadCSS();
 PortalCMS_JS_headJS();
 
 $Role = Role::get($_GET['role_id']);
-if (!$Role) {
+if (empty($Role)) {
     Session::add('feedback_negative', 'Geen resultaten voor opgegeven rol ID.');
     Redirect::to('includes/error.php');
 }
@@ -31,7 +31,7 @@ if (!$Role) {
         <div class="content">
             <div class="container">
                 <div class="row mt-5">
-                    <h1><?= Text::get('TITLE_ROLE') ?>: <?= $Role['role_name'] ?> (rol)</h1>
+                    <h1><?= Text::get('TITLE_ROLE') ?>: <?= $Role->role_name ?> (rol)</h1>
                 </div>
                 <?php Alert::renderFeedbackMessages();
                 if ($Role) { ?>
@@ -41,10 +41,10 @@ if (!$Role) {
                         <tbody>
                         <tr>
                             <th>ID</th>
-                            <td><?= $Role['role_id'] ?></td>
+                            <td><?= $Role->role_id ?></td>
                         </tr>
                             <th>Naam</th>
-                            <td><?= $Role['role_name'] ?></td>
+                            <td><?= $Role->role_name ?></td>
                         </tr>
                             <th><?= Text::get('LABEL_ROLE_PERMISSIONS') ?></th>
                             <td>
