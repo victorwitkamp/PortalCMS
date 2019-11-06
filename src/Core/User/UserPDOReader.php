@@ -171,4 +171,14 @@ class UserPDOReader
         }
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
+
+    public static function getUsers() : ?array
+    {
+        $stmt = DB::conn()->query('SELECT * FROM users ORDER BY user_id ');
+        $stmt->execute();
+        if ($stmt->rowCount() === 0) {
+            return null;
+        }
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
 }

@@ -13,7 +13,7 @@ class EmailRecipient
 
     public $email;
 
-    public function __construct($name, $email)
+    public function __construct(string $name, string $email)
     {
         $this->name = $name;
         $this->email = $email;

@@ -1,9 +1,8 @@
 <?php
 
 use PortalCMS\Core\Authorization\PermissionMapper;
-use PortalCMS\Core\Authorization\Role;
+use PortalCMS\Core\Authorization\RolesPDOReader;
 use PortalCMS\Core\Authorization\UserRoleMapper;
-use PortalCMS\Core\Database\DB;
 
 ?>
 <div class="row">
@@ -11,52 +10,51 @@ use PortalCMS\Core\Database\DB;
         <table class="table table-striped table-condensed">
             <tr>
                 <th>ID</th>
-                <td><?=
-                    $row['user_id'] ?></td>
+                <td><?= $user->user_id ?></td>
             </tr>
             <tr>
                 <th>Gebruikersnaam</th>
-                <td><?= $row['user_name'] ?></td>
+                <td><?= $user->user_name ?></td>
             </tr>
             <tr>
                 <th>Session ID</th>
-                <td><?= $row['session_id'] ?></td>
+                <td><?= $user->session_id ?></td>
             </tr>
             <tr>
                 <th>E-mailadres</th>
-                <td><?= $row['user_email'] ?></td>
+                <td><?= $user->user_email ?></td>
             </tr>
             <tr>
                 <th>Account actief</th>
-                <td><?= $row['user_active'] ?></td>
+                <td><?= $user->user_active ?></td>
             </tr>
             <tr>
                 <th>Account verwijderd</th>
-                <td><?= $row['user_deleted'] ?></td>
+                <td><?= $user->user_deleted ?></td>
             </tr>
             <tr>
                 <th>Laatste aanmelding</th>
-                <td><?= $row['user_last_login_timestamp'] ?></td>
+                <td><?= $user->user_last_login_timestamp ?></td>
             </tr>
             <tr>
                 <th>Mislukte aanmeldingen</th>
-                <td><?= $row['user_failed_logins'] ?></td>
+                <td><?= $user->user_failed_logins ?></td>
             </tr>
             <tr>
                 <th>Laatste mislukte aanmelding</th>
-                <td><?= $row['user_last_failed_login'] ?></td>
+                <td><?= $user->user_last_failed_login ?></td>
             </tr>
             <tr>
                 <th>Facebook ID</th>
-                <td><?= $row['user_fbid'] ?></td>
+                <td><?= $user->user_fbid ?></td>
             </tr>
             <tr>
                 <th>CreationDate</th>
-                <td><?= $row['CreationDate'] ?></td>
+                <td><?= $user->CreationDate ?></td>
             </tr>
             <tr>
                 <th>ModificationDate</th>
-                <td><?= $row['ModificationDate'] ?></td>
+                <td><?= $user->ModificationDate ?></td>
             </tr>
         </table>
     </div>
@@ -66,23 +64,24 @@ use PortalCMS\Core\Database\DB;
                 <th>Rollen</th>
                 <td>
                     <?php
-                    $Roles = UserRoleMapper::getByUserId($row['user_id']);
-                    foreach ($Roles as $Role) { ?>
+                    $Roles = UserRoleMapper::getByUserId($user->user_id);
+                    if (!empty($Roles)) {
+                        foreach ($Roles as $Role) { ?>
                         <form method="post">
-                            <label><?= Role::get($Role['role_id'])['role_name'] ?></label>
-                            <input type="hidden" name="user_id" value="<?= $row['user_id'] ?>">
-                            <input type="hidden" name="role_id" value="<?= $Role['role_id'] ?>">
+                            <label><?= $Role->role_name ?></label>
+                            <input type="hidden" name="user_id" value="<?= $user->user_id ?>">
+                            <input type="hidden" name="role_id" value="<?= $Role->role_id ?>">
                             <button type="submit" name="unassignrole" class="btn btn-danger"><span class="fa fa-trash"></span></button>
                         </form>
-                    <?php }
-                    ?>
+                        <?php }
+                    } ?>
                 </td>
             </tr>
             <tr>
                 <th>Permissies</th>
                 <td>
                     <?php
-                    $UserPermissions = PermissionMapper::getPermissionsByUserId($row['user_id']);
+                    $UserPermissions = PermissionMapper::getPermissionsByUserId($user->user_id);
                     if (!empty($UserPermissions)) {
                         foreach ($UserPermissions as $UserPermission) {
                             echo '<li>';
@@ -97,20 +96,17 @@ use PortalCMS\Core\Database\DB;
                 <th>Rol toevoegen</th>
                 <td>
                     <form method="post">
-                        <input type="hidden" name="user_id" value="<?= $row['user_id'] ?>">
+                        <input type="hidden" name="user_id" value="<?= $user->user_id ?>">
                         <?php
-                        $stmt = DB::conn()->query('SELECT * FROM roles ORDER BY role_id ');
-                        if ($stmt->rowCount() > 0) {
-                            echo "<select name='role_id'>";
-                            while ($rowroles = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                ?>
-                                <option value="<?= $rowroles['role_id'] ?>"><?= $rowroles['role_name'] ?>
-                                <?php
-                            }
-                            echo '</select>';
-                        }
-                        ?>
-                            <input type="submit" name="assignrole" value="Toewijzen" class="btn btn-primary ml-2">
+                        $roles = RolesPDOReader::getRoles();
+                        if (!empty($roles)) { ?>
+                            <select name='role_id'>
+                            <?php foreach ($roles as $role) { ?>
+                                <option value="<?= $role->role_id ?>"><?= $role->role_name ?></option>
+                            <?php } ?>
+                            </select>
+                        <?php } ?>
+                        <input type="submit" name="assignrole" value="Toewijzen" class="btn btn-primary ml-2">
                     </form>
                 </td>
             </tr>

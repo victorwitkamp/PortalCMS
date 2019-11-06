@@ -1,1 +1,2 @@
-ALTER TABLE `invoices` MODIFY `vervaldatum` DATE;
+ALTER TABLE `invoices`
+    MODIFY `vervaldatum` DATE;

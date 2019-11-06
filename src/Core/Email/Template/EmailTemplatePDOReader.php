@@ -26,7 +26,7 @@ class EmailTemplatePDOReader
         return $stmt->fetchAll();
     }
 
-    public static function getByType($type)
+    public static function getByType(string $type)
     {
         $stmt = DB::conn()->prepare(
             'SELECT *
@@ -56,7 +56,7 @@ class EmailTemplatePDOReader
         return null;
     }
 
-    public static function getSystemTemplateByName($name)
+    public static function getSystemTemplateByName(string $name)
     {
         $stmt = DB::conn()->prepare(
             "SELECT *

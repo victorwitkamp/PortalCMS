@@ -17,7 +17,7 @@ class Config
     // this is public to allow better Unit Testing
     public static $config;
 
-    public static function get($key)
+    public static function get(string $key)
     {
         if (!self::$config) {
 

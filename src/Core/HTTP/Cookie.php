@@ -29,7 +29,7 @@ class Cookie
         );
     }
 
-    public static function setRememberMe($token)
+    public static function setRememberMe(string $token)
     {
         // set cookie, and make it available only for the domain created on (to avoid XSS attacks, where the
         // attacker could steal your remember-me cookie string and would login itself).
@@ -56,10 +56,10 @@ class Cookie
      * Sets the remember-me-cookie to ten years ago (3600sec * 24 hours * 365 days * 10).
      * that's obviously the best practice to kill a cookie @see http://stackoverflow.com/a/686166/1114320
      *
-     * @param string $user_id
+     * @param int $user_id
      * @return bool
      */
-    public static function delete($user_id = null): bool
+    public static function delete(int $user_id = null): bool
     {
         if (isset($user_id)) {
             UserPDOWriter::clearRememberMeToken($user_id);

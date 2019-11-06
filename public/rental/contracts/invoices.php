@@ -13,7 +13,7 @@ $pageName = Text::get('LABEL_CONTRACT_INVOICES_FOR_ID') . ': ' . Request::get('i
 Authentication::checkAuthentication();
 Authorization::verifyPermission('rental-contracts');
 $contract = ContractMapper::getById(Request::get('id'));
-if (empty(contract)) {
+if (empty($contract)) {
     Redirect::to('includes/error.php');
 }
 $pageName = 'Facturen voor ' . $contract->band_naam;

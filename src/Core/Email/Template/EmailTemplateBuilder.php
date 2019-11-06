@@ -34,7 +34,7 @@ class EmailTemplateBuilder
         $this->EmailTemplatePDOWriter = new EmailTemplatePDOWriter();
     }
 
-    public function create(string $type, $subject, $body): bool
+    public function create(string $type, string $subject, string $body): bool
     {
         if (empty($type) || empty($subject) || empty($body)) {
             return false;
@@ -44,7 +44,7 @@ class EmailTemplateBuilder
         $this->emailTemplate->subject = $subject;
         $this->emailTemplate->body = $body;
         $this->emailTemplate->status = 1;
-        $this->emailTemplate->CreatedBy = Session::get('user_id');
+        $this->emailTemplate->CreatedBy = (int) Session::get('user_id');
         return true;
     }
 

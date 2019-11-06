@@ -79,7 +79,7 @@ class CalendarEventMapper
         return true;
     }
 
-    public static function update(int $id, string $title, string $start_event, string $end_event, string $description, string $status): bool
+    public static function update(int $id, string $title, string $start_event, string $end_event, string $description, int $status): bool
     {
         $stmt = DB::conn()->prepare(
             'UPDATE events
@@ -93,7 +93,7 @@ class CalendarEventMapper
         return true;
     }
 
-    public static function updateDate(int $event_id, $title, $start_event, $end_event): bool
+    public static function updateDate(int $event_id, string $title, string $start_event, string $end_event): bool
     {
         $stmt = DB::conn()->prepare(
             'UPDATE events

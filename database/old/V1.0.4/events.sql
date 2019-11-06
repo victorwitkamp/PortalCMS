@@ -1,1 +1,2 @@
-ALTER TABLE events ADD status int default 0 AFTER description
+ALTER TABLE events
+    ADD status int default 0 AFTER description

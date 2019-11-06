@@ -1,8 +1,8 @@
 <?php
 
+use PortalCMS\Core\User\UserPDOReader;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Core\View\Alert;
-use PortalCMS\Core\Database\DB;
 use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Core\Authentication\Authentication;
 
@@ -40,29 +40,23 @@ PortalCMS_JS_headJS();
                         </tr>
                     </thead>
                     <?php
-                    // $sql = "SELECT * FROM users ORDER BY id ASC";
-                    $stmt = DB::conn()->query('SELECT * FROM users ORDER BY user_id ');
 
-                    // $result = $u->Database->db->query($sql);
-                    if ($stmt->rowCount() > 0) {
-                        echo '<tbody>';
-                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                            echo '<tr>
-                            <td>'.$row['user_id'] . '</td>
-                            <td>'.$row['user_name'] . '</td>
-                            <td>'.$row['user_email'] . '</td>
-                            <td>'.$row['user_last_login_timestamp'] . '</td>
-                            <td>
-                            <a href="profile.php?id='.$row['user_id'] . '" title="Profiel weergeven" class="btn btn-primary btn-sm"><span class="fa fa-user"></span></a>
-                            </td>
+                    $users = UserPDOReader::getUsers();
+                    if (!empty($users)) { ?>
+                        <tbody>
+                        <?php foreach ($users as $user) { ?>
+                            <tr>
+                            <td><?php echo $user->user_id; ?></td>
+                            <td><?php echo $user->user_name; ?></td>
+                            <td><?php echo $user->user_email; ?></td>
+                            <td><?php echo $user->user_last_login_timestamp; ?></td>
+                            <td><a href="profile.php?id=<?php echo $user->user_id; ?>" title="Profiel weergeven" class="btn btn-primary btn-sm"><span class="fa fa-user"></span></a></td>
                             </tr>
-                            ';
-                        }
-                        echo '</tbody>';
-                    } else {
-                        echo '<tr><td colspan="8">Ontbrekende gegevens..</td></tr>';
-                    }
-                    ?>
+                        <?php } ?>
+                        </tbody>
+                    <?php } else { ?>
+                        <tr><td colspan="8">Ontbrekende gegevens..</td></tr>
+                    <?php } ?>
                 </table>
         </div>
     </div>

@@ -1,20 +1,149 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="CUSTOM_SCOPE_NAME" value="src" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="10cd1690-6b40-469b-8cb6-7411aa27a75c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jsLinters/jslint.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.eslintrc.js" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/.gitattributes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/.htaccess" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.php_cs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.php_cs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/api/loadCalendarEvents.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/api/loadCalendarEvents.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Remove-Utf8BOM.psm1" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Remove-Utf8BOM.psm1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/fixBOM.ps1" beforeDir="false" afterPath="$PROJECT_DIR$/bin/fixBOM.ps1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/uglifyjs.ps1" beforeDir="false" afterPath="$PROJECT_DIR$/bin/uglifyjs.ps1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/20190708/mail_batches.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/20190708/mail_batches.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/20190708/mail_recipients.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/20190708/mail_recipients.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/20190708/mail_schedule.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/20190708/mail_schedule.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/201909xx/mail_batches.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/201909xx/mail_batches.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/201910xx/invoices.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/201910xx/invoices.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/201910xx/mail_batches.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/201910xx/mail_batches.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/201910xx/mail_schedule.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/201910xx/mail_schedule.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/201910xx/mail_templates.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/201910xx/mail_templates.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/201910xx/site_settings.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/201910xx/site_settings.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/20191104/49425portal_schema.SQL" beforeDir="false" afterPath="$PROJECT_DIR$/database/20191104/49425portal_schema.SQL" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/20191104/membersdb_schema.SQL" beforeDir="false" afterPath="$PROJECT_DIR$/database/20191104/membersdb_schema.SQL" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/PHPStorm/000-activity.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/PHPStorm/000-activity.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/PHPStorm/001-contracts.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/PHPStorm/001-contracts.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/PHPStorm/002-events.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/PHPStorm/002-events.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/PHPStorm/003-mail_attachments.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/PHPStorm/003-mail_attachments.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/PHPStorm/004-mail_batches.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/PHPStorm/004-mail_batches.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/PHPStorm/005-mail_recipient_types.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/PHPStorm/005-mail_recipient_types.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/PHPStorm/006-mail_recipients.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/PHPStorm/006-mail_recipients.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/PHPStorm/007-mail_schedule.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/PHPStorm/007-mail_schedule.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/PHPStorm/008-mail_templates.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/PHPStorm/008-mail_templates.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/PHPStorm/009-members.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/PHPStorm/009-members.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/PHPStorm/010-pages.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/PHPStorm/010-pages.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/PHPStorm/011-permissions.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/PHPStorm/011-permissions.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/PHPStorm/012-products.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/PHPStorm/012-products.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/PHPStorm/013-roles.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/PHPStorm/013-roles.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/PHPStorm/014-site_settings.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/PHPStorm/014-site_settings.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/PHPStorm/015-users.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/PHPStorm/015-users.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/PHPStorm/016-version.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/PHPStorm/016-version.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/PHPStorm/017-invoices.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/PHPStorm/017-invoices.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/PHPStorm/018-role_perm.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/PHPStorm/018-role_perm.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/PHPStorm/019-user_role.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/PHPStorm/019-user_role.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/PHPStorm/020-invoice_items.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/PHPStorm/020-invoice_items.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/old/V1.0.1/contracts.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/old/V1.0.1/contracts.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/old/V1.0.1/invoice_items.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/old/V1.0.1/invoice_items.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/old/V1.0.1/mail_schedule.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/old/V1.0.1/mail_schedule.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/old/V1.0.1/products.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/old/V1.0.1/products.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/old/V1.0.1/users.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/old/V1.0.1/users.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/old/V1.0.1/version.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/old/V1.0.1/version.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/old/V1.0.2/members.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/old/V1.0.2/members.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/old/V1.0.4/activity.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/old/V1.0.4/activity.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/old/V1.0.4/events.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/old/V1.0.4/events.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/old/V1.0.4/invoices.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/old/V1.0.4/invoices.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/old/V1.0.4/mail_attachments.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/old/V1.0.4/mail_attachments.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/old/V1.0.4/mail_schedule.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/old/V1.0.4/mail_schedule.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/old/V1.0.4/permissions.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/old/V1.0.4/permissions.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/old/V1.0.4/role_perm.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/old/V1.0.4/role_perm.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/old/V1.0.4/roles.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/old/V1.0.4/roles.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/old/V1.0.4/site_settings.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/old/V1.0.4/site_settings.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/old/V1.0.4/user_role.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/old/V1.0.4/user_role.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/old/V1.05/mail_attachments.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/old/V1.05/mail_attachments.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/old/V1.05/mail_templates.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/old/V1.05/mail_templates.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/old/V1/database.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/old/V1/database.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/old/V1/events.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/old/V1/events.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/old/V1/mail_schedule.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/old/V1/mail_schedule.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/old/V1/mail_templates.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/old/V1/mail_templates.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/old/V1/mail_text.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/old/V1/mail_text.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/old/V1/members.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/old/V1/members.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/old/V1/pages.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/old/V1/pages.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/old/V1/users.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/old/V1/users.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gulpfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/gulpfile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/api/loadComingEvents.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/api/loadComingEvents.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/api/updateEventDate.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/api/updateEventDate.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/config/config.development.php.example" beforeDir="false" afterPath="$PROJECT_DIR$/public/config/config.development.php.example" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/config/constants.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/config/constants.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/config/error-reporting.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/config/error-reporting.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/config/session.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/config/session.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/events/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/events/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/includes/functions.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/includes/functions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/includes/js/calendar.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/includes/js/calendar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/includes/js/cookieconsent.init.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/includes/js/cookieconsent.init.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/includes/js/datepicker_event.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/includes/js/datepicker_event.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/includes/js/datepicker_membership.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/includes/js/datepicker_membership.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/includes/js/init.datatables.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/includes/js/init.datatables.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/includes/js/loadingAnimation.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/includes/js/loadingAnimation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/includes/js/newlogin.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/includes/js/newlogin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/login/inc/login.inc.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/login/inc/login.inc.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/login/registration.php.old" beforeDir="false" afterPath="$PROJECT_DIR$/public/login/registration.php.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/mail/inc/table_batches.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/mail/inc/table_batches.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/mail/inc/table_messages.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/mail/inc/table_messages.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/mail/messages.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/mail/messages.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/membership/members_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/membership/members_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/my-account/inc/accountDetails.inc.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/my-account/inc/accountDetails.inc.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/rental/contracts/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/rental/contracts/edit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/rental/contracts/invoices.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/rental/contracts/invoices.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/settings/recent-activity/content.php.old" beforeDir="false" afterPath="$PROJECT_DIR$/public/settings/recent-activity/content.php.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/settings/site-settings/inc/general.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/settings/site-settings/inc/general.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/settings/site-settings/inc/mailserver.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/settings/site-settings/inc/mailserver.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/settings/site-settings/inc/widgets.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/settings/site-settings/inc/widgets.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/settings/site-settings/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/settings/site-settings/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/settings/user-management/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/settings/user-management/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/settings/user-management/profile.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/settings/user-management/profile.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/settings/user-management/profile_buttons.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/settings/user-management/profile_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/settings/user-management/profile_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/settings/user-management/role.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/settings/user-management/role.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/settings/user-management/roles.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/settings/user-management/roles.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controllers/EventController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/EventController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controllers/InvoiceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/InvoiceController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Authentication/Authentication.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Authentication/Authentication.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Authentication/Service/LogoutService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Authentication/Service/LogoutService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Authorization/Authorization.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Authorization/Authorization.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Authorization/Role.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Authorization/Role.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Authorization/RolePermissionMapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Authorization/RolePermissionMapper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Authorization/UserRoleMapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Authorization/UserRoleMapper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Config/Config.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Config/Config.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Database/DB.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Database/DB.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Email/Message/EmailMessage.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Message/EmailMessage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Email/Recipient/EmailRecipient.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Recipient/EmailRecipient.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Email/Recipient/EmailRecipientCollectionCreator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Recipient/EmailRecipientCollectionCreator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Email/Recipient/EmailRecipientMapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Recipient/EmailRecipientMapper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Email/SMTP/SMTPConfiguration.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/SMTP/SMTPConfiguration.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Email/SMTP/SMTPTransport.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/SMTP/SMTPTransport.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Email/Schedule/Helpers/MemberTemplateScheduler.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Template/Helpers/MemberTemplateScheduler.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Email/Schedule/MailSchedule.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Schedule/MailSchedule.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Email/Template/EmailTemplate.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Template/EmailTemplate.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Email/Template/EmailTemplateBuilder.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Template/EmailTemplateBuilder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Email/Template/EmailTemplatePDOReader.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Template/EmailTemplatePDOReader.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Email/Template/EmailTemplatePDOWriter.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Template/EmailTemplatePDOWriter.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Core/Encryption/Encryption.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Encryption/Encryption.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/View/Alert.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/View/Alert.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Filter/Filter.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Filter/Filter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/HTTP/Cookie.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/HTTP/Cookie.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/User/Password.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/User/Password.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/User/UserPDOReader.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/User/UserPDOReader.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/User/UserPDOWriter.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/User/UserPDOWriter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/View/Text.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/View/Text.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Calendar/CalendarEventMapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Calendar/CalendarEventMapper.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Modules/Calendar/CalendarEventModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Calendar/CalendarEventModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Calendar/Event.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Calendar/Event.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -71,6 +200,9 @@
     <exe-path />
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
+  </component>
+  <component name="NamedScopeManager">
+    <scope name="src" pattern="file[portal]:src/*.php||file[portal]:src//*.php" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -172,6 +304,11 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="Errors" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\inetpub\portal\src\Core\Email\Template" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -299,7 +436,7 @@
       <workItem from="1572663036569" duration="20455000" />
       <workItem from="1572796716073" duration="10139000" />
       <workItem from="1572870274843" duration="34338000" />
-      <workItem from="1572998041120" duration="2469000" />
+      <workItem from="1572998041120" duration="9396000" />
     </task>
     <servers />
   </component>

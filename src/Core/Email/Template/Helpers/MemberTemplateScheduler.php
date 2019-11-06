@@ -5,9 +5,8 @@
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Email\Schedule\Helpers;
+namespace PortalCMS\Core\Email\Template\Helpers;
 
-use PortalCMS\Core\Config\SiteSetting;
 use PortalCMS\Core\Email\Batch\MailBatch;
 use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
 use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
@@ -61,7 +60,7 @@ class MemberTemplateScheduler
             $batchId,
             $memberId,
             $template->subject,
-            self::replaceholdersMember(
+            PlaceholderHelper::replaceholdersMember(
                 $memberId,
                 $template->body
             )
@@ -82,18 +81,5 @@ class MemberTemplateScheduler
         }
     }
 
-    public static function replaceholdersMember($memberId, $templatebody)
-    {
-        $member = MemberModel::getMemberById($memberId);
-        $variables = [
-            'voornaam' => $member->voornaam,
-            'achternaam' => $member->achternaam,
-            'iban' => $member->iban,
-            'afzender' => SiteSetting::getStaticSiteSetting('site_name')
-        ];
-        foreach ($variables as $key => $value) {
-            $templatebody = str_replace('{' . strtoupper($key) . '}', $value, $templatebody);
-        }
-        return $templatebody;
-    }
+
 }

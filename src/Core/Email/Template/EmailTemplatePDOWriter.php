@@ -22,11 +22,11 @@ class EmailTemplatePDOWriter
     {
         $stmt = DB::conn()->prepare(
             'INSERT INTO mail_templates(
-                id, type, subject, body, status
+                id, type, subject, body, status, CreatedBy
                 ) VALUES (
-                    NULL,?,?,?,?)'
+                    NULL,?,?,?,?,?)'
         );
-        $stmt->execute([$EmailTemplate->type, $EmailTemplate->subject, $EmailTemplate->body, $EmailTemplate->status]);
+        $stmt->execute([$EmailTemplate->type, $EmailTemplate->subject, $EmailTemplate->body, $EmailTemplate->status, $EmailTemplate->CreatedBy]);
         if (!$stmt) {
             return null;
         }

@@ -20,7 +20,7 @@ class EmailRecipientMapper
      *
      * @return boolean
      */
-    public static function createRecipient($mail_id, $email, $name = null): bool
+    public static function createRecipient(int $mail_id, string $email, string $name = null): bool
     {
         $stmt = DB::conn()->prepare(
             'INSERT INTO mail_recipients(id, email, mail_id, type, name) VALUES (NULL,?,?,1,?)'
@@ -41,7 +41,7 @@ class EmailRecipientMapper
      *
      * @return boolean
      */
-    public static function createCC($mail_id, $email, $name = null): bool
+    public static function createCC(int $mail_id, string $email, string $name = null): bool
     {
         $stmt = DB::conn()->prepare(
             'INSERT INTO mail_recipients(id, email, mail_id, type, name) VALUES (NULL,?,?,2,?)'
@@ -62,7 +62,7 @@ class EmailRecipientMapper
      *
      * @return boolean
      */
-    public static function createBCC($mail_id, $email, $name = null): bool
+    public static function createBCC(int $mail_id, string $email, string $name = null): bool
     {
         $stmt = DB::conn()->prepare(
             'INSERT INTO mail_recipients(id, email, mail_id, type, name) VALUES (NULL,?,?,3,?)'
@@ -81,7 +81,7 @@ class EmailRecipientMapper
      *
      * @return array|bool
      */
-    public function getAll($mail_id)
+    public function getAll(int $mail_id)
     {
         $stmt = DB::conn()->prepare('
             SELECT * FROM mail_recipients where mail_id = ?
@@ -100,7 +100,7 @@ class EmailRecipientMapper
      *
      * @return array|bool
      */
-    public function getRecipients($mailId)
+    public function getRecipients(int $mailId)
     {
         $stmt = DB::conn()->prepare('
             SELECT * FROM mail_recipients where mail_id = ? and type = 1
@@ -118,7 +118,7 @@ class EmailRecipientMapper
      * @param int $mailId The ID of the e-mail that was scheduled in the MailSchedule table.
      * @return array|bool
      */
-    public static function getCC($mailId)
+    public static function getCC(int $mailId)
     {
         $stmt = DB::conn()->prepare('
             SELECT * FROM mail_recipients where mail_id = ? and type = 2
@@ -136,7 +136,7 @@ class EmailRecipientMapper
      * @param int $mailId The ID of the e-mail that was scheduled in the MailSchedule table.
      * @return array|bool
      */
-    public static function getBCC($mailId)
+    public static function getBCC(int $mailId)
     {
         $stmt = DB::conn()->prepare('
             SELECT * FROM mail_recipients where mail_id = ? and type = 3

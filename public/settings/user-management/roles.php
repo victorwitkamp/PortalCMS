@@ -1,8 +1,8 @@
 <?php
 
+use PortalCMS\Core\Authorization\RolesPDOReader;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Core\View\Alert;
-use PortalCMS\Core\Database\DB;
 use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Core\Authentication\Authentication;
 
@@ -24,10 +24,8 @@ PortalCMS_JS_headJS();
         <div class="container">
             <div class="row mt-5">
                 <div class="col-sm-8"><h1><?= $pageName ?></h1></div>
-                <!-- <div class="col-sm-4"><a href="#" class="btn btn-success navbar-btn float-right"><span class="fa fa-plus"></span> Toevoegen</a></div> -->
             </div>
-            <?php
-            Alert::renderFeedbackMessages(); ?>
+            <?php Alert::renderFeedbackMessages(); ?>
             <hr>
                 <table class="table table-sm table-striped table-hover table-dark">
                     <thead class="thead-dark">
@@ -39,34 +37,38 @@ PortalCMS_JS_headJS();
                     </thead>
                     <?php
 
-                    $stmt = DB::conn()->query('SELECT * FROM roles ORDER BY role_id ');
-                    if ($stmt->rowCount() > 0) {
-                        echo '<tbody>';
-                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                            echo '<tr>';
-                            echo '<td>' . $row['role_id'] . '</td>';
-                            echo '<td>' . $row['role_name'] . '</td>
-                            <td>
-                            <a href="role.php?role_id='.$row['role_id'] . '" title="Rol beheren" class="btn btn-primary btn-sm"><span class="fa fa-cog"></span></a>
-                            <form method="post">
-                            <input type="hidden" name="role_id" value="'.$row['role_id'] . '">
-                            <button type="submit" name="deleterole" class="btn btn-danger btn-sm" onclick="return confirm(\'Weet u zeker dat u de rol '.$row['role_name'] . ' wilt verwijderen?\')"><span class="fa fa-trash"></span></button>
-                            </form>
-                            </td>
-                            </tr>';
-                        }
-                        echo '</tbody>';
-                    } else {
-                        echo '<tr><td colspan="8">Ontbrekende gegevens..</td></tr>';
-                    }
-                    ?>
+                    $Roles = RolesPDOReader::getRoles();
+                    if (!empty($Roles)) { ?>
+                        <tbody>
+                        <?php foreach ($Roles as $Role) { ?>
+                            <tr>
+                                <td><?= $Role->role_id ?></td>
+                                <td><?= $Role->role_name ?></td>
+                                <td>
+                                    <a href="role.php?role_id=<?= $Role->role_id ?>" title="Rol beheren" class="btn btn-primary btn-sm">
+                                        <span class="fa fa-cog"></span>
+                                    </a>
+                                    <form method="post">
+                                        <input type="hidden" name="role_id" value="<?= $Role->role_id ?>">
+                                        <button type="submit" name="deleterole" class="btn btn-danger btn-sm" onclick="return confirm('Weet u zeker dat u de rol <?= $Role->role_name ?> wilt verwijderen?')">
+                                            <span class="fa fa-trash"></span>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                        </tbody>
+                    <?php } else { ?>
+                        <tr>
+                            <td colspan="8">Ontbrekende gegevens..</td>
+                        </tr>
+                    <?php } ?>
                 </table>
                 <hr>
                 <h3>Nieuwe rol</h3>
                 <form method="post">
                     <input type="text" name="role_name">
-
-                <button type="submit" name="addrole" class="btn btn-danger btn-sm">Toevoegen</button>
+                    <button type="submit" name="addrole" class="btn btn-danger btn-sm">Toevoegen</button>
                 </form>
         </div>
     </div>

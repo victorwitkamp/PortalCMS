@@ -7,20 +7,25 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Authorization;
 
+use PDO;
 use PortalCMS\Core\Database\DB;
 
 class UserRoleMapper
 {
-    public static function getByUserId($Id)
+    public static function getByUserId($userId) : ?array
     {
         $stmt = DB::conn()->prepare(
-            'SELECT role_id
-                FROM user_role
-                    where user_id = ?
-                        ORDER BY role_id'
+            'SELECT t1.role_id, t2.role_name
+                FROM user_role as t1
+                    JOIN roles t2 on t1.role_id = t2.role_id
+                        where t1.user_id = ?
+                            ORDER BY t1.role_id'
         );
-        $stmt->execute([$Id]);
-        return $stmt->fetchAll();
+        $stmt->execute([$userId]);
+        if ($stmt->rowCount() > 0) {
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
+        }
+        return null;
     }
 
 

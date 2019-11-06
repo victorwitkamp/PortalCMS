@@ -5,4 +5,4 @@ use PortalCMS\Core\Authentication\Authentication;
 
 require __DIR__ . '/../Init.php';
 Authentication::checkAuthentication();
-echo json_encode(!empty(CalendarEventModel::loadComingEvents()));
+echo json_encode(CalendarEventModel::loadComingEvents());

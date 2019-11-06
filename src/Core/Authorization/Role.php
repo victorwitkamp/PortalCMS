@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Authorization;
 
+use PDO;
 use PortalCMS\Core\Database\DB;
 
 class Role
@@ -35,9 +36,9 @@ class Role
         );
         $stmt->execute([$role_id]);
         if ($stmt->rowCount() === 1) {
-            return $stmt->fetch();
+            return $stmt->fetch(PDO::FETCH_OBJ);
         }
-        return false;
+        return null;
     }
 
     /**

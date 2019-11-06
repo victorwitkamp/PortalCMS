@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Email\Schedule;
 
-use PortalCMS\Core\Email\Schedule\Helpers\MemberTemplateScheduler;
+use PortalCMS\Core\Email\Template\Helpers\MemberTemplateScheduler;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\Email\SMTP\SMTPTransport;
 use PortalCMS\Core\Email\Message\EmailMessage;
