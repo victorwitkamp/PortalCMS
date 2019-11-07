@@ -34,7 +34,7 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
                     <div class="row">
                         <div class="col-sm-12">
                             <label class="control-label">Naam van het evenement</label>
-                            <input type="text" name="title" class="form-control form-control-sm" placeholder="" required>
+                            <input type="text" name="title" class="form-control" placeholder="" required>
                         </div>
                     </div>
                     <div class="row">
@@ -47,7 +47,7 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
                                             <i class="fa fa-calendar"></i>
                                         </div>
                                     </div>
-                                    <input type="text" name="start_event" class="form-control form-control-sm  datetimepicker-input" data-target="#datetimepicker1" required>
+                                    <input type="text" name="start_event" maxlength="16" class="form-control datetimepicker-input" data-target="#datetimepicker1" required>
                                 </div>
                             </div>
                         </div>
@@ -60,7 +60,7 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
                                             <i class="fa fa-calendar"></i>
                                         </div>
                                     </div>
-                                    <input type="text" name="end_event" class="form-control form-control-sm  datetimepicker-input" data-target="#datetimepicker2" required>
+                                    <input type="text" name="end_event" maxlength="16" class="form-control datetimepicker-input" data-target="#datetimepicker2" required>
                                 </div>
                             </div>
                         </div>
@@ -68,14 +68,14 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
                     <div class="row">
                         <div class="col-sm-12">
                             <label class="control-label">Beschrijving</label>
-                            <input type="text" name="description" class="form-control form-control-sm" placeholder="">
+                            <input type="text" name="description" class="form-control" placeholder="">
                         </div>
                     </div>
                     <hr />
                     <div class="form-group form-group-sm">
                         <input type="text" name="CreatedBy" value="<?= Session::get('user_id') ?>" hidden>
-                        <input type="submit" name="addEvent" class="btn btn-sm btn-primary" value="Opslaan">
-                        <a href="index.php" class="btn btn-sm btn-danger">Annuleren</a>
+                        <input type="submit" name="addEvent" class="btn btn-primary" value="Opslaan">
+                        <a href="index.php" class="btn btn-danger">Annuleren</a>
                     </div>
                 </form>
 

@@ -9,8 +9,10 @@ use PortalCMS\Core\Config\SiteSetting;
 
 ?>
 <header>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
-        <div class="container">
+<!--    <nav class="navbar navbar-expand-sm navbar-dark bg-primary">-->
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+
+    <div class="container-fluid">
             <a class="navbar-brand" href="/home"><?= SiteSetting::getStaticSiteSetting('site_name') ?></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

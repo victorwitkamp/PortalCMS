@@ -49,6 +49,16 @@ class MemberModel
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
+    public static function getMembersByYear(int $year) : ?array
+    {
+        $stmt = DB::conn()->prepare('SELECT * FROM members where jaarlidmaatschap = ? ORDER BY id');
+        $stmt->execute([$year]);
+        if ($stmt->rowCount() === 0) {
+            return null;
+        }
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
     public static function getMembersWithValidEmail() : ?array
     {
         $stmt = DB::conn()->query('SELECT * FROM members WHERE emailadres IS NOT NULL ORDER BY id');

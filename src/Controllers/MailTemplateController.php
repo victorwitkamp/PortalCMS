@@ -31,6 +31,12 @@ class MailTemplateController extends Controller
             $templateBuilder->store();
             Redirect::to('mail/templates/');
         }
+        if (isset($_POST['setYear'])) {
+
+            $year = Request::post('year');
+            header('Location: '.$_SERVER['PHP_SELF'].'?year='.$year);
+        }
+
         if (isset($_POST['edittemplate'])) {
             $templateBuilder = new EmailTemplateBuilder();
             $template = $templateBuilder->getExisting((int) Request::get('id'));

@@ -1,5 +1,6 @@
 <?php
 
+use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Modules\Members\MemberModel;
 use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Core\Authentication\Authentication;
@@ -9,6 +10,12 @@ $pageName = 'Nieuw bericht';
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();
 Authorization::verifyPermission('mail-scheduler');
+
+$year = Request::get('year');
+if (empty($year)) {
+    $year = date('Y');
+}
+
 require_once DIR_INCLUDES . 'functions.php';
 require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();
@@ -27,6 +34,17 @@ PortalCMS_JS_headJS(); ?>
         </div>
         <div class="container">
             <form method="post">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Jaar
+                            <input type="text" name="year" value="<?php echo $year; ?>"/>
+                            <input type="submit" name="setYear">
+                    </div>
+                </div>
+            </div>
+            </form>
+            <form method="post">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-12">
@@ -44,6 +62,8 @@ PortalCMS_JS_headJS(); ?>
                     </div>
                 </div>
 
+
+
                 <div class="form-group form-check">
                     <div class="row">
                         <div class="col-md-12">
@@ -56,18 +76,30 @@ PortalCMS_JS_headJS(); ?>
                 <div class="form-group form-check">
                     <div id="example" class="row">
                     <?php
-                    $members = MemberModel::getMembers();
-                    foreach ($members as $member) :
-                        if (!empty($member->emailadres)) { ?>
-                        <div class="col-md-4">
-                            <input type="checkbox" name='recipients[]' id="checkbox" value="<?= $member->id ?>"> <?= $member->voornaam . ' ' . $member->achternaam ?><br/>
-                        </div>
-                        <?php } else { ?>
-                        <div class="col-md-4">
-                            <input type="checkbox" value="<?= $member->id ?>" disabled><s> <?= $member->voornaam . ' ' . $member->achternaam ?></s><br/>
-                        </div>
-                        <?php }
-                    endforeach ?>
+
+                    $members = MemberModel::getMembersByYear($year);
+                    if (!empty($members)) {
+                        $count = 0;
+                        foreach ($members as $member) {
+                            $count++;
+                            if (!empty($member->emailadres)) { ?>
+                                <div class="col-md-4">
+                                    <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" name='recipients[]' id="customCheck<?php echo $count; ?>" value="<?= $member->id ?>">
+                                        <label class="custom-control-label" for="customCheck<?php echo $count; ?>"><?= $member->voornaam . ' ' . $member->achternaam ?></label>
+                                    </div>
+                                </div>
+                            <?php } else { ?>
+                                <div class="col-md-4">
+                                    <input type="checkbox" class="custom-control-input" value="<?= $member->id ?>" disabled><s> <?= $member->voornaam . ' ' . $member->achternaam ?></s><br/>
+                                </div>
+                            <?php }
+
+                        }
+                    } else {
+                        echo 'Geen resultaten';
+                    }
+                    ?>
                     </div>
                 </div>
             </form>
