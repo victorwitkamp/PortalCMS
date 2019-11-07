@@ -7,8 +7,8 @@ namespace PortalCMS\Core\Authentication\Service;
 
 class ValidatedCookie
 {
-    public $user_id = null;
-    public $token = null;
+    public $user_id;
+    public $token;
 
     public function __construct(int $user_id, string $token)
     {
