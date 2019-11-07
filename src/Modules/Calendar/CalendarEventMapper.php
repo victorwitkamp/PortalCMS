@@ -63,16 +63,23 @@ class CalendarEventMapper
         return null;
     }
 
-    public static function new(string $title, string $start_event, string $end_event, string $description, int $CreatedBy): bool
+    public static function new(string $title, string $start_event, string $end_event, string $description, int $CreatedBy) : bool
     {
         $stmt = DB::conn()->prepare(
             'INSERT INTO events(
-                id, title, CreatedBy, start_event, end_event, description
+                id, title, start_event, end_event, description, CreatedBy
             ) VALUES (
                 NULL,?,?,?,?,?
             )'
         );
-        $stmt->execute([$title, $CreatedBy, date('Y-m-d H:i:s', strtotime($start_event)), date('Y-m-d H:i:s', strtotime($end_event)), $description]);
+        $stmt->execute([
+            $title,
+            $start_event,
+            //date('Y-m-d H:i:s', strtotime($start_event)),
+            $end_event,
+            //date('Y-m-d H:i:s', strtotime($end_event)),
+            $description,
+            $CreatedBy]);
         if (!$stmt) {
             return false;
         }

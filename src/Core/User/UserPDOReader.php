@@ -136,13 +136,11 @@ class UserPDOReader
     public static function getByFbid(int $user_fbid) : ?object
     {
         $stmt = DB::conn()->prepare(
-            // 'SELECT user_id, user_name, user_email, user_password_hash, user_active,
-            //         user_account_type, user_has_avatar, user_failed_logins, user_last_failed_login
-                'SELECT *
-                    FROM users
-                        WHERE user_fbid = :user_fbid
-                            AND user_fbid IS NOT NULL
-                                LIMIT 1'
+            'SELECT *
+                            FROM users
+                                WHERE user_fbid = :user_fbid
+                                    AND user_fbid IS NOT NULL
+                                        LIMIT 1'
         );
         $stmt->execute([':user_fbid' => $user_fbid]);
         if ($stmt->rowCount() === 0) {

@@ -11,3 +11,4 @@
 /public/.well-known/
 /yarn.lock
 /.php_cs.cache
+/database/
