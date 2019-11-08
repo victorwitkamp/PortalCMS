@@ -44,7 +44,17 @@ PortalCMS_JS_headJS(); ?>
                     <?php
                     foreach (EmailTemplatePDOReader::get() as $template) {
                         ?><tr>
-                            <td><a href="edit.php?id=<?= $template['id'] ?>" title="Gegevens wijzigen" class="btn btn-warning btn-sm"><span class="fa fa-edit"></span></a></td>
+                            <td>
+                                <form method="post">
+                                    <a href="edit.php?id=<?= $template['id'] ?>" title="Gegevens wijzigen" class="btn btn-warning btn-sm">
+                                        <span class="fa fa-edit"></span>
+                                    </a>
+                                    <button name="deleteTemplate" type="submit" onclick="return confirm('Weet je zeker dat je de template <?= $template['name'] ?> wilt verwijderen?')" class="btn btn-sm btn-danger">
+                                    <i class="far fa-trash-alt"></i>
+                                    </button>
+                                    <input type="hidden" name="id" value="<?= $template['id'] ?>">
+                                </form>
+                            </td>
                             <td><?= $template['id'] ?></td>
                             <td><?= $template['name'] ?></td>
                             <td><?= $template['type'] ?></td>

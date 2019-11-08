@@ -12,3 +12,4 @@
 /yarn.lock
 /.php_cs.cache
 /database/
+composer.lock

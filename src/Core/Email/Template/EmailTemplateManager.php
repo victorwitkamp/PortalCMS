@@ -9,7 +9,7 @@ namespace PortalCMS\Core\Email\Template;
 
 use PortalCMS\Core\Session\Session;
 
-class EmailTemplateBuilder
+class EmailTemplateManager
 {
     /**
      * Instance of the MailTemplateMapper class
@@ -54,7 +54,7 @@ class EmailTemplateBuilder
      */
     public function getExisting(int $id) : ?EmailTemplate
     {
-        $existing = $this->EmailTemplatePDOReader->getById($id);
+        $existing = EmailTemplatePDOReader::getById($id);
         if (!empty($existing)) {
             $emailTemplate = new EmailTemplate();
             $emailTemplate->id = $existing->id;
@@ -71,7 +71,6 @@ class EmailTemplateBuilder
 
     /**
      * Save the EmailTemplate to the database and return the id of the created record.
-
      * @return bool
      */
     public function store() : bool
@@ -106,6 +105,24 @@ class EmailTemplateBuilder
             return true;
         }
         Session::add('feedback_negative', 'Opslaan mislukt');
+        return false;
+    }
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public static function delete(int $id): bool
+    {
+        if (!empty(EmailTemplatePDOReader::getById($id))) {
+            if (EmailTemplatePDOWriter::delete($id)) {
+                Session::add('feedback_positive', 'Template verwijderd.');
+                return true;
+            }
+            Session::add('feedback_negative', 'Verwijderen van template mislukt.');
+        } else {
+            Session::add('feedback_negative', 'Verwijderen van template mislukt. Template bestaat niet.');
+        }
         return false;
     }
 }

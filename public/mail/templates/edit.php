@@ -12,8 +12,7 @@ use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();
 Authorization::verifyPermission('mail-templates');
-$reader = new EmailTemplatePDOReader();
-$template = $reader->getById(Request::get('id'));
+$template = EmailTemplatePDOReader::getById(Request::get('id'));
 if (empty($template)) {
     Redirect::to('error');
 }

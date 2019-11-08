@@ -9,10 +9,6 @@ namespace PortalCMS\Modules\Calendar;
 
 use PortalCMS\Core\Session\Session;
 
-/**
- * Class : Event (Event.php)
- * Details : Event Class.
- */
 class CalendarEventModel
 {
     /**
