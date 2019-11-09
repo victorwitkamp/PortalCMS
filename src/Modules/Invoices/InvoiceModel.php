@@ -73,7 +73,7 @@ class InvoiceModel
             return false;
         }
         foreach ($contract_ids as $contract_id) {
-            $contract = ContractMapper::getById($contract_id);
+            $contract = ContractMapper::getById((int) $contract_id);
             $factuurnummer = $year . $contract->bandcode . $month;
             $factuurdatum = Request::post('factuurdatum', true);
             if (!empty(InvoiceMapper::getByFactuurnummer($factuurnummer))) {

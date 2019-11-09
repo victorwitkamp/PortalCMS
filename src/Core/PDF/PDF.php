@@ -77,7 +77,7 @@ class PDF
 
     public static function createInvoice($pdf, $invoice, $invoiceitems, $contract)
     {
-        $pdf->SetTitle('Factuur ' . $invoice['factuurnummer']);
+        $pdf->SetTitle('Factuur ' . $invoice->factuurnummer);
         $pdf->SetXY(165, 15);
         // $logo = $_SERVER["DOCUMENT_ROOT"].'/rental/invoices/beuklogo_1866x1866.png';
         $pdf->Image('logo_new_280px.jpg', '', '', 25, 25, '', '', 'T', false, 300, '', false, false, 0, false, false, false);
@@ -87,16 +87,16 @@ class PDF
 
         $pdf->SetXY(20, 70);
         $pdf->SetFont('dejavusans', 'B', 11, '', true);
-        $pdf->Write(0, $contract['band_naam'] . "\n", '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Write(0, $contract->band_naam . "\n", '', 0, 'L', true, 0, false, false, 0);
         $pdf->SetFont('dejavusans', '', 11, '', true);
         $pdf->SetX(20);
-        $pdf->Write(0, 'T.a.v. ' . $contract['bandleider_naam'] . "\n", '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Write(0, 'T.a.v. ' . $contract->bandleider_naam . "\n", '', 0, 'L', true, 0, false, false, 0);
         // $pdf->Ln();
         $pdf->SetX(20);
-        $pdf->Write(0, $contract['bandleider_adres'] . "\n", '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Write(0, $contract->bandleider_adres . "\n", '', 0, 'L', true, 0, false, false, 0);
         // $pdf->Ln();
         $pdf->SetX(20);
-        $postcodewoonplaats = $contract['bandleider_postcode'] . ' ' . $contract['bandleider_woonplaats'];
+        $postcodewoonplaats = $contract->bandleider_postcode . ' ' . $contract->bandleider_woonplaats;
         $pdf->Write(0, $postcodewoonplaats, '', 0, 'L', true, 0, false, false, 0);
 
         $pdf->SetXY(20, 110);
@@ -106,13 +106,13 @@ class PDF
 
         $pdf->SetXY(20, 120);
         $pdf->SetFont('dejavusans', '', 11, '', true);
-        $factuurnummertekst = 'Factuurnummer: ' . $invoice['factuurnummer'];
+        $factuurnummertekst = 'Factuurnummer: ' . $invoice->factuurnummer;
         $pdf->Write(0, $factuurnummertekst, '', 0, 'L', true, 0, false, false, 0);
 
         $pdf->SetXY(120, 120);
-        $newDate = date('d-m-Y', strtotime($invoice['factuurdatum']));
+        $newDate = date('d-m-Y', strtotime($invoice->factuurdatum));
         $factuurtekstrechts = 'Factuurdatum: ' . $newDate;
-        // $factuurtekstrechts2 = 'Vervaldatum: '.$invoice['vervaldatum'];
+        // $factuurtekstrechts2 = 'Vervaldatum: '.$invoice->vervaldatum;
         $pdf->Write(0, $factuurtekstrechts, '', 0, 'R', true, 0, false, false, 0);
         // $pdf->Ln();
         // $pdf->Write(0, $factuurtekstrechts2, '', 0, 'R', true, 0, false, false, 0);
@@ -172,7 +172,7 @@ class PDF
         $pdf = self::configPDF();
         $pdf = self::createInvoice($pdf, $invoice, $invoiceitems, $contract);
         ob_end_clean();
-        $pdf->Output($invoice['factuurnummer'] . '.pdf', 'I');
+        $pdf->Output($invoice->factuurnummer . '.pdf', 'I');
     }
 
     public static function writeInvoice($invoice, array $invoiceitems, $contract) : bool
@@ -180,13 +180,13 @@ class PDF
         $pdf = self::configPDF();
         $pdf = self::createInvoice($pdf, $invoice, $invoiceitems, $contract);
 
-        if (file_exists($_SERVER['DOCUMENT_ROOT'] . 'content/invoices/' . $invoice['factuurnummer'] . '.pdf')) {
+        if (file_exists($_SERVER['DOCUMENT_ROOT'] . 'content/invoices/' . $invoice->factuurnummer . '.pdf')) {
             Session::add('feedback_negative', 'Bestand bestaat al.');
             return false;
         }
         // ob_end_clean();
-        $pdf->Output($_SERVER['DOCUMENT_ROOT'] . 'content/invoices/' . $invoice['factuurnummer'] . '.pdf', 'F');
-        if (file_exists($_SERVER['DOCUMENT_ROOT'] . 'content/invoices/' . $invoice['factuurnummer'] . '.pdf')) {
+        $pdf->Output($_SERVER['DOCUMENT_ROOT'] . 'content/invoices/' . $invoice->factuurnummer . '.pdf', 'F');
+        if (file_exists($_SERVER['DOCUMENT_ROOT'] . 'content/invoices/' . $invoice->factuurnummer . '.pdf')) {
             return true;
         }
         return false;

@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Modules\Invoices;
 
+use PDO;
 use PortalCMS\Core\Database\DB;
 
 class InvoiceItemMapper
@@ -29,7 +30,7 @@ class InvoiceItemMapper
         if ($stmt->rowCount() === 0) {
             return null;
         }
-        return $stmt->fetchAll();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
     /**
