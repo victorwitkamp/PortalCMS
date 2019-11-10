@@ -7,7 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10cd1690-6b40-469b-8cb6-7411aa27a75c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Controllers/MailTemplateController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/MailTemplateController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.php_cs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.php_cs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controllers/InvoiceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/InvoiceController.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -284,7 +286,7 @@
       <workItem from="1573071692467" duration="15920000" />
       <workItem from="1573247296721" duration="617000" />
       <workItem from="1573247958497" duration="4490000" />
-      <workItem from="1573397964868" duration="4584000" />
+      <workItem from="1573397964868" duration="8030000" />
     </task>
     <servers />
   </component>

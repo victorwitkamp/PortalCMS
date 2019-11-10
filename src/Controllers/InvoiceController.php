@@ -19,27 +19,23 @@ use PortalCMS\Modules\Invoices\InvoiceItemModel;
  */
 class InvoiceController extends Controller
 {
+    private $requests = array(
+        'createInvoiceMail',
+        'writeInvoice',
+        'createInvoice',
+        'deleteInvoice',
+        'deleteInvoiceItem',
+        'addInvoiceItem'
+    );
+
     public function __construct()
     {
         parent::__construct();
 
-        if (isset($_POST['createInvoiceMail'])) {
-            self::createInvoiceMail();
-        }
-        if (isset($_POST['writeInvoice'])) {
-            self::writeInvoiceHandler();
-        }
-        if (isset($_POST['createInvoice'])) {
-            self::createInvoiceHandler();
-        }
-        if (isset($_POST['deleteInvoice'])) {
-            self::deleteInvoiceHandler();
-        }
-        if (isset($_POST['deleteInvoiceItem'])) {
-            self::deleteItemHandler();
-        }
-        if (isset($_POST['addInvoiceItem'])) {
-            self::addItemHandler();
+        foreach ($this->requests as $request) {
+            if (isset($_POST[$request])) {
+                \call_user_func([__CLASS__,$request]);
+            }
         }
     }
 
@@ -52,14 +48,14 @@ class InvoiceController extends Controller
         }
     }
 
-    public static function writeInvoiceHandler()
+    public static function writeInvoice()
     {
         $id = Request::post('id', true);
         if (!InvoiceModel::write($id)) {
             Redirect::to('includes/error.php');
         }
     }
-    public static function createInvoiceHandler()
+    public static function createInvoice()
     {
         $year = Request::post('year', true);
         $month = Request::post('month', true);
@@ -70,7 +66,7 @@ class InvoiceController extends Controller
             Redirect::to('includes/error.php');
         }
     }
-    public static function deleteInvoiceHandler()
+    public static function deleteInvoice()
     {
         $id = (int) Request::post('id', true);
         if (InvoiceModel::delete($id)) {
@@ -79,7 +75,7 @@ class InvoiceController extends Controller
             Redirect::to('includes/error.php');
         }
     }
-    public static function deleteItemHandler()
+    public static function deleteInvoiceItem()
     {
         $invoiceId = (int) Request::post('invoiceid', true);
         $id = (int) Request::post('id', true);
@@ -89,7 +85,7 @@ class InvoiceController extends Controller
             Redirect::to('includes/error.php');
         }
     }
-    public static function addItemHandler()
+    public static function addInvoiceItem()
     {
         $invoiceId = (int) Request::post('invoiceid', true);
         $name = Request::post('name', true);
