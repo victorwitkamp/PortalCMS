@@ -1,9 +1,9 @@
 <?php
 
-use PortalCMS\Core\View\Alert;
-use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\Authorization\Authorization;
+use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\View\Alert;
 
 $pageName = 'Evenement toevoegen';
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';

@@ -7,9 +7,9 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\PDF;
 
-use TCPDF;
-use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\Config\SiteSetting;
+use PortalCMS\Core\Session\Session;
+use TCPDF;
 use function define;
 
 class PDF

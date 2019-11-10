@@ -6,10 +6,10 @@
  */
 
 use PortalCMS\Core\Authorization\Authorization;
+use PortalCMS\Core\Config\SiteSetting;
+use PortalCMS\Core\Page\Page;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
-use PortalCMS\Core\Page\Page;
-use PortalCMS\Core\Config\SiteSetting;
 
 ?>
 <div class="col-sm-4">

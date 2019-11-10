@@ -7,14 +7,14 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
-use PortalCMS\Core\User\User;
-use PortalCMS\Core\View\Text;
-use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\HTTP\Redirect;
-use PortalCMS\Core\User\Password;
-use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\User\UserPDOWriter;
 use PortalCMS\Core\Controllers\Controller;
+use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\User\Password;
+use PortalCMS\Core\User\User;
+use PortalCMS\Core\User\UserPDOWriter;
+use PortalCMS\Core\View\Text;
 
 /**
  * AccountController

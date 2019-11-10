@@ -7,13 +7,12 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
-use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\HTTP\Redirect;
-use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\Email\Template\EmailTemplateManager;
-use PortalCMS\Core\Email\Template\EmailTemplatePDOWriter;
+use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\Email\Message\Attachment\EmailAttachment;
+use PortalCMS\Core\Email\Template\EmailTemplateManager;
+use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Router;
 
 /**

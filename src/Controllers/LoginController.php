@@ -11,8 +11,8 @@ use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\Authentication\Service\LoginService;
 use PortalCMS\Core\Authentication\Service\LogoutService;
 use PortalCMS\Core\Controllers\Controller;
-use PortalCMS\Core\HTTP\Cookie;
 use PortalCMS\Core\Filter\Csrf;
+use PortalCMS\Core\HTTP\Cookie;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 

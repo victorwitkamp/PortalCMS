@@ -8,12 +8,12 @@ declare(strict_types=1);
 namespace PortalCMS\Core\Authentication\Service;
 
 use Exception;
-use PortalCMS\Core\View\Text;
+use PortalCMS\Core\Encryption\Encryption;
+use PortalCMS\Core\HTTP\Cookie;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\User\UserPDOReader;
 use PortalCMS\Core\User\UserPDOWriter;
-use PortalCMS\Core\Encryption\Encryption;
-use PortalCMS\Core\HTTP\Cookie;
+use PortalCMS\Core\View\Text;
 
 class LoginService
 {

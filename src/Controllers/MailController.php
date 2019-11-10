@@ -7,11 +7,11 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
-use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\HTTP\Redirect;
-use PortalCMS\Core\Email\Batch\MailBatch;
 use PortalCMS\Core\Controllers\Controller;
+use PortalCMS\Core\Email\Batch\MailBatch;
 use PortalCMS\Core\Email\Schedule\MailSchedule;
+use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\HTTP\Request;
 
 /**
  * MailController

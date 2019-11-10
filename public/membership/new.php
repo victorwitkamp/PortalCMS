@@ -1,7 +1,7 @@
 <?php
 
-use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\Authorization\Authorization;
 
 $pageName = 'Lid toevoegen';
 $pageType = 'new';

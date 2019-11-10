@@ -11,8 +11,8 @@ use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Router;
-use PortalCMS\Modules\Invoices\InvoiceModel;
 use PortalCMS\Modules\Invoices\InvoiceItemModel;
+use PortalCMS\Modules\Invoices\InvoiceModel;
 
 /**
  * InvoiceController

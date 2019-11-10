@@ -1,9 +1,9 @@
 <?php
 
-use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\Config\Config;
-use PortalCMS\Core\View\Popup;
 use PortalCMS\Core\Config\SiteSetting;
+use PortalCMS\Core\View\Alert;
+use PortalCMS\Core\View\Popup;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 

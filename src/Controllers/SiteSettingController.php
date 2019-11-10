@@ -7,11 +7,11 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
+use PortalCMS\Core\Config\SiteSetting;
 use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
-use PortalCMS\Core\Config\SiteSetting;
 
 class SiteSettingController extends Controller
 {

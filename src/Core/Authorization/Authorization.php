@@ -7,8 +7,8 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Authorization;
 
-use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\Session\Session;
 
 class Authorization
 {

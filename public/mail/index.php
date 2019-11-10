@@ -1,10 +1,10 @@
 <?php
 
-use PortalCMS\Core\View\Text;
-use PortalCMS\Core\View\Alert;
-use PortalCMS\Core\Email\Batch\MailBatch;
-use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\Authorization\Authorization;
+use PortalCMS\Core\Email\Batch\MailBatch;
+use PortalCMS\Core\View\Alert;
+use PortalCMS\Core\View\Text;
 
 $pageType = 'index';
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';

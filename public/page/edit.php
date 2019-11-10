@@ -1,8 +1,8 @@
 <?php
 
 use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\Page\Page;
+use PortalCMS\Core\View\Alert;
 
 $pageName = 'Pagina bewerken';
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';

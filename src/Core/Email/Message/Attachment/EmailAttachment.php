@@ -7,9 +7,9 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Email\Message\Attachment;
 
-use PortalCMS\Core\View\Text;
 use PortalCMS\Core\Config\Config;
 use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\View\Text;
 
 class EmailAttachment
 {

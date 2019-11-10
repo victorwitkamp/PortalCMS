@@ -1,6 +1,8 @@
 <?php
+
 use PortalCMS\Core\Email\Batch\MailBatch;
 use PortalCMS\Core\View\Text;
+
 ?>
 <form method="post">
     <table id="batches" class="table table-sm" style="width:100%" data-page-length='25'>

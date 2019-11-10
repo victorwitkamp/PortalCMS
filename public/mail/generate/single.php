@@ -1,8 +1,8 @@
 <?php
 
-use PortalCMS\Core\View\Alert;
-use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\Authorization\Authorization;
+use PortalCMS\Core\View\Alert;
 
 $pageName = 'New single message';
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';

@@ -7,16 +7,16 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\User;
 
-use PortalCMS\Core\Email\Template\EmailTemplate;
-use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
 use PortalCMS\Core\Config\Config;
+use PortalCMS\Core\Config\SiteSetting;
 use PortalCMS\Core\Database\DB;
-use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\View\Text;
+use PortalCMS\Core\Email\Message\EmailMessage;
 use PortalCMS\Core\Email\SMTP\SMTPConfiguration;
 use PortalCMS\Core\Email\SMTP\SMTPTransport;
-use PortalCMS\Core\Email\Message\EmailMessage;
-use PortalCMS\Core\Config\SiteSetting;
+use PortalCMS\Core\Email\Template\EmailTemplate;
+use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
+use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\View\Text;
 use function strlen;
 
 /**

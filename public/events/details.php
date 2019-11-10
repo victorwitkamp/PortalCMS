@@ -1,9 +1,9 @@
 <?php
 
-use PortalCMS\Core\View\Text;
-use PortalCMS\Core\User\UserPDOReader;
-use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\Authorization\Authorization;
+use PortalCMS\Core\User\UserPDOReader;
+use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Calendar\CalendarEventMapper;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';

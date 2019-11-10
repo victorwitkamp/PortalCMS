@@ -7,16 +7,16 @@ declare(strict_types=1);
 
 namespace PortalCMS\Modules\Invoices;
 
-use PortalCMS\Core\PDF\PDF;
-use PortalCMS\Core\View\Text;
-use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\Email\Template\EmailTemplate;
-use PortalCMS\Modules\Contracts\ContractMapper;
-use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
-use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
-use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
 use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
+use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
+use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
+use PortalCMS\Core\Email\Template\EmailTemplate;
+use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
+use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Core\PDF\PDF;
+use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\View\Text;
+use PortalCMS\Modules\Contracts\ContractMapper;
 
 class InvoiceModel
 {

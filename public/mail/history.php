@@ -1,10 +1,10 @@
 <?php
 
-use PortalCMS\Core\View\Text;
-use PortalCMS\Core\View\Alert;
-use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
+use PortalCMS\Core\View\Alert;
+use PortalCMS\Core\View\Text;
 
 $pageType = 'history';
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';

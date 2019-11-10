@@ -1,13 +1,13 @@
 <?php
 
-use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\View\Alert;
-use PortalCMS\Core\Session\Session;
-use PortalCMS\Modules\Invoices\InvoiceMapper;
-use PortalCMS\Core\Authorization\Authorization;
-use PortalCMS\Modules\Contracts\ContractMapper;
 use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\Authorization\Authorization;
+use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\View\Alert;
+use PortalCMS\Modules\Contracts\ContractMapper;
 use PortalCMS\Modules\Invoices\InvoiceItemMapper;
+use PortalCMS\Modules\Invoices\InvoiceMapper;
 
 $pageName = 'Factuur';
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';

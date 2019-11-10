@@ -5,8 +5,6 @@
 
 namespace PortalCMS\Core\HTTP;
 
-use stdClass;
-
 class Router
 {
     public static function processRequests(array $requests, $class) : void

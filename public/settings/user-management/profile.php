@@ -1,12 +1,12 @@
 <?php
 
-use PortalCMS\Core\View\Text;
-use PortalCMS\Core\View\Alert;
+use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\User\UserPDOReader;
-use PortalCMS\Core\Authorization\Authorization;
-use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\View\Alert;
+use PortalCMS\Core\View\Text;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_PROFILE');

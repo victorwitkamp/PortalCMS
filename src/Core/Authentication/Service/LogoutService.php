@@ -7,12 +7,12 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Authentication\Service;
 
-use PortalCMS\Core\View\Text;
+use PortalCMS\Core\Authentication\Authentication;
 use PortalCMS\Core\HTTP\Cookie;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\User\UserPDOWriter;
-use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\View\Text;
 
 /**
  * LogoutService

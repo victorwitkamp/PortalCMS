@@ -1,9 +1,9 @@
 <?php
 
+use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Modules\Members\MemberModel;
-use PortalCMS\Core\Authorization\Authorization;
-use PortalCMS\Core\Authentication\Authentication;
 
 $pageName = 'Wijzigen';
 $pageType = 'edit';

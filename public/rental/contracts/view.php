@@ -1,10 +1,10 @@
 <?php
 
+use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Modules\Contracts\ContractMapper;
-use PortalCMS\Core\Authentication\Authentication;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 Authentication::checkAuthentication();

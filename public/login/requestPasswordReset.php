@@ -1,7 +1,7 @@
 <?php
 
-use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\Config\SiteSetting;
+use PortalCMS\Core\View\Alert;
 
 $pageName = 'Wachtwoord vergeten';
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';

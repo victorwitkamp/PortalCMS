@@ -7,11 +7,11 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
+use PortalCMS\Core\Authorization\Role;
+use PortalCMS\Core\Authorization\RolePermission;
 use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\Authorization\Role;
-use PortalCMS\Core\Authorization\RolePermission;
 
 class RoleController extends Controller
 {

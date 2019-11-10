@@ -8,9 +8,9 @@ declare(strict_types=1);
 namespace PortalCMS\Core\Email\Batch;
 
 use PortalCMS\Core\Database\DB;
-use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Email\Schedule\MailSchedule;
 use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
+use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
 
 /**

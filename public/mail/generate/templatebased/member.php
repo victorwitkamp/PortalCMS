@@ -1,10 +1,10 @@
 <?php
 
+use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\Authorization\Authorization;
+use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Modules\Members\MemberModel;
-use PortalCMS\Core\Authorization\Authorization;
-use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
 
 $pageName = 'Nieuw bericht';
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';

@@ -1,8 +1,8 @@
 <?php
 
-use PortalCMS\Modules\Members\MemberModel;
-use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\Authorization\Authorization;
+use PortalCMS\Modules\Members\MemberModel;
 
 $pageName = 'Profiel';
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';

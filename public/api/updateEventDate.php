@@ -1,8 +1,8 @@
 <?php
 
 use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Modules\Calendar\CalendarEventMapper;
 use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Modules\Calendar\CalendarEventMapper;
 
 require __DIR__ . '/../Init.php';
 Authentication::checkAuthentication();

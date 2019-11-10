@@ -1,7 +1,7 @@
 <?php
 
-use PortalCMS\Core\View\Text;
 use PortalCMS\Core\Email\Recipient\EmailRecipientCollectionCreator;
+use PortalCMS\Core\View\Text;
 
 ?>
 <form method="post">

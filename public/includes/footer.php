@@ -1,5 +1,7 @@
 <?php
+
 use PortalCMS\Core\Config\SiteSetting;
+
 ?>
 <footer class="footer bg-light">
     <div class="container">
