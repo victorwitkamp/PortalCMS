@@ -1,8 +1,8 @@
 <?php
 
 use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\Config\Config;
+use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';

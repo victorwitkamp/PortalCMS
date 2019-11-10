@@ -1,8 +1,8 @@
 <?php
 
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\View\Text;
 use PortalCMS\Core\User\UserPDOReader;
+use PortalCMS\Core\View\Text;
 
 $user = UserPDOReader::getProfileById(Session::get('user_id'));
 ?>

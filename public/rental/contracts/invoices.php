@@ -1,14 +1,12 @@
 <?php
 
+use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\Authorization\Authorization;
+use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\View\Text;
-use PortalCMS\Core\HTTP\Redirect;
-use PortalCMS\Modules\Invoices\InvoiceModel;
-use PortalCMS\Modules\Invoices\InvoiceMapper;
-
-use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Modules\Contracts\ContractMapper;
-use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Modules\Invoices\InvoiceMapper;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('LABEL_CONTRACT_INVOICES_FOR_ID') . ': ' . Request::get('id');

@@ -3,8 +3,8 @@
  * Widget settings
  */
 
-use PortalCMS\Core\View\Text;
 use PortalCMS\Core\Config\SiteSetting;
+use PortalCMS\Core\View\Text;
 
 ?>
 <h3><?= Text::get('LABEL_SITE_WIDGETS') ?></h3>
