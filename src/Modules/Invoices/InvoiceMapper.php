@@ -56,19 +56,19 @@ class InvoiceMapper
         return false;
     }
 
-    public static function getByContractId($contractId)
+    public static function getByContractId(int $contractId)
     {
         $stmt = DB::conn()->prepare('SELECT * FROM invoices where contract_id = ?');
         $stmt->execute([$contractId]);
         if ($stmt->rowCount() > 0) {
-            return $stmt->fetchAll();
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
         }
-        return false;
+        return null;
     }
 
     public static function getAll() : ?array
     {
-        $stmt = DB::conn()->query('SELECT * FROM invoices');
+        $stmt = DB::conn()->query('SELECT * FROM invoices ORDER BY factuurnummer');
         if ($stmt->rowCount() > 0) {
             return $stmt->fetchAll(PDO::FETCH_OBJ);
         }

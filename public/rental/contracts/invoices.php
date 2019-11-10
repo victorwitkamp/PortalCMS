@@ -4,6 +4,8 @@ use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Modules\Invoices\InvoiceModel;
+use PortalCMS\Modules\Invoices\InvoiceMapper;
+
 use PortalCMS\Core\Authorization\Authorization;
 use PortalCMS\Modules\Contracts\ContractMapper;
 use PortalCMS\Core\Authentication\Authentication;
@@ -35,9 +37,9 @@ PortalCMS_JS_dataTables();
             </div>
             <hr>
             <?php
-            $invoices = InvoiceModel::getByContractId(Request::get('id'));
+            $invoices = InvoiceMapper::getByContractId((int) Request::get('id'));
             if (!empty($invoices)) {
-                include '../invoices/invoices_table.php';
+                include_once DIR_ROOT . 'rental/invoices/invoices_table.php';
                 PortalCMS_JS_Init_dataTables();
             } else {
                 echo 'Ontbrekende gegevens..';

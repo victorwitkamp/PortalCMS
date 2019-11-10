@@ -35,7 +35,7 @@ PortalCMS_JS_dataTables();
             <?php
             $invoices = InvoiceMapper::getAll();
             if (!empty($invoices)) {
-                include 'invoices_table.php';
+                include_once DIR_ROOT . 'rental/invoices/invoices_table.php';
                 PortalCMS_JS_Init_dataTables();
             } else {
                 echo 'Geen facturen gevonden.';
