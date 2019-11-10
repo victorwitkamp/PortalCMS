@@ -46,7 +46,7 @@ plugins : 'advlist autolink link image lists charmap print preview'
                     <label for="body">Onderwerp</label>
                     <textarea class="form-control" id="body" name="body" cols="50" rows="15"></textarea>
                 </div>
-                <input type="submit" class="btn btn-primary" name="newtemplate"/>
+                <input type="submit" class="btn btn-primary" name="newTemplate"/>
             </form>
             <hr>
             <p>Beschikbare placeholders voor signup: username, sitename, activatelink, activateformlink, confcode</p>

@@ -10,6 +10,7 @@ namespace PortalCMS\Controllers;
 use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Modules\Invoices\InvoiceModel;
 use PortalCMS\Modules\Invoices\InvoiceItemModel;
 
@@ -19,24 +20,19 @@ use PortalCMS\Modules\Invoices\InvoiceItemModel;
  */
 class InvoiceController extends Controller
 {
-    private $requests = array(
-        'createInvoiceMail',
-        'writeInvoice',
-        'createInvoice',
-        'deleteInvoice',
-        'deleteInvoiceItem',
-        'addInvoiceItem'
-    );
+    private $requests = [
+        'createInvoiceMail' => 'POST',
+        'writeInvoice' => 'POST',
+        'createInvoice' => 'POST',
+        'deleteInvoice' => 'POST',
+        'deleteInvoiceItem' => 'POST',
+        'addInvoiceItem' => 'POST'
+    ];
 
     public function __construct()
     {
         parent::__construct();
-
-        foreach ($this->requests as $request) {
-            if (isset($_POST[$request])) {
-                \call_user_func([__CLASS__,$request]);
-            }
-        }
+        Router::processRequests($this->requests, __CLASS__);
     }
 
     public static function createInvoiceMail()
