@@ -41,7 +41,7 @@ class MailTemplateController extends Controller
             self::deleteMailTemplateAttachments();
         }
         if (isset($_POST['deleteTemplate'])) {
-            self::deleteTemplate():
+            self::deleteTemplate();
         }
     }
 
