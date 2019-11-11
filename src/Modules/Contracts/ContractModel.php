@@ -19,6 +19,18 @@ use PortalCMS\Modules\Invoices\InvoiceModel;
 
 class ContractModel
 {
+    public $vertegenwoordiger_beuk;
+    public $naam;
+    public $code;
+    public $contactpersoon_naam;
+    public $contactpersoon_adres;
+    public $contactpersoon_woonplaats;
+    public $contactpersoon_geboortedatum;
+    public $contactpersoon_telefoonnummer1;
+    public $contactpersoon_telefoonnummer2;
+    public $contactpersoon_email;
+    public $contactpersoon_bsn;
+
     public static function new()
     {
         $kosten_ruimte              = Request::post('kosten_ruimte', true);
