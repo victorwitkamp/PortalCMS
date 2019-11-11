@@ -40,12 +40,11 @@ class LoginService
                 self::setSuccessfulLoginIntoSession($result);
                 Session::add('feedback_positive', Text::get('FEEDBACK_LOGIN_SUCCESSFUL'));
                 return true;
-            } else {
-                Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
             }
-        } else {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
+            return false;
         }
+        Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
         return false;
     }
 
@@ -76,7 +75,6 @@ class LoginService
     {
         if (!empty($fbid)) {
             // Todo: add more validation
-            // If validated
             $user = UserPDOReader::getByFbid($fbid);
             if (!empty($user)) {
                 self::setSuccessfulLoginIntoSession($user);
@@ -96,11 +94,7 @@ class LoginService
     public static function setSuccessfulLoginIntoSession($user)
     {
         Session::init();
-
-        // remove old and regenerate session ID. It's important to regenerate session on sensitive actions,
-        // and to avoid fixated session. e.g. when a user logs in
         session_regenerate_id(true);
-        // $_SESSION = array();
 
         Session::set('user_id', $user->user_id);
         Session::set('user_name', $user->user_name);
@@ -108,11 +102,6 @@ class LoginService
         Session::set('user_account_type', $user->user_account_type);
         Session::set('user_provider_type', 'DEFAULT');
         Session::set('user_fbid', $user->user_fbid);
-
-        // get and set avatars
-        // Session::set('user_avatar_file', AvatarModel::getPublicUserAvatarFilePathByUserId($user_id));
-        // Session::set('user_gravatar_image_url', AvatarModel::getGravatarLinkByEmail($user_email));
-
         Session::set('user_logged_in', true);
         UserPDOWriter::updateSessionId($user->user_id, session_id());
         UserPDOWriter::saveTimestampByUsername($user->user_name);
