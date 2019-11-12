@@ -42,7 +42,7 @@ class MailController extends Controller
 
     public static function sendScheduledMailById() : void
     {
-        MailSchedule::sendMailsById(Request::post('id'));
+        MailSchedule::sendMailsById((array) Request::post('id'));
         Redirect::to('mail/messages.php');
     }
 
@@ -59,17 +59,17 @@ class MailController extends Controller
 
     public static function deleteScheduledMailById() : void
     {
-        MailSchedule::deleteById(Request::post('id'));
+        MailSchedule::deleteById((array) Request::post('id'));
         Redirect::to('mail');
     }
 
     public static function sendBatchById() : void
     {
-        MailBatch::sendById(Request::post('id'));
+        MailBatch::sendById((array) Request::post('id'));
     }
 
     public static function deleteBatchById() : void
     {
-        MailBatch::deleteById(Request::post('id'));
+        MailBatch::deleteById((array) Request::post('id'));
     }
 }

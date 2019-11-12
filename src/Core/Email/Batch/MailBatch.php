@@ -49,7 +49,7 @@ class MailBatch
         return true;
     }
 
-    public static function deleteById($IDs): bool
+    public static function deleteById(array $IDs): bool
     {
         $deleted = 0;
         $error = 0;
@@ -83,7 +83,7 @@ class MailBatch
         return $stmt->fetchColumn();
     }
 
-    public static function sendById($batch_IDs)
+    public static function sendById(array $batch_IDs)
     {
         $scheduledMailIDs = [];
         foreach ($batch_IDs as $batch_id) {

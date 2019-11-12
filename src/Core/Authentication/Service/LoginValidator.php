@@ -46,23 +46,24 @@ class LoginValidator
      * If successful, user is returned
      * @param $user_name
      * @param $user_password
-     * @return object
+     * @return object|null
      */
     public static function validateAndGetUser(string $user_name, string $user_password) : ?object
     {
-        if (self::checkBruteForce()) {
-            if (empty($user_name) || empty($user_password)) {
-                Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
-                return null;
-            }
-            $result = UserPDOReader::getByUsername($user_name);
-            if (!empty($result) && self::checkBruteForceByResult($result) && self::verifyIsActive($result) && self::verifyPassword($result, $user_password)) {
-                return $result;
-            }
+        if (!self::checkBruteForce()) {
+            return null;
+        }
+        if (empty($user_name) || empty($user_password)) {
+            Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
+            return null;
+        }
+        $result = UserPDOReader::getByUsername($user_name);
+        if (empty($result) || !self::checkBruteForceByResult($result) || !self::verifyIsActive($result) || !self::verifyPassword($result, $user_password)) {
             self::incrementUserNotFoundCounter();
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
+            return null;
         }
-        return null;
+        return $result;
     }
 
     public static function validateCookieLogin($cookie) : ?object

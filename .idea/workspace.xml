@@ -7,9 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10cd1690-6b40-469b-8cb6-7411aa27a75c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.php_cs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.php_cs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/LoginController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Core/Authentication/Service/LoginService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Authentication/Service/LoginService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Core/Authentication/Service/LoginValidator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Authentication/Service/LoginValidator.php" afterDir="false" />
     </list>
@@ -290,7 +287,7 @@
       <workItem from="1573247958497" duration="4490000" />
       <workItem from="1573397964868" duration="15113000" />
       <workItem from="1573516095117" duration="668000" />
-      <workItem from="1573516787533" duration="1794000" />
+      <workItem from="1573516787533" duration="1949000" />
     </task>
     <servers />
   </component>
