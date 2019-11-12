@@ -68,16 +68,21 @@ class LoginValidator
 
     public static function validateCookieLogin($cookie) : ?object
     {
-        if (substr_count($cookie, ':') + 1 === 3) {
-            [$user_id, $token, $hash] = explode(':', $cookie);
-            $user_id = Encryption::decrypt($user_id);
-            if (!empty($token) && !empty($user_id) && $hash === hash('sha256', $user_id . ':' . $token)) {
-                $validatedCookie = new ValidatedCookie($user_id, $token);
-                return $validatedCookie;
-            }
+        if (substr_count($cookie, ':') + 1 !== 3) {
+            Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
+            return null;
         }
-        Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
-        return null;
+
+        [$user_id, $token, $hash] = explode(':', $cookie);
+        $user_id = Encryption::decrypt($user_id);
+
+        if (empty($token) || empty($user_id)) {
+            Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
+            return null;
+        }
+        if ($hash === hash('sha256', $user_id . ':' . $token)) {
+            return new ValidatedCookie($user_id, $token);
+        }
     }
 
     public static function verifyIsActive($result) : bool
