@@ -29,19 +29,19 @@ class LoginService
     public static function loginWithPassword($username, $password, $rememberMe = null) : bool
     {
         $user = LoginValidator::validateAndGetUser($username, $password);
-        if (!empty($user)) {
-            if ($user->user_last_failed_login > 0) {
-                UserPDOWriter::resetFailedLoginsByUsername($user->user_name);
-            }
-            if ($rememberMe) {
-                self::setRememberMe($user->user_id);
-            }
-            self::setSuccessfulLoginIntoSession($user);
-            Session::add('feedback_positive', Text::get('FEEDBACK_LOGIN_SUCCESSFUL'));
-            return true;
+        if (empty($user)) {
+            Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
+            return false;
         }
-        Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
-        return false;
+        if ($user->user_last_failed_login > 0) {
+            UserPDOWriter::resetFailedLoginsByUsername($user->user_name);
+        }
+        if ($rememberMe) {
+            self::setRememberMe($user->user_id);
+        }
+        self::setSuccessfulLoginIntoSession($user);
+        Session::add('feedback_positive', Text::get('FEEDBACK_LOGIN_SUCCESSFUL'));
+        return true;
     }
 
     /**

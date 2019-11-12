@@ -81,22 +81,22 @@ class LoginValidator
 
     public static function verifyIsActive($result) : bool
     {
-        if ($result->user_active === 1) {
-            self::resetUserNotFoundCounter();
-            return true;
+        if ($result->user_active !== 1) {
+            Session::add('feedback_negative', Text::get('FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET'));
+            return false;
         }
-        Session::add('feedback_negative', Text::get('FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET'));
-        return false;
+        self::resetUserNotFoundCounter();
+        return true;
     }
 
     public static function verifyPassword($result, $user_password) : bool
     {
-        if (password_verify(base64_encode($user_password), $result->user_password_hash)) {
-            return true;
+        if (!password_verify(base64_encode($user_password), $result->user_password_hash)) {
+            UserPDOWriter::setFailedLoginByUsername($result->user_name);
+            Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
+            return false;
         }
-        UserPDOWriter::setFailedLoginByUsername($result->user_name);
-        Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
-        return false;
+        return true;
     }
 
     /**
