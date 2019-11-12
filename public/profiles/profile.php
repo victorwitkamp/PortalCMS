@@ -1,6 +1,7 @@
 <?php
 
 use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\User\UserPDOReader;
 
 $pageName = 'Gebruikersprofiel weergeven';
@@ -14,7 +15,7 @@ PortalCMS_JS_headJS(); ?>
 </head>
 <body>
 <?php
-$row = UserPDOReader::getProfileById($_GET['id']);
+$row = UserPDOReader::getProfileById(Request::get('id'));
 
 ?>
 <?php require DIR_INCLUDES . 'nav.php'; ?>
@@ -24,7 +25,23 @@ $row = UserPDOReader::getProfileById($_GET['id']);
             <div class="row mt-5">
                 <h1>Profiel van: <?= $row->user_name ?></h1>
             </div>
-            <?php require 'profile_table.php'; ?>
+            <table class="table table-striped table-condensed">
+                <tr>
+                    <th>ID</th><td><?= $row->user_id ?></td>
+                </tr>
+                <tr>
+                    <th>user_emails</th><td><?= $row->user_email ?></td>
+                </tr>
+                <tr>
+                    <th>user_active</th><td><?= $row->user_active ?></td>
+                </tr>
+                <tr>
+                    <th>user_account_type</th><td><?= $row->user_account_type ?></td>
+                </tr>
+                <tr>
+                    <th>user_last_login_timestamp</th><td><?= $row->user_last_login_timestamp ?></td>
+                </tr>
+            </table>
         </div>
     </div>
 </main>

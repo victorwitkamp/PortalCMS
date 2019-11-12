@@ -12,8 +12,7 @@ use PortalCMS\Core\View\Text;
                 <th>Batch ID</th>
                 <th>Messages</th>
                 <th>UsedTemplate</th>
-                <?php
-                if ($pageType === 'history') { ?>
+                <?php if ($pageType === 'history') { ?>
                 <th>Verzonden op</th>
                 <?php } ?>
                 <th>Status</th>
@@ -25,38 +24,21 @@ use PortalCMS\Core\View\Text;
             <?php
             foreach ($batches as $row) {  ?>
                 <tr>
-                    <td class="text-center">
-                        <input type="checkbox" name="id[]" id="checkbox" value="<?= $row['id'] ?>"/>
-                    </td>
-                    <td>
-                        <?= $row['id'] ?>
-                    </td>
-                    <td>
-                        <a href="messages.php?batch_id=<?= $row['id'] ?>"><?= MailBatch::countMessages($row['id']) ?></a>
-                    </td>
-                    <td>
-                        <?= $row['UsedTemplate'] ?>
-                    </td>
+                    <td class="text-center"><input type="checkbox" name="id[]" id="checkbox" value="<?= $row['id'] ?>"/></td>
+                    <td><?= $row['id'] ?></td>
+                    <td><a href="messages.php?batch_id=<?= $row['id'] ?>"><?= MailBatch::countMessages($row['id']) ?></a></td>
+                    <td><?= $row['UsedTemplate'] ?></td>
                     <?php if ($pageType === 'history') { ?>
-                    <td>
-                        <?= $row['DateSent'] ?>
-                    </td>
+                    <td><?= $row['DateSent'] ?></td>
                     <?php } ?>
                     <td>
                         <?php
-                        if ($row['status'] === '1') { ?>
-                        <span class="badge badge-secondary">Klaar voor verzending</span>
-                        <?php }
-                        if ($row['status'] === '2') { ?>
-                        <span class="badge badge-success">Uitgevoerd</span>
-                        <?php } ?>
+                        if ($row['status'] === '1') { ?><span class="badge badge-secondary">Klaar voor verzending</span><?php }
+                        if ($row['status'] === '2') { ?><span class="badge badge-success">Uitgevoerd</span><?php }
+                        ?>
                     </td>
-                    <td>
-                        <?= $row['CreationDate'] ?>
-                    </td>
-                    <td>
-                        <a href="messages.php?batch_id=<?= $row['id'] ?>" title="Details" class="btn btn-success btn-sm"><i class="fas fa-info"></i></a>
-                    </td>
+                    <td><?= $row['CreationDate'] ?></td>
+                    <td><a href="messages.php?batch_id=<?= $row['id'] ?>" title="Details" class="btn btn-success btn-sm"><i class="fas fa-info"></i></a></td>
                 </tr>
             <?php } ?>
         </tbody>

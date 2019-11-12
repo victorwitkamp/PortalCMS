@@ -13,9 +13,7 @@ Authorization::verifyPermission('rental-invoices');
 require_once DIR_INCLUDES . 'functions.php';
 require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();
-
 PortalCMS_JS_headJS();
-
 PortalCMS_JS_JQuery_Simple_validator(); ?>
 </head>
 <body>
@@ -26,31 +24,29 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
                 <div class="row mt-5">
                     <h1><?= $pageName ?></h1>
                 </div>
-
             <hr>
+            <?php Alert::renderFeedbackMessages(); ?>
+            <p>Zorg ervoor dat de bedragen voor de huur van de ruimte en van een eventuele kast reeds ingevuld zijn in het contract.</p>
+            <form method="post" validate=true>
 
-                <?php Alert::renderFeedbackMessages(); ?>
-                <p>Zorg ervoor dat de bedragen voor de huur van de ruimte en van een eventuele kast reeds ingevuld zijn in het contract.</p>
-                <form method="post" validate=true>
-
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label"><?= Text::get('YEAR') ?></label>
-                        <div class="col-sm-10">
-                            <input type="text" name="year" class="form-control" value="2019">
-                        </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label"><?= Text::get('YEAR') ?></label>
+                    <div class="col-sm-10">
+                        <input type="text" name="year" class="form-control" value="2019">
                     </div>
+                </div>
 
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Contract</label>
-                        <div class="col-sm-10">
-                            <!-- <select name="contract_id" class="form-control"> -->
-                                <?php foreach (ContractMapper::get() as $row) : ?>
-                                    <!-- <option value="<?= $row['id'] ?>"><?= $row['bandcode'] . ': ' . $row['band_naam'] ?></option> -->
-                                    <input type="checkbox" name='contract_id[]' value="<?= $row['id'] ?>"><?= $row['bandcode'] . ': ' . $row['band_naam'] ?><br/>
-                                <?php endforeach ?>
-                            <!-- </select> -->
-                        </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Contract</label>
+                    <div class="col-sm-10">
+                        <!-- <select name="contract_id" class="form-control"> -->
+                            <?php foreach (ContractMapper::get() as $row) : ?>
+                                <!-- <option value="<?= $row->id ?>"><?= $row->bandcode . ': ' . $row->band_naam ?></option> -->
+                                <input type="checkbox" name='contract_id[]' value="<?= $row->id ?>"><?= $row->bandcode . ': ' . $row->band_naam ?><br/>
+                            <?php endforeach ?>
+                        <!-- </select> -->
                     </div>
+                </div>
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label"><?= Text::get('MONTH') ?></label>

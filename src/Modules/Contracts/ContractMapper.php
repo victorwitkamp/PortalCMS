@@ -19,9 +19,9 @@ class ContractMapper
         );
         $stmt->execute([]);
         if ($stmt->rowCount() === 0) {
-            return false;
+            return null;
         }
-        return $stmt->fetchAll();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
     public static function exists(int $Id): bool
