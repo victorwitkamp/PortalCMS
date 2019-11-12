@@ -10,6 +10,7 @@ namespace PortalCMS\Controllers;
 use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\User\Password;
 use PortalCMS\Core\User\User;
@@ -18,31 +19,44 @@ use PortalCMS\Core\View\Text;
 
 /**
  * AccountController
- * Controls everything that is account-related
  */
 class AccountController extends Controller
 {
+    /**
+     * The requests that this controller will handle
+     * @var array $requests
+     */
+    private $requests = [
+        'changeUsername' => 'POST',
+        'changepassword' => 'POST',
+        'clearUserFbid' => 'POST'
+    ];
+
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         parent::__construct();
-
-        if (isset($_POST['changeUsername'])) {
-            User::editUsername(Request::post('user_name'));
-        }
-        if (isset($_POST['changepassword'])) {
-            Password::changePassword(
-                Session::get('user_name'),
-                Request::post('currentpassword'),
-                Request::post('newpassword'),
-                Request::post('newconfirmpassword')
-            );
-        }
-        if (isset($_POST['clearUserFbid'])) {
-            self::clearFbid();
-        }
+        Router::processRequests($this->requests, __CLASS__);
     }
 
-    public static function clearFbid()
+    public static function changeUsername()
+    {
+        User::editUsername(Request::post('user_name'));
+    }
+
+    public static function changepassword()
+    {
+        Password::changePassword(
+            Session::get('user_name'),
+            Request::post('currentpassword'),
+            Request::post('newpassword'),
+            Request::post('newconfirmpassword')
+        );
+    }
+
+    public static function clearUserFbid()
     {
         if (UserPDOWriter::updateFBid(Session::get('user_id'), null)) {
             Session::set('user_fbid', null);
@@ -52,6 +66,7 @@ class AccountController extends Controller
         Session::add('feedback_negative', Text::get('FEEDBACK_REMOVE_FACEBOOK_ACCOUNT_FAILED'));
         Redirect::to('my-account');
     }
+
     public static function setFbid(int $FbId)
     {
         if (!empty($FbId)) {

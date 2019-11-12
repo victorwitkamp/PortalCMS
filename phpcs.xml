@@ -21,8 +21,8 @@
   <rule ref="Generic.WhiteSpace.ScopeIndent"/>
   <rule ref="Generic.WhiteSpace.DisallowTabIndent"/>
   <rule ref="PEAR.Functions.ValidDefaultValue"/>
-  <!-- <rule ref="PSR1.Classes.ClassDeclaration"/>
-  <rule ref="PSR1.Files.SideEffects"/> -->
+  <rule ref="PSR1.Classes.ClassDeclaration"/>
+  <rule ref="PSR1.Files.SideEffects"/>
   <rule ref="PSR1"/>
   <rule ref="PSR2.Classes.PropertyDeclaration"/>
   <rule ref="PSR2.Classes.ClassDeclaration"/>

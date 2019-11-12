@@ -15,6 +15,8 @@ use PortalCMS\Core\Filter\Csrf;
 use PortalCMS\Core\HTTP\Cookie;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\View\Text;
 
 /**
  * LoginController
@@ -63,32 +65,27 @@ class LoginController extends Controller
      */
     public static function loginWithPassword()
     {
-        if (Csrf::isTokenValid()) {
-            $login_successful = LoginService::loginWithPassword(
-                Request::post('user_name'),
-                Request::post('user_password'),
-                Request::post('set_remember_me_cookie')
-            );
-            if ($login_successful) {
-                // if (Request::post('redirect')) {
-                //     return Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
-                // }
-                $redir = Request::post('redirect');
-                if (empty($redir)) {
-                    Redirect::to('home');
-
-                } else {
-                    Redirect::to($redir);
-                }
-            } else {
-                // if (Request::post('redirect')) {
-                //     return Redirect::to('login/?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
-                // }
-                Redirect::to('login');
-            }
-        } else {
-            LogoutService::logout();
+        if (!Csrf::isTokenValid()) {
+            Session::add('feedback_negative', 'Invalid CSRF token.');
+            Redirect::to('login');
+            return void;
         }
+        $login_successful = LoginService::loginWithPassword(
+            Request::post('user_name'),
+            Request::post('user_password'),
+            Request::post('set_remember_me_cookie')
+        );
+        if (!$login_successful) {
+            Redirect::to('login');
+            return void;
+        }
+        $redirect = Request::post('redirect');
+        if (!empty($redirect)) {
+            Redirect::to($redirect);
+            return void;
+        }
+        Redirect::to('home');
+        return void;
     }
 
     /**

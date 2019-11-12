@@ -15,6 +15,9 @@ use PortalCMS\Core\Session\Session;
 
 class RoleController extends Controller
 {
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         parent::__construct();

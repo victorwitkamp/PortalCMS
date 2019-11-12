@@ -12,6 +12,9 @@ use PortalCMS\Core\Page\Page;
 
 class PageController extends Controller
 {
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         parent::__construct();

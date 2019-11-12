@@ -16,10 +16,13 @@ use PortalCMS\Modules\Invoices\InvoiceModel;
 
 /**
  * InvoiceController
- * Controls everything that is invoice-related
  */
 class InvoiceController extends Controller
 {
+    /**
+     * The requests that this controller will handle
+     * @var array $requests
+     */
     private $requests = [
         'createInvoiceMail' => 'POST',
         'writeInvoice' => 'POST',
@@ -29,6 +32,9 @@ class InvoiceController extends Controller
         'addInvoiceItem' => 'POST'
     ];
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         parent::__construct();

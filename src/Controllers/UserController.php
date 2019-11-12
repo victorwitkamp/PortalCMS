@@ -14,6 +14,9 @@ use PortalCMS\Core\Session\Session;
 
 class UserController extends Controller
 {
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         parent::__construct();

@@ -17,6 +17,9 @@ use PortalCMS\Core\User\PasswordReset;
  */
 class PasswordResetController extends Controller
 {
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         parent::__construct();

@@ -21,6 +21,10 @@ use PortalCMS\Core\HTTP\Router;
  */
 class MailTemplateController extends Controller
 {
+    /**
+     * The requests that this controller will handle
+     * @var array $requests
+     */
     private $requests = [
         'setYear' => 'POST',
         'uploadAttachment' => 'POST',
@@ -30,6 +34,9 @@ class MailTemplateController extends Controller
         'editTemplate' => 'POST'
     ];
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         parent::__construct();

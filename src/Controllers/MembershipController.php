@@ -14,6 +14,9 @@ use PortalCMS\Modules\Members\MemberModel;
 
 class MembershipController extends Controller
 {
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         parent::__construct();

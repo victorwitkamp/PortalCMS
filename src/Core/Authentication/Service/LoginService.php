@@ -19,30 +19,26 @@ class LoginService
 {
     /**
      * Login process
-     * @param string $user_name The user's name
-     * @param string $user_password The user's password
-     * @param mixed $set_remember_me_cookie Marker for usage of remember-me cookie feature
+     * @param string $username The user's name
+     * @param string $password The user's password
+     * @param mixed $rememberMe Marker for usage of remember-me cookie feature
      *
      * @return bool
      * @throws Exception
      */
-    public static function loginWithPassword($user_name, $user_password, $set_remember_me_cookie = null) : bool
+    public static function loginWithPassword($username, $password, $rememberMe = null) : bool
     {
-        if (!empty($user_name) && !empty($user_password)) {
-            $result = LoginValidator::validateAndGetUser($user_name, $user_password);
-            if (!empty($result)) {
-                if ($result->user_last_failed_login > 0) {
-                    UserPDOWriter::resetFailedLoginsByUsername($result->user_name);
-                }
-                if ($set_remember_me_cookie) {
-                    self::setRememberMe($result->user_id);
-                }
-                self::setSuccessfulLoginIntoSession($result);
-                Session::add('feedback_positive', Text::get('FEEDBACK_LOGIN_SUCCESSFUL'));
-                return true;
+        $user = LoginValidator::validateAndGetUser($username, $password);
+        if (!empty($user)) {
+            if ($user->user_last_failed_login > 0) {
+                UserPDOWriter::resetFailedLoginsByUsername($user->user_name);
             }
-            Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
-            return false;
+            if ($rememberMe) {
+                self::setRememberMe($user->user_id);
+            }
+            self::setSuccessfulLoginIntoSession($user);
+            Session::add('feedback_positive', Text::get('FEEDBACK_LOGIN_SUCCESSFUL'));
+            return true;
         }
         Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
         return false;
@@ -56,25 +52,32 @@ class LoginService
      */
     public static function loginWithCookie($cookie) : bool
     {
-        if (!empty($cookie)) {
-            $cookieResponse = LoginValidator::validateCookieLogin($cookie);
-            if (!empty($cookieResponse->user_id) && (!empty($cookieResponse->token))) {
-                $user = UserPDOReader::getByIdAndToken($cookieResponse->user_id, $cookieResponse->token);
-                if (!empty($user)) {
-                    self::setSuccessfulLoginIntoSession($user);
-                    Session::add('feedback_positive', Text::get('FEEDBACK_COOKIE_LOGIN_SUCCESSFUL'));
-                    return true;
-                }
-            }
+        if (empty($cookie)) {
+            Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
+            return false;
         }
-        Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
-        return false;
+
+        $cookieResponse = LoginValidator::validateCookieLogin($cookie);
+
+        if (empty($cookieResponse->user_id) || (empty($cookieResponse->token))) {
+            Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
+            return false;
+        }
+
+        $user = UserPDOReader::getByIdAndToken($cookieResponse->user_id, $cookieResponse->token);
+        if (empty($user)) {
+            Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
+            return false;
+        }
+
+        self::setSuccessfulLoginIntoSession($user);
+        Session::add('feedback_positive', Text::get('FEEDBACK_COOKIE_LOGIN_SUCCESSFUL'));
+        return true;
     }
 
     public static function loginWithFacebook(int $fbid) : bool
     {
         if (!empty($fbid)) {
-            // Todo: add more validation
             $user = UserPDOReader::getByFbid($fbid);
             if (!empty($user)) {
                 self::setSuccessfulLoginIntoSession($user);
@@ -95,7 +98,6 @@ class LoginService
     {
         Session::init();
         session_regenerate_id(true);
-
         Session::set('user_id', $user->user_id);
         Session::set('user_name', $user->user_name);
         Session::set('user_email', $user->user_email);

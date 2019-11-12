@@ -12,10 +12,12 @@ use PortalCMS\Modules\Contracts\ContractModel;
 
 /**
  * ContractController
- * Controls everything that is contract-related
  */
 class ContractController extends Controller
 {
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         parent::__construct();

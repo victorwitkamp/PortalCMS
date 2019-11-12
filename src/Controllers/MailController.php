@@ -16,10 +16,13 @@ use PortalCMS\Core\HTTP\Router;
 
 /**
  * MailController
- * Controls everything mail-related
  */
 class MailController extends Controller
 {
+    /**
+     * The requests that this controller will handle
+     * @var array $requests
+     */
     private $requests = [
         'sendScheduledMailById' => 'POST',
         'createMailWithTemplate' => 'POST',
@@ -28,6 +31,9 @@ class MailController extends Controller
         'deleteBatchById' => 'POST'
     ];
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         parent::__construct();

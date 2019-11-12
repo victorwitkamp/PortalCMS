@@ -51,8 +51,12 @@ class LoginValidator
     public static function validateAndGetUser($user_name, $user_password) : ?object
     {
         if (self::checkBruteForce()) {
+            if (empty($user_name) || !empty($user_password)) {
+                Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
+                return null;
+            }
             $result = UserPDOReader::getByUsername($user_name);
-            if (!empty($result) && self::checkBruteForceByResult($result) && self::verifyPassword($result, $user_password) && self::verifyIsActive($result)) {
+            if (!empty($result) && self::checkBruteForceByResult($result) && self::verifyIsActive($result) && self::verifyPassword($result, $user_password)) {
                 return $result;
             }
             self::incrementUserNotFoundCounter();

@@ -10,63 +10,66 @@ namespace PortalCMS\Controllers;
 use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Modules\Calendar\CalendarEventModel;
 
 /**
  * EventController
- * Controls everything that is event-related
  */
 class EventController extends Controller
 {
+    /**
+     * The requests that this controller will handle
+     * @var array $requests
+     */
+    private $requests = [
+        'addEvent' => 'POST',
+        'updateEvent' => 'POST',
+        'deleteEvent' => 'POST'
+    ];
+
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         parent::__construct();
-
-        if (isset($_POST['addEvent'])) {
-            self::createHandler();
-        }
-
-        if (isset($_POST['updateEvent'])) {
-            self::updateHandler();
-        }
-
-        if (isset($_POST['deleteEvent'])) {
-            self::deleteHandler();
-        }
+        Router::processRequests($this->requests, __CLASS__);
     }
 
-    public static function deleteHandler()
+    public static function deleteEvent()
     {
-        $id = (int) Request::post('id', true);
-        if (CalendarEventModel::delete($id)) {
+        if (CalendarEventModel::delete((int) Request::post('id', true))) {
             Redirect::to('events/');
         } else {
             Redirect::to('includes/error.php');
         }
     }
 
-    public static function updateHandler()
+    public static function updateEvent()
     {
-        $event_id = (int) Request::post('id', true);
-        $title = (string) Request::post('title', true);
-        $start_event = (string) Request::post('start_event', true);
-        $end_event = (string) Request::post('end_event', true);
-        $description = (string) Request::post('description', true);
-        $status = (int) Request::post('status', true);
-        if (CalendarEventModel::update($event_id, $title, $start_event, $end_event, $description, $status)) {
+        if (CalendarEventModel::update(
+            (int) Request::post('id', true),
+            (string) Request::post('title', true),
+            (string) Request::post('start_event', true),
+            (string) Request::post('end_event', true),
+            (string) Request::post('description', true),
+            (int) Request::post('status', true)
+        )) {
             Redirect::to('events/');
         } else {
             Redirect::to('includes/error.php');
         }
     }
 
-    public static function createHandler()
+    public static function addEvent()
     {
-        $title = (string) Request::post('title', true);
-        $start_event = (string) Request::post('start_event', true);
-        $end_event = (string) Request::post('end_event', true);
-        $description = (string) Request::post('description', true);
-        if (CalendarEventModel::create($title, $start_event, $end_event, $description)) {
+        if (CalendarEventModel::create(
+            (string) Request::post('title', true),
+            (string) Request::post('start_event', true),
+            (string) Request::post('end_event', true),
+            (string) Request::post('description', true)
+        )) {
             Redirect::to('events/');
         } else {
             Redirect::to('includes/error.php');

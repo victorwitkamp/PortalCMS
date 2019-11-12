@@ -18,7 +18,7 @@ use PortalCMS\Core\Session\Session;
 
 class MailSchedule
 {
-    public static function deleteById($mailIds): bool
+    public static function deleteById(array $mailIds): bool
     {
         $deleted = 0;
         $error = 0;
@@ -27,10 +27,10 @@ class MailSchedule
             return false;
         }
         foreach ($mailIds as $mailId) {
-            if (!MailScheduleMapper::deleteById($mailId)) {
+            if (!MailScheduleMapper::deleteById((int) $mailId)) {
                 ++$error;
             } else {
-                EmailAttachmentMapper::deleteByMailId($mailId);
+                EmailAttachmentMapper::deleteByMailId((int) $mailId);
                 ++$deleted;
             }
         }
@@ -42,12 +42,12 @@ class MailSchedule
         return false;
     }
 
-    public static function isSent($mailId): bool
+    public static function isSent(int $mailId): bool
     {
         return MailScheduleMapper::getStatusById($mailId) !== 1;
     }
 
-    public static function sendMailsById($mailIds)
+    public static function sendMailsById(array $mailIds) : bool
     {
         $success = 0;
         $failed = 0;
@@ -114,7 +114,7 @@ class MailSchedule
         return true;
     }
 
-    public static function sendSingleMailHandler(int $mailId, $scheduledMail, $recipients, $attachments)
+    public static function sendSingleMailHandler(int $mailId, $scheduledMail, $recipients, $attachments) : bool
     {
         $EmailMessage = new EmailMessage(
             $scheduledMail->subject,
