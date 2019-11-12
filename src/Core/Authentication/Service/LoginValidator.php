@@ -48,10 +48,10 @@ class LoginValidator
      * @param $user_password
      * @return object
      */
-    public static function validateAndGetUser($user_name, $user_password) : ?object
+    public static function validateAndGetUser(string $user_name, string $user_password) : ?object
     {
         if (self::checkBruteForce()) {
-            if (empty($user_name) || !empty($user_password)) {
+            if (empty($user_name) || empty($user_password)) {
                 Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
                 return null;
             }

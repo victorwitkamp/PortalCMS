@@ -58,9 +58,9 @@ class MailBatch
         if (!empty($IDs)) {
             foreach ($IDs as $id) {
                 $stmt = DB::conn()->prepare('DELETE FROM mail_batches WHERE id = ? LIMIT 1');
-                $stmt->execute([$id]);
+                $stmt->execute([(int) $id]);
                 if ($stmt->rowCount() === 1) {
-                    $deletedMessageCount += MailScheduleMapper::deleteByBatchId($id);
+                    $deletedMessageCount += MailScheduleMapper::deleteByBatchId((int) $id);
                     ++$deleted;
                 } else {
                     ++$error;
@@ -76,10 +76,10 @@ class MailBatch
         return false;
     }
 
-    public static function countMessages($batch_id)
+    public static function countMessages(int $batch_id)
     {
         $stmt = DB::conn()->prepare('SELECT count(1) FROM mail_schedule where batch_id = ?');
-        $stmt->execute([$batch_id]);
+        $stmt->execute([(int) $batch_id]);
         return $stmt->fetchColumn();
     }
 
@@ -87,7 +87,7 @@ class MailBatch
     {
         $scheduledMailIDs = [];
         foreach ($batch_IDs as $batch_id) {
-            foreach (MailScheduleMapper::getScheduledIdsByBatchId($batch_id) as $scheduledBatchMail) {
+            foreach (MailScheduleMapper::getScheduledIdsByBatchId((int) $batch_id) as $scheduledBatchMail) {
                 $scheduledMailIDs[] = $scheduledBatchMail['id'];
             }
         }
