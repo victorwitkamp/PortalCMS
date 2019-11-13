@@ -40,7 +40,7 @@ PortalCMS_JS_dataTables();
             PortalCMS_JS_Init_dataTables();
             $result = MailScheduleMapper::getHistory();
             if (!$result) {
-                echo 'Ontbrekende gegevens..';
+                echo 'Geen berichten gevonden.';
             } else {
                 include 'inc/table_messages.php';
             }

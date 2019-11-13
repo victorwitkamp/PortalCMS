@@ -69,7 +69,7 @@ class MailBatch
         }
         if ($deleted > 0) {
             Session::add('feedback_positive', 'Er zijn ' . $deleted . ' batches en ' . $deletedMessageCount . ' berichten verwijderd. ');
-            Redirect::to('mail');
+            Redirect::to('email');
             return true;
         }
         Session::add('feedback_negative', 'Verwijderen mislukt. Aantal batches met problemen: ' . $error);
@@ -79,7 +79,7 @@ class MailBatch
     public static function countMessages(int $batch_id)
     {
         $stmt = DB::conn()->prepare('SELECT count(1) FROM mail_schedule where batch_id = ?');
-        $stmt->execute([(int) $batch_id]);
+        $stmt->execute([$batch_id]);
         return $stmt->fetchColumn();
     }
 

@@ -35,18 +35,34 @@ PortalCMS_JS_dataTables();
             <?php Alert::renderFeedbackMessages(); ?>
         </div>
         <div class="container">
-            <nav>
-                <div class="nav nav-tabs mb-3 bg-secondary" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="nav-home-tab" href="index.php" role="tab">Batches</a>
-                    <a class="nav-item nav-link" id="nav-profile-tab" href="messages.php" role="tab">Messages</a>
-                </div>
-            </nav>
+<div class="card">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" href="batches.php">Batches</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="messages.php">Messages</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
             <?php
             PortalCMS_JS_Init_dataTables();
             $batches = MailBatch::getAll();
             echo '<p>Aantal: ' . count($batches) . '</p>';
             require 'inc/table_batches.php';
             ?>
+  </div>
+</div>
+
+            <!-- <nav>
+                <div class="nav nav-tabs mb-3 bg-secondary" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-home-tab" href="index.php" role="tab"><?= Text::get('LABEL_BATCHES') ?></a>
+                    <a class="nav-item nav-link" id="nav-profile-tab" href="messages.php" role="tab"><?= Text::get('LABEL_MESSAGES') ?></a>
+                </div>
+            </nav> -->
+
         </div>
     </div>
 </main>
