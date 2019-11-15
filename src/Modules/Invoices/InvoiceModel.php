@@ -12,11 +12,14 @@ use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
 use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
 use PortalCMS\Core\Email\Template\EmailTemplate;
 use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
+use PortalCMS\Core\Email\Template\Helpers\PlaceholderHelper;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\PDF\PDF;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Contracts\ContractMapper;
+use PortalCMS\Modules\Invoices\InvoiceItemMapper;
+use PortalCMS\Modules\Invoices\InvoiceMapper;
 
 class InvoiceModel
 {
@@ -33,18 +36,15 @@ class InvoiceModel
             $maand = Text::get('MONTH_' . $invoice->month);
         }
         $template = EmailTemplatePDOReader::getSystemTemplateByName('InvoiceMail');
-        $subject = EmailTemplate::replaceholder('MAAND', $maand, $template['subject']);
-        $body = EmailTemplate::replaceholder('FACTUURNUMMER', $invoice->factuurnummer, $template['body']);
+        $subject = PlaceholderHelper::replaceholder('MAAND', $maand, $template['subject']);
+        $body = PlaceholderHelper::replaceholder('FACTUURNUMMER', $invoice->factuurnummer, $template['body']);
         $create = MailScheduleMapper::create($batchId, null, $subject, $body);
         if (!$create) {
             Session::add('feedback_negative', 'Nieuwe email aanmaken mislukt.');
             return false;
         }
         $createdMailId = MailScheduleMapper::lastInsertedId();
-        // $recipients = array($recipient_email);
-        // foreach ($recipients as $recipient) {
         EmailRecipientMapper::createRecipient($createdMailId, $contract->bandleider_email);
-        // }
 
         $attachmentPath = 'content/invoices/';
         $attachmentExtension = '.pdf';

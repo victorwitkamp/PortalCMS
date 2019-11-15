@@ -45,34 +45,31 @@ class InvoiceController extends Controller
     public static function createInvoiceMail()
     {
         $invoiceIds = Request::post('id', false);
-        MailBatch::create();
-        $batchId = MailBatch::lastInsertedId();
-        foreach ($invoiceIds as $invoiceId) {
-            // if () {
-            //     Redirect::to('rental/invoices');
-            // } else {
-            //     Redirect::to('includes/error.php');
-            // }
-            InvoiceModel::createMail($invoiceId, $batchId);
+        if (!empty($invoiceIds)) {
+            MailBatch::create();
+            $batchId = MailBatch::lastInsertedId();
+            foreach ($invoiceIds as $invoiceId) {
+                InvoiceModel::createMail($invoiceId, $batchId);
+            }
+            Redirect::to('rental/invoices');
+        } else {
+            Redirect::to('includes/error.php');
         }
-
     }
 
     public static function writeInvoice()
     {
         $ids = Request::post('writeInvoiceId', false);
-
         if (!empty($ids)) {
-        //             var_dump($ids);
-        // die;
             foreach ($ids as $id) {
-                if (!InvoiceModel::write((int) $id)) {
-                    // Redirect::to('includes/error.php');
-                }
+                InvoiceModel::write((int) $id);
             }
+            Redirect::to('rental/invoices');
+        } else {
+            Redirect::to('includes/error.php');
         }
-
     }
+
     public static function createInvoice()
     {
         $year = Request::post('year', true);
@@ -84,6 +81,7 @@ class InvoiceController extends Controller
             Redirect::to('includes/error.php');
         }
     }
+
     public static function deleteInvoice()
     {
         $id = (int) Request::post('id', true);
@@ -93,6 +91,7 @@ class InvoiceController extends Controller
             Redirect::to('includes/error.php');
         }
     }
+
     public static function deleteInvoiceItem()
     {
         $invoiceId = (int) Request::post('invoiceid', true);
@@ -103,6 +102,7 @@ class InvoiceController extends Controller
             Redirect::to('includes/error.php');
         }
     }
+
     public static function addInvoiceItem()
     {
         $invoiceId = (int) Request::post('invoiceid', true);

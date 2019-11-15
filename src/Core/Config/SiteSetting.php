@@ -177,7 +177,7 @@ class SiteSetting
      *
      * TROUBLESHOOTING: You don't see the new image ? Press F5 or CTRL-F5 to refresh browser cache.
      *
-     * @param string $source_image The location to the original raw image.
+     * @param string $source The location to the original raw image.
      * @param string $destination  The location to save the new image.
      * @param int    $final_width  The desired width of the new image
      * @param int    $final_height The desired height of the new image.
@@ -186,16 +186,14 @@ class SiteSetting
      *
      * @return bool success state
      */
-    public static function resizeLogo($source_image, $destination, $final_width = 150, $final_height = 150, $quality = 100): bool
+    public static function resizeLogo(string $source, string $destination, $final_width = 150, $final_height = 150): bool
     {
-        // Session::add('feedback_negative', 'resizeLogo destination: '.$destination);
-
-        [$width, $height] = getimagesize($source_image);
+        [$width, $height] = getimagesize($source);
         if (!$width || !$height) {
             return false;
         }
         //saving the image into memory (for manipulation with GD Library)
-        $myImage = imagecreatefromjpeg($source_image);
+        $myImage = imagecreatefromjpeg($source);
         // calculating the part of the image to use for thumbnail
         if ($width > $height) {
             $y = 0;
@@ -211,7 +209,7 @@ class SiteSetting
         imagecopyresampled($thumb, $myImage, 0, 0, $x, $y, $final_width, $final_height, $smallestSide, $smallestSide);
         // add '.jpg' to file path, save it as a .jpg file with our $destination_filename parameter
         $destination .= '.jpg';
-        imagejpeg($thumb, $destination, $quality);
+        imagejpeg($thumb, $destination, 100);
         // delete "working copy"
         imagedestroy($thumb);
         if (file_exists($destination)) {

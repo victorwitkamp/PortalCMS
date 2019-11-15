@@ -22,7 +22,8 @@ class EmailRecipientCollectionCreator
         $this->mapper = new EmailRecipientMapper();
     }
 
-    public function createCollection(int $mailId) {
+    public function createCollection(int $mailId)
+    {
         $emailRecipients = $this->mapper->getAll($mailId);
         if (empty($emailRecipients)) {
             return false;

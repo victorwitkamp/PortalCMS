@@ -120,9 +120,9 @@ class PasswordReset
                         '?username=' . $user_name .
                         '&password_reset_hash='
                         .urlencode($password_reset_hash);
-        $MailText = EmailTemplate::replaceholder('USERNAME', $user_name, $MailText);
-        $MailText = EmailTemplate::replaceholder('SITENAME', SiteSetting::getStaticSiteSetting('site_name'), $MailText);
-        $MailText = EmailTemplate::replaceholder('RESETLINK', $resetlink, $MailText);
+        $MailText = PlaceholderHelper::replaceholder('USERNAME', $user_name, $MailText);
+        $MailText = PlaceholderHelper::replaceholder('SITENAME', SiteSetting::getStaticSiteSetting('site_name'), $MailText);
+        $MailText = PlaceholderHelper::replaceholder('RESETLINK', $resetlink, $MailText);
 
         $mail = new EmailMessage(
             Config::get('EMAIL_PASSWORD_RESET_SUBJECT'),
