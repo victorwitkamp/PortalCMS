@@ -8,6 +8,7 @@ declare(strict_types=1);
 namespace PortalCMS\Controllers;
 
 use PortalCMS\Core\Controllers\Controller;
+use PortalCMS\Core\Email\Batch\MailBatch;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Router;
@@ -43,19 +44,34 @@ class InvoiceController extends Controller
 
     public static function createInvoiceMail()
     {
-        if (InvoiceModel::createMail()) {
-            Redirect::to('rental/invoices');
-        } else {
-            Redirect::to('includes/error.php');
+        $invoiceIds = Request::post('id', false);
+        MailBatch::create();
+        $batchId = MailBatch::lastInsertedId();
+        foreach ($invoiceIds as $invoiceId) {
+            // if () {
+            //     Redirect::to('rental/invoices');
+            // } else {
+            //     Redirect::to('includes/error.php');
+            // }
+            InvoiceModel::createMail($invoiceId, $batchId);
         }
+
     }
 
     public static function writeInvoice()
     {
-        $id = Request::post('id', true);
-        if (!InvoiceModel::write($id)) {
-            Redirect::to('includes/error.php');
+        $ids = Request::post('writeInvoiceId', false);
+
+        if (!empty($ids)) {
+        //             var_dump($ids);
+        // die;
+            foreach ($ids as $id) {
+                if (!InvoiceModel::write((int) $id)) {
+                    // Redirect::to('includes/error.php');
+                }
+            }
         }
+
     }
     public static function createInvoice()
     {

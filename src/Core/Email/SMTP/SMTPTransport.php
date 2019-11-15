@@ -121,7 +121,7 @@ class SMTPTransport
         $this->PHPMailer->Body = $verifiedMessage->body;
         if (!empty($verifiedMessage->attachments)) {
             foreach ($verifiedMessage->attachments as $attachment) {
-                $attachmentFullFilePath = DIR_ROOT . $attachment['path'] . $attachment['name'] . '.' . $attachment['extension'];
+                $attachmentFullFilePath = DIR_ROOT . $attachment['path'] . $attachment['name'] . $attachment['extension'];
                 $attachmentFullName = $attachment['name'] . $attachment['extension'];
                 $this->PHPMailer->addAttachment($attachmentFullFilePath, $attachmentFullName, $attachment['encoding'], $attachment['type']);
             }

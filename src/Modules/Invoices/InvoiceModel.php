@@ -20,23 +20,22 @@ use PortalCMS\Modules\Contracts\ContractMapper;
 
 class InvoiceModel
 {
-    public static function createMail(): bool
+    public static function createMail($invoiceId, $batchId = null): bool
     {
-        $invoiceId = Request::post('id', true);
         $invoice = InvoiceMapper::getById($invoiceId);
         if (empty($invoice)) {
             return false;
         }
-        $contract = ContractMapper::getById($invoice['contract_id']);
-        if ($invoice['month'] < '10') {
-            $maand = Text::get('MONTH_0' . $invoice['month']);
+        $contract = ContractMapper::getById($invoice->contract_id);
+        if ($invoice->month < '10') {
+            $maand = Text::get('MONTH_0' . $invoice->month);
         } else {
-            $maand = Text::get('MONTH_' . $invoice['month']);
+            $maand = Text::get('MONTH_' . $invoice->month);
         }
         $template = EmailTemplatePDOReader::getSystemTemplateByName('InvoiceMail');
         $subject = EmailTemplate::replaceholder('MAAND', $maand, $template['subject']);
-        $body = EmailTemplate::replaceholder('FACTUURNUMMER', $invoice['factuurnummer'], $template['body']);
-        $create = MailScheduleMapper::create(null, null, $subject, $body);
+        $body = EmailTemplate::replaceholder('FACTUURNUMMER', $invoice->factuurnummer, $template['body']);
+        $create = MailScheduleMapper::create($batchId, null, $subject, $body);
         if (!$create) {
             Session::add('feedback_negative', 'Nieuwe email aanmaken mislukt.');
             return false;
@@ -49,7 +48,7 @@ class InvoiceModel
 
         $attachmentPath = 'content/invoices/';
         $attachmentExtension = '.pdf';
-        $attachmentName = $invoice['factuurnummer'];
+        $attachmentName = $invoice->factuurnummer;
         EmailAttachmentMapper::create($createdMailId, $attachmentPath, $attachmentName, $attachmentExtension);
 
         InvoiceMapper::updateMailId($invoiceId, $createdMailId);

@@ -114,7 +114,7 @@ class MailSchedule
         return true;
     }
 
-    public static function sendSingleMailHandler(int $mailId, $scheduledMail, $recipients, $attachments) : bool
+    public static function sendSingleMailHandler(int $mailId, $scheduledMail, array $recipients, array $attachments = null) : bool
     {
         $EmailMessage = new EmailMessage(
             $scheduledMail->subject,

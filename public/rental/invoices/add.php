@@ -41,7 +41,7 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
                     <div class="col-sm-10">
                         <!-- <select name="contract_id" class="form-control"> -->
                             <?php foreach (ContractMapper::get() as $row) : ?>
-                                <!-- <option value="<?= $row->id ?>"><?= $row->bandcode . ': ' . $row->band_naam ?></option> -->
+                                <!-- <option value="<?php //$row->id ?>"><?php //$row->bandcode . ': ' . $row->band_naam ?></option> -->
                                 <input type="checkbox" name='contract_id[]' value="<?= $row->id ?>"><?= $row->bandcode . ': ' . $row->band_naam ?><br/>
                             <?php endforeach ?>
                         <!-- </select> -->

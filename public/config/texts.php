@@ -32,11 +32,11 @@ return [
     'MONTH_11' => 'November',
     'MONTH_12' => 'December',
     // GENERAL
-    'LABEL_ADD' => 'TOEVOEGEN',
-    'LABEL_EDIT' => 'BEWERKEN',
-    'LABEL_DELETE' => 'VERWIJDEREN',
-    'LABEL_IMPORT' => 'IMPORTEREN',
-    'LABEL_CLOSE' => 'SLUITEN',
+    'LABEL_ADD' => 'New',
+    'LABEL_EDIT' => 'Edit',
+    'LABEL_DELETE' => 'Delete',
+    'LABEL_IMPORT' => 'Import',
+    'LABEL_CLOSE' => 'Close',
     'LABEL_NOT_FOUND' => 'NIET GEVONDEN',
     'LABEL_LOG_IN' => 'LOG-IN',
     'LABEL_CONTINUE_WITH_FACEBOOK' => 'LOG-IN',
@@ -44,8 +44,8 @@ return [
     'LABEL_FORGOT_PASSWORD' => 'WACHTWOORD VERGETEN',
 
     // NAV
-    'LABEL_SIGN_OUT' => 'SIGN OUT',
-    'LABEL_SIGNED_IN_AS' => 'Welcome',
+    'LABEL_SIGN_OUT' => 'Log uit',
+    'LABEL_SIGNED_IN_AS' => 'Welkom',
 
     // NAVIGATION
     'NAV_TITLE_HOME' => 'HOME',
@@ -65,9 +65,9 @@ return [
 
 
     // HOME
-    'TITLE_HOME' => 'HOME',
-    'LABEL_EDIT_PAGE' => 'PAGINA_BEWERKEN',
-    'LABEL_LAST_MODIFIED' => 'LAATST_BEWERKT',
+    'TITLE_HOME' => 'Home',
+    'LABEL_EDIT_PAGE' => 'Pagina bewerken',
+    'LABEL_LAST_MODIFIED' => 'Laatst gewijzigd',
 
     // WIDGET: COMING EVENTS
     'TITLE_WIDGET_COMING_EVENTS' => 'KOMENDE EVENEMENTEN',
@@ -110,17 +110,18 @@ return [
 
     // MAILSCHEDULER
     'TITLE_MAIL_SCHEDULER' => 'E-mail schedule',
+    'LABEL_SCHEDULE' => 'Planning',
     'LABEL_BATCHES' => 'Batches',
-    'LABEL_MESSAGES' => 'Messages',
+    'LABEL_MESSAGES' => 'Berichten',
     'LABEL_NEW_EMAIL' => 'NEW_EMAIL',
     'LABEL_SEND_EMAIL' => 'SEND_EMAIL',
     'LABEL_DELETE_EMAIL' => 'DELETE_EMAIL',
 
-    'TITLE_MAIL_HISTORY' => 'History',
+    'TITLE_MAIL_HISTORY' => 'Verzonden',
     // MAIL TEMPLATES
-    'TITLE_MAIL_TEMPLATES' => 'MAIL_TEMPLATES',
-    'TITLE_NEW_MAIL_TEMPLATE' => 'NEW_MAIL_TEMPLATE',
-    'TITLE_EDIT_MAIL_TEMPLATE' => 'EDIT_MAIL_TEMPLATE',
+    'TITLE_MAIL_TEMPLATES' => 'Templates',
+    'TITLE_NEW_MAIL_TEMPLATE' => 'Template toevoegen',
+    'TITLE_EDIT_MAIL_TEMPLATE' => 'Template bewerken',
     'FEEDBACK_MAIL_ATTACHMENT_UPLOAD_SUCCESSFUL' => 'MAIL_ATTACHMENT_UPLOAD_SUCCESSFUL',
 
     // MAILDETAILS
@@ -142,7 +143,7 @@ return [
     'LABEL_MAILDETAILS_DATE_MODIFICATION' => 'MAILDETAILS_DATE_MODIFICATION',
 
     // MY ACCOUNT
-    'TITLE_MY_ACCOUNT' => 'MY ACCOUNT',
+    'TITLE_MY_ACCOUNT' => 'Mijn account',
     'LABEL_ACCOUNT_DETAILS' => 'ACCOUNTGEGEVENS',
     'LABEL_CHANGE_PASSWORD' => 'WACHTWOORD WIJZIGEN',
     'LABEL_CURRENT_PASSWORD' => 'HUIDIG WACHTWOORD',

@@ -14,13 +14,7 @@ use function define;
 
 class PDF
 {
-    /**
-     * @var mixed variable to collect errors
-     */
-    public static $error;
-
-    public static function configPDF()
-    {
+    public static function config() {
         define('K_TCPDF_EXTERNAL_CONFIG', true);
         define('K_PATH_MAIN', DIR_VENDOR . 'tecnickcom/tcpdf/');
         define('K_PATH_URL', DIR_VENDOR . 'tecnickcom/tcpdf/');
@@ -56,6 +50,14 @@ class PDF
         define('K_THAI_TOPCHARS', true);
         define('K_TCPDF_CALLS_IN_HTML', true);
         define('K_TCPDF_THROW_EXCEPTION_ERROR', false);
+    }
+    /**
+     * @var mixed variable to collect errors
+     */
+    public static $error;
+
+    public static function configPDF()
+    {
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', true);
         $pdf->setPrintHeader(false);
         $pdf->setPrintFooter(false);
@@ -169,6 +171,7 @@ class PDF
 
     public static function renderInvoice($invoice, array $invoiceitems, $contract)
     {
+        self::config();
         $pdf = self::configPDF();
         $pdf = self::createInvoice($pdf, $invoice, $invoiceitems, $contract);
         ob_end_clean();
@@ -177,6 +180,7 @@ class PDF
 
     public static function writeInvoice($invoice, array $invoiceitems, $contract) : bool
     {
+        self::config();
         $pdf = self::configPDF();
         $pdf = self::createInvoice($pdf, $invoice, $invoiceitems, $contract);
 

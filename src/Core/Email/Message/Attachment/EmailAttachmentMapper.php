@@ -69,7 +69,7 @@ class EmailAttachmentMapper
         if ($stmt->rowCount() > 0) {
             return $stmt->fetchAll();
         }
-        return false;
+        return null;
     }
 
     /**

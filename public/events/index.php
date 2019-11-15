@@ -34,19 +34,14 @@ PortalCMS_JS_calendar(); ?>
             <?php Alert::renderFeedbackMessages(); ?>
             <hr>
             <div class="row justify-content-center">
-
-<div class="col-sm-12">
-
-    <div id="calendar"></div>
-</div>
-
-</div>
+                <div class="col-sm-12">
+                    <div id="calendar"></div>
+                </div>
+            </div>
         </div>
     </div>
 </main>
-
 <?php include DIR_INCLUDES . 'footer.php'; ?>
-
 <div id="fullCalModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">

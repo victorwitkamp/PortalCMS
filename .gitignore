@@ -13,3 +13,4 @@
 /.php_cs.cache
 /database/
 composer.lock
+public/phpmailer.log
