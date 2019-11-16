@@ -10,6 +10,7 @@ namespace PortalCMS\Controllers;
 use PortalCMS\Core\Config\SiteSetting;
 use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
@@ -36,6 +37,8 @@ class SiteSettingController extends Controller
 
     public static function saveSiteSettings()
     {
+        var_dump(Request::post('WidgetDebug'));
+        die;
         if (SiteSetting::saveSiteSettings()) {
             Session::add('feedback_positive', 'Instellingen succesvol opgeslagen.');
             Redirect::to('settings/site-settings');

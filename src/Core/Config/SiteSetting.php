@@ -14,7 +14,9 @@ namespace PortalCMS\Core\Config;
 
 use PDO;
 use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\Config\Config;
 use PortalCMS\Core\Database\DB;
+use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
@@ -32,7 +34,6 @@ class SiteSetting
         self::setSiteSetting(Request::post('site_layout'), 'site_layout');
         self::setSiteSetting(Request::post('WidgetComingEvents'), 'WidgetComingEvents');
         self::setSiteSetting(Request::post('WidgetDebug'), 'WidgetDebug');
-
         self::setSiteSetting(Request::post('MailServer'), 'MailServer');
         self::setSiteSetting(Request::post('MailServerPort'), 'MailServerPort');
         self::setSiteSetting(Request::post('MailServerSecure'), 'MailServerSecure');
@@ -45,7 +46,7 @@ class SiteSetting
         return true;
     }
 
-    public static function setSiteSetting($value, $setting): bool
+    public static function setSiteSetting(string $value, $setting): bool
     {
         $stmt = DB::conn()->prepare('UPDATE site_settings SET string_value = ? WHERE setting = ?');
         if (!$stmt->execute([$value, $setting])) {
