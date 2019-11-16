@@ -97,7 +97,7 @@ use PortalCMS\Modules\Invoices\InvoiceModel;
             </td>
             <td>
                 <!-- <form method="post">
-                    <input type="hidden" name="id" value="<?php $invoice->id ?>">
+                    <input type="hidden" name="id" value="<?php //$invoice->id ?>">
                     <button type="submit" name="confirmPayment" class="btn btn-success" disabled><i class="fas fa-check"></i></button>
                 </form> -->
             </td>

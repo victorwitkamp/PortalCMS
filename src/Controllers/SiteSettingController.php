@@ -37,8 +37,6 @@ class SiteSettingController extends Controller
 
     public static function saveSiteSettings()
     {
-        var_dump(Request::post('WidgetDebug'));
-        die;
         if (SiteSetting::saveSiteSettings()) {
             Session::add('feedback_positive', 'Instellingen succesvol opgeslagen.');
             Redirect::to('settings/site-settings');

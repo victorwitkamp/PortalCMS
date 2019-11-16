@@ -2,13 +2,10 @@
 /**
  * General settings
  */
-
 use PortalCMS\Core\Config\SiteSetting;
 use PortalCMS\Core\View\Text;
-
 ?>
 <h3><?= Text::get('LABEL_SETTINGS_GENERAL') ?></h3>
-
 <div class="form-group row">
 
     <label class="col-4 col-form-label"><?= Text::get('LABEL_SITE_NAME') ?></label>
@@ -112,17 +109,14 @@ use PortalCMS\Core\View\Text;
 <h3>Mailserver</h3>
 
 <div class="form-group row">
-
     <label class="col-4 col-form-label">SMTP server IP/hostname</label>
     <div class="col-8">
         <input type="text" name="MailServer" value="<?= SiteSetting::getStaticSiteSetting('MailServer') ?>" class="form-control">
     </div>
-
     <label class="col-4 col-form-label">SMTP server port</label>
     <div class="col-8">
         <input type="text" name="MailServerPort" value="<?= SiteSetting::getStaticSiteSetting('MailServerPort') ?>" class="form-control">
     </div>
-
     <label class="col-4 col-form-label">SMTP encryption</label>
     <div class="col-8">
         <div class="input-group">
@@ -133,9 +127,7 @@ use PortalCMS\Core\View\Text;
                 <option value="0" <?php if ($MailServerSecure === '0') { echo 'selected'; } ?>>Disabled</option>
             </select>
         </div>
-
     </div>
-
     <label class="col-4 col-form-label">SMTP authentication</label>
     <div class="col-8">
         <div class="input-group">
@@ -146,17 +138,14 @@ use PortalCMS\Core\View\Text;
             </select>
         </div>
     </div>
-
     <label class="col-4 col-form-label">SMTP username</label>
     <div class="col-8">
         <input type="text" name="MailServerUsername" value="<?= SiteSetting::getStaticSiteSetting('MailServerUsername') ?>" class="form-control">
     </div>
-
     <label class="col-4 col-form-label">SMTP password</label>
     <div class="col-8">
         <input type="password" name="MailServerPassword" value="<?= SiteSetting::getStaticSiteSetting('MailServerPassword') ?>" class="form-control">
     </div>
-
     <label class="col-4 col-form-label">SMTP debug</label>
     <div class="col-8">
         <div class="input-group">

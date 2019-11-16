@@ -30,17 +30,25 @@ class Request
      */
     public static function post($key, $clean = false)
     {
-        if (isset($_POST[$key]) && !empty($_POST[$key])) {
-            // we use the Ternary Operator here which saves the if/else block
-            // @see http://davidwalsh.name/php-shorthand-if-else-ternary-operators
-            if ($clean && is_string($key)) {
-                $return = trim(strip_tags($_POST[$key]));
-                if (!empty($return)) {
-                    return $return;
+        if (isset($_POST[$key])) {
+
+            if (!empty($_POST[$key]) || ($_POST === '0')) {
+
+                // we use the Ternary Operator here which saves the if/else block
+                // @see http://davidwalsh.name/php-shorthand-if-else-ternary-operators
+                if ($clean && is_string($key)) {
+                    $return = trim(strip_tags($_POST[$key]));
+                    if (!empty($return)) {
+                        return $return;
+                    }
                 }
+                return $_POST[$key];
             }
-            return $_POST[$key];
+
         }
+
+
+
     }
 
     /**

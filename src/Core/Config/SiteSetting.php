@@ -25,28 +25,28 @@ class SiteSetting
 {
     public static function saveSiteSettings()
     {
-        self::setSiteSetting(Request::post('site_name'), 'site_name');
-        self::setSiteSetting(Request::post('site_description'), 'site_description');
-        self::setSiteSetting(Request::post('site_description_type'), 'site_description_type');
-        self::setSiteSetting(Request::post('site_url'), 'site_url');
-        self::setSiteSetting(Request::post('site_logo'), 'site_logo');
-        self::setSiteSetting(Request::post('site_theme'), 'site_theme');
-        self::setSiteSetting(Request::post('site_layout'), 'site_layout');
-        self::setSiteSetting(Request::post('WidgetComingEvents'), 'WidgetComingEvents');
-        self::setSiteSetting(Request::post('WidgetDebug'), 'WidgetDebug');
-        self::setSiteSetting(Request::post('MailServer'), 'MailServer');
-        self::setSiteSetting(Request::post('MailServerPort'), 'MailServerPort');
-        self::setSiteSetting(Request::post('MailServerSecure'), 'MailServerSecure');
-        self::setSiteSetting(Request::post('MailServerAuth'), 'MailServerAuth');
-        self::setSiteSetting(Request::post('MailServerUsername'), 'MailServerUsername');
-        self::setSiteSetting(Request::post('MailServerPassword'), 'MailServerPassword');
-        self::setSiteSetting(Request::post('MailServerDebug'), 'MailServerDebug');
-        self::setSiteSetting(Request::post('MailFromName'), 'MailFromName');
-        self::setSiteSetting(Request::post('MailFromEmail'), 'MailFromEmail');
+        self::setSiteSetting((string) Request::post('site_name'), 'site_name');
+        self::setSiteSetting((string) Request::post('site_description'), 'site_description');
+        self::setSiteSetting((string) Request::post('site_description_type'), 'site_description_type');
+        self::setSiteSetting((string) Request::post('site_url'), 'site_url');
+        self::setSiteSetting((string) Request::post('site_logo'), 'site_logo');
+        self::setSiteSetting((string) Request::post('site_theme'), 'site_theme');
+        self::setSiteSetting((string) Request::post('site_layout'), 'site_layout');
+        self::setSiteSetting((int) Request::post('WidgetComingEvents'), 'WidgetComingEvents');
+        self::setSiteSetting((int) Request::post('WidgetDebug'), 'WidgetDebug');
+        self::setSiteSetting((string) Request::post('MailServer'), 'MailServer');
+        self::setSiteSetting((string) Request::post('MailServerPort'), 'MailServerPort');
+        self::setSiteSetting((string) Request::post('MailServerSecure'), 'MailServerSecure');
+        self::setSiteSetting((int) Request::post('MailServerAuth'), 'MailServerAuth');
+        self::setSiteSetting((string) Request::post('MailServerUsername'), 'MailServerUsername');
+        self::setSiteSetting((string) Request::post('MailServerPassword'), 'MailServerPassword');
+        self::setSiteSetting((string) Request::post('MailServerDebug'), 'MailServerDebug');
+        self::setSiteSetting((string) Request::post('MailFromName'), 'MailFromName');
+        self::setSiteSetting((string) Request::post('MailFromEmail'), 'MailFromEmail');
         return true;
     }
 
-    public static function setSiteSetting(string $value, $setting): bool
+    public static function setSiteSetting($value, string $setting): bool
     {
         $stmt = DB::conn()->prepare('UPDATE site_settings SET string_value = ? WHERE setting = ?');
         if (!$stmt->execute([$value, $setting])) {
@@ -57,10 +57,9 @@ class SiteSetting
 
     public static function getStaticSiteSetting($setting)
     {
-        $stmt = DB::conn()->prepare('SELECT * FROM site_settings WHERE setting = ?');
+        $stmt = DB::conn()->prepare('SELECT string_value FROM site_settings WHERE setting = ?');
         $stmt->execute([$setting]);
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $row['string_value'];
+        return $stmt->fetch(PDO::FETCH_COLUMN);
     }
 
     /**
