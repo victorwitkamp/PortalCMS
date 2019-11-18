@@ -1,10 +1,11 @@
 <?php
 
+use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\Security\Authorization\Role;
+use PortalCMS\Core\Security\Authorization\RoleMapper;
 use PortalCMS\Core\Security\Authorization\RolePermissionMapper;
-use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;

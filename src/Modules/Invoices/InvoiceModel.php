@@ -13,7 +13,7 @@ use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
 use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
 use PortalCMS\Core\Email\Template\Helpers\PlaceholderHelper;
 use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\View\PDF\PDF;
+use PortalCMS\Core\View\PDF;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Contracts\ContractMapper;
