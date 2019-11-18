@@ -32,7 +32,7 @@ class MembershipController extends Controller
             Redirect::to('membership/');
         }
         if (isset($_POST['showMembersByYear'])) {
-            Redirect::to('membership/?year='.Request::post('year'));
+            Redirect::to('membership/?year=' . Request::post('year'));
         }
     }
 }

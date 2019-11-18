@@ -14,7 +14,7 @@ require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_MEMBERS');
 $year = Request::get('year');
 if (!isset($year)) {
-    Redirect::to('membership/?year='.date('Y'));
+    Redirect::to('membership/?year=' . date('Y'));
 }
 Authentication::checkAuthentication();
 Authorization::verifyPermission('membership');

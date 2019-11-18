@@ -36,7 +36,7 @@ class PlaceholderHelper
             $placeholder=>$placeholdervalue
         ];
         foreach ($variables as $key => $value) {
-            $body_out = str_replace('{'.strtoupper($key).'}', $value, $body_in);
+            $body_out = str_replace('{' . strtoupper($key) . '}', $value, $body_in);
         }
         return $body_out;
     }

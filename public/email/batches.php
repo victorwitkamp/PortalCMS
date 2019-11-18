@@ -48,17 +48,17 @@ PortalCMS_JS_dataTables();
             </div>
             <div class="card-body">
                       <?php
-                      PortalCMS_JS_Init_dataTables();
+                        PortalCMS_JS_Init_dataTables();
 
-                      $batches = MailBatch::getAll();
-                      if (!empty($batches)) {
-                          echo '<p>Aantal: ' . count($batches) . '</p>';
-                          include 'inc/table_batches.php';
-                      } else {
-                          echo Text::get('LABEL_NOT_FOUND');
-                      }
+                        $batches = MailBatch::getAll();
+                        if (!empty($batches)) {
+                            echo '<p>Aantal: ' . count($batches) . '</p>';
+                            include 'inc/table_batches.php';
+                        } else {
+                            echo Text::get('LABEL_NOT_FOUND');
+                        }
 
-                      ?>
+                        ?>
             </div>
         </div>
 
