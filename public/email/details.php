@@ -1,7 +1,7 @@
 <?php
 
-use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\Authorization\Authorization;
+use PortalCMS\Core\Security\Authentication\Authentication;
+use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\Config\Config;
 use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
 use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;

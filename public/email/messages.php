@@ -1,14 +1,14 @@
 <?php
 
-use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\Authorization\Authorization;
+use PortalCMS\Core\Security\Authentication\Authentication;
+use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
 $pageType = 'index';
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
-$pageName = Text::get('TITLE_MAIL_SCHEDULER');
+$pageName = Text::get('TITLE_MAIL_MESSAGES');
 Authentication::checkAuthentication();
 Authorization::verifyPermission('mail-scheduler');
 require_once DIR_INCLUDES . 'functions.php';
@@ -35,9 +35,7 @@ PortalCMS_JS_dataTables();
                     </div>
                 </div>
 
-                <?php
-                Alert::renderFeedbackMessages();
-                ?>
+                <?php Alert::renderFeedbackMessages(); ?>
 
             </div>
             <div class="container">
@@ -59,7 +57,7 @@ PortalCMS_JS_dataTables();
                 }
                 $mailcount = count($result);
                 if (!$result) {
-                    echo 'Ontbrekende gegevens..';
+                    echo Text::get('LABEL_NOT_FOUND');
                 } else {
                     if (!empty($_GET['batch_id'])) {
                         echo '<h3>Berichten van batch ' . $_GET['batch_id'] . '</h3>';

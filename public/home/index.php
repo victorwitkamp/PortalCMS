@@ -5,8 +5,8 @@
  * Description of the homepage
  */
 
-use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\Authorization\Authorization;
+use PortalCMS\Core\Security\Authentication\Authentication;
+use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\Config\SiteSetting;
 use PortalCMS\Core\View\Text;
 

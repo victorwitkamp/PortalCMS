@@ -44,7 +44,7 @@ class InvoiceController extends Controller
 
     public static function createInvoiceMail()
     {
-        $invoiceIds = Request::post('id', false);
+        $invoiceIds = Request::post('id');
         if (!empty($invoiceIds)) {
             MailBatch::create();
             $batchId = MailBatch::lastInsertedId();
@@ -59,7 +59,7 @@ class InvoiceController extends Controller
 
     public static function writeInvoice()
     {
-        $ids = Request::post('writeInvoiceId', false);
+        $ids = Request::post('writeInvoiceId');
         if (!empty($ids)) {
             foreach ($ids as $id) {
                 InvoiceModel::write((int) $id);
@@ -74,7 +74,7 @@ class InvoiceController extends Controller
     {
         $year = Request::post('year', true);
         $month = Request::post('month', true);
-        $contracts = Request::post('contract_id', false);
+        $contracts = Request::post('contract_id');
         if (InvoiceModel::create($year, $month, $contracts)) {
             Redirect::to('rental/invoices');
         } else {

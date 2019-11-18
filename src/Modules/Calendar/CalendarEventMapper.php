@@ -75,9 +75,7 @@ class CalendarEventMapper
         $stmt->execute([
             $title,
             $start_event,
-            //date('Y-m-d H:i:s', strtotime($start_event)),
             $end_event,
-            //date('Y-m-d H:i:s', strtotime($end_event)),
             $description,
             $CreatedBy]);
         if (!$stmt) {

@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Email\Template;
 
+
 use PDO;
 use PortalCMS\Core\Database\DB;
 

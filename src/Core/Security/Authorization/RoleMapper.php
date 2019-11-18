@@ -3,30 +3,32 @@
  * Copyright Victor Witkamp (c) 2019.
  */
 
-declare(strict_types=1);
-
-namespace PortalCMS\Core\Authorization;
+namespace PortalCMS\Core\Security\Authorization;
 
 use PDO;
 use PortalCMS\Core\Database\DB;
 
-class Role
+class RoleMapper
 {
-    protected $permissions;
-
-    protected function __construct()
+    /**
+     * Returns an array of all roles
+     * @return array|null
+     */
+    public static function getRoles() : ?array
     {
-        $this->permissions = [];
+        $stmt = DB::conn()->query('SELECT * FROM roles ORDER BY role_id ');
+        if ($stmt->rowCount() > 0) {
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
+        }
+        return null;
     }
 
     /**
-     * Returns a role as an array
-     *
+     * Returns a role object by it's ID
      * @param string $role_id
-     *
      * @return mixed
      */
-    public static function get($role_id)
+    public static function get(int $role_id)
     {
         $stmt = DB::conn()->prepare(
             'SELECT *
@@ -45,10 +47,9 @@ class Role
      * Create a new role
      *
      * @param string $role_name
-     *
      * @return bool
      */
-    public static function create($role_name): bool
+    public static function create(string $role_name): bool
     {
         $stmt = DB::conn()->prepare(
             'INSERT INTO roles
@@ -64,11 +65,10 @@ class Role
     /**
      * Delete an existing role
      *
-     * @param string $role_id
-     *
+     * @param int $role_id
      * @return bool
      */
-    public static function delete($role_id): bool
+    public static function delete(int $role_id): bool
     {
         $stmt = DB::conn()->prepare(
             'DELETE FROM roles

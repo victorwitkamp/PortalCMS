@@ -1,7 +1,7 @@
 <?php
 
-use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\Authorization\Authorization;
+use PortalCMS\Core\Security\Authentication\Authentication;
+use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
@@ -24,7 +24,7 @@ PortalCMS_JS_headJS(); ?>
             <div class="row mt-5">
                 <div class="col-sm-8"><h1><?= $pageName ?></h1></div>
                 <div class="col-sm-4">
-                    <a href="new.php" class="btn btn-info float-right"><span class="fa fa-plus"></span> <?php echo Text::get('TITLE_NEW_MAIL_TEMPLATE'); ?></a>
+                    <a href="new.php" class="btn btn-info float-right"><span class="fa fa-plus"></span> <?= Text::get('TITLE_NEW_MAIL_TEMPLATE') ?></a>
                 </div>
             </div>
             <hr>

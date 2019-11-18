@@ -5,7 +5,7 @@
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Encryption;
+namespace PortalCMS\Core\Security;
 
 use Exception;
 use PortalCMS\Core\Config\Config;

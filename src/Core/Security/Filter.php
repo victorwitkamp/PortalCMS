@@ -5,7 +5,7 @@
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Filter;
+namespace PortalCMS\Core\Security;
 
 use function is_array;
 use function is_object;
@@ -65,9 +65,9 @@ class Filter
     {
         // if argument is a string, filters that string
         if (is_string($value)) {
-            $value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+            $value = htmlspecialchars($value, ENT_QUOTES);
 
-        // if argument is an array or an object,
+            // if argument is an array or an object
             // recursivly filters its content
         } elseif (is_array($value) || is_object($value)) {
 

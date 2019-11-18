@@ -5,17 +5,15 @@
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Page;
+namespace PortalCMS\Core\View;
 
 use PDO;
 use PortalCMS\Core\Database\DB;
 use PortalCMS\Core\Session\Session;
 
 /**
- * Class : Page (Page.class.php)
- * Details : Page Class.
+ * Page class.
  */
-
 class Page
 {
     public static function checkPage($page_id): bool
@@ -44,15 +42,15 @@ class Page
     public static function updatePage($page_id, $content): bool
     {
         $stmt = DB::conn()->prepare(
-            'SELECT id 
-                            FROM pages 
+            'SELECT id
+                            FROM pages
                                 WHERE id = ? LIMIT 1'
         );
         $stmt->execute([$page_id]);
         if ($stmt->rowCount() === 1) {
             $stmt = DB::conn()->prepare(
                 'UPDATE pages
-                                SET content=? 
+                                SET content=?
                                     WHERE id=?'
             );
             if ($stmt->execute([$content, $page_id])) {

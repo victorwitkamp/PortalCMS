@@ -7,8 +7,8 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
-use PortalCMS\Core\Authorization\Role;
-use PortalCMS\Core\Authorization\RolePermission;
+use PortalCMS\Core\Security\Authorization\Role;
+use PortalCMS\Core\Security\Authorization\RolePermission;
 use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
@@ -38,7 +38,7 @@ class RoleController extends Controller
 
     public static function create($role_name)
     {
-        if (Role::create($role_name)) {
+        if (RoleMapper::create($role_name)) {
             Session::add('feedback_positive', 'Nieuwe rol aangemaakt.');
             Redirect::to('settings/user-management/roles.php');
         } else {
@@ -49,7 +49,7 @@ class RoleController extends Controller
 
     public static function delete($role_id)
     {
-        if (Role::delete($role_id)) {
+        if (RoleMapper::delete($role_id)) {
             Session::add('feedback_positive', 'Rol verwijderd.');
             Redirect::to('settings/user-management/roles.php');
         } else {

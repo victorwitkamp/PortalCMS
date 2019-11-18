@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Modules\Invoices;
 
+
 use PDO;
 use PortalCMS\Core\Database\DB;
 

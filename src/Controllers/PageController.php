@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace PortalCMS\Controllers;
 
 use PortalCMS\Core\Controllers\Controller;
-use PortalCMS\Core\Page\Page;
+use PortalCMS\Core\View\Page;
 
 class PageController extends Controller
 {

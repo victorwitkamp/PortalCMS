@@ -1,7 +1,7 @@
 <?php
 
-use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\Authorization\Authorization;
+use PortalCMS\Core\Security\Authentication\Authentication;
+use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Modules\Members\MemberModel;
@@ -38,7 +38,7 @@ PortalCMS_JS_headJS(); ?>
                 <div class="row">
                     <div class="col-md-12">
                         <label>Jaar
-                            <input type="text" name="year" value="<?php echo $year; ?>"/>
+                            <input type="text" name="year" value="<?= $year ?>"/>
                             <input type="submit" name="setYear">
                     </div>
                 </div>
@@ -50,7 +50,7 @@ PortalCMS_JS_headJS(); ?>
                         <div class="col-md-12">
                             <label>Template selecteren</label>
                             <select name='templateid'>
-                                <?php 
+                                <?php
                                 $templates = EmailTemplatePDOReader::getByType('member');
                                 foreach ($templates as $template) : ?>
                                     <option value="<?= $template->id ?>"><?= $template->subject ?></option>
@@ -85,8 +85,8 @@ PortalCMS_JS_headJS(); ?>
                             if (!empty($member->emailadres)) { ?>
                                 <div class="col-md-4">
                                     <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" name='recipients[]' id="customCheck<?php echo $count; ?>" value="<?= $member->id ?>">
-                                        <label class="custom-control-label" for="customCheck<?php echo $count; ?>"><?= $member->voornaam . ' ' . $member->achternaam ?></label>
+                                    <input type="checkbox" class="custom-control-input" name='recipients[]' id="customCheck<?= $count ?>" value="<?= $member->id ?>">
+                                        <label class="custom-control-label" for="customCheck<?= $count ?>"><?= $member->voornaam . ' ' . $member->achternaam ?></label>
                                     </div>
                                 </div>
                             <?php } else { ?>

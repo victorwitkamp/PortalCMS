@@ -1,6 +1,6 @@
 <?php
 
-use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Modules\Calendar\CalendarEventModel;
 
 require __DIR__ . '/../Init.php';

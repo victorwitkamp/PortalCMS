@@ -15,9 +15,11 @@ if (SiteSetting::getStaticSiteSetting('site_description_type') === '2') {
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     $output = curl_exec($ch);
     $out = json_decode($output);
-    print $out->{'setup'};
-    echo '<br>';
-    print $out->{'delivery'};
+    if (!empty($out->{'setup'}) && !empty($out->{'delivery'})) {
+        print $out->{'setup'};
+        echo '<br>';
+        print $out->{'delivery'};
+    }
 }
 if (SiteSetting::getStaticSiteSetting('site_description_type') === '3') {
     $request_headers = [];

@@ -12,13 +12,10 @@ use PDOException;
 use PortalCMS\Core\Config\Config;
 
 /**
- * Class DB
- *
- * Database connection
+ * Database class
  */
 class DB
 {
-
     public static function &conn(): ?PDO
     {
         $DB_TYPE = Config::get('DB_TYPE');

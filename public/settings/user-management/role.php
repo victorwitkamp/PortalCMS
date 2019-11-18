@@ -1,9 +1,9 @@
 <?php
 
-use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\Authorization\Authorization;
-use PortalCMS\Core\Authorization\Role;
-use PortalCMS\Core\Authorization\RolePermissionMapper;
+use PortalCMS\Core\Security\Authentication\Authentication;
+use PortalCMS\Core\Security\Authorization\Authorization;
+use PortalCMS\Core\Security\Authorization\Role;
+use PortalCMS\Core\Security\Authorization\RolePermissionMapper;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Alert;
@@ -18,7 +18,7 @@ require DIR_ROOT . 'includes/head.php';
 displayHeadCSS();
 PortalCMS_JS_headJS();
 
-$Role = Role::get($_GET['role_id']);
+$Role = RoleMapper::get($_GET['role_id']);
 if (empty($Role)) {
     Session::add('feedback_negative', 'Geen resultaten voor opgegeven rol ID.');
     Redirect::to('includes/error.php');

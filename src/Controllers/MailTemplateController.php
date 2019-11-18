@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
-use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\Email\Message\Attachment\EmailAttachment;
 use PortalCMS\Core\Email\Template\EmailTemplateManager;
@@ -68,7 +68,7 @@ class MailTemplateController extends Controller
         $templateBuilder = new EmailTemplateManager();
         $template = $templateBuilder->getExisting((int) Request::get('id'));
         $template->subject = Request::post('subject', true);
-        $template->body = Request::post('body', false);
+        $template->body = Request::post('body');
         $templateBuilder->update($template);
         Redirect::to('email/templates/');
     }
@@ -77,7 +77,7 @@ class MailTemplateController extends Controller
     {
         Authentication::checkAuthentication();
         $templateBuilder = new EmailTemplateManager();
-        $templateBuilder->create('member', Request::post('subject', true), Request::post('body', false));
+        $templateBuilder->create('member', Request::post('subject', true), Request::post('body'));
         $templateBuilder->store();
         Redirect::to('email/templates/');
     }

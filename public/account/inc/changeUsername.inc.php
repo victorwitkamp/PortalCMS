@@ -1,6 +1,6 @@
 <?php
 
-use PortalCMS\Core\Filter\Csrf;
+use PortalCMS\Core\Security\Csrf;
 use PortalCMS\Core\View\Text;
 
 ?><h3><?=

@@ -66,7 +66,7 @@ class SMTPTransport
         $this->PHPMailer->From = $this->config->fromEmail;
         $this->PHPMailer->FromName = $this->config->fromName;
         if ($this->config->isHTML) {
-            $this->PHPMailer->isHTML(true);
+            $this->PHPMailer->isHTML();
         }
     }
 

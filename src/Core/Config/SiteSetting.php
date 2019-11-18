@@ -7,13 +7,8 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Config;
 
-/**
- * Class : SiteSettings (SiteSettings.class.php)
- * Details : SiteSettings.
- */
-
 use PDO;
-use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Config\Config;
 use PortalCMS\Core\Database\DB;
 use PortalCMS\Core\HTTP\Redirect;
@@ -21,6 +16,10 @@ use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
 
+/**
+ * Class : SiteSettings (SiteSettings.class.php)
+ * Details : SiteSettings.
+ */
 class SiteSetting
 {
     public static function saveSiteSettings()
@@ -43,6 +42,7 @@ class SiteSetting
         self::setSiteSetting((string) Request::post('MailServerDebug'), 'MailServerDebug');
         self::setSiteSetting((string) Request::post('MailFromName'), 'MailFromName');
         self::setSiteSetting((string) Request::post('MailFromEmail'), 'MailFromEmail');
+        self::setSiteSetting((int) Request::post('MailisHTML'), 'MailisHTML');
         return true;
     }
 
@@ -186,7 +186,7 @@ class SiteSetting
      *
      * @return bool success state
      */
-    public static function resizeLogo(string $source, string $destination, $final_width = 150, $final_height = 150): bool
+    public static function resizeLogo(string $source, string $destination, $final_width = 150, $final_height = 150, $quality): bool
     {
         [$width, $height] = getimagesize($source);
         if (!$width || !$height) {
@@ -209,7 +209,7 @@ class SiteSetting
         imagecopyresampled($thumb, $myImage, 0, 0, $x, $y, $final_width, $final_height, $smallestSide, $smallestSide);
         // add '.jpg' to file path, save it as a .jpg file with our $destination_filename parameter
         $destination .= '.jpg';
-        imagejpeg($thumb, $destination, 100);
+        imagejpeg($thumb, $destination, $quality);
         // delete "working copy"
         imagedestroy($thumb);
         if (file_exists($destination)) {

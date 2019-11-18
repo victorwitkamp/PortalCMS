@@ -68,9 +68,9 @@ class CalendarEventModel
      * @param string $description
      * @return bool
      */
-    public static function create(string $title, string $start_event, string $end_event, string $description): bool
+    public static function create(string $title, string $start, string $end, string $description): bool
     {
-        if (!CalendarEventMapper::new($title, $start_event, $end_event, $description, Session::get('user_id'))) {
+        if (!CalendarEventMapper::new($title, date('Y-m-d H:i:s', strtotime($start)), date('Y-m-d H:i:s', strtotime($end)), $description, Session::get('user_id'))) {
             Session::add('feedback_negative', 'Toevoegen van evenement mislukt.');
             return false;
         }
@@ -90,7 +90,7 @@ class CalendarEventModel
     public static function update(int $id, string $title, string $start, string $end, string $description, int $status): bool
     {
         if (CalendarEventMapper::exists($id)) {
-            if (CalendarEventMapper::update($id, $title, $start, $end, $description, $status)) {
+            if (CalendarEventMapper::update($id, $title, date('Y-m-d H:i:s', strtotime($start)), date('Y-m-d H:i:s', strtotime($end)), $description, $status)) {
                 Session::add('feedback_positive', 'Evenement gewijzigd.');
                 return true;
             }

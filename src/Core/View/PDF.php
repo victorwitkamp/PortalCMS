@@ -5,7 +5,7 @@
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\PDF;
+namespace PortalCMS\Core\View;
 
 use PortalCMS\Core\Config\SiteSetting;
 use PortalCMS\Core\Session\Session;

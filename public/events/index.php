@@ -1,7 +1,7 @@
 <?php
 
-use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\Authorization\Authorization;
+use PortalCMS\Core\Security\Authentication\Authentication;
+use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
@@ -36,6 +36,11 @@ PortalCMS_JS_calendar(); ?>
             <div class="row justify-content-center">
                 <div class="col-sm-12">
                     <div id="calendar"></div>
+                    <p>
+                        <span class="badge badge-info">Concept</span>
+                        <span class="badge badge-success">Bevestigd</span>
+                        <span class="badge badge-danger">Geannuleerd</span>
+                    </p>
                 </div>
             </div>
         </div>

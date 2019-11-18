@@ -7,11 +7,11 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
-use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\Authentication\Service\LoginService;
-use PortalCMS\Core\Authentication\Service\LogoutService;
+use PortalCMS\Core\Security\Authentication\Authentication;
+use PortalCMS\Core\Security\Authentication\Service\LoginService;
+use PortalCMS\Core\Security\Authentication\Service\LogoutService;
 use PortalCMS\Core\Controllers\Controller;
-use PortalCMS\Core\Filter\Csrf;
+use PortalCMS\Core\Security\Csrf;
 use PortalCMS\Core\HTTP\Cookie;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;

@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Modules\Contracts;
 
+
 use PDO;
 use PortalCMS\Core\Database\DB;
 

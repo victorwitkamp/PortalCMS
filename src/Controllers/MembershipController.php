@@ -31,5 +31,8 @@ class MembershipController extends Controller
             MemberModel::delete((int) Request::post('id'));
             Redirect::to('membership/');
         }
+        if (isset($_POST['showMembersByYear'])) {
+            Redirect::to('membership/?year='.Request::post('year'));
+        }
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
-use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\Authorization\Authorization;
+use PortalCMS\Core\Security\Authentication\Authentication;
+use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Alert;
@@ -49,7 +49,7 @@ PortalCMS_JS_headJS(); ?>
             <h3>Details</h3>
             <table class="table table-striped table-condensed">
                 <tr><th>Factuurnummer</th><td><?= $invoice->factuurnummer ?></td></tr>
-                <tr><th>Huurder</th><td><?= $contract->band_naam; ?></td></tr>
+                <tr><th>Huurder</th><td><?= $contract->band_naam ?></td></tr>
                 <tr><th>CreationDate</th><td><?= $invoice->CreationDate ?></td></tr>
                 <tr><th>Factuurdatum</th><td><?= $invoice->factuurdatum ?></td></tr>
                 <tr><th>Vervaldatum</th><td><?= $invoice->vervaldatum ?></td></tr>

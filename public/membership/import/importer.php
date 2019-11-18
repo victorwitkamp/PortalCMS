@@ -1,6 +1,6 @@
 <?php
 
-use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Database\DB;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';

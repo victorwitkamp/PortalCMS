@@ -5,9 +5,9 @@
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Authentication\Service;
+namespace PortalCMS\Core\Security\Authentication\Service;
 
-use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\HTTP\Cookie;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;

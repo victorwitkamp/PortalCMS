@@ -3,7 +3,7 @@
  * Copyright Victor Witkamp (c) 2019.
  */
 
-namespace PortalCMS\Core\Authentication\Service;
+namespace PortalCMS\Core\Security\Authentication\Service;
 
 class ValidatedCookie
 {

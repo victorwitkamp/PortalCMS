@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace PortalCMS\Core\Controllers;
 
 use PortalCMS\Controllers\LoginController;
-use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\View;

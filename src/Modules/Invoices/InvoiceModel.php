@@ -10,11 +10,10 @@ namespace PortalCMS\Modules\Invoices;
 use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
 use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
 use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
-use PortalCMS\Core\Email\Template\EmailTemplate;
 use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
 use PortalCMS\Core\Email\Template\Helpers\PlaceholderHelper;
 use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\PDF\PDF;
+use PortalCMS\Core\View\PDF\PDF;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Contracts\ContractMapper;
@@ -148,7 +147,7 @@ class InvoiceModel
         }
         $invoiceitems = InvoiceItemMapper::getByInvoiceId($id);
         $contract = ContractMapper::getById($invoice->contract_id);
-        PDF::renderInvoice($invoice, $invoiceitems, $contract);
+        return PDF::renderInvoice($invoice, $invoiceitems, $contract);
     }
 
     public static function write(int $id = null): bool

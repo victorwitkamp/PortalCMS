@@ -1,15 +1,21 @@
 <?php
 
-use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\Authorization\Authorization;
+
+use PortalCMS\Core\Security\Authentication\Authentication;
+use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\Database\DB;
+use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
+use PortalCMS\Modules\Members\MemberModel;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_MEMBERS');
 $year = Request::get('year');
+if (!isset($year)) {
+    Redirect::to('membership/?year='.date('Y'));
+}
 Authentication::checkAuthentication();
 Authorization::verifyPermission('membership');
 require_once DIR_INCLUDES . 'functions.php';
@@ -34,14 +40,14 @@ PortalCMS_JS_dataTables();
                     <a href="new.php" class="btn btn-success float-right"><span class="fa fa-plus"></span> <?= Text::get('LABEL_ADD') ?></a>
                 </div>
             </div>
-            <p><?= Text::get('YEAR') . ': ' . $year ?></p>
+            <form method="post"><label>Jaar</label><input type="text" name="year" value="<?= $year ?>"/><input type="submit" name="showMembersByYear"/></form>
         <hr>
         <?php
         Alert::renderFeedbackMessages();
         PortalCMS_JS_Init_dataTables();
-        $stmt = DB::conn()->query('SELECT * FROM members ORDER BY voornaam ');
-        if ($stmt->rowCount() === 0) {
-            echo 'Ontbrekende gegevens..';
+        $members = MemberModel::getMembersByYear($year);
+        if (empty($members)) {
+            echo Text::get('LABEL_NOT_FOUND');
         } else { ?>
             <table id="example" class="table table-sm table-striped table-hover table-dark" style="width:100%">
                 <thead class="thead-dark">
@@ -54,44 +60,43 @@ PortalCMS_JS_dataTables();
                 </thead>
                 <tbody>
                     <?php
-                    $result = $stmt->fetchAll(PDO::FETCH_OBJ);
-                    foreach ($result as $row) { ?>
+                    foreach ($members as $member) { ?>
                         <tr>
                             <td>
                                 <form method="post">
-                                    <a href="profile.php?id=<?= $row->id ?>" title="Lidmaatschap bekijken" class="btn btn-primary btn-sm">
+                                    <a href="profile.php?id=<?= $member->id ?>" title="Lidmaatschap bekijken" class="btn btn-primary btn-sm">
                                         <span class="fa fa-user"></span>
                                     </a>
-                                    <a href="edit.php?id=<?= $row->id ?>" title="Gegevens wijzigen" class="btn btn-warning btn-sm">
+                                    <a href="edit.php?id=<?= $member->id ?>" title="Gegevens wijzigen" class="btn btn-warning btn-sm">
                                         <span class="fa fa-edit"></span>
                                     </a>
-                                    <input name="id" type="hidden" value="<?= $row->id ?>">
-                                    <button name="deleteMember" type="submit" onclick="return confirm('Weet je zeker dat je <?= $row->voornaam ?> <?= $row->achternaam ?> wilt verwijderen?')"
+                                    <input name="id" type="hidden" value="<?= $member->id ?>">
+                                    <button name="deleteMember" type="submit" onclick="return confirm('Weet je zeker dat je <?= $member->voornaam ?> <?= $member->achternaam ?> wilt verwijderen?')"
                                             class="btn btn-sm btn-danger" ><i class="far fa-trash-alt"></i></button>
                                 </form>
                             </td>
-                            <td><?= $row->voornaam . ' ' . $row->achternaam ?></td>
-                            <td><?= $row->betalingswijze ?></td>
+                            <td><?= $member->voornaam . ' ' . $member->achternaam ?></td>
+                            <td><?= $member->betalingswijze ?></td>
                             <td><?php
-                            if ($row->status === 0) {
+                            if ($member->status === 0) {
                                 echo '0. Nieuw';
                             }
-                            if ($row->status === 1) {
+                            if ($member->status === 1) {
                                 echo '1. Incasso opdracht verzonden';
                             }
-                            if ($row->status === 11) {
+                            if ($member->status === 11) {
                                 echo '1.1 Niet verstuurd: rekeningnummer onjuist';
                             }
-                            if ($row->status === 2) {
+                            if ($member->status === 2) {
                                 echo '2. Betaling per incasso gelukt';
                             }
-                            if ($row->status === 21) {
+                            if ($member->status === 21) {
                                 echo '2.1 Incasso mislukt: rekeningnummer onjuist';
                             }
-                            if ($row->status === 3) {
+                            if ($member->status === 3) {
                                 echo '3';
                             }
-                            if ($row->status === 4) {
+                            if ($member->status === 4) {
                                 echo '4';
                             }
                             ?></td>

@@ -1,8 +1,8 @@
 <?php
 
-use PortalCMS\Core\Authorization\PermissionMapper;
-use PortalCMS\Core\Authorization\RolesPDOReader;
-use PortalCMS\Core\Authorization\UserRoleMapper;
+use PortalCMS\Core\Security\Authorization\PermissionMapper;
+use PortalCMS\Core\Security\Authorization\RoleMapper;
+use PortalCMS\Core\Security\Authorization\UserRoleMapper;
 
 ?>
 <div class="row">
@@ -98,7 +98,7 @@ use PortalCMS\Core\Authorization\UserRoleMapper;
                     <form method="post">
                         <input type="hidden" name="user_id" value="<?= $user->user_id ?>">
                         <?php
-                        $roles = RolesPDOReader::getRoles();
+                        $roles = RoleMapper::getRoles();
                         if (!empty($roles)) { ?>
                             <select name='role_id'>
                             <?php foreach ($roles as $role) { ?>

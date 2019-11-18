@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
-use PortalCMS\Core\Authorization\UserRoleMapper;
+use PortalCMS\Core\Security\Authorization\UserRoleMapper;
 use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;

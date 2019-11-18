@@ -1,8 +1,8 @@
 <?php
 
-use PortalCMS\Core\Authentication\Authentication;
-use PortalCMS\Core\Authorization\Authorization;
-use PortalCMS\Core\Authorization\RolesPDOReader;
+use PortalCMS\Core\Security\Authentication\Authentication;
+use PortalCMS\Core\Security\Authorization\Authorization;
+use PortalCMS\Core\Security\Authorization\RoleMapper;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
@@ -37,7 +37,7 @@ PortalCMS_JS_headJS();
                     </thead>
                     <?php
 
-                    $Roles = RolesPDOReader::getRoles();
+                    $Roles = RoleMapper::getRoles();
                     if (!empty($Roles)) { ?>
                         <tbody>
                         <?php foreach ($Roles as $Role) { ?>

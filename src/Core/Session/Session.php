@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Session;
 
-use PortalCMS\Core\Filter\Filter;
+use PortalCMS\Core\Security\Filter;
 
 /**
  * Session class

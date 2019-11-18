@@ -5,7 +5,7 @@
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Filter;
+namespace PortalCMS\Core\Security;
 
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Session\Session;

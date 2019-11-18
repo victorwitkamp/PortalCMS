@@ -1,6 +1,6 @@
 <?php
 
-use PortalCMS\Core\Authentication\Authentication;
+use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Config\Config;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;

@@ -1,7 +1,7 @@
 <?php
 
 use PortalCMS\Core\Config\Config;
-use PortalCMS\Core\Filter\Csrf;
+use PortalCMS\Core\Security\Csrf;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\View\Text;
 

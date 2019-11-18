@@ -5,7 +5,7 @@
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Authorization;
+namespace PortalCMS\Core\Security\Authorization;
 
 use PortalCMS\Core\Database\DB;
 
