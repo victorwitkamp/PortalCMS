@@ -29,17 +29,14 @@ PortalCMS_JS_calendar(); ?>
                     <a href="add.php" class="btn btn-info float-right"><span class="fa fa-plus"></span> <?= Text::get('LABEL_ADD') ?></a>
                 </div>
             </div>
-        </div>
-        <div class="container">
             <?php Alert::renderFeedbackMessages(); ?>
-            <hr>
             <div class="row justify-content-center">
                 <div class="col-sm-12">
                     <div id="calendar"></div>
                     <p>
-                        <span class="badge badge-info">Concept</span>
-                        <span class="badge badge-success">Bevestigd</span>
-                        <span class="badge badge-danger">Geannuleerd</span>
+                        <span class="badge badge-info"><?= Text::get('LABEL_EVENT_DRAFT') ?></span>
+                        <span class="badge badge-success"><?= Text::get('LABEL_EVENT_CONFIRMED') ?></span>
+                        <span class="badge badge-danger"><?= Text::get('LABEL_EVENT_CANCELED') ?></span>
                     </p>
                 </div>
             </div>

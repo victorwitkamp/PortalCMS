@@ -32,11 +32,13 @@ return [
     'MONTH_11' => 'November',
     'MONTH_12' => 'December',
     // GENERAL
-    'LABEL_ADD' => 'New',
-    'LABEL_EDIT' => 'Edit',
-    'LABEL_DELETE' => 'Delete',
+    'LABEL_ADD' => 'Nieuw',
+    'LABEL_EDIT' => 'Bewerken',
+    'LABEL_DELETE' => 'Verwijderen',
     'LABEL_IMPORT' => 'Import',
-    'LABEL_CLOSE' => 'Close',
+    'LABEL_CLOSE' => 'Sluiten',
+    'LABEL_SUBMIT' => 'Opslaan',
+    'LABEL_CANCEL' => 'Annuleren',
     'LABEL_NOT_FOUND' => 'NIET GEVONDEN',
     'LABEL_LOG_IN' => 'LOG-IN',
     'LABEL_CONTINUE_WITH_FACEBOOK' => 'LOG-IN',
@@ -79,13 +81,16 @@ return [
 
     // EVENTS
     'TITLE_EVENTS' => 'Evenementen',
-    'LABEL_EVENT_DETAILS' => 'EVENEMENT DETAILS',
-    'LABEL_EVENT_TITLE' => 'TITEL',
-    'LABEL_EVENT_ADDED_BY' => 'TOEGEVOEGD DOOR',
-    'LABEL_EVENT_START' => 'START',
-    'LABEL_EVENT_END' => 'EINDE',
-    'LABEL_EVENT_DESC' => 'BESCHRIJVING',
-    'LABEL_EVENT_STATUS' => 'STATUS',
+    'LABEL_EVENT_DETAILS' => 'Details van evenement',
+    'LABEL_EVENT_TITLE' => 'Naam',
+    'LABEL_EVENT_ADDED_BY' => 'Toegevoegd door',
+    'LABEL_EVENT_START' => 'Start',
+    'LABEL_EVENT_END' => 'Einde',
+    'LABEL_EVENT_DESC' => 'Omschrijving',
+    'LABEL_EVENT_STATUS' => 'Status',
+    'LABEL_EVENT_DRAFT' => 'Concept',
+    'LABEL_EVENT_CONFIRMED' => 'Bevestigd',
+    'LABEL_EVENT_CANCELED' => 'Geannuleerd',
 
     // RENTAL
     // OVERVIEW
@@ -169,7 +174,7 @@ return [
     'FEEDBACK_CONNECT_FACEBOOK_ACCOUNT_FAILED' => 'CONNECT_FACEBOOK_ACCOUNT_FAILED',
     'FEEDBACK_REMOVE_FACEBOOK_ACCOUNT_SUCCESS' => 'REMOVE_FACEBOOK_ACCOUNT_SUCCESS',
     'FEEDBACK_REMOVE_FACEBOOK_ACCOUNT_FAILED' => 'REMOVE_FACEBOOK_ACCOUNT_FAILED',
-    'LABEL_SUBMIT' => 'OPSLAAN',
+
 
     // FEEDBACK
     'FEEDBACK_UNKNOWN_ERROR' => 'UNKNOWN ERROR OCCURRED!',

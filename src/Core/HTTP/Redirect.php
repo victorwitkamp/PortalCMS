@@ -23,6 +23,6 @@ class Redirect
     public static function to($path)
     {
         session_write_close();
-        header('location: ' . Config::get('URL') . $path);
+        header('location: ' . Config::get('URL') . ltrim($path, '/'));
     }
 }

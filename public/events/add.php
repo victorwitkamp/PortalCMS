@@ -4,6 +4,7 @@ use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Alert;
+use PortalCMS\Core\View\Text;
 
 $pageName = 'Evenement toevoegen';
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
@@ -33,13 +34,13 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
                 <form method="post" validate=true>
                     <div class="row">
                         <div class="col-sm-12">
-                            <label class="control-label">Naam van het evenement</label>
+                            <label class="control-label"><?= Text::get('LABEL_EVENT_TITLE') ?></label>
                             <input type="text" name="title" class="form-control" placeholder="" required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <label class="control-label">Start</label>
+                            <label class="control-label"><?= Text::get('LABEL_EVENT_START') ?></label>
                             <div class="form-group date" id="datetimepicker1" data-target-input="nearest">
                                 <div class="input-group">
                                     <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
@@ -52,7 +53,7 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <label class="control-label">Einde</label>
+                            <label class="control-label"><?= Text::get('LABEL_EVENT_END') ?></label>
                             <div class="form-group date" id="datetimepicker2" data-target-input="nearest">
                                 <div class="input-group">
                                     <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
@@ -67,23 +68,20 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <label class="control-label">Beschrijving</label>
+                            <label class="control-label"><?= Text::get('LABEL_EVENT_DESC') ?></label>
                             <input type="text" name="description" class="form-control" placeholder="">
                         </div>
                     </div>
                     <hr />
                     <div class="form-group form-group-sm">
                         <input type="text" name="CreatedBy" value="<?= Session::get('user_id') ?>" hidden>
-                        <input type="submit" name="addEvent" class="btn btn-primary" value="Opslaan">
-                        <a href="index.php" class="btn btn-danger">Annuleren</a>
+                        <input type="submit" name="addEvent" class="btn btn-primary" value="<?= Text::get('LABEL_SUBMIT') ?>">
+                        <a href="index.php" class="btn btn-danger"><?= Text::get('LABEL_CANCEL') ?></a>
                     </div>
                 </form>
-
             </div>
-
         </div>
     </main>
     <?php include DIR_INCLUDES . 'footer.php'; ?>
 </body>
-
 </html>

@@ -12,9 +12,9 @@ Authentication::checkAuthentication();
 Authorization::verifyPermission('events');
 require_once DIR_INCLUDES . 'functions.php';
 
-if (!empty($row = CalendarEventMapper::getById($_GET['id']))) {
+if (!empty($event = CalendarEventMapper::getById($_GET['id']))) {
     $allowEdit = true;
-    $pageName = 'Evenement ' . $row->title . ' bewerken';
+    $pageName = 'Evenement ' . $event->title . ' bewerken';
 } else {
     Session::add('feedback_negative', 'Geen resultaten voor opgegeven event ID.');
     Redirect::to('includes/error.php');
@@ -43,24 +43,24 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
             <form method="post" validate=true>
                 <div class="form-group form-group-sm row">
                     <div class="col-sm-12">
-                        <label class="control-label">Naam van het evenement</label>
-                        <input type="text" name="title" value="<?= $row->title ?>" class="form-control input-sm" placeholder="" required>
+                        <label class="control-label"><?= Text::get('LABEL_EVENT_TITLE') ?></label>
+                        <input type="text" name="title" value="<?= $event->title ?>" class="form-control input-sm" placeholder="" required>
                     </div>
                 </div>
                 <div class="form-group form-group-sm row">
                     <div class="col-sm-6">
-                        <label class="control-label">Start</label>
+                        <label class="control-label"><?= Text::get('LABEL_EVENT_START') ?></label>
                         <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                            <input type="text" name="start_event" value="<?= $row->start_event ?>" class="form-control input-sm datetimepicker-input" data-target="#datetimepicker1" required>
+                            <input type="text" name="start_event" value="<?= $event->start_event ?>" class="form-control input-sm datetimepicker-input" data-target="#datetimepicker1" required>
                             <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <label class="control-label">Einde</label>
+                        <label class="control-label"><?= Text::get('LABEL_EVENT_END') ?></label>
                         <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
-                            <input type="text" name="end_event" value="<?= $row->end_event ?>" class="form-control input-sm  datetimepicker-input" data-target="#datetimepicker2" required>
+                            <input type="text" name="end_event" value="<?= $event->end_event ?>" class="form-control input-sm  datetimepicker-input" data-target="#datetimepicker2" required>
                             <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
@@ -70,8 +70,8 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
 
                 <div class="form-group form-group-sm row">
                     <div class="col-sm-12">
-                        <label class="control-label">Beschrijving</label>
-                        <input type="text" name="description" value="<?= $row->description ?>" class="form-control input-sm" required>
+                        <label class="control-label"><?= Text::get('LABEL_EVENT_DESC') ?></label>
+                        <input type="text" name="description" value="<?= $event->description ?>" class="form-control input-sm" required>
                     </div>
                 </div>
 
@@ -79,30 +79,28 @@ PortalCMS_JS_JQuery_Simple_validator(); ?>
 
                 <div class="form-group form-group-sm row">
                     <div class="col-sm-6">
-                        <label class="control-label">Status</label>
+                        <label class="control-label"><?= Text::get('LABEL_EVENT_STATUS') ?></label>
                         <select name="status" class="form-control" required>
                             <option value="0" <?php
-                            if ($row->status == 0) {
+                            if ($event->status == 0) {
                                 echo 'selected';
-                            } ?>>0 - concept</option>
+                            } ?>>0 - <?= Text::get('LABEL_EVENT_DRAFT') ?></option>
                             <option value="1" <?php
-                            if ($row->status == 1) {
+                            if ($event->status == 1) {
                                 echo 'selected';
-                            } ?>>1 - bevestigd</option>
+                            } ?>>1 - <?= Text::get('LABEL_EVENT_CONFIRMED') ?></option>
                             <option value="2" <?php
-                            if ($row->status == 2) {
+                            if ($event->status == 2) {
                                 echo 'selected';
-                            } ?>>2 - geannuleerd</option>
+                            } ?>>2 - <?= Text::get('LABEL_EVENT_CANCELED') ?></option>
                         </select>
                     </div>
                 </div>
-
                 <hr>
-
                 <div class="form-group form-group-sm row">
-                    <input type="hidden" name="id" value="<?= $row->id ?>">
-                    <button type="submit" name="updateEvent" class="btn btn-sm btn-primary">Opslaan <i class="far fa-save"></i></button>
-                    <a href="index.php" class="btn btn-sm btn-danger">Annuleren <i class="fas fa-times"></i></a>
+                    <input type="hidden" name="id" value="<?= $event->id ?>">
+                    <button type="submit" name="updateEvent" class="btn btn-sm btn-primary"><?= Text::get('LABEL_SUBMIT') ?> <i class="far fa-save"></i></button>
+                    <a href="index.php" class="btn btn-sm btn-danger"><?= Text::get('LABEL_CANCEL') ?> <i class="fas fa-times"></i></a>
                 </div>
             </form>
         </div>

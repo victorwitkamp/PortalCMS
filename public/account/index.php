@@ -26,12 +26,9 @@ PortalCMS_JS_headJS(); ?>
             <div class="row mt-5">
                 <h1><?= $pageName ?></h1>
             </div>
-            <hr>
             <?php Alert::renderFeedbackMessages(); ?>
             <?php require DIR_ROOT . 'account/inc/accountDetails.inc.php'; ?>
-            <hr>
             <?php require DIR_ROOT . 'account/inc/changePassword.inc.php'; ?>
-            <hr>
             <?php require DIR_ROOT . 'account/inc/changeUsername.inc.php'; ?>
         </div>
     </div>
