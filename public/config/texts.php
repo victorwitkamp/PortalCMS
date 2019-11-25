@@ -81,6 +81,7 @@ return [
 
     // EVENTS
     'TITLE_EVENTS' => 'Evenementen',
+    'TITLE_EVENTS_ADD' => 'Evenement toevoegen',
     'LABEL_EVENT_DETAILS' => 'Details van evenement',
     'LABEL_EVENT_TITLE' => 'Naam',
     'LABEL_EVENT_ADDED_BY' => 'Toegevoegd door',
