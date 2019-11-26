@@ -82,7 +82,7 @@ class Application
         if (!$this->controller_name) {
             $this->controller_name = Config::get('DEFAULT_CONTROLLER');
         }
-        if (!$this->action_name || (strlen($this->action_name) == 0)) {
+        if (!$this->action_name || (strlen($this->action_name) === 0)) {
             $this->action_name = Config::get('DEFAULT_ACTION');
         }
         $this->controller_name = ucwords($this->controller_name) . 'Controller';

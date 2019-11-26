@@ -14,7 +14,7 @@ class Alert
     public static function render(string $feedback, string $style)
     {
         if (!empty($feedback) && !empty($style)) {
-            ?><div class="alert alert-<?php echo $style; ?> alert-dismissible fade show" role="alert"><?php echo $feedback; ?>
+            ?><div class="alert alert-<?= $style ?> alert-dismissible fade show" role="alert"><?= $feedback ?>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

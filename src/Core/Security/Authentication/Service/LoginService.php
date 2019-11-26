@@ -9,7 +9,6 @@ namespace PortalCMS\Core\Security\Authentication\Service;
 
 use Exception;
 use PortalCMS\Core\HTTP\Cookie;
-use PortalCMS\Core\Security\Authentication\Service\LoginValidator;
 use PortalCMS\Core\Security\Encryption\Encryption;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\User\UserPDOReader;

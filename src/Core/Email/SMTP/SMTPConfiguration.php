@@ -81,7 +81,7 @@ class SMTPConfiguration
         $this->SMTPHost = SiteSetting::getStaticSiteSetting('MailServer');
         $this->SMTPPort = SiteSetting::getStaticSiteSetting('MailServerPort');
         $this->SMTPCrypto = SiteSetting::getStaticSiteSetting('MailServerSecure');
-        if (SiteSetting::getStaticSiteSetting('MailServerAuth') == 1) {
+        if (SiteSetting::getStaticSiteSetting('MailServerAuth') === 1) {
             $this->SMTPAuth = true;
         } else {
             $this->SMTPAuth = false;
@@ -89,7 +89,7 @@ class SMTPConfiguration
         $this->SMTPUser = SiteSetting::getStaticSiteSetting('MailServerUsername');
         $this->SMTPPass = SiteSetting::getStaticSiteSetting('MailServerPassword');
         $this->SMTPDebug = SiteSetting::getStaticSiteSetting('MailServerDebug');
-        if (SiteSetting::getStaticSiteSetting('MailIsHTML') == 1) {
+        if (SiteSetting::getStaticSiteSetting('MailIsHTML') === 1) {
             $this->isHTML = true;
         } else {
             $this->isHTML = false;

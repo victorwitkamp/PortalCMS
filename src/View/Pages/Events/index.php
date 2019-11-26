@@ -1,6 +1,5 @@
 <?php
 
-use PortalCMS\Core\Config\SiteSetting;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
@@ -65,4 +64,4 @@ $pageName = (string) Text::get('TITLE_EVENTS');
             </div>
         </div>
     </div>
-<?= $this->end();
+<?= $this->end()

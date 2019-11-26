@@ -1,7 +1,5 @@
 <?php
 
-use PortalCMS\Core\Config\SiteSetting;
-
 /**
  * PortalCMS Framework: Functions
  *

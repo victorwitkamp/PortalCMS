@@ -5,7 +5,6 @@
 
 namespace PortalCMS\Core\Security\Authentication\Service;
 
-use PortalCMS\Core\Security\Authentication\Service\ValidatedCookie;
 use PortalCMS\Core\Security\Encryption\Encryption;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\User\UserPDOReader;

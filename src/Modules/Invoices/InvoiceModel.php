@@ -17,8 +17,6 @@ use PortalCMS\Core\View\PDF;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Contracts\ContractMapper;
-use PortalCMS\Modules\Invoices\InvoiceItemMapper;
-use PortalCMS\Modules\Invoices\InvoiceMapper;
 
 class InvoiceModel
 {

@@ -9,14 +9,12 @@ namespace PortalCMS\Controllers;
 
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authentication\Service\LoginService;
-use PortalCMS\Core\Security\Authentication\Service\LogoutService;
 use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\Security\Csrf;
 use PortalCMS\Core\HTTP\Cookie;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\View\Text;
 
 /**
  * LoginController

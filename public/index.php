@@ -1,7 +1,6 @@
 <?php
 // echo 'we are in index.php';
 // die;
-use PortalCMS\Controllers\LoginController;
 use PortalCMS\Core\Application\Application;
 
 if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/Init.php')) {

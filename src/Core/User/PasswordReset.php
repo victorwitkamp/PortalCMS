@@ -13,7 +13,6 @@ use PortalCMS\Core\Database\DB;
 use PortalCMS\Core\Email\Message\EmailMessage;
 use PortalCMS\Core\Email\SMTP\SMTPConfiguration;
 use PortalCMS\Core\Email\SMTP\SMTPTransport;
-use PortalCMS\Core\Email\Template\EmailTemplate;
 use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
