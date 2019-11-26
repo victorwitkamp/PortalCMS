@@ -1,6 +1,5 @@
 /* global FullCalendar, moment, $, alert */
 /* jslint browser */
-
 document.addEventListener('DOMContentLoaded', function () {
   'use strict'
   var calendarEl = document.getElementById('calendar')
@@ -24,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
       right: 'custom1 listYear dayGridMonth,dayGridWeek'
     },
     scrollTime: '00:00:00',
-    events: '../api/loadCalendarEvents.php',
+    events: '/Events/loadCalendarEvents',
     weekNumbers: !0,
     weekNumberTitle: 'Week',
     allDaySlot: !1,
@@ -38,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var title = e.event.title
       var id = e.event.id
       $.ajax({
-        url: '../api/updateEventDate.php',
+        url: '/Events/updateEventDate',
         type: 'POST',
         data: {
           title: title,
@@ -53,9 +52,9 @@ document.addEventListener('DOMContentLoaded', function () {
       })
     },
     eventClick: function (e) {
-      var link = 'edit.php?id=' + e.event.id
+      var link = 'edit?id=' + e.event.id
       // e.event.id,
-      $('#modalBody').load('details.php?id=' + e.event.id)
+      $('#modalBody').load('details?id=' + e.event.id)
       $('#eventUrl').attr('href', link)
       $('#deleteUrl').attr('value', e.event.id)
       $('#fullCalModal').modal()

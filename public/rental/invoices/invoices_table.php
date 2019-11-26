@@ -47,7 +47,7 @@ use PortalCMS\Modules\Invoices\InvoiceModel;
     foreach ($invoices as $invoice) { ?>
         <tr>
             <td>
-                <a href="/rental/invoices/details.php?id=<?= $invoice->id ?>" title="Details" class="btn btn-primary">
+                <a href="/rental/invoices/details?id=<?= $invoice->id ?>" title="Details" class="btn btn-primary">
                     <span class="fas fa-edit"></span>
                 </a>
             </td>
@@ -90,7 +90,7 @@ use PortalCMS\Modules\Invoices\InvoiceModel;
                 <?php if ($invoice->status === 2) {
                     echo '<a href="';
                     echo Config::get('URL');
-                    echo 'email/details.php?id='.$invoice->mail_id.'">Mail openen</a>';
+                    echo 'email/details?id='.$invoice->mail_id.'">Mail openen</a>';
                 }  else {
                     echo 'nog geen bericht';
                 } ?>

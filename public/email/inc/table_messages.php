@@ -48,7 +48,7 @@ use PortalCMS\Core\View\Text;
                         ?>
                     </td>
                     <td><?= $row['CreationDate'] ?></td>
-                    <td><a href="details.php?id=<?= $row['id'] ?>" title="Details" class="btn btn-success btn-sm"><i class="fas fa-info"></i></a></td>
+                    <td><a href="details?id=<?= $row['id'] ?>" title="Details" class="btn btn-success btn-sm"><i class="fas fa-info"></i></a></td>
                 </tr>
             <?php } ?>
         </tbody>

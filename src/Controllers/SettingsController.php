@@ -15,7 +15,7 @@ use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
 
-class SiteSettingController extends Controller
+class SettingsController extends Controller
 {
     /**
      * The requests that this controller will handle
@@ -35,14 +35,20 @@ class SiteSettingController extends Controller
         Router::processRequests($this->requests, __CLASS__);
     }
 
+    public function sitesettings()
+    {
+        $templates = new \League\Plates\Engine(DIR_VIEW);
+        echo $templates->render('Pages/Settings/sitesettings/index');
+    }
+
     public static function saveSiteSettings()
     {
         if (SiteSetting::saveSiteSettings()) {
             Session::add('feedback_positive', 'Instellingen succesvol opgeslagen.');
-            Redirect::to('settings/site-settings');
+            Redirect::to('settings/sitesettings');
         } else {
             Session::add('feedback_negative', 'Fout bij opslaan van instellingen.');
-            Redirect::to('settings/site-settings');
+            Redirect::to('settings/sitesettings');
         }
     }
 

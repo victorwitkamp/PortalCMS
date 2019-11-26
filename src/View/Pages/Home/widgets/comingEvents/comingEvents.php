@@ -8,7 +8,7 @@ use PortalCMS\Core\View\Text;
 <script>
 $(document).ready(function () {
     var showData = $('#show-events');
-    $.getJSON('../../../api/loadComingEvents.php', function (data) {
+    $.getJSON('/Events/loadComingEvents', function (data) {
       var content;
       var listContent;
       var records = data.map(function (item) {
@@ -17,7 +17,7 @@ $(document).ready(function () {
         displaydate = tempdisplaydatetime.toLocaleDateString();
         displaytime = tempdisplaydatetime.toLocaleTimeString();
         displaydatetime = displaydate + ' ' + displaytime;
-        return '<i class="far fa-calendar"></i> <a href="/events/details.php?id=' + item.id + '">' + item.title + '</a><br>Start: ' + item.start;
+        return '<i class="far fa-calendar"></i> <a href="/events/details?id=' + item.id + '">' + item.title + '</a><br>Start: ' + item.start;
       });
       showData.empty();
       if (records.length) {

@@ -97,7 +97,7 @@ class InvoiceController extends Controller
         $invoiceId = (int) Request::post('invoiceid', true);
         $id = (int) Request::post('id', true);
         if (InvoiceItemModel::delete($id)) {
-            Redirect::to('rental/invoices/details.php?id=' . $invoiceId);
+            Redirect::to('rental/invoices/details?id=' . $invoiceId);
         } else {
             Redirect::to('includes/error.php');
         }
@@ -109,7 +109,7 @@ class InvoiceController extends Controller
         $name = Request::post('name', true);
         $price = (int) Request::post('price', true);
         if (InvoiceItemModel::create($invoiceId, $name, $price)) {
-            Redirect::to('rental/invoices/details.php?id=' . $invoiceId);
+            Redirect::to('rental/invoices/details?id=' . $invoiceId);
         } else {
             Redirect::to('includes/error.php');
         }

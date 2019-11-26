@@ -8,7 +8,7 @@ use PortalCMS\Core\Session\Session;
 $pageName = (string) Text::get('TITLE_EVENTS_ADD');
 
 ?>
-<?= $this->layout('layout', ['title' => $pageName, 'sitename' => SiteSetting::getStaticSiteSetting('site_name')]) ?>
+<?= $this->layout('layout', ['title' => $pageName]) ?>
 <?= $this->push('head-extra') ?>
 
     <link rel="stylesheet" type="text/css" href="/dist/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css">

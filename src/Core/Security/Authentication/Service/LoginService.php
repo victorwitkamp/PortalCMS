@@ -53,27 +53,18 @@ class LoginService
      */
     public static function loginWithCookie($cookie) : bool
     {
-        if (empty($cookie)) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
-            return false;
+        if (!empty($cookie)) {
+            $cookieResponse = LoginValidator::validateCookieLogin($cookie);
+            if (!empty($cookieResponse->user_id) && (!empty($cookieResponse->token))) {
+                $user = UserPDOReader::getByIdAndToken($cookieResponse->user_id, $cookieResponse->token);
+                if (!empty($user)) {
+                    self::setSuccessfulLoginIntoSession($user);
+                    Session::add('feedback_positive', Text::get('FEEDBACK_COOKIE_LOGIN_SUCCESSFUL'));
+                    return true;
+                }
+            }
         }
-
-        $cookieResponse = LoginValidator::validateCookieLogin($cookie);
-
-        if (empty($cookieResponse->user_id) || (empty($cookieResponse->token))) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
-            return false;
-        }
-
-        $user = UserPDOReader::getByIdAndToken($cookieResponse->user_id, $cookieResponse->token);
-        if (empty($user)) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
-            return false;
-        }
-
-        self::setSuccessfulLoginIntoSession($user);
-        Session::add('feedback_positive', Text::get('FEEDBACK_COOKIE_LOGIN_SUCCESSFUL'));
-        return true;
+        return false;
     }
 
     public static function loginWithFacebook(int $fbid) : bool

@@ -98,7 +98,8 @@ class LoginController extends Controller
         } else {
             // if not, delete cookie (outdated? attack?) and route user to login form to prevent infinite login loops
             Cookie::delete();
-            Redirect::to('login');
+            $templates = new \League\Plates\Engine(DIR_VIEW);
+            echo $templates->render('Pages/Login/index');
         }
     }
 

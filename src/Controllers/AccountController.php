@@ -11,6 +11,7 @@ use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Router;
+use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\User\Password;
 use PortalCMS\Core\User\User;
@@ -39,6 +40,21 @@ class AccountController extends Controller
     {
         parent::__construct();
         Router::processRequests($this->requests, __CLASS__);
+    }
+
+    /**
+     * Index, default action (shows the login form), when you do login/index
+     */
+    public static function index()
+    {
+        if (Authentication::userIsLoggedIn()) {
+            $templates = new \League\Plates\Engine(DIR_VIEW);
+            echo $templates->render('Pages/Account/index');
+        } else {
+            // $data = array('redirect' => Request::get('redirect') ? Request::get('redirect') : NULL);
+            // $this->View->render('login/index', $data);
+            self::loginWithCookie();
+        }
     }
 
     public static function changeUsername()

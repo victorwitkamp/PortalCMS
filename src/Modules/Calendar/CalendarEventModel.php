@@ -48,7 +48,7 @@ class CalendarEventModel
     {
         $eventsArray = [];
         $events = CalendarEventMapper::getEventsAfter(date('Y-m-d H:i:s'));
-        if (empty($events)) {
+        if (!empty($events)) {
             foreach ($events as $event) {
                 $eventsArray[] = [
                     'id'   => $event->id,

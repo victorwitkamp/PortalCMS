@@ -43,7 +43,7 @@ use PortalCMS\Core\View\Text;
     </a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
         <h6 class="dropdown-header"><?= Text::get('LABEL_GENERAL_SETTINGS') ?></h6>
-        <a class="dropdown-item" href="/settings/site-settings/"><?= Text::get('TITLE_SITE_SETTINGS') ?></a>
+        <a class="dropdown-item" href="/settings/sitesettings/"><?= Text::get('TITLE_SITE_SETTINGS') ?></a>
         <div class="dropdown-divider"></div>
         <h6 class="dropdown-header"><?= Text::get('LABEL_ACCESS_SETTINGS') ?></h6>
         <a class="dropdown-item" href="/settings/user-management/"><?= Text::get('TITLE_USER_MANAGEMENT') ?></a>

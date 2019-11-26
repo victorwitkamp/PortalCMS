@@ -4,20 +4,13 @@ use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
-require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_SITE_SETTINGS');
 Authentication::checkAuthentication();
-Authorization::verifyPermission('site-settings');
-require DIR_ROOT . 'includes/functions.php';
-require DIR_ROOT . 'includes/head.php';
-displayHeadCSS();
-PortalCMS_JS_headJS();
-?>
-</head>
+Authorization::verifyPermission('site-settings'); ?>
+<?= $this->layout('layout', ['title' => $pageName]) ?>
+
 <body>
-<?php require DIR_ROOT . 'includes/nav.php'; ?>
-<main>
-    <div class="content">
+<?= $this->push('main-content') ?>
         <div class="container">
             <form method="post" class="container">
                 <div class="row mt-5">
@@ -33,7 +26,4 @@ PortalCMS_JS_headJS();
             </form>
         </div>
     </div>
-</main>
-<?php include DIR_INCLUDES . 'footer.php'; ?>
-</body>
-</html>
+<?= $this->end() ?>

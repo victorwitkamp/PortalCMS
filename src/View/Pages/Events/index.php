@@ -7,7 +7,7 @@ use PortalCMS\Core\View\Text;
 $pageName = (string) Text::get('TITLE_EVENTS');
 
 ?>
-<?= $this->layout('layout', ['title' => $pageName, 'sitename' => SiteSetting::getStaticSiteSetting('site_name')]) ?>
+<?= $this->layout('layout', ['title' => $pageName]) ?>
 <?= $this->push('head-extra') ?>
     <link rel="stylesheet" type="text/css" href="/dist/merged/@fullcalendar/fullcalendar.min.css"/>
     <script src="/dist/moment/min/moment.min.js"></script>
@@ -22,7 +22,7 @@ $pageName = (string) Text::get('TITLE_EVENTS');
                 <h1><?= $pageName ?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="add.php" class="btn btn-info float-right"><span class="fa fa-plus"></span> <?= Text::get('LABEL_ADD') ?></a>
+                <a href="add" class="btn btn-info float-right"><span class="fa fa-plus"></span> <?= Text::get('LABEL_ADD') ?></a>
             </div>
         </div>
         <?php Alert::renderFeedbackMessages(); ?>

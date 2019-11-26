@@ -9,7 +9,7 @@ use PortalCMS\Core\Session\Session;
 
 
 ?>
-<?= $this->layout('layout', ['title' => $this->e($pageName), 'sitename' => SiteSetting::getStaticSiteSetting('site_name')]) ?>
+<?= $this->layout('layout', ['title' => $this->e($pageName)]) ?>
 
 <?= $this->push('head-extra') ?>
     <link rel="stylesheet" type="text/css" href="/dist/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css">

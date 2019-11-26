@@ -23,16 +23,13 @@ if (!file_exists(DIR_VENDOR . 'autoload.php')) {
     include_once DIR_VENDOR . 'autoload.php';
 }
 
-$AccountController = new PortalCMS\Controllers\AccountController();
 $ContractController = new PortalCMS\Controllers\ContractController();
-$EventController = new PortalCMS\Controllers\EventController();
 $InvoiceController = new PortalCMS\Controllers\InvoiceController();
-$login = new PortalCMS\Controllers\LoginController();
 $MailController = new PortalCMS\Controllers\MailController();
 $MailTemplateController = new PortalCMS\Controllers\MailTemplateController();
 $MembershipController = new PortalCMS\Controllers\MembershipController();
 $PageController = new PortalCMS\Controllers\PageController();
 $PasswordResetController = new PortalCMS\Controllers\PasswordResetController();
 $RoleController = new PortalCMS\Controllers\RoleController();
-$SiteSettingController = new PortalCMS\Controllers\SiteSettingController();
+// $SiteSettingController = new PortalCMS\Controllers\SiteSettingController();
 $UserController = new PortalCMS\Controllers\UserController();
