@@ -6,21 +6,13 @@ use PortalCMS\Core\User\UserPDOReader;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
-require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_USER_MANAGEMENT');
 Authentication::checkAuthentication();
-Authorization::verifyPermission('user-management');
-require DIR_ROOT . 'includes/functions.php';
-require DIR_ROOT . 'includes/head.php';
-displayHeadCSS();
-PortalCMS_JS_headJS();
-?>
-</head>
-<body>
-<?php require DIR_ROOT . 'includes/nav.php'; ?>
+Authorization::verifyPermission('user-management'); ?>
+<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->push('main-content') ?>
 
-<main>
-    <div class="content">
+
         <div class="container">
             <div class="row mt-5">
                 <div class="col-sm-8"><h1><?= $pageName ?></h1></div>
@@ -50,7 +42,7 @@ PortalCMS_JS_headJS();
                             <td><?= $user->user_name ?></td>
                             <td><?= $user->user_email ?></td>
                             <td><?= $user->user_last_login_timestamp ?></td>
-                            <td><a href="profile.php?id=<?= $user->user_id ?>" title="Profiel weergeven" class="btn btn-primary btn-sm"><span class="fa fa-user"></span></a></td>
+                            <td><a href="/Settings/Profile?id=<?= $user->user_id ?>" title="Profiel weergeven" class="btn btn-primary btn-sm"><span class="fa fa-user"></span></a></td>
                             </tr>
                         <?php } ?>
                         </tbody>
@@ -59,8 +51,4 @@ PortalCMS_JS_headJS();
                     <?php } ?>
                 </table>
         </div>
-    </div>
-</main>
-<?php include DIR_INCLUDES . 'footer.php'; ?>
-</body>
-</html>
+<?= $this->end() ?>

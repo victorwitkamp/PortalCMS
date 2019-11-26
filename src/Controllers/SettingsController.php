@@ -41,6 +41,30 @@ class SettingsController extends Controller
         echo $templates->render('Pages/Settings/sitesettings/index');
     }
 
+    public function Users()
+    {
+        $templates = new \League\Plates\Engine(DIR_VIEW);
+        echo $templates->render('Pages/Settings/Users/index');
+    }
+
+    public function Profile()
+    {
+        $templates = new \League\Plates\Engine(DIR_VIEW);
+        echo $templates->render('Pages/Settings/Profile/index');
+    }
+
+    public function Roles()
+    {
+        $templates = new \League\Plates\Engine(DIR_VIEW);
+        echo $templates->render('Pages/Settings/Roles/index');
+    }
+
+    public function Role()
+    {
+        $templates = new \League\Plates\Engine(DIR_VIEW);
+        echo $templates->render('Pages/Settings/Role/index');
+    }
+
     public static function saveSiteSettings()
     {
         if (SiteSetting::saveSiteSettings()) {

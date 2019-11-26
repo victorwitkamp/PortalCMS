@@ -46,8 +46,8 @@ use PortalCMS\Core\View\Text;
         <a class="dropdown-item" href="/settings/sitesettings/"><?= Text::get('TITLE_SITE_SETTINGS') ?></a>
         <div class="dropdown-divider"></div>
         <h6 class="dropdown-header"><?= Text::get('LABEL_ACCESS_SETTINGS') ?></h6>
-        <a class="dropdown-item" href="/settings/user-management/"><?= Text::get('TITLE_USER_MANAGEMENT') ?></a>
-        <a class="dropdown-item" href="/settings/user-management/roles.php"><?= Text::get('TITLE_ROLE_MANAGEMENT') ?></a>
+        <a class="dropdown-item" href="/settings/Users/"><?= Text::get('TITLE_USER_MANAGEMENT') ?></a>
+        <a class="dropdown-item" href="/settings/Roles"><?= Text::get('TITLE_ROLE_MANAGEMENT') ?></a>
         <div class="dropdown-divider"></div>
         <h6 class="dropdown-header"><?= Text::get('LABEL_OTHER') ?></h6>
         <a class="dropdown-item" href="/settings/recent-activity/"><?= Text::get('TITLE_RECENT_ACTIVITY') ?></a>

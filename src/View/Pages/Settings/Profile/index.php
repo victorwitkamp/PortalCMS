@@ -8,26 +8,19 @@ use PortalCMS\Core\User\UserPDOReader;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
-require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_PROFILE');
 Authentication::checkAuthentication();
 Authorization::verifyPermission('user-management');
-$user = UserPDOReader::getProfileById($_GET['id']);
+$user = UserPDOReader::getProfileById((int) $_GET['id']);
 if (empty($user)) {
     Session::add('feedback_negative', 'De gebruiker bestaat niet.');
     Redirect::to('includes/error.php');
 } else {
     $pageName = Text::get('TITLE_PROFILE') . $user->user_name;
-}
-require DIR_ROOT . 'includes/functions.php';
-require DIR_ROOT . 'includes/head.php';
-displayHeadCSS();
-PortalCMS_JS_headJS(); ?>
-</head>
-<body>
-<?php require DIR_ROOT . 'includes/nav.php'; ?>
-<main>
-    <div class="content">
+} ?>
+<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->push('main-content') ?>
+
         <div class="container">
             <div class="row mt-5">
                 <h1>Profiel van: <?= $user->user_name ?></h1>
@@ -43,8 +36,4 @@ PortalCMS_JS_headJS(); ?>
         <div class="container-fluid">
             <?php require 'profile_table.php'; ?>
         </div>
-    </div>
-</main>
-<?php include DIR_INCLUDES . 'footer.php'; ?>
-</body>
-</html>
+<?= $this->end() ?>

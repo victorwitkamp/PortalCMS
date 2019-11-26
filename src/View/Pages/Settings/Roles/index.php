@@ -9,18 +9,10 @@ use PortalCMS\Core\View\Text;
 require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_ROLE_MANAGEMENT');
 Authentication::checkAuthentication();
-Authorization::verifyPermission('role-management');
-require DIR_ROOT . 'includes/functions.php';
-require DIR_ROOT . 'includes/head.php';
-displayHeadCSS();
-PortalCMS_JS_headJS();
-?>
-</head>
-<body>
-<?php require DIR_ROOT . 'includes/nav.php'; ?>
+Authorization::verifyPermission('role-management'); ?>
+<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->push('main-content') ?>
 
-<main>
-    <div class="content">
         <div class="container">
             <div class="row mt-5">
                 <div class="col-sm-8"><h1><?= $pageName ?></h1></div>
@@ -45,7 +37,7 @@ PortalCMS_JS_headJS();
                                 <td><?= $Role->role_id ?></td>
                                 <td><?= $Role->role_name ?></td>
                                 <td>
-                                    <a href="role.php?role_id=<?= $Role->role_id ?>" title="Rol beheren" class="btn btn-primary btn-sm">
+                                    <a href="role?role_id=<?= $Role->role_id ?>" title="Rol beheren" class="btn btn-primary btn-sm">
                                         <span class="fa fa-cog"></span>
                                     </a>
                                     <form method="post">
@@ -71,8 +63,5 @@ PortalCMS_JS_headJS();
                     <button type="submit" name="addrole" class="btn btn-danger btn-sm">Toevoegen</button>
                 </form>
         </div>
-    </div>
-</main>
-<?php include DIR_INCLUDES . 'footer.php'; ?>
-</body>
-</html>
+
+<?= $this->end() ?>

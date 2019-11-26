@@ -77,12 +77,11 @@ class EventsController extends Controller
         Authentication::checkAuthentication();
         Authorization::verifyPermission('events');
 
-        $event = CalendarEventMapper::getById($_GET['id']);
+        $event = CalendarEventMapper::getById((int) $_GET['id']);
 
         if (!empty($event)) {
-            $allowEdit = true;
             $pageName = 'Evenement ' . $event->title . ' bewerken';
-            $templates = new League\Plates\Engine(DIR_VIEW);
+            $templates = new \League\Plates\Engine(DIR_VIEW);
             echo $templates->render('Pages/Events/edit', ['event' => $event, 'pageName' => $pageName]);
         } else {
             Session::add('feedback_negative', 'Geen resultaten voor opgegeven event ID.');

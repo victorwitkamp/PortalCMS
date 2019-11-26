@@ -5,9 +5,6 @@ use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Core\Session\Session;
 
-// $pageName = (string) Text::get('TITLE_EVENTS_EDIT')
-
-
 ?>
 <?= $this->layout('layout', ['title' => $this->e($pageName)]) ?>
 
@@ -85,4 +82,4 @@ use PortalCMS\Core\Session\Session;
             </form>
         </div>
 
-<?= $this->end()
+<?= $this->end() ?>

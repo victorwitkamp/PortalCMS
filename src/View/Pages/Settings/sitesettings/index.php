@@ -8,8 +8,6 @@ $pageName = Text::get('TITLE_SITE_SETTINGS');
 Authentication::checkAuthentication();
 Authorization::verifyPermission('site-settings'); ?>
 <?= $this->layout('layout', ['title' => $pageName]) ?>
-
-<body>
 <?= $this->push('main-content') ?>
         <div class="container">
             <form method="post" class="container">
