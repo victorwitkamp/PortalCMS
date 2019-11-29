@@ -19,7 +19,7 @@ class Application
     /** @var mixed Instance of the controller */
     private $controller;
     /** @var array URL parameters, will be passed to used controller-method */
-    private $parameters = array();
+    private $parameters = [];
     /** @var string Just the name of the controller, useful for checks inside the view ("where am I ?") */
     private $controller_name;
     /** @var string Just the name of the controller's method, useful for checks inside the view ("where am I ?") */
@@ -37,7 +37,7 @@ class Application
             $this->controller = new $name;
             if (method_exists($this->controller, $this->action_name)) {
                 if (!empty($this->parameters)) {
-                    call_user_func_array(array($this->controller, $this->action_name), $this->parameters);
+                    call_user_func_array([$this->controller, $this->action_name], $this->parameters);
                 } else {
                     $this->controller->{$this->action_name}();
                 }

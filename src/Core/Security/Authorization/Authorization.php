@@ -26,7 +26,7 @@ class Authorization
                     return true;
                 }
             }
-            Redirect::to('includes/permissionError.php');
+            ErrorController::accessDenied();
             die;
         }
     }

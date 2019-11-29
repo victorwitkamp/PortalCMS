@@ -34,44 +34,26 @@ class SettingsController extends Controller
         Router::processRequests($this->requests, __CLASS__);
     }
 
-    public function sitesettings()
+    public function siteSettings()
     {
         $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Settings/sitesettings/index');
+        echo $templates->render('Pages/Settings/SiteSettings/index');
     }
 
-    public function Users()
+    public function activity()
     {
         $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Settings/Users/index');
-    }
-
-    public function Profile()
-    {
-        $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Settings/Profile/index');
-    }
-
-    public function Roles()
-    {
-        $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Settings/Roles/index');
-    }
-
-    public function Role()
-    {
-        $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Settings/Role/index');
+        echo $templates->render('Pages/Settings/Activity/index');
     }
 
     public static function saveSiteSettings()
     {
         if (SiteSetting::saveSiteSettings()) {
             Session::add('feedback_positive', 'Instellingen succesvol opgeslagen.');
-            Redirect::to('settings/sitesettings');
+            Redirect::to('Settings/SiteSettings');
         } else {
             Session::add('feedback_negative', 'Fout bij opslaan van instellingen.');
-            Redirect::to('settings/sitesettings');
+            Redirect::to('Settings/SiteSettings');
         }
     }
 
@@ -81,7 +63,7 @@ class SettingsController extends Controller
             Session::add('feedback_positive', Text::get('FEEDBACK_AVATAR_UPLOAD_SUCCESSFUL'));
             Redirect::to('home');
         } else {
-            Redirect::to('settings/logo');
+            Redirect::to('Settings/logo');
         }
     }
 }

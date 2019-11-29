@@ -42,7 +42,7 @@ Authorization::verifyPermission('user-management'); ?>
                             <td><?= $user->user_name ?></td>
                             <td><?= $user->user_email ?></td>
                             <td><?= $user->user_last_login_timestamp ?></td>
-                            <td><a href="/Settings/Profile?id=<?= $user->user_id ?>" title="Profiel weergeven" class="btn btn-primary btn-sm"><span class="fa fa-user"></span></a></td>
+                            <td><a href="/UserManagement/Profile?id=<?= $user->user_id ?>" title="Profiel weergeven" class="btn btn-primary btn-sm"><span class="fa fa-user"></span></a></td>
                             </tr>
                         <?php } ?>
                         </tbody>

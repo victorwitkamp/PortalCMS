@@ -53,7 +53,7 @@ class AccountController extends Controller
         } else {
             // $data = array('redirect' => Request::get('redirect') ? Request::get('redirect') : NULL);
             // $this->View->render('login/index', $data);
-            self::loginWithCookie();
+            LoginService::loginWithCookie();
         }
     }
 
