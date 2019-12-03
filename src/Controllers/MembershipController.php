@@ -35,4 +35,16 @@ class MembershipController extends Controller
             Redirect::to('membership/?year=' . Request::post('year'));
         }
     }
+
+    public function index()
+    {
+        $templates = new \League\Plates\Engine(DIR_VIEW);
+        echo $templates->render('Pages/Membership/index');
+    }
+
+    public function new()
+    {
+        $templates = new \League\Plates\Engine(DIR_VIEW);
+        echo $templates->render('Pages/Membership/new');
+    }
 }

@@ -5,22 +5,13 @@ use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\User\UserPDOReader;
 
 $pageName = 'Gebruikersprofiel weergeven';
-require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
-Authentication::checkAuthentication();
-require_once DIR_INCLUDES . 'functions.php';
-
-require_once DIR_INCLUDES . 'head.php';
-displayHeadCSS();
-PortalCMS_JS_headJS(); ?>
-</head>
-<body>
-<?php
+// Authentication::checkAuthentication();
 $row = UserPDOReader::getProfileById(Request::get('id'));
-
 ?>
-<?php require DIR_INCLUDES . 'nav.php'; ?>
-<main>
-    <div class="content">
+<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->push('head-extra') ?>
+<?= $this->end() ?>
+<?= $this->push('main-content') ?>
         <div class="container">
             <div class="row mt-5">
                 <h1>Profiel van: <?= $row->user_name ?></h1>
@@ -43,8 +34,4 @@ $row = UserPDOReader::getProfileById(Request::get('id'));
                 </tr>
             </table>
         </div>
-    </div>
-</main>
-<?php include DIR_INCLUDES . 'footer.php'; ?>
-</body>
-</html>
+<?= $this->end() ?>

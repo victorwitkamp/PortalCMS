@@ -16,9 +16,9 @@ use PortalCMS\Modules\Invoices\InvoiceItemModel;
 use PortalCMS\Modules\Invoices\InvoiceModel;
 
 /**
- * InvoiceController
+ * InvoicesController
  */
-class InvoiceController extends Controller
+class InvoicesController extends Controller
 {
     /**
      * The requests that this controller will handle
@@ -42,6 +42,12 @@ class InvoiceController extends Controller
         Router::processRequests($this->requests, __CLASS__);
     }
 
+    public function index()
+    {
+        $templates = new \League\Plates\Engine(DIR_VIEW);
+        echo $templates->render('Pages/Invoices/index');
+    }
+
     public static function createInvoiceMail()
     {
         $invoiceIds = Request::post('id');
@@ -51,7 +57,7 @@ class InvoiceController extends Controller
             foreach ($invoiceIds as $invoiceId) {
                 InvoiceModel::createMail($invoiceId, $batchId);
             }
-            Redirect::to('rental/invoices');
+            Redirect::to('Invoices');
         } else {
             Redirect::to('includes/error.php');
         }
@@ -64,7 +70,7 @@ class InvoiceController extends Controller
             foreach ($ids as $id) {
                 InvoiceModel::write((int) $id);
             }
-            Redirect::to('rental/invoices');
+            Redirect::to('Invoices');
         } else {
             Redirect::to('includes/error.php');
         }
@@ -76,7 +82,7 @@ class InvoiceController extends Controller
         $month = Request::post('month', true);
         $contracts = Request::post('contract_id');
         if (InvoiceModel::create($year, $month, $contracts)) {
-            Redirect::to('rental/invoices');
+            Redirect::to('Invoices');
         } else {
             Redirect::to('includes/error.php');
         }
@@ -86,7 +92,7 @@ class InvoiceController extends Controller
     {
         $id = (int) Request::post('id', true);
         if (InvoiceModel::delete($id)) {
-            Redirect::to('rental/invoices');
+            Redirect::to('Invoices');
         } else {
             Redirect::to('includes/error.php');
         }
@@ -97,7 +103,7 @@ class InvoiceController extends Controller
         $invoiceId = (int) Request::post('invoiceid', true);
         $id = (int) Request::post('id', true);
         if (InvoiceItemModel::delete($id)) {
-            Redirect::to('rental/invoices/details?id=' . $invoiceId);
+            Redirect::to('Invoices/details?id=' . $invoiceId);
         } else {
             Redirect::to('includes/error.php');
         }
@@ -109,7 +115,7 @@ class InvoiceController extends Controller
         $name = Request::post('name', true);
         $price = (int) Request::post('price', true);
         if (InvoiceItemModel::create($invoiceId, $name, $price)) {
-            Redirect::to('rental/invoices/details?id=' . $invoiceId);
+            Redirect::to('Invoices/details?id=' . $invoiceId);
         } else {
             Redirect::to('includes/error.php');
         }

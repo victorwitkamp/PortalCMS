@@ -39,7 +39,7 @@ return [
     'LABEL_CLOSE' => 'Sluiten',
     'LABEL_SUBMIT' => 'Opslaan',
     'LABEL_CANCEL' => 'Annuleren',
-    'LABEL_NOT_FOUND' => 'NIET GEVONDEN',
+    'LABEL_NOT_FOUND' => 'Geen resultaten',
     'LABEL_LOG_IN' => 'LOG-IN',
     'LABEL_CONTINUE_WITH_FACEBOOK' => 'LOG-IN',
     'LABEL_REMEMBER_ME' => 'ONTHOUDEN',

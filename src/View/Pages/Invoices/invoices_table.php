@@ -47,7 +47,7 @@ use PortalCMS\Modules\Invoices\InvoiceModel;
     foreach ($invoices as $invoice) { ?>
         <tr>
             <td>
-                <a href="/rental/invoices/details?id=<?= $invoice->id ?>" title="Details" class="btn btn-primary">
+                <a href="/Invoices/details?id=<?= $invoice->id ?>" title="Details" class="btn btn-primary">
                     <span class="fas fa-edit"></span>
                 </a>
             </td>
@@ -72,7 +72,7 @@ use PortalCMS\Modules\Invoices\InvoiceModel;
                 ?>
             </td>
             <td>
-                <a href="/rental/invoices/createpdf.php?id=<?= $invoice->id ?>" title="PDF maken" class="btn btn-success">
+                <a href="/Invoices/createpdf.php?id=<?= $invoice->id ?>" title="PDF maken" class="btn btn-success">
                 <span class="fas fa-file-pdf"></span>
             </a>
             </td>

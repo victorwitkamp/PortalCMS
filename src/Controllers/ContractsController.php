@@ -11,9 +11,9 @@ use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Modules\Contracts\ContractModel;
 
 /**
- * ContractController
+ * ContractsController
  */
-class ContractController extends Controller
+class ContractsController extends Controller
 {
     /**
      * Constructor
@@ -31,5 +31,11 @@ class ContractController extends Controller
         if (isset($_POST['deleteContract'])) {
             ContractModel::delete();
         }
+    }
+
+    public function index()
+    {
+        $templates = new \League\Plates\Engine(DIR_VIEW);
+        echo $templates->render('Pages/Contracts/index');
     }
 }

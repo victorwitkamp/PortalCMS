@@ -19,8 +19,8 @@ use PortalCMS\Core\View\Text;
     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <?= Text::get('NAV_TITLE_RENTAL') ?></a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
         <a class="dropdown-item" href="/rental/overview/"><?= Text::get('TITLE_OVERVIEW') ?></a>
-        <a class="dropdown-item" href="/rental/contracts/"><?= Text::get('TITLE_CONTRACTS') ?></a>
-        <a class="dropdown-item" href="/rental/invoices/"><?= Text::get('TITLE_INVOICES') ?></a>
+        <a class="dropdown-item" href="/Contracts/"><?= Text::get('TITLE_CONTRACTS') ?></a>
+        <a class="dropdown-item" href="/Invoices/"><?= Text::get('TITLE_INVOICES') ?></a>
     </div>
 </li>
 
