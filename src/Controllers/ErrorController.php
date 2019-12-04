@@ -1,10 +1,13 @@
 <?php
+
 /**
  * Copyright Victor Witkamp (c) 2019.
  */
 
 declare(strict_types=1);
 namespace PortalCMS\Controllers;
+
+use PortalCMS\Core\Controllers\Controller;
 
 /**
  * Class Error
@@ -25,14 +28,14 @@ class ErrorController extends Controller
      * show a well-designed error message or something more useful for your users).
      * You can see this in action in action in /core/Application.php -> __construct
      */
-    public function NotFound()
+    public function notFound()
     {
         header('HTTP/1.0 404 Not Found', true, 404);
         $templates = new \League\Plates\Engine(DIR_VIEW);
         echo $templates->render('Pages/Error/NotFound');
     }
 
-    public function AccessDenied()
+    public function accessDenied()
     {
         header('HTTP/1.0 404 Not Found', true, 404);
         $templates = new \League\Plates\Engine(DIR_VIEW);

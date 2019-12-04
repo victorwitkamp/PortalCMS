@@ -1,15 +1,11 @@
 <?php
 
 
-use PortalCMS\Core\Security\Authentication\Authentication;
-use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Members\MemberModel;
-
-// require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_MEMBERS');
 $year = Request::get('year');
 if (!isset($year)) {
@@ -17,8 +13,6 @@ if (!isset($year)) {
 }
 // Authentication::checkAuthentication();
 // Authorization::verifyPermission('membership');
-// require_once DIR_INCLUDES . 'functions.php';
-// require_once DIR_INCLUDES . 'head.php';
 ?>
 <?= $this->layout('layout', ['title' => $pageName]) ?>
 <?= $this->push('head-extra') ?>

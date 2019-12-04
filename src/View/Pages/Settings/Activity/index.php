@@ -59,6 +59,6 @@ PortalCMS_JS_headJS();
         </div>
     </div>
 </main>
-<?php include DIR_INCLUDES . 'footer.php'; ?>
+<?php require DIR_VIEW . 'Parts/Footer.php'; ?>
 </body>
 </html>

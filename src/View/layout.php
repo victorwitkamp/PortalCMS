@@ -26,13 +26,13 @@ use PortalCMS\Core\Config\SiteSetting;
     <?= $this->section('head-extra') ?>
 </head>
 <body>
-    <?php require DIR_INCLUDES . 'nav.php'; ?>
+    <?php require DIR_VIEW . 'Parts/Nav.php'; ?>
     <main>
         <div class="content">
             <?=$this->section('main-content')?>
         </div>
     </main>
-    <?php include DIR_INCLUDES . 'footer.php'; ?>
+    <?php require DIR_VIEW . 'Parts/Footer.php'; ?>
     <?=$this->section('scripts')?>
 </body>
 </html>

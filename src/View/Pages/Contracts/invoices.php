@@ -26,7 +26,7 @@ PortalCMS_JS_dataTables();
 ?>
 </head>
 <body>
-<?php require DIR_INCLUDES . 'nav.php'; ?>
+<?php require DIR_VIEW . 'Parts/Nav.php'; ?>
 <main>
     <div class="content">
         <div class="container">

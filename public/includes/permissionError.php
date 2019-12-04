@@ -9,7 +9,7 @@ PortalCMS_JS_headJS();
 ?>
 </head>
 <body>
-<?php require DIR_INCLUDES . 'nav.php'; ?>
+<?php require DIR_VIEW . 'Parts/Nav.php'; ?>
 <main>
     <div class="content">
         <div class="container">
@@ -21,7 +21,7 @@ PortalCMS_JS_headJS();
         </div>
     </div>
 </main>
-<?php include DIR_INCLUDES . 'footer.php'; ?>
+<?php require DIR_VIEW . 'Parts/Footer.php'; ?>
 <script>
 function goBack() {
     window.history.back();

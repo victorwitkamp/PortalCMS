@@ -1,6 +1,5 @@
 <?php
 
-use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\User\UserPDOReader;
 

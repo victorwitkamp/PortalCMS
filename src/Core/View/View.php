@@ -20,7 +20,7 @@ class View
      */
     public static function renderFooter()
     {
-        include DIR_INCLUDES . 'footer.php';
+        require DIR_VIEW . 'Parts/Footer.php';
     }
 
     /**

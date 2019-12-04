@@ -66,7 +66,7 @@ class LoginController extends Controller
         if (!Csrf::isTokenValid()) {
             Session::add('feedback_negative', 'Invalid CSRF token.');
             Redirect::to('login');
-            return void;
+            return false;
         }
         $login_successful = LoginService::loginWithPassword(
             Request::post('user_name'),
@@ -75,15 +75,15 @@ class LoginController extends Controller
         );
         if (!$login_successful) {
             Redirect::to('login');
-            return void;
+            return false;
         }
         $redirect = Request::post('redirect');
         if (!empty($redirect)) {
             Redirect::to($redirect);
-            return void;
+            return false;
         }
         Redirect::to('home');
-        return void;
+        return false;
     }
 
     /**

@@ -1,19 +1,16 @@
 <?php
 
-use PortalCMS\Core\Security\Authentication\Authentication;
-use PortalCMS\Core\Security\Authorization\Authorization;
-
 $pageName = 'Contract toevoegen';
 $loadData = false;
-require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
-Authentication::checkAuthentication();
-Authorization::verifyPermission('rental-contracts');
-require_once DIR_INCLUDES . 'functions.php';
-require_once DIR_INCLUDES . 'head.php';
-displayHeadCSS();
-PortalCMS_CSS_tempusdominus();
-PortalCMS_JS_headJS();
-PortalCMS_JS_tempusdominus(); ?>
+
+// Authentication::checkAuthentication();
+// Authorization::verifyPermission('rental-contracts');
+?>
+
+<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->push('head-extra') ?>
+<script src="/dist/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js" async></script>
+<link rel="stylesheet" type="text/css" href="/dist/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css">
 <script>
 $(function () {
     $('#datetimepicker1').datetimepicker({
@@ -45,22 +42,16 @@ $(function () {
     });
 });
 </script>
-<?php //PortalCMS_JS_JQuery_Simple_validator();?>
-</head>
-<body>
-    <?php require DIR_INCLUDES . 'nav.php'; ?>
-    <main>
-        <div class="content">
-            <div class="container">
-                <div class="row mt-5">
-                    <h1><?= $pageName ?></h1>
-                </div>
-            </div>
-            <div class="container">
-                <?php require 'inc/form_new.php'; ?>
-            </div>
+<!-- <script src="/includes/js/jquery-simple-validator.nl.js"></script>
+<link rel="stylesheet" type="text/css" href="/includes/css/jquery-simple-validator.css"> -->
+<?= $this->end() ?>
+<?= $this->push('main-content') ?>
+    <div class="container">
+        <div class="row mt-5">
+            <h1><?= $pageName ?></h1>
         </div>
-    </main>
-    <?php require DIR_INCLUDES . 'footer.php'; ?>
-</body>
-</html>
+    </div>
+    <div class="container">
+        <?php require 'inc/form_new.php'; ?>
+    </div>
+<?= $this->end() ?>

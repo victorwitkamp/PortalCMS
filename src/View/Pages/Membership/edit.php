@@ -28,7 +28,7 @@ PortalCMS_JS_Datepicker_membership();
 ?>
 </head>
 <body>
-<?php require DIR_INCLUDES . 'nav.php'; ?>
+<?php require DIR_VIEW . 'Parts/Nav.php'; ?>
 <main role="main" role="main">
     <div class="content">
         <div class="container">
@@ -42,6 +42,6 @@ PortalCMS_JS_Datepicker_membership();
         </div>
     </div>
 </main>
-<?php include DIR_INCLUDES . 'footer.php'; ?>
+<?php require DIR_VIEW . 'Parts/Footer.php'; ?>
 </body>
 </html>

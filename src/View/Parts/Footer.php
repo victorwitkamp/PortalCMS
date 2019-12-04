@@ -5,6 +5,6 @@ use PortalCMS\Core\Config\SiteSetting;
 ?>
 <footer class="footer bg-light">
     <div class="container">
-        <p>© <?= date('Y') ?> <?= SiteSetting::getStaticSiteSetting('site_name') ?></p>
+        <span class="text-muted">© <?= date('Y') ?> <?= SiteSetting::getStaticSiteSetting('site_name') ?></span>
     </div>
 </footer>

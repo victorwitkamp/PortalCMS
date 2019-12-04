@@ -38,4 +38,16 @@ class ContractsController extends Controller
         $templates = new \League\Plates\Engine(DIR_VIEW);
         echo $templates->render('Pages/Contracts/index');
     }
+
+    public function new()
+    {
+        $templates = new \League\Plates\Engine(DIR_VIEW);
+        echo $templates->render('Pages/Contracts/new');
+    }
+
+    public function view()
+    {
+        $templates = new \League\Plates\Engine(DIR_VIEW);
+        echo $templates->render('Pages/Contracts/view');
+    }
 }

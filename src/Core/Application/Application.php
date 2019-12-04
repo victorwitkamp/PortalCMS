@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Application;
 
+use PortalCMS\Controllers\ErrorController;
 use PortalCMS\Core\Config\Config;
 use PortalCMS\Core\HTTP\Request;
 
@@ -42,19 +43,17 @@ class Application
                     $this->controller->{$this->action_name}();
                 }
             } else {
-                echo 'method "' . $this->action_name .'" does not exist.';
-                die;
+                // echo 'method "' . $this->action_name .'" does not exist.';
                 require DIR_CONTROLLERS . 'ErrorController.php';
                 $this->controller = new ErrorController;
-                $this->controller->error404();
+                $this->controller->notFound();
             }
         } else {
-            echo 'file does not exist<br>';
-            echo DIR_CONTROLLERS . $this->controller_name . '.php';
-            die;
+            // echo 'file does not exist<br>';
+            // echo DIR_CONTROLLERS . $this->controller_name . '.php';
             require DIR_CONTROLLERS . 'ErrorController.php';
             $this->controller = new ErrorController;
-            $this->controller->error404();
+            $this->controller->notFound();
         }
     }
     /**

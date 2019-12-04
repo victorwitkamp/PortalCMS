@@ -305,7 +305,7 @@ use PortalCMS\Core\View\Text;
                     <label class="col-form-label">&#xA0;</label>
                     <input type="hidden" name="id" value="<?= $contract->id ?>">
                     <input type="submit" name="updateContract" class="btn btn-sm btn-primary" value="Opslaan">
-                    <a href="view.php?id=<?= $contract->id ?>" class="btn btn-sm btn-danger">Annuleren</a>
+                    <a href="View?id=<?= $contract->id ?>" class="btn btn-sm btn-danger">Annuleren</a>
                 </div>
             </div>
         </div>

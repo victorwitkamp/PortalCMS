@@ -1,7 +1,5 @@
 <?php
 
-use PortalCMS\Core\Security\Authentication\Authentication;
-use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Invoices\InvoiceMapper;

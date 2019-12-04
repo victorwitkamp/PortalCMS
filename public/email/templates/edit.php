@@ -33,7 +33,7 @@ plugins : 'advlist autolink link image lists charmap print preview'
 
 </head>
 <body>
-<?php require DIR_INCLUDES . 'nav.php'; ?>
+<?php require DIR_VIEW . 'Parts/Nav.php'; ?>
 <main>
     <div class="content">
         <div class="container">
@@ -93,6 +93,6 @@ plugins : 'advlist autolink link image lists charmap print preview'
         </div>
     </div>
 </main>
-<?php include DIR_INCLUDES . 'footer.php'; ?>
+<?php require DIR_VIEW . 'Parts/Footer.php'; ?>
 </body>
 </html>

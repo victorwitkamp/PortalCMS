@@ -1,8 +1,5 @@
 <?php
 
-use PortalCMS\Core\Security\Authentication\Authentication;
-use PortalCMS\Core\Security\Authorization\Authorization;
-
 $pageName = 'Lid toevoegen';
 $pageType = 'new';
 // Authentication::checkAuthentication();
