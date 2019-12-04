@@ -44,15 +44,15 @@ class Application
                 }
             } else {
                 // echo 'method "' . $this->action_name .'" does not exist.';
-                require DIR_CONTROLLERS . 'ErrorController.php';
-                $this->controller = new ErrorController;
+                //require DIR_CONTROLLERS . 'ErrorController.php';
+                $this->controller = new ErrorController();
                 $this->controller->notFound();
             }
         } else {
             // echo 'file does not exist<br>';
             // echo DIR_CONTROLLERS . $this->controller_name . '.php';
-            require DIR_CONTROLLERS . 'ErrorController.php';
-            $this->controller = new ErrorController;
+            //require DIR_CONTROLLERS . 'ErrorController.php';
+            $this->controller = new ErrorController();
             $this->controller->notFound();
         }
     }

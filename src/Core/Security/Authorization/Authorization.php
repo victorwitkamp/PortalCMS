@@ -7,6 +7,8 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Security\Authorization;
 
+use PortalCMS\Controllers\ErrorController;
+use PortalCMS\Core\Security\Authorization\PermissionMapper;
 use PortalCMS\Core\Session\Session;
 
 class Authorization
@@ -25,7 +27,7 @@ class Authorization
                     return true;
                 }
             }
-            ErrorController::accessDenied();
+            ErrorController::permissionError();
             die;
         }
     }

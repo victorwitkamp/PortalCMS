@@ -35,10 +35,10 @@ class ErrorController extends Controller
         echo $templates->render('Pages/Error/NotFound');
     }
 
-    public function accessDenied()
+    public function permissionError()
     {
         header('HTTP/1.0 404 Not Found', true, 404);
         $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Error/AccessDenied');
+        echo $templates->render('Pages/Error/PermissionError');
     }
 }

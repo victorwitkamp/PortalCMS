@@ -11,6 +11,8 @@ use PortalCMS\Core\Config\SiteSetting;
 use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Router;
+use PortalCMS\Core\Security\Authentication\Authentication;
+use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
 
@@ -42,6 +44,8 @@ class SettingsController extends Controller
 
     public function activity()
     {
+        Authentication::checkAuthentication();
+        Authorization::verifyPermission('recent-activity');
         $templates = new \League\Plates\Engine(DIR_VIEW);
         echo $templates->render('Pages/Settings/Activity/index');
     }
