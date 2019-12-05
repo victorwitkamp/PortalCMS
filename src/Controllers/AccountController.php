@@ -12,6 +12,7 @@ use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
+use PortalCMS\Core\Security\Authentication\Service\LoginService;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\User\Password;
 use PortalCMS\Core\User\User;
@@ -53,7 +54,8 @@ class AccountController extends Controller
         } else {
             // $data = array('redirect' => Request::get('redirect') ? Request::get('redirect') : NULL);
             // $this->View->render('login/index', $data);
-            LoginService::loginWithCookie();
+            // LoginService::loginWithCookie();
+            Redirect::to('Login');
         }
     }
 

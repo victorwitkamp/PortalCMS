@@ -3,7 +3,7 @@
 use PortalCMS\Core\View\Alert;
 
 $pageName = 'Fout';
-require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
+
 require DIR_ROOT . 'includes/functions.php';
 require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();

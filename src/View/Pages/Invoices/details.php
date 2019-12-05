@@ -10,7 +10,7 @@ use PortalCMS\Modules\Invoices\InvoiceItemMapper;
 use PortalCMS\Modules\Invoices\InvoiceMapper;
 
 $pageName = 'Factuur';
-require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
+
 Authentication::checkAuthentication();
 Authorization::verifyPermission('rental-invoices');
 require DIR_ROOT . 'includes/functions.php';
@@ -21,7 +21,7 @@ if (!empty($invoice)) {
     $contract = ContractMapper::getById($invoice->contract_id);
 } else {
     Session::add('feedback_negative', 'Geen resultaten voor opgegeven factuur ID.');
-    // Redirect::to('includes/error.php');
+    // Redirect::to('Error/Error');
 }
 require DIR_ROOT . 'includes/head.php';
 displayHeadCSS();

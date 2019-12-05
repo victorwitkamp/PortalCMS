@@ -7,10 +7,10 @@ use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Contracts\ContractMapper;
 
 $pageName = 'Factuur toevoegen';
-require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
+
 Authentication::checkAuthentication();
 Authorization::verifyPermission('rental-invoices');
-require_once DIR_INCLUDES . 'functions.php';
+
 require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();
 PortalCMS_JS_headJS();

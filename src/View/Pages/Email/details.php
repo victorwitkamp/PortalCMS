@@ -28,7 +28,7 @@ if (MailScheduleMapper::exists($id)) {
     $row = MailScheduleMapper::getById($id);
 } else {
     Session::add('feedback_negative', 'Geen resultaten voor opgegeven mail ID.');
-    Redirect::to('includes/error.php');
+    Redirect::to('Error/Error');
 }
 ?>
 <?php require DIR_VIEW . 'Parts/Nav.php'; ?>

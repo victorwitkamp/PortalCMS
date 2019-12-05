@@ -43,7 +43,7 @@ class RoleController extends Controller
             Redirect::to('Settings/Roles');
         } else {
             Session::add('feedback_negative', 'Fout bij het aanmaken van nieuwe rol.');
-            Redirect::to('includes/error.php');
+            Redirect::to('Error/Error');
         }
     }
 
@@ -54,7 +54,7 @@ class RoleController extends Controller
             Redirect::to('Settings/Roles');
         } else {
             Session::add('feedback_negative', 'Fout bij het verwijderen van rol.');
-            Redirect::to('includes/error.php');
+            Redirect::to('Error/Error');
         }
     }
 }

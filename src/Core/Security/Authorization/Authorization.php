@@ -2,12 +2,10 @@
 /**
  * Copyright Victor Witkamp (c) 2019.
  */
-
 declare(strict_types=1);
-
 namespace PortalCMS\Core\Security\Authorization;
 
-use PortalCMS\Controllers\ErrorController;
+use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Security\Authorization\PermissionMapper;
 use PortalCMS\Core\Session\Session;
 
@@ -18,20 +16,14 @@ class Authorization
      * @param string $perm_desc
      * @return bool
      */
-    public static function verifyPermission(string $perm_desc): ?bool
+    public static function verifyPermission(string $perm_desc)
     {
-        $Permissions = PermissionMapper::getPermissionsByUserId((int) Session::get('user_id'));
-        if (!empty($Permissions)) {
-            foreach ($Permissions as $Permission) {
-                if ($Permission->perm_desc === $perm_desc) {
-                    return true;
-                }
-            }
-            ErrorController::permissionError();
-            die;
+        if(!self::hasPermission($perm_desc)) {
+            Redirect::to('Error/PermissionError');
+        } else {
+            return true;
         }
     }
-
     /**
      * Check whether the logged on user has a specific permission
      * @param string $perm_desc

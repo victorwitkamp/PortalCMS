@@ -9,14 +9,14 @@ use PortalCMS\Core\View\Alert;
 use PortalCMS\Modules\Contracts\ContractMapper;
 
 $loadData = true;
-require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
+
 Authentication::checkAuthentication();
 Authorization::verifyPermission('rental-contracts');
-require_once DIR_INCLUDES . 'functions.php';
+
 $contract = ContractMapper::getById(Request::get('id'));
 if (empty($contract)) {
     Session::add('feedback_negative', 'Geen resultaten voor opgegeven Id.');
-    Redirect::to('includes/error.php');
+    Redirect::to('Error/Error');
 }
 $pageName = 'Contract van ' . $contract->band_naam . ' bewerken';
 require_once DIR_INCLUDES . 'head.php';

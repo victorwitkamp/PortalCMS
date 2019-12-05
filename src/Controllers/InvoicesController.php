@@ -59,7 +59,7 @@ class InvoicesController extends Controller
             }
             Redirect::to('Invoices');
         } else {
-            Redirect::to('includes/error.php');
+            Redirect::to('Error/Error');
         }
     }
 
@@ -72,7 +72,7 @@ class InvoicesController extends Controller
             }
             Redirect::to('Invoices');
         } else {
-            Redirect::to('includes/error.php');
+            Redirect::to('Error/Error');
         }
     }
 
@@ -84,7 +84,7 @@ class InvoicesController extends Controller
         if (InvoiceModel::create($year, $month, $contracts)) {
             Redirect::to('Invoices');
         } else {
-            Redirect::to('includes/error.php');
+            Redirect::to('Error/Error');
         }
     }
 
@@ -94,7 +94,7 @@ class InvoicesController extends Controller
         if (InvoiceModel::delete($id)) {
             Redirect::to('Invoices');
         } else {
-            Redirect::to('includes/error.php');
+            Redirect::to('Error/Error');
         }
     }
 
@@ -105,7 +105,7 @@ class InvoicesController extends Controller
         if (InvoiceItemModel::delete($id)) {
             Redirect::to('Invoices/details?id=' . $invoiceId);
         } else {
-            Redirect::to('includes/error.php');
+            Redirect::to('Error/Error');
         }
     }
 
@@ -117,7 +117,7 @@ class InvoicesController extends Controller
         if (InvoiceItemModel::create($invoiceId, $name, $price)) {
             Redirect::to('Invoices/details?id=' . $invoiceId);
         } else {
-            Redirect::to('includes/error.php');
+            Redirect::to('Error/Error');
         }
     }
 }

@@ -1,14 +1,11 @@
 <?php
 
-use PortalCMS\Core\Security\Authentication\Authentication;
-use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\User\UserPDOReader;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
 $pageName = Text::get('TITLE_USER_MANAGEMENT');
-Authentication::checkAuthentication();
-Authorization::verifyPermission('user-management'); ?>
+?>
 <?= $this->layout('layout', ['title' => $pageName]) ?>
 <?= $this->push('main-content') ?>
 
@@ -51,4 +48,5 @@ Authorization::verifyPermission('user-management'); ?>
                     <?php } ?>
                 </table>
         </div>
-<?= $this->end() ?>
+
+<?= $this->end();

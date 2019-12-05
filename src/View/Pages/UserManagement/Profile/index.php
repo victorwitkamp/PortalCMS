@@ -1,7 +1,5 @@
 <?php
 
-use PortalCMS\Core\Security\Authentication\Authentication;
-use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\User\UserPDOReader;
@@ -9,12 +7,11 @@ use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
 $pageName = Text::get('TITLE_PROFILE');
-Authentication::checkAuthentication();
-Authorization::verifyPermission('user-management');
+
 $user = UserPDOReader::getProfileById((int) $_GET['id']);
 if (empty($user)) {
     Session::add('feedback_negative', 'De gebruiker bestaat niet.');
-    Redirect::to('includes/error.php');
+    Redirect::to('Error/Error');
 } else {
     $pageName = Text::get('TITLE_PROFILE') . $user->user_name;
 } ?>
@@ -36,4 +33,5 @@ if (empty($user)) {
         <div class="container-fluid">
             <?php require 'profile_table.php'; ?>
         </div>
-<?= $this->end() ?>
+
+<?= $this->end();

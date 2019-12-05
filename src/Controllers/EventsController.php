@@ -84,7 +84,7 @@ class EventsController extends Controller
             echo $templates->render('Pages/Events/edit', ['event' => $event, 'pageName' => $pageName]);
         } else {
             Session::add('feedback_negative', 'Geen resultaten voor opgegeven event ID.');
-            Redirect::to('includes/error.php');
+            Redirect::to('Error/Error');
         }
     }
 
@@ -116,7 +116,7 @@ class EventsController extends Controller
         if (CalendarEventModel::delete((int) Request::post('id', true))) {
             Redirect::to('events/');
         } else {
-            Redirect::to('includes/error.php');
+            Redirect::to('Error/Error');
         }
     }
 
@@ -132,7 +132,7 @@ class EventsController extends Controller
         )) {
             Redirect::to('events/');
         } else {
-            Redirect::to('includes/error.php');
+            Redirect::to('Error/Error');
         }
     }
 
@@ -146,7 +146,7 @@ class EventsController extends Controller
         )) {
             Redirect::to('events/');
         } else {
-            Redirect::to('includes/error.php');
+            Redirect::to('Error/Error');
         }
     }
 }

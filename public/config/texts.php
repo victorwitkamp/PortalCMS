@@ -95,7 +95,7 @@ return [
 
     // RENTAL
     // OVERVIEW
-    'TITLE_OVERVIEW' => 'OVERZICHT',
+    'TITLE_OVERVIEW' => ' Overzicht',
     // CONTRACTS
     'LABEL_CONTRACT_INVOICES_FOR_ID' => 'Facturen voor contract Id: ',
 

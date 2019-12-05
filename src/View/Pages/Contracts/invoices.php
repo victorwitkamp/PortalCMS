@@ -8,16 +8,16 @@ use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Contracts\ContractMapper;
 use PortalCMS\Modules\Invoices\InvoiceMapper;
 
-require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
+
 $pageName = Text::get('LABEL_CONTRACT_INVOICES_FOR_ID') . ': ' . Request::get('id');
 Authentication::checkAuthentication();
 Authorization::verifyPermission('rental-contracts');
 $contract = ContractMapper::getById(Request::get('id'));
 if (empty($contract)) {
-    Redirect::to('includes/error.php');
+    Redirect::to('Error/Error');
 }
 $pageName = 'Facturen voor ' . $contract->band_naam;
-require_once DIR_INCLUDES . 'functions.php';
+
 require_once DIR_INCLUDES . 'head.php';
 displayHeadCSS();
 PortalCMS_CSS_dataTables();

@@ -4,13 +4,13 @@ use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Modules\Contracts\ContractMapper;
 
-require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
+
 // Authentication::checkAuthentication();
 // Authorization::verifyPermission('rental-contracts');
 $contract = ContractMapper::getById($_GET['id']);
 if (empty($contract)) {
     Session::add('feedback_negative', 'Het contract bestaat niet.');
-    Redirect::to('includes/error.php');
+    Redirect::to('Error/Error');
 }
 $pageName = 'Contract van ' . $contract->band_naam;
 ?>
