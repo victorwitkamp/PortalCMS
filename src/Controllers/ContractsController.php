@@ -8,6 +8,8 @@ declare(strict_types=1);
 namespace PortalCMS\Controllers;
 
 use PortalCMS\Core\Controllers\Controller;
+use PortalCMS\Core\Security\Authentication\Authentication;
+use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Modules\Contracts\ContractModel;
 
 /**
@@ -33,21 +35,58 @@ class ContractsController extends Controller
         }
     }
 
+    /**
+     * Route: Index.
+     */
     public function index()
     {
+        Authentication::checkAuthentication();
+        Authorization::verifyPermission('rental-contracts');
         $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Contracts/index');
+        echo $templates->render('Pages/Contracts/Index');
     }
 
+    /**
+     * Route: New.
+     */
     public function new()
     {
+        Authentication::checkAuthentication();
+        Authorization::verifyPermission('rental-contracts');
         $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Contracts/new');
+        echo $templates->render('Pages/Contracts/New');
     }
 
+    /**
+     * Route: Edit.
+     */
+    public function edit()
+    {
+        Authentication::checkAuthentication();
+        Authorization::verifyPermission('rental-contracts');
+        $templates = new \League\Plates\Engine(DIR_VIEW);
+        echo $templates->render('Pages/Contracts/Edit');
+    }
+
+    /**
+     * Route: View.
+     */
     public function view()
     {
+        Authentication::checkAuthentication();
+        Authorization::verifyPermission('rental-contracts');
         $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Contracts/view');
+        echo $templates->render('Pages/Contracts/View');
+    }
+
+    /**
+     * Route: Invoices.
+     */
+    public function invoices()
+    {
+        Authentication::checkAuthentication();
+        Authorization::verifyPermission('rental-contracts');
+        $templates = new \League\Plates\Engine(DIR_VIEW);
+        echo $templates->render('Pages/Contracts/Invoices');
     }
 }

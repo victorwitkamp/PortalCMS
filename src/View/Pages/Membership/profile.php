@@ -22,7 +22,7 @@ $pageName = 'Lidmaatschap van ' . $row->voornaam . ' ' . $row->achternaam;
     </div>
     <div class="container">
         <form method="post">
-            <a href="index.php" class="btn btn-sm btn-primary">
+            <a href="Index" class="btn btn-sm btn-primary">
                 <span class="fa fa-arrow-left"></span>
             </a>
             <a href="edit.php?id=<?= $row->id ?>" class="btn btn-sm btn-warning">

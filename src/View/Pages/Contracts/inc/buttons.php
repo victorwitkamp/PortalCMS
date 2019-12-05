@@ -2,10 +2,10 @@
 
 ?>
 <form method="post">
-    <a href="index.php" class="btn btn-sm btn-primary">
+    <a href="Index" class="btn btn-sm btn-primary">
         <span class="fa fa-arrow-left"></span>
     </a>
-    <a href="edit.php?id=<?= $contract->id ?>" class="btn btn-sm btn-warning">
+    <a href="Edit?id=<?= $contract->id ?>" class="btn btn-sm btn-warning">
         <span class="fa fa-edit"></span>
     </a>
     <input type="hidden" name="id" value="<?= $contract->id ?>">

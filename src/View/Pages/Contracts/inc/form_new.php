@@ -180,9 +180,7 @@ use PortalCMS\Core\View\Text;
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label"><?=
-
-                    Text::get('DAY') ?></label>
+                <label class="col-sm-2 col-form-label"><?= Text::get('DAY') ?></label>
                 <div class="col-sm-10">
                     <select name="huur_dag" class="form-control">
                         <option>Selecteer een dag....</option>
@@ -238,14 +236,9 @@ use PortalCMS\Core\View\Text;
         <div class="col-md-12">
             <hr>
             <p>* = verplicht veld.</p>
-            <div class="form-group row">
-                <div class="col-md-6">
-                    <label class="col-form-label">&#xA0;</label>
-                    <input type="hidden" name="id">
-                    <input type="submit" name="newContract" class="btn btn-sm btn-primary" value="Opslaan">
-                    <a href="contracten.php" class="btn btn-sm btn-danger">Annuleren</a>
-                </div>
-            </div>
+            <input type="hidden" name="id">
+            <input type="submit" name="newContract" class="btn btn-sm btn-primary" value="Opslaan">
+            <a href="Index" class="btn btn-sm btn-danger">Annuleren</a>
         </div>
     </div>
 </form>

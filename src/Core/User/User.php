@@ -54,7 +54,7 @@ class User
         }
         Session::set('user_name', $newUsername);
         Session::add('feedback_positive', Text::get('FEEDBACK_USERNAME_CHANGE_SUCCESSFUL'));
-        Redirect::to('account');
+        Redirect::to('Account');
         return true;
     }
 }

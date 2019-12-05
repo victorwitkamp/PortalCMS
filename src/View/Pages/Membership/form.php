@@ -489,7 +489,7 @@ if ($pageType === 'edit') {
                     } else {
                         echo 'name="saveNewMember"';
                     } ?> class="btn btn-sm btn-primary" value="Opslaan">
-                    <a href="index.php" class="btn btn-sm btn-danger">Annuleren</a>
+                    <a href="Index" class="btn btn-sm btn-danger">Annuleren</a>
                 </div>
             </div>
         </div>

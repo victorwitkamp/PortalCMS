@@ -9,13 +9,11 @@ use PortalCMS\Core\View\Text;
             <div class="form-group row">
                 <div class="col-md-8">
                     <label class="col-form-label">Huurder</label>
-                    <input type="text" name="band_naam" class="form-control form-control-sm"
-                           value="<?= $contract->band_naam ?>" required>
+                    <input type="text" name="band_naam" class="form-control form-control-sm" value="<?= $contract->band_naam ?>" required>
                 </div>
                 <div class="col-md-4">
                     <label class="col-form-label">bandcode</label>
-                    <input type="text" name="bandcode" class="form-control form-control-sm"
-                           value="<?= $contract->bandcode ?>" required>
+                    <input type="text" name="bandcode" class="form-control form-control-sm" value="<?= $contract->bandcode ?>" required>
                 </div>
             </div>
             <div class="form-group">
@@ -28,8 +26,7 @@ use PortalCMS\Core\View\Text;
                                 <div class="input-group-text">
                                     <i class="fas fa-euro-sign"></i>
                                 </div>
-                                <input type="text" name="kosten_ruimte" class="form-control form-control-sm"
-                                       value="<?= $contract->kosten_ruimte ?>"></div>
+                                <input type="text" name="kosten_ruimte" class="form-control form-control-sm" value="<?= $contract->kosten_ruimte ?>"></div>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -39,8 +36,7 @@ use PortalCMS\Core\View\Text;
                                 <div class="input-group-text">
                                     <i class="fas fa-euro-sign"></i>
                                 </div>
-                                <input type="text" name="kosten_kast" class="form-control form-control-sm"
-                                       value="<?= $contract->kosten_kast ?>">
+                                <input type="text" name="kosten_kast" class="form-control form-control-sm" value="<?= $contract->kosten_kast ?>">
                             </div>
                         </div>
                     </div>
@@ -51,8 +47,7 @@ use PortalCMS\Core\View\Text;
                                 <div class="input-group-text">
                                     <i class="fas fa-euro-sign"></i>
                                 </div>
-                                <input type="text" name="kosten_totaal" class="form-control form-control-sm"
-                                       value="<?= $contract->kosten_totaal ?>" disabled>
+                                <input type="text" name="kosten_totaal" class="form-control form-control-sm" value="<?= $contract->kosten_totaal ?>" disabled>
                             </div>
                         </div>
                     </div>
@@ -63,8 +58,7 @@ use PortalCMS\Core\View\Text;
                                 <div class="input-group-text">
                                     <i class="fas fa-euro-sign"></i>
                                 </div>
-                                <input type="text" name="kosten_borg" class="form-control form-control-sm"
-                                       value="<?= $contract->kosten_borg ?>">
+                                <input type="text" name="kosten_borg" class="form-control form-control-sm" value="<?= $contract->kosten_borg ?>">
                             </div>
                         </div>
                     </div>
@@ -75,15 +69,12 @@ use PortalCMS\Core\View\Text;
                         <label class="col-form-label">Ingangsdatum</label>
                         <div class="form-group date" id="datetimepicker2" data-target-input="nearest">
                             <div class="input-group">
-                                <div class="input-group-append" data-target="#datetimepicker2"
-                                     data-toggle="datetimepicker">
+                                <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
                                     <div class="input-group-text">
                                         <i class="fa fa-calendar"></i>
                                     </div>
                                 </div>
-                                <input type="text" name="contract_ingangsdatum"
-                                       class="form-control form-control-sm  datetimepicker-input"
-                                       data-target="#datetimepicker2" value="<?= $contract->contract_ingangsdatum ?>">
+                                <input type="text" name="contract_ingangsdatum" class="form-control form-control-sm datetimepicker-input" data-target="#datetimepicker2" value="<?= $contract->contract_ingangsdatum ?>">
                             </div>
                         </div>
                     </div>
@@ -91,15 +82,12 @@ use PortalCMS\Core\View\Text;
                         <label class="col-form-label">Einddatum</label>
                         <div class="form-group date" id="datetimepicker3" data-target-input="nearest">
                             <div class="input-group">
-                                <div class="input-group-append" data-target="#datetimepicker3"
-                                     data-toggle="datetimepicker">
+                                <div class="input-group-append" data-target="#datetimepicker3" data-toggle="datetimepicker">
                                     <div class="input-group-text">
                                         <i class="fa fa-calendar"></i>
                                     </div>
                                 </div>
-                                <input type="text" name="contract_einddatum"
-                                       class="form-control form-control-sm  datetimepicker-input"
-                                       data-target="#datetimepicker3" value="<?= $contract->contract_einddatum ?>">
+                                <input type="text" name="contract_einddatum" class="form-control form-control-sm  datetimepicker-input" data-target="#datetimepicker3" value="<?= $contract->contract_einddatum ?>">
                             </div>
                         </div>
                     </div>
@@ -107,15 +95,12 @@ use PortalCMS\Core\View\Text;
                         <label class="col-form-label">Contractdatum</label>
                         <div class="form-group date" id="datetimepicker4" data-target-input="nearest">
                             <div class="input-group">
-                                <div class="input-group-append" data-target="#datetimepicker4"
-                                     data-toggle="datetimepicker">
+                                <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
                                     <div class="input-group-text">
                                         <i class="fa fa-calendar"></i>
                                     </div>
                                 </div>
-                                <input type="text" name="contract_datum"
-                                       class="form-control form-control-sm  datetimepicker-input"
-                                       data-target="#datetimepicker4" value="<?= $contract->contract_datum ?>">
+                                <input type="text" name="contract_datum" class="form-control form-control-sm  datetimepicker-input" data-target="#datetimepicker4" value="<?= $contract->contract_datum ?>">
                             </div>
                         </div>
                     </div>
@@ -126,26 +111,21 @@ use PortalCMS\Core\View\Text;
                 <div class="row">
                     <div class="col-md-12">
                         <label class="col-form-label">Naam</label>
-                        <input type="text" name="bandleider_naam" class="form-control form-control-sm"
-                               value="<?= $contract->bandleider_naam ?>">
+                        <input type="text" name="bandleider_naam" class="form-control form-control-sm" value="<?= $contract->bandleider_naam ?>">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         <label class="col-form-label">Adres</label>
-                        <input type="text" name="bandleider_adres" class="form-control form-control-sm"
-                               placeholder="Voorbeeldadres 123" value="<?= $contract->bandleider_adres ?>">
+                        <input type="text" name="bandleider_adres" class="form-control form-control-sm" placeholder="Voorbeeldadres 123" value="<?= $contract->bandleider_adres ?>">
                     </div>
                     <div class="col-md-2">
                         <label class="col-form-label">Postcode</label>
-                        <input type="text" name="bandleider_postcode" class="form-control form-control-sm" maxlength="6"
-                               placeholder="1234AB" value="<?= $contract->bandleider_postcode ?>">
+                        <input type="text" name="bandleider_postcode" class="form-control form-control-sm" maxlength="6" placeholder="1234AB" value="<?= $contract->bandleider_postcode ?>">
                     </div>
-
                     <div class="col-md-4">
                         <label class="col-form-label">Woonplaats</label>
-                        <input type="text" name="bandleider_woonplaats" class="form-control form-control-sm"
-                               placeholder="Barendrecht" value="<?= $contract->bandleider_woonplaats ?>">
+                        <input type="text" name="bandleider_woonplaats" class="form-control form-control-sm" placeholder="Barendrecht" value="<?= $contract->bandleider_woonplaats ?>">
                     </div>
                 </div>
                 <div class="row">
@@ -153,15 +133,12 @@ use PortalCMS\Core\View\Text;
                         <label class="col-form-label">Geboortedatum</label>
                         <div class="form-group date" id="datetimepicker1" data-target-input="nearest">
                             <div class="input-group">
-                                <div class="input-group-append" data-target="#datetimepicker1"
-                                     data-toggle="datetimepicker">
+                                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                                     <div class="input-group-text">
                                         <i class="fa fa-calendar"></i>
                                     </div>
                                 </div>
-                                <input type="text" name="bandleider_geboortedatum"
-                                       class="form-control datetimepicker-input" data-target="#datetimepicker1"
-                                       value="<?= $contract->bandleider_geboortedatum ?>">
+                                <input type="text" name="bandleider_geboortedatum" class="form-control datetimepicker-input" data-target="#datetimepicker1" value="<?= $contract->bandleider_geboortedatum ?>">
                             </div>
                         </div>
                     </div>
@@ -169,27 +146,23 @@ use PortalCMS\Core\View\Text;
                 <div class="row">
                     <div class="col-md-6">
                         <label class="col-form-label">Telefoonnummer 1</label>
-                        <input type="text" name="bandleider_telefoonnummer1" class="form-control form-control-sm"
-                               value="<?= $contract->bandleider_telefoonnummer1 ?>">
+                        <input type="text" name="bandleider_telefoonnummer1" class="form-control form-control-sm" value="<?= $contract->bandleider_telefoonnummer1 ?>">
                     </div>
                     <div class="col-md-6">
                         <label class="col-form-label">Telefoonnummer 2</label>
-                        <input type="text" name="bandleider_telefoonnummer2" class="form-control form-control-sm"
-                               value="<?= $contract->bandleider_telefoonnummer2 ?>">
+                        <input type="text" name="bandleider_telefoonnummer2" class="form-control form-control-sm" value="<?= $contract->bandleider_telefoonnummer2 ?>">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <label class="col-form-label">E-mail</label>
-                        <input type="text" name="bandleider_email" class="form-control form-control-sm"
-                               value="<?= $contract->bandleider_email ?>">
+                        <input type="text" name="bandleider_email" class="form-control form-control-sm" value="<?= $contract->bandleider_email ?>">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <label class="col-form-label">BSN</label>
-                        <input type="text" name="bandleider_bsn" class="form-control form-control-sm"
-                               value="<?= $contract->bandleider_bsn ?>">
+                        <input type="text" name="bandleider_bsn" class="form-control form-control-sm" value="<?= $contract->bandleider_bsn ?>">
                     </div>
                 </div>
             </div>
@@ -270,27 +243,23 @@ use PortalCMS\Core\View\Text;
             <div class="form-group row">
                 <div class="col-md-6">
                     <label class="col-form-label">huur_start</label>
-                    <input type="text" name="huur_start" class="form-control form-control-sm"
-                           value="<?= $contract->huur_start ?>">
+                    <input type="text" name="huur_start" class="form-control form-control-sm" value="<?= $contract->huur_start ?>">
                 </div>
                 <div class="col-md-6">
                     <label class="col-form-label">huur_eind</label>
-                    <input type="text" name="huur_einde" class="form-control form-control-sm"
-                           value="<?= $contract->huur_einde ?>">
+                    <input type="text" name="huur_einde" class="form-control form-control-sm" value="<?= $contract->huur_einde ?>">
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-md-12">
                     <label class="col-form-label">huur_kast_nr</label>
-                    <input type="text" name="huur_kast_nr" class="form-control form-control-sm"
-                           value="<?= $contract->huur_kast_nr ?>">
+                    <input type="text" name="huur_kast_nr" class="form-control form-control-sm" value="<?= $contract->huur_kast_nr ?>">
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-md-4">
                     <label class="col-form-label">beuk_vertegenwoordiger</label>
-                    <input type="text" name="beuk_vertegenwoordiger" class="form-control form-control-sm"
-                           value="<?= $contract->beuk_vertegenwoordiger ?>">
+                    <input type="text" name="beuk_vertegenwoordiger" class="form-control form-control-sm" value="<?= $contract->beuk_vertegenwoordiger ?>">
                 </div>
             </div>
         </div>
@@ -300,14 +269,9 @@ use PortalCMS\Core\View\Text;
         <div class="col-md-12">
             <hr>
             <p>* = verplicht veld.</p>
-            <div class="form-group row">
-                <div class="col-md-6">
-                    <label class="col-form-label">&#xA0;</label>
-                    <input type="hidden" name="id" value="<?= $contract->id ?>">
-                    <input type="submit" name="updateContract" class="btn btn-sm btn-primary" value="Opslaan">
-                    <a href="View?id=<?= $contract->id ?>" class="btn btn-sm btn-danger">Annuleren</a>
-                </div>
-            </div>
+            <input type="hidden" name="id" value="<?= $contract->id ?>">
+            <input type="submit" name="updateContract" class="btn btn-sm btn-primary" value="Opslaan">
+            <a href="View?id=<?= $contract->id ?>" class="btn btn-sm btn-danger">Annuleren</a>
         </div>
     </div>
 

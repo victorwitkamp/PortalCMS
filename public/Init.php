@@ -6,9 +6,9 @@
  * @link    https://portal.victorwitkamp.nl/
  */
 
-require 'config/error-reporting.php';
-require 'config/session.php';
-require 'config/constants.php';
+require '../config/error-reporting.php';
+require '../config/session.php';
+require '../config/constants.php';
 
 if (!file_exists(DIR_TEMP)) {
     if (!mkdir($concurrentDirectory = DIR_TEMP, 0777, true) && !is_dir($concurrentDirectory)) {

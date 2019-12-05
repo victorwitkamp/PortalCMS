@@ -5,16 +5,17 @@ use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Contracts\ContractMapper;
 
 $pageName = Text::get('TITLE_CONTRACTS');
-// Authentication::checkAuthentication();
-// Authorization::verifyPermission('rental-contracts');
+
 $contracts = ContractMapper::get();
 ?>
 <?= $this->layout('layout', ['title' => $pageName]) ?>
 <?= $this->push('head-extra') ?>
+
     <link rel="stylesheet" type="text/css" href="/dist/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
     <script src="/dist/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="/dist/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script src="/includes/js/init.datatables.js" class="init"></script>
+
 <?= $this->end() ?>
 <?= $this->push('main-content') ?>
 
@@ -39,24 +40,14 @@ $contracts = ContractMapper::get();
                     <tbody>
                     <?php
                     foreach ($contracts as $contract) { ?>
-                            <tr>
-                                <td><a href="View?id=<?= $contract->id ?>"><?= $contract->band_naam ?></a></td>
-                                <td><?= $contract->bandcode ?></td>
-                            </tr>
+                        <tr>
+                            <td><a href="View?id=<?= $contract->id ?>"><?= $contract->band_naam ?></a></td>
+                            <td><?= $contract->bandcode ?></td>
+                        </tr>
                     <?php } ?>
                     </tbody>
                 </table>
             <?php } ?>
-            <!-- <script class="init">
-                $(document).ready(function() {
-                    var table = $('#example').DataTable({
-                        "scrollX": true,
-                        "language": {
-                            "url": '//cdn.datatables.net/plug-ins/1.10.19/i18n/Dutch.json'
-                        }
-                    });
-                } );
-            </script> -->
         </div>
 
 <?= $this->end();

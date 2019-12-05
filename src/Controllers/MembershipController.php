@@ -10,6 +10,8 @@ namespace PortalCMS\Controllers;
 use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Core\Security\Authentication\Authentication;
+use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Modules\Members\MemberModel;
 
 class MembershipController extends Controller
@@ -38,12 +40,16 @@ class MembershipController extends Controller
 
     public function index()
     {
+        Authentication::checkAuthentication();
+        Authorization::verifyPermission('membership');
         $templates = new \League\Plates\Engine(DIR_VIEW);
         echo $templates->render('Pages/Membership/index');
     }
 
     public function new()
     {
+        Authentication::checkAuthentication();
+        Authorization::verifyPermission('membership');
         $templates = new \League\Plates\Engine(DIR_VIEW);
         echo $templates->render('Pages/Membership/new');
     }

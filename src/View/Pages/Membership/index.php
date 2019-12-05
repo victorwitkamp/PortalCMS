@@ -1,6 +1,5 @@
 <?php
 
-
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\View\Alert;
@@ -11,8 +10,7 @@ $year = Request::get('year');
 if (!isset($year)) {
     Redirect::to('membership/?year=' . date('Y'));
 }
-// Authentication::checkAuthentication();
-// Authorization::verifyPermission('membership');
+
 ?>
 <?= $this->layout('layout', ['title' => $pageName]) ?>
 <?= $this->push('head-extra') ?>
@@ -35,7 +33,6 @@ if (!isset($year)) {
         <hr>
         <?php
         Alert::renderFeedbackMessages();
-        // PortalCMS_JS_Init_dataTables();
         $members = MemberModel::getMembersByYear($year);
         if (empty($members)) {
             echo Text::get('LABEL_NOT_FOUND');

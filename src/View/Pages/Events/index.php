@@ -8,13 +8,16 @@ $pageName = (string) Text::get('TITLE_EVENTS');
 ?>
 <?= $this->layout('layout', ['title' => $pageName]) ?>
 <?= $this->push('head-extra') ?>
+
     <link rel="stylesheet" type="text/css" href="/dist/merged/@fullcalendar/fullcalendar.min.css"/>
     <script src="/dist/moment/min/moment.min.js"></script>
     <script src="/dist/moment/locale/nl.js"></script>
     <script src="/dist/merged/@fullcalendar/fullcalendar.min.js"></script>
     <script src="/includes/js/calendar.js"></script>
+
 <?= $this->end() ?>
 <?= $this->push('main-content') ?>
+
     <div class="container">
         <div class="row mt-5">
             <div class="col-sm-8">
@@ -36,8 +39,10 @@ $pageName = (string) Text::get('TITLE_EVENTS');
             </div>
         </div>
     </div>
+
 <?= $this->end() ?>
 <?= $this->push('scripts') ?>
+
     <div id="fullCalModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -64,4 +69,5 @@ $pageName = (string) Text::get('TITLE_EVENTS');
             </div>
         </div>
     </div>
+
 <?= $this->end();

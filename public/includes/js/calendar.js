@@ -52,9 +52,9 @@ document.addEventListener('DOMContentLoaded', function () {
       })
     },
     eventClick: function (e) {
-      var link = 'edit?id=' + e.event.id
+      var link = 'Edit?id=' + e.event.id
       // e.event.id,
-      $('#modalBody').load('details?id=' + e.event.id)
+      $('#modalBody').load('Details?id=' + e.event.id)
       $('#eventUrl').attr('href', link)
       $('#deleteUrl').attr('value', e.event.id)
       $('#fullCalModal').modal()

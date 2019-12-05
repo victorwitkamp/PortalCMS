@@ -12,7 +12,6 @@ use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
-use PortalCMS\Core\Security\Authentication\Service\LoginService;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\User\Password;
 use PortalCMS\Core\User\User;
@@ -79,10 +78,10 @@ class AccountController extends Controller
         if (UserPDOWriter::updateFBid(Session::get('user_id'), null)) {
             Session::set('user_fbid', null);
             Session::add('feedback_positive', Text::get('FEEDBACK_REMOVE_FACEBOOK_ACCOUNT_SUCCESS'));
-            Redirect::to('account');
+            Redirect::to('Account');
         }
         Session::add('feedback_negative', Text::get('FEEDBACK_REMOVE_FACEBOOK_ACCOUNT_FAILED'));
-        Redirect::to('account');
+        Redirect::to('Account');
     }
 
     public static function setFbid(int $FbId)
@@ -91,14 +90,14 @@ class AccountController extends Controller
             if (UserPDOWriter::updateFBid(Session::get('user_id'), $FbId)) {
                 Session::set('user_fbid', $FbId);
                 Session::add('feedback_positive', Text::get('FEEDBACK_CONNECT_FACEBOOK_ACCOUNT_SUCCESS'));
-                Redirect::to('account');
+                Redirect::to('Account');
             } else {
                 Session::add('feedback_negative', Text::get('FEEDBACK_CONNECT_FACEBOOK_ACCOUNT_FAILED'));
-                Redirect::to('account');
+                Redirect::to('Account');
             }
         } else {
             Session::add('feedback_negative', Text::get('FEEDBACK_CONNECT_FACEBOOK_ACCOUNT_FAILED'));
-            Redirect::to('account');
+            Redirect::to('Account');
         }
     }
 }

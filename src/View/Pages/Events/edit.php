@@ -5,15 +5,15 @@ use PortalCMS\Core\View\Text;
 
 ?>
 <?= $this->layout('layout', ['title' => $this->e($pageName)]) ?>
-
 <?= $this->push('head-extra') ?>
+
     <link rel="stylesheet" type="text/css" href="/dist/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css">
     <script src="/dist/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js" async></script>
     <script src="/includes/js/datepicker_event.js"></script>
     <!-- <script src="/includes/js/jquery-simple-validator.nl.js"></script> -->
     <!-- <link rel="stylesheet" type="text/css" href="/includes/css/jquery-simple-validator.css"> -->
-<?= $this->end() ?>
 
+<?= $this->end() ?>
 <?= $this->push('main-content') ?>
 
         <div class="container">
@@ -75,9 +75,9 @@ use PortalCMS\Core\View\Text;
                 <div class="form-group form-group-sm row">
                     <input type="hidden" name="id" value="<?= $event->id ?>">
                     <button type="submit" name="updateEvent" class="btn btn-sm btn-primary"><?= Text::get('LABEL_SUBMIT') ?> <i class="far fa-save"></i></button>
-                    <a href="index.php" class="btn btn-sm btn-danger"><?= Text::get('LABEL_CANCEL') ?> <i class="fas fa-times"></i></a>
+                    <a href="Index" class="btn btn-sm btn-danger"><?= Text::get('LABEL_CANCEL') ?> <i class="fas fa-times"></i></a>
                 </div>
             </form>
         </div>
 
-<?= $this->end() ?>
+<?= $this->end();

@@ -13,8 +13,9 @@ use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
-use PortalCMS\Modules\Calendar\CalendarEventModel;
+use PortalCMS\Core\Session\Session;
 use PortalCMS\Modules\Calendar\CalendarEventMapper;
+use PortalCMS\Modules\Calendar\CalendarEventModel;
 
 /**
  * EventsController
@@ -48,7 +49,7 @@ class EventsController extends Controller
         Authentication::checkAuthentication();
         Authorization::verifyPermission('events');
         $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Events/index');
+        echo $templates->render('Pages/Events/Index');
     }
 
     /**
@@ -65,12 +66,20 @@ class EventsController extends Controller
         }
     }
 
+    /**
+     * Route: add.
+     */
     public function add()
     {
+        Authentication::checkAuthentication();
+        Authorization::verifyPermission('events');
         $templates = new \League\Plates\Engine(DIR_VIEW);
         echo $templates->render('Pages/Events/add');
     }
 
+    /**
+     * Route: edit.
+     */
     public function edit()
     {
         Authentication::checkAuthentication();

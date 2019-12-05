@@ -39,7 +39,7 @@ $loginUrl = $helper->getLoginUrl(Config::get('FB_LOGIN_URL'), $permissions);
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 </head>
 <body class='bg'>
-    <?php require DIR_INCLUDES . 'loadingAnimation.php'; ?>
+    <?php require 'inc/loadingAnimation.php'; ?>
     <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" href="<?= SiteSetting::getStaticSiteSetting('site_url') ?>"><?= SiteSetting::getStaticSiteSetting('site_name') ?></a>
     </nav>

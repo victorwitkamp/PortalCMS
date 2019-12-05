@@ -1,50 +1,44 @@
 <?php
 
-use PortalCMS\Core\Security\Authentication\Authentication;
-use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Contracts\ContractMapper;
 use PortalCMS\Modules\Invoices\InvoiceMapper;
 
-
 $pageName = Text::get('LABEL_CONTRACT_INVOICES_FOR_ID') . ': ' . Request::get('id');
-Authentication::checkAuthentication();
-Authorization::verifyPermission('rental-contracts');
+
 $contract = ContractMapper::getById(Request::get('id'));
 if (empty($contract)) {
     Redirect::to('Error/Error');
 }
 $pageName = 'Facturen voor ' . $contract->band_naam;
-
-require_once DIR_INCLUDES . 'head.php';
-displayHeadCSS();
-PortalCMS_CSS_dataTables();
-PortalCMS_JS_headJS();
-PortalCMS_JS_dataTables();
 ?>
-</head>
-<body>
-<?php require DIR_VIEW . 'Parts/Nav.php'; ?>
-<main>
-    <div class="content">
-        <div class="container">
-            <div class="row mt-5">
-                <div class="col-sm-8"><h1><?= $pageName ?></h1></div>
+<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->push('head-extra') ?>
+
+    <link rel="stylesheet" type="text/css" href="/dist/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+    <script src="/dist/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="/dist/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/includes/js/init.datatables.js" class="init"></script>
+
+<?= $this->end() ?>
+<?= $this->push('main-content') ?>
+
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-sm-8">
+                <h1><?= $pageName ?></h1>
             </div>
-            <hr>
-            <?php
-            $invoices = InvoiceMapper::getByContractId((int) Request::get('id'));
-            if (!empty($invoices)) {
-                include_once DIR_ROOT . 'Invoices/invoices_table.php';
-                PortalCMS_JS_Init_dataTables();
-            } else {
-                echo 'Ontbrekende gegevens..';
-            }
-            ?>
         </div>
+        <hr>
+        <?php
+        $invoices = InvoiceMapper::getByContractId((int) Request::get('id'));
+        if (!empty($invoices)) {
+            include_once DIR_VIEW . 'Pages/Invoices/invoices_table.php';
+        } else {
+            echo Text::get('LABEL_NOT_FOUND');
+        } ?>
     </div>
-</main>
-<?php require DIR_INCLUDES . 'footer.php'; ?>
-</body>
+
+<?= $this->end();
