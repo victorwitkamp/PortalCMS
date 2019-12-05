@@ -18,14 +18,14 @@ class RolePermission
         $Permission = PermissionMapper::getById($perm_id);
         if (RolePermissionMapper::isAssigned($role_id, $Permission['perm_desc'])) {
             Session::add('feedback_negative', 'Reeds toegewezen.');
-            Redirect::to('includes/error.php');
+            Redirect::to('Error/Error');
         } else {
             if (RolePermissionMapper::assign($role_id, $perm_id)) {
                 Session::add('feedback_positive', 'Permissie toegewezen.');
-                Redirect::to('Settings/Users/role?role_id=' . $role_id);
+                Redirect::to('UserManagement/Role/?id=' . $role_id);
             } else {
                 Session::add('feedback_negative', 'Fout bij het toewijzen van de permissie.');
-                Redirect::to('includes/error.php');
+                Redirect::to('Error/Error');
             }
         }
     }
@@ -35,14 +35,14 @@ class RolePermission
         $Permission = PermissionMapper::getById($perm_id);
         if (!RolePermissionMapper::isAssigned($role_id, $Permission['perm_desc'])) {
             Session::add('feedback_negative', 'Niet toegewezen.');
-            Redirect::to('includes/error.php');
+            Redirect::to('Error/Error');
         } else {
             if (RolePermissionMapper::unassign($role_id, $perm_id)) {
                 Session::add('feedback_positive', 'Permissie verwijderd.');
-                Redirect::to('Settings/Users/role?role_id=' . $role_id);
+                Redirect::to('UserManagement/Role/?id=' . $role_id);
             } else {
                 Session::add('feedback_negative', 'Fout bij het verwijderen van de permissie.');
-                Redirect::to('includes/error.php');
+                Redirect::to('Error/Error');
             }
         }
     }

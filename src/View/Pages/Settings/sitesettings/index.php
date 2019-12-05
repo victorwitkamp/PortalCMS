@@ -1,14 +1,11 @@
 <?php
-use PortalCMS\Core\Security\Authentication\Authentication;
-use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
-$pageName = Text::get('TITLE_SITE_SETTINGS');
-Authentication::checkAuthentication();
-Authorization::verifyPermission('site-settings'); ?>
+$pageName = Text::get('TITLE_SITE_SETTINGS'); ?>
 <?= $this->layout('layout', ['title' => $pageName]) ?>
 <?= $this->push('main-content') ?>
+
         <div class="container">
             <form method="post" class="container">
                 <div class="row mt-5">
@@ -24,4 +21,5 @@ Authorization::verifyPermission('site-settings'); ?>
             </form>
         </div>
     </div>
-<?= $this->end() ?>
+
+<?= $this->end();

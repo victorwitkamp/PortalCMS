@@ -51,6 +51,6 @@ use PortalCMS\Core\View\Text;
         <div class="dropdown-divider"></div>
         <h6 class="dropdown-header"><?= Text::get('LABEL_OTHER') ?></h6>
         <a class="dropdown-item" href="/Settings/Activity/"><?= Text::get('TITLE_RECENT_ACTIVITY') ?></a>
-        <a class="dropdown-item" href="/Settings/debug/"><?= Text::get('TITLE_DEBUG') ?></a>
+        <a class="dropdown-item" href="/Settings/Debug/"><?= Text::get('TITLE_DEBUG') ?></a>
     </div>
 </li>

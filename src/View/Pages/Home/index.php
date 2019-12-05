@@ -13,7 +13,7 @@ $pageName = Text::get('TITLE_HOME');
                     <div class="col-sm-3">
                         <img src='<?= SiteSetting::getStaticSiteSetting('site_logo') ?>' alt='logo' width='120px' height='120px' />
                         <?php if (Authorization::hasPermission('site-settings')) { ?>
-                            <br><a href="/Settings/logo/">Logo wijzigen</a>
+                            <br><a href="/Settings/Logo/">Logo wijzigen</a>
                         <?php } ?>
 
                     </div>

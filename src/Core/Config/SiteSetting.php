@@ -88,16 +88,16 @@ class SiteSetting
         if (!self::validateImageFile()) {
             return false;
         }
-        $target_file_path = Config::get('PATH_LOGO') . 'logo';
-        $target_file_path_public = Config::get('URL') . Config::get('PATH_LOGO_PUBLIC') . 'logo';
+        $targetPath = Config::get('PATH_LOGO') . 'logo';
+        $publicPath = Config::get('URL') . Config::get('PATH_LOGO_PUBLIC') . 'logo';
         self::resizeLogo(
             $_FILES['logo_file']['tmp_name'],
-            $target_file_path,
+            $targetPath,
             Config::get('AVATAR_SIZE'),
             Config::get('AVATAR_SIZE'),
             Config::get('AVATAR_JPEG_QUALITY')
         );
-        self::writeLogoToDatabase($target_file_path_public . '.jpg');
+        self::writeLogoToDatabase($publicPath . '.jpg');
         return true;
     }
 
@@ -117,7 +117,6 @@ class SiteSetting
             Session::add('feedback_negative', 'Directory ' . $path_logo . ' is not writeable');
             return false;
         }
-        //Session::add('feedback_positive', 'Directory '.$path_logo.' exists and is writeable');
         return true;
     }
 
@@ -133,14 +132,11 @@ class SiteSetting
             Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_IMAGE_UPLOAD_FAILED'));
             return false;
         }
-        if ($_FILES['logo_file']['size'] > 5000000) {
-            // if input file too big (>5MB)
+        if ($_FILES['logo_file']['size'] > 5000000) { // >5MB
             Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_UPLOAD_TOO_BIG'));
             return false;
         }
-        // get the image width, height and mime type
         $image_proportions = getimagesize($_FILES['logo_file']['tmp_name']);
-        // if input file too small
         if ($image_proportions[0] < Config::get('AVATAR_SIZE') || $image_proportions[1] < Config::get('AVATAR_SIZE')) {
             Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_UPLOAD_TOO_SMALL'));
             return false;
@@ -163,18 +159,14 @@ class SiteSetting
     {
         $stmt = DB::conn()->prepare("UPDATE site_settings SET string_value = ? WHERE setting = 'site_logo' LIMIT 1");
         if (!$stmt->execute([$fileName])) {
-            Session::add('feedback_negative', 'DB error');
+            Session::add('feedback_negative', 'Could not write to database');
             return false;
         }
-        Session::add('feedback_negative', 'write to db succes');
         return true;
     }
 
     /**
      * Resize avatar image (while keeping aspect ratio and cropping it off sexy)
-     *
-     * TROUBLESHOOTING: You don't see the new image ? Press F5 or CTRL-F5 to refresh browser cache.
-     *
      * @param string $source The location to the original raw image.
      * @param string $destination  The location to save the new image.
      * @param int    $final_width  The desired width of the new image

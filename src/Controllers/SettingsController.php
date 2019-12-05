@@ -36,18 +36,48 @@ class SettingsController extends Controller
         Router::processRequests($this->requests, __CLASS__);
     }
 
+    /**
+     * Route: /Settings/SiteSettings
+     */
     public function siteSettings()
     {
+        Authentication::checkAuthentication();
+        Authorization::verifyPermission('site-settings');
         $templates = new \League\Plates\Engine(DIR_VIEW);
         echo $templates->render('Pages/Settings/SiteSettings/index');
     }
 
+    /**
+     * Route: /Settings/Activity
+     */
     public function activity()
     {
         Authentication::checkAuthentication();
         Authorization::verifyPermission('recent-activity');
         $templates = new \League\Plates\Engine(DIR_VIEW);
         echo $templates->render('Pages/Settings/Activity/index');
+    }
+
+    /**
+     * Route: /Settings/Logo
+     */
+    public function logo()
+    {
+        Authentication::checkAuthentication();
+        Authorization::verifyPermission('site-settings');
+        $templates = new \League\Plates\Engine(DIR_VIEW);
+        echo $templates->render('Pages/Settings/Logo/index');
+    }
+
+    /**
+     * Route: /Settings/Debug
+     */
+    public function debug()
+    {
+        Authentication::checkAuthentication();
+        Authorization::verifyPermission('debug');
+        $templates = new \League\Plates\Engine(DIR_VIEW);
+        echo $templates->render('Pages/Settings/Debug/index');
     }
 
     public static function saveSiteSettings()
@@ -67,7 +97,7 @@ class SettingsController extends Controller
             Session::add('feedback_positive', Text::get('FEEDBACK_AVATAR_UPLOAD_SUCCESSFUL'));
             Redirect::to('home');
         } else {
-            Redirect::to('Settings/logo');
+            Redirect::to('Settings/Logo');
         }
     }
 }
