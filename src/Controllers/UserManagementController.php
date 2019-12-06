@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
+use PortalCMS\Controllers\ErrorController;
 use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
@@ -19,7 +20,9 @@ class UserManagementController extends Controller
      * The requests that this controller will handle
      * @var array $requests
      */
-    private $requests = [];
+    private $requests = [
+        'deleteuser' => 'POST'
+    ];
 
     /**
      * Constructor
@@ -60,5 +63,11 @@ class UserManagementController extends Controller
         Authorization::verifyPermission('user-management');
         $templates = new \League\Plates\Engine(DIR_VIEW);
         echo $templates->render('Pages/UserManagement/Role/index');
+    }
+
+    public static function deleteuser() {
+        $controller = new ErrorController();
+        $controller->notFound();
+
     }
 }

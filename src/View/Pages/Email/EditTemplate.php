@@ -7,7 +7,6 @@ use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
-
 $template = EmailTemplatePDOReader::getById(Request::get('id'));
 if (empty($template)) {
     Redirect::to('error');

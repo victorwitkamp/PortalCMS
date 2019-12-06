@@ -30,7 +30,7 @@ class MailTemplateController extends Controller
         'uploadAttachment' => 'POST',
         'deleteMailTemplateAttachments' => 'POST',
         'deleteTemplate' => 'POST',
-        'newTempalte' => 'POST',
+        'newTemplate' => 'POST',
         'editTemplate' => 'POST'
     ];
 

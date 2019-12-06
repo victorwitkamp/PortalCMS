@@ -88,7 +88,7 @@ class EmailController extends Controller
     /**
      * Route: NewTemplates.
      */
-    public function newTemplates()
+    public function newTemplate()
     {
         Authentication::checkAuthentication();
         Authorization::verifyPermission('mail-templates');

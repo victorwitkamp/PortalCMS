@@ -139,4 +139,15 @@ class UserPDOWriter
         $stmt->execute([':user_remember_me_token' => null, ':user_id' => $user_id]);
         return ($stmt->rowCount() === 1);
     }
+
+    public static function deleteUser($user_id) : bool
+    {
+        $stmt = DB::conn()->prepare(
+            'DELETE FROM users
+                WHERE user_id = ?
+                    LIMIT 1'
+        );
+        $stmt->execute([$user_id]);
+        return ($stmt->rowCount() === 1);
+    }
 }

@@ -23,8 +23,8 @@ if (empty($user)) {
                 <h1>Profiel van: <?= $user->user_name ?></h1>
             </div>
             <?php Alert::renderFeedbackMessages(); ?>
-            <form method="post" action="index.php">
-                <a href="Index" class="btn btn-sm btn-primary"><span class="fa fa-arrow-left"></span></a>
+            <form method="post">
+                <a href="/UserManagement/Users" class="btn btn-sm btn-primary"><span class="fa fa-arrow-left"></span></a>
                 <input type="hidden" name="user_id" value="<?= $user->user_id ?>">
                 <button type="submit" name="deleteuser" onclick="return confirm('Weet je zeker dat je <?= $user->user_name ?> wilt verwijderen?')" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></button>
             </form>
