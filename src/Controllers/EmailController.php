@@ -62,4 +62,37 @@ class EmailController extends Controller
         $templates = new \League\Plates\Engine(DIR_VIEW);
         echo $templates->render('Pages/Email/Details');
     }
+
+    /**
+     * Route: ViewTemplates.
+     */
+    public function viewTemplates()
+    {
+        Authentication::checkAuthentication();
+        Authorization::verifyPermission('mail-templates');
+        $templates = new \League\Plates\Engine(DIR_VIEW);
+        echo $templates->render('Pages/Email/ViewTemplates');
+    }
+
+    /**
+     * Route: EditTemplates.
+     */
+    public function editTemplate()
+    {
+        Authentication::checkAuthentication();
+        Authorization::verifyPermission('mail-templates');
+        $templates = new \League\Plates\Engine(DIR_VIEW);
+        echo $templates->render('Pages/Email/EditTemplate');
+    }
+
+    /**
+     * Route: NewTemplates.
+     */
+    public function newTemplates()
+    {
+        Authentication::checkAuthentication();
+        Authorization::verifyPermission('mail-templates');
+        $templates = new \League\Plates\Engine(DIR_VIEW);
+        echo $templates->render('Pages/Email/NewTemplate');
+    }
 }

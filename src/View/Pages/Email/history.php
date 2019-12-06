@@ -7,46 +7,42 @@ use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
 $pageType = 'history';
-require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
 $pageName = Text::get('TITLE_MAIL_HISTORY');
-Authentication::checkAuthentication();
-Authorization::verifyPermission('mail-scheduler');
-require_once DIR_INCLUDES . 'functions.php';
-require_once DIR_INCLUDES . 'head.php';
-displayHeadCSS();
-PortalCMS_CSS_dataTables();
-PortalCMS_JS_headJS();
-PortalCMS_JS_dataTables();
 ?>
-</head>
-<body>
-<?php require DIR_VIEW . 'Parts/Nav.php'; ?>
-<main>
-    <div class="content">
-        <div class="container">
-            <div class="row mt-5">
-                <div class="col-sm-8"><h1><?= $pageName ?></h1></div>
-                <div class="col-sm-4">
-                    <a href="generate/" class="btn btn-info float-right">
-                        <span class="fa fa-plus"></span> <?= Text::get('LABEL_NEW_EMAIL') ?>
-                    </a>
-                </div>
-            </div>
-            <hr>
+<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->push('head-extra') ?>
+
+<link rel="stylesheet" type="text/css" href="/dist/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+<script src="/dist/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/dist/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="/includes/js/init.datatables.js" class="init"></script>
+
+<?= $this->end() ?>
+<?= $this->push('main-content') ?>
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-sm-8">
+            <h1><?= $pageName ?></h1>
         </div>
-        <div class="container">
-            <?php
-            Alert::renderFeedbackMessages();
-            PortalCMS_JS_Init_dataTables();
-            $result = MailScheduleMapper::getHistory();
-            if (!$result) {
-                echo 'Geen berichten gevonden.';
-            } else {
-                include 'inc/table_messages.php';
-            }
-            ?>
+        <div class="col-sm-4">
+            <a href="generate/" class="btn btn-info float-right">
+                <span class="fa fa-plus"></span> <?= Text::get('LABEL_NEW_EMAIL') ?>
+            </a>
         </div>
     </div>
-</main>
-<?php require DIR_VIEW . 'Parts/Footer.php'; ?>
-</body>
+    <hr>
+</div>
+<div class="container">
+    <?php
+    Alert::renderFeedbackMessages();
+    $result = MailScheduleMapper::getHistory();
+    if (!$result) {
+        echo 'Geen berichten gevonden.';
+    } else {
+        include 'inc/table_messages.php';
+    }
+    ?>
+</div>
+
+<?= $this->end();

@@ -39,7 +39,7 @@ $pageName = Text::get('TITLE_MAIL_BATCHES');
               <a class="nav-link active" href="Batches">Batches</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="messages.php">Messages</a>
+              <a class="nav-link" href="Messages">Messages</a>
             </li>
           </ul>
         </div>

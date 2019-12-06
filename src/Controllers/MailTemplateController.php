@@ -46,13 +46,13 @@ class MailTemplateController extends Controller
     public static function deleteTemplate() : void
     {
         EmailTemplateManager::delete((int) Request::post('id'));
-        Redirect::to('email/templates/');
+        Redirect::to('email/ViewTemplates');
     }
 
     public static function deleteMailTemplateAttachments() : void
     {
         EmailAttachment::deleteById(Request::post('id'));
-        Redirect::to('email/templates/edit.php?id=' . Request::get('id'));
+        Redirect::to('email/EditTemplate?id=' . Request::get('id'));
     }
 
     public static function uploadAttachment() : void
@@ -60,7 +60,7 @@ class MailTemplateController extends Controller
         Authentication::checkAuthentication();
         $attachment = new EmailAttachment($_FILES['attachment_file']);
         $attachment->store(null, (int) Request::get('id'));
-        Redirect::to('email/templates/edit.php?id=' . Request::get('id'));
+        Redirect::to('email/EditTemplate?id=' . Request::get('id'));
     }
 
     public static function editTemplate() : void
@@ -70,7 +70,7 @@ class MailTemplateController extends Controller
         $template->subject = Request::post('subject', true);
         $template->body = Request::post('body');
         $templateBuilder->update($template);
-        Redirect::to('email/templates/');
+        Redirect::to('email/ViewTemplates');
     }
 
     public static function newTemplate() : void
@@ -79,7 +79,7 @@ class MailTemplateController extends Controller
         $templateBuilder = new EmailTemplateManager();
         $templateBuilder->create('member', Request::post('subject', true), Request::post('body'));
         $templateBuilder->store();
-        Redirect::to('email/templates/');
+        Redirect::to('email/ViewTemplates');
     }
 
     public static function setYear() : void

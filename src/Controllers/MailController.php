@@ -43,7 +43,7 @@ class MailController extends Controller
     public static function sendScheduledMailById() : void
     {
         MailSchedule::sendMailsById((array) Request::post('id'));
-        Redirect::to('email/messages.php');
+        Redirect::to('email/Messages');
     }
 
     public static function createMailWithTemplate() : void
