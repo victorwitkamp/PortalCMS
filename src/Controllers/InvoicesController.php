@@ -12,6 +12,8 @@ use PortalCMS\Core\Email\Batch\MailBatch;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Router;
+use PortalCMS\Core\Security\Authentication\Authentication;
+use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Modules\Invoices\InvoiceItemModel;
 use PortalCMS\Modules\Invoices\InvoiceModel;
 
@@ -44,8 +46,26 @@ class InvoicesController extends Controller
 
     public function index()
     {
+        Authentication::checkAuthentication();
+        Authorization::verifyPermission('rental-invoices');
         $templates = new \League\Plates\Engine(DIR_VIEW);
         echo $templates->render('Pages/Invoices/index');
+    }
+
+    public function add()
+    {
+        Authentication::checkAuthentication();
+        Authorization::verifyPermission('rental-invoices');
+        $templates = new \League\Plates\Engine(DIR_VIEW);
+        echo $templates->render('Pages/Invoices/add');
+    }
+
+    public function createPDF()
+    {
+        Authentication::checkAuthentication();
+        Authorization::verifyPermission('rental-invoices');
+        $templates = new \League\Plates\Engine(DIR_VIEW);
+        echo $templates->render('Pages/Invoices/createPDF');
     }
 
     public static function createInvoiceMail()

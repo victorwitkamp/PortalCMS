@@ -43,7 +43,7 @@ class MembershipController extends Controller
         Authentication::checkAuthentication();
         Authorization::verifyPermission('membership');
         $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Membership/index');
+        echo $templates->render('Pages/Membership/Index');
     }
 
     public function new()
@@ -51,6 +51,14 @@ class MembershipController extends Controller
         Authentication::checkAuthentication();
         Authorization::verifyPermission('membership');
         $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Membership/new');
+        echo $templates->render('Pages/Membership/New');
+    }
+
+    public function edit()
+    {
+        Authentication::checkAuthentication();
+        Authorization::verifyPermission('membership');
+        $templates = new \League\Plates\Engine(DIR_VIEW);
+        echo $templates->render('Pages/Membership/Edit');
     }
 }

@@ -55,7 +55,7 @@ if (!isset($year)) {
                                     <a href="profile.php?id=<?= $member->id ?>" title="Lidmaatschap bekijken" class="btn btn-primary btn-sm">
                                         <span class="fa fa-user"></span>
                                     </a>
-                                    <a href="edit.php?id=<?= $member->id ?>" title="Gegevens wijzigen" class="btn btn-warning btn-sm">
+                                    <a href="Edit?id=<?= $member->id ?>" title="Gegevens wijzigen" class="btn btn-warning btn-sm">
                                         <span class="fa fa-edit"></span>
                                     </a>
                                     <input name="id" type="hidden" value="<?= $member->id ?>">

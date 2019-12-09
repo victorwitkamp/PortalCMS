@@ -1,7 +1,6 @@
 <?php
 
 use PortalCMS\Core\HTTP\Redirect;
-use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\User\UserPDOReader;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
@@ -10,8 +9,7 @@ $pageName = Text::get('TITLE_PROFILE');
 
 $user = UserPDOReader::getProfileById((int) $_GET['id']);
 if (empty($user)) {
-    Session::add('feedback_negative', 'De gebruiker bestaat niet.');
-    Redirect::to('Error/Error');
+    Redirect::to('Error/NotFound');
 } else {
     $pageName = Text::get('TITLE_PROFILE') . $user->user_name;
 } ?>

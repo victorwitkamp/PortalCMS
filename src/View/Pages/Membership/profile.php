@@ -25,7 +25,7 @@ $pageName = 'Lidmaatschap van ' . $row->voornaam . ' ' . $row->achternaam;
             <a href="Index" class="btn btn-sm btn-primary">
                 <span class="fa fa-arrow-left"></span>
             </a>
-            <a href="edit.php?id=<?= $row->id ?>" class="btn btn-sm btn-warning">
+            <a href="Edit?id=<?= $row->id ?>" class="btn btn-sm btn-warning">
                 <span class="fa fa-edit"></span>
             </a>
             <input name="id" type="hidden" value="<?= $row->id ?>">

@@ -72,7 +72,7 @@ use PortalCMS\Modules\Invoices\InvoiceModel;
                 ?>
             </td>
             <td>
-                <a href="/Invoices/createpdf.php?id=<?= $invoice->id ?>" title="PDF maken" class="btn btn-success">
+                <a href="/Invoices/CreatePDF?id=<?= $invoice->id ?>" title="PDF maken" class="btn btn-success">
                 <span class="fas fa-file-pdf"></span>
             </a>
             </td>

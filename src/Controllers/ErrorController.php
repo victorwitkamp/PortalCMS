@@ -33,7 +33,6 @@ class ErrorController extends Controller
         header('HTTP/1.0 404 Not Found', true, 404);
         $templates = new \League\Plates\Engine(DIR_VIEW);
         echo $templates->render('Pages/Error/NotFound');
-        die;
     }
 
     public function permissionError()

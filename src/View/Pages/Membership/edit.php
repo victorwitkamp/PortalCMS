@@ -1,47 +1,40 @@
 <?php
 
-use PortalCMS\Core\Security\Authentication\Authentication;
-use PortalCMS\Core\Security\Authorization\Authorization;
-use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Modules\Members\MemberModel;
 
 $pageName = 'Wijzigen';
 $pageType = 'edit';
-
-Authentication::checkAuthentication();
-Authorization::verifyPermission('membership');
 
 if (MemberModel::doesMemberIdExist($_GET['id'])) {
     $row = MemberModel::getMemberById($_GET['id']);
     $allowEdit = true;
     $pageName = 'Lidmaatschap van ' . $row->voornaam . ' ' . $row->achternaam . ' bewerken';
 } else {
-    Session::add('feedback_negative', 'Geen resultaten voor opgegeven Id.');
+    Redirect::to('Error/NotFound');
 }
-require_once DIR_INCLUDES . 'head.php';
-displayHeadCSS();
-PortalCMS_CSS_tempusdominus();
-PortalCMS_JS_headJS();
-PortalCMS_JS_tempusdominus();
-PortalCMS_JS_JQuery_Simple_validator();
-PortalCMS_JS_Datepicker_membership();
 ?>
-</head>
-<body>
-<?php require DIR_VIEW . 'Parts/Nav.php'; ?>
-<main role="main" role="main">
-    <div class="content">
-        <div class="container">
-            <div class="row mt-5">
-                <h1><?= $pageName ?></h1>
-            </div>
-        </div>
-        <hr>
-        <div class="container">
-            <?php require 'form.php'; ?>
-        </div>
+<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->push('head-extra') ?>
+
+<link rel="stylesheet" type="text/css" href="/dist/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css">
+<script src="/dist/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js" async></script>
+<script src="/includes/js/jquery-simple-validator.nl.js"></script>
+<link rel="stylesheet" type="text/css" href="/includes/css/jquery-simple-validator.css">
+<script src="/includes/js/datepicker_membership.js"></script>
+
+<?= $this->end() ?>
+<?= $this->push('main-content') ?>
+
+
+<div class="container">
+    <div class="row mt-5">
+        <h1><?= $pageName ?></h1>
     </div>
-</main>
-<?php require DIR_VIEW . 'Parts/Footer.php'; ?>
-</body>
-</html>
+</div>
+<hr>
+<div class="container">
+    <?php require 'form.php'; ?>
+</div>
+
+<?= $this->end();
