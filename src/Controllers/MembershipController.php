@@ -23,6 +23,8 @@ class MembershipController extends Controller
     {
         parent::__construct();
 
+        Authentication::checkAuthentication();
+
         if (isset($_POST['saveMember'])) {
             MemberModel::saveMember();
         }
@@ -40,25 +42,41 @@ class MembershipController extends Controller
 
     public function index()
     {
-        Authentication::checkAuthentication();
-        Authorization::verifyPermission('membership');
-        $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Membership/Index');
+        if (Authorization::hasPermission('membership')) {
+            $templates = new \League\Plates\Engine(DIR_VIEW);
+            echo $templates->render('Pages/Membership/Index');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
     }
 
     public function new()
     {
-        Authentication::checkAuthentication();
-        Authorization::verifyPermission('membership');
-        $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Membership/New');
+        if (Authorization::hasPermission('membership')) {
+            $templates = new \League\Plates\Engine(DIR_VIEW);
+            echo $templates->render('Pages/Membership/New');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
     }
 
     public function edit()
     {
-        Authentication::checkAuthentication();
-        Authorization::verifyPermission('membership');
-        $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Membership/Edit');
+        if (Authorization::hasPermission('membership')) {
+            $templates = new \League\Plates\Engine(DIR_VIEW);
+            echo $templates->render('Pages/Membership/Edit');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
+    }
+
+    public function profile()
+    {
+        if (Authorization::hasPermission('membership')) {
+            $templates = new \League\Plates\Engine(DIR_VIEW);
+            echo $templates->render('Pages/Membership/Profile');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
     }
 }

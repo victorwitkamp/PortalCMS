@@ -41,7 +41,7 @@ class View
      * @param  string $str The string.
      * @return string
      */
-    public function encodeHTML($str): string
+    public static function encodeHTML($str): string
     {
         return htmlentities($str, ENT_QUOTES, 'UTF-8');
     }

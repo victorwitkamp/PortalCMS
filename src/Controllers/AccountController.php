@@ -39,23 +39,14 @@ class AccountController extends Controller
     public function __construct()
     {
         parent::__construct();
+        Authentication::checkAuthentication();
         Router::processRequests($this->requests, __CLASS__);
     }
 
-    /**
-     * Index, default action (shows the login form), when you do login/index
-     */
-    public static function index()
+    public function index()
     {
-        if (Authentication::userIsLoggedIn()) {
-            $templates = new \League\Plates\Engine(DIR_VIEW);
-            echo $templates->render('Pages/Account/index');
-        } else {
-            // $data = array('redirect' => Request::get('redirect') ? Request::get('redirect') : NULL);
-            // $this->View->render('login/index', $data);
-            // LoginService::loginWithCookie();
-            Redirect::to('Login');
-        }
+        $templates = new \League\Plates\Engine(DIR_VIEW);
+        echo $templates->render('Pages/Account/index');
     }
 
     public static function changeUsername()

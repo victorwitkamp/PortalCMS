@@ -27,54 +27,36 @@ class SettingsController extends Controller
         'uploadLogo' => 'POST'
     ];
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         parent::__construct();
+        Authentication::checkAuthentication();
         Router::processRequests($this->requests, __CLASS__);
     }
 
-    /**
-     * Route: /Settings/SiteSettings
-     */
     public function siteSettings()
     {
-        Authentication::checkAuthentication();
         Authorization::verifyPermission('site-settings');
         $templates = new \League\Plates\Engine(DIR_VIEW);
         echo $templates->render('Pages/Settings/SiteSettings/index');
     }
 
-    /**
-     * Route: /Settings/Activity
-     */
     public function activity()
     {
-        Authentication::checkAuthentication();
         Authorization::verifyPermission('recent-activity');
         $templates = new \League\Plates\Engine(DIR_VIEW);
         echo $templates->render('Pages/Settings/Activity/index');
     }
 
-    /**
-     * Route: /Settings/Logo
-     */
     public function logo()
     {
-        Authentication::checkAuthentication();
         Authorization::verifyPermission('site-settings');
         $templates = new \League\Plates\Engine(DIR_VIEW);
         echo $templates->render('Pages/Settings/Logo/index');
     }
 
-    /**
-     * Route: /Settings/Debug
-     */
     public function debug()
     {
-        Authentication::checkAuthentication();
         Authorization::verifyPermission('debug');
         $templates = new \League\Plates\Engine(DIR_VIEW);
         echo $templates->render('Pages/Settings/Debug/index');

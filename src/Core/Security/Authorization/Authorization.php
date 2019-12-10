@@ -5,7 +5,6 @@
 declare(strict_types=1);
 namespace PortalCMS\Core\Security\Authorization;
 
-use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
 
 class Authorization
@@ -17,8 +16,11 @@ class Authorization
      */
     public static function verifyPermission(string $perm_desc)
     {
-        if(!self::hasPermission($perm_desc)) {
-            Redirect::to('Error/PermissionError');
+        if (!self::hasPermission($perm_desc)) {
+            header('HTTP/1.0 403 Forbidden', true, 403);
+            $templates = new \League\Plates\Engine(DIR_VIEW);
+            echo $templates->render('Pages/Error/PermissionError');
+            exit();
         } else {
             return true;
         }

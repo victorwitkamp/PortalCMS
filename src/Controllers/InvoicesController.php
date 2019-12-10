@@ -41,31 +41,48 @@ class InvoicesController extends Controller
     public function __construct()
     {
         parent::__construct();
+        Authentication::checkAuthentication();
         Router::processRequests($this->requests, __CLASS__);
     }
 
     public function index()
     {
-        Authentication::checkAuthentication();
-        Authorization::verifyPermission('rental-invoices');
-        $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Invoices/index');
+        if (Authorization::verifyPermission('rental-invoices')) {
+            $templates = new \League\Plates\Engine(DIR_VIEW);
+            echo $templates->render('Pages/Invoices/index');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
     }
 
     public function add()
     {
-        Authentication::checkAuthentication();
-        Authorization::verifyPermission('rental-invoices');
-        $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Invoices/add');
+        if (Authorization::verifyPermission('rental-invoices')) {
+            $templates = new \League\Plates\Engine(DIR_VIEW);
+            echo $templates->render('Pages/Invoices/add');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
+    }
+
+    public function details()
+    {
+        if (Authorization::verifyPermission('rental-invoices')) {
+            $templates = new \League\Plates\Engine(DIR_VIEW);
+            echo $templates->render('Pages/Invoices/details');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
     }
 
     public function createPDF()
     {
-        Authentication::checkAuthentication();
-        Authorization::verifyPermission('rental-invoices');
-        $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Invoices/createPDF');
+        if (Authorization::verifyPermission('rental-invoices')) {
+            $templates = new \League\Plates\Engine(DIR_VIEW);
+            echo $templates->render('Pages/Invoices/createPDF');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
     }
 
     public static function createInvoiceMail()

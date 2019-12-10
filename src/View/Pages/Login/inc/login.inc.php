@@ -1,9 +1,10 @@
 <?php
 
 use PortalCMS\Core\Config\Config;
-use PortalCMS\Core\Security\Csrf;
 use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Core\Security\Csrf;
 use PortalCMS\Core\View\Text;
+use PortalCMS\Core\View\View;
 
 ?>
 <div class="user_forms-login">
@@ -29,7 +30,7 @@ use PortalCMS\Core\View\Text;
         </div>
         <?php
         if (!empty(Request::get('redirect'))) {
-            ?><input type="hidden" name="redirect" value="<?= $login->View->encodeHTML(Request::get('redirect')) ?>"/><?php
+            ?><input type="hidden" name="redirect" value="<?= View::encodeHTML(Request::get('redirect')) ?>"/><?php
         }
         // set CSRF token in login form, although sending fake login requests mightn't be interesting gap here.
         // If you want to get deeper, check these answers:

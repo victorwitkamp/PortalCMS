@@ -47,10 +47,14 @@ class LoginController extends Controller
     /**
      * Index, default action (shows the login form), when you do login/index
      */
-    public static function index()
+    public function index()
     {
         if (Authentication::userIsLoggedIn()) {
-            Redirect::to('home');
+            if (Request::post('redirect')) {
+                return Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
+            } else {
+                return Redirect::to('home');
+            }
         } else {
             // $data = array('redirect' => Request::get('redirect') ? Request::get('redirect') : NULL);
             // $this->View->render('login/index', $data);
@@ -77,13 +81,12 @@ class LoginController extends Controller
             Redirect::to('login');
             return false;
         }
-        $redirect = Request::post('redirect');
-        if (!empty($redirect)) {
-            Redirect::to($redirect);
+        if (Request::post('redirect')) {
+            return Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
+        } else {
+            Redirect::to('home');
             return false;
         }
-        Redirect::to('home');
-        return false;
     }
 
     /**
@@ -108,14 +111,14 @@ class LoginController extends Controller
     public static function loginWithFacebook(int $fbid)
     {
         if (LoginService::loginWithFacebook($fbid)) {
-            // if (Request::post('redirect')) {
-            //     return Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
-            // }
+            if (Request::post('redirect')) {
+                return Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
+            }
             Redirect::to('home');
         } else {
-            // if (Request::post('redirect')) {
-            //     return Redirect::to('login/?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
-            // }
+            if (Request::post('redirect')) {
+                return Redirect::to('login/?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
+            }
             Redirect::to('login');
         }
     }

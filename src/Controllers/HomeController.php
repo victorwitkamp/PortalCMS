@@ -15,13 +15,12 @@ class HomeController extends Controller
     public function __construct()
     {
         parent::__construct();
+        Authentication::checkAuthentication();
     }
 
     public static function index()
     {
-        if (Authentication::userIsLoggedIn()) {
-            $templates = new \League\Plates\Engine(DIR_VIEW);
-            echo $templates->render('Pages/Home/index');
-        }
+        $templates = new \League\Plates\Engine(DIR_VIEW);
+        echo $templates->render('Pages/Home/index');
     }
 }

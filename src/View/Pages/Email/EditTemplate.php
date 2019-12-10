@@ -9,7 +9,7 @@ use PortalCMS\Core\View\Text;
 
 $template = EmailTemplatePDOReader::getById(Request::get('id'));
 if (empty($template)) {
-    Redirect::to('error');
+    Redirect::to('Error/NotFound');
 }
 $pageName = Text::get('TITLE_EDIT_MAIL_TEMPLATE');
 ?>

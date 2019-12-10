@@ -7,7 +7,9 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
+use PortalCMS\Controllers\ErrorController;
 use PortalCMS\Core\Controllers\Controller;
+use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Modules\Contracts\ContractModel;
@@ -24,6 +26,8 @@ class ContractsController extends Controller
     {
         parent::__construct();
 
+        Authentication::checkAuthentication();
+
         if (isset($_POST['updateContract'])) {
             ContractModel::update();
         }
@@ -35,58 +39,53 @@ class ContractsController extends Controller
         }
     }
 
-    /**
-     * Route: Index.
-     */
     public function index()
     {
-        Authentication::checkAuthentication();
-        Authorization::verifyPermission('rental-contracts');
-        $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Contracts/Index');
+        if (Authorization::hasPermission('rental-contracts')) {
+            $templates = new \League\Plates\Engine(DIR_VIEW);
+            echo $templates->render('Pages/Contracts/Index');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
     }
 
-    /**
-     * Route: New.
-     */
     public function new()
     {
-        Authentication::checkAuthentication();
-        Authorization::verifyPermission('rental-contracts');
-        $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Contracts/New');
+        if (Authorization::hasPermission('rental-contracts')) {
+            $templates = new \League\Plates\Engine(DIR_VIEW);
+            echo $templates->render('Pages/Contracts/New');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
     }
 
-    /**
-     * Route: Edit.
-     */
     public function edit()
     {
-        Authentication::checkAuthentication();
-        Authorization::verifyPermission('rental-contracts');
-        $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Contracts/Edit');
+        if (Authorization::hasPermission('rental-contracts')) {
+            $templates = new \League\Plates\Engine(DIR_VIEW);
+            echo $templates->render('Pages/Contracts/Edit');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
     }
 
-    /**
-     * Route: View.
-     */
     public function view()
     {
-        Authentication::checkAuthentication();
-        Authorization::verifyPermission('rental-contracts');
-        $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Contracts/View');
+        if (Authorization::hasPermission('rental-contracts')) {
+            $templates = new \League\Plates\Engine(DIR_VIEW);
+            echo $templates->render('Pages/Contracts/View');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
     }
 
-    /**
-     * Route: Invoices.
-     */
     public function invoices()
     {
-        Authentication::checkAuthentication();
-        Authorization::verifyPermission('rental-contracts');
-        $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Contracts/Invoices');
+        if (Authorization::hasPermission('rental-contracts')) {
+            $templates = new \League\Plates\Engine(DIR_VIEW);
+            echo $templates->render('Pages/Contracts/Invoices');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
     }
 }

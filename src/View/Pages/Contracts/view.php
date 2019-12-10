@@ -6,8 +6,7 @@ use PortalCMS\Modules\Contracts\ContractMapper;
 
 $contract = ContractMapper::getById($_GET['id']);
 if (empty($contract)) {
-    Session::add('feedback_negative', 'Het contract bestaat niet.');
-    Redirect::to('Error/Error');
+    Redirect::to('Error/NotFound');
 }
 $pageName = 'Contract van ' . $contract->band_naam;
 ?>

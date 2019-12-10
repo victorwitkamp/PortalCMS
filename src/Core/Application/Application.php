@@ -35,7 +35,7 @@ class Application
         if (file_exists(DIR_CONTROLLERS . $this->controller_name . '.php')) {
             require DIR_CONTROLLERS . $this->controller_name . '.php';
             $name = "PortalCMS\\Controllers" . "\\" . $this->controller_name;
-            $this->controller = new $name;
+            $this->controller = new $name();
             if (method_exists($this->controller, $this->action_name)) {
                 if (!empty($this->parameters)) {
                     call_user_func_array([$this->controller, $this->action_name], $this->parameters);
@@ -43,19 +43,15 @@ class Application
                     $this->controller->{$this->action_name}();
                 }
             } else {
-                // echo 'method "' . $this->action_name .'" does not exist.';
-                //require DIR_CONTROLLERS . 'ErrorController.php';
                 $this->controller = new ErrorController();
                 $this->controller->notFound();
             }
         } else {
-            // echo 'file does not exist<br>';
-            // echo DIR_CONTROLLERS . $this->controller_name . '.php';
-            //require DIR_CONTROLLERS . 'ErrorController.php';
             $this->controller = new ErrorController();
             $this->controller->notFound();
         }
     }
+
     /**
      * Get and split the URL
      */

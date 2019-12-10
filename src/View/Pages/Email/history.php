@@ -1,7 +1,5 @@
 <?php
 
-use PortalCMS\Core\Security\Authentication\Authentication;
-use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
@@ -26,7 +24,7 @@ $pageName = Text::get('TITLE_MAIL_HISTORY');
             <h1><?= $pageName ?></h1>
         </div>
         <div class="col-sm-4">
-            <a href="generate/" class="btn btn-info float-right">
+            <a href="/Email/Generate/" class="btn btn-info float-right">
                 <span class="fa fa-plus"></span> <?= Text::get('LABEL_NEW_EMAIL') ?>
             </a>
         </div>

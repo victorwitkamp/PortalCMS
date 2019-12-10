@@ -1,5 +1,6 @@
 <?php
 
+use PortalCMS\Controllers\ErrorController;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Session\Session;
@@ -10,8 +11,7 @@ $loadData = true;
 
 $contract = ContractMapper::getById(Request::get('id'));
 if (empty($contract)) {
-    Session::add('feedback_negative', 'Geen resultaten voor opgegeven Id.');
-    Redirect::to('Error/Error');
+    Redirect::to('Error/NotFound');
 }
 $pageName = 'Contract van ' . $contract->band_naam . ' bewerken';
 ?>

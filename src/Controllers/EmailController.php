@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace PortalCMS\Controllers;
 
 use PortalCMS\Core\Controllers\Controller;
+use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
 
@@ -17,6 +18,8 @@ class EmailController extends Controller
     public function __construct()
     {
         parent::__construct();
+
+        Authentication::checkAuthentication();
     }
 
     /**
@@ -24,10 +27,12 @@ class EmailController extends Controller
      */
     public function batches()
     {
-        Authentication::checkAuthentication();
-        Authorization::verifyPermission('mail-scheduler');
-        $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Email/Batches');
+        if (Authorization::hasPermission('mail-scheduler')) {
+            $templates = new \League\Plates\Engine(DIR_VIEW);
+            echo $templates->render('Pages/Email/Batches');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
     }
 
     /**
@@ -35,10 +40,12 @@ class EmailController extends Controller
      */
     public function messages()
     {
-        Authentication::checkAuthentication();
-        Authorization::verifyPermission('mail-scheduler');
-        $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Email/Messages');
+        if (Authorization::hasPermission('mail-scheduler')) {
+            $templates = new \League\Plates\Engine(DIR_VIEW);
+            echo $templates->render('Pages/Email/Messages');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
     }
 
     /**
@@ -46,10 +53,12 @@ class EmailController extends Controller
      */
     public function history()
     {
-        Authentication::checkAuthentication();
-        Authorization::verifyPermission('mail-scheduler');
-        $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Email/History');
+        if (Authorization::hasPermission('mail-scheduler')) {
+            $templates = new \League\Plates\Engine(DIR_VIEW);
+            echo $templates->render('Pages/Email/History');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
     }
 
     /**
@@ -57,10 +66,12 @@ class EmailController extends Controller
      */
     public function details()
     {
-        Authentication::checkAuthentication();
-        Authorization::verifyPermission('mail-scheduler');
-        $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Email/Details');
+        if (Authorization::hasPermission('mail-scheduler')) {
+            $templates = new \League\Plates\Engine(DIR_VIEW);
+            echo $templates->render('Pages/Email/Details');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
     }
 
     /**
@@ -68,10 +79,12 @@ class EmailController extends Controller
      */
     public function viewTemplates()
     {
-        Authentication::checkAuthentication();
-        Authorization::verifyPermission('mail-templates');
-        $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Email/ViewTemplates');
+        if (Authorization::hasPermission('mail-templates')) {
+            $templates = new \League\Plates\Engine(DIR_VIEW);
+            echo $templates->render('Pages/Email/ViewTemplates');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
     }
 
     /**
@@ -79,10 +92,12 @@ class EmailController extends Controller
      */
     public function editTemplate()
     {
-        Authentication::checkAuthentication();
-        Authorization::verifyPermission('mail-templates');
-        $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Email/EditTemplate');
+        if (Authorization::hasPermission('mail-templates')) {
+            $templates = new \League\Plates\Engine(DIR_VIEW);
+            echo $templates->render('Pages/Email/EditTemplate');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
     }
 
     /**
@@ -90,9 +105,37 @@ class EmailController extends Controller
      */
     public function newTemplate()
     {
-        Authentication::checkAuthentication();
-        Authorization::verifyPermission('mail-templates');
-        $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Email/NewTemplate');
+        if (Authorization::hasPermission('mail-templates')) {
+            $templates = new \League\Plates\Engine(DIR_VIEW);
+            echo $templates->render('Pages/Email/NewTemplate');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
+    }
+
+    /**
+     * Route: NewTemplates.
+     */
+    public function generate()
+    {
+        if (Authorization::hasPermission('mail-templates')) {
+            $templates = new \League\Plates\Engine(DIR_VIEW);
+            echo $templates->render('Pages/Email/Generate');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
+    }
+
+    /**
+     * Route: NewTemplates.
+     */
+    public function generateMember()
+    {
+        if (Authorization::hasPermission('mail-templates')) {
+            $templates = new \League\Plates\Engine(DIR_VIEW);
+            echo $templates->render('Pages/Email/GenerateMember');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
     }
 }

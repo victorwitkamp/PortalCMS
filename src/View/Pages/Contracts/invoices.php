@@ -10,7 +10,7 @@ $pageName = Text::get('LABEL_CONTRACT_INVOICES_FOR_ID') . ': ' . Request::get('i
 
 $contract = ContractMapper::getById(Request::get('id'));
 if (empty($contract)) {
-    Redirect::to('Error/Error');
+    Redirect::to('Error/NotFound');
 }
 $pageName = 'Facturen voor ' . $contract->band_naam;
 ?>
@@ -35,7 +35,7 @@ $pageName = 'Facturen voor ' . $contract->band_naam;
         <?php
         $invoices = InvoiceMapper::getByContractId((int) Request::get('id'));
         if (!empty($invoices)) {
-            include_once DIR_VIEW . 'Pages/Invoices/invoices_table.php';
+            include_once DIR_VIEW . 'Pages/Invoices/inc/table.php';
         } else {
             echo Text::get('LABEL_NOT_FOUND');
         } ?>

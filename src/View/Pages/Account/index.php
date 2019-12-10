@@ -12,10 +12,13 @@ $loginUrl = $helper->getLoginUrl(Config::get('FB_ASSIGN_URL'), $permissions);
 ?>
 <?= $this->layout('layout', ['title' => $pageName]) ?>
 <?= $this->push('head-extra') ?>
+
     <!-- <script src="/includes/js/jquery-simple-validator.nl.js"></script>
     <link rel="stylesheet" type="text/css" href="/includes/css/jquery-simple-validator.css"> -->
+
 <?= $this->end() ?>
 <?= $this->push('main-content') ?>
+
     <div class="container">
         <div class="row mt-5">
             <h1><?= $pageName ?></h1>
@@ -25,4 +28,5 @@ $loginUrl = $helper->getLoginUrl(Config::get('FB_ASSIGN_URL'), $permissions);
         <?php require DIR_VIEW . 'Pages/Account/inc/changePassword.inc.php'; ?>
         <?php require DIR_VIEW . 'Pages/Account/inc/changeUsername.inc.php'; ?>
     </div>
+
 <?= $this->end();

@@ -110,8 +110,10 @@ class MailSchedule
             MailScheduleMapper::setErrorMessageById($mailId, 'Subject or body is empty.');
             return false;
         }
-        self::sendSingleMailHandler($mailId, $scheduledMail, $recipients, $attachments);
-        return true;
+        if (self::sendSingleMailHandler($mailId, $scheduledMail, $recipients, $attachments)) {
+            return true;
+        }
+        return false;
     }
 
     public static function sendSingleMailHandler(int $mailId, $scheduledMail, array $recipients, array $attachments = null) : bool
