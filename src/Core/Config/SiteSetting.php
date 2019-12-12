@@ -8,7 +8,6 @@ declare(strict_types=1);
 namespace PortalCMS\Core\Config;
 
 use PDO;
-use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Database\DB;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Session\Session;

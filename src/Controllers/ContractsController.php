@@ -8,7 +8,6 @@ declare(strict_types=1);
 namespace PortalCMS\Controllers;
 
 use League\Plates\Engine;
-use PortalCMS\Controllers\ErrorController;
 use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Security\Authentication\Authentication;

@@ -1,7 +1,6 @@
 <?php
 
 use PortalCMS\Core\HTTP\Redirect;
-use PortalCMS\Core\Session\Session;
 use PortalCMS\Modules\Contracts\ContractMapper;
 
 $contract = ContractMapper::getById($_GET['id']);

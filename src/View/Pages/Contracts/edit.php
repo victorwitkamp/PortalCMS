@@ -1,9 +1,7 @@
 <?php
 
-use PortalCMS\Controllers\ErrorController;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Modules\Contracts\ContractMapper;
 
