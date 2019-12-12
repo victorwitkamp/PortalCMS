@@ -24,6 +24,7 @@ class ProfileController extends Controller
     public function __construct()
     {
         parent::__construct();
+        Authentication::checkAuthentication();
         Router::processRequests($this->requests, __CLASS__);
     }
 

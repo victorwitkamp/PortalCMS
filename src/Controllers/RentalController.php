@@ -24,13 +24,16 @@ class RentalController extends Controller
     public function __construct()
     {
         parent::__construct();
+
+        Authentication::checkAuthentication();
+
         Router::processRequests($this->requests, __CLASS__);
     }
 
     /**
      * Overview
      */
-    public static function overview()
+    public function overview()
     {
         $templates = new \League\Plates\Engine(DIR_VIEW);
         echo $templates->render('Pages/Rental/overview');

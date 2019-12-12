@@ -36,30 +36,42 @@ class SettingsController extends Controller
 
     public function siteSettings()
     {
-        Authorization::verifyPermission('site-settings');
-        $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Settings/SiteSettings/index');
+        if (Authorization::hasPermission('site-settings')) {
+            $templates = new \League\Plates\Engine(DIR_VIEW);
+            echo $templates->render('Pages/Settings/SiteSettings');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
     }
 
     public function activity()
     {
-        Authorization::verifyPermission('recent-activity');
-        $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Settings/Activity/index');
+        if (Authorization::hasPermission('recent-activity')) {
+            $templates = new \League\Plates\Engine(DIR_VIEW);
+            echo $templates->render('Pages/Settings/Activity');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
     }
 
     public function logo()
     {
-        Authorization::verifyPermission('site-settings');
-        $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Settings/Logo/index');
+        if (Authorization::hasPermission('site-settings')) {
+            $templates = new \League\Plates\Engine(DIR_VIEW);
+            echo $templates->render('Pages/Settings/Logo');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
     }
 
     public function debug()
     {
-        Authorization::verifyPermission('debug');
-        $templates = new \League\Plates\Engine(DIR_VIEW);
-        echo $templates->render('Pages/Settings/Debug/index');
+        if (Authorization::hasPermission('debug')) {
+            $templates = new \League\Plates\Engine(DIR_VIEW);
+            echo $templates->render('Pages/Settings/Debug');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
     }
 
     public static function saveSiteSettings()

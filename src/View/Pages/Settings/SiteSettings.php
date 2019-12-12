@@ -17,7 +17,7 @@ $pageName = Text::get('TITLE_SITE_SETTINGS'); ?>
                     </div>
                 </div>
                 <?php Alert::renderFeedbackMessages();
-                require 'inc/general.php'; ?>
+                require 'inc/SiteSettingsGeneral.php'; ?>
             </form>
         </div>
     </div>

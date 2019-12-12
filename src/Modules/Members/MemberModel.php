@@ -7,7 +7,6 @@ declare(strict_types=1);
 
 namespace PortalCMS\Modules\Members;
 
-
 use PDO;
 use PortalCMS\Core\Database\DB;
 use PortalCMS\Core\HTTP\Redirect;
@@ -96,8 +95,8 @@ class MemberModel
 
     public static function saveMember()
     {
-        $id                     = Request::post('id', true);
-        $jaarlidmaatschap       = Request::post('jaarlidmaatschap', true);
+        $id                     = (int) Request::post('id', true);
+        $jaarlidmaatschap       = (int) Request::post('jaarlidmaatschap', true);
         $voorletters            = Request::post('voorletters', true);
         $voornaam               = Request::post('voornaam', true);
         $achternaam             = Request::post('achternaam', true);
@@ -111,36 +110,37 @@ class MemberModel
         $emailadres             = Request::post('emailadres', true);
         $ingangsdatum           = Request::post('ingangsdatum', true);
         $geslacht               = Request::post('geslacht', true);
-        $nieuwsbrief            = Request::post('nieuwsbrief', true);
-        $vrijwilliger           = Request::post('vrijwilliger', true);
-        $vrijwilligeroptie1     = Request::post('vrijwilligeroptie1', true);
-        $vrijwilligeroptie2     = Request::post('vrijwilligeroptie2', true);
-        $vrijwilligeroptie3     = Request::post('vrijwilligeroptie3', true);
-        $vrijwilligeroptie4     = Request::post('vrijwilligeroptie4', true);
-        $vrijwilligeroptie5     = Request::post('vrijwilligeroptie5', true);
+        $nieuwsbrief            = (int) Request::post('nieuwsbrief', true);
+        $vrijwilliger           = (int) Request::post('vrijwilliger', true);
+        $vrijwilligeroptie1     = (int) Request::post('vrijwilligeroptie1', true);
+        $vrijwilligeroptie2     = (int) Request::post('vrijwilligeroptie2', true);
+        $vrijwilligeroptie3     = (int) Request::post('vrijwilligeroptie3', true);
+        $vrijwilligeroptie4     = (int) Request::post('vrijwilligeroptie4', true);
+        $vrijwilligeroptie5     = (int) Request::post('vrijwilligeroptie5', true);
         $betalingswijze         = Request::post('betalingswijze', true);
         $iban                   = Request::post('iban', true);
         $machtigingskenmerk     = Request::post('machtigingskenmerk', true);
-        $status                 = Request::post('status', true);
+        $status                 = (int)Request::post('status', true);
         // $opmerking              = Request::post('opmerking', true);
 
         $stmt = DB::conn()->prepare(
             'UPDATE members
-                            SET jaarlidmaatschap=?, voorletters=?, voornaam=?, achternaam=?,
-                            geboortedatum=?, adres=?, postcode=?, huisnummer=?,
-                            woonplaats=?, telefoon_vast=?, telefoon_mobiel=?,
-                            emailadres=?, ingangsdatum=?, geslacht=?, nieuwsbrief=?,
-                            vrijwilliger=?, vrijwilligeroptie1=?, vrijwilligeroptie2=?,
-                            vrijwilligeroptie3=?, vrijwilligeroptie4=?, vrijwilligeroptie5=?,
-                            betalingswijze=?, iban=?, machtigingskenmerk=?, status=?
-                                WHERE id=?'
+                SET jaarlidmaatschap=?, voorletters=?, voornaam=?, achternaam=?,
+                geboortedatum=?, adres=?, postcode=?, huisnummer=?,
+                woonplaats=?, telefoon_vast=?, telefoon_mobiel=?,
+                emailadres=?, ingangsdatum=?, geslacht=?, nieuwsbrief=?,
+                vrijwilliger=?, vrijwilligeroptie1=?, vrijwilligeroptie2=?,
+                vrijwilligeroptie3=?, vrijwilligeroptie4=?, vrijwilligeroptie5=?,
+                betalingswijze=?, iban=?, machtigingskenmerk=?, status=? WHERE id=?'
         );
         $stmt->execute(
-            [$jaarlidmaatschap, $voorletters, $voornaam, $achternaam, $geboortedatum,
-            $adres, $postcode, $huisnummer, $woonplaats, $telefoon_vast, $telefoon_mobiel,
-            $emailadres, $ingangsdatum, $geslacht, $nieuwsbrief, $vrijwilliger, $vrijwilligeroptie1,
-            $vrijwilligeroptie2, $vrijwilligeroptie3, $vrijwilligeroptie4, $vrijwilligeroptie5, $betalingswijze, $iban, $machtigingskenmerk,
-            $status, $id]
+            [$jaarlidmaatschap, $voorletters, $voornaam, $achternaam,
+            $geboortedatum, $adres, $postcode, $huisnummer,
+            $woonplaats, $telefoon_vast, $telefoon_mobiel,
+            $emailadres, $ingangsdatum, $geslacht, $nieuwsbrief,
+            $vrijwilliger, $vrijwilligeroptie1, $vrijwilligeroptie2,
+            $vrijwilligeroptie3, $vrijwilligeroptie4, $vrijwilligeroptie5,
+            $betalingswijze, $iban, $machtigingskenmerk, $status, $id]
         );
         if ($stmt) {
             Session::add('feedback_positive', 'Lid opgeslagen.');
@@ -152,7 +152,7 @@ class MemberModel
 
     public static function newMember()
     {
-        $jaarlidmaatschap       = Request::post('jaarlidmaatschap', true);
+        $jaarlidmaatschap       = (int)Request::post('jaarlidmaatschap', true);
         $voorletters            = Request::post('voorletters', true);
         $voornaam               = Request::post('voornaam', true);
         $achternaam             = Request::post('achternaam', true);
@@ -166,17 +166,17 @@ class MemberModel
         $emailadres             = Request::post('emailadres', true);
         $ingangsdatum           = Request::post('ingangsdatum', true);
         $geslacht               = Request::post('geslacht', true);
-        $nieuwsbrief            = Request::post('nieuwsbrief', true);
-        $vrijwilliger           = Request::post('vrijwilliger', true);
-        $vrijwilligeroptie1     = Request::post('vrijwilligeroptie1', true);
-        $vrijwilligeroptie2     = Request::post('vrijwilligeroptie2', true);
-        $vrijwilligeroptie3     = Request::post('vrijwilligeroptie3', true);
-        $vrijwilligeroptie4     = Request::post('vrijwilligeroptie4', true);
-        $vrijwilligeroptie5     = Request::post('vrijwilligeroptie5', true);
+        $nieuwsbrief            = (int)Request::post('nieuwsbrief', true);
+        $vrijwilliger           = (int)Request::post('vrijwilliger', true);
+        $vrijwilligeroptie1     = (int)Request::post('vrijwilligeroptie1', true);
+        $vrijwilligeroptie2     = (int)Request::post('vrijwilligeroptie2', true);
+        $vrijwilligeroptie3     = (int)Request::post('vrijwilligeroptie3', true);
+        $vrijwilligeroptie4     = (int)Request::post('vrijwilligeroptie4', true);
+        $vrijwilligeroptie5     = (int)Request::post('vrijwilligeroptie5', true);
         $betalingswijze         = Request::post('betalingswijze', true);
         $iban                   = Request::post('iban', true);
         $machtigingskenmerk     = Request::post('machtigingskenmerk', true);
-        $status                 = Request::post('status', true);
+        $status                 = (int)Request::post('status', true);
         // $opmerking              = Request::post('opmerking', true);
 
         if (self::doesEmailforYearExist($jaarlidmaatschap, $emailadres)) {
