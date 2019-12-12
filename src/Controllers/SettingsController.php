@@ -87,6 +87,7 @@ class SettingsController extends Controller
 
     public static function uploadLogo()
     {
+        Authentication::checkAuthentication();
         if (SiteSetting::uploadLogo()) {
             Session::add('feedback_positive', Text::get('FEEDBACK_AVATAR_UPLOAD_SUCCESSFUL'));
             Redirect::to('home');

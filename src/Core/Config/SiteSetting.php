@@ -60,26 +60,14 @@ class SiteSetting
         return $stmt->fetch(PDO::FETCH_COLUMN);
     }
 
-    /**
-     * Perform the upload of the avatar
-     * Authentication::checkAuthentication() makes sure that only logged in users can use this action and see this page
-     * POST-request
-     */
     public static function uploadLogo(): bool
     {
-        Authentication::checkAuthentication();
         if (self::createLogo()) {
             return true;
         }
         return false;
-        // Redirect::to('login/editAvatar');
     }
 
-    /**
-     * Create an avatar picture (and checks all necessary things too)
-     * TODO decouple
-     * TODO total rebuild
-     */
     public static function createLogo(): bool
     {
         if (!self::isLogoFolderWritable()) {
@@ -166,17 +154,15 @@ class SiteSetting
     }
 
     /**
-     * Resize avatar image (while keeping aspect ratio and cropping it off sexy)
+     * Resize logo
      * @param string $source The location to the original raw image.
      * @param string $destination  The location to save the new image.
      * @param int    $final_width  The desired width of the new image
      * @param int    $final_height The desired height of the new image.
      * @param int    $quality      The quality of the JPG to produce 1 - 100
-     *                             TODO currently we just allow .jpgTODO currently we just allow .jpg
-     *
      * @return bool success state
      */
-    public static function resizeLogo(string $source, string $destination, $final_width = 150, $final_height = 150, $quality): bool
+    public static function resizeLogo(string $source, string $destination, int $final_width = 150, int $final_height = 150, int $quality = 100): bool
     {
         [$width, $height] = getimagesize($source);
         if (!$width || !$height) {
@@ -196,14 +182,16 @@ class SiteSetting
         }
         // copying the part into thumbnail, maybe edit this for square avatars
         $thumb = imagecreatetruecolor($final_width, $final_height);
-        imagecopyresampled($thumb, $myImage, 0, 0, $x, $y, $final_width, $final_height, $smallestSide, $smallestSide);
-        // add '.jpg' to file path, save it as a .jpg file with our $destination_filename parameter
-        $destination .= '.jpg';
-        imagejpeg($thumb, $destination, $quality);
-        // delete "working copy"
-        imagedestroy($thumb);
-        if (file_exists($destination)) {
-            return true;
+        if ($thumb && $myImage) {
+            imagecopyresampled($thumb, $myImage, 0, 0, $x, $y, $final_width, $final_height, $smallestSide, $smallestSide);
+            // add '.jpg' to file path, save it as a .jpg file with our $destination_filename parameter
+            $destination .= '.jpg';
+            imagejpeg($thumb, $destination, $quality);
+            // delete "working copy"
+            imagedestroy($thumb);
+            if (file_exists($destination)) {
+                return true;
+            }
         }
         return false;
     }
