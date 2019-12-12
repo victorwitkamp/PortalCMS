@@ -7,7 +7,6 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Email\Schedule;
 
-
 use PDO;
 use PortalCMS\Core\Database\DB;
 

@@ -62,38 +62,30 @@ class SiteSetting
 
     public static function uploadLogo(): bool
     {
-        if (self::createLogo()) {
-            return true;
-        }
-        return false;
-    }
-
-    public static function createLogo(): bool
-    {
         if (!self::isLogoFolderWritable()) {
             return false;
         }
         if (!self::validateImageFile()) {
             return false;
         }
-        $targetPath = Config::get('PATH_LOGO') . 'logo';
         $publicPath = Config::get('URL') . Config::get('PATH_LOGO_PUBLIC') . 'logo';
-        self::resizeLogo(
-            $_FILES['logo_file']['tmp_name'],
-            $targetPath,
-            Config::get('AVATAR_SIZE'),
-            Config::get('AVATAR_SIZE'),
-            Config::get('AVATAR_JPEG_QUALITY')
-        );
+        $resizedImage = self::resizeLogo($_FILES['logo_file']['tmp_name']);
+        self::writeJPG($resizedImage, Config::get('PATH_LOGO') . 'logo');
         self::writeLogoToDatabase($publicPath . '.jpg');
         return true;
     }
 
-    /**
-     * Checks if the avatar folder exists and is writable
-     *
-     * @return bool success status
-     */
+    public static function writeJPG($image, $destination)
+    {
+        $destination .= '.jpg';
+        imagejpeg($image, $destination, 100);
+        imagedestroy($image);
+        if (file_exists($destination)) {
+            return true;
+        }
+        return false;
+    }
+
     public static function isLogoFolderWritable(): bool
     {
         $path_logo = Config::get('PATH_LOGO');
@@ -108,12 +100,6 @@ class SiteSetting
         return true;
     }
 
-    /**
-     * Validates the image
-     * TODO totally decouple
-     *
-     * @return bool
-     */
     public static function validateImageFile(): bool
     {
         if (!isset($_FILES['logo_file'])) {
@@ -125,24 +111,13 @@ class SiteSetting
             return false;
         }
         $image_proportions = getimagesize($_FILES['logo_file']['tmp_name']);
-        if ($image_proportions[0] < Config::get('AVATAR_SIZE') || $image_proportions[1] < Config::get('AVATAR_SIZE')) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_UPLOAD_TOO_SMALL'));
-            return false;
-        }
-        if (!($image_proportions['mime'] == 'image/jpeg')) {
+        if (!($image_proportions['mime'] === 'image/jpeg')) {
             Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_UPLOAD_WRONG_TYPE'));
             return false;
         }
         return true;
     }
 
-    /**
-     * Writes marker to database, saying user has an avatar now
-     *
-     * @param $fileName
-     * @return bool
-     * @return bool
-     */
     public static function writeLogoToDatabase($fileName): bool
     {
         $stmt = DB::conn()->prepare("UPDATE site_settings SET string_value = ? WHERE setting = 'site_logo' LIMIT 1");
@@ -156,21 +131,17 @@ class SiteSetting
     /**
      * Resize logo
      * @param string $source The location to the original raw image.
-     * @param string $destination  The location to save the new image.
-     * @param int    $final_width  The desired width of the new image
-     * @param int    $final_height The desired height of the new image.
-     * @param int    $quality      The quality of the JPG to produce 1 - 100
-     * @return bool success state
+     * @return resource success state
      */
-    public static function resizeLogo(string $source, string $destination, int $final_width = 150, int $final_height = 150, int $quality = 100): bool
+    public static function resizeLogo(string $source)
     {
         [$width, $height] = getimagesize($source);
         if (!$width || !$height) {
             return false;
         }
-        //saving the image into memory (for manipulation with GD Library)
+
         $myImage = imagecreatefromjpeg($source);
-        // calculating the part of the image to use for thumbnail
+
         if ($width > $height) {
             $y = 0;
             $x = ($width - $height) / 2;
@@ -180,19 +151,12 @@ class SiteSetting
             $y = ($height - $width) / 2;
             $smallestSide = $width;
         }
-        // copying the part into thumbnail, maybe edit this for square avatars
-        $thumb = imagecreatetruecolor($final_width, $final_height);
+
+        $thumb = imagecreatetruecolor(150, 150);
         if ($thumb && $myImage) {
-            imagecopyresampled($thumb, $myImage, 0, 0, $x, $y, $final_width, $final_height, $smallestSide, $smallestSide);
-            // add '.jpg' to file path, save it as a .jpg file with our $destination_filename parameter
-            $destination .= '.jpg';
-            imagejpeg($thumb, $destination, $quality);
-            // delete "working copy"
-            imagedestroy($thumb);
-            if (file_exists($destination)) {
-                return true;
-            }
+            imagecopyresampled($thumb, $myImage, 0, 0, $x, $y, 150, 150, $smallestSide, $smallestSide);
+            return $thumb;
         }
-        return false;
+        return null;
     }
 }

@@ -23,7 +23,7 @@ if (!empty($invoice)) {
             <h1><?= $pageName ?></h1>
         </div>
         <form method="post">
-            <a href="Index" class="btn btn-sm btn-primary"><span class="fa fa-arrow-left"></span></a>
+            <a href="/Invoices" class="btn btn-sm btn-primary"><span class="fa fa-arrow-left"></span></a>
             <?php $msg = 'Weet u zeker dat u factuur met nummer ' . $invoice->factuurnummer . ' wilt verwijderen?'; ?>
             <input type="hidden" name="id" value="<?= $invoice->id ?>">
             <button type="submit" name="deleteInvoice" class="btn btn-danger btn-sm" title="Verwijderen" onclick="return confirm('<?= $msg ?>')">

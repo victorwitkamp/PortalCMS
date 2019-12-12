@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
+use League\Plates\Engine;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authentication\Service\LoginService;
 use PortalCMS\Core\Controllers\Controller;
@@ -99,7 +100,7 @@ class LoginController extends Controller
         } else {
             // if not, delete cookie (outdated? attack?) and route user to login form to prevent infinite login loops
             Cookie::delete();
-            $templates = new \League\Plates\Engine(DIR_VIEW);
+            $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Login/index');
         }
     }

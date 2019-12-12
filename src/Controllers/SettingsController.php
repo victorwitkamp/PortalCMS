@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
+use League\Plates\Engine;
 use PortalCMS\Core\Config\SiteSetting;
 use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
@@ -37,7 +38,7 @@ class SettingsController extends Controller
     public function siteSettings()
     {
         if (Authorization::hasPermission('site-settings')) {
-            $templates = new \League\Plates\Engine(DIR_VIEW);
+            $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Settings/SiteSettings');
         } else {
             Redirect::to('Error/PermissionError');
@@ -47,7 +48,7 @@ class SettingsController extends Controller
     public function activity()
     {
         if (Authorization::hasPermission('recent-activity')) {
-            $templates = new \League\Plates\Engine(DIR_VIEW);
+            $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Settings/Activity');
         } else {
             Redirect::to('Error/PermissionError');
@@ -57,7 +58,7 @@ class SettingsController extends Controller
     public function logo()
     {
         if (Authorization::hasPermission('site-settings')) {
-            $templates = new \League\Plates\Engine(DIR_VIEW);
+            $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Settings/Logo');
         } else {
             Redirect::to('Error/PermissionError');
@@ -67,7 +68,7 @@ class SettingsController extends Controller
     public function debug()
     {
         if (Authorization::hasPermission('debug')) {
-            $templates = new \League\Plates\Engine(DIR_VIEW);
+            $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Settings/Debug');
         } else {
             Redirect::to('Error/PermissionError');

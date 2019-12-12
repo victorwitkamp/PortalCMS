@@ -65,10 +65,18 @@ use PortalCMS\Modules\Invoices\InvoiceModel;
             <td><?= InvoiceModel::displayInvoiceSumById($invoice->id) ?></td>
             <td>
                 <?php
-                if ($invoice->status === 0) { ?><i class="fas fa-lock-open"></i> 0 - Concept<?php }
-                if ($invoice->status === 1) { ?><i class="fas fa-lock"></i> 1 - Klaar voor planning<?php }
-                if ($invoice->status === 2) { ?><i class="fas fa-lock"></i> 2 - Gepland<?php }
-                if ($invoice->status === 3) { ?><i class="fas fa-lock"></i> 3 - Verzonden<?php }
+                if ($invoice->status === 0) {
+                    ?><i class="fas fa-lock-open"></i> 0 - Concept<?php
+                }
+                if ($invoice->status === 1) {
+                    ?><i class="fas fa-lock"></i> 1 - Klaar voor planning<?php
+                }
+                if ($invoice->status === 2) {
+                    ?><i class="fas fa-lock"></i> 2 - Gepland<?php
+                }
+                if ($invoice->status === 3) {
+                    ?><i class="fas fa-lock"></i> 3 - Verzonden<?php
+                }
                 ?>
             </td>
             <td>
@@ -87,11 +95,13 @@ use PortalCMS\Modules\Invoices\InvoiceModel;
                 <?php } ?>
             </td>
             <td>
-                <?php if ($invoice->status === 2) { ?><a href="<?= Config::get('URL') ?>Email/Details?id=<?= $invoice->mail_id ?>">Mail openen</a><?php } ?>
+                <?php if ($invoice->status === 2) {
+                    ?><a href="<?= Config::get('URL') ?>Email/Details?id=<?= $invoice->mail_id ?>">Mail openen</a><?php
+                } ?>
             </td>
             <td>
                 <!-- <form method="post">
-                    <input type="hidden" name="id" value="<?php //$invoice->id ?>">
+                    <input type="hidden" name="id" value="<?php //$invoice->id?>">
                     <button type="submit" name="confirmPayment" class="btn btn-success" disabled><i class="fas fa-check"></i></button>
                 </form> -->
             </td>

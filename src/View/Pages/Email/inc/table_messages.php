@@ -33,7 +33,9 @@ use PortalCMS\Core\View\Text;
                         echo $row['recipient_email'];
                         $creator = new EmailRecipientCollectionCreator();
                         $recipients = $creator->createCollection($row['id']);
-                        if (!empty($recipients)) { echo count($recipients); }
+                        if (!empty($recipients)) {
+                            echo count($recipients);
+                        }
                         ?>
                     </td>
                     <td><?= $row['subject'] ?></td>
@@ -42,9 +44,15 @@ use PortalCMS\Core\View\Text;
                     <?php } ?>
                     <td>
                         <?php
-                        if ($row['status'] === 1) { ?><span class="badge badge-secondary">Klaar voor verzending</span><?php }
-                        if ($row['status'] === 2) { ?><span class="badge badge-success">Verzonden</span><?php }
-                        if ($row['status'] === 3) { ?><span class="badge badge-danger">Fout bij verzenden</span><?php }
+                        if ($row['status'] === 1) {
+                            ?><span class="badge badge-secondary">Klaar voor verzending</span><?php
+                        }
+                        if ($row['status'] === 2) {
+                            ?><span class="badge badge-success">Verzonden</span><?php
+                        }
+                        if ($row['status'] === 3) {
+                            ?><span class="badge badge-danger">Fout bij verzenden</span><?php
+                        }
                         ?>
                     </td>
                     <td><?= $row['CreationDate'] ?></td>

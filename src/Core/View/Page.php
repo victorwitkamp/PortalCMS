@@ -36,7 +36,6 @@ class Page
             return false;
         }
         return $stmt->fetch(PDO::FETCH_ASSOC);
-
     }
 
     public static function updatePage($page_id, $content): bool

@@ -7,8 +7,10 @@
 declare(strict_types=1);
 namespace PortalCMS\Controllers;
 
+use League\Plates\Engine;
 use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Router;
+use PortalCMS\Core\Security\Authentication\Authentication;
 
 class ProfileController extends Controller
 {
@@ -33,7 +35,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $templates = new \League\Plates\Engine(DIR_VIEW);
+        $templates = new Engine(DIR_VIEW);
         echo $templates->render('Pages/Profile/index');
     }
 }

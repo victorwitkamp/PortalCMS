@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
+use League\Plates\Engine;
 use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
@@ -48,7 +49,7 @@ class EventsController extends Controller
     {
         Authentication::checkAuthentication();
         Authorization::verifyPermission('events');
-        $templates = new \League\Plates\Engine(DIR_VIEW);
+        $templates = new Engine(DIR_VIEW);
         echo $templates->render('Pages/Events/Index');
     }
 
@@ -61,7 +62,7 @@ class EventsController extends Controller
         Authorization::verifyPermission('events');
         $event = CalendarEventMapper::getById((int) $_GET['id']);
         if (!empty($event)) {
-            $templates = new \League\Plates\Engine(DIR_VIEW);
+            $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Events/details', ['event' => $event]);
         }
     }
@@ -73,7 +74,7 @@ class EventsController extends Controller
     {
         Authentication::checkAuthentication();
         Authorization::verifyPermission('events');
-        $templates = new \League\Plates\Engine(DIR_VIEW);
+        $templates = new Engine(DIR_VIEW);
         echo $templates->render('Pages/Events/add');
     }
 
@@ -89,7 +90,7 @@ class EventsController extends Controller
 
         if (!empty($event)) {
             $pageName = 'Evenement ' . $event->title . ' bewerken';
-            $templates = new \League\Plates\Engine(DIR_VIEW);
+            $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Events/edit', ['event' => $event, 'pageName' => $pageName]);
         } else {
             Session::add('feedback_negative', 'Geen resultaten voor opgegeven event ID.');

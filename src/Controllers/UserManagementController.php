@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
+use League\Plates\Engine;
 use PortalCMS\Controllers\ErrorController;
 use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
@@ -38,7 +39,7 @@ class UserManagementController extends Controller
     public function users()
     {
         if (Authorization::hasPermission('user-management')) {
-            $templates = new \League\Plates\Engine(DIR_VIEW);
+            $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/UserManagement/Users/index');
         } else {
             Redirect::to('Error/PermissionError');
@@ -48,7 +49,7 @@ class UserManagementController extends Controller
     public function profile()
     {
         if (Authorization::hasPermission('user-management')) {
-            $templates = new \League\Plates\Engine(DIR_VIEW);
+            $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/UserManagement/Profile/index');
         } else {
             Redirect::to('Error/PermissionError');
@@ -58,7 +59,7 @@ class UserManagementController extends Controller
     public function roles()
     {
         if (Authorization::hasPermission('role-management')) {
-            $templates = new \League\Plates\Engine(DIR_VIEW);
+            $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/UserManagement/Roles/index');
         } else {
             Redirect::to('Error/PermissionError');
@@ -68,7 +69,7 @@ class UserManagementController extends Controller
     public function role()
     {
         if (Authorization::hasPermission('user-management')) {
-            $templates = new \League\Plates\Engine(DIR_VIEW);
+            $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/UserManagement/Role/index');
         } else {
             Redirect::to('Error/PermissionError');

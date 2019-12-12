@@ -29,7 +29,7 @@ $pageName = Text::get('TITLE_MAIL_BATCHES');
           </a>
         </div>
       </div>
-      <?php Alert::renderFeedbackMessages(); ?>
+        <?php Alert::renderFeedbackMessages(); ?>
     </div>
     <div class="container">
       <div class="card">
@@ -44,18 +44,18 @@ $pageName = Text::get('TITLE_MAIL_BATCHES');
           </ul>
         </div>
         <div class="card-body">
-          <?php
-          //PortalCMS_JS_Init_dataTables();
-          $batches = MailBatch::getAll();
-          if (!empty($batches)) {
-            echo '<p>Aantal: ' . count($batches) . '</p>';
-            include 'inc/table_batches.php';
-          } else {
-            echo Text::get('LABEL_NOT_FOUND');
-          }
-          ?>
+            <?php
+            //PortalCMS_JS_Init_dataTables();
+            $batches = MailBatch::getAll();
+            if (!empty($batches)) {
+                echo '<p>Aantal: ' . count($batches) . '</p>';
+                include 'inc/table_batches.php';
+            } else {
+                echo Text::get('LABEL_NOT_FOUND');
+            }
+            ?>
         </div>
       </div>
     </div>
 
-<?= $this->end() ?>
+<?= $this->end();

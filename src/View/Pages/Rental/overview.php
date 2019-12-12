@@ -33,4 +33,4 @@ $pageName = Text::get('TITLE_OVERVIEW');
                 echo 'Totaal aantal facturen: ' . $row;
             ?>
         </div>
-<?= $this->end() ?>
+<?= $this->end();

@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
+use League\Plates\Engine;
 use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\Email\Batch\MailBatch;
 use PortalCMS\Core\HTTP\Redirect;
@@ -48,7 +49,7 @@ class InvoicesController extends Controller
     public function index()
     {
         if (Authorization::verifyPermission('rental-invoices')) {
-            $templates = new \League\Plates\Engine(DIR_VIEW);
+            $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Invoices/index');
         } else {
             Redirect::to('Error/PermissionError');
@@ -58,7 +59,7 @@ class InvoicesController extends Controller
     public function add()
     {
         if (Authorization::verifyPermission('rental-invoices')) {
-            $templates = new \League\Plates\Engine(DIR_VIEW);
+            $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Invoices/add');
         } else {
             Redirect::to('Error/PermissionError');
@@ -68,7 +69,7 @@ class InvoicesController extends Controller
     public function details()
     {
         if (Authorization::verifyPermission('rental-invoices')) {
-            $templates = new \League\Plates\Engine(DIR_VIEW);
+            $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Invoices/details');
         } else {
             Redirect::to('Error/PermissionError');
@@ -78,7 +79,7 @@ class InvoicesController extends Controller
     public function createPDF()
     {
         if (Authorization::verifyPermission('rental-invoices')) {
-            $templates = new \League\Plates\Engine(DIR_VIEW);
+            $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Invoices/createPDF');
         } else {
             Redirect::to('Error/PermissionError');

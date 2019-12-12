@@ -39,7 +39,7 @@ if (empty($Role)) {
                 <td>
                     <?php
                         $ActivePerissions = RolePermissionMapper::getRolePermissions($_GET['id']);
-                        if ($ActivePerissions) { ?>
+                    if ($ActivePerissions) { ?>
                         <table class="table table-sm table-striped table-hover table-dark">
                             <thead class="thead-dark">
                                 <tr>
@@ -65,9 +65,9 @@ if (empty($Role)) {
                                 <?php } ?>
                             </tbody>
                         </table>
-                        <?php } else {
-                            echo 'Nog geen permissies...';
-                        } ?>
+                    <?php } else {
+                        echo 'Nog geen permissies...';
+                    } ?>
                     </td>
                 </tr>
             </tbody>
@@ -79,7 +79,7 @@ if (empty($Role)) {
         <p>Een rol kan meerdere permissies hebben. Kies hieronder een gewenste permissie om toe te voegen aan de rol.<p>
                 <?php
                     $selectablePermissions = RolePermissionMapper::getRoleSelectablePermissions($_GET['id']);
-                    if ($selectablePermissions) { ?>
+                if ($selectablePermissions) { ?>
                     <form method="post">
                         <input type="hidden" name="role_id" value="<?= $_GET['id'] ?>">
                         <label class="control-label">Permission</label>
@@ -92,13 +92,13 @@ if (empty($Role)) {
                         <input type="submit" name="setrolepermission" value="Toewijzen" class="btn btn-primary ml-2">
                     </form>
 
-                <?php
-                    } else {
-                        ?>
+                    <?php
+                } else {
+                    ?>
                     <p>Geen permissies om toe te wijzen</p>
-            <?php
+                    <?php
                 }
-            } ?>
+    } ?>
 
 </div>
 

@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
+use League\Plates\Engine;
 use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
@@ -43,7 +44,7 @@ class MembershipController extends Controller
     public function index()
     {
         if (Authorization::hasPermission('membership')) {
-            $templates = new \League\Plates\Engine(DIR_VIEW);
+            $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Membership/Index');
         } else {
             Redirect::to('Error/PermissionError');
@@ -53,7 +54,7 @@ class MembershipController extends Controller
     public function new()
     {
         if (Authorization::hasPermission('membership')) {
-            $templates = new \League\Plates\Engine(DIR_VIEW);
+            $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Membership/New');
         } else {
             Redirect::to('Error/PermissionError');
@@ -63,7 +64,7 @@ class MembershipController extends Controller
     public function edit()
     {
         if (Authorization::hasPermission('membership')) {
-            $templates = new \League\Plates\Engine(DIR_VIEW);
+            $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Membership/Edit');
         } else {
             Redirect::to('Error/PermissionError');
@@ -73,7 +74,7 @@ class MembershipController extends Controller
     public function profile()
     {
         if (Authorization::hasPermission('membership')) {
-            $templates = new \League\Plates\Engine(DIR_VIEW);
+            $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Membership/Profile');
         } else {
             Redirect::to('Error/PermissionError');

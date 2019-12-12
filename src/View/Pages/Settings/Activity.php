@@ -38,7 +38,8 @@ $pageName = Text::get('TITLE_RECENT_ACTIVITY'); ?>
                     <td><?= $Activity['activity'] ?></td>
                     <td><?= $Activity['details'] ?></td>
                 </tr>
-            <?php } ?>
+            <?php
+            } ?>
         </table>
     </div>
 

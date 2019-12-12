@@ -5,6 +5,7 @@
 declare(strict_types=1);
 namespace PortalCMS\Core\Security\Authorization;
 
+use League\Plates\Engine;
 use PortalCMS\Core\Session\Session;
 
 class Authorization
@@ -18,7 +19,7 @@ class Authorization
     {
         if (!self::hasPermission($perm_desc)) {
             header('HTTP/1.0 403 Forbidden', true, 403);
-            $templates = new \League\Plates\Engine(DIR_VIEW);
+            $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Error/PermissionError');
             exit();
         } else {

@@ -51,7 +51,7 @@ $pageName = Text::get('TITLE_MAIL_TEMPLATES');
                     <td><?= $template['type'] ?></td>
                     <td><?= $template['subject'] ?></td>
                 <tr><?php
-                    } ?>
+            } ?>
         </tbody>
     </table>
 

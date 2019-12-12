@@ -11,10 +11,10 @@ use PortalCMS\Core\View\View;
     <h2 class="forms_title"><?= Text::get('LABEL_LOG_IN') ?></h2>
     <p><?php $minutes = (Config::get('SESSION_RUNTIME') / 60); ?>
     Session duration: <?= $minutes ?> <?php if ($minutes > 1) {
-    echo 'minutes';
-} else {
-    echo 'minute';
-} ?><br>
+        echo 'minutes';
+                      } else {
+                          echo 'minute';
+                      } ?><br>
     Cookie duration: <?= (Config::get('COOKIE_RUNTIME') / 60) . ' minutes (' . ((Config::get('COOKIE_RUNTIME') / 60) / 24) . ' hours)' ?>
     </p>
     <form method="post">

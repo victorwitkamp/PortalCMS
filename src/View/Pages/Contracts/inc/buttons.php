@@ -2,7 +2,7 @@
 
 ?>
 <form method="post">
-    <a href="Index" class="btn btn-sm btn-primary">
+    <a href="/Contracts" class="btn btn-sm btn-primary">
         <span class="fa fa-arrow-left"></span>
     </a>
     <a href="Edit?id=<?= $contract->id ?>" class="btn btn-sm btn-warning">

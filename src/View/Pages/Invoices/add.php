@@ -37,8 +37,8 @@ $pageName = 'Factuur toevoegen';
                 <!-- <select name="contract_id" class="form-control"> -->
                 <?php foreach (ContractMapper::get() as $row) : ?>
                     <!-- <option value="<?php //$row->id
-                                            ?>"><?php //$row->bandcode . ': ' . $row->band_naam
-                                                    ?></option> -->
+                    ?>"><?php //$row->bandcode . ': ' . $row->band_naam
+?></option> -->
                     <input type="checkbox" name='contract_id[]' value="<?= $row->id ?>"><?= $row->bandcode . ': ' . $row->band_naam ?><br />
                 <?php endforeach ?>
                 <!-- </select> -->
@@ -80,7 +80,7 @@ $pageName = 'Factuur toevoegen';
                     </div> -->
 
         <input type="submit" name="createInvoice" class="btn btn-primary" value="Opslaan">
-        <a href="Index" class="btn btn-danger">Annuleren</a>
+        <a href="/Invoices" class="btn btn-danger">Annuleren</a>
     </form>
 
 </div>

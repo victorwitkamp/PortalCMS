@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
+use League\Plates\Engine;
 use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\View\Page;
 
@@ -29,7 +30,7 @@ class PageController extends Controller
      */
     public static function edit()
     {
-        $templates = new \League\Plates\Engine(DIR_VIEW);
+        $templates = new Engine(DIR_VIEW);
         echo $templates->render('Pages/Page/Edit');
     }
 }

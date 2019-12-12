@@ -79,6 +79,4 @@ class MemberTemplateScheduler
         }
         return true;
     }
-
-
 }

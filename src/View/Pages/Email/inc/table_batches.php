@@ -33,8 +33,12 @@ use PortalCMS\Core\View\Text;
                     <?php } ?>
                     <td>
                         <?php
-                        if ($row['status'] === '1') { ?><span class="badge badge-secondary">Klaar voor verzending</span><?php }
-                        if ($row['status'] === '2') { ?><span class="badge badge-success">Uitgevoerd</span><?php }
+                        if ($row['status'] === '1') {
+                            ?><span class="badge badge-secondary">Klaar voor verzending</span><?php
+                        }
+                        if ($row['status'] === '2') {
+                            ?><span class="badge badge-success">Uitgevoerd</span><?php
+                        }
                         ?>
                     </td>
                     <td><?= $row['CreationDate'] ?></td>

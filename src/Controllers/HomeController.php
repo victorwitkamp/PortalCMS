@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
+use League\Plates\Engine;
 use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\Security\Authentication\Authentication;
 
@@ -20,7 +21,7 @@ class HomeController extends Controller
 
     public static function index()
     {
-        $templates = new \League\Plates\Engine(DIR_VIEW);
+        $templates = new Engine(DIR_VIEW);
         echo $templates->render('Pages/Home/index');
     }
 }

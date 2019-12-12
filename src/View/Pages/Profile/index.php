@@ -33,4 +33,4 @@ $row = UserPDOReader::getProfileById(Request::get('id'));
                 </tr>
             </table>
         </div>
-<?= $this->end() ?>
+<?= $this->end();

@@ -238,7 +238,7 @@ use PortalCMS\Core\View\Text;
             <p>* = verplicht veld.</p>
             <input type="hidden" name="id">
             <input type="submit" name="newContract" class="btn btn-sm btn-primary" value="Opslaan">
-            <a href="Index" class="btn btn-sm btn-danger">Annuleren</a>
+            <a href="/Contracts" class="btn btn-sm btn-danger">Annuleren</a>
         </div>
     </div>
 </form>

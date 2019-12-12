@@ -50,7 +50,7 @@ $pageName = 'Contract van ' . $contract->band_naam . ' bewerken';
             });
         });
     </script>
-    <?php //PortalCMS_JS_JQuery_Simple_validator(); ?>
+    <?php //PortalCMS_JS_JQuery_Simple_validator();?>
 
 <?= $this->end() ?>
 <?= $this->push('main-content') ?>

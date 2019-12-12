@@ -102,79 +102,79 @@ $pageName = 'Lidmaatschap van ' . $row->voornaam . ' ' . $row->achternaam;
                 <tr>
                     <th>Nieuwsbrief</th>
                     <td><?php
-                        if ($row->nieuwsbrief === 1) {
-                            echo 'ja';
-                        } elseif ($row->nieuwsbrief === 0) {
-                            echo 'nee';
-                        } else {
-                            echo 'n/a';
-                        } ?></td>
+                    if ($row->nieuwsbrief === 1) {
+                        echo 'ja';
+                    } elseif ($row->nieuwsbrief === 0) {
+                        echo 'nee';
+                    } else {
+                        echo 'n/a';
+                    } ?></td>
                 </tr>
                 <tr>
                     <th>Vrijwilliger</th>
                     <td><?php
-                        if ($row->vrijwilliger === 1) {
-                            echo 'ja';
-                        } elseif ($row->vrijwilliger === 0) {
-                            echo 'nee';
-                        } else {
-                            echo 'n/a';
-                        } ?></td>
+                    if ($row->vrijwilliger === 1) {
+                        echo 'ja';
+                    } elseif ($row->vrijwilliger === 0) {
+                        echo 'nee';
+                    } else {
+                        echo 'n/a';
+                    } ?></td>
                 </tr>
                 <tr>
                     <th>Licht / geluid</th>
                     <td><?php
-                        if ($row->vrijwilligeroptie1 === 1) {
-                            echo 'ja';
-                        } elseif ($row->vrijwilligeroptie1 === 0) {
-                            echo 'nee';
-                        } else {
-                            echo 'n/a';
-                        } ?></td>
+                    if ($row->vrijwilligeroptie1 === 1) {
+                        echo 'ja';
+                    } elseif ($row->vrijwilligeroptie1 === 0) {
+                        echo 'nee';
+                    } else {
+                        echo 'n/a';
+                    } ?></td>
                 </tr>
                 <tr>
                     <th>Bar</th>
                     <td><?php
-                        if ($row->vrijwilligeroptie2 === 1) {
-                            echo 'ja';
-                        } elseif ($row->vrijwilligeroptie2 === 0) {
-                            echo 'nee';
-                        } else {
-                            echo 'n/a';
-                        } ?></td>
+                    if ($row->vrijwilligeroptie2 === 1) {
+                        echo 'ja';
+                    } elseif ($row->vrijwilligeroptie2 === 0) {
+                        echo 'nee';
+                    } else {
+                        echo 'n/a';
+                    } ?></td>
                 </tr>
                 <tr>
                     <th>Schoonmaken / klussen</th>
                     <td><?php
-                        if ($row->vrijwilligeroptie3 === 1) {
-                            echo 'ja';
-                        } elseif ($row->vrijwilligeroptie3 === 0) {
-                            echo 'nee';
-                        } else {
-                            echo 'n/a';
-                        } ?></td>
+                    if ($row->vrijwilligeroptie3 === 1) {
+                        echo 'ja';
+                    } elseif ($row->vrijwilligeroptie3 === 0) {
+                        echo 'nee';
+                    } else {
+                        echo 'n/a';
+                    } ?></td>
                 </tr>
                 <tr>
                     <th>Promotie / flyeren</th>
                     <td><?php
-                        if ($row->vrijwilligeroptie4 === 1) {
-                            echo 'ja';
-                        } elseif ($row->vrijwilligeroptie4 === 0) {
-                            echo 'nee';
-                        } else {
-                            echo 'n/a';
-                        } ?></td>
+                    if ($row->vrijwilligeroptie4 === 1) {
+                        echo 'ja';
+                    } elseif ($row->vrijwilligeroptie4 === 0) {
+                        echo 'nee';
+                    } else {
+                        echo 'n/a';
+                    } ?></td>
                 </tr>
                 <tr>
                     <th>Organisatie evenementen</th>
                     <td><?php
-                        if ($row->vrijwilligeroptie5 === 1) {
-                            echo 'ja';
-                        } elseif ($row->vrijwilligeroptie5 === 0) {
-                            echo 'nee';
-                        } else {
-                            echo 'n/a';
-                        } ?></td>
+                    if ($row->vrijwilligeroptie5 === 1) {
+                        echo 'ja';
+                    } elseif ($row->vrijwilligeroptie5 === 0) {
+                        echo 'nee';
+                    } else {
+                        echo 'n/a';
+                    } ?></td>
                 </tr>
             </table>
             <table class="table table-striped table-condensed">
@@ -207,7 +207,7 @@ $pageName = 'Lidmaatschap van ' . $row->voornaam . ' ' . $row->achternaam;
             </tr>
             <!--<tr>
                 <th>Incasso gelukt</th><td><?php //echo $row->incasso_gelukt;
-                                            ?></td>
+                ?></td>
             </tr>-->
             <tr>
                 <th>Opmerking</th>
@@ -218,4 +218,4 @@ $pageName = 'Lidmaatschap van ' . $row->voornaam . ' ' . $row->achternaam;
 
 </div>
 
-<?= $this->end() ?>
+<?= $this->end();

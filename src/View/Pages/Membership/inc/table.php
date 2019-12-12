@@ -28,22 +28,22 @@
                 <td><?= $member->voornaam . ' ' . $member->achternaam ?></td>
                 <td><?= $member->betalingswijze ?></td>
                 <td><?php
-                        if ($member->status === 0) {
-                            echo '0. Nieuw';
-                        } elseif ($member->status === 1) {
-                            echo '1. Incasso opdracht verzonden';
-                        } elseif ($member->status === 11) {
-                            echo '1.1 Niet verstuurd: rekeningnummer onjuist';
-                        } elseif ($member->status === 2) {
-                            echo '2. Betaling per incasso gelukt';
-                        } elseif ($member->status === 21) {
-                            echo '2.1 Incasso mislukt: rekeningnummer onjuist';
-                        } elseif ($member->status === 3) {
-                            echo '3';
-                        } elseif ($member->status === 4) {
-                            echo '4';
-                        }
-                        ?></td>
+                if ($member->status === 0) {
+                    echo '0. Nieuw';
+                } elseif ($member->status === 1) {
+                    echo '1. Incasso opdracht verzonden';
+                } elseif ($member->status === 11) {
+                    echo '1.1 Niet verstuurd: rekeningnummer onjuist';
+                } elseif ($member->status === 2) {
+                    echo '2. Betaling per incasso gelukt';
+                } elseif ($member->status === 21) {
+                    echo '2.1 Incasso mislukt: rekeningnummer onjuist';
+                } elseif ($member->status === 3) {
+                    echo '3';
+                } elseif ($member->status === 4) {
+                    echo '4';
+                }
+                ?></td>
             </tr>
         <?php } ?>
     </tbody>

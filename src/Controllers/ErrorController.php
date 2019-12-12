@@ -7,6 +7,7 @@
 declare(strict_types=1);
 namespace PortalCMS\Controllers;
 
+use League\Plates\Engine;
 use PortalCMS\Core\Controllers\Controller;
 
 /**
@@ -31,14 +32,14 @@ class ErrorController extends Controller
     public function notFound()
     {
         header('HTTP/1.0 404 Not Found', true, 404);
-        $templates = new \League\Plates\Engine(DIR_VIEW);
+        $templates = new Engine(DIR_VIEW);
         echo $templates->render('Pages/Error/Error', ['title' => '404 - Not found', 'message' => 'The requested page cannot be found']);
     }
 
     public function permissionError()
     {
         header('HTTP/1.0 403 Not Found', true, 403);
-        $templates = new \League\Plates\Engine(DIR_VIEW);
+        $templates = new Engine(DIR_VIEW);
         echo $templates->render('Pages/Error/Error', ['title' => '403 - Forbidden', 'message' => 'You are not authorized perform this action.']);
     }
 }

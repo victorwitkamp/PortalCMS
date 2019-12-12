@@ -5,6 +5,8 @@
 
 namespace PortalCMS\Core\HTTP;
 
+use function call_user_func;
+
 class Router
 {
     public static function processRequests(array $requests, $class) : void
@@ -12,7 +14,7 @@ class Router
         foreach ($requests as $key => $value) {
             if ($value === 'POST') {
                 if (isset($_POST[$key])) {
-                    \call_user_func([$class, $key]);
+                    call_user_func([$class, $key]);
                 }
             }
         }

@@ -1,8 +1,8 @@
 /* global FullCalendar, moment, $, alert */
 /* jslint browser */
 document.addEventListener('DOMContentLoaded', function () {
-  'use strict'
-  var calendarEl = document.getElementById('calendar')
+  'use strict';
+  var calendarEl = document.getElementById('calendar');
   var calendar = new FullCalendar.Calendar(calendarEl, {
     plugins: ['list', 'dayGrid', 'interaction', 'bootstrap'],
     locale: 'nl',
@@ -32,10 +32,10 @@ document.addEventListener('DOMContentLoaded', function () {
     forceEventDuration: !0,
     slotDuration: '01:00:00',
     eventDrop: function (e) {
-      var start = moment(e.event.start).format('Y-MM-DD HH:mm:ss')
-      var end = moment(e.event.end).format('Y-MM-DD HH:mm:ss')
-      var title = e.event.title
-      var id = e.event.id
+      var start = moment(e.event.start).format('Y-MM-DD HH:mm:ss');
+      var end = moment(e.event.end).format('Y-MM-DD HH:mm:ss');
+      var title = e.event.title;
+      var id = e.event.id;
       $.ajax({
         url: '/Events/updateEventDate',
         type: 'POST',
@@ -46,20 +46,20 @@ document.addEventListener('DOMContentLoaded', function () {
           id: id
         },
         success: function () {
-          calendar.render()
+          calendar.render();
           alert('De datum van het evenement is aangepast')
         }
       })
     },
     eventClick: function (e) {
-      var link = 'Edit?id=' + e.event.id
+      var link = 'Edit?id=' + e.event.id;
       // e.event.id,
-      $('#modalBody').load('Details?id=' + e.event.id)
-      $('#eventUrl').attr('href', link)
-      $('#deleteUrl').attr('value', e.event.id)
+      $('#modalBody').load('Details?id=' + e.event.id);
+      $('#eventUrl').attr('href', link);
+      $('#deleteUrl').attr('value', e.event.id);
       $('#fullCalModal').modal()
     }
-  })
+  });
   calendar.render()
   // $('div.fc-dayGrid-view table.table-bordered').addClass('card');
-})
+});

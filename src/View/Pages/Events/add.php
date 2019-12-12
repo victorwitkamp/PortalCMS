@@ -72,9 +72,9 @@ $pageName = (string) Text::get('TITLE_EVENTS_ADD');
             <div class="form-group form-group-sm">
                 <input type="text" name="CreatedBy" value="<?= Session::get('user_id') ?>" hidden>
                 <input type="submit" name="addEvent" class="btn btn-primary" value="<?= Text::get('LABEL_SUBMIT') ?>">
-                <a href="Index" class="btn btn-danger"><?= Text::get('LABEL_CANCEL') ?></a>
+                <a href="/Events" class="btn btn-danger"><?= Text::get('LABEL_CANCEL') ?></a>
             </div>
         </form>
     </div>
 
-<?= $this->end() ?>
+<?= $this->end();

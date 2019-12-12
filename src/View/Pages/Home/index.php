@@ -11,11 +11,10 @@ $pageName = Text::get('TITLE_HOME');
             <div class="container">
                 <div class="row">
                     <div class="col-sm-3">
-                        <img src='<?= SiteSetting::getStaticSiteSetting('site_logo') ?>' alt='logo' width='120px' height='120px' />
+                        <img src='<?= SiteSetting::getStaticSiteSetting('site_logo') ?>' alt='logo' width='150px' height='150px' />
                         <?php if (Authorization::hasPermission('site-settings')) { ?>
                             <br><a href="/Settings/Logo/">Logo wijzigen</a>
                         <?php } ?>
-
                     </div>
                     <div class="col-sm-9">
                         <h1><?= SiteSetting::getStaticSiteSetting('site_name') ?></h1>
@@ -38,4 +37,4 @@ $pageName = Text::get('TITLE_HOME');
                 ?>
             </div>
         </div>
-<?= $this->end() ?>
+<?= $this->end();

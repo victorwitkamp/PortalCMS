@@ -43,5 +43,4 @@ class EmailTemplate
      * @var int $CreatedBy
      */
     public $CreatedBy;
-
 }
