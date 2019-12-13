@@ -10,13 +10,13 @@ $pageName = Text::get('TITLE_HOME');
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         <img src='<?= SiteSetting::getStaticSiteSetting('site_logo') ?>' alt='logo' width='150px' height='150px' />
                         <?php if (Authorization::hasPermission('site-settings')) { ?>
                             <br><a href="/Settings/Logo/">Logo wijzigen</a>
                         <?php } ?>
                     </div>
-                    <div class="col-sm-9">
+                    <div class="col-sm-8">
                         <h1><?= SiteSetting::getStaticSiteSetting('site_name') ?></h1>
                         <p class="lead">
                         <?php

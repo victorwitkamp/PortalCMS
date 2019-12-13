@@ -44,12 +44,10 @@ $loginUrl = $helper->getLoginUrl(Config::get('FB_LOGIN_URL'), $permissions);
         <a class="navbar-brand" href="<?= SiteSetting::getStaticSiteSetting('site_url') ?>"><?= SiteSetting::getStaticSiteSetting('site_name') ?></a>
     </nav>
     <main>
-        <div class="alert-container">
-            <?php Alert::renderFeedbackMessages(); ?>
-        </div>
+        <div class="alert-container"><?php Alert::renderFeedbackMessages(); ?></div>
         <div class="content">
         <div class="container-fluid">
-            <section class="bglogin">s
+            <section class="bglogin">
             <div class="user_options-container">
                 <div class="user_options-text">
                 <div class="user_options-unregistered">

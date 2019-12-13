@@ -3,20 +3,17 @@ const { src, dest, parallel } = require('gulp');
 // const less = require('gulp-less');
 const minifyCSS = require('gulp-csso');
 const concat = require('gulp-concat');
-
 // function html() {
 //     return src('client/templates/*.pug')
 //         .pipe(pug())
 //         .pipe(dest('build/html'))
 // }
-
 // function css() {
 //     return src('public/includes/css/*.css')
 //         // .pipe(less())
 //         .pipe(minifyCSS())
 //         .pipe(dest('public/dist/css/'))
 // }
-
 function css () {
   return src([
     'node_modules/@fortawesome/fontawesome-free/css/all.min.css',
@@ -35,7 +32,6 @@ function css () {
   // .pipe(minifyCSS())
     .pipe(dest('public/dist/'))
 }
-
 function fullcalendarCss () {
   return src([
     'node_modules/@fullcalendar/core/main.min.css',
@@ -50,7 +46,6 @@ function fullcalendarCss () {
     .pipe(minifyCSS())
     .pipe(dest('public/dist/merged/@fullcalendar/'))
 }
-
 function js () {
   return src([
     'node_modules/moment/min/moment.min.js',
@@ -60,13 +55,13 @@ function js () {
     'node_modules/cookieconsent/build/cookieconsent.min.js',
     'node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js',
     'node_modules/datatables.net/js/jquery.dataTables.min.js',
-    'node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js'
+    'node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js',
+    'node_modules/bs-custom-file-input/dist/bs-custom-file-input.min.js'
   ], {
     base: 'node_modules/'
   })
     .pipe(dest('public/dist/'))
 }
-
 function fullcalendarJs () {
   return src([
     'node_modules/@fullcalendar/core/main.min.js',
@@ -81,7 +76,6 @@ function fullcalendarJs () {
     .pipe(concat('fullcalendar.min.js'))
     .pipe(dest('public/dist/merged/@fullcalendar/'))
 }
-
 function woff () {
   return src('node_modules/**/*.woff', {
     base: 'node_modules/'
@@ -100,7 +94,6 @@ function ttf () {
   })
     .pipe(dest('public/dist/'))
 }
-
 exports.js = js;
 exports.css = css;
 exports.woff = woff;

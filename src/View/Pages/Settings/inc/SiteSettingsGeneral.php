@@ -67,7 +67,7 @@ use PortalCMS\Core\View\Text;
         <input type="text" name="site_url" value="<?= SiteSetting::getStaticSiteSetting('site_url') ?>" class="form-control">
     </div>
 
-    <label class="col-4 col-form-label"><?= Text::get('LABEL_SITE_LOGO') ?></label>
+    <label class="col-4 col-form-label"><?= Text::get('LABEL_SITE_LOGO_URL') ?></label>
     <div class="col-8">
         <input type="text" name="site_logo" value="<?= SiteSetting::getStaticSiteSetting('site_logo') ?>" class="form-control">
     </div>

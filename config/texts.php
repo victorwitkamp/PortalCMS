@@ -42,7 +42,7 @@ return [
     'LABEL_NOT_FOUND' => 'Geen resultaten',
     'LABEL_LOG_IN' => 'LOG-IN',
     'LABEL_CONTINUE_WITH_FACEBOOK' => 'LOG-IN',
-    'LABEL_REMEMBER_ME' => 'ONTHOUDEN',
+    'LABEL_REMEMBER_ME' => 'Aangemeld blijven',
     'LABEL_FORGOT_PASSWORD' => 'WACHTWOORD VERGETEN',
 
     // NAV
@@ -107,7 +107,9 @@ return [
     'LABEL_SITE_THEME' => 'THEMA',
     'LABEL_SITE_LAYOUT' => 'LAYOUT',
     'LABEL_SITE_URL' => 'URL',
-    'LABEL_SITE_LOGO' => 'LOGO',
+    'TITLE_SITE_LOGO' => 'Logo wijzigen',
+    'LABEL_SITE_LOGO_URL' => 'Logo URL',
+
     'LABEL_SITE_WIDGETS' => 'WIDGETS',
     // ROLE MANAGEMENT
     'TITLE_ROLE' => 'Details van',

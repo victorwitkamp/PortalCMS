@@ -101,7 +101,7 @@ class LoginController extends Controller
             // if not, delete cookie (outdated? attack?) and route user to login form to prevent infinite login loops
             Cookie::delete();
             $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/Login/index');
+            echo $templates->render('Pages/Login/indexNew');
         }
     }
 
