@@ -22,34 +22,34 @@ $loginUrl = $helper->getLoginUrl(Config::get('FB_LOGIN_URL'), $permissions);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Login - <?= SiteSetting::getStaticSiteSetting('site_name') ?></title>
     <link rel="stylesheet" type="text/css" href="/dist/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/dist/bootswatch/dist/<?= SiteSetting::getStaticSiteSetting('site_theme') ?>/bootstrap.min.css">
+
     <link rel="stylesheet" href="/includes/LoginNewStyle.css" />
+    <link rel="stylesheet" type="text/css" href="/dist/cookieconsent/build/cookieconsent.min.css" />
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <script src="/dist/cookieconsent/build/cookieconsent.min.js" async></script>
+    <script src="/includes/js/cookieconsent.init.js" async></script>
+    <link rel="stylesheet" type="text/css" href="/includes/css/loadingAnimation.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
 </head>
 
-<body ng-controller="AppCtrl" class="ng-scope">
+<body>
+    <?php require 'inc/loadingAnimation.php'; ?>
+
     <div class="container-fluid container-auth">
-        <!-- <a href=""> -->
-            <div class="auth-brand m-t-md m-b-md"><?php Alert::renderFeedbackMessages(); ?></div>
-        <!-- </a> -->
+        <div class="auth-brand m-t-md m-b-md"></div>
     </div>
     <form method="POST" novalidate="" class="ng-valid ng-valid-email ng-dirty ng-valid-parse">
         <input type="hidden" name="csrf_token" value="<?= Csrf::makeToken() ?>" />
         <?php if (!empty(Request::get('redirect'))) { ?><input type="hidden" name="redirect" value="<?= View::encodeHTML(Request::get('redirect')) ?>" /><?php } ?>
         <div class="container-fluid container-auth">
-            <!-- <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="form-group m-b-0 select float" input-group="">
-                        <select class="form-control" id="client-select" name="client">
-                            <option id="open_xchange" value="open_xchange" selected="">Open Xchange</option>
-                            <option id="roundcube" value="roundcube">Roundcube</option>
-                        </select>
-                        <label class="label-float">Webmail client</label>
-                        <i class="input-icon fa fa-fw fa-spin fa-circle-o-notch"></i>
-                    </div>
-                </div>
-            </div> -->
             <div class="panel panel-auth">
                 <div class="panel-heading">
                     <h2 id="title-container" class="panel-title text-center"><?= Text::get('LABEL_LOG_IN') ?> - <?= SiteSetting::getStaticSiteSetting('site_name') ?></h2>
+                    <?php Alert::renderFeedbackMessages(); ?>
                 </div>
                 <div class="panel-body">
                     <div class="form-group required float in" input-group="">
@@ -67,7 +67,7 @@ $loginUrl = $helper->getLoginUrl(Config::get('FB_LOGIN_URL'), $permissions);
                         <label class="form-check-label" for="rememberMe"><?= Text::get('LABEL_REMEMBER_ME') ?></label>
                     </div>
                     <hr />
-                    <input type="submit" name="loginSubmit" class="btn btn-primary" tabindex="3" value="<?= Text::get('LABEL_LOG_IN') ?>"/>
+                    <input type="submit" name="loginSubmit" class="btn btn-primary" tabindex="3" value="<?= Text::get('LABEL_LOG_IN') ?>" />
                     <a href="<?= $loginUrl ?>" class="btn btn-info"><i class="fab fa-facebook"></i> <?= Text::get('LABEL_CONTINUE_WITH_FACEBOOK') ?></a>
                 </div>
                 <div class="panel-footer">

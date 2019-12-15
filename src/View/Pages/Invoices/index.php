@@ -20,7 +20,7 @@ $pageName = Text::get('TITLE_INVOICES');
     <div class="container">
         <div class="row mt-5">
             <div class="col-sm-8"><h1><?= $pageName ?></h1></div>
-            <div class="col-sm-4"><a href="Add" class="btn btn-success navbar-btn float-right"><span class="fa fa-plus"></span> Toevoegen</a></div>
+            <div class="col-sm-4"><a href="/Invoices/Add" class="btn btn-success navbar-btn float-right"><span class="fa fa-plus"></span> Toevoegen</a></div>
         </div>
         <hr>
         <?php Alert::renderFeedbackMessages(); ?>

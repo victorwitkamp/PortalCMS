@@ -15,6 +15,7 @@ use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
+use PortalCMS\Core\Session\Session;
 use PortalCMS\Modules\Invoices\InvoiceItemModel;
 use PortalCMS\Modules\Invoices\InvoiceModel;
 
@@ -92,6 +93,7 @@ class InvoicesController extends Controller
         if (!empty($invoiceIds)) {
             MailBatch::create();
             $batchId = MailBatch::lastInsertedId();
+            Session::add('feedback_positive', 'Nieuwe batch aangemaakt. Batch ID: ' . $batchId);
             foreach ($invoiceIds as $invoiceId) {
                 InvoiceModel::createMail($invoiceId, $batchId);
             }
@@ -121,9 +123,12 @@ class InvoicesController extends Controller
         $contracts = Request::post('contract_id');
         if (InvoiceModel::create($year, $month, $contracts)) {
             Redirect::to('Invoices');
-        } else {
-            Redirect::to('Error/Error');
         }
+        //  else {
+        //     Redirect::to('Error/Error');
+        // }
+
+        // else show error on Add page
     }
 
     public static function deleteInvoice()
