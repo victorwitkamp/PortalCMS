@@ -1,11 +1,11 @@
 <?php
- /**
-  * Configuration for DEVELOPMENT environment
-  *
-  * Returns the full configuration.
-  * This is used by the core/Config class.
-  */
- return [
+    /**
+     * Configuration for DEVELOPMENT environment
+     *
+     * Returns the full configuration.
+     * This is used by the core/Config class.
+     */
+    return [
     'URL' => 'https://portal.beukonline.nl/',
 
     'PATH_LOGO' =>  DIR_ROOT . 'content/logo/',
@@ -34,8 +34,8 @@
     'FB_LOGIN_URL' => 'https://portal.beukonline.nl/Login/ext/fb/fb-callback-login.php',
     'FB_ASSIGN_URL' => 'https://portal.beukonline.nl/Login/ext/fb/fb-callback.php',
 
-   'AVATAR_SIZE' => 44,
-   'AVATAR_JPEG_QUALITY' => 85,
+    'AVATAR_SIZE' => 44,
+    'AVATAR_JPEG_QUALITY' => 85,
 
     'ENCRYPTION_KEY' => '6#x0gÃƒÅ ÃƒÂ¬f^25cL1f$08&',
     'HMAC_SALT' => '8qk9c^4L6d#15tM8z7n0%',
@@ -47,4 +47,4 @@
     'EMAIL_VERIFICATION_FROM_NAME' => 'My Project',
     'EMAIL_VERIFICATION_SUBJECT' => 'Account activation',
     'EMAIL_VERIFICATION_CONTENT' => 'Please click on this link to activate your account: '
- ];
+    ];

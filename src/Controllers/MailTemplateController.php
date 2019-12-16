@@ -85,6 +85,6 @@ class MailTemplateController extends Controller
     public static function setYear() : void
     {
         $year = Request::post('year');
-        header('Location: '.$_SERVER['PHP_SELF'].'?year='.$year);
+        header('Location: ' . $_SERVER['PHP_SELF'] . '?year=' . $year);
     }
 }

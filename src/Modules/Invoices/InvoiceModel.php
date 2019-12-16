@@ -63,7 +63,8 @@ class InvoiceModel
         return $Invoices;
     }
 
-    public static function createInvoiceAction($year, $month, $contract_id) {
+    public static function createInvoiceAction($year, $month, $contract_id)
+    {
         $contract = ContractMapper::getById((int) $contract_id);
         $factuurnummer = $year . $contract->bandcode . $month;
         $factuurdatum = Request::post('factuurdatum', true);

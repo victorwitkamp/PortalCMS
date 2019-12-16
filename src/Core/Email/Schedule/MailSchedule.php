@@ -72,7 +72,7 @@ class MailSchedule
 
     public static function sendFeedbackHandler(int $failed, int $success, int $alreadySent): bool
     {
-        if (($success === 0) && ($failed ===0) && ($alreadySent === 0)) {
+        if (($success === 0) && ($failed === 0) && ($alreadySent === 0)) {
             Session::add('feedback_negative', 'Invalid request.');
         }
         if ($failed > 0) {
