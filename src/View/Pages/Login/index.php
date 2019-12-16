@@ -5,7 +5,7 @@ use PortalCMS\Core\Config\SiteSetting;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Popup;
 
-require $_SERVER['DOCUMENT_ROOT'] . '/login/ext/fb/config.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Login/ext/fb/config.php';
 $helper = $fb->getRedirectLoginHelper();
 $permissions = ['email'];
 $loginUrl = $helper->getLoginUrl(Config::get('FB_LOGIN_URL'), $permissions);
@@ -62,7 +62,7 @@ $loginUrl = $helper->getLoginUrl(Config::get('FB_LOGIN_URL'), $permissions);
                 </div>
                 </div>
                 <div class="user_options-forms" id="user_options-forms">
-                    <?php require 'inc/login.inc.php'; ?>
+                    <?php require 'inc/Login.inc.php'; ?>
                     <?php require 'inc/registration.inc.php'; ?>
                 </div>
             </div>

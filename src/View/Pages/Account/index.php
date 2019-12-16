@@ -5,7 +5,7 @@ use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
 $pageName = Text::get('TITLE_MY_ACCOUNT');
-require $_SERVER['DOCUMENT_ROOT'] . '/login/ext/fb/config.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/Login/ext/fb/config.php';
 $helper = $fb->getRedirectLoginHelper();
 $permissions = ['email'];
 $loginUrl = $helper->getLoginUrl(Config::get('FB_ASSIGN_URL'), $permissions);

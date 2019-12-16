@@ -2,55 +2,58 @@
 
 use PortalCMS\Core\Config\SiteSetting;
 use PortalCMS\Core\View\Alert;
+use PortalCMS\Core\View\Text;
 
 $pageName = 'Wachtwoord vergeten';
 ?>
-<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->layout('layoutLogin', ['title' => $pageName]) ?>
 <?= $this->push('head-extra') ?>
 
-<?php PortalCMS_JS_JQuery_Simple_validator(); ?>
+<?php //PortalCMS_JS_JQuery_Simple_validator();
+?>
 
 <?= $this->end() ?>
-<?= $this->push('main-content') ?>
+<?= $this->push('body') ?>
 
+<header>
+    <div class="navbar navbar-dark bg-dark">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/Login"><span class="fa fa-arrow-left"></span> Inloggen</a>
+            </li>
+        </ul>
+    </div>
+</header>
 
-<body class="bg">
-    <header>
-        <div class="navbar navbar-dark bg-dark">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/login"><span class="fa fa-arrow-left"></span> Inloggen</a>
-                </li>
-            </ul>
-        </div>
-    </header>
-    <main>
-        <div class="container col-md-6 offset-md-3 mt-5">
-            <form method="post" class="form-signin shadow" validate=true>
-                <div class="card">
-                    <div class="card-header text-center">
-                        <img src='<?= SiteSetting::getStaticSiteSetting('site_logo') ?>' alt='<?= SiteSetting::getStaticSiteSetting('site_name') ?>' width='200px' height='200px' />
-                        <h1 class="h3 mb-3 font-weight-normal"><?= SiteSetting::getStaticSiteSetting('site_name') ?></h1>
-                        <hr>
-                        <?php Alert::renderFeedbackMessages(); ?>
-                    </div>
-                    <div class="card-body">
-                        <h2 class="h3 mb-3 font-weight-normal "><?= $pageName ?></h3>
-                            <div class="form-label-group">
-                                <input type="text" name="user_name_or_email" id="inputEmail" placeholder="Gebruikersnaam of e-mailadres" class="form-control" required autofocus>
-                                <label for="inputEmail">Gebruikersnaam of e-mailadres</label>
-                            </div>
-                            <div class="send-button">
-                                <input type="submit" name="requestPasswordReset" value="Herstellen" class="btn btn-secondary mb-sm-2">
-                            </div>
-                    </div>
+<div class="container-fluid container-auth">
+    <div class="auth-brand m-t-md m-b-md"><?= SiteSetting::getStaticSiteSetting('site_name') ?></div>
+</div>
+
+<form method="post" validate=true>
+    <div class="container-fluid container-auth">
+        <div class="panel panel-auth">
+            <div class="panel-heading">
+                <h2 id="title-container" class="panel-title text-center"><?= Text::get('LABEL_LOG_IN') ?> - <?= SiteSetting::getStaticSiteSetting('site_name') ?></h2>
+                <?php Alert::renderFeedbackMessages(); ?>
+            </div>
+            <div class="panel-body">
+                <div class="form-group required float in" input-group="">
+                    <input type="text" name="user_name_or_email" id="inputEmail" placeholder="email@voorbeeld.nl" class="form-control" required autofocus>
+                    <label for="inputEmail" class="label-float">Gebruikersnaam of e-mailadres</label>
                 </div>
-            </form>
+                <input type="submit" name="requestPasswordReset" value="Herstellen" class="btn btn-primary">
+            </div>
+            <div class="panel-footer">
+                <label>Hulp bij aanmelden<div class="small"><del>Registreren</del> | <a href="/Login/RequestPasswordReset">Wachtwoord vergeten.</a></div></label>
+            </div>
         </div>
-    </main>
-    <?php require DIR_VIEW . 'Parts/Footer.php'; ?>
-</body>
+    </div>
+</form>
 
-</html>
+<ul class="list-inline text-center small m-t-md m-b-lg">
+    <li><a href="#" class="text-muted"><del>Terms and conditions</del></a></li>
+    <li><a href="#" class="text-muted"><del>Contact us</del></a></li>
+</ul>
+<div class="webmail-bg"></div>
 
 <?= $this->end();

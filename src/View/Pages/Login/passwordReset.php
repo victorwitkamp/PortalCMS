@@ -26,7 +26,7 @@ PortalCMS_JS_headJS();
         <div class="navbar navbar-dark bg-dark">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="/login"><span class="fa fa-arrow-left"></span> Inloggen</a>
+                    <a class="nav-link" href="/Login"><span class="fa fa-arrow-left"></span> Inloggen</a>
                 </li>
             </ul>
         </div>

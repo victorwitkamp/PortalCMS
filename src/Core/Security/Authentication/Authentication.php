@@ -12,7 +12,7 @@ use PortalCMS\Core\Session\Session;
 
 /**
  * Class Auth
- * Checks if user is logged in, if not then sends the user to "yourdomain.com/login".
+ * Checks if user is logged in, if not then sends the user to "yourdomain.com/Login".
  */
 class Authentication
 {

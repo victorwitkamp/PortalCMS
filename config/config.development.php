@@ -39,8 +39,8 @@ return [
 
     'FB_APP_ID' => '1991997357725439',
     'FB_APP_SECRET' => 'a033dce887f749e53907fb710ae253bc',
-    'FB_LOGIN_URL' => 'https://portal.victorwitkamp.nl/login/ext/fb/fb-callback-login.php',
-    'FB_ASSIGN_URL' => 'https://portal.victorwitkamp.nl/login/ext/fb/fb-callback.php',
+    'FB_LOGIN_URL' => 'https://portal.victorwitkamp.nl/Login/ext/fb/fb-callback-login.php',
+    'FB_ASSIGN_URL' => 'https://portal.victorwitkamp.nl/Login/ext/fb/fb-callback.php',
 
     // 'AVATAR_SIZE' => 44,
     // 'AVATAR_JPEG_QUALITY' => 85,

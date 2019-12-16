@@ -46,7 +46,7 @@ class LoginController extends Controller
         // }
         if (isset($_POST['requestPasswordReset'])) {
             if (PasswordReset::requestPasswordReset($_POST['user_name_or_email'])) {
-                Redirect::to('/login');
+                Redirect::to('/Login');
             }
         }
         if (isset($_POST['resetSubmit'])) {
@@ -93,7 +93,7 @@ class LoginController extends Controller
     }
 
     /**
-     * The login action, when you do login/login
+     * The login action, when you do login/Login
      */
     public static function loginWithPassword()
     {
