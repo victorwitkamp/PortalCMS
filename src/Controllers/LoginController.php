@@ -8,14 +8,15 @@ declare(strict_types=1);
 namespace PortalCMS\Controllers;
 
 use League\Plates\Engine;
-use PortalCMS\Core\Security\Authentication\Authentication;
-use PortalCMS\Core\Security\Authentication\Service\LoginService;
 use PortalCMS\Core\Controllers\Controller;
-use PortalCMS\Core\Security\Csrf;
 use PortalCMS\Core\HTTP\Cookie;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Core\Security\Authentication\Authentication;
+use PortalCMS\Core\Security\Authentication\Service\LoginService;
+use PortalCMS\Core\Security\Csrf;
 use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\User\PasswordReset;
 
 /**
  * LoginController
@@ -43,6 +44,21 @@ class LoginController extends Controller
         //         Redirect::to("login");
         //     }
         // }
+        if (isset($_POST['requestPasswordReset'])) {
+            if (PasswordReset::requestPasswordReset($_POST['user_name_or_email'])) {
+                Redirect::to('/login');
+            }
+        }
+        if (isset($_POST['resetSubmit'])) {
+            if (PasswordReset::verifyPasswordReset($_POST['username'], $_POST['password_reset_hash'])) {
+                $user_password_hash = password_hash(base64_encode($_POST['password']), PASSWORD_DEFAULT);
+                if (PasswordReset::saveNewUserPassword($_POST['username'], $user_password_hash, $_POST['password_reset_hash'])) {
+                    Redirect::to('login');
+                } else {
+                    Redirect::to('login/passwordReset.php');
+                }
+            }
+        }
     }
 
     /**
@@ -57,10 +73,23 @@ class LoginController extends Controller
                 return Redirect::to('home');
             }
         } else {
-            // $data = array('redirect' => Request::get('redirect') ? Request::get('redirect') : NULL);
-            // $this->View->render('login/index', $data);
-            self::loginWithCookie();
+            if (self::loginWithCookie()) {
+                Redirect::to('home');
+            } else {
+                $templates = new Engine(DIR_VIEW);
+                echo $templates->render('Pages/Login/indexNew');
+            }
         }
+    }
+
+    public function requestPasswordReset() {
+        $templates = new Engine(DIR_VIEW);
+        echo $templates->render('Pages/Login/RequestPasswordReset');
+    }
+
+    public function passwordReset() {
+        $templates = new Engine(DIR_VIEW);
+        echo $templates->render('Pages/Login/PasswordReset');
     }
 
     /**
@@ -96,12 +125,11 @@ class LoginController extends Controller
     public static function loginWithCookie()
     {
         if (LoginService::loginWithCookie(Request::cookie('remember_me'))) {
-            Redirect::to('home');
+            return true;
         } else {
             // if not, delete cookie (outdated? attack?) and route user to login form to prevent infinite login loops
             Cookie::delete();
-            $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/Login/indexNew');
+            return false;
         }
     }
 

@@ -4,17 +4,16 @@ use PortalCMS\Core\Config\SiteSetting;
 use PortalCMS\Core\View\Alert;
 
 $pageName = 'Wachtwoord vergeten';
-require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
-
-require_once DIR_INCLUDES . 'functions.php';
-require_once DIR_INCLUDES . 'head.php';
-displayHeadCSS();
-
-PortalCMS_CSS_floatingLabels();
-PortalCMS_JS_headJS();
 ?>
+<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->push('head-extra') ?>
+
 <?php PortalCMS_JS_JQuery_Simple_validator(); ?>
-</head>
+
+<?= $this->end() ?>
+<?= $this->push('main-content') ?>
+
+
 <body class="bg">
     <header>
         <div class="navbar navbar-dark bg-dark">
@@ -30,19 +29,20 @@ PortalCMS_JS_headJS();
             <form method="post" class="form-signin shadow" validate=true>
                 <div class="card">
                     <div class="card-header text-center">
-                        <img src='<?= SiteSetting::getStaticSiteSetting('site_logo') ?>' alt='<?= SiteSetting::getStaticSiteSetting('site_name') ?>' width='200px' height='200px'/>
-                        <h1 class="h3 mb-3 font-weight-normal"><?= SiteSetting::getStaticSiteSetting('site_name') ?></h1><hr>
+                        <img src='<?= SiteSetting::getStaticSiteSetting('site_logo') ?>' alt='<?= SiteSetting::getStaticSiteSetting('site_name') ?>' width='200px' height='200px' />
+                        <h1 class="h3 mb-3 font-weight-normal"><?= SiteSetting::getStaticSiteSetting('site_name') ?></h1>
+                        <hr>
                         <?php Alert::renderFeedbackMessages(); ?>
                     </div>
                     <div class="card-body">
                         <h2 class="h3 mb-3 font-weight-normal "><?= $pageName ?></h3>
-                        <div class="form-label-group">
-                            <input type="text" name="user_name_or_email" id="inputEmail" placeholder="Gebruikersnaam of e-mailadres" class="form-control" required autofocus>
-                            <label for="inputEmail">Gebruikersnaam of e-mailadres</label>
-                        </div>
-                        <div class="send-button">
-                            <input type="submit" name="requestPasswordReset" value="Herstellen" class="btn btn-secondary mb-sm-2">
-                        </div>
+                            <div class="form-label-group">
+                                <input type="text" name="user_name_or_email" id="inputEmail" placeholder="Gebruikersnaam of e-mailadres" class="form-control" required autofocus>
+                                <label for="inputEmail">Gebruikersnaam of e-mailadres</label>
+                            </div>
+                            <div class="send-button">
+                                <input type="submit" name="requestPasswordReset" value="Herstellen" class="btn btn-secondary mb-sm-2">
+                            </div>
                     </div>
                 </div>
             </form>
@@ -50,4 +50,7 @@ PortalCMS_JS_headJS();
     </main>
     <?php require DIR_VIEW . 'Parts/Footer.php'; ?>
 </body>
+
 </html>
+
+<?= $this->end();

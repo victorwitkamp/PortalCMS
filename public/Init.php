@@ -25,6 +25,6 @@ if (!file_exists(DIR_VENDOR . 'autoload.php')) {
 
 $MailController = new PortalCMS\Controllers\MailController();
 $MailTemplateController = new PortalCMS\Controllers\MailTemplateController();
-$PasswordResetController = new PortalCMS\Controllers\PasswordResetController();
+// $PasswordResetController = new PortalCMS\Controllers\PasswordResetController();
 $RoleController = new PortalCMS\Controllers\RoleController();
 $UserController = new PortalCMS\Controllers\UserController();

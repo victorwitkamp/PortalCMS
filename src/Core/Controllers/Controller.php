@@ -7,9 +7,11 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Controllers;
 
+use League\Plates\Engine;
 use PortalCMS\Controllers\LoginController;
-use PortalCMS\Core\Security\Authentication\Authentication;
+use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\View;
 
@@ -37,7 +39,12 @@ class Controller
 
         // user is not logged in but has remember-me-cookie ? then try to login with cookie ("remember me" feature)
         if (!Authentication::userIsLoggedIn() && Request::cookie('remember_me')) {
-            LoginController::loginWithCookie();
+            if (LoginController::loginWithCookie()) {
+                Redirect::to('home');
+            } else {
+                $templates = new Engine(DIR_VIEW);
+                echo $templates->render('Pages/Login/indexNew');
+            }
         }
 
         // create a view object to be able to use it inside a controller, like $this->View->render();

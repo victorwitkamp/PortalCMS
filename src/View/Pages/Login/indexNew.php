@@ -14,27 +14,9 @@ $permissions = ['email'];
 $loginUrl = $helper->getLoginUrl(Config::get('FB_LOGIN_URL'), $permissions);
 ?>
 
-<!DOCTYPE html>
-<html lang="en" ng-app="app" class="ng-scope">
+<?= $this->layout('layoutLogin', ['title' => $pageName]) ?>
+<?= $this->push('main-content') ?>
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Login - <?= SiteSetting::getStaticSiteSetting('site_name') ?></title>
-    <link rel="stylesheet" type="text/css" href="/dist/@fortawesome/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="/dist/bootswatch/dist/<?= SiteSetting::getStaticSiteSetting('site_theme') ?>/bootstrap.min.css">
-
-    <link rel="stylesheet" href="/includes/LoginNewStyle.css" />
-    <link rel="stylesheet" type="text/css" href="/dist/cookieconsent/build/cookieconsent.min.css" />
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-
-    <script src="/dist/cookieconsent/build/cookieconsent.min.js" async></script>
-    <script src="/includes/js/cookieconsent.init.js" async></script>
-    <link rel="stylesheet" type="text/css" href="/includes/css/loadingAnimation.css">
-
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-
-</head>
 
 <body>
     <?php require 'inc/loadingAnimation.php'; ?>
@@ -75,7 +57,7 @@ $loginUrl = $helper->getLoginUrl(Config::get('FB_LOGIN_URL'), $permissions);
                     <label>
                         <!-- <input type="checkbox" name="remember" ng-model="remember" ng-initial="" class="ng-untouched ng-valid ng-dirty ng-valid-parse ng-empty"> -->
                         Hulp bij aanmelden
-                        <div class="small">Registreren | Wachtwoord vergeten.</div>
+                        <div class="small">Registreren | <a href="/Login/RequestPasswordReset">Wachtwoord vergeten.</a></div>
                         <!-- <button type="button" class="checkbox-switch-button"></button> -->
                     </label>
                     <!-- <i class="input-icon fa fa-fw fa-spin fa-circle-o-notch"></i> -->
@@ -108,3 +90,5 @@ $loginUrl = $helper->getLoginUrl(Config::get('FB_LOGIN_URL'), $permissions);
 </body>
 
 </html>
+
+<?= $this->end();
