@@ -82,12 +82,14 @@ class LoginController extends Controller
         }
     }
 
-    public function requestPasswordReset() {
+    public function requestPasswordReset()
+    {
         $templates = new Engine(DIR_VIEW);
         echo $templates->render('Pages/Login/RequestPasswordReset');
     }
 
-    public function passwordReset() {
+    public function passwordReset()
+    {
         $templates = new Engine(DIR_VIEW);
         echo $templates->render('Pages/Login/PasswordReset');
     }
@@ -146,7 +148,7 @@ class LoginController extends Controller
             Redirect::to('Home');
         } else {
             if (Request::post('redirect')) {
-                return Redirect::to('Login/?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
+                return Redirect::to('Login/?redirect=' . ltrim(urlencode(Request::post('redirect')), '/'));
             }
             Redirect::to('Login');
         }

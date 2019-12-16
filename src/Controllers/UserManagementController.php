@@ -75,7 +75,8 @@ class UserManagementController extends Controller
         }
     }
 
-    public static function deleteuser() {
+    public static function deleteuser()
+    {
         // Not inplemented yet
         $controller = new ErrorController();
         $controller->notFound();
