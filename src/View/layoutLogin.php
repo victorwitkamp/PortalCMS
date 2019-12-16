@@ -17,7 +17,7 @@ use PortalCMS\Core\Config\SiteSetting;
     <script src="/dist/cookieconsent/build/cookieconsent.min.js" async></script>
     <script src="/includes/js/cookieconsent.init.js" async></script>
     <link rel="stylesheet" type="text/css" href="/includes/css/loadingAnimation.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"> -->
     <!-- <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet"> -->
     <?= $this->section('head-extra') ?>
 </head>

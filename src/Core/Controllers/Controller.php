@@ -40,7 +40,7 @@ class Controller
         // user is not logged in but has remember-me-cookie ? then try to login with cookie ("remember me" feature)
         if (!Authentication::userIsLoggedIn() && Request::cookie('remember_me')) {
             if (LoginController::loginWithCookie()) {
-                Redirect::to('home');
+                Redirect::to('Home');
             } else {
                 $templates = new Engine(DIR_VIEW);
                 echo $templates->render('Pages/Login/indexNew');

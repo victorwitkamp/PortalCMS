@@ -40,7 +40,7 @@
     'ENCRYPTION_KEY' => '6#x0gÃƒÅ ÃƒÂ¬f^25cL1f$08&',
     'HMAC_SALT' => '8qk9c^4L6d#15tM8z7n0%',
 
-    'EMAIL_PASSWORD_RESET_URL' => 'login/resetPassword.php',
+    'EMAIL_PASSWORD_RESET_URL' => 'Login/resetPassword.php',
     'EMAIL_PASSWORD_RESET_SUBJECT' => 'Password reset',
     'EMAIL_VERIFICATION_URL' => 'register/verify',
     'EMAIL_VERIFICATION_FROM_EMAIL' => 'vrijwilligers@beukonline.nl',

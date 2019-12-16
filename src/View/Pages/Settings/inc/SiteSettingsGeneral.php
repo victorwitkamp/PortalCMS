@@ -86,8 +86,8 @@ use PortalCMS\Core\View\Text;
         <div class="input-group">
             <select class="form-control" name="WidgetComingEvents">
                 <?php $WidgetComingEvents = SiteSetting::getStaticSiteSetting('WidgetComingEvents'); ?>
-                <option value="1" <?php if ($WidgetComingEvents === '1') { echo 'selected'; } ?>>Enabled</option>
-                <option value="0" <?php if ($WidgetComingEvents === '0') { echo 'selected'; } ?>>Disabled</option>
+                <option value="true" <?php if ($WidgetComingEvents === 'true') { echo 'selected'; } ?>>Enabled</option>
+                <option value="false" <?php if ($WidgetComingEvents === 'false') { echo 'selected'; } ?>>Disabled</option>
             </select>
         </div>
     </div>
@@ -96,8 +96,8 @@ use PortalCMS\Core\View\Text;
         <div class="input-group">
             <select class="form-control" name="WidgetDebug">
                 <?php $WidgetDebug = SiteSetting::getStaticSiteSetting('WidgetDebug'); ?>
-                <option value="1" <?php if ($WidgetDebug === '1') { echo 'selected'; } ?>>Enabled</option>
-                <option value="0" <?php if ($WidgetDebug === '0') { echo 'selected'; } ?>>Disabled</option>
+                <option value="true" <?php if ($WidgetDebug === 'true') { echo 'selected'; } ?>>Enabled</option>
+                <option value="false" <?php if ($WidgetDebug === 'false') { echo 'selected'; } ?>>Disabled</option>
             </select>
         </div>
     </div>
@@ -125,7 +125,7 @@ use PortalCMS\Core\View\Text;
                 <?php $MailServerSecure = SiteSetting::getStaticSiteSetting('MailServerSecure'); ?>
                 <option value="tls" <?php if ($MailServerSecure === 'tls') { echo 'selected'; } ?>>tls</option>
                 <option value="ssl" <?php if ($MailServerSecure === 'ssl') { echo 'selected'; } ?>>ssl</option>
-                <option value="0" <?php if ($MailServerSecure === '0') { echo 'selected'; } ?>>Disabled</option>
+                <option value="" <?php if ($MailServerSecure === '') { echo 'selected'; } ?>>Disabled</option>
             </select>
         </div>
     </div>
@@ -134,8 +134,8 @@ use PortalCMS\Core\View\Text;
         <div class="input-group">
             <select class="form-control" name="MailServerAuth">
                 <?php $MailServerAuth = SiteSetting::getStaticSiteSetting('MailServerAuth'); ?>
-                <option value="1" <?php if ($MailServerAuth === '1') { echo 'selected'; } ?>>Enabled</option>
-                <option value="0" <?php if ($MailServerAuth === '0') { echo 'selected'; } ?>>Disabled</option>
+                <option value="true" <?php if ($MailServerAuth === 'true') { echo 'selected'; } ?>>Enabled</option>
+                <option value="false" <?php if ($MailServerAuth === 'false') { echo 'selected'; } ?>>Disabled</option>
             </select>
         </div>
     </div>
@@ -176,8 +176,8 @@ use PortalCMS\Core\View\Text;
         <div class="input-group">
             <select class="form-control" name="MailIsHTML">
                 <?php $MailIsHTML = SiteSetting::getStaticSiteSetting('MailIsHTML'); ?>
-                <option value="1" <?php if ($MailIsHTML === '1') { echo 'selected'; } ?>>Enabled</option>
-                <option value="0" <?php if ($MailIsHTML === '0') { echo 'selected'; } ?>>Disabled</option>
+                <option value="true" <?php if ($MailIsHTML === 'true') { echo 'selected'; } ?>>Enabled</option>
+                <option value="false" <?php if ($MailIsHTML === 'false') { echo 'selected'; } ?>>Disabled</option>
             </select>
         </div>
     </div>

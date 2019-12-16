@@ -12,7 +12,7 @@ return [
     /**
      * Configuration for: Default controller and action
      */
-    'DEFAULT_CONTROLLER' => 'login',
+    'DEFAULT_CONTROLLER' => 'Login',
     'DEFAULT_ACTION' => 'index',
 
     'PATH_LOGO' =>  DIR_ROOT . 'content/logo/',
@@ -48,7 +48,7 @@ return [
     'ENCRYPTION_KEY' => '6#x0gÊìf^25cL1f$08&',
     'HMAC_SALT' => '8qk9c^4L6d#15tM8z7n0%',
 
-    'EMAIL_PASSWORD_RESET_URL' => 'login/resetPassword.php',
+    'EMAIL_PASSWORD_RESET_URL' => 'Login/resetPassword.php',
     'EMAIL_PASSWORD_RESET_SUBJECT' => 'Password reset',
     'EMAIL_VERIFICATION_URL' => 'register/verify',
     'EMAIL_VERIFICATION_FROM_EMAIL' => 'victor@victorwitkamp.nl',

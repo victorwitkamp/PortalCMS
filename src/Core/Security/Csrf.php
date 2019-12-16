@@ -26,7 +26,7 @@ class Csrf
      *
      * if (!Csrf::isTokenValid()) {
      *     LogoutService::logout();
-     *     Redirect::to('home');
+     *     Redirect::to('Home');
      *     exit();
      * }
      *

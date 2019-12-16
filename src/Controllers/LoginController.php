@@ -41,7 +41,7 @@ class LoginController extends Controller
         // }
         // if (isset($_POST['activateSubmit'])) {
         //     if ($this->activate($_POST['email'], $_POST['code'])) {
-        //         Redirect::to("login");
+        //         Redirect::to('login');
         //     }
         // }
         if (isset($_POST['requestPasswordReset'])) {
@@ -53,9 +53,9 @@ class LoginController extends Controller
             if (PasswordReset::verifyPasswordReset($_POST['username'], $_POST['password_reset_hash'])) {
                 $user_password_hash = password_hash(base64_encode($_POST['password']), PASSWORD_DEFAULT);
                 if (PasswordReset::saveNewUserPassword($_POST['username'], $user_password_hash, $_POST['password_reset_hash'])) {
-                    Redirect::to('login');
+                    Redirect::to('Login');
                 } else {
-                    Redirect::to('login/passwordReset.php');
+                    Redirect::to('Login/passwordReset.php');
                 }
             }
         }
@@ -70,11 +70,11 @@ class LoginController extends Controller
             if (Request::post('redirect')) {
                 return Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
             } else {
-                return Redirect::to('home');
+                return Redirect::to('Home');
             }
         } else {
             if (self::loginWithCookie()) {
-                Redirect::to('home');
+                Redirect::to('Home');
             } else {
                 $templates = new Engine(DIR_VIEW);
                 echo $templates->render('Pages/Login/indexNew');
@@ -99,7 +99,7 @@ class LoginController extends Controller
     {
         if (!Csrf::isTokenValid()) {
             Session::add('feedback_negative', 'Invalid CSRF token.');
-            Redirect::to('login');
+            Redirect::to('Login');
             return false;
         }
         $login_successful = LoginService::loginWithPassword(
@@ -108,13 +108,13 @@ class LoginController extends Controller
             Request::post('set_remember_me_cookie')
         );
         if (!$login_successful) {
-            Redirect::to('login');
+            Redirect::to('Login');
             return false;
         }
         if (Request::post('redirect')) {
             return Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
         } else {
-            Redirect::to('home');
+            Redirect::to('Home');
             return false;
         }
     }
@@ -143,12 +143,12 @@ class LoginController extends Controller
             if (Request::post('redirect')) {
                 return Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
             }
-            Redirect::to('home');
+            Redirect::to('Home');
         } else {
             if (Request::post('redirect')) {
-                return Redirect::to('login/?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
+                return Redirect::to('Login/?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
             }
-            Redirect::to('login');
+            Redirect::to('Login');
         }
     }
 }

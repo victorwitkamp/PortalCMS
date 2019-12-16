@@ -42,8 +42,7 @@ $pageName = 'Login';
                     <label for="password" class="label-float">Wachtwoord</label>
                 </div>
                 <div class="form-group form-check">
-                    <input type="checkbox" id="rememberMe" name="set_remember_me_cookie" class="form-check-input">
-                    <label class="form-check-label" for="rememberMe"><?= Text::get('LABEL_REMEMBER_ME') ?></label>
+                    <input type="checkbox" id="rememberMe" name="set_remember_me_cookie" class="form-check-input"><label class="form-check-label" for="rememberMe"><?= Text::get('LABEL_REMEMBER_ME') ?></label>
                 </div>
                 <hr />
                 <input type="submit" name="loginSubmit" class="btn btn-primary" value="<?= Text::get('LABEL_LOG_IN') ?>" />

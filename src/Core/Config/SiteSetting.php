@@ -28,18 +28,18 @@ class SiteSetting
         self::setSiteSetting((string) Request::post('site_logo'), 'site_logo');
         self::setSiteSetting((string) Request::post('site_theme'), 'site_theme');
         self::setSiteSetting((string) Request::post('site_layout'), 'site_layout');
-        self::setSiteSetting((int) Request::post('WidgetComingEvents'), 'WidgetComingEvents');
-        self::setSiteSetting((int) Request::post('WidgetDebug'), 'WidgetDebug');
+        self::setSiteSetting((string) Request::post('WidgetComingEvents'), 'WidgetComingEvents');
+        self::setSiteSetting((string) Request::post('WidgetDebug'), 'WidgetDebug');
         self::setSiteSetting((string) Request::post('MailServer'), 'MailServer');
         self::setSiteSetting((string) Request::post('MailServerPort'), 'MailServerPort');
         self::setSiteSetting((string) Request::post('MailServerSecure'), 'MailServerSecure');
-        self::setSiteSetting((int) Request::post('MailServerAuth'), 'MailServerAuth');
+        self::setSiteSetting((string) Request::post('MailServerAuth'), 'MailServerAuth');
         self::setSiteSetting((string) Request::post('MailServerUsername'), 'MailServerUsername');
         self::setSiteSetting((string) Request::post('MailServerPassword'), 'MailServerPassword');
         self::setSiteSetting((string) Request::post('MailServerDebug'), 'MailServerDebug');
         self::setSiteSetting((string) Request::post('MailFromName'), 'MailFromName');
         self::setSiteSetting((string) Request::post('MailFromEmail'), 'MailFromEmail');
-        self::setSiteSetting((int) Request::post('MailisHTML'), 'MailisHTML');
+        self::setSiteSetting((string) Request::post('MailIsHTML'), 'MailIsHTML');
         return true;
     }
 

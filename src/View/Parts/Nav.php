@@ -8,7 +8,7 @@ use PortalCMS\Core\View\Text;
 ?>
 <div class="navbar bg-light p-0">
     <div class="container">
-        <a class="navbar-brand mr-auto mr-lg-0" href="/home"><?= SiteSetting::getStaticSiteSetting('site_name') ?></a>
+        <a class="navbar-brand mr-auto mr-lg-0" href="/Home"><?= SiteSetting::getStaticSiteSetting('site_name') ?></a>
         <span class="navbar-text p-0">
             <?= Text::get('LABEL_SIGNED_IN_AS') ?><strong> <?= Session::get('user_name') ?></strong><br>
             <a href="/Account"><?= Text::get('TITLE_MY_ACCOUNT') ?></a> | <a href="/logout.php"><i class="fa fa-sign-out-alt"></i><?= Text::get('LABEL_SIGN_OUT') ?></a>

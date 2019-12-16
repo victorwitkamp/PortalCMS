@@ -14,12 +14,12 @@ use PortalCMS\Core\View\Text;
 ?>
 <div class="col-sm-4">
     <?php
-    if (SiteSetting::getStaticSiteSetting('WidgetComingEvents') === '1') {
+    if (SiteSetting::getStaticSiteSetting('WidgetComingEvents') === 'true') {
         include DIR_VIEW . 'Pages/Home/widgets/comingEvents/comingEvents.php';
     }
     ?><hr>
     <?php
-    if (SiteSetting::getStaticSiteSetting('WidgetDebug') === '1') {
+    if (SiteSetting::getStaticSiteSetting('WidgetDebug') === 'true') {
         include DIR_VIEW . 'Pages/Home/widgets/debug/debug.php';
     }
     ?>

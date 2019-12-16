@@ -4,7 +4,7 @@ use PortalCMS\Core\View\Text;
 
 ?>
 <li class="nav-item dropdown">
-    <a class="nav-link" href="/home"><?= Text::get('NAV_TITLE_HOME') ?></a>
+    <a class="nav-link" href="/Home"><?= Text::get('NAV_TITLE_HOME') ?></a>
 </li>
 
 <li class="nav-item dropdown">

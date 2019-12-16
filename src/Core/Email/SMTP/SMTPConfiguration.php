@@ -26,7 +26,7 @@ class SMTPConfiguration
      *
      * @var string
      */
-    public $SMTPCrypto = 'tls';
+    public $SMTPCrypto;
 
     /**
      * @var boolean
@@ -80,8 +80,14 @@ class SMTPConfiguration
         $this->fromName = SiteSetting::getStaticSiteSetting('MailFromName');
         $this->SMTPHost = SiteSetting::getStaticSiteSetting('MailServer');
         $this->SMTPPort = SiteSetting::getStaticSiteSetting('MailServerPort');
-        $this->SMTPCrypto = SiteSetting::getStaticSiteSetting('MailServerSecure');
-        if (SiteSetting::getStaticSiteSetting('MailServerAuth') === 1) {
+        if (SiteSetting::getStaticSiteSetting('MailServerSecure') === 'tls') {
+            $this->SMTPCrypto = 'tls';
+        } elseif (SiteSetting::getStaticSiteSetting('MailServerSecure') === 'ssl') {
+            $this->SMTPCrypto = 'ssl';
+        } else {
+            $this->SMTPCrypto = '';
+        }
+        if (SiteSetting::getStaticSiteSetting('MailServerAuth') === 'true') {
             $this->SMTPAuth = true;
         } else {
             $this->SMTPAuth = false;
@@ -89,7 +95,7 @@ class SMTPConfiguration
         $this->SMTPUser = SiteSetting::getStaticSiteSetting('MailServerUsername');
         $this->SMTPPass = SiteSetting::getStaticSiteSetting('MailServerPassword');
         $this->SMTPDebug = SiteSetting::getStaticSiteSetting('MailServerDebug');
-        if (SiteSetting::getStaticSiteSetting('MailIsHTML') === 1) {
+        if (SiteSetting::getStaticSiteSetting('MailIsHTML') === 'true') {
             $this->isHTML = true;
         } else {
             $this->isHTML = false;
