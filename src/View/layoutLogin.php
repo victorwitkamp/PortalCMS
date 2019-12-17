@@ -2,7 +2,7 @@
 
 use PortalCMS\Core\Config\SiteSetting;
 use PortalCMS\Core\View\Alert;
-use PortalCMS\Core\View\Text;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

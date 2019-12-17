@@ -1,10 +1,8 @@
 <?php
 
 use PortalCMS\Core\Config\Config;
-use PortalCMS\Core\Config\SiteSetting;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Security\Csrf;
-use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Core\View\View;
 

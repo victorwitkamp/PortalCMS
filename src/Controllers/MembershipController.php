@@ -80,4 +80,5 @@ class MembershipController extends Controller
             Redirect::to('Error/PermissionError');
         }
     }
+
 }

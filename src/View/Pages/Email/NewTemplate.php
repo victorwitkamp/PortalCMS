@@ -40,7 +40,7 @@ $pageName = Text::get('TITLE_NEW_MAIL_TEMPLATE');
             <label for="body">Onderwerp</label>
             <textarea class="form-control" id="body" name="body" cols="50" rows="15"></textarea>
         </div>
-        <input type="submit" class="btn btn-primary" name="newTemplate" />
+        <input type="submit" class="btn btn-primary" name="addTemplate" />
     </form>
     <hr>
     <p>Beschikbare placeholders voor signup: username, sitename, activatelink, activateformlink, confcode</p>

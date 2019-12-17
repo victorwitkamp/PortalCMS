@@ -65,15 +65,9 @@ use PortalCMS\Core\View\Text;
                     <div class="col-sm-6">
                         <label class="control-label"><?= Text::get('LABEL_EVENT_STATUS') ?></label>
                         <select name="status" class="form-control" required>
-                            <option value="0" <?php if ($event->status === 0) {
-    echo 'selected';
-} ?>>0 - <?= Text::get('LABEL_EVENT_DRAFT') ?></option>
-                            <option value="1" <?php if ($event->status === 1) {
-    echo 'selected';
-} ?>>1 - <?= Text::get('LABEL_EVENT_CONFIRMED') ?></option>
-                            <option value="2" <?php if ($event->status === 2) {
-    echo 'selected';
-} ?>>2 - <?= Text::get('LABEL_EVENT_CANCELED') ?></option>
+                            <option value="0" <?php if ($event->status === 0) { echo 'selected'; } ?>>0 - <?= Text::get('LABEL_EVENT_DRAFT') ?></option>
+                            <option value="1" <?php if ($event->status === 1) { echo 'selected'; } ?>>1 - <?= Text::get('LABEL_EVENT_CONFIRMED') ?></option>
+                            <option value="2" <?php if ($event->status === 2) { echo 'selected'; } ?>>2 - <?= Text::get('LABEL_EVENT_CANCELED') ?></option>
                         </select>
                     </div>
                 </div>

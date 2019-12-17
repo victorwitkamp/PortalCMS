@@ -22,6 +22,3 @@ if (!file_exists(DIR_VENDOR . 'autoload.php')) {
 } else {
     include_once DIR_VENDOR . 'autoload.php';
 }
-
-$MailController = new PortalCMS\Controllers\MailController();
-$MailTemplateController = new PortalCMS\Controllers\MailTemplateController();

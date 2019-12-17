@@ -2,18 +2,27 @@
 <project version="4">
   <component name="AnalysisUIOptions">
     <option name="SPLITTER_PROPORTION" value="0.5007299" />
-    <option name="CUSTOM_SCOPE_NAME" value="src" />
+    <option name="SCOPE_TYPE" value="8" />
+    <option name="CUSTOM_SCOPE_NAME" value="All Places" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10cd1690-6b40-469b-8cb6-7411aa27a75c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.php_cs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.php_cs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/ContractsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/ContractsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/Init.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/Init.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controllers/EmailController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/EmailController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controllers/MailController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controllers/MailTemplateController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controllers/MembershipController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/MembershipController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controllers/UserManagementController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/UserManagementController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Application/Application.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Application/Application.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Config/SiteSetting.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Config/SiteSetting.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/Pages/Home/layouts/left-sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Home/layouts/left-sidebar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/Pages/Home/layouts/right-sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Home/layouts/right-sidebar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/Pages/Email/EditTemplate.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Email/EditTemplate.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/Pages/Email/NewTemplate.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Email/NewTemplate.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/Pages/Events/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Events/edit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/Pages/Login/inc/login.inc.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/Pages/Login/index.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/Pages/Login/indexNew.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Login/indexNew.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/Pages/Login/passwordReset.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Login/passwordReset.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/layoutLogin.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/layoutLogin.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -72,7 +81,7 @@
     <auto-save>true</auto-save>
   </component>
   <component name="NamedScopeManager">
-    <scope name="src" pattern="file[portal]:src/*.php||file[portal]:src//*.php" />
+    <scope name="src" pattern="!file[portal]:vendor//*" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -130,14 +139,20 @@
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="12.4.0" />
     <property name="js.buildTools.gulp.gulp_package_dir" value="$PROJECT_DIR$/node_modules/gulp" />
     <property name="js.linters.configure.manually.selectedeslint" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/database/PHPStorm" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.jscs" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
@@ -154,7 +169,7 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.updates" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -215,21 +230,6 @@
   <component name="SQLScriptSettings">
     <option name="outputLayout" value="File per object with order.groovy" />
     <option name="outputPath" value="C:\inetpub\portal\database\PHPStorm" />
-  </component>
-  <component name="ServiceViewManager">
-    <option name="allServicesViewState">
-      <serviceView>
-        <treeState>
-          <expand>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@3d335fbd" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-            </path>
-          </expand>
-          <select />
-        </treeState>
-      </serviceView>
-    </option>
   </component>
   <component name="StructuralSearchPlugin">
     <searchConfiguration name="user defined" created="1572724762372" text="Mail incompleet" recursive="true" caseInsensitive="true" type="PHP" scope_type="PROJECT" scope_descriptor="" history="1">
@@ -306,6 +306,8 @@
       <workItem from="1576161312793" duration="235000" />
       <workItem from="1576161728419" duration="478000" />
       <workItem from="1576162499920" duration="2480000" />
+      <workItem from="1576546941383" duration="891000" />
+      <workItem from="1576568752891" duration="489000" />
     </task>
     <servers />
   </component>
@@ -324,5 +326,23 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="398" y="249" key="#Inspections" timestamp="1576547330831">
+      <screen x="0" y="0" width="1536" height="1122" />
+    </state>
+    <state x="398" y="249" key="#Inspections/0.0.1536.1122@0.0.1536.1122" timestamp="1576547330831" />
+    <state x="526" y="431" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1576547433656">
+      <screen x="0" y="0" width="1536" height="1122" />
+    </state>
+    <state x="526" y="431" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1536.1122@0.0.1536.1122" timestamp="1576547433656" />
+    <state x="269" y="203" key="SettingsEditor" timestamp="1576547134967">
+      <screen x="0" y="0" width="1536" height="1122" />
+    </state>
+    <state x="269" y="203" key="SettingsEditor/0.0.1536.1122@0.0.1536.1122" timestamp="1576547134967" />
+    <state x="360" y="219" key="scopes" timestamp="1576547431695">
+      <screen x="0" y="0" width="1536" height="1122" />
+    </state>
+    <state x="360" y="219" key="scopes/0.0.1536.1122@0.0.1536.1122" timestamp="1576547431695" />
   </component>
 </project>

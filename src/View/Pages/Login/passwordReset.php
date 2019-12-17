@@ -1,8 +1,6 @@
 <?php
 
 use League\Plates\Engine;
-use PortalCMS\Core\Config\SiteSetting;
-use PortalCMS\Core\View\Alert;
 
 $pageName = 'Wachtwoord resetten';
 
