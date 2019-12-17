@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Copyright Victor Witkamp (c) 2019.
  */
@@ -74,7 +75,7 @@ class LoginValidator
         }
 
         [$user_id, $token, $hash] = explode(':', $cookie);
-        $user_id = Encryption::decrypt($user_id);
+        $user_id = (int) Encryption::decrypt($user_id);
 
         if (empty($token) || empty($user_id)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));

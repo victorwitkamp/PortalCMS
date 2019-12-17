@@ -26,7 +26,7 @@ class EmailTemplatePDOReader
         return $stmt->fetchAll();
     }
 
-    public static function getByType(string $type)
+    public static function getByType(string $type): ?array
     {
         $stmt = DB::conn()->prepare(
             'SELECT *

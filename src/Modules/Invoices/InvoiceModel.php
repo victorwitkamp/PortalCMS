@@ -54,7 +54,7 @@ class InvoiceModel
         return true;
     }
 
-    public static function getByContractId($contract_id)
+    public static function getByContractId($contract_id): ?array
     {
         $Invoices = InvoiceMapper::getByContractId($contract_id);
         if (!$Invoices) {
@@ -90,7 +90,7 @@ class InvoiceModel
         if (empty($contract_ids)) {
             return false;
         }
-        if (is_array($contract_ids)) {
+        if (\is_array($contract_ids)) {
             foreach ($contract_ids as $contract_id) {
                 self::createInvoiceAction($year, $month, $contract_id);
             }

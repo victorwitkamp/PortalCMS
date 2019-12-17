@@ -12,7 +12,7 @@ use PortalCMS\Core\Database\DB;
 
 class ContractMapper
 {
-    public static function get()
+    public static function get(): ?array
     {
         $stmt = DB::conn()->prepare(
             'SELECT * FROM contracts ORDER BY id'

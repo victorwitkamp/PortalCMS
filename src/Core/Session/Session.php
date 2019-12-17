@@ -25,7 +25,8 @@ class Session
     public static function init() : void
     {
         // if no session exist, start the session
-        if (session_id() == '') {
+        // if (session_id() == '') {
+        if (session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
         }
     }

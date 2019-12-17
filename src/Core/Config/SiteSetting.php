@@ -69,9 +69,12 @@ class SiteSetting
         }
         $publicPath = Config::get('URL') . Config::get('PATH_LOGO_PUBLIC') . 'logo';
         $resizedImage = self::resizeLogo($_FILES['logo_file']['tmp_name']);
-        self::writeJPG($resizedImage, Config::get('PATH_LOGO') . 'logo');
-        self::writeLogoToDatabase($publicPath . '.jpg');
-        return true;
+        if (!empty($resizedImage)) {
+            self::writeJPG($resizedImage, Config::get('PATH_LOGO') . 'logo');
+            self::writeLogoToDatabase($publicPath . '.jpg');
+            return true;
+        }
+        return false;
     }
 
     public static function writeJPG($image, $destination)
@@ -136,7 +139,7 @@ class SiteSetting
     {
         [$width, $height] = getimagesize($source);
         if (!$width || !$height) {
-            return false;
+            return null;
         }
 
         $myImage = imagecreatefromjpeg($source);
@@ -152,7 +155,7 @@ class SiteSetting
         }
 
         $thumb = imagecreatetruecolor(150, 150);
-        if ($thumb && $myImage) {
+        if ($thumb !== false && !empty($thumb) && $myImage!== false && !empty($myImage)) {
             imagecopyresampled($thumb, $myImage, 0, 0, $x, $y, 150, 150, $smallestSide, $smallestSide);
             return $thumb;
         }

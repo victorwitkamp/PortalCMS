@@ -56,7 +56,7 @@ class InvoiceMapper
         return false;
     }
 
-    public static function getByContractId(int $contractId)
+    public static function getByContractId(int $contractId): ?array
     {
         $stmt = DB::conn()->prepare('SELECT * FROM invoices where contract_id = ?');
         $stmt->execute([$contractId]);

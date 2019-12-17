@@ -126,7 +126,7 @@ class PasswordReset
         $mail = new EmailMessage(
             Config::get('EMAIL_PASSWORD_RESET_SUBJECT'),
             $MailText,
-            $user_email,
+            [$user_email],
             null
         );
         $SMTPConfiguration = new SMTPConfiguration();

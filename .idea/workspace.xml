@@ -3,26 +3,20 @@
   <component name="AnalysisUIOptions">
     <option name="SPLITTER_PROPORTION" value="0.5007299" />
     <option name="SCOPE_TYPE" value="8" />
-    <option name="CUSTOM_SCOPE_NAME" value="All Places" />
+    <option name="CUSTOM_SCOPE_NAME" value="src" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10cd1690-6b40-469b-8cb6-7411aa27a75c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.php_cs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.php_cs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/Init.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/Init.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/EmailController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/EmailController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/MailController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/MailTemplateController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/MembershipController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/MembershipController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/UserManagementController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/UserManagementController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/Pages/Email/EditTemplate.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Email/EditTemplate.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/Pages/Email/NewTemplate.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Email/NewTemplate.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/Pages/Events/edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Events/edit.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/Pages/Login/inc/login.inc.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/Pages/Login/index.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/Pages/Login/indexNew.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Login/indexNew.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/Pages/Login/passwordReset.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Login/passwordReset.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/layoutLogin.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/layoutLogin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Config/Environment.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Config/Environment.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Config/SiteSetting.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Config/SiteSetting.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Email/Template/EmailTemplatePDOReader.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Template/EmailTemplatePDOReader.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Security/Authentication/Service/LoginValidator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Security/Authentication/Service/LoginValidator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/User/PasswordReset.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/User/PasswordReset.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Contracts/ContractMapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Contracts/ContractMapper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Invoices/InvoiceMapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Invoices/InvoiceMapper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Invoices/InvoiceModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Invoices/InvoiceModel.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -307,7 +301,8 @@
       <workItem from="1576161728419" duration="478000" />
       <workItem from="1576162499920" duration="2480000" />
       <workItem from="1576546941383" duration="891000" />
-      <workItem from="1576568752891" duration="489000" />
+      <workItem from="1576568752891" duration="2994000" />
+      <workItem from="1576573104168" duration="3189000" />
     </task>
     <servers />
   </component>
