@@ -41,12 +41,12 @@ class LoginController extends Controller
         // }
         // if (isset($_POST['activateSubmit'])) {
         //     if ($this->activate($_POST['email'], $_POST['code'])) {
-        //         Redirect::to('login');
+        //         Redirect::to('Login');
         //     }
         // }
         if (isset($_POST['requestPasswordReset'])) {
             if (PasswordReset::requestPasswordReset($_POST['user_name_or_email'])) {
-                Redirect::to('/Login');
+                Redirect::to('Login');
             }
         }
         if (isset($_POST['resetSubmit'])) {
@@ -82,14 +82,22 @@ class LoginController extends Controller
         }
     }
 
-    public function requestPasswordReset() {
+    public function requestPasswordReset()
+    {
         $templates = new Engine(DIR_VIEW);
         echo $templates->render('Pages/Login/RequestPasswordReset');
     }
 
-    public function passwordReset() {
+    public function passwordReset()
+    {
         $templates = new Engine(DIR_VIEW);
         echo $templates->render('Pages/Login/PasswordReset');
+    }
+
+    public function activate()
+    {
+        $templates = new Engine(DIR_VIEW);
+        echo $templates->render('Pages/Login/Activate');
     }
 
     /**

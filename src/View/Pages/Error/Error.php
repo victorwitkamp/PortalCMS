@@ -1,4 +1,4 @@
-<?= $this->layout('layout', ['title' => $this->e($title)]) ?>
+<?= $this->layout('layoutLogin', ['title' => $this->e($title)]) ?>
 <?= $this->push('head-extra') ?>
 <script>
     function goBack() {
@@ -6,7 +6,7 @@
     }
 </script>
 <?= $this->end() ?>
-<?= $this->push('main-content') ?>
+<?= $this->push('body') ?>
 
 <div class="container">
     <div class="row mt-5">

@@ -1,6 +1,8 @@
 <?php
 
 use PortalCMS\Core\Config\SiteSetting;
+use PortalCMS\Core\View\Alert;
+use PortalCMS\Core\View\Text;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +25,40 @@ use PortalCMS\Core\Config\SiteSetting;
 </head>
 
 <body>
-    <?= $this->section('body') ?>
+    <?= $this->section('body-start') ?>
+
+    <div class="container-fluid container-auth">
+        <div class="auth-brand m-t-md m-b-md"><?= SiteSetting::getStaticSiteSetting('site_name') ?></div>
+    </div>
+
+    <form method="post">
+        <div class="container-fluid container-auth">
+            <div class="panel panel-auth">
+                <div class="panel-heading">
+                    <h2 id="title-container" class="panel-title text-center"><?= $this->e($title) ?> - <?= SiteSetting::getStaticSiteSetting('site_name') ?></h2>
+                    <?php Alert::renderFeedbackMessages(); ?>
+                </div>
+                <div class="panel-body">
+                    <?= $this->section('body') ?>
+                </div>
+                <div class="panel-footer">
+                    <label>Hulp bij aanmelden<div class="small"><del>Registreren</del> | <a href="/Login/Activate">Activeren</a> | <a href="/Login/RequestPasswordReset">Wachtwoord vergeten</a></div></label>
+                </div>
+            </div>
+            <ul class="list-inline text-center small m-t-md">
+                <li><i class="fas fa-globe text-muted"></i></li>
+                <li><a class="text-muted" href="#"><del>English</del></a></li>
+                <li><a class="text-muted" href="#"><del>Nederlands</del></a></li>
+                <!-- <li><a class="text-muted" href="">Español</a></li> -->
+            </ul>
+        </div>
+    </form>
+    <ul class="list-inline text-center small m-t-md m-b-lg">
+        <li><a href="#" class="text-muted"><del>Terms and conditions</del></a></li>
+        <li><a href="#" class="text-muted"><del>Contact us</del></a></li>
+    </ul>
+    <div class="webmail-bg"></div>
+
 </body>
 
 </html>
