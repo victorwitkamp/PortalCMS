@@ -60,7 +60,7 @@ class SMTPTransport
         $this->PHPMailer->Username = $this->config->SMTPUser;
         $this->PHPMailer->Password = $this->config->SMTPPass;
         $this->PHPMailer->SMTPDebug = $this->config->SMTPDebug;
-        $this->PHPMailer->Debugoutput = static function ($str, $level) {
+        $this->PHPMailer->Debugoutput = static function($str, $level) {
             file_put_contents(DIR_ROOT . 'phpmailer.log', gmdate('Y-m-d H:i:s') . "\t$level\t$str\n", FILE_APPEND | LOCK_EX);
         };
         $this->PHPMailer->From = $this->config->fromEmail;

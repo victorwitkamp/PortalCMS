@@ -154,7 +154,7 @@ class LoginController extends Controller
             Redirect::to('Home');
         } else {
             if (Request::post('redirect')) {
-                return Redirect::to('Login/?redirect='.ltrim(urlencode(Request::post('redirect')), '/'));
+                return Redirect::to('Login/?redirect=' . ltrim(urlencode(Request::post('redirect')), '/'));
             }
             Redirect::to('Login');
         }
