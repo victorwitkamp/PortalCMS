@@ -36,7 +36,7 @@ class ContractModel
         $kosten_ruimte              = Request::post('kosten_ruimte', true);
         $kosten_kast                = Request::post('kosten_kast', true);
         $kosten_totaal              = $kosten_ruimte + $kosten_kast;
-        if (!ContractMapper::new(
+        if (ContractMapper::new(
             Request::post('beuk_vertegenwoordiger', true),
             Request::post('band_naam', true),
             Request::post('bandcode', true),
@@ -62,10 +62,10 @@ class ContractModel
             Request::post('contract_einddatumm', true),
             Request::post('contract_datum', true)
         )) {
-            Session::add('feedback_negative', 'Toevoegen van contract mislukt.');
+            Session::add('feedback_positive', 'Contract toegevoegd.');
             Redirect::to('Contracts/');
         } else {
-            Session::add('feedback_positive', 'Contract toegevoegd.');
+            Session::add('feedback_negative', 'Toevoegen van contract mislukt.');
             Redirect::to('Contracts/');
         }
     }
@@ -80,7 +80,7 @@ class ContractModel
             Session::add('feedback_negative', 'Wijzigen van contract mislukt.<br>Contract bestaat niet.');
             Redirect::to('Contracts/');
         }
-        if (!ContractMapper::update(
+        if (ContractMapper::update(
             $Id,
             Request::post('beuk_vertegenwoordiger', true),
             Request::post('band_naam', true),
@@ -107,10 +107,10 @@ class ContractModel
             Request::post('contract_einddatumm', true),
             Request::post('contract_datum', true)
         )) {
-            Session::add('feedback_negative', 'Wijzigen van contract mislukt.');
+            Session::add('feedback_positive', 'Contract gewijzigd.');
             Redirect::to('Contracts/');
         } else {
-            Session::add('feedback_positive', 'Contract gewijzigd.');
+            Session::add('feedback_negative', 'Wijzigen van contract mislukt.');
             Redirect::to('Contracts/');
         }
     }

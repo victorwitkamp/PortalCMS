@@ -3,7 +3,7 @@
 use PortalCMS\Controllers\LoginController;
 use PortalCMS\Core\Session\Session;
 
-require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/../src/Init.php';
 
 require 'config.php';
 

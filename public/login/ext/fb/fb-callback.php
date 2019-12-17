@@ -2,7 +2,7 @@
 
 use PortalCMS\Controllers\AccountController;
 
-require $_SERVER['DOCUMENT_ROOT'] . '/Init.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/../src/Init.php';
 
 require 'config.php';
 

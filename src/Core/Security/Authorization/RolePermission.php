@@ -33,10 +33,7 @@ class RolePermission
     public static function unassignPermission($role_id, $perm_id)
     {
         $Permission = PermissionMapper::getById($perm_id);
-        if (!RolePermissionMapper::isAssigned($role_id, $Permission['perm_desc'])) {
-            Session::add('feedback_negative', 'Niet toegewezen.');
-            Redirect::to('Error/Error');
-        } else {
+        if (RolePermissionMapper::isAssigned($role_id, $Permission['perm_desc'])) {
             if (RolePermissionMapper::unassign($role_id, $perm_id)) {
                 Session::add('feedback_positive', 'Permissie verwijderd.');
                 Redirect::to('UserManagement/Role/?id=' . $role_id);
@@ -44,6 +41,9 @@ class RolePermission
                 Session::add('feedback_negative', 'Fout bij het verwijderen van de permissie.');
                 Redirect::to('Error/Error');
             }
+        } else {
+            Session::add('feedback_negative', 'Niet toegewezen.');
+            Redirect::to('Error/Error');
         }
     }
 }
