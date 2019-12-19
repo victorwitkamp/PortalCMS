@@ -92,8 +92,8 @@ class LoginService
         Session::set('user_id', $user->user_id);
         Session::set('user_name', $user->user_name);
         Session::set('user_email', $user->user_email);
-        Session::set('user_account_type', $user->user_account_type);
-        Session::set('user_provider_type', 'DEFAULT');
+        // Session::set('user_account_type', $user->user_account_type);
+        // Session::set('user_provider_type', 'DEFAULT');
         Session::set('user_fbid', $user->user_fbid);
         Session::set('user_logged_in', true);
         UserPDOWriter::updateSessionId($user->user_id, session_id());

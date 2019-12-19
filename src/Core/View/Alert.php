@@ -28,9 +28,9 @@ class Alert
      */
     public static function renderFeedbackMessages()
     {
-        $feedback_positive = (array) Session::get('feedback_positive');
-        $feedback_warning = (array) Session::get('feedback_warning');
-        $feedback_negative = (array) Session::get('feedback_negative');
+        $feedback_positive = (array) Session::get('feedback_positive', false);
+        $feedback_warning = (array) Session::get('feedback_warning', false);
+        $feedback_negative = (array) Session::get('feedback_negative', false);
 
         if (isset($feedback_positive)) {
             foreach ($feedback_positive as $feedback) {

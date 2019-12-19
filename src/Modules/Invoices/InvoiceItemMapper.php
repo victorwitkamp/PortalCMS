@@ -14,9 +14,7 @@ class InvoiceItemMapper
 {
     /**
      * Get the Invoice Items for a specific Invoice Id
-     *
      * @param int $invoiceId
-     *
      * @return mixed
      */
     public static function getByInvoiceId(int $invoiceId) : ?array
@@ -35,11 +33,9 @@ class InvoiceItemMapper
 
     /**
      * Create an InvoiceItem with a specific name and price exists for a specific invoiceId.
-     *
      * @param int    $invoiceId
      * @param string $name
      * @param int    $price
-     *
      * @return bool
      */
     public static function create($invoiceId, $name, $price): bool

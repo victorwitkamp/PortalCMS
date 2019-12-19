@@ -80,7 +80,6 @@ class UserPDOReader
                     user_fbid
                     FROM users
                         WHERE (user_name = ? OR user_email = ?)
-                            AND user_provider_type = "DEFAULT"
                                 LIMIT 1'
         );
         $stmt->execute([$username, $username]);
@@ -113,14 +112,12 @@ class UserPDOReader
                         WHERE user_id = :user_id
                             AND user_remember_me_token = :user_remember_me_token
                             AND user_remember_me_token IS NOT NULL
-                            AND user_provider_type = :provider_type
                                 LIMIT 1'
         );
         $stmt->execute(
             [
                 ':user_id' => $user_id,
-                ':user_remember_me_token' => $token,
-                ':provider_type' => 'DEFAULT'
+                ':user_remember_me_token' => $token
             ]
         );
         if ($stmt->rowCount() === 0) {
@@ -160,10 +157,9 @@ class UserPDOReader
                     FROM users
                         WHERE (user_name = :user_name_or_email
                         OR user_email = :user_name_or_email)
-                        AND user_provider_type = :provider_type
                         LIMIT 1'
         );
-        $stmt->execute([':user_name_or_email' => $usernameOrEmail, ':provider_type' => 'DEFAULT']);
+        $stmt->execute([':user_name_or_email' => $usernameOrEmail]);
         if ($stmt->rowCount() === 0) {
             return null;
         }

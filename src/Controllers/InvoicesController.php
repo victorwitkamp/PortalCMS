@@ -93,7 +93,7 @@ class InvoicesController extends Controller
         if (!empty($invoiceIds)) {
             MailBatch::create();
             $batchId = MailBatch::lastInsertedId();
-            Session::add('feedback_positive', 'Nieuwe batch aangemaakt. Batch ID: ' . $batchId);
+            Session::add('feedback_positive', 'Nieuwe batch aangemaakt (batch ID: ' . $batchId . '). <a href="email/Messages?batch_id=' . $batchId . '">Batch bekijken</a>');
             foreach ($invoiceIds as $invoiceId) {
                 InvoiceModel::createMail($invoiceId, $batchId);
             }
@@ -118,24 +118,21 @@ class InvoicesController extends Controller
 
     public static function createInvoice()
     {
-        $year = Request::post('year', true);
-        $month = Request::post('month', true);
+        $year = (int) Request::post('year', true);
+        $month = (int) Request::post('month', true);
         $contracts = Request::post('contract_id');
-        if (InvoiceModel::create($year, $month, $contracts)) {
+        $factuurdatum = Request::post('factuurdatum', true);
+        if (InvoiceModel::create($year, $month, $contracts, $factuurdatum)) {
+            Session::add('feedback_positive', 'Factuur toegevoegd.');
             Redirect::to('Invoices');
         }
-        //  else {
-        //     Redirect::to('Error/Error');
-        // }
-
-        // else show error on Add page
     }
 
     public static function deleteInvoice()
     {
         $id = (int) Request::post('id', true);
         if (InvoiceModel::delete($id)) {
-            Redirect::to('Invoices');
+            Redirect::to('Invoices/Index');
         } else {
             Redirect::to('Error/Error');
         }

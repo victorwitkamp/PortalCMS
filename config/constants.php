@@ -7,5 +7,6 @@ define('DIR_INCLUDES', DIR_ROOT . 'includes/');
 define('DIR_VENDOR', DIR_ROOT . '../vendor/');
 define('DIR_VIEW', DIR_ROOT . '../src/View/');
 define('DIR_TEMP', DIR_ROOT . 'content/temp/');
+define('DIR_IMG', DIR_ROOT . 'content/img/');
 define('DIR_CONTROLLERS', DIR_ROOT . '../src/Controllers/');
 define('DIR_CONFIG', DIR_ROOT . '../config/');

@@ -67,6 +67,7 @@ class LoginController extends Controller
     public function index()
     {
         if (Authentication::userIsLoggedIn()) {
+            Session::add('feedback_positive', 'You are already logged in.');
             if (Request::post('redirect')) {
                 return Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
             } else {
@@ -74,6 +75,7 @@ class LoginController extends Controller
             }
         } else {
             if (self::loginWithCookie()) {
+                Session::add('feedback_positive', 'You are automatically logged in using a cookie.');
                 Redirect::to('Home');
             } else {
                 $templates = new Engine(DIR_VIEW);
@@ -115,16 +117,16 @@ class LoginController extends Controller
             Request::post('user_password'),
             Request::post('set_remember_me_cookie')
         );
-        if (!$login_successful) {
-            Redirect::to('Login');
-            return false;
+        if ($login_successful) {
+            if (Request::post('redirect')) {
+                return Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
+            } else {
+                Redirect::to('Home');
+            }
+            return true;
         }
-        if (Request::post('redirect')) {
-            return Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
-        } else {
-            Redirect::to('Home');
-            return false;
-        }
+        Redirect::to('Login');
+        return false;
     }
 
     /**
@@ -150,13 +152,17 @@ class LoginController extends Controller
         if (LoginService::loginWithFacebook($fbid)) {
             if (Request::post('redirect')) {
                 return Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
+            } else {
+                Redirect::to('Home');
             }
-            Redirect::to('Home');
+            return true;
         } else {
             if (Request::post('redirect')) {
                 return Redirect::to('Login/?redirect=' . ltrim(urlencode(Request::post('redirect')), '/'));
+            } else {
+                Redirect::to('Login');
             }
-            Redirect::to('Login');
+            return false;
         }
     }
 }

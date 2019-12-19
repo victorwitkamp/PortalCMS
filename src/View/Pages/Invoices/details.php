@@ -13,7 +13,9 @@ if (!empty($invoice)) {
     $pageName = 'Factuur: ' . $invoice->factuurnummer;
     $contract = ContractMapper::getById($invoice->contract_id);
 } else {
-    Redirect::to('Error/NotFound');
+    // Redirect::to('Error/NotFound');
+    echo 'no ID specified';
+    die;
 } ?>
 <?= $this->layout('layout', ['title' => $pageName]) ?>
 <?= $this->push('main-content') ?>

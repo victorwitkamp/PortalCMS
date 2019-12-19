@@ -24,10 +24,10 @@ $user = UserPDOReader::getProfileById(Session::get('user_id'));
         <th><?= Text::get('LABEL_USER_LAST_LOGIN_TIMESTAMP') ?></th>
         <td><?= $user->user_last_login_timestamp ?></td>
     </tr>
-    <tr>
-        <th><?= Text::get('LABEL_USER_PROVIDER_TYPE') ?></th>
-        <td><?= Session::get('user_provider_type') ?></td>
-    </tr>
+    <!-- <tr>
+        <th><?php //Text::get('LABEL_USER_PROVIDER_TYPE') ?></th> -->
+        <!-- <td><?php //Session::get('user_provider_type') ?></td>
+    </tr> -->
     <tr>
         <th><?= Text::get('LABEL_USER_FBID') ?></th>
         <td><?php

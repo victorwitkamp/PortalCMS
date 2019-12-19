@@ -86,12 +86,13 @@ class PasswordReset
     {
         $sql = 'UPDATE users
                 SET password_reset_hash = :password_reset_hash, user_password_reset_timestamp = :user_password_reset_timestamp
-                WHERE user_name = :user_name AND user_provider_type = :provider_type LIMIT 1';
+                WHERE user_name = :user_name
+                LIMIT 1';
         $stmt = DB::conn()->prepare($sql);
         $stmt->execute(
             [
                 ':password_reset_hash' => $password_reset_hash, ':user_name' => $user_name,
-                ':user_password_reset_timestamp' => $timestamp, ':provider_type' => 'DEFAULT'
+                ':user_password_reset_timestamp' => $timestamp
             ]
         );
         if ($stmt->rowCount() === 1) {
@@ -153,14 +154,12 @@ class PasswordReset
                   FROM users
                  WHERE user_name = :user_name
                        AND password_reset_hash = :password_reset_hash
-                       AND user_provider_type = :user_provider_type
                  LIMIT 1';
         $stmt = DB::conn()->prepare($sql);
         $stmt->execute(
             [
             ':password_reset_hash' => $verification_code,
-            ':user_name' => $user_name,
-            ':user_provider_type' => 'DEFAULT']
+            ':user_name' => $user_name]
         );
         // if this user with exactly this verification hash code does NOT exist
         if ($stmt->rowCount() != 1) {
@@ -196,12 +195,12 @@ class PasswordReset
         $sql = 'UPDATE users SET user_password_hash = :user_password_hash, password_reset_hash = NULL,
                        user_password_reset_timestamp = NULL
                  WHERE user_name = :user_name AND password_reset_hash = :password_reset_hash
-                       AND user_provider_type = :user_provider_type LIMIT 1';
+                       LIMIT 1';
         $stmt = DB::conn()->prepare($sql);
         $stmt->execute(
             [
                 ':user_password_hash' => $user_password_hash, ':user_name' => $user_name,
-                ':password_reset_hash' => $password_reset_hash, ':user_provider_type' => 'DEFAULT'
+                ':password_reset_hash' => $password_reset_hash
             ]
         );
         if ($stmt->rowCount() === 1) {

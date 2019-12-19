@@ -30,7 +30,9 @@ class Authentication
         if (!self::userIsLoggedIn()) {
 
             // ... then treat user as "not logged in", destroy session, redirect to login page
-            Session::destroy();
+            // Session::destroy();
+            Session::add('feedback_negative', 'You need to log-in first.');
+
 
             // send the user to the login form page, but also add the current page's URI (the part after the base URL)
             // as a parameter argument, making it possible to send the user back to where he/she came from after a

@@ -25,7 +25,6 @@ class Session
     public static function init() : void
     {
         // if no session exist, start the session
-        // if (session_id() == '') {
         if (session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
         }
@@ -49,12 +48,16 @@ class Session
      * @param  mixed $key Usually a string, right ?
      * @return mixed the key's value or nothing
      */
-    public static function get($key)
+    public static function get($key, $filter = true)
     {
         if (isset($_SESSION[$key])) {
             $value = $_SESSION[$key];
             // filter the value for XSS vulnerabilities
-            return Filter::XSSFilter($value);
+            if ($filter) {
+                return Filter::XSSFilter($value);
+            } else {
+                return $value;
+            }
         }
         return null;
     }
@@ -81,9 +84,10 @@ class Session
     public static function destroy() : bool
     {
         if (!session_destroy()) {
-            self::add('feedback_warning', 'Your session has expired. Please log-in.');
+            self::add('feedback_warning', 'Session could not be destroyed.');
             return false;
         }
+        self::add('feedback_warning', 'Session destroyed.');
         return true;
     }
 }

@@ -27,7 +27,7 @@ class PDF
         define('K_PATH_MAIN', DIR_VENDOR . 'tecnickcom/tcpdf/');
         define('K_PATH_URL', DIR_VENDOR . 'tecnickcom/tcpdf/');
         define('K_PATH_FONTS', K_PATH_MAIN . 'fonts/');
-        define('K_PATH_IMAGES', __DIR__ . '/../images/');
+        define('K_PATH_IMAGES', DIR_IMG);
         define('PDF_HEADER_LOGO', 'logo.jpg');
         define('PDF_HEADER_LOGO_WIDTH', 30);
         define('K_PATH_CACHE', DIR_TEMP);
@@ -86,7 +86,7 @@ class PDF
     {
         $pdf->SetTitle('Factuur ' . $invoice->factuurnummer);
         $pdf->SetXY(165, 15);
-        $pdf->Image('logo_new_280px.jpg', '', '', 25, 25, '', '', 'T', false, 300, '', false, false, 0, false, false, false);
+        $pdf->Image(DIR_IMG.'logo_new_280px.jpg', '', '', 25, 25, '', '', 'T', false, 300, '', false, false, 0, false, false, false);
         $pdf->SetXY(120, 60);
         $pdf->Multicell(0, 2, "Poppodium de Beuk\n1e Barendrechtseweg 53-55\n2992XE, Barendrecht\n\nKVK: 40341794\nIBAN: NL19RABO1017541353", $border = 0, $align = 'R');
         $pdf->SetXY(20, 70);

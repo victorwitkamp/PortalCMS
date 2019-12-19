@@ -33,13 +33,12 @@ class Password
         $stmt = DB::conn()->prepare(
             'UPDATE users SET user_password_hash = :user_password_hash
                     WHERE user_name = :user_name
-                    AND user_provider_type = :user_provider_type LIMIT 1'
+                        LIMIT 1'
         );
         $stmt->execute(
             [
                 ':user_password_hash' => $user_password_hash,
-                ':user_name' => $user_name,
-                ':user_provider_type' => 'DEFAULT'
+                ':user_name' => $user_name
             ]
         );
         return ($stmt->rowCount() === 1);

@@ -27,7 +27,6 @@
     'COOKIE_DOMAIN' => '',
     'COOKIE_SECURE' => true,
     'COOKIE_HTTP' => true,
-    'SESSION_RUNTIME' => 604800,
 
     'FB_APP_ID' => '1991997357725439',
     'FB_APP_SECRET' => 'a033dce887f749e53907fb710ae253bc',

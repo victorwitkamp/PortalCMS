@@ -50,7 +50,7 @@ class InvoiceModel
 
         InvoiceMapper::updateMailId($invoiceId, $createdMailId);
         InvoiceMapper::updateStatus($invoiceId, 2);
-        Session::add('feedback_positive', 'Email toegevoegd (ID = ' . $createdMailId . ')');
+        // Session::add('feedback_positive', 'Email toegevoegd (ID = ' . $createdMailId . ')');
         return true;
     }
 
@@ -63,11 +63,10 @@ class InvoiceModel
         return $Invoices;
     }
 
-    public static function createInvoiceAction($year, $month, $contract_id)
+    public static function createInvoiceAction(int $year, int $month, int $contract_id, $factuurdatum)
     {
-        $contract = ContractMapper::getById((int) $contract_id);
+        $contract = ContractMapper::getById($contract_id);
         $factuurnummer = $year . $contract->bandcode . $month;
-        $factuurdatum = Request::post('factuurdatum', true);
         if (!empty(InvoiceMapper::getByFactuurnummer($factuurnummer))) {
             Session::add('feedback_negative', 'Factuurnummer bestaat al.');
             return false;
@@ -85,21 +84,24 @@ class InvoiceModel
         }
     }
 
-    public static function create($year, $month, $contract_ids): bool
+    public static function create(int $year, int $month, $contract_ids, $factuurdatum): bool
     {
-        if (empty($contract_ids)) {
+        if (empty($year) || empty($month) || empty($contract_ids) || empty($factuurdatum)) {
+            Session::add('feedback_negative', 'Incompleet verzoek.');
             return false;
         }
         if (\is_array($contract_ids)) {
             foreach ($contract_ids as $contract_id) {
-                self::createInvoiceAction($year, $month, $contract_id);
+                if (self::createInvoiceAction($year, $month, (int) $contract_id, $factuurdatum)) {
+                    return true;
+                }
             }
         } else {
-            self::createInvoiceAction($year, $month, $contract_ids);
+            if (self::createInvoiceAction($year, $month, (int) $contract_ids, $factuurdatum)) {
+                return true;
+            }
         }
-
-        Session::add('feedback_positive', 'Factuur toegevoegd.');
-        return true;
+        return false;
     }
 
     public static function displayInvoiceSumById(int $id)
@@ -134,7 +136,10 @@ class InvoiceModel
             }
         }
         if ($invoice->status > 0) {
-            unlink(DIR_ROOT . 'content/invoices/' . $invoice->factuurnummer . '.pdf');
+            if (!unlink(DIR_ROOT . '/content/invoices/' . $invoice->factuurnummer . '.pdf')) {
+                Session::add('feedback_negative', 'PDF niet gevonden.');
+                return false;
+            }
         }
         if (!InvoiceMapper::delete($id)) {
             Session::add('feedback_negative', 'Verwijderen van factuur mislukt.');
