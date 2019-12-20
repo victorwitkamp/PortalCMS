@@ -63,7 +63,7 @@ class InvoiceModel
         return $Invoices;
     }
 
-    public static function createInvoiceAction(int $year, int $month, int $contract_id, $factuurdatum)
+    public static function createInvoiceAction(string $year, string $month, int $contract_id, $factuurdatum)
     {
         $contract = ContractMapper::getById($contract_id);
         $factuurnummer = $year . $contract->bandcode . $month;
@@ -76,26 +76,37 @@ class InvoiceModel
             return false;
         }
         $invoice = InvoiceMapper::getByFactuurnummer($factuurnummer);
-        if ($contract->kosten_ruimte > 0) {
-            InvoiceItemMapper::create($invoice->id, 'Huur oefenruimte - ' . Text::get('MONTH_' . $month), $contract->kosten_ruimte);
+        $kosten_ruimte = (int) $contract->kosten_ruimte;
+        $kosten_kast = (int) $contract->kosten_kast;
+        if ($kosten_ruimte > 0) {
+            if (!InvoiceItemMapper::create($invoice->id, 'Huur oefenruimte - ' . Text::get('MONTH_' . $month), $kosten_ruimte)) {
+                return false;
+            }
         }
-        if ($contract->kosten_kast > 0) {
-            InvoiceItemMapper::create($invoice->id, 'Huur kast - ' . Text::get('MONTH_' . $month), $contract->kosten_kast);
+        if ($kosten_kast > 0) {
+            if (!InvoiceItemMapper::create($invoice->id, 'Huur kast - ' . Text::get('MONTH_' . $month), $kosten_kast)) {
+                return false;
+            }
         }
+        return true;
     }
 
-    public static function create(int $year, int $month, $contract_ids, $factuurdatum): bool
+    public static function create(string $year, string $month, $contract_ids, $factuurdatum): bool
     {
         if (empty($year) || empty($month) || empty($contract_ids) || empty($factuurdatum)) {
             Session::add('feedback_negative', 'Incompleet verzoek.');
             return false;
         }
+        // print_r($contract_ids);
+        // die;
         if (\is_array($contract_ids)) {
             foreach ($contract_ids as $contract_id) {
-                if (self::createInvoiceAction($year, $month, (int) $contract_id, $factuurdatum)) {
-                    return true;
-                }
+                // print_r($contract_id);
+                if (!self::createInvoiceAction($year, $month, (int) $contract_id, $factuurdatum)) { return false; }
+                //     return true;
+                // }
             }
+            return true;
         } else {
             if (self::createInvoiceAction($year, $month, (int) $contract_ids, $factuurdatum)) {
                 return true;
@@ -116,9 +127,13 @@ class InvoiceModel
     public static function getInvoiceSumById(int $id)
     {
         $sum = 0;
-        foreach (InvoiceItemMapper::getByInvoiceId($id) as $row) {
-            $sum += $row->price;
+        $items = InvoiceItemMapper::getByInvoiceId($id);
+        if (!empty($items) && is_array($items)) {
+            foreach ($items as $item) {
+                $sum += $item->price;
+            }
         }
+
         return $sum;
     }
 

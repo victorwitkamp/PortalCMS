@@ -51,7 +51,7 @@ class InvoicesController extends Controller
     {
         if (Authorization::verifyPermission('rental-invoices')) {
             $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/Invoices/index');
+            echo $templates->render('Pages/Invoices/Index');
         } else {
             Redirect::to('Error/PermissionError');
         }
@@ -71,7 +71,7 @@ class InvoicesController extends Controller
     {
         if (Authorization::verifyPermission('rental-invoices')) {
             $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/Invoices/details');
+            echo $templates->render('Pages/Invoices/Details');
         } else {
             Redirect::to('Error/PermissionError');
         }
@@ -81,7 +81,7 @@ class InvoicesController extends Controller
     {
         if (Authorization::verifyPermission('rental-invoices')) {
             $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/Invoices/createPDF');
+            echo $templates->render('Pages/Invoices/CreatePDF');
         } else {
             Redirect::to('Error/PermissionError');
         }
@@ -118,8 +118,8 @@ class InvoicesController extends Controller
 
     public static function createInvoice()
     {
-        $year = (int) Request::post('year', true);
-        $month = (int) Request::post('month', true);
+        $year = (string) Request::post('year', true);
+        $month = (string) Request::post('month', true);
         $contracts = Request::post('contract_id');
         $factuurdatum = Request::post('factuurdatum', true);
         if (InvoiceModel::create($year, $month, $contracts, $factuurdatum)) {

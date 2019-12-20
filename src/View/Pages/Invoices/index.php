@@ -30,7 +30,7 @@ $pageName = Text::get('TITLE_INVOICES');
         <?php
         $invoices = InvoiceMapper::getAll();
         if (!empty($invoices)) {
-            include_once 'inc\table.php';
+            include_once 'table.php';
         } else {
             echo 'Geen facturen gevonden.';
         }

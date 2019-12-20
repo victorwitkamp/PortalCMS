@@ -37,8 +37,8 @@ return [
 
     'FB_APP_ID' => '1991997357725439',
     'FB_APP_SECRET' => 'a033dce887f749e53907fb710ae253bc',
-    'FB_LOGIN_URL' => 'https://portal.victorwitkamp.nl/Login/ext/fb/fb-callback-login.php',
-    'FB_ASSIGN_URL' => 'https://portal.victorwitkamp.nl/Login/ext/fb/fb-callback.php',
+    'FB_LOGIN_URL' => 'https://portal.victorwitkamp.nl/login/ext/fb/fb-callback-login.php',
+    'FB_ASSIGN_URL' => 'https://portal.victorwitkamp.nl/login/ext/fb/fb-callback.php',
 
     // 'AVATAR_SIZE' => 44,
     // 'AVATAR_JPEG_QUALITY' => 85,
@@ -46,7 +46,7 @@ return [
     'ENCRYPTION_KEY' => '6#x0gÊìf^25cL1f$08&',
     'HMAC_SALT' => '8qk9c^4L6d#15tM8z7n0%',
 
-    'EMAIL_PASSWORD_RESET_URL' => 'Login/resetPassword.php',
+    'EMAIL_PASSWORD_RESET_URL' => 'login/resetPassword.php',
     'EMAIL_PASSWORD_RESET_SUBJECT' => 'Password reset',
     'EMAIL_VERIFICATION_URL' => 'register/verify',
     'EMAIL_VERIFICATION_FROM_EMAIL' => 'victor@victorwitkamp.nl',

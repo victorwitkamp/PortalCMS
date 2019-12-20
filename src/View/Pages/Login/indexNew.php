@@ -6,7 +6,7 @@ use PortalCMS\Core\Security\Csrf;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Core\View\View;
 
-require $_SERVER['DOCUMENT_ROOT'] . '/Login/ext/fb/config.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/login/ext/fb/config.php';
 $helper = $fb->getRedirectLoginHelper();
 $permissions = ['email'];
 $loginUrl = $helper->getLoginUrl(Config::get('FB_LOGIN_URL'), $permissions);

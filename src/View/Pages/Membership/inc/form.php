@@ -5,29 +5,29 @@ if ($pageType === 'edit') {
     $edit = false;
 }
 ?>
-<form method="post" <?php if ($edit) { echo 'validate=true'; } ?>>
+<form method="post" <?php //if ($edit) { echo 'validate=true'; } ?>>
 
     <div class="row">
         <div class="col-md-8">
             <div class="form-group row">
                 <div class="col-md-4">
                     <label class="col-form-label">Jaar van lidmaatschap</label>
-                    <input type="text" name="jaarlidmaatschap" class="form-control" value="<?php if ($edit) { echo $row->jaarlidmaatschap; } ?>" required>
+                    <input type="text" name="jaarlidmaatschap" class="form-control" value="<?php if ($edit) { echo $row->jaarlidmaatschap; } ?>" <?php //echo 'required'; ?>>
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-md-3">
                     <label class="col-form-label">Voorletters</label>
-                    <input type="text" name="voorletters" value="<?php if ($edit) { echo $row->voorletters; } ?>" class="form-control" required>
+                    <input type="text" name="voorletters" value="<?php if ($edit) { echo $row->voorletters; } ?>" class="form-control" <?php //echo 'required'; ?>>
                 </div>
                 <div class="col-md-4">
                     <label class="col-form-label">Voornaam</label>
-                    <input type="text" name="voornaam" value="<?php if ($edit) { echo $row->voornaam; } ?>" class="form-control" autocomplete="given-name" required>
+                    <input type="text" name="voornaam" value="<?php if ($edit) { echo $row->voornaam; } ?>" class="form-control" autocomplete="given-name" <?php //echo 'required'; ?>>
                 </div>
                 <div class="col-md-5">
                     <label class="col-form-label">Achternaam</label>
-                    <input type="text" name="achternaam" value="<?php if ($edit) { echo $row->achternaam; } ?>" class="form-control" autocomplete="family-name" required>
+                    <input type="text" name="achternaam" value="<?php if ($edit) { echo $row->achternaam; } ?>" class="form-control" autocomplete="family-name" <?php //echo 'required'; ?>>
                 </div>
             </div>
 
@@ -40,7 +40,7 @@ if ($pageType === 'edit') {
                                 <i class="fa fa-calendar"></i>
                             </div>
                         </div>
-                        <input type="text" name="geboortedatum" value="<?php if ($edit) { echo $row->geboortedatum; } ?>" class="form-control  datetimepicker-input" data-target="#datetimepicker1" required>
+                        <input type="text" name="geboortedatum" value="<?php if ($edit) { echo $row->geboortedatum; } ?>" class="form-control  datetimepicker-input" data-target="#datetimepicker1" <?php //echo 'required'; ?>>
                     </div>
                 </div>
             </div>
@@ -48,33 +48,33 @@ if ($pageType === 'edit') {
             <div class="form-group row">
                 <div class="col-md-9">
                     <label class="col-form-label">Adres</label>
-                    <input type="text" name="adres" value="<?php if ($edit) { echo $row->adres; } ?>" class="form-control" placeholder="Voorbeeldadres 123" autocomplete="street-address" required>
+                    <input type="text" name="adres" value="<?php if ($edit) { echo $row->adres; } ?>" class="form-control" placeholder="Voorbeeldadres 123" autocomplete="street-address" <?php //echo 'required'; ?>>
                 </div>
                 <div class="col-md-3">
                     <label class="col-form-label">Huisnummer</label>
-                    <input type="text" name="huisnummer" value="<?php if ($edit) { echo $row->huisnummer; } ?>" class="form-control" maxlength="6" placeholder="123" required>
+                    <input type="text" name="huisnummer" value="<?php if ($edit) { echo $row->huisnummer; } ?>" class="form-control" maxlength="6" placeholder="123" <?php //echo 'required'; ?>>
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-md-5">
                     <label class="col-form-label">Postcode</label>
-                    <input type="text" name="postcode" value="<?php if ($edit) { echo $row->postcode; } ?>" class="form-control" maxlength="6" placeholder="1234AB" autocomplete="postal-code" required>
+                    <input type="text" name="postcode" value="<?php if ($edit) { echo $row->postcode; } ?>" class="form-control" maxlength="6" placeholder="1234AB" autocomplete="postal-code" <?php //echo 'required'; ?>>
                 </div>
                 <div class="col-md-7">
                     <label class="col-form-label">Woonplaats</label>
-                    <input type="text" name="woonplaats" value="<?php if ($edit) { echo $row->woonplaats; } ?>" class="form-control" placeholder="Barendrecht" autocomplete="address-level2" required>
+                    <input type="text" name="woonplaats" value="<?php if ($edit) { echo $row->woonplaats; } ?>" class="form-control" placeholder="Barendrecht" autocomplete="address-level2" <?php //echo 'required'; ?>>
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-md-6">
                     <label class="col-form-label">Telefoon vast</label>
-                    <input type="text" name="telefoon_vast" value="<?php if ($edit) { echo $row->telefoon_vast; } ?>" class="form-control" autocomplete="tel" required>
+                    <input type="text" name="telefoon_vast" value="<?php if ($edit) { echo $row->telefoon_vast; } ?>" class="form-control" autocomplete="tel" <?php //echo 'required'; ?>>
                 </div>
                 <div class="col-md-6">
                     <label class="col-form-label">Telefoon mobiel</label>
-                    <input type="text" name="telefoon_mobiel" value="<?php if ($edit) { echo  $row->telefoon_mobiel; } ?>" class="form-control" autocomplete="tel" required>
+                    <input type="text" name="telefoon_mobiel" value="<?php if ($edit) { echo  $row->telefoon_mobiel; } ?>" class="form-control" autocomplete="tel" <?php //echo 'required'; ?>>
                 </div>
             </div>
 
@@ -85,7 +85,7 @@ if ($pageType === 'edit') {
                         <div class="input-group-prepend">
                             <div class="input-group-text">@</div>
                         </div>
-                        <input type="text" name="emailadres" value="<?php if ($edit) { echo $row->emailadres; } ?>" class="form-control" autocomplete="email" required>
+                        <input type="text" name="emailadres" value="<?php if ($edit) { echo $row->emailadres; } ?>" class="form-control" autocomplete="email" <?php //echo 'required'; ?>>
                     </div>
                 </div>
             </div>
@@ -98,7 +98,7 @@ if ($pageType === 'edit') {
                                 <i class="fa fa-calendar"></i>
                             </div>
                         </div>
-                        <input type="text" name="ingangsdatum" value="<?php if ($edit) { echo $row->ingangsdatum; } ?>" class="form-control datetimepicker-input" data-target="#datetimepicker2" required>
+                        <input type="text" name="ingangsdatum" value="<?php if ($edit) { echo $row->ingangsdatum; } ?>" class="form-control datetimepicker-input" data-target="#datetimepicker2" <?php //echo 'required'; ?>>
                     </div>
                 </div>
             </div>
@@ -107,14 +107,14 @@ if ($pageType === 'edit') {
         <div class="col-md-4">
             <div class="form-group">
                 <label class="col-form-label">Geslacht</label>
-                <select name="geslacht" class="form-control" required>
+                <select name="geslacht" class="form-control" <?php //echo 'required'; ?>>
                     <option></option>
                     <option value="Man" <?php if ($edit && $row->geslacht === 'Man') { echo 'selected'; } ?>>Man</option>
                     <option value="Vrouw" <?php if ($edit && $row->geslacht === 'Vrouw') { echo 'selected'; } ?>>Vrouw</option>
                     <option value="nvt" <?php if ($edit && $row->geslacht === 'nvt') { echo 'selected'; } ?>>N.v.t.</option>
                 </select>
                 <label class="col-form-label">Nieuwsbrief ontvangen?</label>
-                <select name="nieuwsbrief" class="form-control" required>
+                <select name="nieuwsbrief" class="form-control" <?php //echo 'required'; ?>>
                     <option></option>
                     <option value="1" <?php if ($edit && $row->nieuwsbrief === 1) { echo 'selected'; } ?>>Ja</option>
                     <option value="0" <?php if ($edit && $row->nieuwsbrief === 0) { echo 'selected'; } ?>>Nee</option>
@@ -126,7 +126,7 @@ if ($pageType === 'edit') {
                     <p class="card-title">Zou je vrijwilliger willen zijn?</p>
                 </div>
                 <div class="card-body">
-                    <select name="vrijwilliger" class="form-control" required>
+                    <select name="vrijwilliger" class="form-control" <?php //echo 'required'; ?>>
                         <option></option>
                         <option value="1" <?php if ($edit && $row->vrijwilliger === 1) { echo 'selected'; } ?>>Ja</option>
                         <option value="0" <?php if ($edit && $row->vrijwilliger === 0) { echo 'selected'; } ?>>Nee</option>
@@ -140,31 +140,31 @@ if ($pageType === 'edit') {
                 </div>
                 <div class="card-body">
                     <label class="col-form-label">Licht / geluid</label>
-                    <select name="vrijwilligeroptie1" class="form-control" required>
+                    <select name="vrijwilligeroptie1" class="form-control" <?php //echo 'required'; ?>>
                         <option></option>
                         <option value="1" <?php if ($edit && $row->vrijwilligeroptie1 === 1) { echo 'selected'; } ?>>Ja</option>
                         <option value="0" <?php if ($edit && $row->vrijwilligeroptie1 === 0) { echo 'selected'; } ?>>Nee</option>
                     </select>
                     <label class="col-form-label">Bar</label>
-                    <select name="vrijwilligeroptie2" class="form-control" required>
+                    <select name="vrijwilligeroptie2" class="form-control" <?php //echo 'required'; ?>>
                         <option></option>
                         <option value="1" <?php if ($edit && $row->vrijwilligeroptie2 === 1) { echo 'selected'; } ?>>Ja</option>
                         <option value="0" <?php if ($edit && $row->vrijwilligeroptie2 === 0) { echo 'selected'; } ?>>Nee</option>
                     </select>
                     <label class="col-form-label">Schoonmaken / klussen</label>
-                    <select name="vrijwilligeroptie3" class="form-control" required>
+                    <select name="vrijwilligeroptie3" class="form-control" <?php //echo 'required'; ?>>
                         <option></option>
                         <option value="1" <?php if ($edit && $row->vrijwilligeroptie3 === 1) { echo 'selected'; } ?>>Ja</option>
                         <option value="0" <?php if ($edit && $row->vrijwilligeroptie3 === 0) { echo 'selected'; } ?>>Nee</option>
                     </select>
                     <label class="col-form-label">Promotie / flyeren</label>
-                    <select name="vrijwilligeroptie4" class="form-control" required>
+                    <select name="vrijwilligeroptie4" class="form-control" <?php //echo 'required'; ?>>
                         <option></option>
                         <option value="1" <?php if ($edit && $row->vrijwilligeroptie4 === 1) { echo 'selected'; } ?>>Ja</option>
                         <option value="0" <?php if ($edit && $row->vrijwilligeroptie4 === 0) { echo 'selected'; } ?>>Nee</option>
                     </select>
                     <label class="col-form-label">Organisatie evenementen</label>
-                    <select name="vrijwilligeroptie5" class="form-control" required>
+                    <select name="vrijwilligeroptie5" class="form-control" <?php //echo 'required'; ?>>
                         <option></option>
                         <option value="1" <?php if ($edit && $row->vrijwilligeroptie5 === 1) { echo 'selected'; } ?>>Ja</option>
                         <option value="0" <?php if ($edit && $row->vrijwilligeroptie5 === 0) { echo 'selected'; } ?>>Nee</option>
@@ -179,7 +179,7 @@ if ($pageType === 'edit') {
     <div class="row">
         <div class="col-md-12">
             <label class="col-form-label">Betalingswijze</label>
-            <select name="betalingswijze" class="form-control" required>
+            <select name="betalingswijze" class="form-control" <?php //echo 'required'; ?>>
                 <option></option>
                 <option value="contant" <?php if ($edit && $row->betalingswijze === 'contant') { echo 'selected'; } ?>>Contant</option>
                 <option value="pin" <?php if ($edit && $row->betalingswijze === 'pin') { echo 'selected'; } ?>>Pin</option>
