@@ -13,13 +13,12 @@
         "facebook/graph-sdk": "^5.7",
         "tecnickcom/tcpdf": "6.3.2",
         "ext-fileinfo": "*",
-        "league/plates": "^3.3",
-        "squizlabs/php_codesniffer": "*"
+        "league/plates": "^3.3"
     },
     "require-dev": {
-      "roave/security-advisories": "dev-master"
-      ,
-      "friendsofphp/php-cs-fixer": "^2.15"
+        "roave/security-advisories": "dev-master",
+        "friendsofphp/php-cs-fixer": "^2.15",
+        "squizlabs/php_codesniffer": "*"
     },
     "autoload": {
         "classmap": ["src/"]
