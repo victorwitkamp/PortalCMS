@@ -1,5 +1,5 @@
-config/config.development.php
-config/config.beuk.php
+/config/config.development.php
+/config/config.beuk.php
 /portal/content/attachments/
 /portal/content/invoices/
 /node_modules/

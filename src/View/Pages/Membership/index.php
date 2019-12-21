@@ -39,7 +39,7 @@ if (!isset($year)) {
         <?php
         $members = MemberModel::getMembersByYear($year);
         if (!empty($members)) {
-            include_once 'inc\table.php';
+            include_once DIR_VIEW . 'Pages/Membership/inc/table.php';
         } else {
             echo Text::get('LABEL_NOT_FOUND');
         }
