@@ -34,7 +34,7 @@ class MailBatch
     }
 
     /**
-     * @param null $used_template
+     * @param $used_template
      * @return bool
      */
     public static function create($used_template = null): bool

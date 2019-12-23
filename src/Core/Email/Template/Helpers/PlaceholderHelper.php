@@ -24,19 +24,23 @@ class PlaceholderHelper
             'iban' => $member->iban,
             'afzender' => SiteSetting::getStaticSiteSetting('MailFromName')
         ];
-        foreach ($variables as $key => $value) {
-            $text = self::replace($key, $value, $text);
+        if (!empty($variables)) {
+            foreach ($variables as $key => $value) {
+                $text = self::replace($key, $value, $text);
+            }
         }
         return $text;
     }
 
-    public static function replaceholder($placeholder, $placeholdervalue, $body_in)
+    public static function replaceholder($key, $value, $text)
     {
         $variables = [
-            $placeholder=>$placeholdervalue
+            $key=>$value
         ];
-        foreach ($variables as $key => $value) {
-            $body_out = str_replace('{' . strtoupper($key) . '}', $value, $body_in);
+        if (!empty($variables)) {
+            foreach ($variables as $key => $value) {
+                $body_out = self::replace($key, $value, $text);
+            }
         }
         return $body_out;
     }
