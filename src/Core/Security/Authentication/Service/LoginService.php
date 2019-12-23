@@ -21,27 +21,28 @@ class LoginService
      * Login process
      * @param string $username The user's name
      * @param string $password The user's password
-     * @param mixed $rememberMe Marker for usage of remember-me cookie feature
-     *
+     * @param bool $rememberMe Marker for usage of remember-me cookie feature
      * @return bool
      * @throws Exception
      */
-    public static function loginWithPassword($username, $password, $rememberMe = null) : bool
+    public static function loginWithPassword(string $username, string $password, bool $rememberMe = false) : bool
     {
         $user = LoginValidator::validateAndGetUser($username, $password);
-        if (empty($user)) {
+        if (!empty($user)) {
+            if ($user->user_last_failed_login > 0) {
+                UserPDOWriter::resetFailedLoginsByUsername($user->user_name);
+            }
+            if ($rememberMe) {
+                self::setRememberMe($user->user_id);
+                Session::add('feedback_positive', 'Aangemeld blijven ingeschakeld');
+            }
+            self::setSuccessfulLoginIntoSession($user);
+            Session::add('feedback_positive', Text::get('FEEDBACK_LOGIN_SUCCESSFUL'));
+            return true;
+        } else {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
             return false;
         }
-        if ($user->user_last_failed_login > 0) {
-            UserPDOWriter::resetFailedLoginsByUsername($user->user_name);
-        }
-        if ($rememberMe) {
-            self::setRememberMe($user->user_id);
-        }
-        self::setSuccessfulLoginIntoSession($user);
-        Session::add('feedback_positive', Text::get('FEEDBACK_LOGIN_SUCCESSFUL'));
-        return true;
     }
 
     /**

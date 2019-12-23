@@ -16,7 +16,7 @@ class CalendarEventModel
      * @param string $endDate
      * @return array
      */
-    public static function getByDate(string $startDate, string $endDate) : array
+    public static function getByDate(string $startDate, string $endDate): array
     {
         $eventsArray = [];
         $events = CalendarEventMapper::getByDate($startDate, $endDate);
@@ -30,10 +30,10 @@ class CalendarEventModel
                     $color = 'var(--info)';
                 }
                 $eventsArray[] = [
-                    'id'   => $event->id,
-                    'title'   => $event->title,
-                    'start'   => $event->start_event,
-                    'end'   => $event->end_event,
+                    'id' => $event->id,
+                    'title' => $event->title,
+                    'start' => $event->start_event,
+                    'end' => $event->end_event,
                     'backgroundColor' => $color
                 ];
             }
@@ -51,10 +51,10 @@ class CalendarEventModel
         if (!empty($events)) {
             foreach ($events as $event) {
                 $eventsArray[] = [
-                    'id'   => $event->id,
-                    'title'   => $event->title,
-                    'start'   => $event->start_event,
-                    'end'   => $event->end_event
+                    'id' => $event->id,
+                    'title' => $event->title,
+                    'start' => $event->start_event,
+                    'end' => $event->end_event
                 ];
             }
         }
@@ -70,7 +70,7 @@ class CalendarEventModel
      */
     public static function create(string $title, string $start, string $end, string $description): bool
     {
-        if (!CalendarEventMapper::new($title, date('Y-m-d H:i:s', strtotime($start)), date('Y-m-d H:i:s', strtotime($end)), $description, (int) Session::get('user_id'))) {
+        if (!CalendarEventMapper::new($title, date('Y-m-d H:i:s', strtotime($start)), date('Y-m-d H:i:s', strtotime($end)), $description, (int)Session::get('user_id'))) {
             Session::add('feedback_negative', 'Toevoegen van evenement mislukt.');
             return false;
         }
@@ -87,10 +87,10 @@ class CalendarEventModel
      * @param int $status
      * @return bool
      */
-    public static function update(int $id, string $title, string $start, string $end, string $description, int $status): bool
+    public static function update(Event $event): bool
     {
-        if (CalendarEventMapper::exists($id)) {
-            if (CalendarEventMapper::update($id, $title, date('Y-m-d H:i:s', strtotime($start)), date('Y-m-d H:i:s', strtotime($end)), $description, $status)) {
+        if (CalendarEventMapper::exists($event->id)) {
+            if (CalendarEventMapper::update($event->id, $event->title, date('Y-m-d H:i:s', strtotime($event->start)), date('Y-m-d H:i:s', strtotime($event->end)), $event->description, $event->status)) {
                 Session::add('feedback_positive', 'Evenement gewijzigd.');
                 return true;
             }

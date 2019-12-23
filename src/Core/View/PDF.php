@@ -61,7 +61,7 @@ class PDF
         self::$defined = true;
     }
 
-    public static function configPDF()
+    public static function configPDF(): TCPDF
     {
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', true);
         $pdf->setPrintHeader(false);

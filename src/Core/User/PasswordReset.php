@@ -162,7 +162,7 @@ class PasswordReset
             ':user_name' => $user_name]
         );
         // if this user with exactly this verification hash code does NOT exist
-        if ($stmt->rowCount() != 1) {
+        if ($stmt->rowCount() !== 1) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_COMBINATION_DOES_NOT_EXIST'));
             Session::add('feedback_negative', $user_name . ' ' . $sql);
             return false;

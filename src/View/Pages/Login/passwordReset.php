@@ -24,7 +24,7 @@ if (empty($_GET['password_reset_hash'])) {
     </div>
 </header>
 
-<?= $this->end(); ?>
+<?= $this->end() ?>
 <?= $this->push('body') ?>
 
     <div class="form-group required float in" input-group="">

@@ -112,10 +112,14 @@ class LoginController extends Controller
             Redirect::to('Login');
             return false;
         }
+        $rememberMe = false;
+        if (Request::post('set_remember_me_cookie') === 'on') {
+            $rememberMe = true;
+        }
         $login_successful = LoginService::loginWithPassword(
             Request::post('user_name'),
             Request::post('user_password'),
-            Request::post('set_remember_me_cookie')
+            $rememberMe
         );
         if ($login_successful) {
             if (Request::post('redirect')) {

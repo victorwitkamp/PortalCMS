@@ -24,10 +24,6 @@ $user = UserPDOReader::getProfileById(Session::get('user_id'));
         <th><?= Text::get('LABEL_USER_LAST_LOGIN_TIMESTAMP') ?></th>
         <td><?= $user->user_last_login_timestamp ?></td>
     </tr>
-    <!-- <tr>
-        <th><?php //Text::get('LABEL_USER_PROVIDER_TYPE') ?></th> -->
-        <!-- <td><?php //Session::get('user_provider_type') ?></td>
-    </tr> -->
     <tr>
         <th><?= Text::get('LABEL_USER_FBID') ?></th>
         <td><?php
@@ -41,24 +37,4 @@ $user = UserPDOReader::getProfileById(Session::get('user_id'));
         }
         ?></td>
     </tr>
-    <!-- <tr>
-        <th>Rol</th><td> -->
-        <?php
-        //$role_id = $u->getRoleIDByUserID($userData['id']);
-        //$role_name = $u->getRoleNameByRoleID($role_id);
-        //echo $role_name;
-        ?>
-        <!-- </td>
-    </tr> -->
-    <!-- <tr>
-        <th>Geregistreerd op</th>
-        <td> -->
-        <?php //echo $userData['CreationDate'];?>
-        <!-- </td>
-    </tr> -->
-    <!-- <tr>
-        <th>Laatst gewijzigd</th><td> -->
-        <?php //echo $userData['ModificationDate'];?>
-        <!-- </td>
-    </tr> -->
 </table>

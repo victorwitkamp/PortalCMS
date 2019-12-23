@@ -15,7 +15,7 @@ $pageName = 'Account activeren';
         </div>
     </header>
 
-<?= $this->end(); ?>
+<?= $this->end() ?>
 <?= $this->push('body') ?>
 
     <div class="form-group required float in" input-group="">

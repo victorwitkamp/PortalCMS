@@ -34,14 +34,9 @@ $pageName = 'Factuur toevoegen';
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Contract</label>
             <div class="col-sm-10">
-                <!-- <select name="contract_id" class="form-control"> -->
                 <?php foreach (ContractMapper::get() as $row) : ?>
-                    <!-- <option value="<?php //$row->id
-                    ?>"><?php //$row->bandcode . ': ' . $row->band_naam
-?></option> -->
                     <input type="checkbox" name='contract_id[]' value="<?= $row->id ?>"><?= $row->bandcode . ': ' . $row->band_naam ?><br />
                 <?php endforeach ?>
-                <!-- </select> -->
             </div>
         </div>
 
@@ -71,13 +66,6 @@ $pageName = 'Factuur toevoegen';
                 <input type="text" name="factuurdatum" placeholder="YYYY-MM-DD">
             </div>
         </div>
-        <!--
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Vervaldatum</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="vervaldatum" placeholder="YYYY-MM-DD">
-                        </div>
-                    </div> -->
 
         <input type="submit" name="createInvoice" class="btn btn-primary" value="Opslaan">
         <a href="/Invoices" class="btn btn-danger">Annuleren</a>

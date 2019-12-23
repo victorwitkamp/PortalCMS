@@ -17,7 +17,7 @@ $pageName = Text::get('LABEL_LOG_IN');
 <?= $this->push('body-start') ?>
 <?php //require 'inc/loadingAnimation.php';
 ?>
-<?= $this->end(); ?>
+<?= $this->end() ?>
 <?= $this->push('body') ?>
 
     <div class="form-group required float in" input-group="">

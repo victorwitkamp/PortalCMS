@@ -30,7 +30,7 @@ class Text
         }
 
         if (!array_key_exists($key, self::$texts)) {
-            return '!! LABEL NOT FOUND !!';
+            return 'LABEL_NOT_FOUND';
         }
 
         return self::$texts[$key];

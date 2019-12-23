@@ -11,9 +11,6 @@ $helper = $fb->getRedirectLoginHelper();
 
 try {
     $accessToken = $helper->getAccessToken();
-} catch (Facebook\Exceptions\FacebookResponseException $e) {
-    echo 'Graph returned an error: ' . $e->getMessage();
-    exit;
 } catch (Facebook\Exceptions\FacebookSDKException $e) {
     echo 'Facebook SDK returned an error: ' . $e->getMessage();
     exit;
@@ -48,9 +45,6 @@ $_SESSION['fb_access_token'] = (string) $accessToken;
 
 try {
     $response = $fb->get('/me?fields=id,name,email', $_SESSION['fb_access_token']);
-} catch (Facebook\Exceptions\FacebookResponseException $e) {
-    Session::add('feedback_negative', 'Graph returned an error: ' . $e->getMessage());
-    exit;
 } catch (Facebook\Exceptions\FacebookSDKException $e) {
     Session::add('feedback_negative', 'Facebook SDK returned an error: ' . $e->getMessage());
     exit;

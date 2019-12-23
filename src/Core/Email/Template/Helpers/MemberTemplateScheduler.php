@@ -53,7 +53,7 @@ class MemberTemplateScheduler
         }
     }
 
-    public function processSingleMail(int $memberId, int $batchId, $template)
+    public function processSingleMail(int $memberId, int $batchId, $template): bool
     {
         $member = MemberModel::getMemberById($memberId);
         $return = MailScheduleMapper::create(

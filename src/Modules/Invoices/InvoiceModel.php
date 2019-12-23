@@ -56,14 +56,14 @@ class InvoiceModel
 
     public static function getByContractId($contract_id): ?array
     {
-        $Invoices = InvoiceMapper::getByContractId($contract_id);
-        if (!$Invoices) {
+        $invoices = InvoiceMapper::getByContractId($contract_id);
+        if (!$invoices) {
             return null;
         }
-        return $Invoices;
+        return $invoices;
     }
 
-    public static function createInvoiceAction(string $year, string $month, int $contract_id, $factuurdatum)
+    public static function createInvoiceAction(string $year, string $month, int $contract_id, $factuurdatum): bool
     {
         $contract = ContractMapper::getById($contract_id);
         $factuurnummer = $year . $contract->bandcode . $month;
@@ -78,15 +78,11 @@ class InvoiceModel
         $invoice = InvoiceMapper::getByFactuurnummer($factuurnummer);
         $kosten_ruimte = (int) $contract->kosten_ruimte;
         $kosten_kast = (int) $contract->kosten_kast;
-        if ($kosten_ruimte > 0) {
-            if (!InvoiceItemMapper::create($invoice->id, 'Huur oefenruimte - ' . Text::get('MONTH_' . $month), $kosten_ruimte)) {
-                return false;
-            }
+        if (($kosten_ruimte > 0) && !InvoiceItemMapper::create($invoice->id, 'Huur oefenruimte - ' . Text::get('MONTH_' . $month), $kosten_ruimte)) {
+            return false;
         }
-        if ($kosten_kast > 0) {
-            if (!InvoiceItemMapper::create($invoice->id, 'Huur kast - ' . Text::get('MONTH_' . $month), $kosten_kast)) {
-                return false;
-            }
+        if (($kosten_kast > 0) && !InvoiceItemMapper::create($invoice->id, 'Huur kast - ' . Text::get('MONTH_' . $month), $kosten_kast)) {
+            return false;
         }
         return true;
     }
@@ -97,14 +93,12 @@ class InvoiceModel
             Session::add('feedback_negative', 'Incompleet verzoek.');
             return false;
         }
-        // print_r($contract_ids);
-        // die;
+
         if (\is_array($contract_ids)) {
             foreach ($contract_ids as $contract_id) {
-                // print_r($contract_id);
-                if (!self::createInvoiceAction($year, $month, (int) $contract_id, $factuurdatum)) { return false; }
-                //     return true;
-                // }
+                if (!self::createInvoiceAction($year, $month, (int) $contract_id, $factuurdatum)) {
+                    return false;
+                }
             }
             return true;
         } else {
@@ -124,11 +118,11 @@ class InvoiceModel
         return '&euro; ' . $sum;
     }
 
-    public static function getInvoiceSumById(int $id)
+    public static function getInvoiceSumById(int $id): int
     {
         $sum = 0;
         $items = InvoiceItemMapper::getByInvoiceId($id);
-        if (!empty($items) && is_array($items)) {
+        if (!empty($items) && \is_array($items)) {
             foreach ($items as $item) {
                 $sum += $item->price;
             }
@@ -144,17 +138,13 @@ class InvoiceModel
             Session::add('feedback_negative', 'Kan factuur niet verwijderen. Factuur bestaat niet.');
             return false;
         }
-        if (!empty(InvoiceItemMapper::getByInvoiceId($id))) {
-            if (!InvoiceItemMapper::deleteByInvoiceId($id)) {
-                Session::add('feedback_negative', 'Verwijderen van factuuritems voor factuur mislukt.');
-                return false;
-            }
+        if (!empty(InvoiceItemMapper::getByInvoiceId($id)) && !InvoiceItemMapper::deleteByInvoiceId($id)) {
+            Session::add('feedback_negative', 'Verwijderen van factuuritems voor factuur mislukt.');
+            return false;
         }
-        if ($invoice->status > 0) {
-            if (!unlink(DIR_ROOT . '/content/invoices/' . $invoice->factuurnummer . '.pdf')) {
-                Session::add('feedback_negative', 'PDF niet gevonden.');
-                return false;
-            }
+        if (($invoice->status > 0) && !unlink(DIR_ROOT . '/content/invoices/' . $invoice->factuurnummer . '.pdf')) {
+            Session::add('feedback_negative', 'PDF niet gevonden.');
+            return false;
         }
         if (!InvoiceMapper::delete($id)) {
             Session::add('feedback_negative', 'Verwijderen van factuur mislukt.');

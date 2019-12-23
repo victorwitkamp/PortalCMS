@@ -11,7 +11,7 @@ $pageName = Text::get('TITLE_SITE_LOGO');
 <script src="/dist/bs-custom-file-input/dist/bs-custom-file-input.min.js" async></script>
 
 
-<?= $this->end(); ?>
+<?= $this->end() ?>
 <?= $this->push('main-content') ?>
 
 

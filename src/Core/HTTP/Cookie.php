@@ -29,7 +29,7 @@ class Cookie
         );
     }
 
-    public static function setRememberMe(string $token)
+    public static function setRememberMe(string $token): bool
     {
         // set cookie, and make it available only for the domain created on (to avoid XSS attacks, where the
         // attacker could steal your remember-me cookie string and would login itself).
