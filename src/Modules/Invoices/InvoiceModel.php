@@ -33,8 +33,8 @@ class InvoiceModel
             $maand = Text::get('MONTH_' . $invoice->month);
         }
         $template = EmailTemplatePDOReader::getSystemTemplateByName('InvoiceMail');
-        $subject = PlaceholderHelper::replaceholder('MAAND', $maand, $template['subject']);
-        $body = PlaceholderHelper::replaceholder('FACTUURNUMMER', $invoice->factuurnummer, $template['body']);
+        $subject = PlaceholderHelper::replace('MAAND', $maand, $template['subject']);
+        $body = PlaceholderHelper::replace('FACTUURNUMMER', $invoice->factuurnummer, $template['body']);
         $create = MailScheduleMapper::create($batchId, null, $subject, $body);
         if (!$create) {
             Session::add('feedback_negative', 'Nieuwe email aanmaken mislukt.');

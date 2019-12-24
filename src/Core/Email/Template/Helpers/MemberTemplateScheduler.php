@@ -60,7 +60,7 @@ class MemberTemplateScheduler
             $batchId,
             $memberId,
             $template->subject,
-            PlaceholderHelper::replaceholdersMember(
+            PlaceholderHelper::replaceMemberPlaceholders(
                 $memberId,
                 $template->body
             )
