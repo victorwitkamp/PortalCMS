@@ -18,13 +18,6 @@ use PortalCMS\Core\Controllers\Controller;
 class ErrorController extends Controller
 {
     /**
-     * Construct this object by extending the basic Controller class
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-    /**
      * Use this when something is not found. Gives back a proper 404 header response plus a normal page (where you could
      * show a well-designed error message or something more useful for your users).
      * You can see this in action in action in /core/Application.php -> __construct

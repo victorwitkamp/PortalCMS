@@ -87,10 +87,10 @@ class CalendarEventModel
      * @param int $status
      * @return bool
      */
-    public static function update(Event $event): bool
+    public static function update($id, $title, $start_event, $end_event, $description, $status): bool
     {
-        if (CalendarEventMapper::exists($event->id)) {
-            if (CalendarEventMapper::update($event->id, $event->title, date('Y-m-d H:i:s', strtotime($event->start)), date('Y-m-d H:i:s', strtotime($event->end)), $event->description, $event->status)) {
+        if (CalendarEventMapper::exists($id)) {
+            if (CalendarEventMapper::update($id, $title, date('Y-m-d H:i:s', strtotime($start_event)), date('Y-m-d H:i:s', strtotime($end_event)), $description, $status)) {
                 Session::add('feedback_positive', 'Evenement gewijzigd.');
                 return true;
             }

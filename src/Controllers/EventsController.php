@@ -17,6 +17,7 @@ use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Modules\Calendar\CalendarEventMapper;
 use PortalCMS\Modules\Calendar\CalendarEventModel;
+use PortalCMS\Modules\Calendar\Event;
 
 /**
  * EventsController
@@ -132,13 +133,14 @@ class EventsController extends Controller
 
     public static function updateEvent()
     {
-        $event = new Event((int) Request::post('id', true),
+        if (CalendarEventModel::update(
+            (int) Request::post('id', true),
             (string) Request::post('title', true),
             (string) Request::post('start_event', true),
             (string) Request::post('end_event', true),
             (string) Request::post('description', true),
-            (int) Request::post('status', true));
-        if (CalendarEventModel::update($event)) {
+            (int) Request::post('status', true)
+        )) {
             Redirect::to('events/');
         } else {
             Redirect::to('Error/Error');

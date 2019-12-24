@@ -16,17 +16,8 @@ use PortalCMS\Core\Security\Authentication\Service\LogoutService;
  */
 class LogoutController extends Controller
 {
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function index()
     {
         LogoutService::logout();
     }
-
 }

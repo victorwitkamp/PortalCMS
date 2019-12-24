@@ -15,7 +15,8 @@ $pageName = Text::get('LABEL_LOG_IN');
 
 <?= $this->layout('layoutLogin', ['title' => $pageName]) ?>
 <?= $this->push('body-start') ?>
-<?php //require 'inc/loadingAnimation.php';
+<?php
+    //require 'inc/loadingAnimation.php';
 ?>
 <?= $this->end() ?>
 <?= $this->push('body') ?>
@@ -33,7 +34,9 @@ $pageName = Text::get('LABEL_LOG_IN');
     </div>
     <hr />
     <input type="hidden" name="csrf_token" value="<?= Csrf::makeToken() ?>" />
-    <?php if (!empty(Request::get('redirect'))) { ?><input type="hidden" name="redirect" value="<?= View::encodeHTML(Request::get('redirect')) ?>" /><?php } ?>
+    <?php if (!empty(Request::get('redirect'))) {
+        ?><input type="hidden" name="redirect" value="<?= View::encodeHTML(Request::get('redirect')) ?>" /><?php
+    } ?>
     <input type="submit" name="loginSubmit" class="btn btn-primary" value="<?= Text::get('LABEL_LOG_IN') ?>" />
     <a href="<?= $loginUrl ?>" class="btn btn-info"><i class="fab fa-facebook"></i> <?= Text::get('LABEL_CONTINUE_WITH_FACEBOOK') ?></a>
 

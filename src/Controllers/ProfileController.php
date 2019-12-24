@@ -9,8 +9,12 @@ namespace PortalCMS\Controllers;
 
 use League\Plates\Engine;
 use PortalCMS\Core\Controllers\Controller;
+use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
+use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\User\UserPDOReader;
 
 class ProfileController extends Controller
 {
@@ -36,6 +40,12 @@ class ProfileController extends Controller
     public function index()
     {
         $templates = new Engine(DIR_VIEW);
-        echo $templates->render('Pages/Profile/index');
+        $user = UserPDOReader::getProfileById((int) Request::get('id'));
+        if (!empty($user)) {
+            echo $templates->render('Pages/Profile/index', (array) $user);
+        } else {
+            header('HTTP/1.0 404 Not Found', true, 404);
+            echo $templates->render('Pages/Error/Error', ['title' => '404 - Not found', 'message' => 'The requested page cannot be found']);
+        }
     }
 }
