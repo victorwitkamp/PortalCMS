@@ -6,6 +6,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Security\Authentication\Service;
 
+use Exception;
 use PortalCMS\Core\Security\Encryption;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\User\UserPDOReader;
@@ -75,15 +76,18 @@ class LoginValidator
         }
 
         [$user_id, $token, $hash] = explode(':', $cookie);
-        $user_id = (int) Encryption::decrypt($user_id);
-
-        if (empty($token) || empty($user_id)) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
+        try {
+            $user_id = (int)Encryption::decrypt($user_id);
+        } catch (Exception $e) {
+            Session::add('feedback_negative', 'Decryption of cookie failed.');
             return null;
         }
-        if ($hash === hash('sha256', $user_id . ':' . $token)) {
+
+        if (!empty($token) && !empty($user_id) && ($hash === hash('sha256', $user_id . ':' . $token))) {
             return new ValidatedCookie($user_id, $token);
         }
+        Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
+        return null;
     }
 
     public static function verifyIsActive($result) : bool

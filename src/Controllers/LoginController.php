@@ -69,9 +69,9 @@ class LoginController extends Controller
         if (Authentication::userIsLoggedIn()) {
             Session::add('feedback_positive', 'You are already logged in.');
             if (Request::post('redirect')) {
-                return Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
+                Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
             } else {
-                return Redirect::to('Home');
+                Redirect::to('Home');
             }
         } else {
             if (self::loginWithCookie()) {

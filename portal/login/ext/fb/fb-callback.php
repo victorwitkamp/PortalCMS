@@ -1,16 +1,17 @@
 <?php
 
+use Facebook\Exceptions\FacebookSDKException;
 use PortalCMS\Controllers\AccountController;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/../src/Init.php';
 
-require 'config.php';
+require __DIR__ . '/config.php';
 
 $helper = $fb->getRedirectLoginHelper();
 
 try {
     $accessToken = $helper->getAccessToken();
-} catch (Facebook\Exceptions\FacebookSDKException $e) {
+} catch (FacebookSDKException $e) {
     echo 'Facebook SDK returned an error: ' . $e->getMessage();
     exit;
 }
@@ -34,7 +35,7 @@ $oAuth2Client = $fb->getOAuth2Client();
 if (!$accessToken->isLongLived()) {
     try {
         $accessToken = $oAuth2Client->getLongLivedAccessToken($accessToken);
-    } catch (Facebook\Exceptions\FacebookSDKException $e) {
+    } catch (FacebookSDKException $e) {
         echo '<p>Error getting long-lived access token: ' . $e->getMessage() . "</p>\n\n";
         exit;
     }
@@ -44,10 +45,15 @@ $_SESSION['fb_access_token'] = (string) $accessToken;
 
 try {
     $response = $fb->get('/me?fields=id,name,email', $_SESSION['fb_access_token']);
-} catch (Facebook\Exceptions\FacebookSDKException $e) {
+} catch (FacebookSDKException $e) {
     echo 'Facebook SDK returned an error: ' . $e->getMessage();
     exit;
 }
 
-$user = $response->getGraphUser();
+try {
+    $user = $response->getGraphUser();
+} catch (FacebookSDKException $e) {
+    echo 'Facebook SDK returned an error: ' . $e->getMessage();
+    exit;
+}
 AccountController::setFbid((int) $user['id']);

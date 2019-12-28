@@ -23,7 +23,6 @@ class LoginService
      * @param string $password The user's password
      * @param bool $rememberMe Marker for usage of remember-me cookie feature
      * @return bool
-     * @throws Exception
      */
     public static function loginWithPassword(string $username, string $password, bool $rememberMe = false) : bool
     {
@@ -49,7 +48,6 @@ class LoginService
      * performs the login via cookie (for DEFAULT user account, FACEBOOK-accounts are handled differently)
      * @param string $cookie The cookie "remember_me"
      * @return bool success state
-     * @throws Exception
      */
     public static function loginWithCookie($cookie) : bool
     {

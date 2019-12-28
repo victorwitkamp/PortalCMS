@@ -3,36 +3,31 @@
   <component name="AnalysisUIOptions">
     <option name="SPLITTER_PROPORTION" value="0.5007299" />
     <option name="SCOPE_TYPE" value="8" />
-    <option name="CUSTOM_SCOPE_NAME" value="src" />
+    <option name="CUSTOM_SCOPE_NAME" value="All Places" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10cd1690-6b40-469b-8cb6-7411aa27a75c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/portal.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/portal.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.php_cs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.php_cs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/portal/login/ext/fb/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/portal/login/ext/fb/config.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/portal/login/ext/fb/fb-callback-login.php" beforeDir="false" afterPath="$PROJECT_DIR$/portal/login/ext/fb/fb-callback-login.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/portal/login/ext/fb/fb-callback.php" beforeDir="false" afterPath="$PROJECT_DIR$/portal/login/ext/fb/fb-callback.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controllers/AccountController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/AccountController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controllers/EventsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/EventsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controllers/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/LoginController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Application/Application.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Application/Application.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Email/Template/Helpers/MemberTemplateScheduler.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Email/Template/Helpers/MemberTemplateScheduler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/HTTP/Cookie.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/HTTP/Cookie.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Security/Authentication/Authentication.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Security/Authentication/Authentication.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controllers/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/ProfileController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/HTTP/Request.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/HTTP/Request.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Core/Security/Authentication/Service/LoginService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Security/Authentication/Service/LoginService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/User/PasswordReset.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/User/PasswordReset.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/View/PDF.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/View/PDF.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/View/Text.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/View/Text.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Calendar/CalendarEventMapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Calendar/CalendarEventMapper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Calendar/CalendarEventModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Calendar/CalendarEventModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Security/Authentication/Service/LoginValidator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Security/Authentication/Service/LoginValidator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/View/View.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/View/View.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Init.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Init.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Modules/Invoices/InvoiceModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Invoices/InvoiceModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/Pages/Account/inc/accountDetails.inc.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Account/inc/accountDetails.inc.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/Pages/Email/ViewTemplates.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Email/ViewTemplates.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/Pages/Invoices/add.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Invoices/add.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/Pages/Login/Activate.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Login/Activate.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/Pages/Login/indexNew.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Login/indexNew.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/Pages/Login/passwordReset.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Login/passwordReset.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/Pages/Login/requestPasswordReset.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Login/requestPasswordReset.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/Pages/Settings/Activity.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Settings/Activity.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/Pages/Settings/Logo.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Settings/Logo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/Pages/UserManagement/Role/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/UserManagement/Role/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/Pages/Email/inc/table_messages.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Email/inc/table_messages.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/Pages/Invoices/details.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Invoices/details.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/Pages/Invoices/table.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Invoices/table.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -108,6 +103,29 @@
       <path value="$PROJECT_DIR$/vendor/tecnickcom/tcpdf" />
       <path value="$PROJECT_DIR$/vendor/composer" />
       <path value="$PROJECT_DIR$/vendor/league/plates" />
+      <path value="$PROJECT_DIR$/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/vendor/symfony/options-resolver" />
+      <path value="$PROJECT_DIR$/vendor/symfony/finder" />
+      <path value="$PROJECT_DIR$/vendor/symfony/filesystem" />
+      <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher" />
+      <path value="$PROJECT_DIR$/vendor/symfony/console" />
+      <path value="$PROJECT_DIR$/vendor/paragonie/random_compat" />
+      <path value="$PROJECT_DIR$/vendor/php-cs-fixer/diff" />
+      <path value="$PROJECT_DIR$/vendor/squizlabs/php_codesniffer" />
+      <path value="$PROJECT_DIR$/vendor/friendsofphp/php-cs-fixer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/stopwatch" />
+      <path value="$PROJECT_DIR$/vendor/symfony/service-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/process" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php73" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php72" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/annotations" />
+      <path value="$PROJECT_DIR$/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php70" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/psr/event-dispatcher" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
     </include_path>
   </component>
   <component name="ProjectConfigurationFiles">
@@ -158,7 +176,7 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="Errors" />
+    <property name="settings.editor.selected.configurable" value="duplicates.index" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -221,10 +239,13 @@
     <option name="outputPath" value="C:\inetpub\portal\database\PHPStorm" />
   </component>
   <component name="StructuralSearchPlugin">
-    <searchConfiguration name="user defined" created="1572724762372" text="Mail incompleet" recursive="true" caseInsensitive="true" type="PHP" scope_type="PROJECT" scope_descriptor="" history="1">
+    <searchConfiguration name="user defined" created="1577561028876" text="Content-Type: application/json" recursive="true" caseInsensitive="true" type="PHP" scope_type="NAMED" scope_descriptor="src" history="1">
       <constraint name="__context__" within="" contains="" />
     </searchConfiguration>
-    <searchConfiguration name="user defined" created="1572724751290" text="displayMessage" recursive="true" caseInsensitive="true" type="PHP" scope_type="NAMED" scope_descriptor="All Places" history="1">
+    <searchConfiguration name="user defined" created="1577560997852" text="Mail incompleet" recursive="true" caseInsensitive="true" type="PHP" scope_type="PROJECT" scope_descriptor="" history="1">
+      <constraint name="__context__" within="" contains="" />
+    </searchConfiguration>
+    <searchConfiguration name="user defined" created="1577560997852" text="displayMessage" recursive="true" caseInsensitive="true" type="PHP" scope_type="NAMED" scope_descriptor="All Places" history="1">
       <constraint name="__context__" within="" contains="" />
     </searchConfiguration>
   </component>
@@ -303,6 +324,7 @@
       <workItem from="1576948097090" duration="46000" />
       <workItem from="1576948169978" duration="171000" />
       <workItem from="1576948442424" duration="6239000" />
+      <workItem from="1577161064400" duration="4238000" />
     </task>
     <servers />
   </component>

@@ -41,6 +41,7 @@ class Request
                 return $_POST[$key];
             }
         }
+        return null;
     }
 
     /**

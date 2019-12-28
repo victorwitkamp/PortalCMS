@@ -17,7 +17,6 @@ use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Modules\Calendar\CalendarEventMapper;
 use PortalCMS\Modules\Calendar\CalendarEventModel;
-use PortalCMS\Modules\Calendar\Event;
 
 /**
  * EventsController

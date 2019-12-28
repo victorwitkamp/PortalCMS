@@ -14,27 +14,6 @@ namespace PortalCMS\Core\View;
 class View
 {
     /**
-     * Render the footer template
-     *
-     * @return void
-     */
-    public static function renderFooter()
-    {
-        require DIR_VIEW . 'Parts/Footer.php';
-    }
-
-    /**
-     * Renders pure JSON to the browser, useful for API construction
-     *
-     * @param $data
-     */
-    public function renderJSON($data)
-    {
-        header('Content-Type: application/json');
-        echo json_encode($data);
-    }
-
-    /**
      * Converts characters to HTML entities
      * This is important to avoid XSS attacks, and attempts to inject malicious code in your page.
      *

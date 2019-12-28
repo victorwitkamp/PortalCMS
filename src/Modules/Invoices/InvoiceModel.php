@@ -12,11 +12,11 @@ use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
 use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
 use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
 use PortalCMS\Core\Email\Template\Helpers\PlaceholderHelper;
-use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\View\PDF;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Contracts\ContractMapper;
+use function is_array;
 
 class InvoiceModel
 {
@@ -94,19 +94,16 @@ class InvoiceModel
             return false;
         }
 
-        if (\is_array($contract_ids)) {
+        if (is_array($contract_ids)) {
             foreach ($contract_ids as $contract_id) {
                 if (!self::createInvoiceAction($year, $month, (int) $contract_id, $factuurdatum)) {
                     return false;
                 }
             }
-            return true;
-        } else {
-            if (self::createInvoiceAction($year, $month, (int) $contract_ids, $factuurdatum)) {
-                return true;
-            }
+        } elseif (!self::createInvoiceAction($year, $month, (int) $contract_ids, $factuurdatum)) {
+            return false;
         }
-        return false;
+        return true;
     }
 
     public static function displayInvoiceSumById(int $id)
@@ -122,7 +119,7 @@ class InvoiceModel
     {
         $sum = 0;
         $items = InvoiceItemMapper::getByInvoiceId($id);
-        if (!empty($items) && \is_array($items)) {
+        if (!empty($items) && is_array($items)) {
             foreach ($items as $item) {
                 $sum += $item->price;
             }
