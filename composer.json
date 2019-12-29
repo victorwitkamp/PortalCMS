@@ -2,7 +2,7 @@
     "name": "victorwitkamp/portalcms",
     "description": "A PHP framework/CMS that is currently in development.",
     "require": {
-        "php": "7.2.*",
+        "php": "7.3.*",
         "ext-pdo": "*",
         "ext-curl": "*",
         "ext-mbstring": "*",
