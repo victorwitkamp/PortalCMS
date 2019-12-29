@@ -18,16 +18,16 @@ use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Contracts\ContractMapper;
 use function is_array;
 
-class InvoiceModel
+class InvoiceHelper
 {
-    public static function createMail($invoiceId, $batchId = null): bool
+    public static function createMail(int $invoiceId, int $batchId = null): bool
     {
         $invoice = InvoiceMapper::getById($invoiceId);
         if (empty($invoice)) {
             return false;
         }
         $contract = ContractMapper::getById($invoice->contract_id);
-        if ($invoice->month < '10') {
+        if ((int) $invoice->month < 10) {
             $maand = Text::get('MONTH_0' . $invoice->month);
         } else {
             $maand = Text::get('MONTH_' . $invoice->month);
@@ -42,25 +42,10 @@ class InvoiceModel
         }
         $createdMailId = MailScheduleMapper::lastInsertedId();
         EmailRecipientMapper::createRecipient($createdMailId, $contract->bandleider_email);
-
-        $attachmentPath = 'content/invoices/';
-        $attachmentExtension = '.pdf';
-        $attachmentName = $invoice->factuurnummer;
-        EmailAttachmentMapper::create($createdMailId, $attachmentPath, $attachmentName, $attachmentExtension);
-
+        EmailAttachmentMapper::create($createdMailId, 'content/invoices/', $invoice->factuurnummer, '.pdf');
         InvoiceMapper::updateMailId($invoiceId, $createdMailId);
         InvoiceMapper::updateStatus($invoiceId, 2);
-        // Session::add('feedback_positive', 'Email toegevoegd (ID = ' . $createdMailId . ')');
         return true;
-    }
-
-    public static function getByContractId($contract_id): ?array
-    {
-        $invoices = InvoiceMapper::getByContractId($contract_id);
-        if (!$invoices) {
-            return null;
-        }
-        return $invoices;
     }
 
     public static function createInvoiceAction(string $year, string $month, int $contract_id, $factuurdatum): bool
@@ -124,7 +109,6 @@ class InvoiceModel
                 $sum += $item->price;
             }
         }
-
         return $sum;
     }
 
@@ -181,6 +165,30 @@ class InvoiceModel
             return false;
         }
         InvoiceMapper::updateStatus($id, 1);
+        return true;
+    }
+
+    public static function createItem($invoiceId, $name, $price): bool
+    {
+        if (!InvoiceItemMapper::create($invoiceId, $name, $price)) {
+            Session::add('feedback_negative', 'Toevoegen van factuuritem mislukt.');
+            return false;
+        }
+        Session::add('feedback_positive', 'Factuuritem toegevoegd.');
+        return true;
+    }
+
+    public static function deleteItem(int $id): bool
+    {
+        if (!InvoiceItemMapper::exists($id)) {
+            Session::add('feedback_negative', 'Kan factuuritem niet verwijderen. Factuuritem bestaat niet.');
+            return false;
+        }
+        if (!InvoiceItemMapper::delete($id)) {
+            Session::add('feedback_negative', 'Verwijderen van factuuritem mislukt.');
+            return false;
+        }
+        Session::add('feedback_positive', 'Factuuritem verwijderd.');
         return true;
     }
 }

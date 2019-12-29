@@ -2,7 +2,7 @@
 
 use PortalCMS\Core\Config\Config;
 use PortalCMS\Modules\Contracts\ContractMapper;
-use PortalCMS\Modules\Invoices\InvoiceModel;
+use PortalCMS\Modules\Invoices\InvoiceHelper;
 
 ?>
 <form method="post">
@@ -62,7 +62,7 @@ use PortalCMS\Modules\Invoices\InvoiceModel;
                 }
                 ?>
             </td>
-            <td><?= InvoiceModel::displayInvoiceSumById($invoice->id) ?></td>
+            <td><?= InvoiceHelper::displayInvoiceSumById($invoice->id) ?></td>
             <td>
                 <?php
                 if ($invoice->status === 0) {

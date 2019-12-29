@@ -10,7 +10,9 @@ namespace PortalCMS\Modules\Contracts;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Modules\Invoices\InvoiceModel;
+use PortalCMS\Modules\Contracts\ContractMapper;
+use PortalCMS\Modules\Invoices\InvoiceHelper;
+use PortalCMS\Modules\Invoices\InvoiceMapper;
 
 /**
  * Class : Contract (Contract.php)
@@ -119,21 +121,17 @@ class ContractModel
     {
         $contract_id = (int) Request::post('id', true);
         if (ContractMapper::exists($contract_id)) {
-            if (empty(InvoiceModel::getByContractId($contract_id))) {
+            if (empty(InvoiceMapper::getByContractId($contract_id))) {
                 if (ContractMapper::delete($contract_id)) {
                     Session::add('feedback_positive', 'Contract verwijderd.');
                     Redirect::to('Contracts');
                     return true;
                 }
                 Session::add('feedback_negative', 'Verwijderen van contract mislukt.');
-                Redirect::to('Contracts');
-                return false;
             }
             Session::add('feedback_negative', 'Dit contract heeft al facturen.');
-            Redirect::to('Contracts');
-            return false;
         }
-        Session::add('feedback_negative', 'Verwijderen van contract mislukt.<br>Contract bestaat niet.');
+        Session::add('feedback_negative', 'Verwijderen van contract mislukt. Contract bestaat niet.');
         Redirect::to('Contracts');
         return false;
     }

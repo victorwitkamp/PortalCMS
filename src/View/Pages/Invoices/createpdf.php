@@ -1,4 +1,4 @@
 <?php
-use PortalCMS\Modules\Invoices\InvoiceModel;
+use PortalCMS\Modules\Invoices\InvoiceHelper;
 
-InvoiceModel::render($_GET['id']);
+InvoiceHelper::render($_GET['id']);

@@ -16,8 +16,7 @@ use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Modules\Invoices\InvoiceItemModel;
-use PortalCMS\Modules\Invoices\InvoiceModel;
+use PortalCMS\Modules\Invoices\InvoiceHelper;
 
 /**
  * InvoicesController
@@ -95,7 +94,7 @@ class InvoicesController extends Controller
             $batchId = MailBatch::lastInsertedId();
             Session::add('feedback_positive', 'Nieuwe batch aangemaakt (batch ID: ' . $batchId . '). <a href="email/Messages?batch_id=' . $batchId . '">Batch bekijken</a>');
             foreach ($invoiceIds as $invoiceId) {
-                InvoiceModel::createMail($invoiceId, $batchId);
+                InvoiceHelper::createMail($invoiceId, $batchId);
             }
             Redirect::to('Invoices');
         } else {
@@ -108,7 +107,7 @@ class InvoicesController extends Controller
         $ids = Request::post('writeInvoiceId');
         if (!empty($ids)) {
             foreach ($ids as $id) {
-                InvoiceModel::write((int) $id);
+                InvoiceHelper::write((int) $id);
             }
             Redirect::to('Invoices');
         } else {
@@ -122,7 +121,7 @@ class InvoicesController extends Controller
         $month = (string) Request::post('month', true);
         $contracts = Request::post('contract_id');
         $factuurdatum = Request::post('factuurdatum', true);
-        if (InvoiceModel::create($year, $month, $contracts, $factuurdatum)) {
+        if (InvoiceHelper::create($year, $month, $contracts, $factuurdatum)) {
             Session::add('feedback_positive', 'Factuur toegevoegd.');
             Redirect::to('Invoices');
         }
@@ -131,7 +130,7 @@ class InvoicesController extends Controller
     public static function deleteInvoice()
     {
         $id = (int) Request::post('id', true);
-        if (InvoiceModel::delete($id)) {
+        if (InvoiceHelper::delete($id)) {
             Redirect::to('Invoices/Index');
         } else {
             Redirect::to('Error/Error');
@@ -142,7 +141,7 @@ class InvoicesController extends Controller
     {
         $invoiceId = (int) Request::post('invoiceid', true);
         $id = (int) Request::post('id', true);
-        if (InvoiceItemModel::delete($id)) {
+        if (InvoiceHelper::deleteItem($id)) {
             Redirect::to('Invoices/details?id=' . $invoiceId);
         } else {
             Redirect::to('Error/Error');
@@ -154,7 +153,7 @@ class InvoicesController extends Controller
         $invoiceId = (int) Request::post('invoiceid', true);
         $name = Request::post('name', true);
         $price = (int) Request::post('price', true);
-        if (InvoiceItemModel::create($invoiceId, $name, $price)) {
+        if (InvoiceHelper::createItem($invoiceId, $name, $price)) {
             Redirect::to('Invoices/details?id=' . $invoiceId);
         } else {
             Redirect::to('Error/Error');

@@ -7,27 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10cd1690-6b40-469b-8cb6-7411aa27a75c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/portal.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/portal.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.php_cs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.php_cs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/portal/login/ext/fb/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/portal/login/ext/fb/config.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/portal/login/ext/fb/fb-callback-login.php" beforeDir="false" afterPath="$PROJECT_DIR$/portal/login/ext/fb/fb-callback-login.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/portal/login/ext/fb/fb-callback.php" beforeDir="false" afterPath="$PROJECT_DIR$/portal/login/ext/fb/fb-callback.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/AccountController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/AccountController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/EventsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/EventsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/LoginController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/ProfileController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/HTTP/Request.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/HTTP/Request.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Security/Authentication/Service/LoginService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Security/Authentication/Service/LoginService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Security/Authentication/Service/LoginValidator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Security/Authentication/Service/LoginValidator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/View/View.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/View/View.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Init.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Init.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Invoices/InvoiceModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Invoices/InvoiceModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/Pages/Email/inc/table_messages.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Email/inc/table_messages.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/Pages/Invoices/details.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Invoices/details.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/Pages/Invoices/table.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Invoices/table.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -325,6 +305,7 @@
       <workItem from="1576948169978" duration="171000" />
       <workItem from="1576948442424" duration="6239000" />
       <workItem from="1577161064400" duration="4238000" />
+      <workItem from="1577565184500" duration="210000" />
     </task>
     <servers />
   </component>

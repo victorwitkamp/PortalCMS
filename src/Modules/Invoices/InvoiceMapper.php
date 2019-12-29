@@ -14,9 +14,7 @@ class InvoiceMapper
 {
     /**
      * Delete an Invoice by Id.
-     *
      * @param int $id
-     *
      * @return bool
      */
     public static function delete($id): bool
