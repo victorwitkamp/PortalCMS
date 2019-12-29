@@ -7,16 +7,18 @@ declare(strict_types=1);
 
 namespace PortalCMS\Modules\Invoices;
 
+use function is_array;
 use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
 use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
 use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
 use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
 use PortalCMS\Core\Email\Template\Helpers\PlaceholderHelper;
-use PortalCMS\Core\View\PDF;
 use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\View\PDF;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Contracts\ContractMapper;
-use function is_array;
+use PortalCMS\Modules\Invoices\InvoiceItemMapper;
+use PortalCMS\Modules\Invoices\InvoiceMapper;
 
 class InvoiceHelper
 {
@@ -72,23 +74,25 @@ class InvoiceHelper
         return true;
     }
 
-    public static function create(string $year, string $month, $contract_ids, $factuurdatum): bool
+    public static function create(string $year, string $month, array $contract_ids, $factuurdatum): bool
     {
-        if (empty($year) || empty($month) || empty($contract_ids) || empty($factuurdatum)) {
+        if (empty($factuurdatum)) {
+            Session::add('feedback_negative', 'Geen factuurdatum opgegeven.');
+        } elseif (empty($year)) {
             Session::add('feedback_negative', 'Incompleet verzoek.');
-            return false;
-        }
-
-        if (is_array($contract_ids)) {
+        } elseif (empty($month)) {
+            Session::add('feedback_negative', 'Incompleet verzoek.');
+        } elseif (empty($contract_ids)) {
+            Session::add('feedback_negative', 'Incompleet verzoek.');
+        } else {
             foreach ($contract_ids as $contract_id) {
                 if (!self::createInvoiceAction($year, $month, (int) $contract_id, $factuurdatum)) {
                     return false;
                 }
             }
-        } elseif (!self::createInvoiceAction($year, $month, (int) $contract_ids, $factuurdatum)) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     public static function displayInvoiceSumById(int $id)

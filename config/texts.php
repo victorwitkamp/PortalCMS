@@ -7,9 +7,9 @@
  */
 return [
     // GENERAL
-    'DAY' => 'DAG',
-    'YEAR' => 'JAAR',
-    'MONTH' => 'MAAND',
+    'DAY' => 'Dag',
+    'YEAR' => 'Jaar',
+    'MONTH' => 'Maand',
     // DAYS
     'DAY_01' => 'Maandag',
     'DAY_02' => 'Dinsdag',

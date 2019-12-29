@@ -2,6 +2,7 @@
 
 use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
 use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Members\MemberModel;
 
 $pageName = 'Nieuw bericht';
@@ -35,9 +36,9 @@ if (empty($year)) {
         <div class="form-group">
             <div class="row">
                 <div class="col-md-12">
-                    <label>Jaar
+                    <label><?= Text::get('MONTH') ?></label>
                         <input type="text" name="year" value="<?= $year ?>" />
-                        <input type="submit" name="setYear">
+                        <input type="submit" name="setYear"/>
                 </div>
             </div>
         </div>
@@ -91,7 +92,7 @@ if (empty($year)) {
                             <div class="col-md-4">
                                 <input type="checkbox" class="custom-control-input" value="<?= $member->id ?>" disabled><s> <?= $member->voornaam . ' ' . $member->achternaam ?></s><br />
                             </div>
-                        <?php }
+                <?php }
                     }
                 } else {
                     echo 'Geen resultaten';

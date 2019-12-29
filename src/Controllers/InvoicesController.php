@@ -119,7 +119,7 @@ class InvoicesController extends Controller
     {
         $year = (string) Request::post('year', true);
         $month = (string) Request::post('month', true);
-        $contracts = Request::post('contract_id');
+        $contracts = (array) Request::post('contract_id');
         $factuurdatum = Request::post('factuurdatum', true);
         if (InvoiceHelper::create($year, $month, $contracts, $factuurdatum)) {
             Session::add('feedback_positive', 'Factuur toegevoegd.');

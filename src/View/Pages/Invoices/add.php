@@ -25,18 +25,18 @@ $pageName = 'Factuur toevoegen';
     <form method="post" validate=true>
 
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label"><?= Text::get('YEAR') ?></label>
+            <label class="col-sm-2 col-form-label">Contract(en)</label>
             <div class="col-sm-10">
-                <input type="text" name="year" class="form-control" value="2019">
+                <?php foreach (ContractMapper::get() as $row) : ?>
+                    <input type="checkbox" name='contract_id[]' value="<?= $row->id ?>"> <?= $row->bandcode . ': ' . $row->band_naam ?><br />
+                <?php endforeach ?>
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Contract</label>
+            <label class="col-sm-2 col-form-label"><?= Text::get('YEAR') ?></label>
             <div class="col-sm-10">
-                <?php foreach (ContractMapper::get() as $row) : ?>
-                    <input type="checkbox" name='contract_id[]' value="<?= $row->id ?>"><?= $row->bandcode . ': ' . $row->band_naam ?><br />
-                <?php endforeach ?>
+                <input type="text" name="year" class="form-control" value="2019">
             </div>
         </div>
 

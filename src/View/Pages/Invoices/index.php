@@ -26,15 +26,16 @@ $pageName = Text::get('TITLE_INVOICES');
         <?php Alert::renderFeedbackMessages(); ?>
     </div>
 
-    <div class="container-fluid">
-        <?php
-        $invoices = InvoiceMapper::getAll();
-        if (!empty($invoices)) {
-            include_once 'table.php';
-        } else {
-            echo 'Geen facturen gevonden.';
-        }
-        ?>
-    </div>
+    <?php $invoices = InvoiceMapper::getAll(); ?>
+
+    <?php if (!empty($invoices)) { ?>
+        <div class="container-fluid">
+        <?php include_once 'table.php'; ?>
+        </div>
+    <?php } else { ?>
+        <div class="container">
+        <?php echo 'Geen facturen gevonden.'; ?>
+        </div>
+    <?php } ?>
 
 <?= $this->end();
