@@ -10,8 +10,6 @@ namespace PortalCMS\Modules\Contracts;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Modules\Contracts\ContractMapper;
-use PortalCMS\Modules\Invoices\InvoiceHelper;
 use PortalCMS\Modules\Invoices\InvoiceMapper;
 
 /**

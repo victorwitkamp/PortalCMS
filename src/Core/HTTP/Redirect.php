@@ -18,9 +18,9 @@ class Redirect
     /**
      * To the defined page, uses a relative path (like "user/profile")
      * Redirects to a RELATIVE path, like "user/profile"
-     * @param string $path
+     * @param $path
      */
-    public static function to($path)
+    public static function to(string $path)
     {
         session_write_close();
         header('location: ' . Config::get('URL') . ltrim($path, '/'));

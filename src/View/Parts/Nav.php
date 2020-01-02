@@ -2,9 +2,11 @@
 /**
  * Main navigation
  */
+
 use PortalCMS\Core\Config\SiteSetting;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
+
 ?>
 <div class="navbar bg-light p-0">
     <div class="container">

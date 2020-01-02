@@ -68,7 +68,7 @@ class LoginValidator
         return $result;
     }
 
-    public static function validateCookieLogin($cookie) : ?object
+    public static function validateCookieLogin(string $cookie) : ?object
     {
         if (substr_count($cookie, ':') + 1 !== 3) {
             Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
@@ -100,7 +100,7 @@ class LoginValidator
         return true;
     }
 
-    public static function verifyPassword($result, $user_password) : bool
+    public static function verifyPassword($result, string $user_password) : bool
     {
         if (!password_verify(base64_encode($user_password), $result->user_password_hash)) {
             UserPDOWriter::setFailedLoginByUsername($result->user_name);

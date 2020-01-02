@@ -55,9 +55,8 @@ class Session
             // filter the value for XSS vulnerabilities
             if ($filter) {
                 return Filter::XSSFilter($value);
-            } else {
-                return $value;
             }
+            return $value;
         }
         return null;
     }

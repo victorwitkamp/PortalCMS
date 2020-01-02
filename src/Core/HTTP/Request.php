@@ -28,7 +28,7 @@ class Request
      * @param  bool  $clean marker for optional cleaning of the var
      * @return mixed the key's value or nothing
      */
-    public static function post($key, $clean = false)
+    public static function post($key, bool $clean = false)
     {
         if (isset($_POST[$key])) {
             if (!empty($_POST[$key])) {

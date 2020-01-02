@@ -34,7 +34,7 @@ $pageName = Text::get('TITLE_INVOICES');
         </div>
     <?php } else { ?>
         <div class="container">
-        <?php echo 'Geen facturen gevonden.'; ?>
+            <?= 'Geen facturen gevonden.' ?>
         </div>
     <?php } ?>
 

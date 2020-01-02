@@ -12,7 +12,7 @@ use PortalCMS\Core\Database\DB;
 
 class PermissionMapper
 {
-    public static function getById($perm_id)
+    public static function getById(int $perm_id)
     {
         $stmt = DB::conn()->prepare(
             'SELECT *

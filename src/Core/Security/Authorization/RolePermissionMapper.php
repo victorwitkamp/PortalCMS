@@ -19,7 +19,7 @@ class RolePermissionMapper
      *
      * @return mixed
      */
-    public static function getRolePermissions($role_id)
+    public static function getRolePermissions(int $role_id)
     {
         $stmt = DB::conn()->prepare(
             'SELECT t2.perm_id, t2.perm_desc
@@ -42,7 +42,7 @@ class RolePermissionMapper
      *
      * @return mixed
      */
-    public static function getRoleSelectablePermissions($role_id)
+    public static function getRoleSelectablePermissions(int $role_id)
     {
         $stmt = DB::conn()->prepare(
             'SELECT * FROM permissions where perm_id not in (
@@ -67,7 +67,7 @@ class RolePermissionMapper
      *
      * @return bool
      */
-    public static function isAssigned($role_id, $perm_desc): bool
+    public static function isAssigned(int $role_id, string $perm_desc): bool
     {
         $stmt = DB::conn()->prepare(
             'SELECT t2.perm_desc
@@ -79,7 +79,7 @@ class RolePermissionMapper
         return ($stmt->rowCount() === 1);
     }
 
-    public static function assign($role_id, $perm_id): bool
+    public static function assign(int $role_id, int $perm_id): bool
     {
         $stmt = DB::conn()->prepare(
             'INSERT INTO role_perm(role_id, perm_id) VALUES (?,?)'
@@ -90,7 +90,7 @@ class RolePermissionMapper
         return false;
     }
 
-    public static function unassign($role_id, $perm_id): bool
+    public static function unassign(int $role_id, int $perm_id): bool
     {
         $stmt = DB::conn()->prepare(
             'DELETE FROM role_perm

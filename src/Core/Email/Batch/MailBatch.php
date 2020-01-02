@@ -37,7 +37,7 @@ class MailBatch
      * @param $used_template
      * @return bool
      */
-    public static function create($used_template = null): bool
+    public static function create(int $used_template = null): bool
     {
         $stmt = DB::conn()->prepare(
             'INSERT INTO mail_batches(id, status, UsedTemplate) VALUES (NULL,1,?)'

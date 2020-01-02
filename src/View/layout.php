@@ -1,5 +1,7 @@
 <?php
+
 use PortalCMS\Core\Config\SiteSetting;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

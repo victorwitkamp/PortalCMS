@@ -1,4 +1,5 @@
 <?php
+
 use PortalCMS\Core\Config\SiteSetting;
 use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\View\Text;

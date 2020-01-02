@@ -7,9 +7,9 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Security\Authentication\Service;
 
-use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\HTTP\Cookie;
 use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\User\UserPDOWriter;
 use PortalCMS\Core\View\Text;

@@ -14,10 +14,10 @@ class InvoiceMapper
 {
     /**
      * Delete an Invoice by Id.
-     * @param int $id
+     * @param $id
      * @return bool
      */
-    public static function delete($id): bool
+    public static function delete(int $id): bool
     {
         $stmt = DB::conn()->prepare(
             'DELETE
@@ -29,7 +29,7 @@ class InvoiceMapper
         return $stmt->rowCount() === 1;
     }
 
-    public static function getById($id) : ?object
+    public static function getById(int $id) : ?object
     {
         $stmt = DB::conn()->prepare('SELECT * FROM invoices WHERE id = ? LIMIT 1');
         $stmt->execute([$id]);
@@ -39,7 +39,7 @@ class InvoiceMapper
         return null;
     }
 
-    public static function getByFactuurnummer($factuurnummer)
+    public static function getByFactuurnummer(string $factuurnummer) : ?array
     {
         $stmt = DB::conn()->prepare(
             'SELECT *
@@ -51,10 +51,10 @@ class InvoiceMapper
         if ($stmt->rowCount() === 1) {
             return $stmt->fetch(PDO::FETCH_OBJ);
         }
-        return false;
+        return null;
     }
 
-    public static function getByContractId(int $contractId): ?array
+    public static function getByContractId(int $contractId) : ?array
     {
         $stmt = DB::conn()->prepare('SELECT * FROM invoices where contract_id = ?');
         $stmt->execute([$contractId]);
@@ -73,16 +73,13 @@ class InvoiceMapper
         return null;
     }
 
-    public static function create($contract_id, $factuurnummer, $year, $month, $factuurdatum): bool
+    public static function create(int $contract_id, string $factuurnummer, int $year, int $month, string $factuurdatum): bool
     {
         $stmt = DB::conn()->prepare(
             'INSERT INTO invoices(id, contract_id, factuurnummer, year, month, factuurdatum, vervaldatum)
             VALUES (NULL,?,?,?,?,?,NULL)'
         );
-        // $stmt->execute([$contract_id, $factuurnummer, $year, $month, $factuurdatum]);
-
-        // todo: iets met vervaldatum doen.
-        // voor nu dezelfde waarde als factuurdatum
+        // todo: iets met vervaldatum doen. voor nu dezelfde waarde als factuurdatum
         $stmt->execute([$contract_id, $factuurnummer, $year, $month, $factuurdatum]);
 
         if (!$stmt) {
@@ -91,7 +88,7 @@ class InvoiceMapper
         return true;
     }
 
-    public static function updateMailId($invoice_id, $mail_id): bool
+    public static function updateMailId(int $invoice_id, int $mail_id): bool
     {
         $stmt = DB::conn()->prepare(
             'UPDATE invoices SET mail_id = ? WHERE id = ? LIMIT 1'
@@ -100,7 +97,7 @@ class InvoiceMapper
         return $stmt->rowCount() === 1;
     }
 
-    public static function updateStatus($invoice_id, $status): bool
+    public static function updateStatus(int $invoice_id, int $status): bool
     {
         $stmt = DB::conn()->prepare(
             'UPDATE invoices SET status = ? WHERE id = ? LIMIT 1'

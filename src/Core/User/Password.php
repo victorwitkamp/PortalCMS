@@ -7,11 +7,11 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\User;
 
-use function strlen;
 use PDO;
 use PortalCMS\Core\Database\DB;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
+use function strlen;
 
 /**
  * Class Password
@@ -28,7 +28,7 @@ class Password
      *
      * @return bool
      */
-    public static function saveChangedPassword($user_name, $user_password_hash): bool
+    public static function saveChangedPassword(string $user_name, string $user_password_hash): bool
     {
         $stmt = DB::conn()->prepare(
             'UPDATE users SET user_password_hash = :user_password_hash
@@ -47,23 +47,22 @@ class Password
     /**
      * Validates fields, hashes new password, saves new password
      *
-     * @param string $user_name
-     * @param string $user_password_current
-     * @param string $user_password_new
-     * @param string $user_password_repeat
-     *
+     * @param $user_name
+     * @param $currentPassword
+     * @param $newPassword
+     * @param $repeatNewPassword
      * @return bool
      */
-    public static function changePassword($user_name, $user_password_current, $user_password_new, $user_password_repeat): bool
+    public static function changePassword(string $user_name, string $currentPassword, string $newPassword, string $repeatNewPassword): bool
     {
         // validate the passwords
-        if (!self::validatePasswordChange($user_name, $user_password_current, $user_password_new, $user_password_repeat)) {
+        if (!self::validatePasswordChange($user_name, $currentPassword, $newPassword, $repeatNewPassword)) {
             return false;
         }
         // crypt the password (with the PHP 5.5+'s password_hash() function, result is a 60 character hash string)
         $user_password_hash = password_hash(
             base64_encode(
-                $user_password_new
+                $newPassword
             ),
             PASSWORD_DEFAULT
         );
@@ -78,46 +77,42 @@ class Password
 
 
     /**
-     * Validates current and new passwords
-     *
-     * @param string $user_name
-     * @param string $user_password_current
-     * @param string $user_password_new
-     * @param string $user_password_repeat
-     *
+     * Validates current and new password
+     * @param $user_name
+     * @param $currentPassword
+     * @param $newPassword
+     * @param $repeatNewPassword
      * @return bool
      */
-    public static function validatePasswordChange(string $user_name, string $user_password_current, string $user_password_new, string $user_password_repeat): bool
+    public static function validatePasswordChange(string $user_name, string $currentPassword, string $newPassword, string $repeatNewPassword): bool
     {
         $stmt = DB::conn()->prepare('SELECT user_password_hash, user_failed_logins FROM users WHERE user_name = :user_name LIMIT 1;');
         $stmt->execute([':user_name' => $user_name]);
-        if ($stmt->rowCount() !== 1) {
+        if ($stmt->rowCount() === 1) {
+            $user = $stmt->fetch(PDO::FETCH_OBJ);
+            if (password_verify(base64_encode($currentPassword), $user->user_password_hash)) {
+                if (!empty($newPassword) && !empty($repeatNewPassword)) {
+                    if ($newPassword === $repeatNewPassword) {
+                        if (strlen($newPassword) > 6) {
+                            if ($currentPassword !== $newPassword) {
+                                return true;
+                            }
+                            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_NEW_SAME_AS_CURRENT'));
+                        } else {
+                            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_TOO_SHORT'));
+                        }
+                    } else {
+                        Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_REPEAT_WRONG'));
+                    }
+                } else {
+                    Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_FIELD_EMPTY'));
+                }
+            } else {
+                Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CURRENT_INCORRECT'));
+            }
+        } else {
             Session::add('feedback_negative', Text::get('FEEDBACK_USER_DOES_NOT_EXIST'));
-            return false;
         }
-        $user = $stmt->fetch(PDO::FETCH_OBJ);
-        $user_password_hash = $user->user_password_hash;
-
-        if (!password_verify(base64_encode($user_password_current), $user_password_hash)) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CURRENT_INCORRECT'));
-            return false;
-        }
-        if (empty($user_password_new) || empty($user_password_repeat)) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_FIELD_EMPTY'));
-            return false;
-        }
-        if ($user_password_new !== $user_password_repeat) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_REPEAT_WRONG'));
-            return false;
-        }
-        if (strlen($user_password_new) < 6) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_TOO_SHORT'));
-            return false;
-        }
-        if ($user_password_current === $user_password_new) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_NEW_SAME_AS_CURRENT'));
-            return false;
-        }
-        return true;
+        return false;
     }
 }

@@ -16,7 +16,7 @@ use PortalCMS\Core\Session\Session;
  */
 class Page
 {
-    public static function checkPage($page_id): bool
+    public static function checkPage(int $page_id): bool
     {
         $stmt = DB::conn()->prepare('SELECT * FROM pages WHERE id = ? LIMIT 1');
         $stmt->execute([$page_id]);
@@ -27,7 +27,7 @@ class Page
         return false;
     }
 
-    public static function getPage($page_id)
+    public static function getPage(int $page_id)
     {
         $stmt = DB::conn()->prepare('SELECT * FROM pages WHERE id = ? LIMIT 1');
         $stmt->execute([$page_id]);
@@ -38,7 +38,7 @@ class Page
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public static function updatePage($page_id, $content): bool
+    public static function updatePage(int $page_id, string $content): bool
     {
         $stmt = DB::conn()->prepare(
             'SELECT id

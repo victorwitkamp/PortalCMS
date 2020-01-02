@@ -1,4 +1,5 @@
 <?php
+
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 

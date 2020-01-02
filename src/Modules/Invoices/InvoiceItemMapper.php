@@ -33,12 +33,12 @@ class InvoiceItemMapper
 
     /**
      * Create an InvoiceItem with a specific name and price exists for a specific invoiceId.
-     * @param int    $invoiceId
-     * @param string $name
-     * @param int    $price
+     * @param $invoiceId
+     * @param $name
+     * @param $price
      * @return bool
      */
-    public static function create($invoiceId, $name, $price): bool
+    public static function create(int $invoiceId, string $name, int $price): bool
     {
         $stmt = DB::conn()->prepare(
             'INSERT INTO invoice_items(
@@ -55,10 +55,10 @@ class InvoiceItemMapper
 
     /**
      * Delete an InvoiceItem by Id.
-     * @param int $id
+     * @param $id
      * @return bool
      */
-    public static function delete($id): bool
+    public static function delete(int $id): bool
     {
         $stmt = DB::conn()->prepare(
             'DELETE
@@ -71,10 +71,10 @@ class InvoiceItemMapper
 
     /**
      * Delete an InvoiceItem by InvoiceId.
-     * @param int $id
+     * @param $id
      * @return bool
      */
-    public static function deleteByInvoiceId($id): bool
+    public static function deleteByInvoiceId(int $id): bool
     {
         $stmt = DB::conn()->prepare(
             'DELETE
@@ -87,10 +87,10 @@ class InvoiceItemMapper
 
     /**
      * Check if an InvoiceItem with a specific id exists.
-     * @param int $id
+     * @param $id
      * @return bool
      */
-    public static function exists($id): bool
+    public static function exists(int $id): bool
     {
         $stmt = DB::conn()->prepare(
             'SELECT id

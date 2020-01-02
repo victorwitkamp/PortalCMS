@@ -1,8 +1,8 @@
 <?php
 
 use PortalCMS\Core\Security\Authentication\Authentication;
-use PortalCMS\Core\View\Page;
 use PortalCMS\Core\View\Alert;
+use PortalCMS\Core\View\Page;
 
 $pageName = 'Pagina bewerken';
 
@@ -11,9 +11,9 @@ Authentication::checkAuthentication();
 if (!Page::checkPage($_GET['id'])) {
     header('Location: /index.php');
     die;
-} else {
-    $row = Page::getPage($_GET['id']);
 }
+$row = Page::getPage($_GET['id']);
+
 
 $pageName = 'Pagina ' . $row ['name'] . ' bewerken';
 ?>

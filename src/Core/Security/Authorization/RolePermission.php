@@ -13,7 +13,7 @@ use PortalCMS\Core\Session\Session;
 class RolePermission
 {
 
-    public static function assignPermission($role_id, $perm_id)
+    public static function assignPermission(int $role_id, int $perm_id)
     {
         $Permission = PermissionMapper::getById($perm_id);
         if (RolePermissionMapper::isAssigned($role_id, $Permission['perm_desc'])) {
@@ -30,7 +30,7 @@ class RolePermission
         }
     }
 
-    public static function unassignPermission($role_id, $perm_id)
+    public static function unassignPermission(int $role_id, int $perm_id)
     {
         $Permission = PermissionMapper::getById($perm_id);
         if (RolePermissionMapper::isAssigned($role_id, $Permission['perm_desc'])) {

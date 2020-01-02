@@ -79,18 +79,25 @@ class CalendarEventModel
     }
 
     /**
-     * @param int $id
-     * @param string $title
-     * @param string $start
-     * @param string $end
-     * @param string $description
-     * @param int $status
+     * @param $id
+     * @param $title
+     * @param $start_event
+     * @param $end_event
+     * @param $description
+     * @param $status
      * @return bool
      */
-    public static function update($id, $title, $start_event, $end_event, $description, $status): bool
+    public static function update(int $id, string $title, string $start_event, string $end_event, string $description, int $status): bool
     {
         if (CalendarEventMapper::exists($id)) {
-            if (CalendarEventMapper::update($id, $title, date('Y-m-d H:i:s', strtotime($start_event)), date('Y-m-d H:i:s', strtotime($end_event)), $description, $status)) {
+            if (CalendarEventMapper::update(
+                $title,
+                date('Y-m-d H:i:s', strtotime($start_event)),
+                date('Y-m-d H:i:s', strtotime($end_event)),
+                $description,
+                $status,
+                $id
+            )) {
                 Session::add('feedback_positive', 'Evenement gewijzigd.');
                 return true;
             }

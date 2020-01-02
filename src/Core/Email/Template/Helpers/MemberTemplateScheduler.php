@@ -44,7 +44,7 @@ class MemberTemplateScheduler
         return true;
     }
 
-    public function processFeedback($success, $failed)
+    public function processFeedback(int $success, int $failed)
     {
         if ($failed === 0) {
             Session::add('feedback_positive', 'Totaal aantal berichten aangemaakt:' . $success);

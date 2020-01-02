@@ -1,4 +1,5 @@
 <?php
+
 use PortalCMS\Core\Application\Application;
 
 if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/../src/Init.php')) {

@@ -2,6 +2,7 @@
 /**
  * General settings
  */
+
 use PortalCMS\Core\Config\SiteSetting;
 use PortalCMS\Core\View\Text;
 

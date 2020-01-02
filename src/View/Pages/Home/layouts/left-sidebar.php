@@ -5,10 +5,10 @@
  * Details :
  */
 
-use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\Config\SiteSetting;
-use PortalCMS\Core\View\Page;
+use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\View\Alert;
+use PortalCMS\Core\View\Page;
 use PortalCMS\Core\View\Text;
 
 ?>

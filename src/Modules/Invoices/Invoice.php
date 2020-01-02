@@ -4,11 +4,11 @@ namespace PortalCMS\Modules\Invoices;
 
 class Invoice
 {
-    public $id = null;
-    public $contract_id = null;
-    public $factuurnummer = null;
-    public $status = null;
-    public $mail_id = null;
+    public $id;
+    public $contract_id;
+    public $factuurnummer;
+    public $status;
+    public $mail_id;
 
     public function __construct(int $id = null, int $contract_id = null, int $factuurnummer = null, int $status = null, int $mail_id = null)
     {

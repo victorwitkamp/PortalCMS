@@ -82,36 +82,36 @@ class PDF
         return $pdf;
     }
 
-    public static function createInvoice($pdf, $invoice, $invoiceitems, $contract)
+    public static function createInvoice(TCPDF $pdf, $invoice, $invoiceitems, $contract) : TCPDF
     {
         $pdf->SetTitle('Factuur ' . $invoice->factuurnummer);
         $pdf->SetXY(165, 15);
-        $pdf->Image(DIR_IMG . 'logo_new_280px.jpg', '', '', 25, 25, '', '', 'T', false, 300, '', false, false, 0, false, false, false);
+        $pdf->Image(DIR_IMG . 'logo_new_280px.jpg', '', '', 25, 25, '', '', 'T');
         $pdf->SetXY(120, 60);
-        $pdf->Multicell(0, 2, "Poppodium de Beuk\n1e Barendrechtseweg 53-55\n2992XE, Barendrecht\n\nKVK: 40341794\nIBAN: NL19RABO1017541353", $border = 0, $align = 'R');
+        $pdf->MultiCell(0, 2, "Poppodium de Beuk\n1e Barendrechtseweg 53-55\n2992XE, Barendrecht\n\nKVK: 40341794\nIBAN: NL19RABO1017541353", $border = 0, $align = 'R');
         $pdf->SetXY(20, 70);
         $pdf->SetFont('dejavusans', 'B', 11, '', true);
-        $pdf->Write(0, $contract->band_naam . "\n", '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Write(0, $contract->band_naam . "\n", '', 0, 'L', true);
         $pdf->SetFont('dejavusans', '', 11, '', true);
         $pdf->SetX(20);
-        $pdf->Write(0, 'T.a.v. ' . $contract->bandleider_naam . "\n", '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Write(0, 'T.a.v. ' . $contract->bandleider_naam . "\n", '', 0, 'L', true);
         $pdf->SetX(20);
-        $pdf->Write(0, $contract->bandleider_adres . "\n", '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Write(0, $contract->bandleider_adres . "\n", '', 0, 'L', true);
         $pdf->SetX(20);
-        $pdf->Write(0, $contract->bandleider_postcode . ' ' . $contract->bandleider_woonplaats, '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Write(0, $contract->bandleider_postcode . ' ' . $contract->bandleider_woonplaats, '', 0, 'L', true);
         $pdf->SetXY(20, 110);
         $pdf->SetFont('dejavusans', 'B', 11, '', true);
-        $pdf->Write(0, 'Factuur', '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Write(0, 'Factuur', '', 0, 'L', true);
         $pdf->SetXY(20, 120);
         $pdf->SetFont('dejavusans', '', 11, '', true);
-        $pdf->Write(0, 'Factuurnummer: ' . $invoice->factuurnummer, '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Write(0, 'Factuurnummer: ' . $invoice->factuurnummer, '', 0, 'L', true);
         $pdf->SetXY(120, 120);
-        $pdf->Write(0, 'Factuurdatum: ' . date('d-m-Y', strtotime($invoice->factuurdatum)), '', 0, 'R', true, 0, false, false, 0);
+        $pdf->Write(0, 'Factuurdatum: ' . date('d-m-Y', strtotime($invoice->factuurdatum)), '', 0, 'R', true);
         $pdf->SetXY(20, 140);
         $pdf->SetFont('dejavusans', 'B', 11, '', true);
-        $pdf->Write(0, 'Omschrijving', '', 0, 'L', false, 0, false, false, 0);
+        $pdf->Write(0, 'Omschrijving', '', 0, 'L');
         $pdf->SetX(150);
-        $pdf->Write(0, 'Bedrag', '', 0, 'R', false, 0, false, false, 0);
+        $pdf->Write(0, 'Bedrag', '', 0, 'R');
         $pdf->Ln();
         $pdf->SetFont('dejavusans', '', 11, '', true);
 
@@ -119,11 +119,11 @@ class PDF
         if (!empty($invoiceitems)) {
             foreach ($invoiceitems as $invoiceitem) {
                 $pdf->SetX(20);
-                $pdf->Write(0, $invoiceitem->name, '', 0, 'L', false, 0, false, false, 0);
+                $pdf->Write(0, $invoiceitem->name, '', 0, 'L');
                 $pdf->SetX(165);
-                $pdf->Write(0, '€', '', 0, 'L', false, 0, false, false, 0);
+                $pdf->Write(0, '€', '', 0, 'L');
                 $pdf->SetX(150);
-                $pdf->Write(0, $invoiceitem->price, '', 0, 'R', false, 0, false, false, 0);
+                $pdf->Write(0, $invoiceitem->price, '', 0, 'R');
                 $pdf->Ln();
                 $totaalbedrag += $invoiceitem->price;
             }
@@ -131,29 +131,35 @@ class PDF
 
         $pdf->Ln();
         $pdf->SetX(20);
-        $pdf->Write(0, 'Totaal:', '', 0, 'L', false, 0, false, false, 0);
+        $pdf->Write(0, 'Totaal:', '', 0, 'L');
         $pdf->SetX(165);
-        $pdf->Write(0, '€', '', 0, 'L', false, 0, false, false, 0);
+        $pdf->Write(0, '€', '', 0, 'L');
         $pdf->SetX(150);
-        $pdf->Write(0, $totaalbedrag . "\n\n\n", '', 0, 'R', false, 0, false, false, 0);
+        $pdf->Write(0, $totaalbedrag . "\n\n\n", '', 0, 'R');
 
         $pdf->SetX(20);
         $gelieve  = 'Wij verzoeken u het bedrag binnen 14 dagen over te maken naar NL19 RABO 1017';
         $gelieve2 = '5413 53 o.v.v. het factuurnummer t.n.v. Sociëteit de Beuk.';
         $gelieve4 = 'Neem voor vragen over facturatie contact op met penningmeester@beukonline.nl.' . "\n\n";
         $pdf->SetX(20);
-        $pdf->Write(0, $gelieve, '', 0, '', true, 0, false, false, 0);
+        $pdf->Write(0, $gelieve, '', 0, '', true);
         $pdf->SetX(20);
-        $pdf->Write(0, $gelieve2, '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Write(0, $gelieve2, '', 0, 'L', true);
         $pdf->SetX(20);
-        $pdf->Write(0, $gelieve4, '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Write(0, $gelieve4, '', 0, 'L', true);
         $pdf->SetX(20);
-        $pdf->Write(0, 'Met vriendelijke groet,' . "\n", '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Write(0, 'Met vriendelijke groet,' . "\n", '', 0, 'L', true);
         $pdf->SetX(20);
-        $pdf->Write(0, 'De penningmeester van Poppodium de Beuk.', '', 0, 'L', true, 0, false, false, 0);
+        $pdf->Write(0, 'De penningmeester van Poppodium de Beuk.', '', 0, 'L', true);
         return $pdf;
     }
 
+    /**
+     * @param $invoice
+     * @param $invoiceitems
+     * @param $contract
+     * @return mixed
+     */
     public static function renderInvoice($invoice, array $invoiceitems, $contract)
     {
         if (self::$defined === false) {
@@ -162,7 +168,7 @@ class PDF
         $pdf = self::configPDF();
         $pdf = self::createInvoice($pdf, $invoice, $invoiceitems, $contract);
         ob_end_clean();
-        $pdf->Output($invoice->factuurnummer . '.pdf', 'I');
+        return $pdf->Output($invoice->factuurnummer . '.pdf');
     }
 
     public static function writeInvoice($invoice, array $invoiceitems, $contract) : bool

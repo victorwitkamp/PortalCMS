@@ -38,10 +38,9 @@ class LoginService
             self::setSuccessfulLoginIntoSession($user);
             Session::add('feedback_positive', Text::get('FEEDBACK_LOGIN_SUCCESSFUL'));
             return true;
-        } else {
-            Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
-            return false;
         }
+        Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
+        return false;
     }
 
     /**
@@ -49,7 +48,7 @@ class LoginService
      * @param string $cookie The cookie "remember_me"
      * @return bool success state
      */
-    public static function loginWithCookie($cookie) : bool
+    public static function loginWithCookie(string $cookie) : bool
     {
         if (!empty($cookie)) {
             $cookieResponse = LoginValidator::validateCookieLogin($cookie);
@@ -105,7 +104,7 @@ class LoginService
      * @param $user_id
      * @return bool
      */
-    public static function setRememberMe($user_id) : bool
+    public static function setRememberMe(int $user_id) : bool
     {
         // generate 64 char random string
         $token = hash('sha256', (string) mt_rand());

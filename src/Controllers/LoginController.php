@@ -120,7 +120,7 @@ class LoginController extends Controller
         $password = Request::post('user_password');
         if (!empty($username) && (!empty($password)) && LoginService::loginWithPassword($username, $password, $rememberMe)) {
             if (Request::post('redirect')) {
-                return Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
+                Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
             } else {
                 Redirect::to('Home');
             }
@@ -137,11 +137,10 @@ class LoginController extends Controller
     {
         if (LoginService::loginWithCookie(Request::cookie('remember_me'))) {
             return true;
-        } else {
-            // if not, delete cookie (outdated? attack?) and route user to login form to prevent infinite login loops
-            Cookie::delete();
-            return false;
         }
+        // if not, delete cookie (outdated? attack?) and route user to login form to prevent infinite login loops
+        Cookie::delete();
+        return false;
     }
 
     /**
@@ -152,18 +151,17 @@ class LoginController extends Controller
     {
         if (LoginService::loginWithFacebook($fbid)) {
             if (Request::post('redirect')) {
-                return Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
+                Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
             } else {
                 Redirect::to('Home');
             }
             return true;
-        } else {
-            if (Request::post('redirect')) {
-                return Redirect::to('Login/?redirect=' . ltrim(urlencode(Request::post('redirect')), '/'));
-            } else {
-                Redirect::to('Login');
-            }
-            return false;
         }
+        if (Request::post('redirect')) {
+            Redirect::to('Login/?redirect=' . ltrim(urlencode(Request::post('redirect')), '/'));
+        } else {
+            Redirect::to('Login');
+        }
+        return false;
     }
 }

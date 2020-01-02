@@ -22,7 +22,7 @@ class Registration
      *
      * @param $userID
      */
-    public static function rollbackRegistrationByUserId($userID)
+    public static function rollbackRegistrationByUserId(int $userID)
     {
         $stmt = DB::conn()->prepare('DELETE FROM users WHERE user_id = ?');
         $stmt->execute([$userID]);
@@ -39,7 +39,7 @@ class Registration
      *
      * @return bool
      */
-    public static function writeNewUserToDatabase($username, $email, $md5password, $activationCode)
+    public static function writeNewUserToDatabase(string $username, string $email, string $md5password, string $activationCode)
     {
         $stmt = DB::conn()->prepare('INSERT INTO users (user_name, user_email, password, confirm_code) VALUES (?, ?, ?, ?)');
         $stmt->execute([$username, $email, $md5password, $activationCode]);

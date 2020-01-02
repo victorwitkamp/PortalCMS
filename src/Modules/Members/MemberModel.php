@@ -75,7 +75,7 @@ class MemberModel
         return $stmt->rowCount() === 1;
     }
 
-    public static function doesEmailforYearExist($jaarlidmaatschap, $email) : bool
+    public static function doesEmailforYearExist(int $jaarlidmaatschap, string $email) : bool
     {
         $stmt = DB::conn()->prepare('SELECT id FROM members WHERE jaarlidmaatschap = ? AND emailadres = ? LIMIT 1');
         $stmt->execute([$jaarlidmaatschap, $email]);

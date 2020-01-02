@@ -27,27 +27,26 @@ class EmailAttachment
 
     public function processUpload(array $file) : bool
     {
-        if (empty($file)) {
+        if (!empty($file)) {
+            if ($this->isFolderWritable($this->path)) {
+                // if (!$this->validateType($file)) {
+                //     return false;
+                // }
+                // if (!$this->validateFileSize($file)) {
+                //     return false;
+                // }
+                if (move_uploaded_file($file['tmp_name'], DIR_ROOT . $this->path . $file['name'])) {
+                    $this->name = pathinfo($this->path . $file['name'], PATHINFO_FILENAME);
+                    $this->extension = pathinfo($this->path . $file['name'], PATHINFO_EXTENSION);
+                    $this->type = $this->getMIMEType(DIR_ROOT . $this->path . $file['name']);
+                    return true;
+                }
+                Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_IMAGE_UPLOAD_FAILED'));
+            }
+        } else {
             Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_IMAGE_UPLOAD_FAILED'));
-            return false;
         }
-        if (!$this->isFolderWritable($this->path)) {
-            return false;
-        }
-        // if (!$this->validateType($file)) {
-        //     return false;
-        // }
-        // if (!$this->validateFileSize($file)) {
-        //     return false;
-        // }
-        if (!move_uploaded_file($file['tmp_name'], DIR_ROOT . $this->path . $file['name'])) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_IMAGE_UPLOAD_FAILED'));
-            return false;
-        }
-        $this->name = pathinfo($this->path . $file['name'], PATHINFO_FILENAME);
-        $this->extension = pathinfo($this->path . $file['name'], PATHINFO_EXTENSION);
-        $this->type = $this->getMIMEType(DIR_ROOT . $this->path . $file['name']);
-        return true;
+        return false;
     }
 
     public function validate() : bool
@@ -91,15 +90,15 @@ class EmailAttachment
      */
     public function isFolderWritable(string $path) : bool
     {
-        if (!is_dir(DIR_ROOT . $path)) {
-            Session::add('feedback_negative', 'Directory ' . $path . ' doesnt exist');
-            return false;
-        }
-        if (!is_writable(DIR_ROOT . $path)) {
+        if (is_dir(DIR_ROOT . $path)) {
+            if (is_writable(DIR_ROOT . $path)) {
+                return true;
+            }
             Session::add('feedback_negative', 'Directory ' . $path . ' is not writeable');
-            return false;
+        } else {
+            Session::add('feedback_negative', 'Directory ' . $path . ' doesnt exist');
         }
-        return true;
+        return false;
     }
 
     /**

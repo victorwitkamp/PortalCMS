@@ -1,8 +1,8 @@
 <?php
 
+use Facebook\Exceptions\FacebookSDKException;
 use PortalCMS\Controllers\LoginController;
 use PortalCMS\Core\Session\Session;
-use Facebook\Exceptions\FacebookSDKException;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/../src/Init.php';
 

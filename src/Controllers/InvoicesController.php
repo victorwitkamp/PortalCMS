@@ -94,7 +94,7 @@ class InvoicesController extends Controller
             $batchId = MailBatch::lastInsertedId();
             Session::add('feedback_positive', 'Nieuwe batch aangemaakt (batch ID: ' . $batchId . '). <a href="email/Messages?batch_id=' . $batchId . '">Batch bekijken</a>');
             foreach ($invoiceIds as $invoiceId) {
-                InvoiceHelper::createMail($invoiceId, $batchId);
+                InvoiceHelper::createMail((int) $invoiceId, (int) $batchId);
             }
             Redirect::to('Invoices');
         } else {
@@ -117,8 +117,8 @@ class InvoicesController extends Controller
 
     public static function createInvoice()
     {
-        $year = (string) Request::post('year', true);
-        $month = (string) Request::post('month', true);
+        $year = (int) Request::post('year', true);
+        $month = (int) Request::post('month', true);
         $contracts = (array) Request::post('contract_id');
         $factuurdatum = Request::post('factuurdatum', true);
         if (InvoiceHelper::create($year, $month, $contracts, $factuurdatum)) {
