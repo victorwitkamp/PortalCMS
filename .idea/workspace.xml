@@ -2,17 +2,17 @@
 <project version="4">
   <component name="AnalysisUIOptions">
     <option name="SPLITTER_PROPORTION" value="0.5007299" />
-    <option name="SCOPE_TYPE" value="8" />
+    <option name="SCOPE_TYPE" value="3" />
     <option name="CUSTOM_SCOPE_NAME" value="All Places" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10cd1690-6b40-469b-8cb6-7411aa27a75c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.php_cs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.php_cs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/AccountController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/AccountController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/InvoicesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/InvoicesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controllers/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controllers/LoginController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Members/MemberModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Members/MemberModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/User/PasswordReset.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/User/PasswordReset.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/Pages/Email/EditTemplate.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Email/EditTemplate.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/Pages/Membership/inc/form.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Membership/inc/form.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/Pages/Membership/inc/table.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Pages/Membership/inc/table.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -311,7 +311,7 @@
       <workItem from="1576948442424" duration="6239000" />
       <workItem from="1577161064400" duration="4238000" />
       <workItem from="1577565184500" duration="210000" />
-      <workItem from="1577924446676" duration="6316000" />
+      <workItem from="1577924446676" duration="10361000" />
     </task>
     <servers />
   </component>

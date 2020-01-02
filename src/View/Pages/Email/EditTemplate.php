@@ -7,7 +7,8 @@ use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
-$template = EmailTemplatePDOReader::getById(Request::get('id'));
+$templateId = (int) Request::get('id');
+$template = EmailTemplatePDOReader::getById($templateId);
 if (empty($template)) {
     Redirect::to('Error/NotFound');
 }
@@ -37,7 +38,7 @@ $pageName = Text::get('TITLE_EDIT_MAIL_TEMPLATE');
     <hr>
     <?php Alert::renderFeedbackMessages();
 
-    $attachments = EmailAttachmentMapper::getByTemplateId(Request::get('id'));
+    $attachments = EmailAttachmentMapper::getByTemplateId($templateId);
     if (empty($attachments)) { ?>
         <p>Dit bericht heeft geen bijlagen</p>
     <?php } else { ?>

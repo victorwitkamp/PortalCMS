@@ -6,9 +6,10 @@ use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Contracts\ContractMapper;
 use PortalCMS\Modules\Invoices\InvoiceMapper;
 
-$pageName = Text::get('LABEL_CONTRACT_INVOICES_FOR_ID') . ': ' . Request::get('id');
+$contractId = (int) Request::get('id');
+$pageName = Text::get('LABEL_CONTRACT_INVOICES_FOR_ID') . ': ' . $contractId;
 
-$contract = ContractMapper::getById(Request::get('id'));
+$contract = ContractMapper::getById($contractId);
 if (empty($contract)) {
     Redirect::to('Error/NotFound');
 }
@@ -33,7 +34,7 @@ $pageName = 'Facturen voor ' . $contract->band_naam;
         </div>
         <hr>
         <?php
-        $invoices = InvoiceMapper::getByContractId((int) Request::get('id'));
+        $invoices = InvoiceMapper::getByContractId($contractId);
         if (!empty($invoices)) {
             include_once DIR_VIEW . 'Pages/Invoices/inc/table.php';
         } else {
