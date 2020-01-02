@@ -57,11 +57,15 @@ class AccountController extends Controller
 
     public static function changepassword()
     {
+        $username = (string) Session::get('user_name');
+        $current =  (string) Request::post('currentpassword');
+        $new = (string) Request::post('newpassword');
+        $confirm =  (string) Request::post('newconfirmpassword');
         Password::changePassword(
-            Session::get('user_name'),
-            Request::post('currentpassword'),
-            Request::post('newpassword'),
-            Request::post('newconfirmpassword')
+            $username,
+            $current,
+            $new,
+            $confirm
         );
     }
 

@@ -163,7 +163,7 @@ class MemberModel
         $woonplaats             = Request::post('woonplaats', true);
         $telefoon_vast          = Request::post('telefoon_vast', true);
         $telefoon_mobiel        = Request::post('telefoon_mobiel', true);
-        $emailadres             = Request::post('emailadres', true);
+        $emailadres             = (string) Request::post('emailadres', true);
         $ingangsdatum           = Request::post('ingangsdatum', true);
         $geslacht               = Request::post('geslacht', true);
         $nieuwsbrief            = (int) Request::post('nieuwsbrief', true);

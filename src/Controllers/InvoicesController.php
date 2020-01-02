@@ -120,7 +120,7 @@ class InvoicesController extends Controller
         $year = (int) Request::post('year', true);
         $month = (int) Request::post('month', true);
         $contracts = (array) Request::post('contract_id');
-        $factuurdatum = Request::post('factuurdatum', true);
+        $factuurdatum = (string) Request::post('factuurdatum', true);
         if (InvoiceHelper::create($year, $month, $contracts, $factuurdatum)) {
             Session::add('feedback_positive', 'Factuur toegevoegd.');
             Redirect::to('Invoices');
@@ -151,7 +151,7 @@ class InvoicesController extends Controller
     public static function addInvoiceItem()
     {
         $invoiceId = (int) Request::post('invoiceid', true);
-        $name = Request::post('name', true);
+        $name = (string) Request::post('name', true);
         $price = (int) Request::post('price', true);
         if (InvoiceHelper::createItem($invoiceId, $name, $price)) {
             Redirect::to('Invoices/details?id=' . $invoiceId);
