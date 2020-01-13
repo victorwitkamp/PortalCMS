@@ -21,7 +21,7 @@ class Activity
         return ActivityMapper::load();
     }
 
-    public static function add(string $activity, int $user_id = NULL, $user_name = NULL, $details = NULL) {
+    public static function add(string $activity, int $user_id = null, $user_name = null, $details = null) {
         if (!empty($activity)) {
             $ip = self::getVisitorIP();
             ActivityMapper::add($activity, $user_id, $user_name, $ip, $details);
@@ -34,12 +34,12 @@ class Activity
         return $ip;
     }
 
-    //    public static function registerUserActivity($activity, $details = NULL)
+    //    public static function registerUserActivity($activity, $details = null)
     //    {
     //        if (!empty(Session::get('user_id'))) {
     //            $user_id = Session::get('user_id');
     //        }
-    //        self::saveUserActivity(NULL, NULL, $activity, $details);
+    //        self::saveUserActivity(null, null, $activity, $details);
     //    }
     //
     //    public static function registerUserActivityByUserId($user_id, $activity, $details)
@@ -49,14 +49,14 @@ class Activity
     //        self::saveUserActivity($user_id, $user_name, $activity, $details);
     //    }
     //
-    //    public static function registerUserActivityByUsername($user_name, $activity = NULL, $details = NULL)
+    //    public static function registerUserActivityByUsername($user_name, $activity = null, $details = null)
     //    {
     //        $user = UserPDOReader::getByUsername($user_name);
     //        $user_id = $user['user_id'];
     //        self::saveUserActivity($user_id, $user_name, $activity, $details);
     //    }
     //
-    //    public static function saveUserActivity($user_id = NULL, $user_name = NULL, $activity = NULL, $details = NULL)
+    //    public static function saveUserActivity($user_id = null, $user_name = null, $activity = null, $details = null)
     //    {
     //        $ip = self::getVisitorIP();
     //        self::saveUserActivityAction($user_id, $user_name, $ip, $activity, $details);
