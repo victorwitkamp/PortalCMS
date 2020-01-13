@@ -38,7 +38,7 @@ class LoginService
                 Session::add('feedback_positive', 'Aangemeld blijven ingeschakeld');
             }
             self::setSuccessfulLoginIntoSession($user);
-            Activity::add('LoginWithPassword', $user->user_id, NULL, NULL);
+            Activity::add('LoginWithPassword', $user->user_id, null, null);
             Session::add('feedback_positive', Text::get('FEEDBACK_LOGIN_SUCCESSFUL'));
             return true;
         }
