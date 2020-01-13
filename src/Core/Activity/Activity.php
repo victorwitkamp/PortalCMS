@@ -7,10 +7,6 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Activity;
 
-use PortalCMS\Core\Activity\ActivityMapper;
-use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\User\UserPDOReader;
-
 /**
  * Class : Activity (Activity.php)
  * Details :

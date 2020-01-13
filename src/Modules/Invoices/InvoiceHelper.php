@@ -7,7 +7,6 @@ declare(strict_types=1);
 
 namespace PortalCMS\Modules\Invoices;
 
-use function is_array;
 use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
 use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
 use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
@@ -17,8 +16,7 @@ use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\PDF;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Contracts\ContractMapper;
-use PortalCMS\Modules\Invoices\InvoiceItemMapper;
-use PortalCMS\Modules\Invoices\InvoiceMapper;
+use function is_array;
 
 class InvoiceHelper
 {

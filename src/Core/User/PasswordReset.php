@@ -14,9 +14,9 @@ use PortalCMS\Core\Email\Message\EmailMessage;
 use PortalCMS\Core\Email\SMTP\SMTPConfiguration;
 use PortalCMS\Core\Email\SMTP\SMTPTransport;
 use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
+use PortalCMS\Core\Email\Template\Helpers\PlaceholderHelper;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
-use PortalCMS\Core\Email\Template\Helpers\PlaceholderHelper;
 use function strlen;
 
 /**
