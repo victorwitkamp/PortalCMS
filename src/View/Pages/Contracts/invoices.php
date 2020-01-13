@@ -6,7 +6,7 @@ use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Contracts\ContractMapper;
 use PortalCMS\Modules\Invoices\InvoiceMapper;
 
-$contractId = (int)Request::get('id');
+$contractId = (int) Request::get('id');
 $pageName = Text::get('LABEL_CONTRACT_INVOICES_FOR_ID') . ': ' . $contractId;
 
 $contract = ContractMapper::getById($contractId);

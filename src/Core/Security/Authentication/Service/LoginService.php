@@ -25,7 +25,7 @@ class LoginService
      * @param bool $rememberMe Marker for usage of remember-me cookie feature
      * @return bool
      */
-    public static function loginWithPassword(string $username, string $password, bool $rememberMe = false): bool
+    public static function loginWithPassword(string $username, string $password, bool $rememberMe = false) : bool
     {
         $user = LoginValidator::validateAndGetUser($username, $password);
         if (!empty($user)) {
@@ -46,28 +46,38 @@ class LoginService
     }
 
     /**
-     * Write remember-me token into database and into cookie
-     * @param $user_id
-     * @return bool
+     * performs the login via cookie (for DEFAULT user account, FACEBOOK-accounts are handled differently)
+     * @param string $cookie The cookie "remember_me"
+     * @return bool success state
      */
-    public static function setRememberMe(int $user_id): bool
+    public static function loginWithCookie(string $cookie) : bool
     {
-        // generate 64 char random string
-        $token = hash('sha256', (string)mt_rand());
-
-        UserPDOWriter::updateRememberMeToken($user_id, $token);
-
-        // generate cookie string that consists of user id, random string and combined hash of both
-        // never expose the original user id, instead, encrypt it.
-        try {
-            $cookie_string_first_part = Encryption::encrypt((string)$user_id) . ':' . $token;
-        } catch (Exception $e) {
-            return false;
+        if (!empty($cookie)) {
+            $cookieResponse = LoginValidator::validateCookieLogin($cookie);
+            if (!empty($cookieResponse->user_id) && (!empty($cookieResponse->token))) {
+                $user = UserPDOReader::getByIdAndToken($cookieResponse->user_id, $cookieResponse->token);
+                if (!empty($user)) {
+                    self::setSuccessfulLoginIntoSession($user);
+                    Session::add('feedback_positive', Text::get('FEEDBACK_COOKIE_LOGIN_SUCCESSFUL'));
+                    return true;
+                }
+            }
         }
-        $cookie_string_hash = hash('sha256', $user_id . ':' . $token);
-        $cookie_string = $cookie_string_first_part . ':' . $cookie_string_hash;
+        return false;
+    }
 
-        return Cookie::setRememberMe($cookie_string);
+    public static function loginWithFacebook(int $fbid) : bool
+    {
+        if (!empty($fbid)) {
+            $user = UserPDOReader::getByFbid($fbid);
+            if (!empty($user)) {
+                self::setSuccessfulLoginIntoSession($user);
+                Session::add('feedback_positive', Text::get('FEEDBACK_SUCCESSFUL_FACEBOOK_LOGIN'));
+                return true;
+            }
+        }
+        Session::add('feedback_negative', Text::get('FEEDBACK_FACEBOOK_LOGIN_FAILED'));
+        return false;
     }
 
     /**
@@ -92,37 +102,27 @@ class LoginService
     }
 
     /**
-     * performs the login via cookie (for DEFAULT user account, FACEBOOK-accounts are handled differently)
-     * @param string $cookie The cookie "remember_me"
-     * @return bool success state
+     * Write remember-me token into database and into cookie
+     * @param $user_id
+     * @return bool
      */
-    public static function loginWithCookie(string $cookie): bool
+    public static function setRememberMe(int $user_id) : bool
     {
-        if (!empty($cookie)) {
-            $cookieResponse = LoginValidator::validateCookieLogin($cookie);
-            if (!empty($cookieResponse->user_id) && (!empty($cookieResponse->token))) {
-                $user = UserPDOReader::getByIdAndToken($cookieResponse->user_id, $cookieResponse->token);
-                if (!empty($user)) {
-                    self::setSuccessfulLoginIntoSession($user);
-                    Session::add('feedback_positive', Text::get('FEEDBACK_COOKIE_LOGIN_SUCCESSFUL'));
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+        // generate 64 char random string
+        $token = hash('sha256', (string) mt_rand());
 
-    public static function loginWithFacebook(int $fbid): bool
-    {
-        if (!empty($fbid)) {
-            $user = UserPDOReader::getByFbid($fbid);
-            if (!empty($user)) {
-                self::setSuccessfulLoginIntoSession($user);
-                Session::add('feedback_positive', Text::get('FEEDBACK_SUCCESSFUL_FACEBOOK_LOGIN'));
-                return true;
-            }
+        UserPDOWriter::updateRememberMeToken($user_id, $token);
+
+        // generate cookie string that consists of user id, random string and combined hash of both
+        // never expose the original user id, instead, encrypt it.
+        try {
+            $cookie_string_first_part = Encryption::encrypt((string) $user_id) . ':' . $token;
+        } catch (Exception $e) {
+            return false;
         }
-        Session::add('feedback_negative', Text::get('FEEDBACK_FACEBOOK_LOGIN_FAILED'));
-        return false;
+        $cookie_string_hash       = hash('sha256', $user_id . ':' . $token);
+        $cookie_string            = $cookie_string_first_part . ':' . $cookie_string_hash;
+
+        return Cookie::setRememberMe($cookie_string);
     }
 }

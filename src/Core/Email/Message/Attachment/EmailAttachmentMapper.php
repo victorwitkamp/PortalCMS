@@ -76,7 +76,7 @@ class EmailAttachmentMapper
      * @param $templateId
      * @return array|bool
      */
-    public static function getByTemplateId(int $templateId): ?array
+    public static function getByTemplateId(int $templateId) : ?array
     {
         $stmt = DB::conn()->prepare('SELECT * FROM mail_attachments where template_id = ?');
         $stmt->execute([$templateId]);

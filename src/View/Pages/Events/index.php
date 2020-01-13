@@ -3,7 +3,7 @@
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
-$pageName = (string)Text::get('TITLE_EVENTS');
+$pageName = (string) Text::get('TITLE_EVENTS');
 
 ?>
 <?= $this->layout('layout', ['title' => $pageName]) ?>
@@ -24,8 +24,7 @@ $pageName = (string)Text::get('TITLE_EVENTS');
                 <h1><?= $pageName ?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="add" class="btn btn-info float-right"><span
-                            class="fa fa-plus"></span> <?= Text::get('LABEL_ADD') ?></a>
+                <a href="add" class="btn btn-info float-right"><span class="fa fa-plus"></span> <?= Text::get('LABEL_ADD') ?></a>
             </div>
         </div>
         <?php Alert::renderFeedbackMessages(); ?>
@@ -56,8 +55,7 @@ $pageName = (string)Text::get('TITLE_EVENTS');
                 </div>
                 <div id="modalBody" class="modal-body"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
-                            data-dismiss="modal"><?= Text::get('LABEL_CLOSE') ?></button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><?= Text::get('LABEL_CLOSE') ?></button>
                     <a class="btn btn-primary" id="eventUrl" role="button">
                         <i class="far fa-edit"></i> <?= Text::get('LABEL_EDIT') ?>
                     </a>

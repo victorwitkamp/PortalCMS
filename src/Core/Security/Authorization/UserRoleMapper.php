@@ -12,7 +12,7 @@ use PortalCMS\Core\Database\DB;
 
 class UserRoleMapper
 {
-    public static function getByUserId($userId): ?array
+    public static function getByUserId($userId) : ?array
     {
         $stmt = DB::conn()->prepare(
             'SELECT t1.role_id, t2.role_name

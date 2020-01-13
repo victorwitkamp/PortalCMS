@@ -54,7 +54,7 @@ class MailScheduleMapper
         return $stmt->fetchAll();
     }
 
-    public static function getById(int $id): ?object
+    public static function getById(int $id) : ?object
     {
         $stmt = DB::conn()->prepare('SELECT * FROM mail_schedule WHERE id = ? LIMIT 1');
         $stmt->execute([$id]);

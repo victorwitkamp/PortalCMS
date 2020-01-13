@@ -27,15 +27,14 @@ $user = UserPDOReader::getProfileById(Session::get('user_id'));
     <tr>
         <th><?= Text::get('LABEL_USER_FBID') ?></th>
         <td><?php
-            if (!empty(Session::get('user_fbid'))) {
-                echo Session::get('user_fbid') . ' '; ?>
-                <form method="post">
-                <input type="submit" name="clearUserFbid" class="btn btn-outline-success user_registered-login"
-                       value="<?= Text::get('LABEL_USER_CLEAR_FBID') ?>"/>
-                </form><?php
-            } else {
-                ?><a href="<?= $loginUrl ?>">Connect with Facebook!</a><?php
-            }
-            ?></td>
+        if (!empty(Session::get('user_fbid'))) {
+            echo Session::get('user_fbid') . ' '; ?>
+            <form method="post">
+            <input type="submit" name="clearUserFbid" class="btn btn-outline-success user_registered-login" value="<?= Text::get('LABEL_USER_CLEAR_FBID') ?>"/>
+            </form><?php
+        } else {
+            ?><a href="<?= $loginUrl ?>">Connect with Facebook!</a><?php
+        }
+        ?></td>
     </tr>
 </table>

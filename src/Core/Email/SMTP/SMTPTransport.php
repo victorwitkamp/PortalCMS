@@ -42,6 +42,34 @@ class SMTPTransport
         $this->PHPMailer = new PHPMailer(true);
     }
 
+    public function prepareConfiguration()
+    {
+        $this->PHPMailer->CharSet = $this->config->charset;
+        $this->PHPMailer->isSMTP();
+        $this->PHPMailer->SMTPOptions = [
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            ]
+        ];
+        $this->PHPMailer->Host = $this->config->SMTPHost;
+        $this->PHPMailer->Port = $this->config->SMTPPort;
+        $this->PHPMailer->SMTPSecure = $this->config->SMTPCrypto;
+        $this->PHPMailer->SMTPAuth = $this->config->SMTPAuth;
+        $this->PHPMailer->Username = $this->config->SMTPUser;
+        $this->PHPMailer->Password = $this->config->SMTPPass;
+        $this->PHPMailer->SMTPDebug = $this->config->SMTPDebug;
+        $this->PHPMailer->Debugoutput = static function($str, $level) {
+            file_put_contents(DIR_ROOT . 'phpmailer.log', gmdate('Y-m-d H:i:s') . "\t$level\t$str\n", FILE_APPEND | LOCK_EX);
+        };
+        $this->PHPMailer->From = $this->config->fromEmail;
+        $this->PHPMailer->FromName = $this->config->fromName;
+        if ($this->config->isHTML) {
+            $this->PHPMailer->isHTML();
+        }
+    }
+
     /**
      * The different mail sending methods write errors to the error property $this->error,
      * this method simply returns this error / error array.
@@ -51,6 +79,23 @@ class SMTPTransport
     public function getError()
     {
         return $this->error;
+    }
+
+    public function verifyMessage(EmailMessage $message)
+    {
+        if (empty($message->recipients)) {
+            $this->error = 'Recipients incompleet';
+            return false;
+        }
+        if (empty($message->subject)) {
+            $this->error = 'Subject incompleet';
+            return false;
+        }
+        if (empty($message->body)) {
+            $this->error = 'Body incompleet';
+            return false;
+        }
+        return $message;
     }
 
     /**
@@ -89,51 +134,6 @@ class SMTPTransport
         } catch (\Exception $e) {
             $this->error = $e->getMessage();
             return false;
-        }
-    }
-
-    public function verifyMessage(EmailMessage $message)
-    {
-        if (empty($message->recipients)) {
-            $this->error = 'Recipients incompleet';
-            return false;
-        }
-        if (empty($message->subject)) {
-            $this->error = 'Subject incompleet';
-            return false;
-        }
-        if (empty($message->body)) {
-            $this->error = 'Body incompleet';
-            return false;
-        }
-        return $message;
-    }
-
-    public function prepareConfiguration()
-    {
-        $this->PHPMailer->CharSet = $this->config->charset;
-        $this->PHPMailer->isSMTP();
-        $this->PHPMailer->SMTPOptions = [
-            'ssl' => [
-                'verify_peer' => false,
-                'verify_peer_name' => false,
-                'allow_self_signed' => true
-            ]
-        ];
-        $this->PHPMailer->Host = $this->config->SMTPHost;
-        $this->PHPMailer->Port = $this->config->SMTPPort;
-        $this->PHPMailer->SMTPSecure = $this->config->SMTPCrypto;
-        $this->PHPMailer->SMTPAuth = $this->config->SMTPAuth;
-        $this->PHPMailer->Username = $this->config->SMTPUser;
-        $this->PHPMailer->Password = $this->config->SMTPPass;
-        $this->PHPMailer->SMTPDebug = $this->config->SMTPDebug;
-        $this->PHPMailer->Debugoutput = static function ($str, $level) {
-            file_put_contents(DIR_ROOT . 'phpmailer.log', gmdate('Y-m-d H:i:s') . "\t$level\t$str\n", FILE_APPEND | LOCK_EX);
-        };
-        $this->PHPMailer->From = $this->config->fromEmail;
-        $this->PHPMailer->FromName = $this->config->fromName;
-        if ($this->config->isHTML) {
-            $this->PHPMailer->isHTML();
         }
     }
 }

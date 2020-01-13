@@ -16,6 +16,7 @@ use PortalCMS\Modules\Invoices\InvoiceMapper;
  * Class : Contract (Contract.php)
  * Details : Class for the contracts of bands who rent a practice room
  */
+
 class ContractModel
 {
     public $vertegenwoordiger_beuk;
@@ -32,9 +33,9 @@ class ContractModel
 
     public static function new()
     {
-        $kosten_ruimte = Request::post('kosten_ruimte', true);
-        $kosten_kast = Request::post('kosten_kast', true);
-        $kosten_totaal = $kosten_ruimte + $kosten_kast;
+        $kosten_ruimte              = Request::post('kosten_ruimte', true);
+        $kosten_kast                = Request::post('kosten_kast', true);
+        $kosten_totaal              = $kosten_ruimte + $kosten_kast;
         if (ContractMapper::new(
             Request::post('beuk_vertegenwoordiger', true),
             Request::post('band_naam', true),
@@ -71,10 +72,10 @@ class ContractModel
 
     public static function update()
     {
-        $Id = (int)Request::post('id', true);
-        $kosten_ruimte = Request::post('kosten_ruimte', true);
-        $kosten_kast = Request::post('kosten_kast', true);
-        $kosten_totaal = $kosten_ruimte + $kosten_kast;
+        $Id                         = (int) Request::post('id', true);
+        $kosten_ruimte              = Request::post('kosten_ruimte', true);
+        $kosten_kast                = Request::post('kosten_kast', true);
+        $kosten_totaal              = $kosten_ruimte + $kosten_kast;
         if (!ContractMapper::exists($Id)) {
             Session::add('feedback_negative', 'Wijzigen van contract mislukt.<br>Contract bestaat niet.');
             Redirect::to('Contracts/');
@@ -116,7 +117,7 @@ class ContractModel
 
     public static function delete(): bool
     {
-        $contract_id = (int)Request::post('id', true);
+        $contract_id = (int) Request::post('id', true);
         if (ContractMapper::exists($contract_id)) {
             if (empty(InvoiceMapper::getByContractId($contract_id))) {
                 if (ContractMapper::delete($contract_id)) {

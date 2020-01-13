@@ -33,7 +33,7 @@ class MembershipController extends Controller
             MemberModel::newMember();
         }
         if (isset($_POST['deleteMember'])) {
-            MemberModel::delete((int)Request::post('id'));
+            MemberModel::delete((int) Request::post('id'));
             Redirect::to('membership/');
         }
         if (isset($_POST['showMembersByYear'])) {

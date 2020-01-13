@@ -21,23 +21,6 @@ class PDF
      */
     public static $error;
 
-    /**
-     * @param $invoice
-     * @param $invoiceitems
-     * @param $contract
-     * @return mixed
-     */
-    public static function renderInvoice($invoice, array $invoiceitems, $contract)
-    {
-        if (self::$defined === false) {
-            self::config();
-        }
-        $pdf = self::configPDF();
-        $pdf = self::createInvoice($pdf, $invoice, $invoiceitems, $contract);
-        ob_end_clean();
-        return $pdf->Output($invoice->factuurnummer . '.pdf');
-    }
-
     public static function config()
     {
         define('K_TCPDF_EXTERNAL_CONFIG', true);
@@ -99,7 +82,7 @@ class PDF
         return $pdf;
     }
 
-    public static function createInvoice(TCPDF $pdf, $invoice, $invoiceitems, $contract): TCPDF
+    public static function createInvoice(TCPDF $pdf, $invoice, $invoiceitems, $contract) : TCPDF
     {
         $pdf->SetTitle('Factuur ' . $invoice->factuurnummer);
         $pdf->SetXY(165, 15);
@@ -155,7 +138,7 @@ class PDF
         $pdf->Write(0, $totaalbedrag . "\n\n\n", '', 0, 'R');
 
         $pdf->SetX(20);
-        $gelieve = 'Wij verzoeken u het bedrag binnen 14 dagen over te maken naar NL19 RABO 1017';
+        $gelieve  = 'Wij verzoeken u het bedrag binnen 14 dagen over te maken naar NL19 RABO 1017';
         $gelieve2 = '5413 53 o.v.v. het factuurnummer t.n.v. Sociëteit de Beuk.';
         $gelieve4 = 'Neem voor vragen over facturatie contact op met penningmeester@beukonline.nl.' . "\n\n";
         $pdf->SetX(20);
@@ -171,7 +154,24 @@ class PDF
         return $pdf;
     }
 
-    public static function writeInvoice($invoice, array $invoiceitems, $contract): bool
+    /**
+     * @param $invoice
+     * @param $invoiceitems
+     * @param $contract
+     * @return mixed
+     */
+    public static function renderInvoice($invoice, array $invoiceitems, $contract)
+    {
+        if (self::$defined === false) {
+            self::config();
+        }
+        $pdf = self::configPDF();
+        $pdf = self::createInvoice($pdf, $invoice, $invoiceitems, $contract);
+        ob_end_clean();
+        return $pdf->Output($invoice->factuurnummer . '.pdf');
+    }
+
+    public static function writeInvoice($invoice, array $invoiceitems, $contract) : bool
     {
         if (self::$defined === false) {
             self::config();

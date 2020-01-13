@@ -41,7 +41,7 @@ if (!$accessToken->isLongLived()) {
     }
 }
 
-$_SESSION['fb_access_token'] = (string)$accessToken;
+$_SESSION['fb_access_token'] = (string) $accessToken;
 
 try {
     $response = $fb->get('/me?fields=id,name,email', $_SESSION['fb_access_token']);
@@ -56,4 +56,4 @@ try {
     echo 'Facebook SDK returned an error: ' . $e->getMessage();
     exit;
 }
-AccountController::setFbid((int)$user['id']);
+AccountController::setFbid((int) $user['id']);

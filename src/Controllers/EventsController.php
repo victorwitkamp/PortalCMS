@@ -42,45 +42,6 @@ class EventsController extends Controller
         Router::processRequests($this->requests, __CLASS__);
     }
 
-    public static function deleteEvent()
-    {
-        if (CalendarEventModel::delete((int)Request::post('id', true))) {
-            Redirect::to('events/');
-        } else {
-            Redirect::to('Error/Error');
-        }
-    }
-
-    public static function updateEvent()
-    {
-        if (CalendarEventModel::update(
-            (int)Request::post('id', true),
-            (string)Request::post('title', true),
-            (string)Request::post('start_event', true),
-            (string)Request::post('end_event', true),
-            (string)Request::post('description', true),
-            (int)Request::post('status', true)
-        )) {
-            Redirect::to('events/');
-        } else {
-            Redirect::to('Error/Error');
-        }
-    }
-
-    public static function addEvent()
-    {
-        if (CalendarEventModel::create(
-            (string)Request::post('title', true),
-            (string)Request::post('start_event', true),
-            (string)Request::post('end_event', true),
-            (string)Request::post('description', true)
-        )) {
-            Redirect::to('events/');
-        } else {
-            Redirect::to('Error/Error');
-        }
-    }
-
     /**
      * Route: index.
      */
@@ -99,7 +60,7 @@ class EventsController extends Controller
     {
         Authentication::checkAuthentication();
         Authorization::verifyPermission('events');
-        $event = CalendarEventMapper::getById((int)$_GET['id']);
+        $event = CalendarEventMapper::getById((int) $_GET['id']);
         if (!empty($event)) {
             $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Events/details', ['event' => $event]);
@@ -125,7 +86,7 @@ class EventsController extends Controller
         Authentication::checkAuthentication();
         Authorization::verifyPermission('events');
 
-        $event = CalendarEventMapper::getById((int)$_GET['id']);
+        $event = CalendarEventMapper::getById((int) $_GET['id']);
 
         if (!empty($event)) {
             $pageName = 'Evenement ' . $event->title . ' bewerken';
@@ -153,10 +114,49 @@ class EventsController extends Controller
     {
         Authentication::checkAuthentication();
         return CalendarEventMapper::updateDate(
-            (int)Request::post('id'),
-            (string)Request::post('title'),
-            (string)Request::post('start'),
-            (string)Request::post('end')
+            (int) Request::post('id'),
+            (string) Request::post('title'),
+            (string) Request::post('start'),
+            (string) Request::post('end')
         );
+    }
+
+    public static function deleteEvent()
+    {
+        if (CalendarEventModel::delete((int) Request::post('id', true))) {
+            Redirect::to('events/');
+        } else {
+            Redirect::to('Error/Error');
+        }
+    }
+
+    public static function updateEvent()
+    {
+        if (CalendarEventModel::update(
+            (int) Request::post('id', true),
+            (string) Request::post('title', true),
+            (string) Request::post('start_event', true),
+            (string) Request::post('end_event', true),
+            (string) Request::post('description', true),
+            (int) Request::post('status', true)
+        )) {
+            Redirect::to('events/');
+        } else {
+            Redirect::to('Error/Error');
+        }
+    }
+
+    public static function addEvent()
+    {
+        if (CalendarEventModel::create(
+            (string) Request::post('title', true),
+            (string) Request::post('start_event', true),
+            (string) Request::post('end_event', true),
+            (string) Request::post('description', true)
+        )) {
+            Redirect::to('events/');
+        } else {
+            Redirect::to('Error/Error');
+        }
     }
 }

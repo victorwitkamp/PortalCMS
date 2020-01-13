@@ -19,12 +19,12 @@ $pageName = Text::get('TITLE_RECENT_ACTIVITY'); ?>
     <div class="container">
         <table class="table table-sm table-striped table-hover table-dark">
             <thead>
-            <th>CreationDate</th>
-            <th>activity_id</th>
-            <th>user_id</th>
-            <th>user_name</th>
-            <th>ip_address</th>
-            <th>activity</th>
+                <th>CreationDate</th>
+                <th>activity_id</th>
+                <th>user_id</th>
+                <th>user_name</th>
+                <th>ip_address</th>
+                <th>activity</th>
             </thead>
             <?php $Activities = Activity::load();
             foreach ($Activities as $Activity) {
@@ -38,7 +38,7 @@ $pageName = Text::get('TITLE_RECENT_ACTIVITY'); ?>
                     <td><?= $Activity['activity'] ?></td>
                     <td><?= $Activity['details'] ?></td>
                 </tr>
-                <?php
+            <?php
             } ?>
         </table>
     </div>

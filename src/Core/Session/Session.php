@@ -22,7 +22,7 @@ class Session
      *
      * @return void
      */
-    public static function init(): void
+    public static function init() : void
     {
         // if no session exist, start the session
         if (session_status() !== PHP_SESSION_ACTIVE) {
@@ -33,11 +33,11 @@ class Session
     /**
      * Sets a specific value to a specific key of the session
      *
-     * @param mixed $key key
+     * @param mixed $key   key
      * @param mixed $value value
      * @return void
      */
-    public static function set($key, $value): void
+    public static function set($key, $value) : void
     {
         $_SESSION[$key] = $value;
     }
@@ -45,7 +45,7 @@ class Session
     /**
      * Gets/returns the value of a specific key of the session
      *
-     * @param mixed $key Usually a string, right ?
+     * @param  mixed $key Usually a string, right ?
      * @return mixed the key's value or nothing
      */
     public static function get($key, $filter = true)
@@ -62,21 +62,6 @@ class Session
     }
 
     /**
-     * Deletes the session (= logs the user out)
-     *
-     * @return bool
-     */
-    public static function destroy(): bool
-    {
-        if (!session_destroy()) {
-            self::add('feedback_warning', 'Session could not be destroyed.');
-            return false;
-        }
-        self::add('feedback_warning', 'Session destroyed.');
-        return true;
-    }
-
-    /**
      * Adds a value as a new array element to the key.
      * useful for collecting error messages etc
      *
@@ -84,9 +69,24 @@ class Session
      * @param mixed $value
      * @return void
      */
-    public static function add($key, $value): void
+    public static function add($key, $value) : void
     {
         $_SESSION[$key][] = $value;
         // session_write_close();
+    }
+
+    /**
+     * Deletes the session (= logs the user out)
+     *
+     * @return bool
+     */
+    public static function destroy() : bool
+    {
+        if (!session_destroy()) {
+            self::add('feedback_warning', 'Session could not be destroyed.');
+            return false;
+        }
+        self::add('feedback_warning', 'Session destroyed.');
+        return true;
     }
 }

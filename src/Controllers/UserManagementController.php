@@ -45,6 +45,46 @@ class UserManagementController extends Controller
         Router::processRequests($this->requests, __CLASS__);
     }
 
+    public function users()
+    {
+        if (Authorization::hasPermission('user-management')) {
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/UserManagement/Users/index');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
+    }
+
+    public function profile()
+    {
+        if (Authorization::hasPermission('user-management')) {
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/UserManagement/Profile/index');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
+    }
+
+    public function roles()
+    {
+        if (Authorization::hasPermission('role-management')) {
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/UserManagement/Roles/index');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
+    }
+
+    public function role()
+    {
+        if (Authorization::hasPermission('user-management')) {
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/UserManagement/Role/index');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
+    }
+
     public static function deleteuser()
     {
         // Not inplemented yet
@@ -54,7 +94,7 @@ class UserManagementController extends Controller
 
     public static function deleterole()
     {
-        if (RoleMapper::delete((int)$_POST['role_id'])) {
+        if (RoleMapper::delete((int) $_POST['role_id'])) {
             Session::add('feedback_positive', 'Rol verwijderd.');
             Redirect::to('UserManagement/Roles');
         } else {
@@ -120,45 +160,5 @@ class UserManagementController extends Controller
         Session::add('feedback_negative', 'Fout bij verwijderen van rol voor gebruiker.');
         Redirect::to('Error/Error');
         return false;
-    }
-
-    public function users()
-    {
-        if (Authorization::hasPermission('user-management')) {
-            $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/UserManagement/Users/index');
-        } else {
-            Redirect::to('Error/PermissionError');
-        }
-    }
-
-    public function profile()
-    {
-        if (Authorization::hasPermission('user-management')) {
-            $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/UserManagement/Profile/index');
-        } else {
-            Redirect::to('Error/PermissionError');
-        }
-    }
-
-    public function roles()
-    {
-        if (Authorization::hasPermission('role-management')) {
-            $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/UserManagement/Roles/index');
-        } else {
-            Redirect::to('Error/PermissionError');
-        }
-    }
-
-    public function role()
-    {
-        if (Authorization::hasPermission('user-management')) {
-            $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/UserManagement/Role/index');
-        } else {
-            Redirect::to('Error/PermissionError');
-        }
     }
 }

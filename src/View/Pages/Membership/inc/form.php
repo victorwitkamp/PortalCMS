@@ -58,8 +58,7 @@ if ($edit) {
                         <input type="text" name="geboortedatum" value="<?php
                         if ($edit) {
                             echo $row->geboortedatum;
-                        } ?>" class="form-control  datetimepicker-input"
-                               data-target="#datetimepicker1" <?= 'required' ?>>
+                        } ?>" class="form-control  datetimepicker-input" data-target="#datetimepicker1" <?= 'required' ?>>
                     </div>
                 </div>
             </div>
@@ -70,8 +69,7 @@ if ($edit) {
                     <input type="text" name="adres" value="<?php
                     if ($edit) {
                         echo $row->adres;
-                    } ?>" class="form-control" placeholder="Voorbeeldadres 123"
-                           autocomplete="street-address" <?= 'required' ?>>
+                    } ?>" class="form-control" placeholder="Voorbeeldadres 123" autocomplete="street-address" <?= 'required' ?>>
                 </div>
                 <div class="col-md-3">
                     <label class="col-form-label">Huisnummer</label>
@@ -88,16 +86,14 @@ if ($edit) {
                     <input type="text" name="postcode" value="<?php
                     if ($edit) {
                         echo $row->postcode;
-                    } ?>" class="form-control" maxlength="6" placeholder="1234AB"
-                           autocomplete="postal-code" <?= 'required' ?>>
+                    } ?>" class="form-control" maxlength="6" placeholder="1234AB" autocomplete="postal-code" <?= 'required' ?>>
                 </div>
                 <div class="col-md-7">
                     <label class="col-form-label">Woonplaats</label>
                     <input type="text" name="woonplaats" value="<?php
                     if ($edit) {
                         echo $row->woonplaats;
-                    } ?>" class="form-control" placeholder="Barendrecht"
-                           autocomplete="address-level2" <?= 'required' ?>>
+                    } ?>" class="form-control" placeholder="Barendrecht" autocomplete="address-level2" <?= 'required' ?>>
                 </div>
             </div>
 
@@ -113,7 +109,7 @@ if ($edit) {
                     <label class="col-form-label">Telefoon mobiel</label>
                     <input type="text" name="telefoon_mobiel" value="<?php
                     if ($edit) {
-                        echo $row->telefoon_mobiel;
+                        echo  $row->telefoon_mobiel;
                     } ?>" class="form-control" autocomplete="tel" <?= 'required' ?>>
                 </div>
             </div>
@@ -144,8 +140,7 @@ if ($edit) {
                         <input type="text" name="ingangsdatum" value="<?php
                         if ($edit) {
                             echo $row->ingangsdatum;
-                        } ?>" class="form-control datetimepicker-input"
-                               data-target="#datetimepicker2" <?= 'required' ?>>
+                        } ?>" class="form-control datetimepicker-input" data-target="#datetimepicker2" <?= 'required' ?>>
                     </div>
                 </div>
             </div>
@@ -159,18 +154,15 @@ if ($edit) {
                     <option value="Man" <?php
                     if ($edit && $row->geslacht === 'Man') {
                         echo 'selected';
-                    } ?>>Man
-                    </option>
+                    } ?>>Man</option>
                     <option value="Vrouw" <?php
                     if ($edit && $row->geslacht === 'Vrouw') {
                         echo 'selected';
-                    } ?>>Vrouw
-                    </option>
+                    } ?>>Vrouw</option>
                     <option value="nvt" <?php
                     if ($edit && $row->geslacht === 'nvt') {
                         echo 'selected';
-                    } ?>>N.v.t.
-                    </option>
+                    } ?>>N.v.t.</option>
                 </select>
                 <label class="col-form-label">Nieuwsbrief ontvangen?</label>
                 <select name="nieuwsbrief" class="form-control" <?= 'required' ?>>
@@ -178,13 +170,11 @@ if ($edit) {
                     <option value="1" <?php
                     if ($edit && $row->nieuwsbrief === 1) {
                         echo 'selected';
-                    } ?>>Ja
-                    </option>
+                    } ?>>Ja</option>
                     <option value="0" <?php
                     if ($edit && $row->nieuwsbrief === 0) {
                         echo 'selected';
-                    } ?>>Nee
-                    </option>
+                    } ?>>Nee</option>
                 </select>
             </div>
 
@@ -198,13 +188,11 @@ if ($edit) {
                         <option value="1" <?php
                         if ($edit && $row->vrijwilliger === 1) {
                             echo 'selected';
-                        } ?>>Ja
-                        </option>
+                        } ?>>Ja</option>
                         <option value="0" <?php
                         if ($edit && $row->vrijwilliger === 0) {
                             echo 'selected';
-                        } ?>>Nee
-                        </option>
+                        } ?>>Nee</option>
                     </select>
                 </div>
             </div>
@@ -220,13 +208,11 @@ if ($edit) {
                         <option value="1" <?php
                         if ($edit && $row->vrijwilligeroptie1 === 1) {
                             echo 'selected';
-                        } ?>>Ja
-                        </option>
+                        } ?>>Ja</option>
                         <option value="0" <?php
                         if ($edit && $row->vrijwilligeroptie1 === 0) {
                             echo 'selected';
-                        } ?>>Nee
-                        </option>
+                        } ?>>Nee</option>
                     </select>
                     <label class="col-form-label">Bar</label>
                     <select name="vrijwilligeroptie2" class="form-control" <?= 'required' ?>>
@@ -234,13 +220,11 @@ if ($edit) {
                         <option value="1" <?php
                         if ($edit && $row->vrijwilligeroptie2 === 1) {
                             echo 'selected';
-                        } ?>>Ja
-                        </option>
+                        } ?>>Ja</option>
                         <option value="0" <?php
                         if ($edit && $row->vrijwilligeroptie2 === 0) {
                             echo 'selected';
-                        } ?>>Nee
-                        </option>
+                        } ?>>Nee</option>
                     </select>
                     <label class="col-form-label">Schoonmaken / klussen</label>
                     <select name="vrijwilligeroptie3" class="form-control" <?= 'required' ?>>
@@ -248,13 +232,11 @@ if ($edit) {
                         <option value="1" <?php
                         if ($edit && $row->vrijwilligeroptie3 === 1) {
                             echo 'selected';
-                        } ?>>Ja
-                        </option>
+                        } ?>>Ja</option>
                         <option value="0" <?php
                         if ($edit && $row->vrijwilligeroptie3 === 0) {
                             echo 'selected';
-                        } ?>>Nee
-                        </option>
+                        } ?>>Nee</option>
                     </select>
                     <label class="col-form-label">Promotie / flyeren</label>
                     <select name="vrijwilligeroptie4" class="form-control" <?= 'required' ?>>
@@ -262,13 +244,11 @@ if ($edit) {
                         <option value="1" <?php
                         if ($edit && $row->vrijwilligeroptie4 === 1) {
                             echo 'selected';
-                        } ?>>Ja
-                        </option>
+                        } ?>>Ja</option>
                         <option value="0" <?php
                         if ($edit && $row->vrijwilligeroptie4 === 0) {
                             echo 'selected';
-                        } ?>>Nee
-                        </option>
+                        } ?>>Nee</option>
                     </select>
                     <label class="col-form-label">Organisatie evenementen</label>
                     <select name="vrijwilligeroptie5" class="form-control" <?= 'required' ?>>
@@ -276,13 +256,11 @@ if ($edit) {
                         <option value="1" <?php
                         if ($edit && $row->vrijwilligeroptie5 === 1) {
                             echo 'selected';
-                        } ?>>Ja
-                        </option>
+                        } ?>>Ja</option>
                         <option value="0" <?php
                         if ($edit && $row->vrijwilligeroptie5 === 0) {
                             echo 'selected';
-                        } ?>>Nee
-                        </option>
+                        } ?>>Nee</option>
                     </select>
                 </div>
             </div>
@@ -299,23 +277,19 @@ if ($edit) {
                 <option value="contant" <?php
                 if ($edit && $row->betalingswijze === 'contant') {
                     echo 'selected';
-                } ?>>Contant
-                </option>
+                } ?>>Contant</option>
                 <option value="pin" <?php
                 if ($edit && $row->betalingswijze === 'pin') {
                     echo 'selected';
-                } ?>>Pin
-                </option>
+                } ?>>Pin</option>
                 <option value="incasso" <?php
                 if ($edit && $row->betalingswijze === 'incasso') {
                     echo 'selected';
-                } ?>>Automatische incasso
-                </option>
+                } ?>>Automatische incasso</option>
                 <option value="gratisbestuur" <?php
                 if ($edit && $row->betalingswijze === 'gratisbestuur') {
                     echo 'selected';
-                } ?>>Gratis (bestuur)
-                </option>
+                } ?>>Gratis (bestuur)</option>
             </select>
         </div>
     </div>
@@ -347,38 +321,31 @@ if ($edit) {
                 <option value="0" <?php
                 if ($edit && $row->status === 0) {
                     echo 'selected';
-                } ?>>0. Nieuw
-                </option>
+                } ?>>0. Nieuw</option>
                 <option value="1" <?php
                 if ($edit && $row->status === 1) {
                     echo 'selected';
-                } ?>>1. Incasso opdracht verzonden
-                </option>
+                } ?>>1. Incasso opdracht verzonden</option>
                 <option value="1" <?php
                 if ($edit && $row->status === 11) {
                     echo 'selected';
-                } ?>>1.1 Niet verstuurd: rekeningnummer onjuist
-                </option>
+                } ?>>1.1 Niet verstuurd: rekeningnummer onjuist</option>
                 <option value="2" <?php
                 if ($edit && $row->status === 2) {
                     echo 'selected';
-                } ?>>2. Betaling per incasso gelukt
-                </option>
+                } ?>>2. Betaling per incasso gelukt</option>
                 <option value="2" <?php
                 if ($edit && $row->status === 21) {
                     echo 'selected';
-                } ?>>2.1 Incasso mislukt: rekeningnummer onjuist
-                </option>
+                } ?>>2.1 Incasso mislukt: rekeningnummer onjuist</option>
                 <option value="3" <?php
                 if ($edit && $row->status === 3) {
                     echo 'selected';
-                } ?>>3
-                </option>
+                } ?>>3</option>
                 <option value="4" <?php
                 if ($edit && $row->status === 4) {
                     echo 'selected';
-                } ?>>4
-                </option>
+                } ?>>4</option>
             </select>
         </div>
     </div>

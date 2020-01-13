@@ -35,28 +35,6 @@ class SettingsController extends Controller
         Router::processRequests($this->requests, __CLASS__);
     }
 
-    public static function saveSiteSettings()
-    {
-        if (SiteSetting::saveSiteSettings()) {
-            Session::add('feedback_positive', 'Instellingen succesvol opgeslagen.');
-            Redirect::to('Settings/SiteSettings');
-        } else {
-            Session::add('feedback_negative', 'Fout bij opslaan van instellingen.');
-            Redirect::to('Settings/SiteSettings');
-        }
-    }
-
-    public static function uploadLogo()
-    {
-        Authentication::checkAuthentication();
-        if (SiteSetting::uploadLogo()) {
-            Session::add('feedback_positive', Text::get('FEEDBACK_AVATAR_UPLOAD_SUCCESSFUL'));
-            Redirect::to('Home');
-        } else {
-            Redirect::to('Settings/Logo');
-        }
-    }
-
     public function siteSettings()
     {
         if (Authorization::hasPermission('site-settings')) {
@@ -94,6 +72,28 @@ class SettingsController extends Controller
             echo $templates->render('Pages/Settings/Debug');
         } else {
             Redirect::to('Error/PermissionError');
+        }
+    }
+
+    public static function saveSiteSettings()
+    {
+        if (SiteSetting::saveSiteSettings()) {
+            Session::add('feedback_positive', 'Instellingen succesvol opgeslagen.');
+            Redirect::to('Settings/SiteSettings');
+        } else {
+            Session::add('feedback_negative', 'Fout bij opslaan van instellingen.');
+            Redirect::to('Settings/SiteSettings');
+        }
+    }
+
+    public static function uploadLogo()
+    {
+        Authentication::checkAuthentication();
+        if (SiteSetting::uploadLogo()) {
+            Session::add('feedback_positive', Text::get('FEEDBACK_AVATAR_UPLOAD_SUCCESSFUL'));
+            Redirect::to('Home');
+        } else {
+            Redirect::to('Settings/Logo');
         }
     }
 }

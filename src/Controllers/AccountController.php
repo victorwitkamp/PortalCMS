@@ -40,6 +40,12 @@ class AccountController extends Controller
         Router::processRequests($this->requests, __CLASS__);
     }
 
+    public function index()
+    {
+        $templates = new Engine(DIR_VIEW);
+        echo $templates->render('Pages/Account/index');
+    }
+
     public static function changeUsername()
     {
         User::editUsername(Request::post('user_name'));
@@ -80,11 +86,5 @@ class AccountController extends Controller
             Session::add('feedback_negative', Text::get('FEEDBACK_CONNECT_FACEBOOK_ACCOUNT_FAILED'));
             Redirect::to('Account');
         }
-    }
-
-    public function index()
-    {
-        $templates = new Engine(DIR_VIEW);
-        echo $templates->render('Pages/Account/index');
     }
 }

@@ -3,35 +3,31 @@
 ?>
 <table id="example" class="table table-sm table-striped table-hover table-dark" style="width:100%">
     <thead class="thead-dark">
-    <tr>
-        <th>Acties</th>
-        <th>Naam</th>
-        <th>Betalingswijze</th>
-        <th>Status</th>
-    </tr>
+        <tr>
+            <th>Acties</th>
+            <th>Naam</th>
+            <th>Betalingswijze</th>
+            <th>Status</th>
+        </tr>
     </thead>
     <tbody>
-    <?php foreach ($members as $member) { ?>
-        <tr>
-            <td>
-                <form method="post">
-                    <a href="/Membership/Profile?id=<?= $member->id ?>" title="Lidmaatschap bekijken"
-                       class="btn btn-primary btn-sm">
-                        <span class="fa fa-user"></span>
-                    </a>
-                    <a href="/Membership/Edit?id=<?= $member->id ?>" title="Gegevens wijzigen"
-                       class="btn btn-warning btn-sm">
-                        <span class="fa fa-edit"></span>
-                    </a>
-                    <input name="id" type="hidden" value="<?= $member->id ?>">
-                    <button name="deleteMember" type="submit"
-                            onclick="return confirm('Weet je zeker dat je <?= $member->voornaam ?> <?= $member->achternaam ?> wilt verwijderen?')"
-                            class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i></button>
-                </form>
-            </td>
-            <td><?= $member->voornaam . ' ' . $member->achternaam ?></td>
-            <td><?= $member->betalingswijze ?></td>
-            <td><?php
+        <?php foreach ($members as $member) { ?>
+            <tr>
+                <td>
+                    <form method="post">
+                        <a href="/Membership/Profile?id=<?= $member->id ?>" title="Lidmaatschap bekijken" class="btn btn-primary btn-sm">
+                            <span class="fa fa-user"></span>
+                        </a>
+                        <a href="/Membership/Edit?id=<?= $member->id ?>" title="Gegevens wijzigen" class="btn btn-warning btn-sm">
+                            <span class="fa fa-edit"></span>
+                        </a>
+                        <input name="id" type="hidden" value="<?= $member->id ?>">
+                        <button name="deleteMember" type="submit" onclick="return confirm('Weet je zeker dat je <?= $member->voornaam ?> <?= $member->achternaam ?> wilt verwijderen?')" class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i></button>
+                    </form>
+                </td>
+                <td><?= $member->voornaam . ' ' . $member->achternaam ?></td>
+                <td><?= $member->betalingswijze ?></td>
+                <td><?php
                 if ($member->status === 0) {
                     echo '0. Nieuw';
                 } elseif ($member->status === 1) {
@@ -48,7 +44,7 @@
                     echo '4';
                 }
                 ?></td>
-        </tr>
-    <?php } ?>
+            </tr>
+        <?php } ?>
     </tbody>
 </table>

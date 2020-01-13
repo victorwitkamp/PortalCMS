@@ -21,17 +21,11 @@
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <hr>
-                    Door ondertekening van dit formulier geeft u Soci&#xEB;teit De Beuk toestemming om doorlopende
-                    incasso-opdrachten
-                    te sturen naar uw bank om een bedrag van uw rekening af te schrijven wegens de jaarlijkse
-                    contributie
-                    en geeft u uw bank toestemming om doorlopend een bedrag van uw rekening af te schrijven
-                    overeenkomstig
-                    de opdracht van Soci&#xEB;teit De Beuk. Als u het niet eens bent met deze afschrijving, kunt u deze
-                    laten
-                    terugboeken. Neem hiervoor binnen acht weken na de afschrijving contact op met uw bank. Vraag uw
-                    bank
+                    <hr>Door ondertekening van dit formulier geeft u Soci&#xEB;teit De Beuk toestemming om doorlopende incasso-opdrachten
+                    te sturen naar uw bank om een bedrag van uw rekening af te schrijven wegens de jaarlijkse contributie
+                    en geeft u uw bank toestemming om doorlopend een bedrag van uw rekening af te schrijven overeenkomstig
+                    de opdracht van Soci&#xEB;teit De Beuk. Als u het niet eens bent met deze afschrijving, kunt u deze laten
+                    terugboeken. Neem hiervoor binnen acht weken na de afschrijving contact op met uw bank. Vraag uw bank
                     naar de voorwaarden.
                     <hr>
                 </div>

@@ -5,7 +5,6 @@
  */
 
 declare(strict_types=1);
-
 namespace PortalCMS\Controllers;
 
 use League\Plates\Engine;

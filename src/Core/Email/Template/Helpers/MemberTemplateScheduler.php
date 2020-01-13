@@ -21,7 +21,7 @@ class MemberTemplateScheduler
      * @param $recipientIds
      * @return bool
      */
-    public function scheduleMails($template, array $recipientIds): bool
+    public function scheduleMails($template, array $recipientIds) : bool
     {
         $success = 0;
         $failed = 0;
@@ -34,7 +34,7 @@ class MemberTemplateScheduler
         }
         $batchId = MailBatch::lastInsertedId();
         foreach ($recipientIds as $memberId) {
-            if ($this->processSingleMail((int)$memberId, $batchId, $template)) {
+            if ($this->processSingleMail((int) $memberId, $batchId, $template)) {
                 ++$success;
             } else {
                 ++$failed;
@@ -42,6 +42,15 @@ class MemberTemplateScheduler
         }
         $this->processFeedback($success, $failed);
         return true;
+    }
+
+    public function processFeedback(int $success, int $failed)
+    {
+        if ($failed === 0) {
+            Session::add('feedback_positive', 'Totaal aantal berichten aangemaakt:' . $success);
+        } else {
+            Session::add('feedback_warning', 'Totaal aantal berichten aangemaakt: ' . $success . '. Berichten met fout: ' . $failed);
+        }
     }
 
     public function processSingleMail(int $memberId, int $batchId, $template): bool
@@ -69,14 +78,5 @@ class MemberTemplateScheduler
             }
         }
         return true;
-    }
-
-    public function processFeedback(int $success, int $failed)
-    {
-        if ($failed === 0) {
-            Session::add('feedback_positive', 'Totaal aantal berichten aangemaakt:' . $success);
-        } else {
-            Session::add('feedback_warning', 'Totaal aantal berichten aangemaakt: ' . $success . '. Berichten met fout: ' . $failed);
-        }
     }
 }

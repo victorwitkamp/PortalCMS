@@ -48,84 +48,6 @@ class EmailController extends Controller
         Router::processRequests($this->requests, __CLASS__);
     }
 
-    public static function setYear(): void
-    {
-        $year = Request::post('year');
-        header('Location: ' . $_SERVER['PHP_SELF'] . '?year=' . $year);
-    }
-
-    public static function uploadAttachment(): void
-    {
-        Authentication::checkAuthentication();
-        $attachment = new EmailAttachment($_FILES['attachment_file']);
-        $attachment->store(null, (int)Request::get('id'));
-        Redirect::to('email/EditTemplate?id=' . Request::get('id'));
-    }
-
-    public static function deleteMailTemplateAttachments(): void
-    {
-        EmailAttachment::deleteById(Request::post('id'));
-        Redirect::to('email/EditTemplate?id=' . Request::get('id'));
-    }
-
-    public static function deleteTemplate(): void
-    {
-        EmailTemplateManager::delete((int)Request::post('id'));
-        Redirect::to('email/ViewTemplates');
-    }
-
-    public static function addTemplate(): void
-    {
-        Authentication::checkAuthentication();
-        $templateBuilder = new EmailTemplateManager();
-        $templateBuilder->create('member', Request::post('subject', true), Request::post('body'));
-        $templateBuilder->store();
-        Redirect::to('email/ViewTemplates');
-    }
-
-    public static function editTemplateAction(): void
-    {
-        $templateBuilder = new EmailTemplateManager();
-        $template = $templateBuilder->getExisting((int)Request::get('id'));
-        $template->subject = Request::post('subject', true);
-        $template->body = Request::post('body');
-        $templateBuilder->update($template);
-        Redirect::to('email/ViewTemplates');
-    }
-
-    public static function sendScheduledMailById(): void
-    {
-        MailSchedule::sendMailsById((array)Request::post('id'));
-        Redirect::to('Email/Messages');
-    }
-
-    public static function createMailWithTemplate(): void
-    {
-        $templateId = filter_input(INPUT_POST, 'templateid', FILTER_VALIDATE_INT);
-        $recipients = (array)Request::post('recipients');
-        MailSchedule::createWithTemplate(
-            $templateId,
-            $recipients
-        );
-        Redirect::to('Email/Messages');
-    }
-
-    public static function deleteScheduledMailById(): void
-    {
-        MailSchedule::deleteById((array)Request::post('id'));
-        Redirect::to('Email/Messages');
-    }
-
-    public static function sendBatchById(): void
-    {
-        MailBatch::sendById((array)Request::post('id'));
-    }
-
-    public static function deleteBatchById(): void
-    {
-        MailBatch::deleteById((array)Request::post('id'));
-    }
-
     /**
      * Route: Batches.
      */
@@ -241,5 +163,83 @@ class EmailController extends Controller
         } else {
             Redirect::to('Error/PermissionError');
         }
+    }
+
+    public static function setYear(): void
+    {
+        $year = Request::post('year');
+        header('Location: ' . $_SERVER['PHP_SELF'] . '?year=' . $year);
+    }
+
+    public static function uploadAttachment(): void
+    {
+        Authentication::checkAuthentication();
+        $attachment = new EmailAttachment($_FILES['attachment_file']);
+        $attachment->store(null, (int) Request::get('id'));
+        Redirect::to('email/EditTemplate?id=' . Request::get('id'));
+    }
+
+    public static function deleteMailTemplateAttachments(): void
+    {
+        EmailAttachment::deleteById(Request::post('id'));
+        Redirect::to('email/EditTemplate?id=' . Request::get('id'));
+    }
+
+    public static function deleteTemplate(): void
+    {
+        EmailTemplateManager::delete((int) Request::post('id'));
+        Redirect::to('email/ViewTemplates');
+    }
+
+    public static function addTemplate(): void
+    {
+        Authentication::checkAuthentication();
+        $templateBuilder = new EmailTemplateManager();
+        $templateBuilder->create('member', Request::post('subject', true), Request::post('body'));
+        $templateBuilder->store();
+        Redirect::to('email/ViewTemplates');
+    }
+
+    public static function editTemplateAction(): void
+    {
+        $templateBuilder = new EmailTemplateManager();
+        $template = $templateBuilder->getExisting((int) Request::get('id'));
+        $template->subject = Request::post('subject', true);
+        $template->body = Request::post('body');
+        $templateBuilder->update($template);
+        Redirect::to('email/ViewTemplates');
+    }
+
+    public static function sendScheduledMailById(): void
+    {
+        MailSchedule::sendMailsById((array) Request::post('id'));
+        Redirect::to('Email/Messages');
+    }
+
+    public static function createMailWithTemplate(): void
+    {
+        $templateId = filter_input(INPUT_POST, 'templateid', FILTER_VALIDATE_INT);
+        $recipients = (array) Request::post('recipients');
+        MailSchedule::createWithTemplate(
+            $templateId,
+            $recipients
+        );
+        Redirect::to('Email/Messages');
+    }
+
+    public static function deleteScheduledMailById(): void
+    {
+        MailSchedule::deleteById((array) Request::post('id'));
+        Redirect::to('Email/Messages');
+    }
+
+    public static function sendBatchById(): void
+    {
+        MailBatch::sendById((array) Request::post('id'));
+    }
+
+    public static function deleteBatchById(): void
+    {
+        MailBatch::deleteById((array) Request::post('id'));
     }
 }

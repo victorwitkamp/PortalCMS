@@ -14,9 +14,9 @@ class EmailRecipientMapper
     /**
      * Undocumented function
      *
-     * @param string $email The e-mailaddress of the recipient
-     * @param int $mail_id The ID of the e-mail that was scheduled in the MailSchedule table.
-     * @param string $name The name of the recipient
+     * @param string $email   The e-mailaddress of the recipient
+     * @param int    $mail_id The ID of the e-mail that was scheduled in the MailSchedule table.
+     * @param string $name    The name of the recipient
      *
      * @return boolean
      */
@@ -35,9 +35,9 @@ class EmailRecipientMapper
     /**
      * Undocumented function
      *
-     * @param string $email The e-mailaddress of the recipient
-     * @param int $mail_id The ID of the e-mail that was scheduled in the MailSchedule table.
-     * @param string $name The name of the recipient
+     * @param string $email   The e-mailaddress of the recipient
+     * @param int    $mail_id The ID of the e-mail that was scheduled in the MailSchedule table.
+     * @param string $name    The name of the recipient
      *
      * @return boolean
      */
@@ -56,9 +56,9 @@ class EmailRecipientMapper
     /**
      * Undocumented function
      *
-     * @param string $email The e-mailaddress of the recipient
-     * @param int $mail_id The ID of the e-mail that was scheduled in the MailSchedule table.
-     * @param string $name The name of the recipient
+     * @param string $email   The e-mailaddress of the recipient
+     * @param int    $mail_id The ID of the e-mail that was scheduled in the MailSchedule table.
+     * @param string $name    The name of the recipient
      *
      * @return boolean
      */
@@ -72,6 +72,44 @@ class EmailRecipientMapper
             return false;
         }
         return true;
+    }
+
+    /**
+     * getAll
+     *
+     * @param int $mail_id The ID of the e-mail that was scheduled in the MailSchedule table.
+     *
+     * @return array|bool
+     */
+    public function getAll(int $mail_id)
+    {
+        $stmt = DB::conn()->prepare('
+            SELECT * FROM mail_recipients where mail_id = ?
+        ');
+        $stmt->execute([$mail_id]);
+        if ($stmt->rowCount() === 0) {
+            return null;
+        }
+        return $stmt->fetchAll();
+    }
+
+    /**
+     * getRecipients
+     *
+     * @param int    $mailId The ID of the e-mail that was scheduled in the MailSchedule table.
+     *
+     * @return array|bool
+     */
+    public function getRecipients(int $mailId)
+    {
+        $stmt = DB::conn()->prepare('
+            SELECT * FROM mail_recipients where mail_id = ? and type = 1
+        ');
+        $stmt->execute([$mailId]);
+        if ($stmt->rowCount() === 0) {
+            return false;
+        }
+        return $stmt->fetchAll();
     }
 
     /**
@@ -102,44 +140,6 @@ class EmailRecipientMapper
     {
         $stmt = DB::conn()->prepare('
             SELECT * FROM mail_recipients where mail_id = ? and type = 3
-        ');
-        $stmt->execute([$mailId]);
-        if ($stmt->rowCount() === 0) {
-            return false;
-        }
-        return $stmt->fetchAll();
-    }
-
-    /**
-     * getAll
-     *
-     * @param int $mail_id The ID of the e-mail that was scheduled in the MailSchedule table.
-     *
-     * @return array|bool
-     */
-    public function getAll(int $mail_id)
-    {
-        $stmt = DB::conn()->prepare('
-            SELECT * FROM mail_recipients where mail_id = ?
-        ');
-        $stmt->execute([$mail_id]);
-        if ($stmt->rowCount() === 0) {
-            return null;
-        }
-        return $stmt->fetchAll();
-    }
-
-    /**
-     * getRecipients
-     *
-     * @param int $mailId The ID of the e-mail that was scheduled in the MailSchedule table.
-     *
-     * @return array|bool
-     */
-    public function getRecipients(int $mailId)
-    {
-        $stmt = DB::conn()->prepare('
-            SELECT * FROM mail_recipients where mail_id = ? and type = 1
         ');
         $stmt->execute([$mailId]);
         if ($stmt->rowCount() === 0) {

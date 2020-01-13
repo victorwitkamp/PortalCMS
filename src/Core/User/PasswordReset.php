@@ -77,9 +77,9 @@ class PasswordReset
     /**
      * Set password reset token in database (for DEFAULT user accounts)
      *
-     * @param string $user_name username
+     * @param string $user_name           username
      * @param string $password_reset_hash password reset hash
-     * @param int $timestamp timestamp
+     * @param int    $timestamp           timestamp
      *
      * @return bool success status
      */
@@ -117,10 +117,10 @@ class PasswordReset
         $Mail = EmailTemplatePDOReader::getSystemTemplateByName('ResetPassword');
         $MailText = $Mail['body'];
         $resetlink = Config::get('URL') .
-            Config::get('EMAIL_PASSWORD_RESET_URL') .
-            '?username=' . $user_name .
-            '&password_reset_hash='
-            . urlencode($password_reset_hash);
+                        Config::get('EMAIL_PASSWORD_RESET_URL') .
+                        '?username=' . $user_name .
+                        '&password_reset_hash='
+                        .urlencode($password_reset_hash);
         $MailText = PlaceholderHelper::replaceholder('USERNAME', $user_name, $MailText);
         $MailText = PlaceholderHelper::replaceholder('SITENAME', SiteSetting::getStaticSiteSetting('site_name'), $MailText);
         $MailText = PlaceholderHelper::replaceholder('RESETLINK', $resetlink, $MailText);
@@ -144,8 +144,8 @@ class PasswordReset
     /**
      * Verifies the password reset request via the verification hash token (that's only valid for one hour)
      *
-     * @param string $user_name Username
-     * @param string $verification_code Hash token
+     * @param  string $user_name         Username
+     * @param  string $verification_code Hash token
      * @return bool Success status
      */
     public static function verifyPasswordReset($user_name, $verification_code)
@@ -159,8 +159,8 @@ class PasswordReset
         $stmt = DB::conn()->prepare($sql);
         $stmt->execute(
             [
-                ':password_reset_hash' => $verification_code,
-                ':user_name' => $user_name]
+            ':password_reset_hash' => $verification_code,
+            ':user_name' => $user_name]
         );
         // if this user with exactly this verification hash code does NOT exist
         if ($stmt->rowCount() !== 1) {
@@ -179,6 +179,36 @@ class PasswordReset
             return true;
         }
         Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_LINK_EXPIRED'));
+        return false;
+    }
+
+    /**
+     * Writes the new password to the database
+     *
+     * @param string $user_name           username
+     * @param string $user_password_hash
+     * @param string $password_reset_hash
+     *
+     * @return bool
+     */
+    public static function saveNewUserPassword($user_name, $user_password_hash, $password_reset_hash)
+    {
+        $sql = 'UPDATE users SET user_password_hash = :user_password_hash, password_reset_hash = NULL,
+                       user_password_reset_timestamp = NULL
+                 WHERE user_name = :user_name AND password_reset_hash = :password_reset_hash
+                       LIMIT 1';
+        $stmt = DB::conn()->prepare($sql);
+        $stmt->execute(
+            [
+                ':user_password_hash' => $user_password_hash, ':user_name' => $user_name,
+                ':password_reset_hash' => $password_reset_hash
+            ]
+        );
+        if ($stmt->rowCount() === 1) {
+            Session::add('feedback_positive', 'Wachtwoord gewijzigd.');
+            return true;
+        }
+        Session::add('feedback_negative', 'Wachtwoord niet gewijzigd.');
         return false;
     }
 
@@ -250,35 +280,5 @@ class PasswordReset
             return false;
         }
         return true;
-    }
-
-    /**
-     * Writes the new password to the database
-     *
-     * @param string $user_name username
-     * @param string $user_password_hash
-     * @param string $password_reset_hash
-     *
-     * @return bool
-     */
-    public static function saveNewUserPassword($user_name, $user_password_hash, $password_reset_hash)
-    {
-        $sql = 'UPDATE users SET user_password_hash = :user_password_hash, password_reset_hash = NULL,
-                       user_password_reset_timestamp = NULL
-                 WHERE user_name = :user_name AND password_reset_hash = :password_reset_hash
-                       LIMIT 1';
-        $stmt = DB::conn()->prepare($sql);
-        $stmt->execute(
-            [
-                ':user_password_hash' => $user_password_hash, ':user_name' => $user_name,
-                ':password_reset_hash' => $password_reset_hash
-            ]
-        );
-        if ($stmt->rowCount() === 1) {
-            Session::add('feedback_positive', 'Wachtwoord gewijzigd.');
-            return true;
-        }
-        Session::add('feedback_negative', 'Wachtwoord niet gewijzigd.');
-        return false;
     }
 }

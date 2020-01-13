@@ -62,6 +62,47 @@ class LoginController extends Controller
     }
 
     /**
+     * Index, default action (shows the login form), when you do login/index
+     */
+    public function index()
+    {
+        if (Authentication::userIsLoggedIn()) {
+            Session::add('feedback_positive', 'You are already logged in.');
+            if (Request::post('redirect')) {
+                Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
+            } else {
+                Redirect::to('Home');
+            }
+        } else {
+            if (self::loginWithCookie()) {
+                Session::add('feedback_positive', 'You are automatically logged in using a cookie.');
+                Redirect::to('Home');
+            } else {
+                $templates = new Engine(DIR_VIEW);
+                echo $templates->render('Pages/Login/indexNew');
+            }
+        }
+    }
+
+    public function requestPasswordReset()
+    {
+        $templates = new Engine(DIR_VIEW);
+        echo $templates->render('Pages/Login/RequestPasswordReset');
+    }
+
+    public function passwordReset()
+    {
+        $templates = new Engine(DIR_VIEW);
+        echo $templates->render('Pages/Login/PasswordReset');
+    }
+
+    public function activate()
+    {
+        $templates = new Engine(DIR_VIEW);
+        echo $templates->render('Pages/Login/Activate');
+    }
+
+    /**
      * The login action, when you do login/Login
      */
     public static function loginWithPassword()
@@ -90,6 +131,20 @@ class LoginController extends Controller
     }
 
     /**
+     * Login with cookie
+     */
+    public static function loginWithCookie()
+    {
+        $cookie = Request::cookie('remember_me');
+        if (!empty($cookie) && LoginService::loginWithCookie((string) $cookie)) {
+            return true;
+        }
+        // if not, delete cookie (outdated? attack?) and route user to login form to prevent infinite login loops
+        Cookie::delete();
+        return false;
+    }
+
+    /**
      * Login with Facebook
      * @param $fbid
      */
@@ -109,60 +164,5 @@ class LoginController extends Controller
             Redirect::to('Login');
         }
         return false;
-    }
-
-    /**
-     * Index, default action (shows the login form), when you do login/index
-     */
-    public function index()
-    {
-        if (Authentication::userIsLoggedIn()) {
-            Session::add('feedback_positive', 'You are already logged in.');
-            if (Request::post('redirect')) {
-                Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
-            } else {
-                Redirect::to('Home');
-            }
-        } else {
-            if (self::loginWithCookie()) {
-                Session::add('feedback_positive', 'You are automatically logged in using a cookie.');
-                Redirect::to('Home');
-            } else {
-                $templates = new Engine(DIR_VIEW);
-                echo $templates->render('Pages/Login/indexNew');
-            }
-        }
-    }
-
-    /**
-     * Login with cookie
-     */
-    public static function loginWithCookie()
-    {
-        $cookie = Request::cookie('remember_me');
-        if (!empty($cookie) && LoginService::loginWithCookie((string)$cookie)) {
-            return true;
-        }
-        // if not, delete cookie (outdated? attack?) and route user to login form to prevent infinite login loops
-        Cookie::delete();
-        return false;
-    }
-
-    public function requestPasswordReset()
-    {
-        $templates = new Engine(DIR_VIEW);
-        echo $templates->render('Pages/Login/RequestPasswordReset');
-    }
-
-    public function passwordReset()
-    {
-        $templates = new Engine(DIR_VIEW);
-        echo $templates->render('Pages/Login/PasswordReset');
-    }
-
-    public function activate()
-    {
-        $templates = new Engine(DIR_VIEW);
-        echo $templates->render('Pages/Login/Activate');
     }
 }
