@@ -11,7 +11,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  phpVersion: 7.2
+  phpVersion: 7.3
 
 steps:
 - script: |
@@ -33,5 +33,5 @@ steps:
 - task: Gulp@1
   inputs:
     gulpFile: 'gulpfile.js'
-    targets: 
+    targets:
     enableCodeCoverage: false
