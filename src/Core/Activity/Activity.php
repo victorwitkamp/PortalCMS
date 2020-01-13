@@ -17,11 +17,13 @@ use PortalCMS\Core\User\UserPDOReader;
  */
 class Activity
 {
-    public static function load() {
+    public static function load()
+    {
         return ActivityMapper::load();
     }
 
-    public static function add(string $activity, int $user_id = null, $user_name = null, $details = null) {
+    public static function add(string $activity, int $user_id = null, $user_name = null, $details = null)
+    {
         if (!empty($activity)) {
             $ip = self::getVisitorIP();
             ActivityMapper::add($activity, $user_id, $user_name, $ip, $details);

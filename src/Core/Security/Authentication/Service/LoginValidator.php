@@ -77,7 +77,7 @@ class LoginValidator
 
         [$user_id, $token, $hash] = explode(':', $cookie);
         try {
-            $user_id = (int)Encryption::decrypt($user_id);
+            $user_id = (int) Encryption::decrypt($user_id);
         } catch (Exception $e) {
             Session::add('feedback_negative', 'Decryption of cookie failed.');
             return null;
