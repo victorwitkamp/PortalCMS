@@ -8,7 +8,9 @@ declare(strict_types=1);
 namespace PortalCMS\Core\Security\Authentication\Service;
 
 use Exception;
+use PortalCMS\Core\Activity\Activity;
 use PortalCMS\Core\HTTP\Cookie;
+use PortalCMS\Core\Security\Authentication\Service\LoginValidator;
 use PortalCMS\Core\Security\Encryption;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\User\UserPDOReader;
@@ -36,6 +38,7 @@ class LoginService
                 Session::add('feedback_positive', 'Aangemeld blijven ingeschakeld');
             }
             self::setSuccessfulLoginIntoSession($user);
+            Activity::add('LoginWithPassword', $user->user_id, NULL, NULL);
             Session::add('feedback_positive', Text::get('FEEDBACK_LOGIN_SUCCESSFUL'));
             return true;
         }

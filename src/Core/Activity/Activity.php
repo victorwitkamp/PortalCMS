@@ -7,7 +7,9 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Activity;
 
-use PortalCMS\Core\Database\DB;
+use PortalCMS\Core\Activity\ActivityMapper;
+use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\User\UserPDOReader;
 
 /**
  * Class : Activity (Activity.php)
@@ -15,16 +17,22 @@ use PortalCMS\Core\Database\DB;
  */
 class Activity
 {
-    public static function load(): array
-    {
-        return DB::conn()->query('SELECT * FROM activity ORDER BY id desc LIMIT 50')->fetchAll();
+    public static function load() {
+        return ActivityMapper::load();
     }
 
-    // public static function getVisitorIP()
-    // {
-    //     $ip = $_SERVER['REMOTE_ADDR'] ?: ($_SERVER['HTTP_X_FORWARDED_FOR'] ?: $_SERVER['HTTP_CLIENT_IP']);
-    //     return $ip;
-    // }
+    public static function add(string $activity, int $user_id = NULL, $user_name = NULL, $details = NULL) {
+        if (!empty($activity)) {
+            $ip = self::getVisitorIP();
+            ActivityMapper::add($activity, $user_id, $user_name, $ip, $details);
+        }
+    }
+
+    public static function getVisitorIP()
+    {
+        $ip = $_SERVER['REMOTE_ADDR'] ?: ($_SERVER['HTTP_X_FORWARDED_FOR'] ?: $_SERVER['HTTP_CLIENT_IP']);
+        return $ip;
+    }
 
     //    public static function registerUserActivity($activity, $details = NULL)
     //    {
@@ -54,10 +62,5 @@ class Activity
     //        self::saveUserActivityAction($user_id, $user_name, $ip, $activity, $details);
     //    }
     //
-    //    public static function saveUserActivityAction($user_id = NULL, $user_name = NULL, $ip = NULL, $activity = NULL, $details = NULL)
-    //    {
-    //        $sql = 'INSERT INTO activity (id, user_id, user_name, ip_address, activity, details) VALUES (NULL, ?, ?, ?, ?, ?)';
-    //        $stmt = DB::conn()->prepare($sql);
-    //        $stmt->execute([$user_id, $user_name, $ip, $activity, $details]);
-    //    }
+
 }
