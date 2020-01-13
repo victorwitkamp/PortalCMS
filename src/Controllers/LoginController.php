@@ -136,7 +136,7 @@ class LoginController extends Controller
     public static function loginWithCookie()
     {
         $cookie = Request::cookie('remember_me');
-        if (!empty($cookie) && LoginService::loginWithCookie((string)$cookie)) {
+        if (!empty($cookie) && LoginService::loginWithCookie((string) $cookie)) {
             return true;
         }
         // if not, delete cookie (outdated? attack?) and route user to login form to prevent infinite login loops
