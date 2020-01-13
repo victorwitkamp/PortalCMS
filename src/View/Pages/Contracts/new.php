@@ -8,37 +8,38 @@ $loadData = false;
 <?= $this->push('head-extra') ?>
 
     <script src="/dist/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js" async></script>
-    <link rel="stylesheet" type="text/css" href="/dist/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="/dist/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css">
     <script>
-    $(function () {
-        $('#datetimepicker1').datetimepicker({
-            format: 'DD-MM-YYYY',
-            locale: 'nl',
-            viewMode: 'years',
-            defaultDate: '01-01-1990'
+        $(function () {
+            $('#datetimepicker1').datetimepicker({
+                format: 'DD-MM-YYYY',
+                locale: 'nl',
+                viewMode: 'years',
+                defaultDate: '01-01-1990'
+            });
         });
-    });
-    $(function () {
-        $('#datetimepicker2').datetimepicker({
-            format: 'DD-MM-YYYY',
-            locale: 'nl',
-            viewMode: 'years'
+        $(function () {
+            $('#datetimepicker2').datetimepicker({
+                format: 'DD-MM-YYYY',
+                locale: 'nl',
+                viewMode: 'years'
+            });
         });
-    });
-    $(function () {
-        $('#datetimepicker3').datetimepicker({
-            format: 'DD-MM-YYYY',
-            locale: 'nl',
-            viewMode: 'years'
+        $(function () {
+            $('#datetimepicker3').datetimepicker({
+                format: 'DD-MM-YYYY',
+                locale: 'nl',
+                viewMode: 'years'
+            });
         });
-    });
-    $(function () {
-        $('#datetimepicker4').datetimepicker({
-            format: 'DD-MM-YYYY',
-            locale: 'nl',
-            viewMode: 'years'
+        $(function () {
+            $('#datetimepicker4').datetimepicker({
+                format: 'DD-MM-YYYY',
+                locale: 'nl',
+                viewMode: 'years'
+            });
         });
-    });
     </script>
     <!-- <script src="/includes/js/jquery-simple-validator.nl.js"></script>
     <link rel="stylesheet" type="text/css" href="/includes/css/jquery-simple-validator.css"> -->

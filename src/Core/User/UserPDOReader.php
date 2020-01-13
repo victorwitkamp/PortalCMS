@@ -30,7 +30,7 @@ class UserPDOReader
         return ($stmt->rowCount() === 1);
     }
 
-    public static function getProfileById(int $Id) : ?object
+    public static function getProfileById(int $Id): ?object
     {
         $stmt = DB::conn()->prepare(
             'SELECT user_id,
@@ -64,7 +64,7 @@ class UserPDOReader
      * @param string $username User's name
      * @return object|null
      */
-    public static function getByUsername(string $username) : ?object
+    public static function getByUsername(string $username): ?object
     {
         $stmt = DB::conn()->prepare(
             'SELECT user_id,
@@ -95,7 +95,7 @@ class UserPDOReader
      * @param string $token
      * @return mixed Returns false if user does not exist, returns object with user's data when user exists
      */
-    public static function getByIdAndToken(int $user_id, string $token) : ?object
+    public static function getByIdAndToken(int $user_id, string $token): ?object
     {
         $stmt = DB::conn()->prepare(
             'SELECT user_id,
@@ -130,7 +130,7 @@ class UserPDOReader
      * @param int $user_fbid
      * @return object|null
      */
-    public static function getByFbid(int $user_fbid) : ?object
+    public static function getByFbid(int $user_fbid): ?object
     {
         $stmt = DB::conn()->prepare(
             'SELECT *
@@ -150,7 +150,7 @@ class UserPDOReader
      * @param string $usernameOrEmail
      * @return object|null
      */
-    public static function getByUsernameOrEmail(string $usernameOrEmail) : ?object
+    public static function getByUsernameOrEmail(string $usernameOrEmail): ?object
     {
         $stmt = DB::conn()->prepare(
             'SELECT user_id, user_name, user_email
@@ -166,7 +166,7 @@ class UserPDOReader
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
-    public static function getUsers() : ?array
+    public static function getUsers(): ?array
     {
         $stmt = DB::conn()->query('SELECT * FROM users ORDER BY user_id ');
         $stmt->execute();

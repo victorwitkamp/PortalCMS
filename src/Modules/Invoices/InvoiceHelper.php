@@ -27,7 +27,7 @@ class InvoiceHelper
             $template = EmailTemplatePDOReader::getSystemTemplateByName('InvoiceMail');
             $subject = PlaceholderHelper::replace(
                 'MAAND',
-                Text::get('MONTH_' . (((int) $invoice->month < 10) ? '0' : '') . $invoice->month),
+                Text::get('MONTH_' . (((int)$invoice->month < 10) ? '0' : '') . $invoice->month),
                 $template['subject']
             );
             $body = PlaceholderHelper::replace(
@@ -52,6 +52,27 @@ class InvoiceHelper
         return false;
     }
 
+    public static function create(int $year, int $month, array $contract_ids, string $factuurdatum): bool
+    {
+        if (empty($factuurdatum)) {
+            Session::add('feedback_negative', 'Geen factuurdatum opgegeven.');
+        } elseif (empty($year)) {
+            Session::add('feedback_negative', 'Incompleet verzoek.');
+        } elseif (empty($month)) {
+            Session::add('feedback_negative', 'Incompleet verzoek.');
+        } elseif (empty($contract_ids)) {
+            Session::add('feedback_negative', 'Incompleet verzoek.');
+        } else {
+            foreach ($contract_ids as $contract_id) {
+                if (!self::createInvoiceAction($year, $month, (int)$contract_id, $factuurdatum)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
     /**
      * @param $year
      * @param $month
@@ -66,8 +87,8 @@ class InvoiceHelper
         if (empty(InvoiceMapper::getByFactuurnummer($factuurnummer))) {
             if (InvoiceMapper::create($contract_id, $factuurnummer, $year, $month, $factuurdatum)) {
                 $invoice = InvoiceMapper::getByFactuurnummer($factuurnummer);
-                $kosten_ruimte = (int) $contract->kosten_ruimte;
-                $kosten_kast = (int) $contract->kosten_kast;
+                $kosten_ruimte = (int)$contract->kosten_ruimte;
+                $kosten_kast = (int)$contract->kosten_kast;
                 if (($kosten_ruimte > 0)) {
                     InvoiceItemMapper::create($invoice->id, 'Huur oefenruimte - ' . Text::get('MONTH_' . $month), $kosten_ruimte);
                 }
@@ -79,27 +100,6 @@ class InvoiceHelper
             Session::add('feedback_negative', 'Toevoegen van factuur mislukt.');
         } else {
             Session::add('feedback_negative', 'Factuurnummer bestaat al.');
-        }
-        return false;
-    }
-
-    public static function create(int $year, int $month, array $contract_ids, string $factuurdatum): bool
-    {
-        if (empty($factuurdatum)) {
-            Session::add('feedback_negative', 'Geen factuurdatum opgegeven.');
-        } elseif (empty($year)) {
-            Session::add('feedback_negative', 'Incompleet verzoek.');
-        } elseif (empty($month)) {
-            Session::add('feedback_negative', 'Incompleet verzoek.');
-        } elseif (empty($contract_ids)) {
-            Session::add('feedback_negative', 'Incompleet verzoek.');
-        } else {
-            foreach ($contract_ids as $contract_id) {
-                if (!self::createInvoiceAction($year, $month, (int) $contract_id, $factuurdatum)) {
-                    return false;
-                }
-            }
-            return true;
         }
         return false;
     }

@@ -27,10 +27,10 @@ class MailSchedule
             return false;
         }
         foreach ($mailIds as $mailId) {
-            if (!MailScheduleMapper::deleteById((int) $mailId)) {
+            if (!MailScheduleMapper::deleteById((int)$mailId)) {
                 ++$error;
             } else {
-                EmailAttachmentMapper::deleteByMailId((int) $mailId);
+                EmailAttachmentMapper::deleteByMailId((int)$mailId);
                 ++$deleted;
             }
         }
@@ -42,12 +42,7 @@ class MailSchedule
         return false;
     }
 
-    public static function isSent(int $mailId): bool
-    {
-        return MailScheduleMapper::getStatusById($mailId) !== 1;
-    }
-
-    public static function sendMailsById(array $mailIds) : bool
+    public static function sendMailsById(array $mailIds): bool
     {
         $success = 0;
         $failed = 0;
@@ -56,8 +51,8 @@ class MailSchedule
             return false;
         }
         foreach ($mailIds as $mailId) {
-            if (!self::isSent((int) $mailId)) {
-                if (self::prepareMailData((int) $mailId)) {
+            if (!self::isSent((int)$mailId)) {
+                if (self::prepareMailData((int)$mailId)) {
                     ++$success;
                 } else {
                     ++$failed;
@@ -70,25 +65,9 @@ class MailSchedule
         return true;
     }
 
-    public static function sendFeedbackHandler(int $failed, int $success, int $alreadySent): bool
+    public static function isSent(int $mailId): bool
     {
-        if (($success === 0) && ($failed === 0) && ($alreadySent === 0)) {
-            Session::add('feedback_negative', 'Invalid request.');
-        }
-        if ($failed > 0) {
-            $failedText = $failed . ' bericht(en) mislukt.';
-            Session::add('feedback_negative', $failedText);
-        }
-        if ($alreadySent > 0) {
-            $alreadySentText = $alreadySent . ' bericht(en) reeds verstuurd.';
-            Session::add('feedback_warning', $alreadySentText);
-        }
-        if ($success > 0) {
-            $successText = $success . ' bericht(en) succesvol verstuurd.';
-            Session::add('feedback_positive', $successText);
-            return true;
-        }
-        return false;
+        return MailScheduleMapper::getStatusById($mailId) !== 1;
     }
 
     public static function prepareMailData(int $mailId): bool
@@ -116,7 +95,7 @@ class MailSchedule
         return false;
     }
 
-    public static function sendSingleMailHandler(int $mailId, $scheduledMail, array $recipients, array $attachments = null) : bool
+    public static function sendSingleMailHandler(int $mailId, $scheduledMail, array $recipients, array $attachments = null): bool
     {
         $EmailMessage = new EmailMessage(
             $scheduledMail->subject,
@@ -135,6 +114,27 @@ class MailSchedule
         MailScheduleMapper::updateDateSent($mailId);
         MailScheduleMapper::updateSender($mailId, $SMTPConfiguration->fromName, $SMTPConfiguration->fromEmail);
         return true;
+    }
+
+    public static function sendFeedbackHandler(int $failed, int $success, int $alreadySent): bool
+    {
+        if (($success === 0) && ($failed === 0) && ($alreadySent === 0)) {
+            Session::add('feedback_negative', 'Invalid request.');
+        }
+        if ($failed > 0) {
+            $failedText = $failed . ' bericht(en) mislukt.';
+            Session::add('feedback_negative', $failedText);
+        }
+        if ($alreadySent > 0) {
+            $alreadySentText = $alreadySent . ' bericht(en) reeds verstuurd.';
+            Session::add('feedback_warning', $alreadySentText);
+        }
+        if ($success > 0) {
+            $successText = $success . ' bericht(en) succesvol verstuurd.';
+            Session::add('feedback_positive', $successText);
+            return true;
+        }
+        return false;
     }
 
     public static function createWithTemplate(int $templateId, array $recipientIds)

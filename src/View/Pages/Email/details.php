@@ -102,16 +102,16 @@ if (MailScheduleMapper::exists($id)) {
                         <th><?= Text::get('LABEL_MAILDETAILS_ATTACHMENTS') ?></th>
                         <td><?php
                             $attachments = EmailAttachmentMapper::getByMailId($row->id);
-                        if (!empty($attachments)) {
-                            foreach ($attachments as $attachment) {
-                                $file = $attachment['path'] . $attachment['name'] . $attachment['extension'];
+                            if (!empty($attachments)) {
+                                foreach ($attachments as $attachment) {
+                                    $file = $attachment['path'] . $attachment['name'] . $attachment['extension'];
 
-                                echo '<a href="' . Config::get('URL') . $file . '">' . $file . '</a><br>';
+                                    echo '<a href="' . Config::get('URL') . $file . '">' . $file . '</a><br>';
+                                }
+                            } else {
+                                echo 'n/a';
                             }
-                        } else {
-                            echo 'n/a';
-                        }
-                        ?></td>
+                            ?></td>
                     </tr>
                     <tr>
                         <th><?= Text::get('LABEL_MAILDETAILS_MEMBER_ID') ?></th>

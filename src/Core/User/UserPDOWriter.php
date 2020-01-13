@@ -140,7 +140,7 @@ class UserPDOWriter
         return ($stmt->rowCount() === 1);
     }
 
-    public static function deleteUser($user_id) : bool
+    public static function deleteUser($user_id): bool
     {
         $stmt = DB::conn()->prepare(
             'DELETE FROM users

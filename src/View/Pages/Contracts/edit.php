@@ -17,30 +17,31 @@ $pageName = 'Contract van ' . $contract->band_naam . ' bewerken';
 <?= $this->push('head-extra') ?>
 
     <script src="/dist/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js" async></script>
-    <link rel="stylesheet" type="text/css" href="/dist/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="/dist/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css">
     <script>
-        $(function() {
+        $(function () {
             $('#datetimepicker1').datetimepicker({
                 format: 'DD-MM-YYYY',
                 locale: 'nl',
                 viewMode: 'years'
             });
         });
-        $(function() {
+        $(function () {
             $('#datetimepicker2').datetimepicker({
                 format: 'DD-MM-YYYY',
                 locale: 'nl',
                 viewMode: 'years'
             });
         });
-        $(function() {
+        $(function () {
             $('#datetimepicker3').datetimepicker({
                 format: 'DD-MM-YYYY',
                 locale: 'nl',
                 viewMode: 'years'
             });
         });
-        $(function() {
+        $(function () {
             $('#datetimepicker4').datetimepicker({
                 format: 'DD-MM-YYYY',
                 locale: 'nl',
@@ -48,7 +49,7 @@ $pageName = 'Contract van ' . $contract->band_naam . ' bewerken';
             });
         });
     </script>
-    <?php //PortalCMS_JS_JQuery_Simple_validator();?>
+<?php //PortalCMS_JS_JQuery_Simple_validator();?>
 
 <?= $this->end() ?>
 <?= $this->push('main-content') ?>

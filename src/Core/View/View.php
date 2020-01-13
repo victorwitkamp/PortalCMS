@@ -17,7 +17,7 @@ class View
      * Converts characters to HTML entities
      * This is important to avoid XSS attacks, and attempts to inject malicious code in your page.
      *
-     * @param  string $str The string.
+     * @param string $str The string.
      * @return string
      */
     public static function encodeHTML($str): string
@@ -28,7 +28,7 @@ class View
     /**
      * Converts HTML entities back to characters
      *
-     * @param  string $str The string.
+     * @param string $str The string.
      * @return string
      */
     public function decodeHTML($str): string

@@ -33,7 +33,7 @@ class ContractMapper
         return ($stmt->rowCount() === 1);
     }
 
-    public static function getById(int $Id) : ?object
+    public static function getById(int $Id): ?object
     {
         $stmt = DB::conn()->prepare(
             'SELECT * FROM contracts WHERE id = ? LIMIT 1'
@@ -70,7 +70,8 @@ class ContractMapper
         $contract_ingangsdatum,
         $contract_einddatum,
         $contract_datum
-    ): bool {
+    ): bool
+    {
         $stmt = DB::conn()->prepare(
             'INSERT INTO contracts (
                 id,
@@ -146,7 +147,8 @@ class ContractMapper
         $contract_ingangsdatum,
         $contract_einddatum,
         $contract_datum
-    ): bool {
+    ): bool
+    {
         $stmt = DB::conn()->prepare(
             'UPDATE contracts
                     SET

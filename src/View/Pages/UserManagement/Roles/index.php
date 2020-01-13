@@ -18,34 +18,36 @@ $pageName = Text::get('TITLE_ROLE_MANAGEMENT'); ?>
         <hr>
         <table class="table table-sm table-striped table-hover table-dark">
             <thead class="thead-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Rol</th>
-                    <th>Acties</th>
-                </tr>
+            <tr>
+                <th>ID</th>
+                <th>Rol</th>
+                <th>Acties</th>
+            </tr>
             </thead>
             <?php
 
             $Roles = RoleMapper::getRoles();
             if (!empty($Roles)) { ?>
                 <tbody>
-                    <?php foreach ($Roles as $Role) { ?>
-                        <tr>
-                            <td><?= $Role->role_id ?></td>
-                            <td><?= $Role->role_name ?></td>
-                            <td>
-                                <form method="post">
-                                    <a href="/UserManagement/Role/?id=<?= $Role->role_id ?>" title="Rol beheren" class="btn btn-primary btn-sm">
-                                        <span class="fa fa-cog"></span>
-                                    </a>
-                                    <input type="hidden" name="role_id" value="<?= $Role->role_id ?>">
-                                    <button type="submit" name="deleterole" class="btn btn-danger btn-sm" onclick="return confirm('Weet u zeker dat u de rol <?= $Role->role_name ?> wilt verwijderen?')">
-                                        <span class="fa fa-trash"></span>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    <?php } ?>
+                <?php foreach ($Roles as $Role) { ?>
+                    <tr>
+                        <td><?= $Role->role_id ?></td>
+                        <td><?= $Role->role_name ?></td>
+                        <td>
+                            <form method="post">
+                                <a href="/UserManagement/Role/?id=<?= $Role->role_id ?>" title="Rol beheren"
+                                   class="btn btn-primary btn-sm">
+                                    <span class="fa fa-cog"></span>
+                                </a>
+                                <input type="hidden" name="role_id" value="<?= $Role->role_id ?>">
+                                <button type="submit" name="deleterole" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Weet u zeker dat u de rol <?= $Role->role_name ?> wilt verwijderen?')">
+                                    <span class="fa fa-trash"></span>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php } ?>
                 </tbody>
             <?php } else { ?>
                 <tr>

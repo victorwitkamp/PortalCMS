@@ -21,30 +21,6 @@ use function strlen;
 class Password
 {
     /**
-     * Writes the new password to the database
-     *
-     * @param string $user_name
-     * @param string $user_password_hash
-     *
-     * @return bool
-     */
-    public static function saveChangedPassword(string $user_name, string $user_password_hash): bool
-    {
-        $stmt = DB::conn()->prepare(
-            'UPDATE users SET user_password_hash = :user_password_hash
-                    WHERE user_name = :user_name
-                        LIMIT 1'
-        );
-        $stmt->execute(
-            [
-                ':user_password_hash' => $user_password_hash,
-                ':user_name' => $user_name
-            ]
-        );
-        return ($stmt->rowCount() === 1);
-    }
-
-    /**
      * Validates fields, hashes new password, saves new password
      *
      * @param $user_name
@@ -74,7 +50,6 @@ class Password
         Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_CHANGE_SUCCESSFUL'));
         return true;
     }
-
 
     /**
      * Validates current and new password
@@ -114,5 +89,29 @@ class Password
             Session::add('feedback_negative', Text::get('FEEDBACK_USER_DOES_NOT_EXIST'));
         }
         return false;
+    }
+
+    /**
+     * Writes the new password to the database
+     *
+     * @param string $user_name
+     * @param string $user_password_hash
+     *
+     * @return bool
+     */
+    public static function saveChangedPassword(string $user_name, string $user_password_hash): bool
+    {
+        $stmt = DB::conn()->prepare(
+            'UPDATE users SET user_password_hash = :user_password_hash
+                    WHERE user_name = :user_name
+                        LIMIT 1'
+        );
+        $stmt->execute(
+            [
+                ':user_password_hash' => $user_password_hash,
+                ':user_name' => $user_name
+            ]
+        );
+        return ($stmt->rowCount() === 1);
     }
 }

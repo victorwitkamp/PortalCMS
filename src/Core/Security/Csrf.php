@@ -13,7 +13,6 @@ use PortalCMS\Core\Session\Session;
 /**
  * Cross Site Request Forgery Class
  */
-
 class Csrf
 {
     /**
@@ -43,12 +42,12 @@ class Csrf
     public static function makeToken(): string
     {
         // token is valid for 1 day
-        $max_time    = 60 * 60 * 24;
+        $max_time = 60 * 60 * 24;
         $stored_time = Session::get('csrf_token_time');
-        $csrf_token  = Session::get('csrf_token');
+        $csrf_token = Session::get('csrf_token');
 
         if (empty($csrf_token) || $max_time + $stored_time <= time()) {
-            $csrf_token = md5(uniqid((string) mt_rand(), true));
+            $csrf_token = md5(uniqid((string)mt_rand(), true));
             Session::set('csrf_token', $csrf_token);
             Session::set('csrf_token_time', time());
         }

@@ -27,7 +27,8 @@ if (!empty($invoice)) {
             <a href="/Invoices" class="btn btn-sm btn-primary"><span class="fa fa-arrow-left"></span></a>
             <?php $msg = 'Weet u zeker dat u factuur met nummer ' . $invoice->factuurnummer . ' wilt verwijderen?'; ?>
             <input type="hidden" name="id" value="<?= $invoice->id ?>">
-            <button type="submit" name="deleteInvoice" class="btn btn-danger btn-sm" title="Verwijderen" onclick="return confirm('<?= $msg ?>')">
+            <button type="submit" name="deleteInvoice" class="btn btn-danger btn-sm" title="Verwijderen"
+                    onclick="return confirm('<?= $msg ?>')">
                 <span class="fa fa-trash"></span>
             </button>
         </form>
@@ -72,7 +73,9 @@ if (!empty($invoice)) {
                             <form method="post">
                                 <input type="hidden" name="invoiceid" value="<?= $invoice->id ?>">
                                 <input type="hidden" name="id" value="<?= $invoiceitem->id ?>">
-                                <button type="submit" name="deleteInvoiceItem" onclick="return confirm('Weet je zeker dat je <?= $invoiceitem->name ?> wilt verwijderen?')" class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></button>
+                                <button type="submit" name="deleteInvoiceItem"
+                                        onclick="return confirm('Weet je zeker dat je <?= $invoiceitem->name ?> wilt verwijderen?')"
+                                        class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></button>
                             </form>
                         <?php } ?>
                     </td>

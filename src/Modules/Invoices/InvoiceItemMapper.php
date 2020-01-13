@@ -17,7 +17,7 @@ class InvoiceItemMapper
      * @param int $invoiceId
      * @return mixed
      */
-    public static function getByInvoiceId(int $invoiceId) : ?array
+    public static function getByInvoiceId(int $invoiceId): ?array
     {
         $stmt = DB::conn()->prepare(
             'SELECT *

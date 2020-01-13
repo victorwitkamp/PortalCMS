@@ -20,22 +20,23 @@ $pageName = Text::get('TITLE_INVOICES');
     <div class="container">
         <div class="row mt-5">
             <div class="col-sm-8"><h1><?= $pageName ?></h1></div>
-            <div class="col-sm-4"><a href="/Invoices/Add" class="btn btn-success navbar-btn float-right"><span class="fa fa-plus"></span> Toevoegen</a></div>
+            <div class="col-sm-4"><a href="/Invoices/Add" class="btn btn-success navbar-btn float-right"><span
+                            class="fa fa-plus"></span> Toevoegen</a></div>
         </div>
         <hr>
         <?php Alert::renderFeedbackMessages(); ?>
     </div>
 
-    <?php $invoices = InvoiceMapper::getAll(); ?>
+<?php $invoices = InvoiceMapper::getAll(); ?>
 
-    <?php if (!empty($invoices)) { ?>
-        <div class="container-fluid">
+<?php if (!empty($invoices)) { ?>
+    <div class="container-fluid">
         <?php include_once 'table.php'; ?>
-        </div>
-    <?php } else { ?>
-        <div class="container">
-            <?= 'Geen facturen gevonden.' ?>
-        </div>
-    <?php } ?>
+    </div>
+<?php } else { ?>
+    <div class="container">
+        <?= 'Geen facturen gevonden.' ?>
+    </div>
+<?php } ?>
 
 <?= $this->end();

@@ -46,6 +46,80 @@ class InvoicesController extends Controller
         Router::processRequests($this->requests, __CLASS__);
     }
 
+    public static function createInvoiceMail()
+    {
+        $invoiceIds = Request::post('id');
+        if (!empty($invoiceIds)) {
+            MailBatch::create();
+            $batchId = MailBatch::lastInsertedId();
+            Session::add('feedback_positive', 'Nieuwe batch aangemaakt (batch ID: ' . $batchId . '). <a href="email/Messages?batch_id=' . $batchId . '">Batch bekijken</a>');
+            foreach ($invoiceIds as $invoiceId) {
+                InvoiceHelper::createMail((int)$invoiceId, (int)$batchId);
+            }
+            Redirect::to('Invoices');
+        } else {
+            Redirect::to('Error/Error');
+        }
+    }
+
+    public static function writeInvoice()
+    {
+        $ids = Request::post('writeInvoiceId');
+        if (!empty($ids)) {
+            foreach ($ids as $id) {
+                InvoiceHelper::write((int)$id);
+            }
+            Redirect::to('Invoices');
+        } else {
+            Redirect::to('Error/Error');
+        }
+    }
+
+    public static function createInvoice()
+    {
+        $year = (int)Request::post('year', true);
+        $month = (int)Request::post('month', true);
+        $contracts = (array)Request::post('contract_id');
+        $factuurdatum = (string)Request::post('factuurdatum', true);
+        if (InvoiceHelper::create($year, $month, $contracts, $factuurdatum)) {
+            Session::add('feedback_positive', 'Factuur toegevoegd.');
+            Redirect::to('Invoices');
+        }
+    }
+
+    public static function deleteInvoice()
+    {
+        $id = (int)Request::post('id', true);
+        if (InvoiceHelper::delete($id)) {
+            Redirect::to('Invoices/Index');
+        } else {
+            Redirect::to('Error/Error');
+        }
+    }
+
+    public static function deleteInvoiceItem()
+    {
+        $invoiceId = (int)Request::post('invoiceid', true);
+        $id = (int)Request::post('id', true);
+        if (InvoiceHelper::deleteItem($id)) {
+            Redirect::to('Invoices/details?id=' . $invoiceId);
+        } else {
+            Redirect::to('Error/Error');
+        }
+    }
+
+    public static function addInvoiceItem()
+    {
+        $invoiceId = (int)Request::post('invoiceid', true);
+        $name = (string)Request::post('name', true);
+        $price = (int)Request::post('price', true);
+        if (InvoiceHelper::createItem($invoiceId, $name, $price)) {
+            Redirect::to('Invoices/details?id=' . $invoiceId);
+        } else {
+            Redirect::to('Error/Error');
+        }
+    }
+
     public function index()
     {
         if (Authorization::verifyPermission('rental-invoices')) {
@@ -83,80 +157,6 @@ class InvoicesController extends Controller
             echo $templates->render('Pages/Invoices/CreatePDF');
         } else {
             Redirect::to('Error/PermissionError');
-        }
-    }
-
-    public static function createInvoiceMail()
-    {
-        $invoiceIds = Request::post('id');
-        if (!empty($invoiceIds)) {
-            MailBatch::create();
-            $batchId = MailBatch::lastInsertedId();
-            Session::add('feedback_positive', 'Nieuwe batch aangemaakt (batch ID: ' . $batchId . '). <a href="email/Messages?batch_id=' . $batchId . '">Batch bekijken</a>');
-            foreach ($invoiceIds as $invoiceId) {
-                InvoiceHelper::createMail((int) $invoiceId, (int) $batchId);
-            }
-            Redirect::to('Invoices');
-        } else {
-            Redirect::to('Error/Error');
-        }
-    }
-
-    public static function writeInvoice()
-    {
-        $ids = Request::post('writeInvoiceId');
-        if (!empty($ids)) {
-            foreach ($ids as $id) {
-                InvoiceHelper::write((int) $id);
-            }
-            Redirect::to('Invoices');
-        } else {
-            Redirect::to('Error/Error');
-        }
-    }
-
-    public static function createInvoice()
-    {
-        $year = (int) Request::post('year', true);
-        $month = (int) Request::post('month', true);
-        $contracts = (array) Request::post('contract_id');
-        $factuurdatum = (string) Request::post('factuurdatum', true);
-        if (InvoiceHelper::create($year, $month, $contracts, $factuurdatum)) {
-            Session::add('feedback_positive', 'Factuur toegevoegd.');
-            Redirect::to('Invoices');
-        }
-    }
-
-    public static function deleteInvoice()
-    {
-        $id = (int) Request::post('id', true);
-        if (InvoiceHelper::delete($id)) {
-            Redirect::to('Invoices/Index');
-        } else {
-            Redirect::to('Error/Error');
-        }
-    }
-
-    public static function deleteInvoiceItem()
-    {
-        $invoiceId = (int) Request::post('invoiceid', true);
-        $id = (int) Request::post('id', true);
-        if (InvoiceHelper::deleteItem($id)) {
-            Redirect::to('Invoices/details?id=' . $invoiceId);
-        } else {
-            Redirect::to('Error/Error');
-        }
-    }
-
-    public static function addInvoiceItem()
-    {
-        $invoiceId = (int) Request::post('invoiceid', true);
-        $name = (string) Request::post('name', true);
-        $price = (int) Request::post('price', true);
-        if (InvoiceHelper::createItem($invoiceId, $name, $price)) {
-            Redirect::to('Invoices/details?id=' . $invoiceId);
-        } else {
-            Redirect::to('Error/Error');
         }
     }
 }

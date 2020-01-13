@@ -24,8 +24,8 @@ class Request
      * When using just Request::post('x') it will return the raw and untouched $_POST['x'], when using it like
      * Request::post('x', true) then it will return a trimmed and stripped $_POST['x'] !
      *
-     * @param  mixed $key   key
-     * @param  bool  $clean marker for optional cleaning of the var
+     * @param mixed $key key
+     * @param bool $clean marker for optional cleaning of the var
      * @return mixed the key's value or nothing
      */
     public static function post($key, bool $clean = false)
@@ -47,7 +47,7 @@ class Request
     /**
      * gets/returns the value of a specific key of the GET super-global
      *
-     * @param  mixed $key key
+     * @param mixed $key key
      * @return mixed the key's value or nothing
      */
     public static function get($key)
@@ -58,7 +58,7 @@ class Request
     /**
      * gets/returns the value of a specific key of the COOKIE super-global
      *
-     * @param  mixed $key key
+     * @param mixed $key key
      * @return mixed the key's value or nothing
      */
     public static function cookie($key)

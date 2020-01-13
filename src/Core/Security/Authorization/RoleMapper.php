@@ -14,7 +14,7 @@ class RoleMapper
      * Returns an array of all roles
      * @return array|null
      */
-    public static function getRoles() : ?array
+    public static function getRoles(): ?array
     {
         $stmt = DB::conn()->query('SELECT * FROM roles ORDER BY role_id ');
         if ($stmt->rowCount() > 0) {

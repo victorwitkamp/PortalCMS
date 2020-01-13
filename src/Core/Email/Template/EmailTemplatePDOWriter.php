@@ -11,11 +11,25 @@ use PortalCMS\Core\Database\DB;
 
 class EmailTemplatePDOWriter
 {
+    public static function delete(int $id): bool
+    {
+        $stmt = DB::conn()->prepare(
+            'DELETE FROM mail_templates
+                WHERE id = ?
+                    AND type != "system"'
+        );
+        $stmt->execute([$id]);
+        if ($stmt->rowCount() === 0) {
+            return false;
+        }
+        return true;
+    }
+
     /**
      * @param EmailTemplate $EmailTemplate
      * @return int|bool
      */
-    public function create(EmailTemplate $EmailTemplate) : ?int
+    public function create(EmailTemplate $EmailTemplate): ?int
     {
         $stmt = DB::conn()->prepare(
             'INSERT INTO mail_templates(
@@ -34,7 +48,7 @@ class EmailTemplatePDOWriter
      * @param EmailTemplate $emailTemplate
      * @return bool
      */
-    public function update(EmailTemplate $emailTemplate) : bool
+    public function update(EmailTemplate $emailTemplate): bool
     {
         if (empty($emailTemplate->id) || ($emailTemplate->id <= 0)) {
             return false;
@@ -52,20 +66,6 @@ class EmailTemplatePDOWriter
             $emailTemplate->status,
             $emailTemplate->id
         ]);
-        if ($stmt->rowCount() === 0) {
-            return false;
-        }
-        return true;
-    }
-
-    public static function delete(int $id) : bool
-    {
-        $stmt = DB::conn()->prepare(
-            'DELETE FROM mail_templates
-                WHERE id = ?
-                    AND type != "system"'
-        );
-        $stmt->execute([$id]);
         if ($stmt->rowCount() === 0) {
             return false;
         }

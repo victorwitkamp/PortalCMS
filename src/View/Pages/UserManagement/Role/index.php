@@ -18,16 +18,16 @@ if (empty($Role)) {
 <?= $this->layout('layout', ['title' => $pageName]) ?>
 <?= $this->push('main-content') ?>
 
-<div class="container">
-    <div class="row mt-5">
-        <h1><?= Text::get('TITLE_ROLE') ?>: <?= $Role->role_name ?> (rol)</h1>
-    </div>
-    <?php Alert::renderFeedbackMessages();
-    if ($Role) { ?>
-        <h3><?= Text::get('LABEL_ROLE_GENERAL') ?></h3>
-        <table class="table table-striped table-condensed">
-            <!-- <thead class="thead-dark"> -->
-            <tbody>
+    <div class="container">
+        <div class="row mt-5">
+            <h1><?= Text::get('TITLE_ROLE') ?>: <?= $Role->role_name ?> (rol)</h1>
+        </div>
+        <?php Alert::renderFeedbackMessages();
+        if ($Role) { ?>
+            <h3><?= Text::get('LABEL_ROLE_GENERAL') ?></h3>
+            <table class="table table-striped table-condensed">
+                <!-- <thead class="thead-dark"> -->
+                <tbody>
                 <tr>
                     <th>ID</th>
                     <td><?= $Role->role_id ?></td>
@@ -38,68 +38,71 @@ if (empty($Role)) {
                 <th><?= Text::get('LABEL_ROLE_PERMISSIONS') ?></th>
                 <td>
                     <?php
-                        $ActivePerissions = RolePermissionMapper::getRolePermissions($_GET['id']);
+                    $ActivePerissions = RolePermissionMapper::getRolePermissions($_GET['id']);
                     if ($ActivePerissions) { ?>
                         <table class="table table-sm table-striped table-hover table-dark">
                             <thead class="thead-dark">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Permissie</th>
-                                    <th>Acties</th>
-                                </tr>
+                            <tr>
+                                <th>ID</th>
+                                <th>Permissie</th>
+                                <th>Acties</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($ActivePerissions as $Permission) { ?>
-                                    <tr>
-                                        <td><?= $Permission['perm_id'] ?></td>
-                                        <td><?= $Permission['perm_desc'] ?></td>
-                                        <td>
-                                            <form method="post">
-                                                <input type="hidden" name="role_id" value="<?= $_GET['id'] ?>">
-                                                <input type="hidden" name="perm_id" value="<?= $Permission['perm_id'] ?>">
-                                                <?php $msg = 'Weet u zeker dat u ' . $Permission['perm_desc'] . ' wilt verwijderen?'; ?>
-                                                <button type="submit" name="deleterolepermission" onclick="return confirm('<?= $msg ?>')" class="btn btn-danger ml-2"><span class="fa fa-trash"></span></button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                <?php } ?>
+                            <?php foreach ($ActivePerissions as $Permission) { ?>
+                                <tr>
+                                    <td><?= $Permission['perm_id'] ?></td>
+                                    <td><?= $Permission['perm_desc'] ?></td>
+                                    <td>
+                                        <form method="post">
+                                            <input type="hidden" name="role_id" value="<?= $_GET['id'] ?>">
+                                            <input type="hidden" name="perm_id" value="<?= $Permission['perm_id'] ?>">
+                                            <?php $msg = 'Weet u zeker dat u ' . $Permission['perm_desc'] . ' wilt verwijderen?'; ?>
+                                            <button type="submit" name="deleterolepermission"
+                                                    onclick="return confirm('<?= $msg ?>')" class="btn btn-danger ml-2">
+                                                <span class="fa fa-trash"></span></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <?php } ?>
                             </tbody>
                         </table>
                     <?php } else {
                         echo 'Nog geen permissies...';
                     } ?>
-                    </td>
+                </td>
                 </tr>
-            </tbody>
-        </table>
-    <?php }
+                </tbody>
+            </table>
+        <?php }
 
-    if ($Role) { ?>
-        <h3><?= Text::get('LABEL_ROLE_ADD_PERMISSION') ?></h3>
-        <p>Een rol kan meerdere permissies hebben. Kies hieronder een gewenste permissie om toe te voegen aan de rol.<p>
+        if ($Role) { ?>
+            <h3><?= Text::get('LABEL_ROLE_ADD_PERMISSION') ?></h3>
+            <p>Een rol kan meerdere permissies hebben. Kies hieronder een gewenste permissie om toe te voegen aan de
+                rol.<p>
+            <?php
+            $selectablePermissions = RolePermissionMapper::getRoleSelectablePermissions($_GET['id']);
+            if ($selectablePermissions) { ?>
+                <form method="post">
+                    <input type="hidden" name="role_id" value="<?= $_GET['id'] ?>">
+                    <label class="control-label">Permission</label>
+                    <select name='perm_id'>
+                        <?php foreach ($selectablePermissions as $selectablePermission) { ?>
+                            <option value="<?= $selectablePermission['perm_id'] ?>"><?= $selectablePermission['perm_id'] . '. ' . $selectablePermission['perm_desc'] ?>
+                            </option>
+                        <?php } ?>
+                    </select>
+                    <input type="submit" name="setrolepermission" value="Toewijzen" class="btn btn-primary ml-2">
+                </form>
+
                 <?php
-                    $selectablePermissions = RolePermissionMapper::getRoleSelectablePermissions($_GET['id']);
-                if ($selectablePermissions) { ?>
-                    <form method="post">
-                        <input type="hidden" name="role_id" value="<?= $_GET['id'] ?>">
-                        <label class="control-label">Permission</label>
-                        <select name='perm_id'>
-                            <?php foreach ($selectablePermissions as $selectablePermission) { ?>
-                                <option value="<?= $selectablePermission['perm_id'] ?>"><?= $selectablePermission['perm_id'] . '. ' . $selectablePermission['perm_desc'] ?>
-                                </option>
-                            <?php } ?>
-                        </select>
-                        <input type="submit" name="setrolepermission" value="Toewijzen" class="btn btn-primary ml-2">
-                    </form>
+            } else {
+                ?>
+                <p>Geen permissies om toe te wijzen</p>
+                <?php
+            }
+        } ?>
 
-                    <?php
-                } else {
-                    ?>
-                    <p>Geen permissies om toe te wijzen</p>
-                    <?php
-                }
-    } ?>
-
-</div>
+    </div>
 
 <?= $this->end();

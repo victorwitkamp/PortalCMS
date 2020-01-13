@@ -4,13 +4,14 @@ use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
-$pageName = (string) Text::get('TITLE_EVENTS_ADD');
+$pageName = (string)Text::get('TITLE_EVENTS_ADD');
 
 ?>
 <?= $this->layout('layout', ['title' => $pageName]) ?>
 <?= $this->push('head-extra') ?>
 
-    <link rel="stylesheet" type="text/css" href="/dist/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="/dist/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css">
     <script src="/dist/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js" async></script>
     <script src="/includes/js/datepicker_event.js"></script>
     <!-- <script src="/includes/js/jquery-simple-validator.nl.js"></script> -->
@@ -44,7 +45,8 @@ $pageName = (string) Text::get('TITLE_EVENTS_ADD');
                                     <i class="fa fa-calendar"></i>
                                 </div>
                             </div>
-                            <input type="text" name="start_event" maxlength="16" class="form-control datetimepicker-input" data-target="#datetimepicker1" required>
+                            <input type="text" name="start_event" maxlength="16"
+                                   class="form-control datetimepicker-input" data-target="#datetimepicker1" required>
                         </div>
                     </div>
                 </div>
@@ -57,7 +59,8 @@ $pageName = (string) Text::get('TITLE_EVENTS_ADD');
                                     <i class="fa fa-calendar"></i>
                                 </div>
                             </div>
-                            <input type="text" name="end_event" maxlength="16" class="form-control datetimepicker-input" data-target="#datetimepicker2" required>
+                            <input type="text" name="end_event" maxlength="16" class="form-control datetimepicker-input"
+                                   data-target="#datetimepicker2" required>
                         </div>
                     </div>
                 </div>
@@ -68,7 +71,7 @@ $pageName = (string) Text::get('TITLE_EVENTS_ADD');
                     <input type="text" name="description" class="form-control" placeholder="">
                 </div>
             </div>
-            <hr />
+            <hr/>
             <div class="form-group form-group-sm">
                 <input type="text" name="CreatedBy" value="<?= Session::get('user_id') ?>" hidden>
                 <input type="submit" name="addEvent" class="btn btn-primary" value="<?= Text::get('LABEL_SUBMIT') ?>">

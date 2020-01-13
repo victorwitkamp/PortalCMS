@@ -45,7 +45,7 @@ class Encryption
      *
      * @access public
      * @static static method
-     * @param  string $plain
+     * @param string $plain
      * @return string
      * @throws Exception If functions don't exists
      */
@@ -83,7 +83,7 @@ class Encryption
      *
      * @access public
      * @static static method
-     * @param  string $ciphertext
+     * @param string $ciphertext
      * @return string
      * @throws Exception If $ciphertext is empty, or If functions don't exists
      */
@@ -124,8 +124,8 @@ class Encryption
      *
      * @access private
      * @static static method
-     * @param  string $hmac    The hmac from the ciphertext being decrypted.
-     * @param  string $compare The comparison hmac.
+     * @param string $hmac The hmac from the ciphertext being decrypted.
+     * @param string $compare The comparison hmac.
      * @return bool
      * @see    https://github.com/sarciszewski/php-future/blob/bd6c91fb924b2b35a3e4f4074a642868bd051baf/src/Security.php#L36
      */

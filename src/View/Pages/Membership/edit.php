@@ -17,7 +17,8 @@ if (MemberModel::doesMemberIdExist($_GET['id'])) {
 <?= $this->layout('layout', ['title' => $pageName]) ?>
 <?= $this->push('head-extra') ?>
 
-    <link rel="stylesheet" type="text/css" href="/dist/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="/dist/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css">
     <script src="/dist/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js" async></script>
     <script src="/includes/js/jquery-simple-validator.nl.js"></script>
     <link rel="stylesheet" type="text/css" href="/includes/css/jquery-simple-validator.css">
