@@ -61,9 +61,9 @@ class EmailTemplatePDOWriter
     public static function delete(int $id) : bool
     {
         $stmt = DB::conn()->prepare(
-            'DELETE FROM mail_templates
+            "DELETE FROM mail_templates
                 WHERE id = ?
-                    AND type != "system"'
+                    AND type != 'system'"
         );
         $stmt->execute([$id]);
         if ($stmt->rowCount() === 0) {
