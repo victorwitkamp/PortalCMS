@@ -22,6 +22,6 @@ class HomeController extends Controller
     public static function index()
     {
         $templates = new Engine(DIR_VIEW);
-        echo $templates->render('Pages/Home/index');
+        echo $templates->render('Pages/Home/Index');
     }
 }

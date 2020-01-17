@@ -43,7 +43,7 @@ class AccountController extends Controller
     public function index()
     {
         $templates = new Engine(DIR_VIEW);
-        echo $templates->render('Pages/Account/index');
+        echo $templates->render('Pages/Account/Index');
     }
 
     public static function changeUsername()

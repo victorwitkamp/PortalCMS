@@ -40,7 +40,7 @@ class ProfileController extends Controller
         $templates = new Engine(DIR_VIEW);
         $user = UserPDOReader::getProfileById((int) Request::get('id'));
         if (!empty($user)) {
-            echo $templates->render('Pages/Profile/index', (array) $user);
+            echo $templates->render('Pages/Profile/Index', (array) $user);
         } else {
             header('HTTP/1.0 404 Not Found', true, 404);
             echo $templates->render('Pages/Error/Error', ['title' => '404 - Not found', 'message' => 'The requested page cannot be found']);
