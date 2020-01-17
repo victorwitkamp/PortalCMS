@@ -39,7 +39,7 @@ class InvoiceMapper
         return null;
     }
 
-    public static function getByFactuurnummer(string $factuurnummer) : ?array
+    public static function getByFactuurnummer(string $factuurnummer)
     {
         $stmt = DB::conn()->prepare(
             'SELECT *

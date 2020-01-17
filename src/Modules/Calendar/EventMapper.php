@@ -10,7 +10,7 @@ namespace PortalCMS\Modules\Calendar;
 use PDO;
 use PortalCMS\Core\Database\DB;
 
-class CalendarEventMapper
+class EventMapper
 {
     /**
      * Check if an Event ID exists

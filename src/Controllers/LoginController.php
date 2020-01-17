@@ -105,7 +105,7 @@ class LoginController extends Controller
     /**
      * The login action, when you do login/Login
      */
-    public static function loginWithPassword()
+    public static function loginWithPassword(): bool
     {
         if (!Csrf::isTokenValid()) {
             Session::add('feedback_negative', 'Invalid CSRF token.');
@@ -133,7 +133,7 @@ class LoginController extends Controller
     /**
      * Login with cookie
      */
-    public static function loginWithCookie()
+    public static function loginWithCookie(): bool
     {
         $cookie = Request::cookie('remember_me');
         if (!empty($cookie) && LoginService::loginWithCookie((string) $cookie)) {
@@ -148,7 +148,7 @@ class LoginController extends Controller
      * Login with Facebook
      * @param $fbid
      */
-    public static function loginWithFacebook(int $fbid)
+    public static function loginWithFacebook(int $fbid): bool
     {
         if (LoginService::loginWithFacebook($fbid)) {
             if (Request::post('redirect')) {

@@ -7,9 +7,11 @@ declare(strict_types=1);
 
 namespace PortalCMS\Modules\Calendar;
 
+use PortalCMS\Core\Activity\Activity;
 use PortalCMS\Core\Session\Session;
+use PortalCMS\Modules\Calendar\EventMapper;
 
-class CalendarEventModel
+class EventService
 {
     /**
      * @param string $startDate
@@ -19,7 +21,7 @@ class CalendarEventModel
     public static function getByDate(string $startDate, string $endDate): array
     {
         $eventsArray = [];
-        $events = CalendarEventMapper::getByDate($startDate, $endDate);
+        $events = EventMapper::getByDate($startDate, $endDate);
         if (!empty($events)) {
             foreach ($events as $event) {
                 if ($event->status === 1) {
@@ -47,7 +49,7 @@ class CalendarEventModel
     public static function loadComingEvents()
     {
         $eventsArray = [];
-        $events = CalendarEventMapper::getEventsAfter(date('Y-m-d H:i:s'));
+        $events = EventMapper::getEventsAfter(date('Y-m-d H:i:s'));
         if (!empty($events)) {
             foreach ($events as $event) {
                 $eventsArray[] = [
@@ -70,7 +72,7 @@ class CalendarEventModel
      */
     public static function create(string $title, string $start, string $end, string $description): bool
     {
-        if (!CalendarEventMapper::new($title, date('Y-m-d H:i:s', strtotime($start)), date('Y-m-d H:i:s', strtotime($end)), $description, (int) Session::get('user_id'))) {
+        if (!EventMapper::new($title, date('Y-m-d H:i:s', strtotime($start)), date('Y-m-d H:i:s', strtotime($end)), $description, (int) Session::get('user_id'))) {
             Session::add('feedback_negative', 'Toevoegen van evenement mislukt.');
             return false;
         }
@@ -89,8 +91,8 @@ class CalendarEventModel
      */
     public static function update(int $id, string $title, string $start_event, string $end_event, string $description, int $status): bool
     {
-        if (CalendarEventMapper::exists($id)) {
-            if (CalendarEventMapper::update(
+        if (EventMapper::exists($id)) {
+            if (EventMapper::update(
                 $title,
                 date('Y-m-d H:i:s', strtotime($start_event)),
                 date('Y-m-d H:i:s', strtotime($end_event)),
@@ -98,6 +100,7 @@ class CalendarEventModel
                 $status,
                 $id
             )) {
+                Activity::add('UpdateEvent', Session::get('user_id'), 'ID: '.$id, Session::get('user_name'));
                 Session::add('feedback_positive', 'Evenement gewijzigd.');
                 return true;
             }
@@ -114,8 +117,8 @@ class CalendarEventModel
      */
     public static function delete(int $id): bool
     {
-        if (!empty(CalendarEventMapper::getById($id))) {
-            if (CalendarEventMapper::delete($id)) {
+        if (!empty(EventMapper::getById($id))) {
+            if (EventMapper::delete($id)) {
                 Session::add('feedback_positive', 'Evenement verwijderd.');
                 return true;
             }

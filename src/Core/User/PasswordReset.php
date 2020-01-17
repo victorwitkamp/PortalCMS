@@ -33,7 +33,7 @@ class PasswordReset
      * @return bool success status
      */
     // public static function requestPasswordReset($user_name_or_email, $captcha)
-    public static function requestPasswordReset($user_name_or_email)
+    public static function requestPasswordReset($user_name_or_email): bool
     {
         // if (!CaptchaModel::checkCaptcha($captcha)) {
         //     Session::add('feedback_negative', Text::get('FEEDBACK_CAPTCHA_WRONG'));
@@ -83,7 +83,7 @@ class PasswordReset
      *
      * @return bool success status
      */
-    public static function writeTokenToDatabase($user_name, $password_reset_hash, $timestamp)
+    public static function writeTokenToDatabase($user_name, $password_reset_hash, $timestamp): bool
     {
         $sql = 'UPDATE users
                 SET password_reset_hash = :password_reset_hash, user_password_reset_timestamp = :user_password_reset_timestamp
@@ -112,7 +112,7 @@ class PasswordReset
      *
      * @return bool success status
      */
-    public static function sendPasswordResetMail($user_name, $password_reset_hash, $user_email)
+    public static function sendPasswordResetMail($user_name, $password_reset_hash, $user_email): bool
     {
         $Mail = EmailTemplatePDOReader::getSystemTemplateByName('ResetPassword');
         $MailText = $Mail['body'];
@@ -148,7 +148,7 @@ class PasswordReset
      * @param  string $verification_code Hash token
      * @return bool Success status
      */
-    public static function verifyPasswordReset($user_name, $verification_code)
+    public static function verifyPasswordReset($user_name, $verification_code): bool
     {
         // check if user-provided username + verification code combination exists
         $sql = 'SELECT user_id, user_password_reset_timestamp
@@ -191,7 +191,7 @@ class PasswordReset
      *
      * @return bool
      */
-    public static function saveNewUserPassword($user_name, $user_password_hash, $password_reset_hash)
+    public static function saveNewUserPassword($user_name, $user_password_hash, $password_reset_hash): bool
     {
         $sql = 'UPDATE users SET user_password_hash = :user_password_hash, password_reset_hash = NULL,
                        user_password_reset_timestamp = NULL
@@ -225,7 +225,7 @@ class PasswordReset
      *
      * @return bool success state of the password reset
      */
-    public static function setNewPassword($user_name, $password_reset_hash, $user_password_new, $user_password_repeat)
+    public static function setNewPassword($user_name, $password_reset_hash, $user_password_new, $user_password_repeat): bool
     {
         // validate the password
         if (!self::validateResetPassword($user_name, $password_reset_hash, $user_password_new, $user_password_repeat)) {

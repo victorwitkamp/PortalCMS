@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Modules\Invoices;
 
+use function is_array;
 use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
 use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
 use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
@@ -16,7 +17,6 @@ use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\PDF;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Contracts\ContractMapper;
-use function is_array;
 
 class InvoiceHelper
 {
@@ -59,12 +59,12 @@ class InvoiceHelper
      * @param $factuurdatum
      * @return bool
      */
-    public static function createInvoiceAction(int $year, int $month, int $contract_id, string $factuurdatum): bool
+    public static function createInvoiceAction(int $year, string $month, int $contract_id, string $factuurdatum): bool
     {
         $contract = ContractMapper::getById($contract_id);
         $factuurnummer = $year . $contract->bandcode . $month;
         if (empty(InvoiceMapper::getByFactuurnummer($factuurnummer))) {
-            if (InvoiceMapper::create($contract_id, $factuurnummer, $year, $month, $factuurdatum)) {
+            if (InvoiceMapper::create($contract_id, $factuurnummer, $year, (int) $month, $factuurdatum)) {
                 $invoice = InvoiceMapper::getByFactuurnummer($factuurnummer);
                 $kosten_ruimte = (int) $contract->kosten_ruimte;
                 $kosten_kast = (int) $contract->kosten_kast;
@@ -83,7 +83,7 @@ class InvoiceHelper
         return false;
     }
 
-    public static function create(int $year, int $month, array $contract_ids, string $factuurdatum): bool
+    public static function create(int $year, string $month, array $contract_ids, string $factuurdatum): bool
     {
         if (empty($factuurdatum)) {
             Session::add('feedback_negative', 'Geen factuurdatum opgegeven.');

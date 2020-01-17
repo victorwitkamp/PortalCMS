@@ -15,8 +15,8 @@ use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Modules\Calendar\CalendarEventMapper;
-use PortalCMS\Modules\Calendar\CalendarEventModel;
+use PortalCMS\Modules\Calendar\EventMapper;
+use PortalCMS\Modules\Calendar\EventService;
 
 /**
  * EventsController
@@ -60,10 +60,10 @@ class EventsController extends Controller
     {
         Authentication::checkAuthentication();
         Authorization::verifyPermission('events');
-        $event = CalendarEventMapper::getById((int) $_GET['id']);
+        $event = EventMapper::getById((int) $_GET['id']);
         if (!empty($event)) {
             $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/Events/details', ['event' => $event]);
+            echo $templates->render('Pages/Events/Details', ['event' => $event]);
         }
     }
 
@@ -75,7 +75,7 @@ class EventsController extends Controller
         Authentication::checkAuthentication();
         Authorization::verifyPermission('events');
         $templates = new Engine(DIR_VIEW);
-        echo $templates->render('Pages/Events/add');
+        echo $templates->render('Pages/Events/Add');
     }
 
     /**
@@ -86,12 +86,12 @@ class EventsController extends Controller
         Authentication::checkAuthentication();
         Authorization::verifyPermission('events');
 
-        $event = CalendarEventMapper::getById((int) $_GET['id']);
+        $event = EventMapper::getById((int) $_GET['id']);
 
         if (!empty($event)) {
             $pageName = 'Evenement ' . $event->title . ' bewerken';
             $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/Events/edit', ['event' => $event, 'pageName' => $pageName]);
+            echo $templates->render('Pages/Events/Edit', ['event' => $event, 'pageName' => $pageName]);
         } else {
             Session::add('feedback_negative', 'Geen resultaten voor opgegeven event ID.');
             Redirect::to('Error/Error');
@@ -101,19 +101,19 @@ class EventsController extends Controller
     public function loadCalendarEvents()
     {
         Authentication::checkAuthentication();
-        echo json_encode(CalendarEventModel::getByDate(Request::get('start'), Request::get('end')));
+        echo json_encode(EventService::getByDate(Request::get('start'), Request::get('end')));
     }
 
     public function loadComingEvents()
     {
         Authentication::checkAuthentication();
-        echo json_encode(CalendarEventModel::loadComingEvents());
+        echo json_encode(EventService::loadComingEvents());
     }
 
-    public function updateEventDate()
+    public function updateEventDate(): bool
     {
         Authentication::checkAuthentication();
-        return CalendarEventMapper::updateDate(
+        return EventMapper::updateDate(
             (int) Request::post('id'),
             (string) Request::post('title'),
             (string) Request::post('start'),
@@ -123,7 +123,7 @@ class EventsController extends Controller
 
     public static function deleteEvent()
     {
-        if (CalendarEventModel::delete((int) Request::post('id', true))) {
+        if (EventService::delete((int) Request::post('id', true))) {
             Redirect::to('events/');
         } else {
             Redirect::to('Error/Error');
@@ -132,7 +132,7 @@ class EventsController extends Controller
 
     public static function updateEvent()
     {
-        if (CalendarEventModel::update(
+        if (EventService::update(
             (int) Request::post('id', true),
             (string) Request::post('title', true),
             (string) Request::post('start_event', true),
@@ -148,7 +148,7 @@ class EventsController extends Controller
 
     public static function addEvent()
     {
-        if (CalendarEventModel::create(
+        if (EventService::create(
             (string) Request::post('title', true),
             (string) Request::post('start_event', true),
             (string) Request::post('end_event', true),

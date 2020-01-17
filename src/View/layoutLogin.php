@@ -16,8 +16,8 @@ use PortalCMS\Core\View\Alert;
     <link rel="stylesheet" href="/includes/LoginNewStyle.css" />
     <link rel="stylesheet" type="text/css" href="/dist/cookieconsent/build/cookieconsent.min.css" />
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="/dist/cookieconsent/build/cookieconsent.min.js" async></script>
-    <script src="/includes/js/cookieconsent.init.js" async></script>
+    <script src="/dist/cookieconsent/build/cookieconsent.min.js"></script>
+    <script src="/includes/js/cookieconsent.init.js"></script>
     <link rel="stylesheet" type="text/css" href="/includes/css/loadingAnimation.css">
     <!-- <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"> -->
     <!-- <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet"> -->

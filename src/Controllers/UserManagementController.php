@@ -31,7 +31,7 @@ class UserManagementController extends Controller
         'addrole' => 'POST',
         'setrolepermission' => 'POST',
         'deleterolepermission' => 'POST',
-        'assignRole' => 'POST',
+        'assignrole' => 'POST',
         'unassignRole' => 'POST'
     ];
 
@@ -49,7 +49,7 @@ class UserManagementController extends Controller
     {
         if (Authorization::hasPermission('user-management')) {
             $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/UserManagement/Users/index');
+            echo $templates->render('Pages/UserManagement/Users/Index');
         } else {
             Redirect::to('Error/PermissionError');
         }
@@ -59,7 +59,7 @@ class UserManagementController extends Controller
     {
         if (Authorization::hasPermission('user-management')) {
             $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/UserManagement/Profile/index');
+            echo $templates->render('Pages/UserManagement/Profile/Index');
         } else {
             Redirect::to('Error/PermissionError');
         }
@@ -69,7 +69,7 @@ class UserManagementController extends Controller
     {
         if (Authorization::hasPermission('role-management')) {
             $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/UserManagement/Roles/index');
+            echo $templates->render('Pages/UserManagement/Roles/Index');
         } else {
             Redirect::to('Error/PermissionError');
         }
@@ -79,7 +79,7 @@ class UserManagementController extends Controller
     {
         if (Authorization::hasPermission('user-management')) {
             $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/UserManagement/Role/index');
+            echo $templates->render('Pages/UserManagement/Role/Index');
         } else {
             Redirect::to('Error/PermissionError');
         }
@@ -124,7 +124,7 @@ class UserManagementController extends Controller
         RolePermission::unassignPermission($_POST['role_id'], $_POST['perm_id']);
     }
 
-    public static function assignRole(): bool
+    public static function assignrole(): bool
     {
         $user_id = $_POST['user_id'];
         $role_id = $_POST['role_id'];

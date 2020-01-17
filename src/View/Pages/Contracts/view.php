@@ -18,7 +18,7 @@ $pageName = 'Contract van ' . $contract->band_naam;
         </div>
     </div>
     <div class="container">
-        <?php require 'inc/buttons.php'; ?>
+        <?php require DIR_VIEW . 'Pages/Contracts/inc/buttons.php'; ?>
         <a href="Invoices?id=<?= $contract->id ?>">Facturen bekijken</a>
         <hr>
         <?php require 'inc/view.php'; ?>

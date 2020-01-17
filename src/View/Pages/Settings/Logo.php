@@ -8,7 +8,7 @@ $pageName = Text::get('TITLE_SITE_LOGO');
 <?= $this->layout('layout', ['title' => $pageName]) ?>
 <?= $this->push('head-extra') ?>
 
-<script src="/dist/bs-custom-file-input/dist/bs-custom-file-input.min.js" async></script>
+<script src="/dist/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
 
 
 <?= $this->end() ?>

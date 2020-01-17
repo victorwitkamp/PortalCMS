@@ -60,7 +60,7 @@ class InvoicesController extends Controller
     {
         if (Authorization::verifyPermission('rental-invoices')) {
             $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/Invoices/add');
+            echo $templates->render('Pages/Invoices/Add');
         } else {
             Redirect::to('Error/PermissionError');
         }
@@ -118,7 +118,7 @@ class InvoicesController extends Controller
     public static function createInvoice()
     {
         $year = (int) Request::post('year', true);
-        $month = (int) Request::post('month', true);
+        $month = (string) Request::post('month', true);
         $contracts = (array) Request::post('contract_id');
         $factuurdatum = (string) Request::post('factuurdatum', true);
         if (InvoiceHelper::create($year, $month, $contracts, $factuurdatum)) {
@@ -142,7 +142,7 @@ class InvoicesController extends Controller
         $invoiceId = (int) Request::post('invoiceid', true);
         $id = (int) Request::post('id', true);
         if (InvoiceHelper::deleteItem($id)) {
-            Redirect::to('Invoices/details?id=' . $invoiceId);
+            Redirect::to('Invoices/Details?id=' . $invoiceId);
         } else {
             Redirect::to('Error/Error');
         }
@@ -154,7 +154,7 @@ class InvoicesController extends Controller
         $name = (string) Request::post('name', true);
         $price = (int) Request::post('price', true);
         if (InvoiceHelper::createItem($invoiceId, $name, $price)) {
-            Redirect::to('Invoices/details?id=' . $invoiceId);
+            Redirect::to('Invoices/Details?id=' . $invoiceId);
         } else {
             Redirect::to('Error/Error');
         }

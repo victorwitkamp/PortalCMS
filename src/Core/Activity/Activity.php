@@ -15,12 +15,12 @@ use PortalCMS\Core\HTTP\RemoteAddress;
  */
 class Activity
 {
-    public static function load()
+    public static function load(): array
     {
         return ActivityMapper::load();
     }
 
-    public static function add(string $activity, int $user_id = null, $user_name = null, $details = null)
+    public static function add(string $activity, int $user_id = null, $details = null, $user_name = null)
     {
         if (!empty($activity)) {
             $remoteAddress = new RemoteAddress();

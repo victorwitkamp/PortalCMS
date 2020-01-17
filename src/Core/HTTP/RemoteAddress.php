@@ -114,7 +114,7 @@ class RemoteAddress
     protected function getIpAddressFromProxy()
     {
         if (!$this->useProxy
-            || (isset($_SERVER['REMOTE_ADDR']) && !in_array($_SERVER['REMOTE_ADDR'], $this->trustedProxies))
+            || (isset($_SERVER['REMOTE_ADDR']) && !\in_array($_SERVER['REMOTE_ADDR'], $this->trustedProxies))
         ) {
             return false;
         }
@@ -158,7 +158,7 @@ class RemoteAddress
     {
         $header = strtoupper($header);
         $header = str_replace('-', '_', $header);
-        if (0 !== strpos($header, 'HTTP_')) {
+        if (0 !== strncmp($header, 'HTTP_', 5)) {
             $header = 'HTTP_' . $header;
         }
         return $header;

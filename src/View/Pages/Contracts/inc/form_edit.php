@@ -106,7 +106,7 @@ use PortalCMS\Core\View\Text;
                     </div>
                 </div>
             </div>
-            <h3>Gegevens bandleider</h3>
+            <h3>Gegevens contactpersoon</h3>
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-12">

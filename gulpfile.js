@@ -9,10 +9,10 @@ const concat = require('gulp-concat');
 //         .pipe(dest('build/html'))
 // }
 // function css() {
-//     return src('public/includes/css/*.css')
+//     return src('portal/includes/css/*.css')
 //         // .pipe(less())
 //         .pipe(minifyCSS())
-//         .pipe(dest('public/dist/css/'))
+//         .pipe(dest('portal/dist/css/'))
 // }
 function css () {
   return src([
@@ -30,7 +30,7 @@ function css () {
   })
   // .pipe(less())
   // .pipe(minifyCSS())
-    .pipe(dest('public/dist/'))
+    .pipe(dest('portal/dist/'))
 }
 function fullcalendarCss () {
   return src([
@@ -44,7 +44,7 @@ function fullcalendarCss () {
   // .pipe(less())
     .pipe(concat('fullcalendar.min.css'))
     .pipe(minifyCSS())
-    .pipe(dest('public/dist/merged/@fullcalendar/'))
+    .pipe(dest('portal/dist/merged/@fullcalendar/'))
 }
 function js () {
   return src([
@@ -60,7 +60,7 @@ function js () {
   ], {
     base: 'node_modules/'
   })
-    .pipe(dest('public/dist/'))
+    .pipe(dest('portal/dist/'))
 }
 function fullcalendarJs () {
   return src([
@@ -74,25 +74,25 @@ function fullcalendarJs () {
     base: 'node_modules/'
   })
     .pipe(concat('fullcalendar.min.js'))
-    .pipe(dest('public/dist/merged/@fullcalendar/'))
+    .pipe(dest('portal/dist/merged/@fullcalendar/'))
 }
 function woff () {
   return src('node_modules/**/*.woff', {
     base: 'node_modules/'
   })
-    .pipe(dest('public/dist/'))
+    .pipe(dest('portal/dist/'))
 }
 function woff2 () {
   return src('node_modules/**/*.woff2', {
     base: 'node_modules/'
   })
-    .pipe(dest('public/dist/'))
+    .pipe(dest('portal/dist/'))
 }
 function ttf () {
   return src('node_modules/**/*.ttf', {
     base: 'node_modules/'
   })
-    .pipe(dest('public/dist/'))
+    .pipe(dest('portal/dist/'))
 }
 exports.js = js;
 exports.css = css;
