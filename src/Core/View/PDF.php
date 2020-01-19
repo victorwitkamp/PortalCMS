@@ -7,10 +7,10 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\View;
 
+use function define;
 use PortalCMS\Core\Config\SiteSetting;
 use PortalCMS\Core\Session\Session;
 use TCPDF;
-use function define;
 
 class PDF
 {
@@ -138,8 +138,8 @@ class PDF
         $pdf->Write(0, $totaalbedrag . "\n\n\n", '', 0, 'R');
 
         $pdf->SetX(20);
-        $gelieve  = 'Wij verzoeken u het bedrag binnen 14 dagen over te maken naar NL19 RABO 1017';
-        $gelieve2 = '5413 53 o.v.v. het factuurnummer t.n.v. Sociëteit de Beuk.';
+        $gelieve  = 'Wij verzoeken u het bedrag binnen 14 dagen over te maken naar';
+        $gelieve2 = 'NL19 RABO 1017 5413 53 o.v.v. het factuurnummer t.n.v. SOCIETEIT DE BEUK.'."\n";
         $gelieve4 = 'Neem voor vragen over facturatie contact op met penningmeester@beukonline.nl.' . "\n\n";
         $pdf->SetX(20);
         $pdf->Write(0, $gelieve, '', 0, '', true);
@@ -148,7 +148,7 @@ class PDF
         $pdf->SetX(20);
         $pdf->Write(0, $gelieve4, '', 0, 'L', true);
         $pdf->SetX(20);
-        $pdf->Write(0, 'Met vriendelijke groet,' . "\n", '', 0, 'L', true);
+        $pdf->Write(0, 'Met vriendelijke groet,' . "\n\n", '', 0, 'L', true);
         $pdf->SetX(20);
         $pdf->Write(0, 'De penningmeester van Poppodium de Beuk.', '', 0, 'L', true);
         return $pdf;

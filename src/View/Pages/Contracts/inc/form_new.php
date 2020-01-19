@@ -12,7 +12,7 @@ use PortalCMS\Core\View\Text;
                     <input type="text" name="band_naam" class="form-control form-control-sm" value="" required>
                 </div>
                 <div class="col-md-4">
-                    <label class="col-form-label">bandcode</label>
+                    <label class="col-form-label">Klantcode</label>
                     <input type="text" name="bandcode" class="form-control form-control-sm" required>
                 </div>
             </div>

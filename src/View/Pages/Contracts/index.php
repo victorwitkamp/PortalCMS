@@ -34,7 +34,8 @@ $contracts = ContractMapper::get();
                     <thead class="thead-dark">
                         <tr>
                             <th>Huurder</th>
-                            <th>Bandcode</th>
+                            <th>Klantcode</th>
+                            <th>Prijs per maand</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,6 +44,7 @@ $contracts = ContractMapper::get();
                         <tr>
                             <td><a href="View?id=<?= $contract->id ?>"><?= $contract->band_naam ?></a></td>
                             <td><?= $contract->bandcode ?></td>
+                            <td><?= $contract->kosten_totaal; ?></td>
                         </tr>
                     <?php } ?>
                     </tbody>

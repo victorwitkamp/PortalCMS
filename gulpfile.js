@@ -24,7 +24,8 @@ function css () {
     'node_modules/@fullcalendar/daygrid/main.min.css',
     'node_modules/cookieconsent/build/cookieconsent.min.css',
     'node_modules/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css',
-    'node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css'
+    'node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css',
+    'node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css'
   ], {
     base: 'node_modules/'
   })
@@ -55,6 +56,8 @@ function js () {
     'node_modules/cookieconsent/build/cookieconsent.min.js',
     'node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js',
     'node_modules/datatables.net/js/jquery.dataTables.min.js',
+    'node_modules/datatables.net-select/js/dataTables.select.min.js',
+    'node_modules/datatables.net-select-bs4/js/select.bootstrap4.min.js',
     'node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js',
     'node_modules/bs-custom-file-input/dist/bs-custom-file-input.min.js'
   ], {
