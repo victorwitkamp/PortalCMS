@@ -139,7 +139,7 @@ class PDF
 
         $pdf->SetX(20);
         $gelieve  = 'Wij verzoeken u het bedrag binnen 14 dagen over te maken naar';
-        $gelieve2 = 'NL19 RABO 1017 5413 53 o.v.v. het factuurnummer t.n.v. SOCIETEIT DE BEUK.'."\n";
+        $gelieve2 = 'NL19 RABO 1017 5413 53 o.v.v. het factuurnummer t.n.v. SOCIETEIT DE BEUK.' . "\n";
         $gelieve4 = 'Neem voor vragen over facturatie contact op met penningmeester@beukonline.nl.' . "\n\n";
         $pdf->SetX(20);
         $pdf->Write(0, $gelieve, '', 0, '', true);
