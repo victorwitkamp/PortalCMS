@@ -48,7 +48,7 @@ class InvoicesController extends Controller
 
     public function index()
     {
-        if (Authorization::verifyPermission('rental-invoices')) {
+        if (Authorization::hasPermission('rental-invoices')) {
             $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Invoices/Index');
         } else {
@@ -58,7 +58,7 @@ class InvoicesController extends Controller
 
     public function add()
     {
-        if (Authorization::verifyPermission('rental-invoices')) {
+        if (Authorization::hasPermission('rental-invoices')) {
             $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Invoices/Add');
         } else {
@@ -68,7 +68,7 @@ class InvoicesController extends Controller
 
     public function details()
     {
-        if (Authorization::verifyPermission('rental-invoices')) {
+        if (Authorization::hasPermission('rental-invoices')) {
             $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Invoices/Details');
         } else {
@@ -78,7 +78,7 @@ class InvoicesController extends Controller
 
     public function createPDF()
     {
-        if (Authorization::verifyPermission('rental-invoices')) {
+        if (Authorization::hasPermission('rental-invoices')) {
             $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Invoices/CreatePDF');
         } else {

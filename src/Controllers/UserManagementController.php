@@ -116,18 +116,18 @@ class UserManagementController extends Controller
 
     public static function setrolepermission()
     {
-        RolePermission::assignPermission($_POST['role_id'], $_POST['perm_id']);
+        RolePermission::assignPermission((int) $_POST['role_id'], (int) $_POST['perm_id']);
     }
 
     public static function deleterolepermission()
     {
-        RolePermission::unassignPermission($_POST['role_id'], $_POST['perm_id']);
+        RolePermission::unassignPermission((int) $_POST['role_id'], (int) $_POST['perm_id']);
     }
 
     public static function assignrole(): bool
     {
-        $user_id = $_POST['user_id'];
-        $role_id = $_POST['role_id'];
+        $user_id = (int) $_POST['user_id'];
+        $role_id = (int) $_POST['role_id'];
         if (UserRoleMapper::isAssigned($user_id, $role_id)) {
             Session::add('feedback_negative', 'Rol is reeds toegewezen aan deze gebruiker.');
             Redirect::to('Error/Error');
@@ -145,8 +145,8 @@ class UserManagementController extends Controller
 
     public static function unassignRole(): bool
     {
-        $user_id = $_POST['user_id'];
-        $role_id = $_POST['role_id'];
+        $user_id = (int) $_POST['user_id'];
+        $role_id = (int) $_POST['role_id'];
         if (!UserRoleMapper::isAssigned($user_id, $role_id)) {
             Session::add('feedback_negative', 'Rol is niet aan deze gebruiker toegewezen. Er is geen toewijzing om te verwijderen.');
             Redirect::to('Error/Error');

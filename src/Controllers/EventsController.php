@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright Victor Witkamp (c) 2019.
  */
@@ -47,10 +48,12 @@ class EventsController extends Controller
      */
     public function index()
     {
-        Authentication::checkAuthentication();
-        Authorization::verifyPermission('events');
-        $templates = new Engine(DIR_VIEW);
-        echo $templates->render('Pages/Events/Index');
+        if (Authorization::hasPermission('events')) {
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/Events/Index');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
     }
 
     /**
@@ -58,12 +61,17 @@ class EventsController extends Controller
      */
     public function details()
     {
-        Authentication::checkAuthentication();
-        Authorization::verifyPermission('events');
-        $event = EventMapper::getById((int) $_GET['id']);
-        if (!empty($event)) {
-            $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/Events/Details', ['event' => $event]);
+        if (Authorization::hasPermission('events')) {
+            $event = EventMapper::getById((int) $_GET['id']);
+            if (!empty($event)) {
+                $templates = new Engine(DIR_VIEW);
+                echo $templates->render('Pages/Events/Details', ['event' => $event]);
+            } else {
+                Session::add('feedback_negative', 'Geen resultaten voor opgegeven event ID.');
+                Redirect::to('Error/Error');
+            }
+        } else {
+            Redirect::to('Error/PermissionError');
         }
     }
 
@@ -72,10 +80,12 @@ class EventsController extends Controller
      */
     public function add()
     {
-        Authentication::checkAuthentication();
-        Authorization::verifyPermission('events');
-        $templates = new Engine(DIR_VIEW);
-        echo $templates->render('Pages/Events/Add');
+        if (Authorization::hasPermission('events')) {
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/Events/Add');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
     }
 
     /**
@@ -83,36 +93,33 @@ class EventsController extends Controller
      */
     public function edit()
     {
-        Authentication::checkAuthentication();
-        Authorization::verifyPermission('events');
-
-        $event = EventMapper::getById((int) $_GET['id']);
-
-        if (!empty($event)) {
-            $pageName = 'Evenement ' . $event->title . ' bewerken';
-            $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/Events/Edit', ['event' => $event, 'pageName' => $pageName]);
+        if (Authorization::hasPermission('events')) {
+            $event = EventMapper::getById((int) $_GET['id']);
+            if (!empty($event)) {
+                $pageName = 'Evenement ' . $event->title . ' bewerken';
+                $templates = new Engine(DIR_VIEW);
+                echo $templates->render('Pages/Events/Edit', ['event' => $event, 'pageName' => $pageName]);
+            } else {
+                Session::add('feedback_negative', 'Geen resultaten voor opgegeven event ID.');
+                Redirect::to('Error/Error');
+            }
         } else {
-            Session::add('feedback_negative', 'Geen resultaten voor opgegeven event ID.');
-            Redirect::to('Error/Error');
+            Redirect::to('Error/PermissionError');
         }
     }
 
     public function loadCalendarEvents()
     {
-        Authentication::checkAuthentication();
         echo json_encode(EventService::getByDate(Request::get('start'), Request::get('end')));
     }
 
     public function loadComingEvents()
     {
-        Authentication::checkAuthentication();
         echo json_encode(EventService::loadComingEvents());
     }
 
     public function updateEventDate(): bool
     {
-        Authentication::checkAuthentication();
         return EventMapper::updateDate(
             (int) Request::post('id'),
             (string) Request::post('title'),
@@ -159,4 +166,5 @@ class EventsController extends Controller
             Redirect::to('Error/Error');
         }
     }
+
 }
