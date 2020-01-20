@@ -100,7 +100,7 @@ class EventService
                 $status,
                 $id
             )) {
-                Activity::add('UpdateEvent', Session::get('user_id'), 'ID: '.$id, Session::get('user_name'));
+                Activity::add('UpdateEvent', Session::get('user_id'), 'ID: ' . $id, Session::get('user_name'));
                 Session::add('feedback_positive', 'Evenement gewijzigd.');
                 return true;
             }
