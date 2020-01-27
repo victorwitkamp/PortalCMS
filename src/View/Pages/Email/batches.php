@@ -45,7 +45,6 @@ $pageName = Text::get('TITLE_MAIL_BATCHES');
         </div>
         <div class="card-body">
             <?php
-            //PortalCMS_JS_Init_dataTables();
             $batches = MailBatch::getAll();
             if (!empty($batches)) {
                 echo '<p>Aantal: ' . count($batches) . '</p>';

@@ -36,9 +36,9 @@ if (empty($year)) {
         <div class="form-group">
             <div class="row">
                 <div class="col-md-12">
-                    <label><?= Text::get('MONTH') ?></label>
-                        <input type="text" name="year" value="<?= $year ?>" />
-                        <input type="submit" name="setYear"/>
+                    <label><?= Text::get('YEAR') ?></label>
+                    <input type="number" name="year" value="<?= $year ?>" />
+                    <input type="submit" name="generateMemberSetYear" />
                 </div>
             </div>
         </div>

@@ -27,7 +27,7 @@ class EmailController extends Controller
      * @var array $requests
      */
     private $requests = [
-        'setYear' => 'POST',
+        'generateMemberSetYear' => 'POST',
         'uploadAttachment' => 'POST',
         'deleteMailTemplateAttachments' => 'POST',
         'deleteTemplate' => 'POST',
@@ -165,10 +165,9 @@ class EmailController extends Controller
         }
     }
 
-    public static function setYear(): void
+    public static function generateMemberSetYear(): void
     {
-        $year = Request::post('year');
-        header('Location: ' . $_SERVER['PHP_SELF'] . '?year=' . $year);
+        Redirect::to('Email/GenerateMember/?year=' .  Request::post('year'));
     }
 
     public static function uploadAttachment(): void

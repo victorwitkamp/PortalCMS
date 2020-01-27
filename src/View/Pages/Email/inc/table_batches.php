@@ -24,7 +24,7 @@ use PortalCMS\Core\View\Text;
             <?php
             foreach ($batches as $row) {  ?>
                 <tr>
-                    <td class="text-center"><input type="checkbox" name="id[]" id="checkbox" value="<?= $row['id'] ?>"/></td>
+                    <td class="text-center"><input type="checkbox" name="id[]" id="checkbox<?= $row['id'] ?>" value="<?= $row['id'] ?>"/></td>
                     <td><?= $row['id'] ?></td>
                     <td><a href="Messages?batch_id=<?= $row['id'] ?>"><?= MailBatch::countMessages($row['id']) ?></a></td>
                     <td><?= $row['UsedTemplate'] ?></td>

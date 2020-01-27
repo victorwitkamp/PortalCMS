@@ -69,7 +69,7 @@ class MailBatch
         }
         if ($deleted > 0) {
             Session::add('feedback_positive', 'Er zijn ' . $deleted . ' batches en ' . $deletedMessageCount . ' berichten verwijderd. ');
-            Redirect::to('email');
+            Redirect::to('Email/Batches');
             return true;
         }
         Session::add('feedback_negative', 'Verwijderen mislukt. Aantal batches met problemen: ' . $error);

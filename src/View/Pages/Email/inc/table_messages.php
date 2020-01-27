@@ -14,7 +14,7 @@ use PortalCMS\Core\View\Text;
                 <th>Recipients</th>
                 <th>Subject</th>
                 <?php if ($pageType === 'history') { ?>
-                <th>Verzonden op</th>
+                    <th>Verzonden op</th>
                 <?php } ?>
                 <th>Status</th>
                 <th>CreationDate</th>
@@ -25,7 +25,7 @@ use PortalCMS\Core\View\Text;
             <?php
             foreach ($result as $row) {  ?>
                 <tr>
-                    <td class="text-center"><input type="checkbox" name="id[]" id="checkbox" value="<?= $row['id'] ?>"/></td>
+                    <td class="text-center"><input type="checkbox" name="id[]" id="checkbox<?= $row['id'] ?>" value="<?= $row['id'] ?>" /></td>
                     <td><?= $row['id'] ?></td>
                     <td><?= $row['batch_id'] ?></td>
                     <td>
@@ -40,20 +40,20 @@ use PortalCMS\Core\View\Text;
                     </td>
                     <td><?= $row['subject'] ?></td>
                     <?php if ($pageType === 'history') { ?>
-                    <td><?= $row['DateSent'] ?></td>
+                        <td><?= $row['DateSent'] ?></td>
                     <?php } ?>
                     <td>
                         <?php
                         if ($row['status'] === 1) {
-                            ?><span class="badge badge-secondary">Klaar voor verzending</span><?php
-                        }
-                        if ($row['status'] === 2) {
-                            ?><span class="badge badge-success">Verzonden</span><?php
-                        }
-                        if ($row['status'] === 3) {
-                            ?><span class="badge badge-danger">Fout bij verzenden</span><?php
-                        }
-                        ?>
+                        ?><span class="badge badge-secondary">Klaar voor verzending</span><?php
+                                                                                            }
+                                                                                            if ($row['status'] === 2) {
+                                                                                                ?><span class="badge badge-success">Verzonden</span><?php
+                                                                                            }
+                                                                                            if ($row['status'] === 3) {
+                                                                                ?><span class="badge badge-danger">Fout bij verzenden</span><?php
+                                                                                            }
+                                                                                        ?>
                     </td>
                     <td><?= $row['CreationDate'] ?></td>
                     <td><a href="Details?id=<?= $row['id'] ?>" title="Details" class="btn btn-success btn-sm"><i class="fas fa-info"></i></a></td>
