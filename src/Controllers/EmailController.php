@@ -144,7 +144,7 @@ class EmailController extends Controller
      */
     public function generate()
     {
-        if (Authorization::hasPermission('mail-templates')) {
+        if (Authorization::hasPermission('mail-scheduler')) {
             $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Email/Generate');
         } else {
@@ -157,7 +157,7 @@ class EmailController extends Controller
      */
     public function generateMember()
     {
-        if (Authorization::hasPermission('mail-templates')) {
+        if (Authorization::hasPermission('mail-scheduler')) {
             $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Email/GenerateMember');
         } else {

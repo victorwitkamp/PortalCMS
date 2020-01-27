@@ -32,7 +32,7 @@ class UserManagementController extends Controller
         'setrolepermission' => 'POST',
         'deleterolepermission' => 'POST',
         'assignrole' => 'POST',
-        'unassignRole' => 'POST'
+        'unassignrole' => 'POST'
     ];
 
     /**
@@ -143,7 +143,7 @@ class UserManagementController extends Controller
         return false;
     }
 
-    public static function unassignRole(): bool
+    public static function unassignrole(): bool
     {
         $user_id = (int) $_POST['user_id'];
         $role_id = (int) $_POST['role_id'];

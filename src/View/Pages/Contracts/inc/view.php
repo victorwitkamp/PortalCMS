@@ -16,7 +16,7 @@ use PortalCMS\Core\View\Text;
             </div>
         </div>
 
-        <h3>Gegevens contactpersoon</h3>
+        <h3>Contactpersoon</h3>
         <div class="form-group">
             <div class="row">
                 <div class="col-md-12">
@@ -25,11 +25,11 @@ use PortalCMS\Core\View\Text;
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <label class="col-form-label">Adres</label>
                     <input type="text" class="form-control form-control-sm" value="<?= $contract->bandleider_adres ?>" disabled>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <label class="col-form-label">Postcode</label>
                     <input type="text" class="form-control form-control-sm" maxlength="6" value="<?= $contract->bandleider_postcode ?>" disabled>
                 </div>
@@ -106,7 +106,7 @@ use PortalCMS\Core\View\Text;
                 <table class="table table-striped table-condensed">
                     <tbody>
                         <tr>
-                            <th>Oefenruimte nr.</th>
+                            <th>Ruimte</th>
                             <td><?= $contract->huur_oefenruimte_nr ?></td>
                         </tr>
                         <tr>
