@@ -202,11 +202,11 @@ class PasswordReset
     }
 
     /**
-     * Validate the password submission
-     * @param $user_name
-     * @param $resetToken
-     * @param $user_password_new
-     * @param $user_password_repeat
+     * Validate the password reset submission
+     * @param string $user_name user name
+     * @param string $resetToken The token required to reset the password
+     * @param string $user_password_new The new password of the user
+     * @param string $user_password_repeat Confirmation of the new password
      * @return bool Did the password pass validation?
      */
     public static function validateResetPassword(string $user_name, string $resetToken, string $user_password_new, string $user_password_repeat) : bool

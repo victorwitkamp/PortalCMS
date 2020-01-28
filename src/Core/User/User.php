@@ -20,41 +20,31 @@ class User
 {
     /**
      * Edit the user's name, provided in the editing form
-     *
      * @param string $newUsername The new username
-     *
      * @return bool success status
      */
-    public static function editUsername($newUsername): bool
+    public static function editUsername(string $newUsername): bool
     {
         if ($newUsername === Session::get('user_name')) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_SAME_AS_OLD_ONE'));
-            return false;
-        }
-
-        // username cannot be empty and must be azAZ09 and 2-64 characters
-        if (!preg_match('/^[a-zA-Z0-9]{2,64}$/', $newUsername)) {
+        } elseif (!preg_match('/^[a-zA-Z0-9]{2,64}$/', $newUsername)) {
+            // username cannot be empty and must be azAZ09 and 2-64 characters
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_DOES_NOT_FIT_PATTERN'));
-            return false;
+        } else {
+            // clean the input, strip usernames longer than 64 chars (maybe fix this ?)
+            $username = substr(strip_tags($newUsername), 0, 64);
+            // check if new username already exists
+            if (UserPDOReader::usernameExists($username)) {
+                Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_ALREADY_TAKEN'));
+            } elseif (!UserPDOWriter::updateUsername(Session::get('user_id'), $username)) {
+                Session::add('feedback_negative', Text::get('FEEDBACK_UNKNOWN_ERROR'));
+            } else {
+                Session::set('user_name', $username);
+                Session::add('feedback_positive', Text::get('FEEDBACK_USERNAME_CHANGE_SUCCESSFUL'));
+                Redirect::to('Account');
+                return true;
+            }
         }
-
-        // clean the input, strip usernames longer than 64 chars (maybe fix this ?)
-        $newUsername = substr(strip_tags($newUsername), 0, 64);
-
-        // check if new username already exists
-        if (UserPDOReader::usernameExists($newUsername)) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_ALREADY_TAKEN'));
-            return false;
-        }
-
-        $status_of_action = UserPDOWriter::updateUsername(Session::get('user_id'), $newUsername);
-        if (!$status_of_action) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_UNKNOWN_ERROR'));
-            return false;
-        }
-        Session::set('user_name', $newUsername);
-        Session::add('feedback_positive', Text::get('FEEDBACK_USERNAME_CHANGE_SUCCESSFUL'));
-        Redirect::to('Account');
-        return true;
+        return false;
     }
 }
