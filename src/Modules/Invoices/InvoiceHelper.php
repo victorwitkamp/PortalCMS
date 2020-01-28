@@ -35,9 +35,7 @@ class InvoiceHelper
                 $invoice->factuurnummer,
                 $template['body']
             );
-            if (!MailScheduleMapper::create($batchId, null, $subject, $body)) {
-                Session::add('feedback_negative', 'Nieuwe email aanmaken mislukt.');
-            } else {
+            if (MailScheduleMapper::create($batchId, null, $subject, $body)) {
                 $createdMailId = MailScheduleMapper::lastInsertedId();
                 $contract = ContractMapper::getById($invoice->contract_id);
                 EmailRecipientMapper::createRecipient($createdMailId, $contract->bandleider_email);
@@ -45,6 +43,8 @@ class InvoiceHelper
                 InvoiceMapper::updateMailId($invoiceId, $createdMailId);
                 InvoiceMapper::updateStatus($invoiceId, 2);
                 return true;
+            } else {
+                Session::add('feedback_negative', 'Nieuwe email aanmaken mislukt.');
             }
         } else {
             Session::add('feedback_negative', 'Factuur niet gevonden.');

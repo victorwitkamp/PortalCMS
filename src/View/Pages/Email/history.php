@@ -35,10 +35,10 @@ $pageName = Text::get('TITLE_MAIL_HISTORY');
     <?php
     Alert::renderFeedbackMessages();
     $result = MailScheduleMapper::getHistory();
-    if (!$result) {
-        echo 'Geen berichten gevonden.';
-    } else {
+    if ($result) {
         include 'inc/table_messages.php';
+    } else {
+        echo 'Geen berichten gevonden.';
     }
     ?>
 </div>

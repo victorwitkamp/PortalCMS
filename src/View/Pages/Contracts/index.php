@@ -27,9 +27,7 @@ $contracts = ContractMapper::get();
             <hr>
             <?php
             Alert::renderFeedbackMessages();
-            if (!$contracts) {
-                echo Text::get('LABEL_NOT_FOUND');
-            } else { ?>
+            if ($contracts) { ?>
                 <table id="example" class="table table-sm table-striped table-hover" style="width:100%">
                     <thead class="thead-dark">
                         <tr>
@@ -49,7 +47,9 @@ $contracts = ContractMapper::get();
                     <?php } ?>
                     </tbody>
                 </table>
-            <?php } ?>
+            <?php } else {
+                echo Text::get('LABEL_NOT_FOUND');
+            } ?>
         </div>
 
 <?= $this->end();

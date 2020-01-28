@@ -27,11 +27,11 @@ class MailSchedule
             return false;
         }
         foreach ($mailIds as $mailId) {
-            if (!MailScheduleMapper::deleteById((int) $mailId)) {
-                ++$error;
-            } else {
+            if (MailScheduleMapper::deleteById((int)$mailId)) {
                 EmailAttachmentMapper::deleteByMailId((int) $mailId);
                 ++$deleted;
+            } else {
+                ++$error;
             }
         }
         if ($deleted > 0) {
@@ -56,14 +56,14 @@ class MailSchedule
             return false;
         }
         foreach ($mailIds as $mailId) {
-            if (!self::isSent((int) $mailId)) {
+            if (self::isSent((int)$mailId)) {
+                ++$alreadySent;
+            } else {
                 if (self::prepareMailData((int) $mailId)) {
                     ++$success;
                 } else {
                     ++$failed;
                 }
-            } else {
-                ++$alreadySent;
             }
         }
         self::sendFeedbackHandler($failed, $success, $alreadySent);
