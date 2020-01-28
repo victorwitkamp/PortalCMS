@@ -40,7 +40,7 @@ class RemoteAddress
      * Returns client IP address.
      * @return string IP address.
      */
-    public function getIpAddress()
+    public function getIpAddress() : ?string
     {
         $ip = $this->getIpAddressFromProxy();
         if ($ip) {
@@ -52,7 +52,7 @@ class RemoteAddress
             return $_SERVER['REMOTE_ADDR'];
         }
 
-        return '';
+        return null;
     }
 
     /**

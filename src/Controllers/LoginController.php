@@ -17,6 +17,7 @@ use PortalCMS\Core\Security\Authentication\Service\LoginService;
 use PortalCMS\Core\Security\Csrf;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\User\PasswordReset;
+use PortalCMS\Core\View\Text;
 
 /**
  * LoginController
@@ -50,11 +51,13 @@ class LoginController extends Controller
             }
         }
         if (isset($_POST['resetSubmit'])) {
-            if (PasswordReset::verifyPasswordReset($_POST['username'], $_POST['password_reset_hash'])) {
-                $user_password_hash = password_hash(base64_encode($_POST['password']), PASSWORD_DEFAULT);
-                if (PasswordReset::saveNewUserPassword($_POST['username'], $user_password_hash, $_POST['password_reset_hash'])) {
+            if (PasswordReset::verifyPasswordReset(Request::post('username'), Request::post('password_reset_hash'))) {
+                $passwordHash = password_hash(base64_encode(Request::post('password')), PASSWORD_DEFAULT);
+                if (PasswordReset::saveNewUserPassword(Request::post('username'), $passwordHash, Request::post('password_reset_hash'))) {
+                    Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_CHANGE_SUCCESSFUL'));
                     Redirect::to('Login');
                 } else {
+                    Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CHANGE_FAILED'));
                     Redirect::to('Login/passwordReset.php');
                 }
             }

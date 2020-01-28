@@ -18,12 +18,12 @@ class PlaceholderHelper
      * @param $text
      * @return string The $text string with the specified placeholder replaced by the specified value.
      */
-    public static function replace(string $placeholder, string $value, string $text)
+    public static function replace(string $placeholder, string $value, string $text): string
     {
         return str_replace('{' . strtoupper($placeholder) . '}', $value, $text);
     }
 
-    public static function replaceMemberPlaceholders(int $memberId, string $text)
+    public static function replaceMemberPlaceholders(int $memberId, string $text): string
     {
         $member = MemberModel::getMemberById($memberId);
         $variables = [

@@ -19,7 +19,7 @@ use PortalCMS\Core\View\Text;
  */
 class SiteSetting
 {
-    public static function saveSiteSettings()
+    public static function saveSiteSettings(): bool
     {
         self::setSiteSetting((string) Request::post('site_name'), 'site_name');
         self::setSiteSetting((string) Request::post('site_description'), 'site_description');
@@ -77,7 +77,7 @@ class SiteSetting
         return false;
     }
 
-    public static function writeJPG($image, $destination)
+    public static function writeJPG($image, $destination): bool
     {
         $destination .= '.jpg';
         imagejpeg($image, $destination, 100);

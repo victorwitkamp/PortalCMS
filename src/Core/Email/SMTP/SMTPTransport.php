@@ -107,7 +107,7 @@ class SMTPTransport
      * @return bool
      * @throws Exception
      */
-    public function sendMail(EmailMessage $message)
+    public function sendMail(EmailMessage $message): bool
     {
         $verifiedMessage = $this->verifyMessage($message);
         if (!$verifiedMessage) {
