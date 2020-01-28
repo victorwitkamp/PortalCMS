@@ -61,13 +61,24 @@ class LoginValidator
         } elseif (empty($user_name) || empty($user_password)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
         } else {
-            $result = UserPDOReader::getByUsername($user_name);
-            if (!empty($result) && self::checkBruteForceByResult($result) && self::verifyIsActive($result) && self::verifyPassword($result, $user_password)) {
-                return $result;
-            }
-            self::incrementUserNotFoundCounter();
-            Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
+            return self::getUser($user_name, $user_password);
         }
+        return null;
+    }
+
+    /**
+     * @param string $user_name user name
+     * @param string $user_password user password
+     * @return object|null
+     */
+    public static function getUser(string $user_name, string $user_password) : ?object
+    {
+        $result = UserPDOReader::getByUsername($user_name);
+        if (!empty($result) && self::checkBruteForceByResult($result) && self::verifyIsActive($result) && self::verifyPassword($result, $user_password)) {
+            return $result;
+        }
+        self::incrementUserNotFoundCounter();
+        Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
         return null;
     }
 
