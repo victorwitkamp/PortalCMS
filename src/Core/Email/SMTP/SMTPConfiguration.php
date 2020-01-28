@@ -17,7 +17,7 @@ class SMTPConfiguration
     public $SMTPHost = 'localhost';
 
     /**
-     * @var integer
+     * @var int
      */
     public $SMTPPort = 25;
 
@@ -29,7 +29,7 @@ class SMTPConfiguration
     public $SMTPCrypto;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $SMTPAuth = 0;
 
@@ -44,7 +44,7 @@ class SMTPConfiguration
     public $SMTPPass;
 
     /**
-     * @var integer
+     * @var int
      */
     public $SMTPDebug = 0;
 
@@ -59,7 +59,7 @@ class SMTPConfiguration
     public $fromName;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $isHTML = true;
 

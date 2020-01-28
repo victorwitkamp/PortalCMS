@@ -82,6 +82,10 @@ class LoginValidator
         return null;
     }
 
+    /**
+     * @param string $cookie The cookie
+     * @return object|null
+     */
     public static function validateCookieLogin(string $cookie) : ?object
     {
         if (substr_count($cookie, ':') + 1 !== 3) {
@@ -104,7 +108,7 @@ class LoginValidator
         return null;
     }
 
-    public static function verifyIsActive($result) : bool
+    public static function verifyIsActive(object $result) : bool
     {
         if ($result->user_active !== 1) {
             Session::add('feedback_negative', Text::get('FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET'));
@@ -114,7 +118,7 @@ class LoginValidator
         return true;
     }
 
-    public static function verifyPassword($result, string $user_password) : bool
+    public static function verifyPassword(object $result, string $user_password) : bool
     {
         if (!password_verify(base64_encode($user_password), $result->user_password_hash)) {
             UserPDOWriter::setFailedLoginByUsername($result->user_name);

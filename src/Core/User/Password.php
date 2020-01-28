@@ -70,23 +70,33 @@ class Password
     {
         $stmt = DB::conn()->prepare('SELECT user_password_hash, user_failed_logins FROM users WHERE user_name = :user_name LIMIT 1;');
         $stmt->execute([':user_name' => $user_name]);
-        if ($stmt->rowCount() === 1) {
-            $user = $stmt->fetch(PDO::FETCH_OBJ);
-            if (!password_verify(base64_encode($currentPassword), $user->user_password_hash)) {
-                Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CURRENT_INCORRECT'));
-            } elseif (empty($newPassword) || empty($repeatNewPassword)) {
-                Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_FIELD_EMPTY'));
-            } elseif ($newPassword !== $repeatNewPassword) {
-                Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_REPEAT_WRONG'));
-            } elseif (strlen($newPassword) <= 6) {
-                Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_TOO_SHORT'));
-            } elseif ($currentPassword === $newPassword) {
-                Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_NEW_SAME_AS_CURRENT'));
-            } else {
-                return true;
-            }
-        } else {
+        if ($stmt->rowCount() !== 1) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USER_DOES_NOT_EXIST'));
+        } else {
+            $user = $stmt->fetch(PDO::FETCH_OBJ);
+            if (self::changePasswordCheckCurrent($user, $currentPassword, $newPassword)) {
+                if (empty($newPassword) || empty($repeatNewPassword)) {
+                    Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_FIELD_EMPTY'));
+                } elseif ($newPassword !== $repeatNewPassword) {
+                    Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_REPEAT_WRONG'));
+                } elseif (strlen($newPassword) <= 6) {
+                    Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_TOO_SHORT'));
+                } else {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static function changePasswordCheckCurrent($user, string $currentPassword, string $newPassword)  : bool
+    {
+        if (!password_verify(base64_encode($currentPassword), $user->user_password_hash)) {
+            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CURRENT_INCORRECT'));
+        } elseif ($currentPassword === $newPassword) {
+            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_NEW_SAME_AS_CURRENT'));
+        } else {
+            return true;
         }
         return false;
     }

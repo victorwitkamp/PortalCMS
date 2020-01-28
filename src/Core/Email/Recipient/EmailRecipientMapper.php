@@ -18,7 +18,7 @@ class EmailRecipientMapper
      * @param int    $mail_id The ID of the e-mail that was scheduled in the MailSchedule table.
      * @param string $name    The name of the recipient
      *
-     * @return boolean
+     * @return bool
      */
     public static function createRecipient(int $mail_id, string $email, string $name = null): bool
     {
@@ -39,7 +39,7 @@ class EmailRecipientMapper
      * @param int    $mail_id The ID of the e-mail that was scheduled in the MailSchedule table.
      * @param string $name    The name of the recipient
      *
-     * @return boolean
+     * @return bool
      */
     public static function createCC(int $mail_id, string $email, string $name = null): bool
     {
@@ -60,7 +60,7 @@ class EmailRecipientMapper
      * @param int    $mail_id The ID of the e-mail that was scheduled in the MailSchedule table.
      * @param string $name    The name of the recipient
      *
-     * @return boolean
+     * @return bool
      */
     public static function createBCC(int $mail_id, string $email, string $name = null): bool
     {
