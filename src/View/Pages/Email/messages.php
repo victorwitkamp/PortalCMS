@@ -52,9 +52,7 @@ $pageName = Text::get('TITLE_MAIL_MESSAGES');
         $result = MailScheduleMapper::getAll();
     }
     $mailcount = count($result);
-    if (!$result) {
-        echo Text::get('LABEL_NOT_FOUND');
-    } else {
+    if ($result) {
         if (!empty($_GET['batch_id'])) {
             echo '<h3>Berichten van batch ' . $_GET['batch_id'] . '</h3>';
         } else {
@@ -62,6 +60,8 @@ $pageName = Text::get('TITLE_MAIL_MESSAGES');
         }
         echo '<p>Aantal: ' . $mailcount . '</p>';
         include 'inc/table_messages.php';
+    } else {
+        echo Text::get('LABEL_NOT_FOUND');
     }
     ?>
 </div>
