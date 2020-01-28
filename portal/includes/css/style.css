@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+html {
+    height: 100%;
+    margin: 0
+}
+body {
+    font-family: 'Raleway', sans-serif;
+    height: 100%;
+    word-break: break-all
+}
 hr {
     border-top: 1px solid rgba(255, 255, 255, 0.2)
 }
@@ -8,10 +18,6 @@ hr {
     top: 0;
     left: 100%;
     margin-top: -1px
-}
-html {
-    height: 100%;
-    margin: 0
 }
 .cc-window.cc-static {
     position: fixed
@@ -29,10 +35,6 @@ main {
     height: auto;
     overflow-y: auto;
     word-break: break-all
-}
-body {
-    font-family: 'Raleway', sans-serif;
-    height: 100%
 }
 .footer {
     position: fixed;
