@@ -7,25 +7,21 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\User;
 
+use function strlen;
 use PDO;
 use PortalCMS\Core\Database\DB;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
-use function strlen;
 
 /**
  * Class Password
- *
- * Handles all the stuff that is related to the password
  */
 class Password
 {
     /**
      * Writes the new password to the database
-     *
      * @param string $user_name
      * @param string $user_password_hash
-     *
      * @return bool
      */
     public static function saveChangedPassword(string $user_name, string $user_password_hash): bool
@@ -46,7 +42,6 @@ class Password
 
     /**
      * Validates fields, hashes new password, saves new password
-     *
      * @param $user_name
      * @param $currentPassword
      * @param $newPassword
@@ -55,18 +50,15 @@ class Password
      */
     public static function changePassword(string $user_name, string $currentPassword, string $newPassword, string $repeatNewPassword): bool
     {
-        // validate the passwords
         if (!self::validatePasswordChange($user_name, $currentPassword, $newPassword, $repeatNewPassword)) {
             return false;
         }
-        // crypt the password (with the PHP 5.5+'s password_hash() function, result is a 60 character hash string)
         $user_password_hash = password_hash(
             base64_encode(
                 $newPassword
             ),
             PASSWORD_DEFAULT
         );
-        // write the password to database (as hashed and salted string)
         if (!self::saveChangedPassword($user_name, $user_password_hash)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CHANGE_FAILED'));
             return false;

@@ -155,11 +155,11 @@ class UserPDOReader
         $stmt = DB::conn()->prepare(
             'SELECT user_id, user_name, user_email
                     FROM users
-                        WHERE (user_name = :user_name_or_email
-                        OR user_email = :user_name_or_email)
-                        LIMIT 1'
+                        WHERE user_name = ?
+                            OR user_email = ?
+                                LIMIT 1'
         );
-        $stmt->execute([':user_name_or_email' => $usernameOrEmail]);
+        $stmt->execute([$usernameOrEmail, $usernameOrEmail]);
         if ($stmt->rowCount() === 0) {
             return null;
         }
