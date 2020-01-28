@@ -1,11 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
-html {
-    height: 100%;
-    margin: 0
-}
 body {
     font-family: 'Raleway', sans-serif;
-    height: 100%;
     word-break: break-all
 }
 hr {
@@ -21,14 +16,6 @@ hr {
 }
 .cc-window.cc-static {
     position: fixed
-}
-.bg {
-    box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
-    background-image: url("/content/img/frontpage/wall.jpg");
-    height: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover
 }
 main {
     padding-bottom: 90px;

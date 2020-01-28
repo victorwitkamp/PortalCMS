@@ -2,7 +2,8 @@
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" packagePrefix="PortalCMS" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/public/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/public/vendor/facebook/graph-sdk" />
       <excludeFolder url="file://$MODULE_DIR$/public/vendor/phpmailer/phpmailer" />

@@ -155,7 +155,7 @@ class SiteSetting
         }
 
         $thumb = imagecreatetruecolor(150, 150);
-        if ($thumb !== false && !empty($thumb) && $myImage !== false && !empty($myImage)) {
+        if ($thumb !== false && $myImage !== false) {
             imagecopyresampled($thumb, $myImage, 0, 0, $x, $y, 150, 150, $smallestSide, $smallestSide);
             return $thumb;
         }
