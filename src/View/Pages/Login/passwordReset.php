@@ -27,7 +27,7 @@ if (empty($_GET['password_reset_hash'])) {
 <?= $this->end() ?>
 <?= $this->push('body') ?>
 
-    <div class="form-group required float in" input-group="">
+    <div class="form-group required float in">
 
         <input type="password" name="password" minlength="8" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" title="Use at least 8 characters. Please include at least 1 uppercase character, 1 lowercase character and 1 number." id="inputPassword" class="form-control" placeholder="wachtwoord" autocomplete="new-password" required="" autofocus="" <?php
                                                                                                                                                                                                                                                                                                                                                                 if (empty($_GET['password_reset_hash'])) {
@@ -35,7 +35,7 @@ if (empty($_GET['password_reset_hash'])) {
                                                                                                                                                                                                                                                                                                                                                                 } ?>>
         <label for="inputPassword" class="label-float">Wachtwoord</label>
     </div>
-    <div class="form-group required float in" input-group="">
+    <div class="form-group required float in">
         <input type="password" name="confirm_password" id="inputConfirmPassword" class="form-control" placeholder="Bevestig wachtwoord" data-match="wachtwoord" data-match-field="#inputPassword" autocomplete="new-password" required="" <?php
                                                                                                                                                                                                                                             if (empty($_GET['password_reset_hash'])) {
                                                                                                                                                                                                                                                 echo 'disabled';

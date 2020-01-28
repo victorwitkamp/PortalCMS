@@ -6,7 +6,7 @@ use PortalCMS\Core\View\Text;
 ?><h3><?=
 
     Text::get('LABEL_CHANGE_USERNAME') ?></h3>
-<form method="post" validate=true>
+<form method="post">
     <div class="form-group row">
         <label for="user_name" class="col-sm-4 col-form-label"><?= Text::get('LABEL_NEW_USERNAME') ?></label>
         <?php // btw http://stackoverflow.com/questions/774054/should-i-put-input-tag-inside-label-tag

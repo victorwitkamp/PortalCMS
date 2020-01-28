@@ -1,6 +1,6 @@
 <div class="user_forms-signup">
     <h2 class="forms_title">Registratie</h2>
-    <form method="post" class="forms_form" validate=true>
+    <form method="post" class="forms_form">
         <fieldset class="forms_fieldset">
             <div class="forms_field">
             <input type="text" name="username" minlength="5" maxlength="20" placeholder="Gebruikersnaam" class="forms_field-input" autocomplete="username" required>

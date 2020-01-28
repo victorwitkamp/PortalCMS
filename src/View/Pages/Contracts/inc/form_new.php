@@ -3,7 +3,7 @@
 use PortalCMS\Core\View\Text;
 
 ?>
-<form method="post" validate=true>
+<form method="post">
     <div class="row">
         <div class="col-md-12">
             <div class="form-group row">

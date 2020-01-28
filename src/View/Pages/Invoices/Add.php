@@ -22,7 +22,7 @@ $pageName = 'Factuur toevoegen';
     <hr>
     <?php Alert::renderFeedbackMessages(); ?>
     <p>Zorg ervoor dat de bedragen voor de huur van de ruimte en van een eventuele kast reeds ingevuld zijn in het contract.</p>
-    <form method="post" validate=true>
+    <form method="post">
 
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Contract(en)</label>

@@ -9,7 +9,6 @@ namespace PortalCMS\Modules\Calendar;
 
 use PortalCMS\Core\Activity\Activity;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Modules\Calendar\EventMapper;
 
 class EventService
 {

@@ -3,7 +3,7 @@
 use PortalCMS\Core\View\Text;
 
 ?>
-<form method="post" validate=true>
+<form method="post">
     <div class="row">
         <div class="col-md-12">
 
@@ -157,11 +157,11 @@ use PortalCMS\Core\View\Text;
                 <label for="staticEmail" class="col-sm-2 col-form-label">Ruimte</label>
                 <div class="col-sm-10">
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="huur_oefenruimte_nr" value="1" <?php echo $contract->huur_oefenruimte_nr === '1' ? 'checked':''; ?>>
+                        <input class="form-check-input" type="radio" name="huur_oefenruimte_nr" value="1" <?= $contract->huur_oefenruimte_nr === '1' ? 'checked' : '' ?>>
                         <label class="form-check-label">Oefenruimte 1</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="huur_oefenruimte_nr" value="2" <?php echo $contract->huur_oefenruimte_nr === '2' ? 'checked':''; ?>>
+                        <input class="form-check-input" type="radio" name="huur_oefenruimte_nr" value="2" <?= $contract->huur_oefenruimte_nr === '2' ? 'checked' : '' ?>>
                         <label class="form-check-label">Oefenruimte 2</label>
                     </div>
                 </div>

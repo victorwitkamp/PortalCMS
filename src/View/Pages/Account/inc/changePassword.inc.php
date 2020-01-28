@@ -5,7 +5,7 @@ use PortalCMS\Core\View\Text;
 
 ?>
 <h3><?= Text::get('LABEL_CHANGE_PASSWORD') ?></h3>
-<form method="post" validate=true>
+<form method="post">
     <input type="text" class="d-none" value="<?= Session::get('user_name') ?>" autocomplete="username" required />
     <div class="form-group row">
         <label for="currentPassword" class="col-sm-4 col-form-label"><?= Text::get('LABEL_CURRENT_PASSWORD') ?></label>

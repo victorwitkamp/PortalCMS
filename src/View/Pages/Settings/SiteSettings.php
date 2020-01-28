@@ -21,6 +21,5 @@ $pageName = Text::get('TITLE_SITE_SETTINGS'); ?>
                 require 'inc/SiteSettingsGeneral.php'; ?>
             </form>
         </div>
-    </div>
 
 <?= $this->end();

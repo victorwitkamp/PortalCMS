@@ -27,7 +27,7 @@ $pageName = (string) Text::get('TITLE_EVENTS_ADD');
     <hr>
     <div class="container">
         <?php Alert::renderFeedbackMessages(); ?>
-        <form method="post" validate=true>
+        <form method="post">
             <div class="row">
                 <div class="col-sm-12">
                     <label class="control-label"><?= Text::get('LABEL_EVENT_TITLE') ?></label>

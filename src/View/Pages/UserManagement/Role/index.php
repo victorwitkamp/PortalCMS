@@ -32,11 +32,13 @@ if (empty($Role)) {
                     <th>ID</th>
                     <td><?= $Role->role_id ?></td>
                 </tr>
-                <th>Naam</th>
-                <td><?= $Role->role_name ?></td>
+                <tr>
+                    <th>Naam</th>
+                    <td><?= $Role->role_name ?></td>
                 </tr>
-                <th><?= Text::get('LABEL_ROLE_PERMISSIONS') ?></th>
-                <td>
+                <tr>
+                    <th><?= Text::get('LABEL_ROLE_PERMISSIONS') ?></th>
+                    <td>
                     <?php
                         $ActivePerissions = RolePermissionMapper::getRolePermissions($_GET['id']);
                     if ($ActivePerissions) { ?>

@@ -34,7 +34,7 @@ plugins : 'advlist autolink link image lists charmap print preview'
                 </div>
                 <hr>
                 <?php Alert::renderFeedbackMessages(); ?>
-                <form method="post" validate=true>
+                <form method="post">
                     <div class="form-group form-group-sm row">
                         <div class="col-sm-12">
                             <textarea id="mytextarea" name="content" cols="50" rows="15" required><?= $row ['content'] ?></textarea>

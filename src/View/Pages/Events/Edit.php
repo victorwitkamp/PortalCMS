@@ -24,7 +24,7 @@ use PortalCMS\Core\View\Text;
 
         <div class="container">
             <?php Alert::renderFeedbackMessages(); ?>
-            <form method="post" validate=true>
+            <form method="post">
                 <div class="form-group form-group-sm row">
                     <div class="col-sm-12">
                         <label class="control-label"><?= Text::get('LABEL_EVENT_TITLE') ?></label>

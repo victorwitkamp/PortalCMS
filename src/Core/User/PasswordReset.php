@@ -18,7 +18,6 @@ use PortalCMS\Core\Email\SMTP\SMTPTransport;
 use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
 use PortalCMS\Core\Email\Template\Helpers\PlaceholderHelper;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\User\UserPDOReader;
 use PortalCMS\Core\View\Text;
 
 /**
