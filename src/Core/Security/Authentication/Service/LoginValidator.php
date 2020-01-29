@@ -41,7 +41,6 @@ class LoginValidator
     public static function checkUserBruteForce($result) : bool
     {
         if (($result->user_failed_logins >= 3) && strtotime($result->user_last_failed_login) > (strtotime(date('Y-m-d H:i:s')) - 30)) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_WRONG_3_TIMES'));
             return false;
         }
         return true;
@@ -77,7 +76,13 @@ class LoginValidator
         if (empty($result)) {
             self::incrementUserNotFoundCounter();
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
-        } elseif (self::checkUserBruteForce($result) && self::verifyIsActive($result) && self::verifyPassword($result, $user_password)) {
+        } elseif (!self::checkUserBruteForce($result)) {
+            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_WRONG_3_TIMES'));
+        } elseif (!self::verifyIsActive($result)) {
+            Session::add('feedback_negative', Text::get('FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET'));
+        } elseif (!self::verifyPassword($result, $user_password)) {
+            Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
+        } else {
             self::resetUserNotFoundCounter();
             return $result;
         }
@@ -114,7 +119,6 @@ class LoginValidator
     public static function verifyIsActive(object $result) : bool
     {
         if ($result->user_active !== 1) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET'));
             return false;
         }
         return true;
@@ -124,7 +128,6 @@ class LoginValidator
     {
         if (!password_verify(base64_encode($user_password), $result->user_password_hash)) {
             UserPDOWriter::setFailedLoginByUsername($result->user_name);
-            Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
             return false;
         }
         return true;
