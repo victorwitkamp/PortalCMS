@@ -24,7 +24,7 @@ class LoginValidator
      * block login attempt if somebody has already failed 3 times and the last login attempt is less than 30sec ago
      * @return bool Did the user passed the brute force validation?
      */
-    public static function checkBruteForce() : bool
+    public static function checkSessionBruteForce() : bool
     {
         if ((Session::get('failed-login-count') >= 3) && strtotime(Session::get('last-failed-login')) > (strtotime(date('Y-m-d H:i:s')) - 30)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_LOGIN_FAILED_3_TIMES'));
@@ -38,7 +38,7 @@ class LoginValidator
      * @param object $result
      * @return bool Did the user passed the brute force validation?
      */
-    public static function checkBruteForceByResult($result) : bool
+    public static function checkUserBruteForce($result) : bool
     {
         if (($result->user_failed_logins >= 3) && strtotime($result->user_last_failed_login) > (strtotime(date('Y-m-d H:i:s')) - 30)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_WRONG_3_TIMES'));
@@ -56,7 +56,7 @@ class LoginValidator
      */
     public static function validateAndGetUser(string $user_name, string $user_password) : ?object
     {
-        if (!self::checkBruteForce()) {
+        if (!self::checkSessionBruteForce()) {
             Session::add('feedback_negative', Text::get('FEEDBACK_BRUTE_FORCE_CHECK_FAILED'));
         } elseif (empty($user_name) || empty($user_password)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
@@ -74,11 +74,14 @@ class LoginValidator
     public static function getUser(string $user_name, string $user_password) : ?object
     {
         $result = UserPDOReader::getByUsername($user_name);
-        if (!empty($result) && self::checkBruteForceByResult($result) && self::verifyIsActive($result) && self::verifyPassword($result, $user_password)) {
+        if (empty($result)) {
+            self::incrementUserNotFoundCounter();
+            Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
+        } elseif (self::checkUserBruteForce($result) && self::verifyIsActive($result) && self::verifyPassword($result, $user_password)) {
+            self::resetUserNotFoundCounter();
             return $result;
         }
-        self::incrementUserNotFoundCounter();
-        Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
+
         return null;
     }
 
@@ -114,7 +117,6 @@ class LoginValidator
             Session::add('feedback_negative', Text::get('FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET'));
             return false;
         }
-        self::resetUserNotFoundCounter();
         return true;
     }
 

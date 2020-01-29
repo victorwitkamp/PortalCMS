@@ -41,7 +41,7 @@ class LoginService
             Session::add('feedback_positive', Text::get('FEEDBACK_LOGIN_SUCCESSFUL'));
             return true;
         }
-        Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
+        // Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
         return false;
     }
 
