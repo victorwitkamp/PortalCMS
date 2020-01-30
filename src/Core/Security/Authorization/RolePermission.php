@@ -19,14 +19,12 @@ class RolePermission
         if (RolePermissionMapper::isAssigned($role_id, $Permission['perm_desc'])) {
             Session::add('feedback_negative', 'Reeds toegewezen.');
             Redirect::to('Error/Error');
+        } elseif (RolePermissionMapper::assign($role_id, $perm_id)) {
+            Session::add('feedback_positive', 'Permissie toegewezen.');
+            Redirect::to('UserManagement/Role/?id=' . $role_id);
         } else {
-            if (RolePermissionMapper::assign($role_id, $perm_id)) {
-                Session::add('feedback_positive', 'Permissie toegewezen.');
-                Redirect::to('UserManagement/Role/?id=' . $role_id);
-            } else {
-                Session::add('feedback_negative', 'Fout bij het toewijzen van de permissie.');
-                Redirect::to('Error/Error');
-            }
+            Session::add('feedback_negative', 'Fout bij het toewijzen van de permissie.');
+            Redirect::to('Error/Error');
         }
     }
 

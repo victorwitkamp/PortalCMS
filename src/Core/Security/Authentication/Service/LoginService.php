@@ -27,7 +27,7 @@ class LoginService
      */
     public static function loginWithPassword(string $username, string $password, bool $rememberMe = false) : bool
     {
-        $user = LoginValidator::validateAndGetUser($username, $password);
+        $user = LoginValidator::validateLogin($username, $password);
         if (!empty($user)) {
             if ($user->user_last_failed_login > 0) {
                 UserPDOWriter::resetFailedLoginsByUsername($user->user_name);

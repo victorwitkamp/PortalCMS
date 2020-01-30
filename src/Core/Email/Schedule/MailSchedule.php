@@ -56,14 +56,12 @@ class MailSchedule
             return false;
         }
         foreach ($mailIds as $mailId) {
-            if (self::isSent((int)$mailId)) {
+            if (self::isSent((int) $mailId)) {
                 ++$alreadySent;
+            } elseif (self::prepareMailData((int) $mailId)) {
+                ++$success;
             } else {
-                if (self::prepareMailData((int) $mailId)) {
-                    ++$success;
-                } else {
-                    ++$failed;
-                }
+                ++$failed;
             }
         }
         self::sendFeedbackHandler($failed, $success, $alreadySent);

@@ -2,6 +2,7 @@
 
 use Facebook\Exceptions\FacebookSDKException;
 use PortalCMS\Controllers\AccountController;
+use PortalCMS\Core\Session\Session;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/../src/Init.php';
 
@@ -51,9 +52,9 @@ try {
 }
 
 try {
-    $user = $response->getGraphUser();
+    $facebookUser = $response->getGraphUser();
 } catch (FacebookSDKException $e) {
     echo 'Facebook SDK returned an error: ' . $e->getMessage();
     exit;
 }
-AccountController::setFbid((int) $user['id']);
+AccountController::setFbid(Session::get('user_id'), (int) $facebookUser['id']);

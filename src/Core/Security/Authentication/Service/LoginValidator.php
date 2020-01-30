@@ -53,14 +53,14 @@ class LoginValidator
      * @param string $user_password user password
      * @return object|null
      */
-    public static function validateAndGetUser(string $user_name, string $user_password) : ?object
+    public static function validateLogin(string $user_name, string $user_password) : ?object
     {
         if (!self::checkSessionBruteForce()) {
             Session::add('feedback_negative', Text::get('FEEDBACK_BRUTE_FORCE_CHECK_FAILED'));
         } elseif (empty($user_name) || empty($user_password)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
         } else {
-            return self::getUser($user_name, $user_password);
+            return self::validateAndGetUser($user_name, $user_password);
         }
         return null;
     }
@@ -70,7 +70,7 @@ class LoginValidator
      * @param string $user_password user password
      * @return object|null
      */
-    public static function getUser(string $user_name, string $user_password) : ?object
+    public static function validateAndGetUser(string $user_name, string $user_password) : ?object
     {
         $result = UserPDOReader::getByUsername($user_name);
         if (empty($result)) {

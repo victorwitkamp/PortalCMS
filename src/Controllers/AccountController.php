@@ -67,7 +67,7 @@ class AccountController extends Controller
 
     public static function clearUserFbid()
     {
-        if (UserPDOWriter::updateFBid(Session::get('user_id'), null)) {
+        if (UserPDOWriter::updateFBid((int) Session::get('user_id'))) {
             Session::set('user_fbid', null);
             Session::add('feedback_positive', Text::get('FEEDBACK_REMOVE_FACEBOOK_ACCOUNT_SUCCESS'));
             Redirect::to('Account');
@@ -76,9 +76,9 @@ class AccountController extends Controller
         Redirect::to('Account');
     }
 
-    public static function setFbid(int $FbId)
+    public static function setFbid(int $userId, int $FbId)
     {
-        if (!empty($FbId) && UserPDOWriter::updateFBid(Session::get('user_id'), $FbId)) {
+        if (!empty($FbId) && UserPDOWriter::updateFBid($userId, $FbId)) {
             Session::set('user_fbid', $FbId);
             Session::add('feedback_positive', Text::get('FEEDBACK_CONNECT_FACEBOOK_ACCOUNT_SUCCESS'));
             Redirect::to('Account');

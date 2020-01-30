@@ -35,7 +35,7 @@ class UserPDOWriter
      * @param int $fbid facebook id
      * @return bool Was the FBid updated succesfully?
      */
-    public static function updateFBid(int $user_id, int $fbid): bool
+    public static function updateFBid(int $user_id, int $fbid = null): bool
     {
         $stmt = DB::conn()->prepare(
             'UPDATE users
