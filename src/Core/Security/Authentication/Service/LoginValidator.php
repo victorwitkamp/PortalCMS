@@ -55,12 +55,17 @@ class LoginValidator
      */
     public static function validateLogin(string $user_name, string $user_password) : ?object
     {
-        if (!self::checkSessionBruteForce()) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_BRUTE_FORCE_CHECK_FAILED'));
-        } elseif (empty($user_name) || empty($user_password)) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
+        if (!empty($user_name) && !empty($user_password)) {
+            if (self::checkSessionBruteForce()) {
+                $user = self::getUser($user_name, $user_password);
+                if (!empty($user)) {
+                    return $user;
+                }
+            } else {
+                Session::add('feedback_negative', Text::get('FEEDBACK_BRUTE_FORCE_CHECK_FAILED'));
+            }
         } else {
-            return self::validateAndGetUser($user_name, $user_password);
+            Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
         }
         return null;
     }
@@ -70,7 +75,7 @@ class LoginValidator
      * @param string $user_password user password
      * @return object|null
      */
-    public static function validateAndGetUser(string $user_name, string $user_password) : ?object
+    public static function getUser(string $user_name, string $user_password) : ?object
     {
         $result = UserPDOReader::getByUsername($user_name);
         if (empty($result)) {
@@ -96,23 +101,20 @@ class LoginValidator
      */
     public static function validateCookieLogin(string $cookie) : ?object
     {
-        if (substr_count($cookie, ':') + 1 !== 3) {
+        if (substr_count($cookie, ':') + 1 === 3) {
+            [$user_id, $token, $hash] = explode(':', $cookie);
+            try {
+                $user_id = (int) Encryption::decrypt($user_id);
+                if (!empty($token) && !empty($user_id) && ($hash === hash('sha256', $user_id . ':' . $token))) {
+                    return new ValidatedCookie($user_id, $token);
+                }
+                Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
+            } catch (Exception $e) {
+                Session::add('feedback_negative', 'Decryption of cookie failed.');
+            }
+        } else {
             Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
-            return null;
         }
-
-        [$user_id, $token, $hash] = explode(':', $cookie);
-        try {
-            $user_id = (int) Encryption::decrypt($user_id);
-        } catch (Exception $e) {
-            Session::add('feedback_negative', 'Decryption of cookie failed.');
-            return null;
-        }
-
-        if (!empty($token) && !empty($user_id) && ($hash === hash('sha256', $user_id . ':' . $token))) {
-            return new ValidatedCookie($user_id, $token);
-        }
-        Session::add('feedback_negative', Text::get('FEEDBACK_COOKIE_INVALID'));
         return null;
     }
 

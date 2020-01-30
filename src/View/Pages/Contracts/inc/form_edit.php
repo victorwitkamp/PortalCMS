@@ -168,6 +168,13 @@ use PortalCMS\Core\View\Text;
             </div>
 
             <div class="form-group row">
+                <label class="col-sm-2 col-form-label">huur_kast_nr</label>
+                <div class="col-md-10">
+                    <input type="text" name="huur_kast_nr" class="form-control form-control-sm" value="<?= $contract->huur_kast_nr ?>">
+                </div>
+            </div>
+
+            <div class="form-group row">
                 <label class="col-sm-2 col-form-label"><?= Text::get('DAY') ?></label>
                 <div class="col-sm-10">
                     <select name="huur_dag" class="form-control">
@@ -184,7 +191,7 @@ use PortalCMS\Core\View\Text;
             </div>
 
             <div class="form-group row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label class="col-form-label">Begintijd</label>
                     <div class="input-group">
                         <div class="input-group-append">
@@ -193,7 +200,7 @@ use PortalCMS\Core\View\Text;
                         <input type="time" name="huur_start" class="form-control form-control-sm" value="<?= $contract->huur_start ?>">
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label class="col-form-label">Eindtijd</label>
                     <div class="input-group">
                         <div class="input-group-append">
@@ -203,12 +210,7 @@ use PortalCMS\Core\View\Text;
                     </div>
                 </div>
             </div>
-            <div class="form-group row">
-                <div class="col-md-12">
-                    <label class="col-form-label">huur_kast_nr</label>
-                    <input type="text" name="huur_kast_nr" class="form-control form-control-sm" value="<?= $contract->huur_kast_nr ?>">
-                </div>
-            </div>
+
             <div class="form-group row">
                 <div class="col-md-4">
                     <label class="col-form-label">beuk_vertegenwoordiger</label>

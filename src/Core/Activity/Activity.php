@@ -20,12 +20,14 @@ class Activity
         return ActivityMapper::load();
     }
 
-    public static function add(string $activity, int $user_id = null, $details = null, $user_name = null)
+    public static function add(string $activity, int $user_id = null, string $details = null, string $user_name = null) : bool
     {
         if (!empty($activity)) {
-            $remoteAddress = new RemoteAddress();
-            $clientIp = $remoteAddress->getIpAddress();
-            ActivityMapper::add($activity, $user_id, $user_name, $clientIp, $details);
+            $remoteAdd = new RemoteAddress();
+            if (ActivityMapper::add($activity, $user_id, $user_name, $remoteAdd->getIpAddress(), $details)) {
+                return true;
+            }
         }
+        return false;
     }
 }

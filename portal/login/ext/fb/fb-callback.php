@@ -57,4 +57,4 @@ try {
     echo 'Facebook SDK returned an error: ' . $e->getMessage();
     exit;
 }
-AccountController::setFbid(Session::get('user_id'), (int) $facebookUser['id']);
+AccountController::setFbid((int) Session::get('user_id'), (int) $facebookUser['id']);
