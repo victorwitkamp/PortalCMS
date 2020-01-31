@@ -5,7 +5,6 @@
 declare(strict_types=1);
 namespace PortalCMS\Core\Security\Authorization;
 
-use League\Plates\Engine;
 use PortalCMS\Core\Session\Session;
 
 class Authorization

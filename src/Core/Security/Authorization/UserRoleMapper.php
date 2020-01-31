@@ -12,7 +12,7 @@ use PortalCMS\Core\Database\DB;
 
 class UserRoleMapper
 {
-    public static function getByUserId($userId) : ?array
+    public static function getByUserId(int $userId) : ?array
     {
         $stmt = DB::conn()->prepare(
             'SELECT t1.role_id, t2.role_name
@@ -37,7 +37,7 @@ class UserRoleMapper
      *
      * @return bool
      */
-    public static function isAssigned($user_id, $role_id): bool
+    public static function isAssigned(int $user_id, int $role_id): bool
     {
         $stmt = DB::conn()->prepare(
             'SELECT *
@@ -58,7 +58,7 @@ class UserRoleMapper
      *
      * @return bool
      */
-    public static function assign($user_id, $role_id): bool
+    public static function assign(int $user_id, int $role_id): bool
     {
         $stmt = DB::conn()->prepare(
             'INSERT INTO user_role (user_id, role_id)
@@ -78,7 +78,7 @@ class UserRoleMapper
      *
      * @return bool
      */
-    public static function unassign($user_id, $role_id): bool
+    public static function unassign(int $user_id, int $role_id): bool
     {
         $stmt = DB::conn()->prepare(
             'DELETE FROM user_role

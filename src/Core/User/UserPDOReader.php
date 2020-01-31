@@ -18,7 +18,7 @@ class UserPDOReader
      * @param $user_name
      * @return bool
      */
-    public static function usernameExists($user_name): bool
+    public static function usernameExists(string $user_name): bool
     {
         $stmt = DB::conn()->prepare(
             'SELECT user_id
@@ -61,7 +61,7 @@ class UserPDOReader
     }
 
     /**
-     * @param string $username User's name
+     * @param string $username User name
      * @return object|null
      */
     public static function getByUsername(string $username) : ?object

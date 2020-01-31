@@ -85,7 +85,7 @@ class LoginService
      * Cheesy name, maybe rename. Also maybe refactoring this, using an array.
      * @param $user
      */
-    public static function setSuccessfulLoginIntoSession($user)
+    public static function setSuccessfulLoginIntoSession(object $user)
     {
         Session::init();
         session_regenerate_id(true);

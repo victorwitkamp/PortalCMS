@@ -89,7 +89,7 @@ class Password
         return false;
     }
 
-    public static function changePasswordCheckCurrent($user, string $currentPassword, string $newPassword)  : bool
+    public static function changePasswordCheckCurrent(object $user, string $currentPassword, string $newPassword)  : bool
     {
         if (!password_verify(base64_encode($currentPassword), $user->user_password_hash)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CURRENT_INCORRECT'));

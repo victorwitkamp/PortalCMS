@@ -35,12 +35,12 @@ class LoginValidator
 
     /**
      * Brute force attack mitigation
-     * @param object $result
+     * @param object $user The user object
      * @return bool Did the user passed the brute force validation?
      */
-    public static function checkUserBruteForce($result) : bool
+    public static function checkUserBruteForce(object $user) : bool
     {
-        if (($result->user_failed_logins >= 3) && strtotime($result->user_last_failed_login) > (strtotime(date('Y-m-d H:i:s')) - 30)) {
+        if (($user->user_failed_logins >= 3) && strtotime($user->user_last_failed_login) > (strtotime(date('Y-m-d H:i:s')) - 30)) {
             return false;
         }
         return true;
@@ -77,19 +77,19 @@ class LoginValidator
      */
     public static function getUser(string $user_name, string $user_password) : ?object
     {
-        $result = UserPDOReader::getByUsername($user_name);
-        if (empty($result)) {
+        $user = UserPDOReader::getByUsername($user_name);
+        if (empty($user)) {
             self::incrementUserNotFoundCounter();
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
-        } elseif (!self::checkUserBruteForce($result)) {
+        } elseif (!self::checkUserBruteForce($user)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_WRONG_3_TIMES'));
-        } elseif (!self::verifyIsActive($result)) {
+        } elseif (!self::verifyIsActive($user)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET'));
-        } elseif (!self::verifyPassword($result, $user_password)) {
+        } elseif (!self::verifyPassword($user, $user_password)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
         } else {
             self::resetUserNotFoundCounter();
-            return $result;
+            return $user;
         }
 
         return null;
@@ -118,18 +118,18 @@ class LoginValidator
         return null;
     }
 
-    public static function verifyIsActive(object $result) : bool
+    public static function verifyIsActive(object $user) : bool
     {
-        if ($result->user_active !== 1) {
+        if ($user->user_active !== 1) {
             return false;
         }
         return true;
     }
 
-    public static function verifyPassword(object $result, string $user_password) : bool
+    public static function verifyPassword(object $user, string $user_password) : bool
     {
-        if (!password_verify(base64_encode($user_password), $result->user_password_hash)) {
-            UserPDOWriter::setFailedLoginByUsername($result->user_name);
+        if (!password_verify(base64_encode($user_password), $user->user_password_hash)) {
+            UserPDOWriter::setFailedLoginByUsername($user->user_name);
             return false;
         }
         return true;
@@ -138,18 +138,22 @@ class LoginValidator
     /**
      * Reset the failed-login-count to 0. Reset the last-failed-login to an empty string.
      */
-    public static function resetUserNotFoundCounter()
+    public static function resetUserNotFoundCounter() : bool
     {
-        Session::set('failed-login-count', 0);
-        Session::set('last-failed-login', '');
+        if (Session::set('failed-login-count', 0) && Session::set('last-failed-login', '')) {
+            return true;
+        }
+        return false;
     }
 
     /**
      * Increment the failed-login-count by 1. Add timestamp to last-failed-login.
      */
-    public static function incrementUserNotFoundCounter()
+    public static function incrementUserNotFoundCounter() : bool
     {
-        Session::set('failed-login-count', Session::get('failed-login-count') + 1);
-        Session::set('last-failed-login', time());
+        if (Session::set('failed-login-count', Session::get('failed-login-count') + 1) && Session::set('last-failed-login', time())) {
+            return true;
+        }
+        return false;
     }
 }

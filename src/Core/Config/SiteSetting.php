@@ -52,7 +52,7 @@ class SiteSetting
         return true;
     }
 
-    public static function getStaticSiteSetting($setting)
+    public static function getStaticSiteSetting(string $setting)
     {
         $stmt = DB::conn()->prepare('SELECT string_value FROM site_settings WHERE setting = ?');
         $stmt->execute([$setting]);
@@ -77,7 +77,7 @@ class SiteSetting
         return false;
     }
 
-    public static function writeJPG($image, $destination): bool
+    public static function writeJPG($image, string $destination): bool
     {
         $destination .= '.jpg';
         imagejpeg($image, $destination, 100);
@@ -120,7 +120,7 @@ class SiteSetting
         return true;
     }
 
-    public static function writeLogoToDatabase($fileName): bool
+    public static function writeLogoToDatabase(string $fileName): bool
     {
         $stmt = DB::conn()->prepare("UPDATE site_settings SET string_value = ? WHERE setting = 'site_logo' LIMIT 1");
         if (!$stmt->execute([$fileName])) {

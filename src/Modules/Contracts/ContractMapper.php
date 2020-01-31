@@ -211,7 +211,7 @@ class ContractMapper
         return true;
     }
 
-    public static function delete($id): bool
+    public static function delete(int $id): bool
     {
         $stmt = DB::conn()->prepare('DELETE FROM contracts WHERE id = ?');
         if ($stmt->execute([$id])) {

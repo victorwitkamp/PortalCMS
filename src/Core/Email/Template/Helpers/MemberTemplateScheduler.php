@@ -17,23 +17,20 @@ use PortalCMS\Modules\Members\MemberModel;
 class MemberTemplateScheduler
 {
     /**
-     * @param $template
-     * @param $recipientIds
+     * @param object $template the template object
+     * @param array $memberIds array of recipient ids
      * @return bool
      */
-    public function scheduleMails($template, array $recipientIds) : bool
+    public function scheduleMails(object $template, array $memberIds) : bool
     {
         $success = 0;
         $failed = 0;
 
-        if (empty($recipientIds) || empty($template)) {
-            return false;
-        }
-        if (!MailBatch::create($template->id)) {
+        if (empty($memberIds) || empty($template) || !MailBatch::create($template->id)) {
             return false;
         }
         $batchId = MailBatch::lastInsertedId();
-        foreach ($recipientIds as $memberId) {
+        foreach ($memberIds as $memberId) {
             if ($this->processSingleMail((int) $memberId, $batchId, $template)) {
                 ++$success;
             } else {
@@ -53,7 +50,7 @@ class MemberTemplateScheduler
         }
     }
 
-    public function processSingleMail(int $memberId, int $batchId, $template): bool
+    public function processSingleMail(int $memberId, int $batchId, object $template): bool
     {
         $member = MemberModel::getMemberById($memberId);
         $return = MailScheduleMapper::create(

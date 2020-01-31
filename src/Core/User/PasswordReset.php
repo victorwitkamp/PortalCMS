@@ -126,7 +126,7 @@ class PasswordReset
      * @param  string $verification_code Hash token
      * @return bool Success status
      */
-    public static function verifyPasswordReset($user_name, $verification_code): bool
+    public static function verifyPasswordReset(string $user_name, string $verification_code): bool
     {
         $sql = 'SELECT user_id, user_password_reset_timestamp
                     FROM users
@@ -145,9 +145,9 @@ class PasswordReset
             return false;
         }
         $result_user_row = $stmt->fetch();
-        $timestamp_one_hour_ago = strtotime(date('Y-m-d H:i:s')) - 3600;
+        $oneHourAgo = strtotime(date('Y-m-d H:i:s')) - 3600;
         $user_timestamp = strtotime($result_user_row['user_password_reset_timestamp']);
-        if ($user_timestamp > $timestamp_one_hour_ago) {
+        if ($user_timestamp > $oneHourAgo) {
             return true;
         }
         Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_LINK_EXPIRED'));

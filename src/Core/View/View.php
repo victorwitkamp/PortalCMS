@@ -17,22 +17,22 @@ class View
      * Converts characters to HTML entities
      * This is important to avoid XSS attacks, and attempts to inject malicious code in your page.
      *
-     * @param  string $str The string.
+     * @param  string $string The string.
      * @return string
      */
-    public static function encodeHTML($str): string
+    public static function encodeHTML(string $string): string
     {
-        return htmlentities($str, ENT_QUOTES, 'UTF-8');
+        return htmlentities($string, ENT_QUOTES, 'UTF-8');
     }
 
     /**
      * Converts HTML entities back to characters
      *
-     * @param  string $str The string.
+     * @param  string $string The string.
      * @return string
      */
-    public function decodeHTML($str): string
+    public function decodeHTML(string $string): string
     {
-        return html_entity_decode($str, ENT_QUOTES, 'UTF-8');
+        return html_entity_decode($string, ENT_QUOTES, 'UTF-8');
     }
 }

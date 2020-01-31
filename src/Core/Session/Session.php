@@ -35,11 +35,12 @@ class Session
      *
      * @param mixed $key   key
      * @param mixed $value value
-     * @return void
+     * @return bool
      */
-    public static function set($key, $value) : void
+    public static function set($key, $value) : bool
     {
         $_SESSION[$key] = $value;
+        return true;
     }
 
     /**
@@ -48,7 +49,7 @@ class Session
      * @param  mixed $key Usually a string, right ?
      * @return mixed the key's value or nothing
      */
-    public static function get($key, $filter = true)
+    public static function get($key, bool $filter = true)
     {
         if (isset($_SESSION[$key])) {
             $value = $_SESSION[$key];

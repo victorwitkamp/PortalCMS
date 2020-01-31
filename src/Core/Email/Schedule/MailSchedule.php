@@ -114,7 +114,15 @@ class MailSchedule
         return false;
     }
 
-    public static function sendSingleMailHandler(int $mailId, $scheduledMail, array $recipients, array $attachments = null) : bool
+    /**
+     * @param int $mailId Mail id
+     * @param object $scheduledMail scheduledMail object
+     * @param array $recipients recipients
+     * @param array|null $attachments
+     * @return bool
+     * @throws \PHPMailer\PHPMailer\Exception
+     */
+    public static function sendSingleMailHandler(int $mailId, object $scheduledMail, array $recipients, array $attachments = null) : bool
     {
         $EmailMessage = new EmailMessage(
             $scheduledMail->subject,
@@ -122,16 +130,16 @@ class MailSchedule
             $recipients,
             $attachments
         );
-        $SMTPConfiguration = new SMTPConfiguration();
-        $SMTPTransport = new SMTPTransport($SMTPConfiguration);
-        if (!$SMTPTransport->sendMail($EmailMessage)) {
+        $configuration = new SMTPConfiguration();
+        $transport = new SMTPTransport($configuration);
+        if (!$transport->sendMail($EmailMessage)) {
             MailScheduleMapper::updateStatus($mailId, 3);
-            MailScheduleMapper::setErrorMessageById($mailId, $SMTPTransport->getError());
+            MailScheduleMapper::setErrorMessageById($mailId, $transport->getError());
             return false;
         }
         MailScheduleMapper::updateStatus($mailId, 2);
         MailScheduleMapper::updateDateSent($mailId);
-        MailScheduleMapper::updateSender($mailId, $SMTPConfiguration->fromName, $SMTPConfiguration->fromEmail);
+        MailScheduleMapper::updateSender($mailId, $configuration->fromName, $configuration->fromEmail);
         return true;
     }
 

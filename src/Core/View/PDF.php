@@ -82,7 +82,7 @@ class PDF
         return $pdf;
     }
 
-    public static function createInvoice(TCPDF $pdf, $invoice, $invoiceitems, $contract) : TCPDF
+    public static function createInvoice(TCPDF $pdf, object $invoice, array $invoiceitems, object $contract) : TCPDF
     {
         $pdf->SetTitle('Factuur ' . $invoice->factuurnummer);
         $pdf->SetXY(165, 15);
@@ -160,7 +160,7 @@ class PDF
      * @param $contract
      * @return mixed
      */
-    public static function renderInvoice($invoice, array $invoiceitems, $contract)
+    public static function renderInvoice(object $invoice, array $invoiceitems, object $contract)
     {
         if (self::$defined === false) {
             self::config();
@@ -171,7 +171,7 @@ class PDF
         return $pdf->Output($invoice->factuurnummer . '.pdf');
     }
 
-    public static function writeInvoice($invoice, array $invoiceitems, $contract) : bool
+    public static function writeInvoice(object $invoice, array $invoiceitems, object $contract) : bool
     {
         if (self::$defined === false) {
             self::config();

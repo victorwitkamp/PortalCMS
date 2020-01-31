@@ -30,7 +30,11 @@ class MailBatch
      */
     public static function lastInsertedId()
     {
-        return DB::conn()->query('SELECT max(id) from mail_batches')->fetchColumn();
+        $batchId = (int) DB::conn()->query('SELECT max(id) from mail_batches')->fetchColumn();
+        if (!empty($batchId)) {
+            return $batchId;
+        }
+        return null;
     }
 
     /**

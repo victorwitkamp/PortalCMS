@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Copyright Victor Witkamp (c) 2020.
  */
@@ -62,9 +63,7 @@ class RemoteAddress
      */
     protected function getIpAddressFromProxy()
     {
-        if (!$this->useProxy
-            || (isset($_SERVER['REMOTE_ADDR']) && !\in_array($_SERVER['REMOTE_ADDR'], $this->trustedProxies))
-        ) {
+        if (!$this->useProxy || (isset($_SERVER['REMOTE_ADDR']) && !\in_array($_SERVER['REMOTE_ADDR'], $this->trustedProxies))) {
             return false;
         }
 
