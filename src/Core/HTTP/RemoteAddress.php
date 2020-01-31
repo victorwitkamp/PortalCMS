@@ -89,7 +89,6 @@ class RemoteAddress
         // not know if it is a proxy server, or a client. As such, we treat it
         // as the originating IP.
         // @see http://en.wikipedia.org/wiki/X-Forwarded-For
-        $ip = array_pop($ips);
-        return $ip;
+        return array_pop($ips);
     }
 }

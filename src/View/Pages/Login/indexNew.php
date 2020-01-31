@@ -6,7 +6,7 @@ use PortalCMS\Core\Security\Csrf;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Core\View\View;
 
-require $_SERVER['DOCUMENT_ROOT'] . '/login/ext/fb/config.php';
+require DIR_ROOT . 'login/ext/fb/config.php';
 $helper = $fb->getRedirectLoginHelper();
 $permissions = ['email'];
 $loginUrl = $helper->getLoginUrl(Config::get('FB_LOGIN_URL'), $permissions);
@@ -16,7 +16,7 @@ $pageName = Text::get('LABEL_LOG_IN');
 <?= $this->layout('layoutLogin', ['title' => $pageName]) ?>
 <?= $this->push('body-start') ?>
 <?php
-require 'inc/loadingAnimation.php';
+require __DIR__ . 'inc/loadingAnimation.php';
 ?>
 <?= $this->end() ?>
 <?= $this->push('body') ?>

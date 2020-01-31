@@ -4,7 +4,7 @@ use Facebook\Exceptions\FacebookSDKException;
 use PortalCMS\Controllers\LoginController;
 use PortalCMS\Core\Session\Session;
 
-require $_SERVER['DOCUMENT_ROOT'] . '/../src/Init.php';
+require __DIR__ . '../../../../src/Init.php';
 
 require __DIR__ . '/config.php';
 

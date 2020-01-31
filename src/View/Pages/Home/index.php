@@ -24,7 +24,7 @@ $pageName = Text::get('TITLE_HOME');
                         if (SiteSetting::getStaticSiteSetting('site_description_type') === '1') {
                             echo SiteSetting::getStaticSiteSetting('site_description');
                         }
-                        require 'slogan.php';
+                        require __DIR__ . '/slogan.php';
                         ?></p>
                     </div>
                 </div>
@@ -34,7 +34,12 @@ $pageName = Text::get('TITLE_HOME');
             <div class="row">
                 <?php
                 $layout = SiteSetting::getStaticSiteSetting('site_layout');
-                require 'layouts/' . $layout . '.php';
+                if ($layout === 'left-sidebar') {
+                    require __DIR__ . 'layouts/left-sidebar.php';
+                }
+                if ($layout === 'right-sidebar') {
+                    require __DIR__ . 'layouts/right-sidebar.php';
+                }
                 ?>
             </div>
         </div>
