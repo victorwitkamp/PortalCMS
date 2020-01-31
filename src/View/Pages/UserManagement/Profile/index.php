@@ -29,7 +29,7 @@ if (empty($user)) {
             <hr>
         </div>
         <div class="container-fluid">
-            <?php require 'profile_table.php'; ?>
+            <?php require __DIR__ .'profile_table.php'; ?>
         </div>
 
 <?= $this->end();

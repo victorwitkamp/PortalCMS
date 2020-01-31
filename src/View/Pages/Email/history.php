@@ -36,7 +36,7 @@ $pageName = Text::get('TITLE_MAIL_HISTORY');
     Alert::renderFeedbackMessages();
     $result = MailScheduleMapper::getHistory();
     if ($result) {
-        include 'inc/table_messages.php';
+        include __DIR__ .'inc/table_messages.php';
     } else {
         echo 'Geen berichten gevonden.';
     }

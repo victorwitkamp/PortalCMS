@@ -59,7 +59,7 @@ $pageName = Text::get('TITLE_MAIL_MESSAGES');
             echo '<h3>Alle berichten</h3>';
         }
         echo '<p>Aantal: ' . $mailcount . '</p>';
-        include 'inc/table_messages.php';
+        include __DIR__ .'inc/table_messages.php';
     } else {
         echo Text::get('LABEL_NOT_FOUND');
     }

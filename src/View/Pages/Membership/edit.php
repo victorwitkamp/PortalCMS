@@ -33,7 +33,7 @@ if (MemberModel::doesMemberIdExist($_GET['id'])) {
     </div>
     <hr>
     <div class="container">
-        <?php require 'inc\form.php'; ?>
+        <?php require __DIR__ . 'inc\form.php'; ?>
     </div>
 
 <?= $this->end();

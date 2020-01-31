@@ -21,7 +21,7 @@ $pageType = 'new';
             </div>
         </div>
         <div class="container">
-            <?php require 'inc\form.php'; ?>
+            <?php require __DIR__ .'inc\form.php'; ?>
         </div>
 
 <?= $this->end();
