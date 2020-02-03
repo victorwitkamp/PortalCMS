@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
 use PortalCMS\Core\HTTP\Request;

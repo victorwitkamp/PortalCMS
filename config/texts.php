@@ -1,4 +1,5 @@
 <?PHP
+declare(strict_types=1);
 
 /**
  * TEXTS USED IN THE APPLICATION.

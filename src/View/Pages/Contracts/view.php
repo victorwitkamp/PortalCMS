@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Modules\Contracts\ContractMapper;

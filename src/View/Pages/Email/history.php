@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
 use PortalCMS\Core\View\Alert;
