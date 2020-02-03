@@ -24,7 +24,7 @@ use PortalCMS\Core\View\Text;
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav mr-auto mt-lg-0">
-                <?php require __DIR__ . 'navMenu.php'; ?>
+                <?php require __DIR__ . '/navMenu.php'; ?>
             </ul>
         </div>
     </div>

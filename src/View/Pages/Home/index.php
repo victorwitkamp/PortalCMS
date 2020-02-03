@@ -35,10 +35,10 @@ $pageName = Text::get('TITLE_HOME');
                 <?php
                 $layout = SiteSetting::getStaticSiteSetting('site_layout');
                 if ($layout === 'left-sidebar') {
-                    require __DIR__ . 'layouts/left-sidebar.php';
+                    require __DIR__ . '/layouts/left-sidebar.php';
                 }
                 if ($layout === 'right-sidebar') {
-                    require __DIR__ . 'layouts/right-sidebar.php';
+                    require __DIR__ . '/layouts/right-sidebar.php';
                 }
                 ?>
             </div>
