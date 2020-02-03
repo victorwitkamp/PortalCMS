@@ -167,7 +167,7 @@ class EmailController extends Controller
 
     public static function generateMemberSetYear(): void
     {
-        Redirect::to('Email/GenerateMember/?year=' .  Request::post('year'));
+        Redirect::to('Email/GenerateMember/?year=' . Request::post('year'));
     }
 
     public static function uploadAttachment(): void
