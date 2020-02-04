@@ -8,9 +8,9 @@ use PortalCMS\Modules\Members\MemberModel;
 
 $pageName = 'Nieuw bericht';
 
-$year = Request::get('year');
+$year = (int) Request::get('year');
 if (empty($year)) {
-    $year = date('Y');
+    $year = (int) date('Y');
 }
 ?>
 <?= $this->layout('layout', ['title' => $pageName]) ?>

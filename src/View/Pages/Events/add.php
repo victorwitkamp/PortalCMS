@@ -9,15 +9,6 @@ $pageName = (string) Text::get('TITLE_EVENTS_ADD');
 
 ?>
 <?= $this->layout('layout', ['title' => $pageName]) ?>
-<?= $this->push('head-extra') ?>
-
-    <link rel="stylesheet" type="text/css" href="/dist/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css">
-    <script src="/dist/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js"></script>
-    <script src="/includes/js/datepicker_event.js"></script>
-    <!-- <script src="/includes/js/jquery-simple-validator.nl.js"></script> -->
-    <!-- <link rel="stylesheet" type="text/css" href="/includes/css/jquery-simple-validator.css"> -->
-
-<?= $this->end() ?>
 <?= $this->push('main-content') ?>
 
     <div class="container">
@@ -31,46 +22,34 @@ $pageName = (string) Text::get('TITLE_EVENTS_ADD');
         <form method="post">
             <div class="row">
                 <div class="col-sm-12">
-                    <label class="control-label"><?= Text::get('LABEL_EVENT_TITLE') ?></label>
-                    <input type="text" name="title" class="form-control" placeholder="" required>
+                    <label class="control-label"><?= Text::get('LABEL_EVENT_TITLE') ?>
+                        <input type="text" name="title" class="form-control" placeholder="" required>
+                    </label>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-sm-6">
-                    <label class="control-label"><?= Text::get('LABEL_EVENT_START') ?></label>
-                    <div class="form-group date" id="datetimepicker1" data-target-input="nearest">
-                        <div class="input-group">
-                            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                                <div class="input-group-text">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                            </div>
-                            <input type="text" name="start_event" maxlength="16" class="form-control datetimepicker-input" data-target="#datetimepicker1" required>
-                        </div>
-                    </div>
+                    <label class="control-label"><?= Text::get('LABEL_EVENT_START') ?>
+                        <input type="datetime-local" name="start_event" class="form-control" required>
+                    </label>
                 </div>
                 <div class="col-sm-6">
-                    <label class="control-label"><?= Text::get('LABEL_EVENT_END') ?></label>
-                    <div class="form-group date" id="datetimepicker2" data-target-input="nearest">
-                        <div class="input-group">
-                            <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
-                                <div class="input-group-text">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                            </div>
-                            <input type="text" name="end_event" maxlength="16" class="form-control datetimepicker-input" data-target="#datetimepicker2" required>
-                        </div>
-                    </div>
+                    <label class="control-label"><?= Text::get('LABEL_EVENT_END') ?>
+                        <input type="datetime-local" name="end_event" class="form-control" required>
+                    </label>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-sm-12">
-                    <label class="control-label"><?= Text::get('LABEL_EVENT_DESC') ?></label>
-                    <input type="text" name="description" class="form-control" placeholder="">
+                    <label class="control-label"><?= Text::get('LABEL_EVENT_DESC') ?>
+                        <input type="text" name="description" class="form-control">
+                    </label>
                 </div>
             </div>
             <hr />
-            <div class="form-group form-group-sm">
+            <div class="row">
                 <input type="text" name="CreatedBy" value="<?= Session::get('user_id') ?>" hidden>
                 <input type="submit" name="addEvent" class="btn btn-primary" value="<?= Text::get('LABEL_SUBMIT') ?>">
                 <a href="/Events" class="btn btn-danger"><?= Text::get('LABEL_CANCEL') ?></a>

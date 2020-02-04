@@ -29,7 +29,7 @@ use PortalCMS\Core\View\Text;
     <?php
     Alert::renderFeedbackMessages();
 
-    $page = Page::getPage('1');
+    $page = Page::getPage(1);
     echo $page['content'];
 
     if (Authorization::hasPermission('site-settings')) {

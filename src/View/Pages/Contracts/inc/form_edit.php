@@ -119,14 +119,14 @@ use PortalCMS\Core\View\Text;
                         <label class="col-form-label">Telefoonnummer 1</label>
                         <div class="input-group">
                             <div class="input-group-append"><div class="input-group-text"><i class="fas fa-phone"></i></div></div>
-                            <input minlength="10" maxlength="10" type="number" pattern="[-+]?[0-9]" name="bandleider_telefoonnummer1" class="form-control form-control-sm" value="<?= $contract->bandleider_telefoonnummer1 ?>">
+                            <input minlength="10" maxlength="10" type="tel" pattern="[-+]?[0-9]" name="bandleider_telefoonnummer1" class="form-control form-control-sm" value="<?= $contract->bandleider_telefoonnummer1 ?>">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <label class="col-form-label">Telefoonnummer 2</label>
                         <div class="input-group">
                             <div class="input-group-append"><div class="input-group-text"><i class="fas fa-phone"></i></div></div>
-                            <input minlength="10" maxlength="10" type="number" pattern="[-+]?[0-9]" name="bandleider_telefoonnummer2" class="form-control form-control-sm" value="<?= $contract->bandleider_telefoonnummer2 ?>">
+                            <input minlength="10" maxlength="10" type="tel" pattern="[-+]?[0-9]" name="bandleider_telefoonnummer2" class="form-control form-control-sm" value="<?= $contract->bandleider_telefoonnummer2 ?>">
                         </div>
                     </div>
                 </div>
@@ -227,7 +227,7 @@ use PortalCMS\Core\View\Text;
             <p>* = verplicht veld.</p>
             <input type="hidden" name="id" value="<?= $contract->id ?>">
             <input type="submit" name="updateContract" class="btn btn-sm btn-primary" value="Opslaan">
-            <a href="View?id=<?= $contract->id ?>" class="btn btn-sm btn-danger">Annuleren</a>
+            <a href="/Contracts/View?id=<?= $contract->id ?>" class="btn btn-sm btn-danger">Annuleren</a>
         </div>
     </div>
 

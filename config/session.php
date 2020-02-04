@@ -9,7 +9,7 @@ declare(strict_types=1);
  *
  * @see php.net/manual/en/session.configuration.php#ini.session.cookie-httponly
  */
-ini_set('session.cookie_httponly', 1);
-ini_set('session.use_strict_mode', 1);
+ini_set('session.cookie_httponly', '1');
+ini_set('session.use_strict_mode', '1');
 // ini_set('session.gc_maxlifetime', 3600);
-ini_set('session.gc_maxlifetime', 60);
+ini_set('session.gc_maxlifetime', '60');

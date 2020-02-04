@@ -6,15 +6,6 @@ use PortalCMS\Core\View\Text;
 
 ?>
 <?= $this->layout('layout', ['title' => $this->e($pageName)]) ?>
-<?= $this->push('head-extra') ?>
-
-    <link rel="stylesheet" type="text/css" href="/dist/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css">
-    <script src="/dist/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js"></script>
-    <script src="/includes/js/datepicker_event.js"></script>
-    <!-- <script src="/includes/js/jquery-simple-validator.nl.js"></script> -->
-    <!-- <link rel="stylesheet" type="text/css" href="/includes/css/jquery-simple-validator.css"> -->
-
-<?= $this->end() ?>
 <?= $this->push('main-content') ?>
 
         <div class="container">
@@ -26,43 +17,36 @@ use PortalCMS\Core\View\Text;
         <div class="container">
             <?php Alert::renderFeedbackMessages(); ?>
             <form method="post">
-                <div class="form-group form-group-sm row">
+                <div class="row">
                     <div class="col-sm-12">
-                        <label class="control-label"><?= Text::get('LABEL_EVENT_TITLE') ?></label>
-                        <input type="text" name="title" value="<?= $event->title ?>" class="form-control input-sm" placeholder="" required>
-                    </div>
-                </div>
-                <div class="form-group form-group-sm row">
-                    <div class="col-sm-6">
-                        <label class="control-label"><?= Text::get('LABEL_EVENT_START') ?></label>
-                        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                            <input type="text" name="start_event" value="<?= $event->start_event ?>" class="form-control input-sm datetimepicker-input" data-target="#datetimepicker1" required>
-                            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <label class="control-label"><?= Text::get('LABEL_EVENT_END') ?></label>
-                        <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
-                            <input type="text" name="end_event" value="<?= $event->end_event ?>" class="form-control input-sm  datetimepicker-input" data-target="#datetimepicker2" required>
-                            <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                            </div>
-                        </div>
+                        <label class="control-label"><?= Text::get('LABEL_EVENT_TITLE') ?>
+                            <input type="text" name="title" value="<?= $event->title ?>" class="form-control" required>
+                        </label>
                     </div>
                 </div>
 
-                <div class="form-group form-group-sm row">
-                    <div class="col-sm-12">
-                        <label class="control-label"><?= Text::get('LABEL_EVENT_DESC') ?></label>
-                        <input type="text" name="description" value="<?= $event->description ?>" class="form-control input-sm" required>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label class="control-label"><?= Text::get('LABEL_EVENT_START') ?>
+                            <input type="datetime-local" name="start_event" value="<?= date('Y-m-d\TH:i', strtotime($event->start_event)) ?>" class="form-control" required>
+                        </label>
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="control-label"><?= Text::get('LABEL_EVENT_END') ?>
+                            <input type="datetime-local" name="end_event" value="<?= date('Y-m-d\TH:i', strtotime($event->end_event)) ?>" class="form-control" required>
+                        </label>
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label class="control-label"><?= Text::get('LABEL_EVENT_DESC') ?>
+                            <input type="text" name="description" value="<?= $event->description ?>" class="form-control" required>
+                        </label>
+                    </div>
+                </div>
                 <hr>
-
-                <div class="form-group form-group-sm row">
+                <div class="row">
                     <div class="col-sm-6">
                         <label class="control-label"><?= Text::get('LABEL_EVENT_STATUS') ?></label>
                         <select name="status" class="form-control" required>
@@ -73,10 +57,10 @@ use PortalCMS\Core\View\Text;
                     </div>
                 </div>
                 <hr>
-                <div class="form-group form-group-sm row">
+                <div class="row">
                     <input type="hidden" name="id" value="<?= $event->id ?>">
-                    <button type="submit" name="updateEvent" class="btn btn-sm btn-primary"><?= Text::get('LABEL_SUBMIT') ?> <i class="far fa-save"></i></button>
-                    <a href="/Events" class="btn btn-sm btn-danger"><?= Text::get('LABEL_CANCEL') ?> <i class="fas fa-times"></i></a>
+                    <button type="submit" name="updateEvent" class="btn btn-primary"><?= Text::get('LABEL_SUBMIT') ?> <i class="far fa-save"></i></button>
+                    <a href="/Events" class="btn btn-danger"><?= Text::get('LABEL_CANCEL') ?> <i class="fas fa-times"></i></a>
                 </div>
             </form>
         </div>

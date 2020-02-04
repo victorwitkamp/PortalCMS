@@ -10,7 +10,7 @@ use PortalCMS\Core\View\Text;
 
 $pageName = Text::get('TITLE_ROLE');
 
-$Role = RoleMapper::get($_GET['id']);
+$Role = RoleMapper::get((int) $_GET['id']);
 if (empty($Role)) {
     Session::add('feedback_negative', 'Geen resultaten voor opgegeven rol ID.');
     Redirect::to('Error/Error');
@@ -41,7 +41,7 @@ if (empty($Role)) {
                     <th><?= Text::get('LABEL_ROLE_PERMISSIONS') ?></th>
                     <td>
                     <?php
-                        $ActivePerissions = RolePermissionMapper::getRolePermissions($_GET['id']);
+                        $ActivePerissions = RolePermissionMapper::getRolePermissions((int) $_GET['id']);
                     if ($ActivePerissions) { ?>
                         <table class="table table-sm table-striped table-hover table-dark">
                             <thead class="thead-dark">
@@ -81,7 +81,7 @@ if (empty($Role)) {
         <h3><?= Text::get('LABEL_ROLE_ADD_PERMISSION') ?></h3>
         <p>Een rol kan meerdere permissies hebben. Kies hieronder een gewenste permissie om toe te voegen aan de rol.<p>
                 <?php
-                    $selectablePermissions = RolePermissionMapper::getRoleSelectablePermissions($_GET['id']);
+                    $selectablePermissions = RolePermissionMapper::getRoleSelectablePermissions((int) $_GET['id']);
                 if ($selectablePermissions) { ?>
                     <form method="post">
                         <input type="hidden" name="role_id" value="<?= $_GET['id'] ?>">

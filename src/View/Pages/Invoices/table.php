@@ -82,12 +82,12 @@ use PortalCMS\Modules\Invoices\InvoiceHelper;
                     </td>
                     <td>
                         <?php if ($invoice->status === 0) { ?>
-                            <input type="checkbox" id="writeInvoice" name="writeInvoiceId[]" value="<?= $invoice->id ?>">
+                            <input type="checkbox" id="writeInvoice<?= $invoice->id ?>" name="writeInvoiceId[]" value="<?= $invoice->id ?>">
                         <?php } ?>
                     </td>
                     <td>
                         <?php if ($invoice->status === 1) { ?>
-                            <input type="checkbox" id="sendcheckbox" name="id[]" value="<?= $invoice->id ?>">
+                            <input type="checkbox" id="sendcheckbox<?= $invoice->id ?>" name="id[]" value="<?= $invoice->id ?>">
                         <?php } ?>
                     </td>
                     <td>
@@ -102,16 +102,16 @@ use PortalCMS\Modules\Invoices\InvoiceHelper;
     <script>
         $("#selectall-writeinvoice").on('change', function() {
             if (this.checked) {
-                $("input[id='writeInvoice']").prop('checked', true)
+                $("input[id^='writeInvoice']").prop('checked', true)
             } else {
-                $("input[id='writeInvoice']").prop('checked', false)
+                $("input[id^='writeInvoice']").prop('checked', false)
             }
         });
         $("#selectall-send").on('change', function() {
             if (this.checked) {
-                $("input[id='sendcheckbox']").prop('checked', true)
+                $("input[id^='sendcheckbox']").prop('checked', true)
             } else {
-                $("input[id='sendcheckbox']").prop('checked', false)
+                $("input[id^='sendcheckbox']").prop('checked', false)
             }
         });
     </script>

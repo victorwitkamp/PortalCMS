@@ -6,84 +6,64 @@ use PortalCMS\Core\View\Text;
 ?>
 <div class="row">
     <div class="col-md-8">
-        <div class="form-group row">
-            <div class="col-md-8">
-                <label class="col-form-label">Huurder</label>
-                <input type="text" class="form-control form-control-sm" value="<?= $contract->band_naam ?>" required disabled>
-            </div>
-            <div class="col-md-4">
-                <label class="col-form-label">Klantcode</label>
-                <input type="text" class="form-control form-control-sm" value="<?= $contract->bandcode ?>" required disabled>
-            </div>
-        </div>
-
+        <h3>Algemeen</h3>
+        <table class="table table-striped table-condensed">
+            <tbody>
+            <tr>
+                <th>Huurder</th>
+                <td><?= $contract->band_naam ?></td>
+            </tr>
+            <tr>
+                <th>Klantcode</th>
+                <td><?= $contract->bandcode ?></td>
+            </tr>
+            <tr>
+                <th>Vertegenwoordiger de Beuk</th>
+                <td><?= $contract->beuk_vertegenwoordiger ?></td>
+            </tr>
+            </tbody>
+        </table>
         <h3>Contactpersoon</h3>
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-12">
-                    <label class="col-form-label">Naam</label>
-                    <input type="text" class="form-control form-control-sm" value="<?= $contract->bandleider_naam ?>" disabled>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-5">
-                    <label class="col-form-label">Adres</label>
-                    <input type="text" class="form-control form-control-sm" value="<?= $contract->bandleider_adres ?>" disabled>
-                </div>
-                <div class="col-md-3">
-                    <label class="col-form-label">Postcode</label>
-                    <input type="text" class="form-control form-control-sm" maxlength="6" value="<?= $contract->bandleider_postcode ?>" disabled>
-                </div>
-
-                <div class="col-md-4">
-                    <label class="col-form-label">Woonplaats</label>
-                    <input type="text" class="form-control form-control-sm" value="<?= $contract->bandleider_woonplaats ?>" disabled>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <label class="col-form-label">Geboortedatum</label>
-                    <div class="form-group date" id="datetimepicker1" data-target-input="nearest">
-                        <div class="input-group">
-                            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                                <div class="input-group-text">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                            </div>
-                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" value="<?= $contract->bandleider_geboortedatum ?>" disabled>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <label class="col-form-label">Telefoonnummer 1</label>
-                    <input type="text" class="form-control form-control-sm" value="<?= $contract->bandleider_telefoonnummer1 ?>" disabled>
-                </div>
-                <div class="col-md-6">
-                    <label class="col-form-label">Telefoonnummer 2</label>
-                    <input type="text" class="form-control form-control-sm" value="<?= $contract->bandleider_telefoonnummer2 ?>" disabled>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <label class="col-form-label">E-mail</label>
-                    <input type="text" class="form-control form-control-sm" value="<?= $contract->bandleider_email ?>" disabled>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <label class="col-form-label">BSN</label>
-                    <input type="text" class="form-control form-control-sm" value="<?= $contract->bandleider_bsn ?>" disabled>
-                </div>
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-md-4">
-                <label class="col-form-label">beuk_vertegenwoordiger</label>
-                <input type="text" class="form-control form-control-sm" value="<?= $contract->beuk_vertegenwoordiger ?>" disabled>
-            </div>
-        </div>
+        <table class="table table-striped table-condensed">
+            <tbody>
+            <tr>
+                <th>Naam</th>
+                <td><?= $contract->bandleider_naam ?></td>
+            </tr>
+            <tr>
+                <th>Adres</th>
+                <td><?= $contract->bandleider_adres ?></td>
+            </tr>
+            <tr>
+                <th>Postcode</th>
+                <td><?= $contract->bandleider_postcode ?></td>
+            </tr>
+            <tr>
+                <th>Woonplaats</th>
+                <td><?= $contract->bandleider_woonplaats ?></td>
+            </tr>
+            <tr>
+                <th>Geboortedatum</th>
+                <td><?= $contract->bandleider_geboortedatum ?></td>
+            </tr>
+            <tr>
+                <th>Telefoonnummer 1</th>
+                <td><?= $contract->bandleider_telefoonnummer1 ?></td>
+            </tr>
+            <tr>
+                <th>Telefoonnummer 2</th>
+                <td><?= $contract->bandleider_telefoonnummer2 ?></td>
+            </tr>
+            <tr>
+                <th>E-mailadres</th>
+                <td><?= $contract->bandleider_email ?></td>
+            </tr>
+            <tr>
+                <th>BSN</th>
+                <td><?= $contract->bandleider_bsn ?></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
     <div class="col-md-4">
         <h3>Contract datum</h3>

@@ -49,7 +49,7 @@ $pageName = Text::get('TITLE_MAIL_BATCHES');
             $batches = MailBatch::getAll();
             if (!empty($batches)) {
                 echo '<p>Aantal: ' . count($batches) . '</p>';
-                include __DIR__ . 'inc/table_batches.php';
+                include __DIR__ . '/inc/table_batches.php';
             } else {
                 echo Text::get('LABEL_NOT_FOUND');
             }

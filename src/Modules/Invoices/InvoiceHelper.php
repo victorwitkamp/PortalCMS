@@ -43,9 +43,8 @@ class InvoiceHelper
                 InvoiceMapper::updateMailId($invoiceId, $createdMailId);
                 InvoiceMapper::updateStatus($invoiceId, 2);
                 return true;
-            } else {
-                Session::add('feedback_negative', 'Nieuwe email aanmaken mislukt.');
             }
+            Session::add('feedback_negative', 'Nieuwe email aanmaken mislukt.');
         } else {
             Session::add('feedback_negative', 'Factuur niet gevonden.');
         }

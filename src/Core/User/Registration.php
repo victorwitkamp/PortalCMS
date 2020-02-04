@@ -39,7 +39,7 @@ class Registration
      *
      * @return bool
      */
-    public static function writeNewUserToDatabase(string $username, string $email, string $md5password, string $activationCode)
+    public static function writeNewUserToDatabase(string $username, string $email, string $md5password, string $activationCode): bool
     {
         $stmt = DB::conn()->prepare('INSERT INTO users (user_name, user_email, password, confirm_code) VALUES (?, ?, ?, ?)');
         $stmt->execute([$username, $email, $md5password, $activationCode]);
