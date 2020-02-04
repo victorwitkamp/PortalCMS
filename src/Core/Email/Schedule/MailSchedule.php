@@ -27,7 +27,7 @@ class MailSchedule
             return false;
         }
         foreach ($mailIds as $mailId) {
-            if (MailScheduleMapper::deleteById((int)$mailId)) {
+            if (MailScheduleMapper::deleteById((int) $mailId)) {
                 EmailAttachmentMapper::deleteByMailId((int) $mailId);
                 ++$deleted;
             } else {
