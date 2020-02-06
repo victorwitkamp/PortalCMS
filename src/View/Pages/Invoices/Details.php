@@ -8,7 +8,7 @@ use PortalCMS\Modules\Invoices\InvoiceItemMapper;
 use PortalCMS\Modules\Invoices\InvoiceMapper;
 
 $pageName = 'Factuur';
-$invoice = InvoiceMapper::getById(Request::get('id'));
+$invoice = InvoiceMapper::getById((int) Request::get('id'));
 if (!empty($invoice)) {
     $pageName = 'Factuur: ' . $invoice->factuurnummer;
     $contract = ContractMapper::getById($invoice->contract_id);

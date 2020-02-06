@@ -93,7 +93,7 @@ if (empty($year)) {
                             <div class="col-md-4">
                                 <input type="checkbox" class="custom-control-input" value="<?= $member->id ?>" disabled><s> <?= $member->voornaam . ' ' . $member->achternaam ?></s><br />
                             </div>
-                <?php }
+                        <?php }
                     }
                 } else {
                     echo 'Geen resultaten';

@@ -30,7 +30,7 @@ $pageName = Text::get('TITLE_RECENT_ACTIVITY'); ?>
         </thead>
         <?php $Activities = Activity::load();
         foreach ($Activities as $Activity) {
-        ?>
+            ?>
             <tr>
                 <td><?= $Activity['id'] ?></td>
                 <td><?= $Activity['user_id'] ?></td>
@@ -40,7 +40,7 @@ $pageName = Text::get('TITLE_RECENT_ACTIVITY'); ?>
                 <td><?= $Activity['details'] ?></td>
                 <td><?= $Activity['CreationDate'] ?></td>
             </tr>
-        <?php
+            <?php
         } ?>
     </table>
 </div>

@@ -49,8 +49,8 @@ $contracts = ContractMapper::get();
                     </tbody>
                 </table>
             <?php } else {
-                echo Text::get('LABEL_NOT_FOUND');
-            } ?>
+                        echo Text::get('LABEL_NOT_FOUND');
+                    } ?>
         </div>
 
 <?= $this->end();

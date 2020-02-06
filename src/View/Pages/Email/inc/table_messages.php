@@ -46,15 +46,15 @@ use PortalCMS\Core\View\Text;
                     <td>
                         <?php
                         if ($row['status'] === 1) {
-                        ?><span class="badge badge-secondary">Klaar voor verzending</span><?php
-                                                                                            }
-                                                                                            if ($row['status'] === 2) {
-                                                                                                ?><span class="badge badge-success">Verzonden</span><?php
-                                                                                            }
-                                                                                            if ($row['status'] === 3) {
-                                                                                ?><span class="badge badge-danger">Fout bij verzenden</span><?php
-                                                                                            }
-                                                                                        ?>
+                            ?><span class="badge badge-secondary">Klaar voor verzending</span><?php
+                        }
+                        if ($row['status'] === 2) {
+                            ?><span class="badge badge-success">Verzonden</span><?php
+                        }
+                        if ($row['status'] === 3) {
+                            ?><span class="badge badge-danger">Fout bij verzenden</span><?php
+                        }
+                        ?>
                     </td>
                     <td><?= $row['CreationDate'] ?></td>
                     <td><a href="Details?id=<?= $row['id'] ?>" title="Details" class="btn btn-success btn-sm"><i class="fas fa-info"></i></a></td>

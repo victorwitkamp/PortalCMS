@@ -67,18 +67,18 @@ use PortalCMS\Modules\Invoices\InvoiceHelper;
                     <td>
                         <?php
                         if ($invoice->status === 0) {
-                        ?><i class="fas fa-lock-open"></i> 0 - Concept<?php
-                                                                    }
-                                                                    if ($invoice->status === 1) {
-                                                                        ?><i class="fas fa-lock"></i> 1 - Klaar voor planning<?php
-                                                                                                                        }
-                                                                                                                        if ($invoice->status === 2) {
-                                                                                                                            ?><i class="fas fa-lock"></i> 2 - Gepland<?php
-                                                                                                                        }
-                                                                                                                        if ($invoice->status === 3) {
-                                                                                                                        ?><i class="fas fa-lock"></i> 3 - Verzonden<?php
-                                                                                                                        }
-                                                                                                            ?>
+                            ?><i class="fas fa-lock-open"></i> 0 - Concept<?php
+                        }
+                        if ($invoice->status === 1) {
+                            ?><i class="fas fa-lock"></i> 1 - Klaar voor planning<?php
+                        }
+                        if ($invoice->status === 2) {
+                            ?><i class="fas fa-lock"></i> 2 - Gepland<?php
+                        }
+                        if ($invoice->status === 3) {
+                            ?><i class="fas fa-lock"></i> 3 - Verzonden<?php
+                        }
+                        ?>
                     </td>
                     <td>
                         <?php if ($invoice->status === 0) { ?>
@@ -92,8 +92,8 @@ use PortalCMS\Modules\Invoices\InvoiceHelper;
                     </td>
                     <td>
                         <?php if ($invoice->status === 2) {
-                        ?><a href="<?= Config::get('URL') ?>Email/Details?id=<?= $invoice->mail_id ?>">Mail openen</a><?php
-                                                                                                                    } ?>
+                            ?><a href="<?= Config::get('URL') ?>Email/Details?id=<?= $invoice->mail_id ?>">Mail openen</a><?php
+                        } ?>
                     </td>
                 </tr>
             <?php } ?>

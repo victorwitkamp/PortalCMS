@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Email\Schedule;
 
+use PHPMailer\PHPMailer\Exception;
 use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
 use PortalCMS\Core\Email\Message\EmailMessage;
 use PortalCMS\Core\Email\Recipient\EmailRecipientCollectionCreator;
@@ -92,24 +93,19 @@ class MailSchedule
     public static function prepareMailData(int $mailId): bool
     {
         $scheduledMail = MailScheduleMapper::getById($mailId);
-        if (empty($scheduledMail)) {
-            return false;
-        }
-        $creator = new EmailRecipientCollectionCreator();
-        $recipients = $creator->createCollection($mailId);
-        $attachments = EmailAttachmentMapper::getByMailId($mailId);
-        if (empty($recipients)) {
-            MailScheduleMapper::updateStatus($mailId, 3);
-            MailScheduleMapper::setErrorMessageById($mailId, 'No recipient(s) were specified.');
-            return false;
-        }
-        if (empty($scheduledMail->subject) || empty($scheduledMail->body)) {
-            MailScheduleMapper::updateStatus($mailId, 3);
-            MailScheduleMapper::setErrorMessageById($mailId, 'Subject or body is empty.');
-            return false;
-        }
-        if (self::sendSingleMailHandler($mailId, $scheduledMail, $recipients, $attachments)) {
-            return true;
+        if (!empty($scheduledMail)) {
+            $creator = new EmailRecipientCollectionCreator();
+            $recipients = $creator->createCollection($mailId);
+            $attachments = EmailAttachmentMapper::getByMailId($mailId);
+            if (empty($recipients)) {
+                MailScheduleMapper::updateStatus($mailId, 3);
+                MailScheduleMapper::setErrorMessageById($mailId, 'No recipient(s) were specified.');
+            } elseif (empty($scheduledMail->subject) || empty($scheduledMail->body)) {
+                MailScheduleMapper::updateStatus($mailId, 3);
+                MailScheduleMapper::setErrorMessageById($mailId, 'Subject or body is empty.');
+            } elseif (self::sendSingleMailHandler($mailId, $scheduledMail, $recipients, $attachments)) {
+                return true;
+            }
         }
         return false;
     }
@@ -120,7 +116,7 @@ class MailSchedule
      * @param array $recipients recipients
      * @param array|null $attachments
      * @return bool
-     * @throws \PHPMailer\PHPMailer\Exception
+     * @throws Exception
      */
     public static function sendSingleMailHandler(int $mailId, object $scheduledMail, array $recipients, array $attachments = null) : bool
     {

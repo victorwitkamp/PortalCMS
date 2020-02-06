@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Modules\Contracts;
 
+use PortalCMS\Core\Activity\Activity;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Session\Session;
@@ -62,6 +63,7 @@ class ContractModel
             Request::post('contract_einddatumm', true),
             Request::post('contract_datum', true)
         )) {
+            Activity::add('NewContract', Session::get('user_id'), 'ID: ' . ContractMapper::lastInsertedId(), Session::get('user_name'));
             Session::add('feedback_positive', 'Contract toegevoegd.');
             Redirect::to('Contracts/');
         } else {
@@ -72,16 +74,16 @@ class ContractModel
 
     public static function update()
     {
-        $Id                         = (int) Request::post('id', true);
+        $contractId                 = (int) Request::post('id', true);
         $kosten_ruimte              = Request::post('kosten_ruimte', true);
         $kosten_kast                = Request::post('kosten_kast', true);
         $kosten_totaal              = $kosten_ruimte + $kosten_kast;
-        if (!ContractMapper::exists($Id)) {
-            Session::add('feedback_negative', 'Wijzigen van contract mislukt.<br>Contract bestaat niet.');
+        if (empty(ContractMapper::getById($contractId))) {
+            Session::add('feedback_negative', 'Wijzigen van contract mislukt. Contract bestaat niet.');
             Redirect::to('Contracts/');
         }
         if (ContractMapper::update(
-            $Id,
+            $contractId,
             Request::post('beuk_vertegenwoordiger', true),
             Request::post('band_naam', true),
             Request::post('bandcode', true),
@@ -107,6 +109,7 @@ class ContractModel
             Request::post('contract_einddatumm', true),
             Request::post('contract_datum', true)
         )) {
+            Activity::add('UpdateContract', Session::get('user_id'), 'ID: ' . $contractId, Session::get('user_name'));
             Session::add('feedback_positive', 'Contract gewijzigd.');
             Redirect::to('Contracts/');
         } else {
@@ -117,10 +120,11 @@ class ContractModel
 
     public static function delete(): bool
     {
-        $contract_id = (int) Request::post('id', true);
-        if (ContractMapper::exists($contract_id)) {
-            if (empty(InvoiceMapper::getByContractId($contract_id))) {
-                if (ContractMapper::delete($contract_id)) {
+        $contractId = (int) Request::post('id', true);
+        if (!empty(ContractMapper::getById($contractId))) {
+            if (empty(InvoiceMapper::getByContractId($contractId))) {
+                if (ContractMapper::delete($contractId)) {
+                    Activity::add('DeleteContract', Session::get('user_id'), 'ID: ' . $contractId, Session::get('user_name'));
                     Session::add('feedback_positive', 'Contract verwijderd.');
                     Redirect::to('Contracts');
                     return true;

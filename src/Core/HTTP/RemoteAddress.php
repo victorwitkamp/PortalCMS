@@ -6,6 +6,8 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\HTTP;
 
+use function in_array;
+
 /**
  * Functionality for determining client IP address.
  */
@@ -63,7 +65,7 @@ class RemoteAddress
      */
     protected function getIpAddressFromProxy()
     {
-        if (!$this->useProxy || (isset($_SERVER['REMOTE_ADDR']) && !\in_array($_SERVER['REMOTE_ADDR'], $this->trustedProxies, true))) {
+        if (!$this->useProxy || (isset($_SERVER['REMOTE_ADDR']) && !in_array($_SERVER['REMOTE_ADDR'], $this->trustedProxies, true))) {
             return false;
         }
 

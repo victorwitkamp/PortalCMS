@@ -128,23 +128,18 @@ class InvoiceHelper
     {
         $invoice = InvoiceMapper::getById($id);
         if (empty($invoice)) {
-            Session::add('feedback_negative', 'Kan factuur niet verwijderen. Factuur bestaat niet.');
-            return false;
-        }
-        if (!empty(InvoiceItemMapper::getByInvoiceId($id)) && !InvoiceItemMapper::deleteByInvoiceId($id)) {
-            Session::add('feedback_negative', 'Verwijderen van factuuritems voor factuur mislukt.');
-            return false;
-        }
-        if (($invoice->status > 0) && !unlink(DIR_ROOT . '/content/invoices/' . $invoice->factuurnummer . '.pdf')) {
-            Session::add('feedback_negative', 'PDF niet gevonden.');
-            return false;
-        }
-        if (!InvoiceMapper::delete($id)) {
+            Session::add('feedback_negative', 'Verwijderen van factuur mislukt. Factuur bestaat niet.');
+        } elseif (!empty(InvoiceItemMapper::getByInvoiceId($id)) && !InvoiceItemMapper::deleteByInvoiceId($id)) {
+            Session::add('feedback_negative', 'Verwijderen van factuur mislukt. Verwijderen van factuuritems voor factuur mislukt.');
+        } elseif (($invoice->status > 0) && !unlink(DIR_ROOT . '/content/invoices/' . $invoice->factuurnummer . '.pdf')) {
+            Session::add('feedback_negative', 'Verwijderen van factuur mislukt. PDF niet gevonden.');
+        } elseif (InvoiceMapper::delete($id)) {
+            Session::add('feedback_positive', 'Factuur verwijderd.');
+            return true;
+        } else {
             Session::add('feedback_negative', 'Verwijderen van factuur mislukt.');
-            return false;
         }
-        Session::add('feedback_positive', 'Factuur verwijderd.');
-        return true;
+        return false;
     }
 
     /**
@@ -166,21 +161,22 @@ class InvoiceHelper
 
     public static function write(int $id = null): bool
     {
-        if (empty($id)) {
-            return false;
+        if (!empty($id)) {
+            $invoice = InvoiceMapper::getById($id);
+            if (!empty($invoice)) {
+                $contract = ContractMapper::getById($invoice->contract_id);
+                $invoiceitems = InvoiceItemMapper::getByInvoiceId($id);
+                if (PDF::writeInvoice($invoice, $invoiceitems, $contract)) {
+                    InvoiceMapper::updateStatus($id, 1);
+                    return true;
+                }
+                Session::add('feedback_negative', 'Fout bij het opslaan.');
+            }
+            Session::add('feedback_negative', 'Fout bij het opslaan. Factuur niet gevonden.');
+        } else {
+            Session::add('feedback_negative', 'Fout bij het opslaan. Geen ID opgegeven.');
         }
-        $invoice = InvoiceMapper::getById($id);
-        if (empty($invoice)) {
-            return false;
-        }
-        $contract = ContractMapper::getById($invoice->contract_id);
-        $invoiceitems = InvoiceItemMapper::getByInvoiceId($id);
-        if (!PDF::writeInvoice($invoice, $invoiceitems, $contract)) {
-            Session::add('feedback_negative', 'Fout bij het opslaan');
-            return false;
-        }
-        InvoiceMapper::updateStatus($id, 1);
-        return true;
+        return false;
     }
 
     /**

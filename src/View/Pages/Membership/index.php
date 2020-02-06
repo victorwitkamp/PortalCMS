@@ -8,8 +8,8 @@ use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Members\MemberModel;
 
 $pageName = Text::get('TITLE_MEMBERS');
-$year = Request::get('year');
-if (!isset($year)) {
+$year = (int) Request::get('year');
+if (!isset($year) || empty($year)) {
     Redirect::to('Membership?year=' . date('Y'));
 }
 
@@ -32,13 +32,15 @@ if (!isset($year)) {
         </div>
         <div class="col-sm-4"><a href="/Membership/New" class="btn btn-success float-right"><span class="fa fa-plus"></span> <?= Text::get('LABEL_ADD') ?></a></div>
     </div>
-    <hr>
-    <?php Alert::renderFeedbackMessages(); ?>
+
+
     <form method="post">
         <label><?= Text::get('YEAR') ?></label>
-        <input type="text" name="year" value="<?= $year ?>" />
-        <input type="submit" name="showMembersByYear" />
+        <input type="number" name="year" value="<?= $year ?>" />
+        <button type="submit" class="btn btn-primary" name="showMembersByYear"><i class="fab fa-sistrix"></i></button>
     </form>
+    <hr>
+    <?php Alert::renderFeedbackMessages(); ?>
     <?php
     $members = MemberModel::getMembersByYear($year);
     if (!empty($members)) {

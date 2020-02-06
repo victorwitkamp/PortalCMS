@@ -8,11 +8,11 @@ use PortalCMS\Modules\Contracts\ContractMapper;
 
 $loadData = true;
 
-$contract = ContractMapper::getById(Request::get('id'));
+$contract = ContractMapper::getById((int) Request::get('id'));
 if (empty($contract)) {
     Redirect::to('Error/NotFound');
 }
-$pageName = 'Contract van ' . $contract->band_naam . ' bewerken';
+$pageName = 'Contract van ' . $contract->band_naam . ' wijzigen';
 ?>
 <?= $this->layout('layout', ['title' => $pageName]) ?>
 <?= $this->push('head-extra') ?>

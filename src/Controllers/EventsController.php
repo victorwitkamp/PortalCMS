@@ -165,5 +165,4 @@ class EventsController extends Controller
             Redirect::to('Error/Error');
         }
     }
-
 }
