@@ -182,27 +182,13 @@ use PortalCMS\Core\View\Text;
                 <div class="col-sm-10">
                     <select name="huur_dag" class="form-control">
                         <option>Selecteer een dag....</option>
-                        <option value="<?= Text::get('DAY_01') ?>" <?php if (Text::get('DAY_01') === $contract->huur_dag) {
-    echo 'selected';
-} ?>><?= Text::get('DAY_01') ?></option>
-                        <option value="<?= Text::get('DAY_02') ?>" <?php if (Text::get('DAY_02') === $contract->huur_dag) {
-    echo 'selected';
-} ?>><?= Text::get('DAY_02') ?></option>
-                        <option value="<?= Text::get('DAY_03') ?>" <?php if (Text::get('DAY_03') === $contract->huur_dag) {
-    echo 'selected';
-} ?>><?= Text::get('DAY_03') ?></option>
-                        <option value="<?= Text::get('DAY_04') ?>" <?php if (Text::get('DAY_04') === $contract->huur_dag) {
-    echo 'selected';
-} ?>><?= Text::get('DAY_04') ?></option>
-                        <option value="<?= Text::get('DAY_05') ?>" <?php if (Text::get('DAY_05') === $contract->huur_dag) {
-    echo 'selected';
-} ?>><?= Text::get('DAY_05') ?></option>
-                        <option value="<?= Text::get('DAY_06') ?>" <?php if (Text::get('DAY_06') === $contract->huur_dag) {
-    echo 'selected';
-} ?>><?= Text::get('DAY_06') ?></option>
-                        <option value="<?= Text::get('DAY_07') ?>" <?php if (Text::get('DAY_07') === $contract->huur_dag) {
-    echo 'selected';
-} ?>><?= Text::get('DAY_07') ?></option>
+                        <option value="<?= Text::get('DAY_01') ?>" <?= (Text::get('DAY_01') === $contract->huur_dag) ? 'selected' : '' ?>><?= Text::get('DAY_01') ?></option>
+                        <option value="<?= Text::get('DAY_02') ?>" <?= (Text::get('DAY_02') === $contract->huur_dag) ? 'selected' : '' ?>><?= Text::get('DAY_02') ?></option>
+                        <option value="<?= Text::get('DAY_03') ?>" <?= (Text::get('DAY_03') === $contract->huur_dag) ? 'selected' : '' ?>><?= Text::get('DAY_03') ?></option>
+                        <option value="<?= Text::get('DAY_04') ?>" <?= (Text::get('DAY_04') === $contract->huur_dag) ? 'selected' : '' ?>><?= Text::get('DAY_04') ?></option>
+                        <option value="<?= Text::get('DAY_05') ?>" <?= (Text::get('DAY_05') === $contract->huur_dag) ? 'selected' : '' ?>><?= Text::get('DAY_05') ?></option>
+                        <option value="<?= Text::get('DAY_06') ?>" <?= (Text::get('DAY_06') === $contract->huur_dag) ? 'selected' : '' ?>><?= Text::get('DAY_06') ?></option>
+                        <option value="<?= Text::get('DAY_07') ?>" <?= (Text::get('DAY_07') === $contract->huur_dag) ? 'selected' : '' ?>><?= Text::get('DAY_07') ?></option>
                     </select>
                 </div>
             </div>
