@@ -10,10 +10,10 @@ use PortalCMS\Core\Config\SiteSetting;
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= $this->e($title) ?> - <?= SiteSetting::getStaticSiteSetting('site_name') ?></title>
+    <title><?= $this->e($title) ?> - <?= SiteSetting::get('site_name') ?></title>
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
     <link rel="stylesheet" type="text/css" href="/dist/@fortawesome/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="/dist/bootswatch/dist/<?= SiteSetting::getStaticSiteSetting('site_theme') ?>/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/dist/bootswatch/dist/<?= SiteSetting::get('site_theme') ?>/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/dist/cookieconsent/build/cookieconsent.min.css" />
     <link rel="stylesheet" type="text/css" href="/includes/css/style.css">
     <!--[if lt IE 9]>

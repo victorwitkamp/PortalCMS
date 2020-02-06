@@ -31,7 +31,7 @@ class PlaceholderHelper
             'voornaam' => $member->voornaam,
             'achternaam' => $member->achternaam,
             'iban' => $member->iban,
-            'afzender' => SiteSetting::getStaticSiteSetting('MailFromName')
+            'afzender' => SiteSetting::get('MailFromName')
         ];
         if (!empty($variables)) {
             foreach ($variables as $placeholder => $value) {

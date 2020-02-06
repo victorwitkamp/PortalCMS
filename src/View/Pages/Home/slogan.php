@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use PortalCMS\Core\Config\SiteSetting;
 
-if (SiteSetting::getStaticSiteSetting('site_description_type') === '2') {
+if (SiteSetting::get('site_description_type') === '2') {
     $request_headers = [];
     $request_headers[] = 'accept: (application/json|text/plain)';
     $ch = curl_init('https://sv443.net/jokeapi/category/Any');
@@ -22,7 +22,7 @@ if (SiteSetting::getStaticSiteSetting('site_description_type') === '2') {
         print $out->{'delivery'};
     }
 }
-if (SiteSetting::getStaticSiteSetting('site_description_type') === '3') {
+if (SiteSetting::get('site_description_type') === '3') {
     $request_headers = [];
     $request_headers[] = 'accept: (text/plain)';
     $ch = curl_init('https://api.chucknorris.io/jokes/random');

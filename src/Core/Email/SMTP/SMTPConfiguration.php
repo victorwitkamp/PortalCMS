@@ -76,26 +76,26 @@ class SMTPConfiguration
      */
     public function __construct()
     {
-        $this->fromEmail = SiteSetting::getStaticSiteSetting('MailFromEmail');
-        $this->fromName = SiteSetting::getStaticSiteSetting('MailFromName');
-        $this->SMTPHost = SiteSetting::getStaticSiteSetting('MailServer');
-        $this->SMTPPort = SiteSetting::getStaticSiteSetting('MailServerPort');
-        if (SiteSetting::getStaticSiteSetting('MailServerSecure') === 'tls') {
+        $this->fromEmail = SiteSetting::get('MailFromEmail');
+        $this->fromName = SiteSetting::get('MailFromName');
+        $this->SMTPHost = SiteSetting::get('MailServer');
+        $this->SMTPPort = SiteSetting::get('MailServerPort');
+        if (SiteSetting::get('MailServerSecure') === 'tls') {
             $this->SMTPCrypto = 'tls';
-        } elseif (SiteSetting::getStaticSiteSetting('MailServerSecure') === 'ssl') {
+        } elseif (SiteSetting::get('MailServerSecure') === 'ssl') {
             $this->SMTPCrypto = 'ssl';
         } else {
             $this->SMTPCrypto = '';
         }
-        if (SiteSetting::getStaticSiteSetting('MailServerAuth') === 'true') {
+        if (SiteSetting::get('MailServerAuth') === 'true') {
             $this->SMTPAuth = true;
         } else {
             $this->SMTPAuth = false;
         }
-        $this->SMTPUser = SiteSetting::getStaticSiteSetting('MailServerUsername');
-        $this->SMTPPass = SiteSetting::getStaticSiteSetting('MailServerPassword');
-        $this->SMTPDebug = SiteSetting::getStaticSiteSetting('MailServerDebug');
-        if (SiteSetting::getStaticSiteSetting('MailIsHTML') === 'true') {
+        $this->SMTPUser = SiteSetting::get('MailServerUsername');
+        $this->SMTPPass = SiteSetting::get('MailServerPassword');
+        $this->SMTPDebug = SiteSetting::get('MailServerDebug');
+        if (SiteSetting::get('MailIsHTML') === 'true') {
             $this->isHTML = true;
         } else {
             $this->isHTML = false;

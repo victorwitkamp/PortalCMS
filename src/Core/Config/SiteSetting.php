@@ -52,11 +52,15 @@ class SiteSetting
         return true;
     }
 
-    public static function getStaticSiteSetting(string $setting)
+    public static function get(string $setting) : ?string
     {
         $stmt = DB::conn()->prepare('SELECT string_value FROM site_settings WHERE setting = ?');
         $stmt->execute([$setting]);
-        return $stmt->fetch(PDO::FETCH_COLUMN);
+        $value = $stmt->fetch(PDO::FETCH_COLUMN);
+        if (!empty($value) && $value !== false) {
+            return $value;
+        }
+        return null;
     }
 
     public static function uploadLogo(): bool

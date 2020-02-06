@@ -13,17 +13,17 @@ $pageName = Text::get('TITLE_HOME');
             <div class="container">
                 <div class="row">
                     <div class="col-sm-4">
-                        <img src='<?= SiteSetting::getStaticSiteSetting('site_logo') ?>' alt='logo' width='150px' height='150px' />
+                        <img src='<?= SiteSetting::get('site_logo') ?>' alt='logo' width='150px' height='150px' />
                         <?php if (Authorization::hasPermission('site-settings')) { ?>
                             <br><a href="/Settings/Logo/">Logo wijzigen</a>
                         <?php } ?>
                     </div>
                     <div class="col-sm-8">
-                        <h1><?= SiteSetting::getStaticSiteSetting('site_name') ?></h1>
+                        <h1><?= SiteSetting::get('site_name') ?></h1>
                         <p class="lead">
                         <?php
-                        if (SiteSetting::getStaticSiteSetting('site_description_type') === '1') {
-                            echo SiteSetting::getStaticSiteSetting('site_description');
+                        if (SiteSetting::get('site_description_type') === '1') {
+                            echo SiteSetting::get('site_description');
                         }
                         require __DIR__ . '/slogan.php';
                         ?></p>
@@ -34,7 +34,7 @@ $pageName = Text::get('TITLE_HOME');
         <div class="container">
             <div class="row">
                 <?php
-                $layout = SiteSetting::getStaticSiteSetting('site_layout');
+                $layout = SiteSetting::get('site_layout');
                 if ($layout === 'left-sidebar') {
                     require __DIR__ . '/layouts/left-sidebar.php';
                 }

@@ -102,7 +102,7 @@ class PasswordReset
                 $resetlink,
                 PlaceholderHelper::replace(
                     'SITENAME',
-                    SiteSetting::getStaticSiteSetting('site_name'),
+                    SiteSetting::get('site_name'),
                     PlaceholderHelper::replace(
                         'USERNAME',
                         $user_name,
