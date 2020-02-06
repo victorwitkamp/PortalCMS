@@ -1,3 +1,7 @@
+/*
+ * Copyright Victor Witkamp (c) 2020.
+ */
+
 $(function () {
     $("#datetimepicker1").datetimepicker({
         format: "YYYY-MM-DD HH:mm",

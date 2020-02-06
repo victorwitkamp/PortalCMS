@@ -1,3 +1,7 @@
+/*
+ * Copyright Victor Witkamp (c) 2020.
+ */
+
 CREATE DATABASE
     membersdb
     CHARACTER SET = utf8mb4

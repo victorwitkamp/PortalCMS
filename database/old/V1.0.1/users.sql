@@ -1,3 +1,7 @@
+/*
+ * Copyright Victor Witkamp (c) 2020.
+ */
+
 ALTER TABLE users
     DROP COLUMN user_creation_timestamp;
 ALTER TABLE users

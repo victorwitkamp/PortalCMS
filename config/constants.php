@@ -1,4 +1,8 @@
 <?php
+/**
+ * Copyright Victor Witkamp (c) 2020.
+ */
+
 declare(strict_types=1);
 /**
  * Configuration for: Named constants

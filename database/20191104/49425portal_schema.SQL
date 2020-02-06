@@ -296,6 +296,10 @@ CREATE TABLE IF NOT EXISTS `roles`
   AUTO_INCREMENT = 5
   DEFAULT CHARSET = utf8;
 
+/*
+ * Copyright Victor Witkamp (c) 2020.
+ */
+
 -- Data exporting was unselected.
 -- Dumping structure for table 49425portal.role_perm
 CREATE TABLE IF NOT EXISTS `role_perm`

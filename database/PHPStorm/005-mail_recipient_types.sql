@@ -1,3 +1,7 @@
+/*
+ * Copyright Victor Witkamp (c) 2020.
+ */
+
 create table mail_recipient_types
 (
     id               int auto_increment

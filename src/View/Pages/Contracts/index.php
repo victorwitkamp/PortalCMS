@@ -1,4 +1,8 @@
 <?php
+/**
+ * Copyright Victor Witkamp (c) 2020.
+ */
+
 declare(strict_types=1);
 
 use PortalCMS\Core\View\Alert;
@@ -43,14 +47,16 @@ $contracts = ContractMapper::get();
                         <tr>
                             <td><a href="/Contracts/View?id=<?= $contract->id ?>"><?= $contract->band_naam ?></a></td>
                             <td><?= $contract->bandcode ?></td>
-                            <td><?= $contract->kosten_totaal; ?></td>
+                            <td><?= $contract->kosten_totaal ?></td>
                         </tr>
                     <?php } ?>
                     </tbody>
                 </table>
-            <?php } else {
-                        echo Text::get('LABEL_NOT_FOUND');
-                    } ?>
+                <?php
+            } else {
+                echo Text::get('LABEL_NOT_FOUND');
+            }
+            ?>
         </div>
 
 <?= $this->end();

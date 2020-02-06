@@ -1,3 +1,7 @@
+/*
+ * Copyright Victor Witkamp (c) 2020.
+ */
+
 create table invoice_items
 (
     id               int auto_increment

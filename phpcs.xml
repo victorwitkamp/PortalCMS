@@ -1,4 +1,8 @@
 <?xml version="1.0"?>
+<!--
+  ~ Copyright Victor Witkamp (c) 2020.
+  -->
+
 <ruleset>
   <rule ref="Generic.CodeAnalysis.UnconditionalIfStatement"/>
   <rule ref="Generic.CodeAnalysis.EmptyStatement"/>

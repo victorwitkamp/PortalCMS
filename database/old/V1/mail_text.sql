@@ -1,3 +1,7 @@
+/*
+ * Copyright Victor Witkamp (c) 2020.
+ */
+
 CREATE TABLE IF NOT EXISTS mail_text
 (
     `name`             VARCHAR(32),

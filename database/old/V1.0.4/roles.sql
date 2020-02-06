@@ -1,3 +1,7 @@
+/*
+ * Copyright Victor Witkamp (c) 2020.
+ */
+
 CREATE TABLE IF NOT EXISTS roles
 (
     role_id   INTEGER     NOT NULL PRIMARY KEY AUTO_INCREMENT,

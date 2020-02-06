@@ -1,3 +1,7 @@
+/*
+ * Copyright Victor Witkamp (c) 2020.
+ */
+
 CREATE TABLE IF NOT EXISTS user_role
 (
     user_id INTEGER NOT NULL,

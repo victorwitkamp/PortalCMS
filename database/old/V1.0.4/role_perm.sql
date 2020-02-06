@@ -1,3 +1,7 @@
+/*
+ * Copyright Victor Witkamp (c) 2020.
+ */
+
 CREATE TABLE IF NOT EXISTS role_perm
 (
     role_id INTEGER NOT NULL,

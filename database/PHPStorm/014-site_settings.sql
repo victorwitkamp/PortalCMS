@@ -1,3 +1,7 @@
+/*
+ * Copyright Victor Witkamp (c) 2020.
+ */
+
 create table site_settings
 (
     setting          varchar(32)                         null,

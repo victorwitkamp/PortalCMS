@@ -1,3 +1,7 @@
+/*
+ * Copyright Victor Witkamp (c) 2020.
+ */
+
 ALTER TABLE mail_templates
     ADD name varchar(32) default NULL after type;
 

@@ -1,4 +1,8 @@
 <?php
+/**
+ * Copyright Victor Witkamp (c) 2020.
+ */
+
 declare(strict_types=1);
 
 use PortalCMS\Core\Config\SiteSetting;
@@ -41,7 +45,10 @@ use PortalCMS\Core\View\Alert;
                     <?= $this->section('body') ?>
                 </div>
                 <div class="panel-footer">
-                    <label>Hulp bij aanmelden<div class="small"><del>Registreren</del> | <a href="/Login/Activate">Activeren</a> | <a href="/Login/RequestPasswordReset">Wachtwoord vergeten</a></div></label>
+                    <label>Hulp bij aanmelden</label>
+                    <div class="small">
+                        <del>Registreren</del> | <a href="/Login/Activate">Activeren</a> | <a href="/Login/RequestPasswordReset">Wachtwoord vergeten</a>
+                    </div>
                 </div>
             </div>
             <ul class="list-inline text-center small m-t-md">

@@ -1,3 +1,7 @@
+/*
+ * Copyright Victor Witkamp (c) 2020.
+ */
+
 const { src, dest, parallel } = require('gulp');
 // const pug = require('gulp-pug');
 // const less = require('gulp-less');

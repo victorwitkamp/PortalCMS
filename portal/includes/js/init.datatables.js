@@ -1,3 +1,7 @@
+/*
+ * Copyright Victor Witkamp (c) 2020.
+ */
+
 $(document).ready(function () {
     $("#example").DataTable({
         scrollX: true,

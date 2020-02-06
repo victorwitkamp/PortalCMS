@@ -1,4 +1,8 @@
 <?php
+/**
+ * Copyright Victor Witkamp (c) 2020.
+ */
+
 declare(strict_types=1);
 
 use PortalCMS\Core\Activity\Activity;
@@ -20,13 +24,15 @@ $pageName = Text::get('TITLE_RECENT_ACTIVITY'); ?>
 <div class="container">
     <table class="table table-sm table-striped table-hover table-dark">
         <thead>
-            <th>ID</th>
-            <th>User ID</th>
-            <th>Gebruikersnaam</th>
-            <th>IP Address</th>
-            <th>Activity</th>
-            <th>Details</th>
-            <th>CreationDate</th>
+            <tr>
+                <th>ID</th>
+                <th>User ID</th>
+                <th>Gebruikersnaam</th>
+                <th>IP Address</th>
+                <th>Activity</th>
+                <th>Details</th>
+                <th>CreationDate</th>
+            </tr>
         </thead>
         <?php $Activities = Activity::load();
         foreach ($Activities as $Activity) {

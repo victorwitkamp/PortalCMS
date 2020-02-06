@@ -1,3 +1,7 @@
+/*
+ * Copyright Victor Witkamp (c) 2020.
+ */
+
 CREATE TABLE IF NOT EXISTS band_contracts
 (
     `id`                         INT         NOT NULL PRIMARY KEY AUTO_INCREMENT,

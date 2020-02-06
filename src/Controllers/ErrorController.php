@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright Victor Witkamp (c) 2019.
+ * Copyright Victor Witkamp (c) 2020.
  */
 
 declare(strict_types=1);

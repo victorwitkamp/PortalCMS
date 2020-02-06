@@ -1,3 +1,7 @@
+/*
+ * Copyright Victor Witkamp (c) 2020.
+ */
+
 INSERT INTO `site_settings` (`setting`, `string_value`)
 VALUES ('MailServer', 'localhost');
 INSERT INTO `site_settings` (`setting`, `string_value`)
