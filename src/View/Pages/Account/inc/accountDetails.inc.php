@@ -9,7 +9,7 @@ use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\User\UserPDOReader;
 use PortalCMS\Core\View\Text;
 
-$user = UserPDOReader::getProfileById(Session::get('user_id'));
+$user = UserPDOReader::getProfileById((int) Session::get('user_id'));
 ?>
 <h3><?= Text::get('LABEL_ACCOUNT_DETAILS') ?></h3>
 <table class="table table-striped table-condensed">

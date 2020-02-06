@@ -52,7 +52,7 @@ class AccountController extends Controller
 
     public static function changeUsername()
     {
-        User::editUsername(Request::post('user_name'));
+        User::editUsername((string) Request::post('user_name'));
     }
 
     public static function changepassword()

@@ -46,14 +46,16 @@ class LoginController extends Controller
         //     }
         // }
         if (isset($_POST['requestPasswordReset'])) {
-            if (PasswordReset::requestPasswordReset($_POST['user_name_or_email'])) {
+            if (PasswordReset::requestPasswordReset((string) Request::post('user_name_or_email'))) {
                 Redirect::to('Login');
             }
         }
         if (isset($_POST['resetSubmit'])) {
-            if (PasswordReset::verifyPasswordReset(Request::post('username'), Request::post('password_reset_hash'))) {
-                $passwordHash = password_hash(base64_encode(Request::post('password')), PASSWORD_DEFAULT);
-                if (PasswordReset::saveNewUserPassword(Request::post('username'), $passwordHash, Request::post('password_reset_hash'))) {
+            $username = (string) Request::post('username');
+            $resetHash = (string) Request::post('password_reset_hash');
+            if (PasswordReset::verifyPasswordReset($username, $resetHash)) {
+                $passwordHash = password_hash(base64_encode((string) Request::post('password')), PASSWORD_DEFAULT);
+                if (PasswordReset::saveNewUserPassword($username, $passwordHash, $resetHash)) {
                     Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_CHANGE_SUCCESSFUL'));
                     Redirect::to('Login');
                 } else {
