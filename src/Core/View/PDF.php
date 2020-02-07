@@ -74,15 +74,23 @@ class PDF
         $pdf->setFooterMargin(PDF_MARGIN_FOOTER);
         $pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
         $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-        // $pdf->setFontSubsetting(true);
         $pdf->setFontSubsetting(false);
-        // $pdf->SetFont('dejavusans', '', 11, '', true);
         $pdf->AddPage();
-        // $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196, 196, 196), 'opacity'=>1, 'blend_mode'=>'Normal'));
         return $pdf;
     }
 
     public static function createInvoice(TCPDF $pdf, object $invoice, array $invoiceitems, object $contract) : TCPDF
+    {
+         return self::setInvoiceFooter(
+             self::setInvoiceContent(
+                self::setInvoiceHeader($pdf, $invoice, $contract),
+                $invoiceitems
+            )
+         );
+
+    }
+
+    public static function setInvoiceHeader(TCPDF $pdf, $invoice, $contract)
     {
         $pdf->SetTitle('Factuur ' . $invoice->factuurnummer);
         $pdf->SetXY(165, 15);
@@ -108,6 +116,11 @@ class PDF
         $pdf->SetXY(120, 120);
         $pdf->Write(0, 'Factuurdatum: ' . date('d-m-Y', strtotime($invoice->factuurdatum)), '', 0, 'R', true);
         $pdf->SetXY(20, 140);
+        return $pdf;
+    }
+
+    public static function setInvoiceContent(TCPDF $pdf, $invoiceitems)
+    {
         $pdf->SetFont('dejavusans', 'B', 11, '', true);
         $pdf->Write(0, 'Omschrijving', '', 0, 'L');
         $pdf->SetX(150);
@@ -136,22 +149,23 @@ class PDF
         $pdf->Write(0, '€', '', 0, 'L');
         $pdf->SetX(150);
         $pdf->Write(0, $totaalbedrag . "\n\n\n", '', 0, 'R');
+        $pdf->SetX(20);
+        return $pdf;
+    }
 
+    public static function setInvoiceFooter(TCPDF $pdf)
+    {
         $pdf->SetX(20);
-        $gelieve  = 'Wij verzoeken u het bedrag binnen 14 dagen over te maken naar';
-        $gelieve2 = 'NL19 RABO 1017 5413 53 o.v.v. het factuurnummer t.n.v. SOCIETEIT DE BEUK.' . "\n";
-        $gelieve4 = 'Neem voor vragen over facturatie contact op met penningmeester@beukonline.nl.' . "\n\n";
+        $pdf->Write(0, 'Wij verzoeken u het bedrag binnen 14 dagen over te maken naar', '', 0, '', true);
         $pdf->SetX(20);
-        $pdf->Write(0, $gelieve, '', 0, '', true);
+        $pdf->Write(0, 'NL19 RABO 1017 5413 53 o.v.v. het factuurnummer t.n.v. SOCIETEIT DE BEUK.' . "\n", '', 0, 'L', true);
         $pdf->SetX(20);
-        $pdf->Write(0, $gelieve2, '', 0, 'L', true);
-        $pdf->SetX(20);
-        $pdf->Write(0, $gelieve4, '', 0, 'L', true);
+        $pdf->Write(0, 'Neem voor vragen over facturatie contact op met penningmeester@beukonline.nl.' . "\n\n", '', 0, 'L', true);
         $pdf->SetX(20);
         $pdf->Write(0, 'Met vriendelijke groet,' . "\n\n", '', 0, 'L', true);
         $pdf->SetX(20);
         $pdf->Write(0, 'De penningmeester van Poppodium de Beuk.', '', 0, 'L', true);
-        return $pdf;
+        return $pdf
     }
 
     /**
