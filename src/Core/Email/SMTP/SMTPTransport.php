@@ -32,15 +32,10 @@ class SMTPTransport
     private $error;
 
     /**
-     * @var $emailMessage
+     * @var EmailMessage $emailMessage An e-mail message
      */
     private $emailMessage;
 
-    /**
-     * Constructor
-     *
-     * @param SMTPConfiguration $config
-     */
     public function __construct(SMTPConfiguration $config)
     {
         $this->config = $config;
@@ -114,7 +109,7 @@ class SMTPTransport
         $this->PHPMailer->Subject = $this->emailMessage->subject;
         $this->PHPMailer->Body = $this->emailMessage->body;
         $this->processAttachments();
-        $this->send();
+        return $this->send();
     }
 
     public function send() : bool
@@ -125,6 +120,7 @@ class SMTPTransport
             $this->error = $e->errorMessage();
         } finally {
             $this->emailMessage = null;
+            return true;
         }
     }
 
