@@ -75,16 +75,13 @@ class MailSchedule
             Session::add('feedback_negative', 'Invalid request.');
         }
         if ($failed > 0) {
-            $failedText = $failed . ' bericht(en) mislukt.';
-            Session::add('feedback_negative', $failedText);
+            Session::add('feedback_negative', $failed . ' bericht(en) mislukt.');
         }
         if ($alreadySent > 0) {
-            $alreadySentText = $alreadySent . ' bericht(en) reeds verstuurd.';
-            Session::add('feedback_warning', $alreadySentText);
+            Session::add('feedback_warning', $alreadySent . ' bericht(en) reeds verstuurd.');
         }
         if ($success > 0) {
-            $successText = $success . ' bericht(en) succesvol verstuurd.';
-            Session::add('feedback_positive', $successText);
+            Session::add('feedback_positive', $success . ' bericht(en) succesvol verstuurd.');
             return true;
         }
         return false;

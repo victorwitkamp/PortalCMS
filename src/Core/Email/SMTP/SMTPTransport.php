@@ -32,6 +32,11 @@ class SMTPTransport
     private $error;
 
     /**
+     * @var $emailMessage
+     */
+    private $emailMessage;
+
+    /**
      * Constructor
      *
      * @param SMTPConfiguration $config
@@ -81,59 +86,67 @@ class SMTPTransport
         return $this->error;
     }
 
-    public function verifyMessage(EmailMessage $message)
+    public function verifyMessage()
     {
-        if (empty($message->recipients)) {
+        if (empty($this->emailMessage->recipients)) {
             $this->error = 'Recipients incompleet';
             return false;
         }
-        if (empty($message->subject)) {
+        if (empty($this->emailMessage->subject)) {
             $this->error = 'Subject incompleet';
             return false;
         }
-        if (empty($message->body)) {
+        if (empty($this->emailMessage->body)) {
             $this->error = 'Body incompleet';
             return false;
         }
-        return $message;
+        return true;
     }
 
-    /**
-     * Try to send a mail by using PHPMailer.
-     * Make sure you have loaded PHPMailer via Composer.
-     *
-     * @param EmailMessage $message An e-mail that should be send
-     *
-     * @return bool
-     * @throws Exception
-     */
-    public function sendMail(EmailMessage $message): bool
+    public function sendMail(EmailMessage $emailMessage): bool
     {
-        $verifiedMessage = $this->verifyMessage($message);
-        if (!$verifiedMessage) {
+        $this->emailMessage = $emailMessage;
+        if (!$this->verifyMessage()) {
             return false;
         }
         $this->prepareConfiguration();
-        foreach ($verifiedMessage->recipients as $recipient) {
-            $this->PHPMailer->addAddress($recipient->email, $recipient->name);
-        }
-        $this->PHPMailer->Subject = $verifiedMessage->subject;
-        $this->PHPMailer->Body = $verifiedMessage->body;
-        if (!empty($verifiedMessage->attachments)) {
-            foreach ($verifiedMessage->attachments as $attachment) {
-                $attachmentFullFilePath = DIR_ROOT . $attachment['path'] . $attachment['name'] . $attachment['extension'];
-                $attachmentFullName = $attachment['name'] . $attachment['extension'];
-                $this->PHPMailer->addAttachment($attachmentFullFilePath, $attachmentFullName, $attachment['encoding'], $attachment['type']);
-            }
-        }
+        $this->processRecipients();
+        $this->PHPMailer->Subject = $this->emailMessage->subject;
+        $this->PHPMailer->Body = $this->emailMessage->body;
+        $this->processAttachments();
+        $this->send();
+    }
+
+    public function send() : bool
+    {
         try {
-            return $this->PHPMailer->send();
+            $this->PHPMailer->send();
         } catch (Exception $e) {
             $this->error = $e->errorMessage();
-            return false;
-        } catch (\Exception $e) {
-            $this->error = $e->getMessage();
-            return false;
+        } finally {
+            $this->emailMessage = null;
+        }
+    }
+
+    public function processRecipients() : bool
+    {
+        if (!empty($this->emailMessage->recipients)) {
+            foreach ($this->emailMessage->recipients as $recipient) {
+                $this->PHPMailer->addAddress($recipient->email, $recipient->name);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public function processAttachments()
+    {
+        if (!empty($this->emailMessage->attachments)) {
+            foreach ($this->emailMessage->attachments as $attachment) {
+                $name = $attachment['name'] . $attachment['extension'];
+                $fullPath = DIR_ROOT . $attachment['path'] . $name;
+                $this->PHPMailer->addAttachment($fullPath, $name, $attachment['encoding'], $attachment['type']);
+            }
         }
     }
 }

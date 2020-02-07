@@ -30,7 +30,6 @@ class PasswordReset
      * Perform the necessary actions to send a password reset mail
      * @param string $user_name_or_email Username or user's email
      * @return bool success status
-     * @throws Exception
      */
     public static function requestPasswordReset(string $user_name_or_email): bool
     {
@@ -83,7 +82,6 @@ class PasswordReset
      * @param string $resetToken password reset hash
      * @param string $user_email user email
      * @return bool success status
-     * @throws Exception
      */
     public static function sendPasswordResetMail(string $user_name, string $resetToken, string $user_email): bool
     {
