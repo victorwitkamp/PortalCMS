@@ -101,12 +101,9 @@ class MailSchedule
                 MailScheduleMapper::updateStatus($mailId, 3);
                 MailScheduleMapper::setErrorMessageById($mailId, 'Subject or body is empty.');
             } else {
-                try (
-                    self::sendSingleMailHandler($mailId, $scheduledMail, $recipients, $attachments)
-            } catch (Exception $e) {
-                echo 'Caught exception: ',  $e->getMessage(), "\n";
-            }                return true;
-
+                self::sendSingleMailHandler($mailId, $scheduledMail, $recipients, $attachments);
+                return true;
+            }
         }
         return false;
     }

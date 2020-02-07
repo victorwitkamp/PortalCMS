@@ -128,7 +128,11 @@ class SMTPTransport
     {
         if (!empty($this->emailMessage->recipients)) {
             foreach ($this->emailMessage->recipients as $recipient) {
-                $this->PHPMailer->addAddress($recipient->email, $recipient->name);
+                try {
+                    $this->PHPMailer->addAddress($recipient->email, $recipient->name);
+                } catch (Exception $e) {
+                    echo 'Caught exception: ',  $e->getMessage(), "\n";
+                }
             }
             return true;
         }
@@ -141,7 +145,11 @@ class SMTPTransport
             foreach ($this->emailMessage->attachments as $attachment) {
                 $name = $attachment['name'] . $attachment['extension'];
                 $fullPath = DIR_ROOT . $attachment['path'] . $name;
-                $this->PHPMailer->addAttachment($fullPath, $name, $attachment['encoding'], $attachment['type']);
+                try {
+                    $this->PHPMailer->addAttachment($fullPath, $name, $attachment['encoding'], $attachment['type']);
+                } catch (Exception $e) {
+                    echo 'Caught exception: ',  $e->getMessage(), "\n";
+                }
             }
         }
     }
