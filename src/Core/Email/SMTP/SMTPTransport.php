@@ -81,7 +81,7 @@ class SMTPTransport
         return $this->error;
     }
 
-    public function verifyMessage()
+    public function verifyMessage(): bool
     {
         if (empty($this->emailMessage->recipients)) {
             $this->error = 'Recipients incompleet';

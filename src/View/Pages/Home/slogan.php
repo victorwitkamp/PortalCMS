@@ -19,7 +19,7 @@ if (SiteSetting::get('site_description_type') === '2') {
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     $output = curl_exec($ch);
-    $out = json_decode($output);
+    $out = json_decode($output, true, 512, JSON_THROW_ON_ERROR);
     if (!empty($out->{'setup'}) && !empty($out->{'delivery'})) {
         print $out->{'setup'};
         echo '<br>';

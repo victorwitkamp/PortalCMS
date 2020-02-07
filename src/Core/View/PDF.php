@@ -81,16 +81,10 @@ class PDF
 
     public static function createInvoice(TCPDF $pdf, object $invoice, array $invoiceitems, object $contract) : TCPDF
     {
-         return self::setInvoiceFooter(
-             self::setInvoiceContent(
-                self::setInvoiceHeader($pdf, $invoice, $contract),
-                $invoiceitems
-            )
-         );
-
+         return self::setInvoiceFooter(self::setInvoiceContent(self::setInvoiceHeader($pdf, $invoice, $contract), $invoiceitems));
     }
 
-    public static function setInvoiceHeader(TCPDF $pdf, $invoice, $contract)
+    public static function setInvoiceHeader(TCPDF $pdf, $invoice, $contract): TCPDF
     {
         $pdf->SetTitle('Factuur ' . $invoice->factuurnummer);
         $pdf->SetXY(165, 15);
@@ -119,7 +113,7 @@ class PDF
         return $pdf;
     }
 
-    public static function setInvoiceContent(TCPDF $pdf, $invoiceitems)
+    public static function setInvoiceContent(TCPDF $pdf, $invoiceitems): TCPDF
     {
         $pdf->SetFont('dejavusans', 'B', 11, '', true);
         $pdf->Write(0, 'Omschrijving', '', 0, 'L');
@@ -153,7 +147,7 @@ class PDF
         return $pdf;
     }
 
-    public static function setInvoiceFooter(TCPDF $pdf)
+    public static function setInvoiceFooter(TCPDF $pdf): TCPDF
     {
         $pdf->SetX(20);
         $pdf->Write(0, 'Wij verzoeken u het bedrag binnen 14 dagen over te maken naar', '', 0, '', true);
@@ -165,7 +159,7 @@ class PDF
         $pdf->Write(0, 'Met vriendelijke groet,' . "\n\n", '', 0, 'L', true);
         $pdf->SetX(20);
         $pdf->Write(0, 'De penningmeester van Poppodium de Beuk.', '', 0, 'L', true);
-        return $pdf
+        return $pdf;
     }
 
     /**
@@ -195,12 +189,12 @@ class PDF
 
         if (file_exists($_SERVER['DOCUMENT_ROOT'] . 'content/invoices/' . $invoice->factuurnummer . '.pdf')) {
             Session::add('feedback_negative', 'Bestand bestaat al.');
-            return false;
-        }
-        // ob_end_clean();
-        $pdf->Output($_SERVER['DOCUMENT_ROOT'] . 'content/invoices/' . $invoice->factuurnummer . '.pdf', 'F');
-        if (file_exists($_SERVER['DOCUMENT_ROOT'] . 'content/invoices/' . $invoice->factuurnummer . '.pdf')) {
-            return true;
+        } else {
+            // ob_end_clean();
+            $pdf->Output($_SERVER['DOCUMENT_ROOT'] . 'content/invoices/' . $invoice->factuurnummer . '.pdf', 'F');
+            if (file_exists($_SERVER['DOCUMENT_ROOT'] . 'content/invoices/' . $invoice->factuurnummer . '.pdf')) {
+                return true;
+            }
         }
         return false;
     }

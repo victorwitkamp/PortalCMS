@@ -7,7 +7,6 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\User;
 
-use PHPMailer\PHPMailer\Exception;
 use function strlen;
 use PortalCMS\Core\Config\Config;
 use PortalCMS\Core\Config\SiteSetting;
