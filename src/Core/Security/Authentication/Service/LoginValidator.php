@@ -59,17 +59,13 @@ class LoginValidator
      */
     public static function validateLogin(string $user_name, string $user_password) : ?object
     {
-        if (!empty($user_name) && !empty($user_password)) {
-            if (self::checkSessionBruteForce()) {
-                $user = self::getUser($user_name, $user_password);
-                if (!empty($user)) {
-                    return $user;
-                }
-            } else {
-                Session::add('feedback_negative', Text::get('FEEDBACK_BRUTE_FORCE_CHECK_FAILED'));
-            }
-        } else {
+        if (empty($user_name) || empty($user_password)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
+        } else {
+            if (self::checkSessionBruteForce()) {
+                return self::getUser($user_name, $user_password);
+            }
+            Session::add('feedback_negative', Text::get('FEEDBACK_BRUTE_FORCE_CHECK_FAILED'));
         }
         return null;
     }
