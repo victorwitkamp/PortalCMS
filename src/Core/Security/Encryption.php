@@ -56,7 +56,7 @@ class Encryption
             || !function_exists('openssl_encrypt')
         ) {
 
-            throw new Exception('Encryption function doesn\'t exist');
+            throw new \RuntimeException('Encryption function doesn\'t exist');
         }
 
         // generate initialization vector,
@@ -90,11 +90,11 @@ class Encryption
     public static function decrypt(string $ciphertext): ?string
     {
         if (empty($ciphertext)) {
-            throw new Exception('The String to decrypt can\'t be empty');
+            throw new \RuntimeException('The String to decrypt can\'t be empty');
         }
 
         if (!function_exists('openssl_cipher_iv_length') || !function_exists('openssl_decrypt')) {
-            throw new Exception('Encryption function doesn\'t exist');
+            throw new \RuntimeException('Encryption function doesn\'t exist');
         }
 
         // generate key used for authentication using ENCRYPTION_KEY & HMAC_SALT
