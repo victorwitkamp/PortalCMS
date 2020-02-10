@@ -52,20 +52,18 @@ class AccountController extends Controller
 
     public static function changeUsername()
     {
-        User::editUsername((string) Request::post('user_name'));
+        User::editUsername(
+            (string) Request::post('user_name')
+        );
     }
 
     public static function changepassword()
     {
-        $username = (string) Session::get('user_name');
-        $current = (string) Request::post('currentpassword');
-        $new = (string) Request::post('newpassword');
-        $confirm = (string) Request::post('newconfirmpassword');
         Password::changePassword(
-            $username,
-            $current,
-            $new,
-            $confirm
+            (string) Session::get('user_name'),
+            (string) Request::post('currentpassword'),
+            (string) Request::post('newpassword'),
+            (string) Request::post('newconfirmpassword')
         );
     }
 
@@ -78,17 +76,5 @@ class AccountController extends Controller
         }
         Session::add('feedback_negative', Text::get('FEEDBACK_REMOVE_FACEBOOK_ACCOUNT_FAILED'));
         Redirect::to('Account');
-    }
-
-    public static function setFbid(int $userId, int $FbId)
-    {
-        if (!empty($FbId) && UserPDOWriter::updateFBid($userId, $FbId)) {
-            Session::set('user_fbid', $FbId);
-            Session::add('feedback_positive', Text::get('FEEDBACK_CONNECT_FACEBOOK_ACCOUNT_SUCCESS'));
-            Redirect::to('Account');
-        } else {
-            Session::add('feedback_negative', Text::get('FEEDBACK_CONNECT_FACEBOOK_ACCOUNT_FAILED'));
-            Redirect::to('Account');
-        }
     }
 }

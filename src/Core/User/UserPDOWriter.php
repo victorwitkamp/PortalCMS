@@ -12,8 +12,6 @@ use PortalCMS\Core\Database\DB;
 class UserPDOWriter
 {
     /**
-     * Writes new username to database
-     *
      * @param int $user_id user id
      * @param string $newUsername new username
      * @return bool Was the username updated succesfully?
@@ -41,7 +39,7 @@ class UserPDOWriter
             'UPDATE users
                 SET user_fbid = ?
                     WHERE user_id = ?
-                    LIMIT 1'
+                        LIMIT 1'
         );
         $stmt->execute([$fbid, $user_id]);
         return ($stmt->rowCount() === 1);
@@ -57,16 +55,16 @@ class UserPDOWriter
         $stmt = DB::conn()->prepare(
             'UPDATE users
                     SET user_remember_me_token = ?
-                    WHERE user_id = ?
-                    LIMIT 1'
+                        WHERE user_id = ?
+                            LIMIT 1'
         );
         $stmt->execute([$token, $user_id]);
         return ($stmt->rowCount() === 1);
     }
 
     /**
-     * @param string $userId
-     * @param string $sessionId
+     * @param int $userId user id
+     * @param string $sessionId session id
      * @return bool Was the session id updated succesfully?
      */
     public static function updateSessionId(int $userId, string $sessionId = null): bool
@@ -74,7 +72,8 @@ class UserPDOWriter
         $stmt = DB::conn()->prepare(
             'UPDATE users
                     SET session_id = :session_id
-                        WHERE user_id = :user_id'
+                        WHERE user_id = :user_id
+                            LIMIT 1'
         );
         $stmt->execute([':session_id' => $sessionId, ':user_id' => $userId]);
         return ($stmt->rowCount() === 1);
@@ -127,8 +126,8 @@ class UserPDOWriter
             'UPDATE users
                 SET user_failed_logins = user_failed_logins+1, user_last_failed_login = :user_last_failed_login
                     WHERE user_name = :user_name
-                    OR user_email = :user_email
-                    LIMIT 1'
+                        OR user_email = :user_email
+                            LIMIT 1'
         );
         $stmt->execute([':user_name' => $username, ':user_email' => $username, ':user_last_failed_login' => date('Y-m-d H:i:s')]);
         return ($stmt->rowCount() === 1);

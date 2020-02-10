@@ -47,4 +47,18 @@ class User
         }
         return false;
     }
+
+    public static function setFbid(int $FbId)
+    {
+        if (!empty($FbId) && UserPDOWriter::updateFBid((int) Session::get('user_id'), $FbId)) {
+            Session::set('user_fbid', $FbId);
+            Session::add('feedback_positive', Text::get('FEEDBACK_CONNECT_FACEBOOK_ACCOUNT_SUCCESS'));
+            error_log('success');
+            Redirect::to('Account');
+        } else {
+            Session::add('feedback_negative', Text::get('FEEDBACK_CONNECT_FACEBOOK_ACCOUNT_FAILED'));
+            error_log('failed');
+            Redirect::to('Account');
+        }
+    }
 }

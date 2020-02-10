@@ -6,14 +6,17 @@
 declare(strict_types=1);
 
 use Facebook\Exceptions\FacebookSDKException;
-use PortalCMS\Controllers\AccountController;
 use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\User\User;
 
-require __DIR__ . '../../../../src/Init.php';
-
+require __DIR__ . '/../../../../src/Init.php';
 require __DIR__ . '/config.php';
 
 $helper = $fb->getRedirectLoginHelper();
+
+if (isset($_GET['state'])) {
+    $helper->getPersistentDataHandler()->set('state', $_GET['state']);
+}
 
 try {
     $accessToken = $helper->getAccessToken();
@@ -42,7 +45,7 @@ if (!$accessToken->isLongLived()) {
     try {
         $accessToken = $oAuth2Client->getLongLivedAccessToken($accessToken);
     } catch (FacebookSDKException $e) {
-        echo '<p>Error getting long-lived access token: ' . $e->getMessage() . "</p>\n\n";
+        echo 'Error getting long-lived access token: ' . $e->getMessage() . "\n\n";
         exit;
     }
 }
@@ -62,4 +65,8 @@ try {
     echo 'Facebook SDK returned an error: ' . $e->getMessage();
     exit;
 }
-AccountController::setFbid((int) Session::get('user_id'), (int) $facebookUser['id']);
+echo((int) $facebookUser['id']);
+
+User::setFbid(
+    (int) $facebookUser['id']
+);
