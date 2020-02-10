@@ -142,10 +142,10 @@ class UserPDOWriter
         $stmt = DB::conn()->prepare(
             'UPDATE users
                     SET user_remember_me_token = NULL
-                        WHERE user_id = :user_id
+                        WHERE user_id = ?
                             LIMIT 1'
         );
-        $stmt->execute([':user_id' => $user_id]);
+        $stmt->execute([$user_id]);
         return ($stmt->rowCount() === 1);
     }
 

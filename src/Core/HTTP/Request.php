@@ -30,15 +30,15 @@ class Request
      */
     public static function post($key, bool $clean = false)
     {
-        if (isset($_POST[$key])) {
-            if (!empty($_POST[$key])) {
-                if ($clean && is_string($key)) {
-                    $return = trim(strip_tags($_POST[$key]));
-                    if (!empty($return)) {
-                        return $return;
-                    }
-                }
-                return $_POST[$key];
+        if (isset($_POST[$key]) && !empty($_POST[$key])) {
+            if ($clean && is_string($key)) {
+                $return = trim(strip_tags($_POST[$key]));
+
+            } else {
+                $return = $_POST[$key];
+            }
+            if (!empty($return)) {
+                return $return;
             }
         }
         return null;

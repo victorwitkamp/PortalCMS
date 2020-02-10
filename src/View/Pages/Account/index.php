@@ -6,7 +6,6 @@
 declare(strict_types=1);
 
 use PortalCMS\Core\Config\Config;
-use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 

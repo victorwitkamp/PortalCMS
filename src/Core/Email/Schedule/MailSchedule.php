@@ -25,21 +25,22 @@ class MailSchedule
         $error = 0;
         if (empty($mailIds)) {
             Session::add('feedback_negative', 'Invalid request');
-            return false;
-        }
-        foreach ($mailIds as $mailId) {
-            if (MailScheduleMapper::deleteById((int) $mailId)) {
-                EmailAttachmentMapper::deleteByMailId((int) $mailId);
-                ++$deleted;
+        } else {
+            foreach ($mailIds as $mailId) {
+                if (MailScheduleMapper::deleteById((int) $mailId)) {
+                    EmailAttachmentMapper::deleteByMailId((int) $mailId);
+                    ++$deleted;
+                } else {
+                    ++$error;
+                }
+            }
+            if ($deleted > 0) {
+                Session::add('feedback_positive', 'Er zijn ' . $deleted . ' berichten verwijderd.');
+                return true;
             } else {
-                ++$error;
+                Session::add('feedback_negative', 'Verwijderen mislukt. Aantal berichten met problemen: ' . $error);
             }
         }
-        if ($deleted > 0) {
-            Session::add('feedback_positive', 'Er zijn ' . $deleted . ' berichten verwijderd.');
-            return true;
-        }
-        Session::add('feedback_negative', 'Verwijderen mislukt. Aantal berichten met problemen: ' . $error);
         return false;
     }
 

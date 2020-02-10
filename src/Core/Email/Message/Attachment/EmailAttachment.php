@@ -59,20 +59,17 @@ class EmailAttachment
 
     public function store(int $mailId = null, int $templateId = null) : bool
     {
-        if ($this->validate()) {
-            if (!empty($mailId) && empty($templateId)) {
-                // No implementation yet
-                Session::add('feedback_negative', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_FAILED'));
-                return false;
-            }
-            if (empty($mailId) && !empty($templateId)) {
-                if (EmailAttachmentMapper::createForTemplate($templateId, $this)) {
-                    Session::add('feedback_positive', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_SUCCESSFUL'));
-                    return true;
-                }
+        if (!$this->validate()) {
+            Session::add('feedback_negative', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_FAILED'));
+        } elseif (!empty($mailId) && empty($templateId)) {
+            // No implementation yet
+            Session::add('feedback_negative', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_FAILED'));
+        } elseif (empty($mailId) && !empty($templateId)) {
+            if (EmailAttachmentMapper::createForTemplate($templateId, $this)) {
+                Session::add('feedback_positive', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_SUCCESSFUL'));
+                return true;
             }
         }
-        Session::add('feedback_negative', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_FAILED'));
         return false;
     }
 
@@ -165,16 +162,13 @@ class EmailAttachment
      */
     public static function deleteFeedbackHandler(int $deleted, int $error) : bool
     {
-        if ($deleted > 0 && $error === 0) {
-            if ($deleted > 1) {
-                Session::add('feedback_positive', 'Er zijn ' . $deleted . ' bijlagen verwijderd.');
-            } else {
-                Session::add('feedback_positive', 'Er is ' . $deleted . ' bijlage verwijderd.');
+        if ($deleted > 0) {
+            if ($error === 0) {
+                Session::add('feedback_positive', 'Aantal bijlagen verwijderd: ' . $deleted);
             }
-            return true;
-        }
-        if ($deleted > 0 && $error > 0) {
-            Session::add('feedback_warning', 'Aantal bijlagen verwijderd: ' . $deleted . '. Aantal bijlagen met problemen: ' . $error);
+            if ($error > 0) {
+                Session::add('feedback_warning', 'Aantal bijlagen verwijderd: ' . $deleted . '. Aantal bijlagen met problemen: ' . $error);
+            }
             return true;
         }
         Session::add('feedback_negative', 'Verwijderen mislukt. Aantal bijlagen met problemen: ' . $error);
