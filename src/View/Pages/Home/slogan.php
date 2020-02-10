@@ -19,12 +19,17 @@ if (SiteSetting::get('site_description_type') === '2') {
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
     $output = curl_exec($ch);
-    $out = json_decode($output, true);
-    if (!empty($out->{'setup'}) && !empty($out->{'delivery'})) {
-        print $out->{'setup'};
-        echo '<br>';
-        print $out->{'delivery'};
+
+
+    if (!empty($output)) {
+        $out = json_decode($output, true, 512, 0);
+        if (!empty($out->{'setup'}) && !empty($out->{'delivery'})) {
+            print $out->{'setup'};
+            echo '<br>';
+            print $out->{'delivery'};
+        }
     }
+
 }
 if (SiteSetting::get('site_description_type') === '3') {
     $request_headers = [];
