@@ -6,6 +6,7 @@
 declare(strict_types=1);
 
 use PortalCMS\Core\Config\Config;
+use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
@@ -16,12 +17,6 @@ $permissions = ['email'];
 $loginUrl = $helper->getLoginUrl(Config::get('FB_ASSIGN_URL'), $permissions);
 ?>
 <?= $this->layout('layout', ['title' => $pageName]) ?>
-<?= $this->push('head-extra') ?>
-
-    <!-- <script src="/includes/js/jquery-simple-validator.nl.js"></script>
-    <link rel="stylesheet" type="text/css" href="/includes/css/jquery-simple-validator.css"> -->
-
-<?= $this->end() ?>
 <?= $this->push('main-content') ?>
 
     <div class="container">

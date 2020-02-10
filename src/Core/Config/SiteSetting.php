@@ -65,18 +65,14 @@ class SiteSetting
 
     public static function uploadLogo(): bool
     {
-        if (!self::isLogoFolderWritable()) {
-            return false;
-        }
-        if (!self::validateImageFile()) {
-            return false;
-        }
-        $publicPath = Config::get('URL') . Config::get('PATH_LOGO_PUBLIC') . 'logo';
-        $resizedImage = self::resizeLogo($_FILES['logo_file']['tmp_name']);
-        if (!empty($resizedImage)) {
-            self::writeJPG($resizedImage, Config::get('PATH_LOGO') . 'logo');
-            self::writeLogoToDatabase($publicPath . '.jpg');
-            return true;
+        if (self::isLogoFolderWritable() && self::validateImageFile()) {
+            $publicPath = Config::get('URL') . Config::get('PATH_LOGO_PUBLIC') . 'logo';
+            $resizedImage = self::resizeLogo($_FILES['logo_file']['tmp_name']);
+            if (!empty($resizedImage)) {
+                self::writeJPG($resizedImage, Config::get('PATH_LOGO') . 'logo');
+                self::writeLogoToDatabase($publicPath . '.jpg');
+                return true;
+            }
         }
         return false;
     }
@@ -94,16 +90,14 @@ class SiteSetting
 
     public static function isLogoFolderWritable(): bool
     {
-        $path_logo = Config::get('PATH_LOGO');
         if (!is_dir(Config::get('PATH_LOGO'))) {
-            Session::add('feedback_negative', 'Directory ' . $path_logo . ' doesnt exist');
-            return false;
+            Session::add('feedback_negative', 'Directory ' . Config::get('PATH_LOGO') . ' doesnt exist');
+        } elseif (!is_writable(Config::get('PATH_LOGO'))) {
+            Session::add('feedback_negative', 'Directory ' . Config::get('PATH_LOGO') . ' is not writeable');
+        } else {
+            return true;
         }
-        if (!is_writable(Config::get('PATH_LOGO'))) {
-            Session::add('feedback_negative', 'Directory ' . $path_logo . ' is not writeable');
-            return false;
-        }
-        return true;
+        return false;
     }
 
     public static function validateImageFile(): bool

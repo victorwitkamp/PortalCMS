@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 use Facebook\Exceptions\FacebookSDKException;
 use PortalCMS\Core\Config\Config;
+use PortalCMS\Core\Session\Session;
 
 try {
     $fb = new Facebook\Facebook(
@@ -20,3 +21,13 @@ try {
     echo 'FacebookSDKException: ' . $e->getMessage();
     die;
 }
+
+Session::init();
+
+$helper = $fb->getRedirectLoginHelper();
+
+if (isset($_GET['state'])) {
+    $helper->getPersistentDataHandler()->set('state', $_GET['state']);
+}
+
+

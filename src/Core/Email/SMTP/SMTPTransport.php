@@ -85,17 +85,14 @@ class SMTPTransport
     {
         if (empty($this->emailMessage->recipients)) {
             $this->error = 'Recipients incompleet';
-            return false;
-        }
-        if (empty($this->emailMessage->subject)) {
+        } elseif (empty($this->emailMessage->subject)) {
             $this->error = 'Subject incompleet';
-            return false;
-        }
-        if (empty($this->emailMessage->body)) {
+        } elseif (empty($this->emailMessage->body)) {
             $this->error = 'Body incompleet';
-            return false;
+        } else {
+            return true;
         }
-        return true;
+        return false;
     }
 
     public function sendMail(EmailMessage $emailMessage): bool

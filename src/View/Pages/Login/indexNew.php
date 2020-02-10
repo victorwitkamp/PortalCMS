@@ -12,9 +12,7 @@ use PortalCMS\Core\View\Text;
 use PortalCMS\Core\View\View;
 
 require DIR_ROOT . 'login/ext/fb/config.php';
-$helper = $fb->getRedirectLoginHelper();
-$permissions = ['email'];
-$loginUrl = $helper->getLoginUrl(Config::get('FB_LOGIN_URL'), $permissions);
+$loginUrl = $helper->getLoginUrl(Config::get('FB_LOGIN_URL'), ['email']);
 $pageName = Text::get('LABEL_LOG_IN');
 ?>
 
