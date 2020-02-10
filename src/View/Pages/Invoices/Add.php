@@ -78,4 +78,4 @@ $pageName = 'Factuur toevoegen';
 
 </div>
 
-<?= $this->end();
+<?= $this->end()

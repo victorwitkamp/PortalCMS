@@ -69,4 +69,4 @@ use PortalCMS\Core\View\Text;
             </form>
         </div>
 
-<?= $this->end();
+<?= $this->end()

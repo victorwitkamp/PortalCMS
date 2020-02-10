@@ -27,4 +27,4 @@ $pageName = Text::get('TITLE_SITE_SETTINGS'); ?>
             </form>
         </div>
 
-<?= $this->end();
+<?= $this->end()

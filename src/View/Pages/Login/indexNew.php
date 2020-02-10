@@ -47,4 +47,4 @@ if (!empty(Request::get('redirect'))) {
 <input type="submit" name="loginSubmit" class="btn btn-primary" value="<?= Text::get('LABEL_LOG_IN') ?>" />
 <a href="<?= $loginUrl ?>" class="btn btn-info"><i class="fab fa-facebook"></i> <?= Text::get('LABEL_CONTINUE_WITH_FACEBOOK') ?></a>
 
-<?= $this->end();
+<?= $this->end()

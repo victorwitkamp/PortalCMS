@@ -62,4 +62,4 @@ $pageName = Text::get('TITLE_MAIL_BATCHES');
       </div>
     </div>
 
-<?= $this->end();
+<?= $this->end()

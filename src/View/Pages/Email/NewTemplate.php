@@ -52,4 +52,4 @@ $pageName = Text::get('TITLE_NEW_MAIL_TEMPLATE');
     <p>Beschikbare placeholders voor password reset: USERNAME, RESETLINK, SITENAME</p>
 </div>
 
-<?= $this->end();
+<?= $this->end()

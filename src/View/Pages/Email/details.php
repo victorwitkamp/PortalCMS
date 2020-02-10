@@ -159,4 +159,4 @@ if (MailScheduleMapper::exists($id)) {
         </div>
     </div>
 
-<?= $this->end();
+<?= $this->end()

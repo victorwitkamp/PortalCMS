@@ -56,4 +56,4 @@ $loadData = false;
     <?php require DIR_VIEW . 'Pages/Contracts/inc/form_new.php'; ?>
 </div>
 
-<?= $this->end();
+<?= $this->end()

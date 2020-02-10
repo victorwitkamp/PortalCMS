@@ -54,4 +54,4 @@ if (empty($_GET['password_reset_hash'])) {
         echo 'disabled';
     } ?>>
 
-<?= $this->end();
+<?= $this->end()

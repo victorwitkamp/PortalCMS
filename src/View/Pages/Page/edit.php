@@ -50,4 +50,4 @@ plugins : 'advlist autolink link image lists charmap print preview'
                     <a href="javascript:history.back()" class="btn btn-sm btn-danger">Annuleren</a>
                 </form>
             </div>
-<?= $this->end();
+<?= $this->end()

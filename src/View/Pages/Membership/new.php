@@ -29,4 +29,4 @@ $pageType = 'new';
             <?php require __DIR__ . 'inc\form.php'; ?>
         </div>
 
-<?= $this->end();
+<?= $this->end()

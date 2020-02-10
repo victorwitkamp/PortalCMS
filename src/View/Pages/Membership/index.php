@@ -55,4 +55,4 @@ if (!isset($year) || empty($year)) {
     ?>
 </div>
 
-<?= $this->end();
+<?= $this->end()

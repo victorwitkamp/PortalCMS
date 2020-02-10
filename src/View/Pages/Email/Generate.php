@@ -31,4 +31,4 @@ $pageName = 'Nieuw bericht';
         <!-- <a href="user.php">Gebruiker</a> -->
 </div>
 
-<?= $this->end();
+<?= $this->end()

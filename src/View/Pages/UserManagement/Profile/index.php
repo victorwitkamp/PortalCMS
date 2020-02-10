@@ -37,4 +37,4 @@ if (empty($user)) {
             <?php require __DIR__ . 'profile_table.php'; ?>
         </div>
 
-<?= $this->end();
+<?= $this->end()

@@ -223,4 +223,4 @@ $pageName = 'Lidmaatschap van ' . $row->voornaam . ' ' . $row->achternaam;
 
 </div>
 
-<?= $this->end();
+<?= $this->end()

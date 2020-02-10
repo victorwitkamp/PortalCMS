@@ -50,4 +50,4 @@ $pageName = Text::get('TITLE_SITE_LOGO');
         bsCustomFileInput.init()
     })
 </script>
-<?= $this->end();
+<?= $this->end()

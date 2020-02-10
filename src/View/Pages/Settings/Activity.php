@@ -51,4 +51,4 @@ $pageName = Text::get('TITLE_RECENT_ACTIVITY'); ?>
     </table>
 </div>
 
-<?= $this->end();
+<?= $this->end()

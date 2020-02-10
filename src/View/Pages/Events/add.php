@@ -61,4 +61,4 @@ $pageName = (string) Text::get('TITLE_EVENTS_ADD');
         </form>
     </div>
 
-<?= $this->end();
+<?= $this->end()

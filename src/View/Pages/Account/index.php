@@ -28,4 +28,4 @@ $loginUrl = $helper->getLoginUrl(Config::get('FB_ASSIGN_URL'), $permissions);
         <?php require DIR_VIEW . 'Pages/Account/inc/changeUsername.inc.php'; ?>
     </div>
 
-<?= $this->end();
+<?= $this->end()

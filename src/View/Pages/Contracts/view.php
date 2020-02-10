@@ -31,4 +31,4 @@ $pageName = 'Contract van ' . $contract->band_naam;
         <?php require __DIR__ . '/inc/buttons.php'; ?>
     </div>
 
-<?= $this->end();
+<?= $this->end()

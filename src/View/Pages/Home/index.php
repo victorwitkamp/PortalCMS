@@ -48,4 +48,4 @@ $pageName = Text::get('TITLE_HOME');
                 ?>
             </div>
         </div>
-<?= $this->end();
+<?= $this->end()

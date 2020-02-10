@@ -91,4 +91,4 @@ $pageName = Text::get('TITLE_EDIT_MAIL_TEMPLATE');
     <p>Beschikbare placeholders voor password reset: USERNAME, RESETLINK, SITENAME</p>
 </div>
 
-<?= $this->end();
+<?= $this->end()

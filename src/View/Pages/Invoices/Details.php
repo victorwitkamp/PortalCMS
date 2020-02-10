@@ -107,4 +107,4 @@ if (!empty($invoice)) {
         <?php } ?>
     </div>
 
-<?= $this->end();
+<?= $this->end()
