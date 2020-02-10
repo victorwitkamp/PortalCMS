@@ -107,4 +107,4 @@ if (empty($year)) {
         </div>
     </form>
 </div>
-<?= $this->end()
+<?= $this->end();

@@ -41,4 +41,4 @@ if (MemberModel::doesMemberIdExist($_GET['id'])) {
         <?php require __DIR__ . 'inc\form.php'; ?>
     </div>
 
-<?= $this->end()
+<?= $this->end();

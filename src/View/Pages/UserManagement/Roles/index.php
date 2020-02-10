@@ -66,4 +66,4 @@ $pageName = Text::get('TITLE_ROLE_MANAGEMENT'); ?>
         </form>
     </div>
 
-<?= $this->end()
+<?= $this->end();

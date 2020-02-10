@@ -47,4 +47,4 @@ $pageName = 'Facturen voor ' . $contract->band_naam;
         } ?>
     </div>
 
-<?= $this->end()
+<?= $this->end();

@@ -48,4 +48,4 @@ $pageName = Text::get('TITLE_MAIL_HISTORY');
     ?>
 </div>
 
-<?= $this->end()
+<?= $this->end();

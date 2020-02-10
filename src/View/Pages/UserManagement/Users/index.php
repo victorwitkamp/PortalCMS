@@ -54,4 +54,4 @@ $pageName = Text::get('TITLE_USER_MANAGEMENT');
                 </table>
         </div>
 
-<?= $this->end()
+<?= $this->end();

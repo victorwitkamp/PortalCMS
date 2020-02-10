@@ -49,4 +49,4 @@ $pageName = Text::get('TITLE_INVOICES');
     </div>
 <?php } ?>
 
-<?= $this->end()
+<?= $this->end();

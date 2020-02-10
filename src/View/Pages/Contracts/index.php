@@ -59,4 +59,4 @@ $contracts = ContractMapper::get();
             ?>
         </div>
 
-<?= $this->end()
+<?= $this->end();

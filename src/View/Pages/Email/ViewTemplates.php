@@ -62,4 +62,4 @@ $pageName = Text::get('TITLE_MAIL_TEMPLATES');
 
 </div>
 
-<?= $this->end()
+<?= $this->end();

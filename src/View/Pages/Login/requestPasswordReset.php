@@ -35,4 +35,4 @@ $pageName = 'Wachtwoord vergeten';
 </div>
 <input type="submit" name="requestPasswordReset" value="Herstellen" class="btn btn-primary">
 
-<?= $this->end()
+<?= $this->end();

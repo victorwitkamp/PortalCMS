@@ -30,4 +30,4 @@ $pageName = 'Gebruikersprofiel weergeven';
                 </tr>
             </table>
         </div>
-<?= $this->end()
+<?= $this->end();

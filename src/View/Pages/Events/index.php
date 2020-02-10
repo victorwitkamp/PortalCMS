@@ -75,4 +75,4 @@ $pageName = (string) Text::get('TITLE_EVENTS');
         </div>
     </div>
 
-<?= $this->end()
+<?= $this->end();

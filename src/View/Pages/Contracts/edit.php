@@ -37,4 +37,4 @@ $pageName = 'Contract van ' . $contract->band_naam . ' wijzigen';
     <?php require DIR_VIEW . 'Pages/Contracts/inc/form_edit.php'; ?>
 </div>
 
-<?= $this->end()
+<?= $this->end();

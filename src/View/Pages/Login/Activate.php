@@ -36,4 +36,4 @@ $pageName = 'Account activeren';
     <!-- <input type="submit" name="requestPasswordReset" value="Herstellen" class="btn btn-primary"> -->
     <input type="submit" name="activateSubmit" value="Activeren" class="btn btn-primary">
 
-<?= $this->end()
+<?= $this->end();

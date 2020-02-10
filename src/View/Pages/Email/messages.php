@@ -71,4 +71,4 @@ $pageName = Text::get('TITLE_MAIL_MESSAGES');
     ?>
 </div>
 
-<?= $this->end()
+<?= $this->end();

@@ -33,4 +33,4 @@ $pageName = Text::get('TITLE_DEBUG');
         <p><?= sys_get_temp_dir() . '/' ?></p>
     </div>
 
-<?= $this->end()
+<?= $this->end();
