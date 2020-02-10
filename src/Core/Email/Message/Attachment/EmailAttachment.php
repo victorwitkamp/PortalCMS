@@ -64,8 +64,7 @@ class EmailAttachment
         } elseif (!empty($mailId) && empty($templateId)) {
             // No implementation yet
             Session::add('feedback_negative', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_FAILED'));
-        } elseif (empty($mailId) && !empty($templateId)) {
-            if (EmailAttachmentMapper::createForTemplate($templateId, $this)) {
+        } elseif (empty($mailId) && !empty($templateId)) && EmailAttachmentMapper::createForTemplate($templateId, $this)) {
                 Session::add('feedback_positive', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_SUCCESSFUL'));
                 return true;
             }
