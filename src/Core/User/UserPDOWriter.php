@@ -11,11 +11,6 @@ use PortalCMS\Core\Database\DB;
 
 class UserPDOWriter
 {
-    /**
-     * @param int $user_id user id
-     * @param string $newUsername new username
-     * @return bool Was the username updated succesfully?
-     */
     public static function updateUsername(int $user_id, string $newUsername): bool
     {
         $stmt = DB::conn()->prepare(
@@ -28,11 +23,6 @@ class UserPDOWriter
         return ($stmt->rowCount() === 1);
     }
 
-    /**
-     * @param int $user_id user id
-     * @param int $fbid facebook id
-     * @return bool Was the FBid updated succesfully?
-     */
     public static function updateFBid(int $user_id, int $fbid = null): bool
     {
         $stmt = DB::conn()->prepare(
@@ -45,11 +35,6 @@ class UserPDOWriter
         return ($stmt->rowCount() === 1);
     }
 
-    /**
-     * @param int $user_id user id
-     * @param string $token remember me token
-     * @return bool Was the token updated succesfully?
-     */
     public static function updateRememberMeToken(int $user_id, string $token): bool
     {
         $stmt = DB::conn()->prepare(
@@ -62,11 +47,6 @@ class UserPDOWriter
         return ($stmt->rowCount() === 1);
     }
 
-    /**
-     * @param int $userId user id
-     * @param string $sessionId session id
-     * @return bool Was the session id updated succesfully?
-     */
     public static function updateSessionId(int $userId, string $sessionId = null): bool
     {
         $stmt = DB::conn()->prepare(
@@ -79,12 +59,6 @@ class UserPDOWriter
         return ($stmt->rowCount() === 1);
     }
 
-    /**
-     * Write timestamp of this login into database (we only write a "real" login via login form into the database,
-     * not the session-login on every page request
-     * @param $username
-     * @return bool Was the last login timestamp updated succesfully?
-     */
     public static function saveTimestampByUsername(string $username): bool
     {
         $stmt = DB::conn()->prepare(
@@ -97,11 +71,6 @@ class UserPDOWriter
         return ($stmt->rowCount() === 1);
     }
 
-    /**
-     * Resets the failed-login counter of a user back to 0
-     * @param string $username user name
-     * @return bool Was the failed login counter set to 0 succesfully?
-     */
     public static function resetFailedLoginsByUsername(string $username): bool
     {
         $stmt = DB::conn()->prepare(
@@ -115,11 +84,6 @@ class UserPDOWriter
         return ($stmt->rowCount() === 1);
     }
 
-    /**
-     * Increments the failed-login counter of a user
-     * @param string $username user name
-     * @return bool Was the failed login counter incremented succesfully?
-     */
     public static function setFailedLoginByUsername(string $username): bool
     {
         $stmt = DB::conn()->prepare(
@@ -133,10 +97,6 @@ class UserPDOWriter
         return ($stmt->rowCount() === 1);
     }
 
-    /**
-     * @param int $user_id user id
-     * @return bool Was the remember me token cleared successfully?
-     */
     public static function clearRememberMeToken(int $user_id): bool
     {
         $stmt = DB::conn()->prepare(
@@ -149,10 +109,6 @@ class UserPDOWriter
         return ($stmt->rowCount() === 1);
     }
 
-    /**
-     * @param int $user_id user id
-     * @return bool Was the user deleted successfully?
-     */
     public static function deleteUser(int $user_id) : bool
     {
         $stmt = DB::conn()->prepare(

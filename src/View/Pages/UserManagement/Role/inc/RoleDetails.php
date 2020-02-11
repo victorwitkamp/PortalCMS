@@ -15,7 +15,7 @@ if ($Role) { ?>
             <td>
                 <?php
                 $ActivePerissions = RolePermissionMapper::getRolePermissions((int) Request::get('id'));
-                if ($ActivePerissions) { ?>
+                if (!empty($ActivePerissions)) { ?>
                     <table class="table table-sm table-striped table-hover table-dark">
                     <thead class="thead-dark">
                     <tr>
@@ -72,4 +72,4 @@ if ($Role) {
     } else {
         ?><p>Geen permissies om toe te wijzen</p><?php
     }
-} ?>
+}

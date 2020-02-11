@@ -25,10 +25,10 @@ class EventMapper
         $endDateTime = $endDate . ' 00:00:00';
         $stmt = DB::conn()->prepare('SELECT * FROM events where start_event < ? and end_event > ? ORDER BY id');
         $stmt->execute([$endDateTime, $startDateTime]);
-        if ($stmt->rowCount() === 0) {
-            return null;
+        if ($stmt->rowCount() > 0) {
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
         }
-        return $stmt->fetchAll(PDO::FETCH_OBJ);
+        return null;
     }
 
     public static function getEventsAfter(string $dateTime) : ?array
@@ -37,17 +37,12 @@ class EventMapper
             'SELECT * FROM events WHERE start_event > ? ORDER BY start_event limit 3'
         );
         $stmt->execute([$dateTime]);
-        if ($stmt->rowCount() === 0) {
-            return null;
+        if ($stmt->rowCount() > 0) {
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
         }
-        return $stmt->fetchAll(PDO::FETCH_OBJ);
+        return null;
     }
 
-    /**
-     * Fetches an Event by Id
-     * @param int $id The Id of the event
-     * @return object|null
-     */
     public static function getById(int $id) : ?object
     {
         $stmt = DB::conn()->prepare('SELECT * FROM events WHERE id = ? LIMIT 1');
@@ -63,20 +58,10 @@ class EventMapper
         $stmt = DB::conn()->prepare(
             'INSERT INTO events(
                 id, title, start_event, end_event, description, CreatedBy
-            ) VALUES (
-                NULL,?,?,?,?,?
-            )'
+            ) VALUES (NULL,?,?,?,?,?)'
         );
-        $stmt->execute([
-            $title,
-            $start_event,
-            $end_event,
-            $description,
-            $CreatedBy]);
-        if (!$stmt) {
-            return false;
-        }
-        return true;
+        $stmt->execute([$title, $start_event, $end_event, $description, $CreatedBy]);
+        return ($stmt->rowCount() === 1);
     }
 
     public static function update(string $title, string $start_event, string $end_event, string $description, int $status, int $id): bool

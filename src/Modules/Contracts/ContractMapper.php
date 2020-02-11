@@ -16,10 +16,10 @@ class ContractMapper
     {
         $stmt = DB::conn()->prepare('SELECT * FROM contracts ORDER BY id');
         $stmt->execute([]);
-        if ($stmt->rowCount() === 0) {
-            return null;
+        if ($stmt->rowCount() > 0) {
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
         }
-        return $stmt->fetchAll(PDO::FETCH_OBJ);
+        return null;
     }
 
     public static function getById(int $Id): ?object
@@ -93,8 +93,8 @@ class ContractMapper
 
     public static function delete(int $id): bool
     {
-        $stmt = DB::conn()->prepare('DELETE FROM contracts WHERE id = ?');
+        $stmt = DB::conn()->prepare('DELETE FROM contracts WHERE id = ? LIMIT 1');
         $stmt->execute([$id]);
-        return ($stmt->rowCount() > 0);
+        return ($stmt->rowCount() === 1);
     }
 }

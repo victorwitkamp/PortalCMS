@@ -37,9 +37,8 @@ class MailSchedule
             if ($deleted > 0) {
                 Session::add('feedback_positive', 'Er zijn ' . $deleted . ' berichten verwijderd.');
                 return true;
-            } else {
-                Session::add('feedback_negative', 'Verwijderen mislukt. Aantal berichten met problemen: ' . $error);
             }
+            Session::add('feedback_negative', 'Verwijderen mislukt. Aantal berichten met problemen: ' . $error);
         }
         return false;
     }

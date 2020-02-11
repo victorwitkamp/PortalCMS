@@ -169,8 +169,8 @@ class UserManagementController extends Controller
         return false;
     }
 
-    public static function addNewUser() : ?int
-    {
-
-    }
+//    public static function addNewUser() : ?int
+//    {
+//
+//    }
 }
