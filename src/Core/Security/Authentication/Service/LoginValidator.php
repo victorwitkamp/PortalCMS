@@ -87,6 +87,7 @@ class LoginValidator
         } elseif (!self::verifyIsActive($user)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET'));
         } elseif (!Password::verifyPassword($user, $user_password)) {
+            UserPDOWriter::setFailedLoginByUsername($user->user_name);
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
         } else {
             self::resetUserNotFoundCounter();

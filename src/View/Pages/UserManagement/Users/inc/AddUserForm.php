@@ -1,5 +1,6 @@
 <?php
-use PortalCMS\Core\Session\Session;
+declare(strict_types=1);
+
 use PortalCMS\Core\View\Text;
 ?>
 <form method="post">
