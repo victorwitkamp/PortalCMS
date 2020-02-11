@@ -22,7 +22,7 @@ class UserPDOWriter
             'UPDATE users
                 SET user_name = :user_name
                     WHERE user_id = :user_id
-                    LIMIT 1'
+                        LIMIT 1'
         );
         $stmt->execute([':user_name' => $newUsername, ':user_id' => $user_id]);
         return ($stmt->rowCount() === 1);

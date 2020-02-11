@@ -35,14 +35,7 @@ class RolePermissionMapper
         return false;
     }
 
-    /**
-     * Returns the permissions of a role as an array
-     *
-     * @param string $role_id
-     *
-     * @return mixed
-     */
-    public static function getRoleSelectablePermissions(int $role_id)
+    public static function getRoleSelectablePermissions(int $role_id) : ?array
     {
         $stmt = DB::conn()->prepare(
             'SELECT * FROM permissions where perm_id not in (
@@ -55,18 +48,9 @@ class RolePermissionMapper
         if ($stmt->rowCount() > 0) {
             return $stmt->fetchAll();
         }
-        return false;
+        return null;
     }
 
-
-    /**
-     * Check whether a role has a specific permission
-     *
-     * @param string $role_id
-     * @param string $perm_desc
-     *
-     * @return bool
-     */
     public static function isAssigned(int $role_id, string $perm_desc): bool
     {
         $stmt = DB::conn()->prepare(
@@ -84,10 +68,7 @@ class RolePermissionMapper
         $stmt = DB::conn()->prepare(
             'INSERT INTO role_perm(role_id, perm_id) VALUES (?,?)'
         );
-        if ($stmt->execute([$role_id, $perm_id])) {
-            return true;
-        }
-        return false;
+        return ($stmt->execute([$role_id, $perm_id]));
     }
 
     public static function unassign(int $role_id, int $perm_id): bool
@@ -99,6 +80,6 @@ class RolePermissionMapper
                         LIMIT 1'
         );
         $stmt->execute([$role_id, $perm_id]);
-        return $stmt->rowCount() === 1;
+        return ($stmt->rowCount() === 1);
     }
 }

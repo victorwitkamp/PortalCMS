@@ -28,12 +28,7 @@ class RoleMapper
         return null;
     }
 
-    /**
-     * Returns a role object by it's ID
-     * @param string $role_id
-     * @return mixed
-     */
-    public static function get(int $role_id)
+    public static function get(int $role_id) : ?object
     {
         $stmt = DB::conn()->prepare(
             'SELECT *
@@ -48,41 +43,24 @@ class RoleMapper
         return null;
     }
 
-    /**
-     * Create a new role
-     *
-     * @param string $role_name
-     * @return bool
-     */
     public static function create(string $role_name): bool
     {
         $stmt = DB::conn()->prepare(
-            'INSERT INTO roles
-                        (role_name)
+            'INSERT INTO roles (role_name) 
                         VALUES (?)'
         );
-        if ($stmt->execute([$role_name])) {
-            return true;
-        }
-        return false;
+        $stmt->execute([$role_name]);
+        return ($stmt->rowCount() === 1);
     }
 
-    /**
-     * Delete an existing role
-     *
-     * @param int $role_id
-     * @return bool
-     */
     public static function delete(int $role_id): bool
     {
         $stmt = DB::conn()->prepare(
             'DELETE FROM roles
-                        where role_id=?
-                        LIMIT 1'
+                        WHERE role_id = ?
+                            LIMIT 1'
         );
-        if ($stmt->execute([$role_id])) {
-            return true;
-        }
-        return false;
+        $stmt->execute([$role_id]);
+        return ($stmt->rowCount() === 1);
     }
 }

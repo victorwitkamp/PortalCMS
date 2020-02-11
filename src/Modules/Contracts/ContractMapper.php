@@ -47,11 +47,7 @@ class ContractMapper
             ) VALUES (
                 NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?
             )');
-        $stmt->execute([$beuk_vertegenwoordiger, $band_naam, $bandcode, $bandleider_naam, $bandleider_adres, $bandleider_postcode, $bandleider_woonplaats, $bandleider_geboortedatum, $bandleider_telefoonnummer1, $bandleider_telefoonnummer2, $bandleider_email, $bandleider_bsn, $huur_oefenruimte_nr, $huur_dag, $huur_start, $huur_einde, $huur_kast_nr, $kosten_ruimte, $kosten_kast, $kosten_totaal, $kosten_borg, $contract_ingangsdatum, $contract_einddatum, $contract_datum]);
-        if (!$stmt) {
-            return false;
-        }
-        return true;
+        return ($stmt->execute([$beuk_vertegenwoordiger, $band_naam, $bandcode, $bandleider_naam, $bandleider_adres, $bandleider_postcode, $bandleider_woonplaats, $bandleider_geboortedatum, $bandleider_telefoonnummer1, $bandleider_telefoonnummer2, $bandleider_email, $bandleider_bsn, $huur_oefenruimte_nr, $huur_dag, $huur_start, $huur_einde, $huur_kast_nr, $kosten_ruimte, $kosten_kast, $kosten_totaal, $kosten_borg, $contract_ingangsdatum, $contract_einddatum, $contract_datum]));
     }
 
     public static function lastInsertedId(): ?int
@@ -92,19 +88,13 @@ class ContractMapper
                     contract_einddatum=?,
                     contract_datum=?
                     WHERE id=?');
-        $stmt->execute([$beuk_vertegenwoordiger, $band_naam, $bandcode, $bandleider_naam, $bandleider_adres, $bandleider_postcode, $bandleider_woonplaats, $bandleider_geboortedatum, $bandleider_telefoonnummer1, $bandleider_telefoonnummer2, $bandleider_email, $bandleider_bsn, $huur_oefenruimte_nr, $huur_dag, $huur_start, $huur_einde, $huur_kast_nr, $kosten_ruimte, $kosten_kast, $kosten_totaal, $kosten_borg, $contract_ingangsdatum, $contract_einddatum, $contract_datum, $Id]);
-        if (!$stmt) {
-            return false;
-        }
-        return true;
+        return ($stmt->execute([$beuk_vertegenwoordiger, $band_naam, $bandcode, $bandleider_naam, $bandleider_adres, $bandleider_postcode, $bandleider_woonplaats, $bandleider_geboortedatum, $bandleider_telefoonnummer1, $bandleider_telefoonnummer2, $bandleider_email, $bandleider_bsn, $huur_oefenruimte_nr, $huur_dag, $huur_start, $huur_einde, $huur_kast_nr, $kosten_ruimte, $kosten_kast, $kosten_totaal, $kosten_borg, $contract_ingangsdatum, $contract_einddatum, $contract_datum, $Id]));
     }
 
     public static function delete(int $id): bool
     {
         $stmt = DB::conn()->prepare('DELETE FROM contracts WHERE id = ?');
-        if ($stmt->execute([$id])) {
-            return true;
-        }
-        return false;
+        $stmt->execute([$id]);
+        return ($stmt->rowCount() > 0);
     }
 }

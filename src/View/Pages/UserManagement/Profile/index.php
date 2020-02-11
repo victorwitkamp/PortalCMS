@@ -6,13 +6,12 @@
 declare(strict_types=1);
 
 use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\User\UserPDOReader;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
-$pageName = Text::get('TITLE_PROFILE');
-
-$user = UserPDOReader::getProfileById((int) $_GET['id']);
+$user = UserPDOReader::getProfileById((int) Request::get('id'));
 if (empty($user)) {
     Redirect::to('Error/NotFound');
 } else {
@@ -23,7 +22,7 @@ if (empty($user)) {
 
         <div class="container">
             <div class="row mt-5">
-                <h1>Profiel van: <?= $user->user_name ?></h1>
+                <h1><?= $pageName ?></h1>
             </div>
             <?php Alert::renderFeedbackMessages(); ?>
             <form method="post">
@@ -33,7 +32,7 @@ if (empty($user)) {
             </form>
             <hr>
         </div>
-        <div class="container-fluid">
+        <div class="container">
             <?php require __DIR__ . '/inc/profile_table.php'; ?>
         </div>
 

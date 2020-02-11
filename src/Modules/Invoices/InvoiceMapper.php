@@ -26,7 +26,7 @@ class InvoiceMapper
             LIMIT 1'
         );
         $stmt->execute([$id]);
-        return $stmt->rowCount() === 1;
+        return ($stmt->rowCount() === 1);
     }
 
     public static function getById(int $id) : ?object
@@ -80,12 +80,7 @@ class InvoiceMapper
             VALUES (NULL,?,?,?,?,?,NULL)'
         );
         // todo: iets met vervaldatum doen. voor nu dezelfde waarde als factuurdatum
-        $stmt->execute([$contract_id, $factuurnummer, $year, $month, $factuurdatum]);
-
-        if (!$stmt) {
-            return false;
-        }
-        return true;
+        return ($stmt->execute([$contract_id, $factuurnummer, $year, $month, $factuurdatum]));
     }
 
     public static function updateMailId(int $invoice_id, int $mail_id): bool
@@ -94,7 +89,7 @@ class InvoiceMapper
             'UPDATE invoices SET mail_id = ? WHERE id = ? LIMIT 1'
         );
         $stmt->execute([$mail_id, $invoice_id]);
-        return $stmt->rowCount() === 1;
+        return ($stmt->rowCount() === 1);
     }
 
     public static function updateStatus(int $invoice_id, int $status): bool
@@ -103,6 +98,6 @@ class InvoiceMapper
             'UPDATE invoices SET status = ? WHERE id = ? LIMIT 1'
         );
         $stmt->execute([$status, $invoice_id]);
-        return $stmt->rowCount() === 1;
+        return ($stmt->rowCount() === 1);
     }
 }

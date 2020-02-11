@@ -16,7 +16,7 @@ $pageName = 'Gebruiker toevoegen';
         </div>
     </div>
     <div class="container">
-        <?php require __DIR__ . 'inc\form.php'; ?>
+        <?php require __DIR__ . '/inc/AddUserForm.php'; ?>
     </div>
 
 <?= $this->end();

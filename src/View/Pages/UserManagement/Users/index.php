@@ -18,7 +18,7 @@ $pageName = Text::get('TITLE_USER_MANAGEMENT');
         <div class="container">
             <div class="row mt-5">
                 <div class="col-sm-8"><h1><?= $pageName ?></h1></div>
-                 <div class="col-sm-4"><a href="Users/AddUser" class="btn btn-success navbar-btn float-right"><span class="fa fa-plus"></span> Toevoegen</a></div>
+                 <div class="col-sm-4"><a href="/UserManagement/AddUser" class="btn btn-success navbar-btn float-right"><span class="fa fa-plus"></span> Toevoegen</a></div>
             </div>
             <?php
             Alert::renderFeedbackMessages(); ?>
@@ -44,7 +44,7 @@ $pageName = Text::get('TITLE_USER_MANAGEMENT');
                             <td><?= $user->user_name ?></td>
                             <td><?= $user->user_email ?></td>
                             <td><?= $user->user_last_login_timestamp ?></td>
-                            <td><a href="/UserManagement/Profile?id=<?= $user->user_id ?>" title="Profiel weergeven" class="btn btn-primary btn-sm"><span class="fa fa-user"></span></a></td>
+                            <td><a href="/UserManagement/Profile/?id=<?= $user->user_id ?>" title="Profiel weergeven" class="btn btn-primary btn-sm"><span class="fa fa-user"></span></a></td>
                             </tr>
                         <?php } ?>
                         </tbody>

@@ -32,7 +32,8 @@ class UserManagementController extends Controller
         'setrolepermission' => 'POST',
         'deleterolepermission' => 'POST',
         'assignrole' => 'POST',
-        'unassignrole' => 'POST'
+        'unassignrole' => 'POST',
+        'addNewUser' => 'POST'
     ];
 
     /**
@@ -75,7 +76,7 @@ class UserManagementController extends Controller
         }
     }
 
-    public function adduser()
+    public function addUser()
     {
         if (Authorization::hasPermission('user-management')) {
             $templates = new Engine(DIR_VIEW);
@@ -166,5 +167,10 @@ class UserManagementController extends Controller
         }
         Redirect::to('Error/Error');
         return false;
+    }
+
+    public static function addNewUser() : ?int
+    {
+
     }
 }

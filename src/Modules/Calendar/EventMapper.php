@@ -12,16 +12,11 @@ use PortalCMS\Core\Database\DB;
 
 class EventMapper
 {
-    /**
-     * Check if an Event ID exists
-     * @param int $id The Id of the event
-     * @return bool
-     */
     public static function exists(int $id): bool
     {
         $stmt = DB::conn()->prepare('SELECT id FROM events WHERE id = ? LIMIT 1');
         $stmt->execute([$id]);
-        return $stmt->rowCount() === 1;
+        return ($stmt->rowCount() === 1);
     }
 
     public static function getByDate(string $startDate, string $endDate) : ?array
@@ -92,10 +87,7 @@ class EventMapper
             WHERE id=?'
         );
         $stmt->execute([$title, $start_event, $end_event, $description, $status, $id]);
-        if (!$stmt) {
-            return false;
-        }
-        return true;
+        return ($stmt->rowCount() === 1);
     }
 
     public static function updateDate(int $event_id, string $title, string $start_event, string $end_event): bool
@@ -106,18 +98,17 @@ class EventMapper
             WHERE id=?'
         );
         $stmt->execute([$title, $start_event, $end_event, $event_id]);
-        if (!$stmt) {
-            return false;
-        }
-        return true;
+        return ($stmt->rowCount() === 1);
     }
 
     public static function delete(int $id): bool
     {
-        $stmt = DB::conn()->prepare('DELETE FROM events WHERE id = ?');
-        if ($stmt->execute([$id])) {
-            return true;
-        }
-        return false;
+        $stmt = DB::conn()->prepare(
+            'DELETE FROM events 
+                        WHERE id = ?
+                            LIMIT 1'
+        );
+        $stmt->execute([$id]);
+        return ($stmt->rowCount() === 1);
     }
 }
