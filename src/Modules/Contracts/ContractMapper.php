@@ -32,7 +32,7 @@ class ContractMapper
         return null;
     }
 
-    public static function new($beuk_vertegenwoordiger, $band_naam, $bandcode, $bandleider_naam, $bandleider_adres, $bandleider_postcode, $bandleider_woonplaats, $bandleider_geboortedatum, $bandleider_telefoonnummer1, $bandleider_telefoonnummer2, $bandleider_email, $bandleider_bsn, $huur_oefenruimte_nr, $huur_dag, $huur_start, $huur_einde, $huur_kast_nr, $kosten_ruimte, $kosten_kast, $kosten_totaal, $kosten_borg, $contract_ingangsdatum, $contract_einddatum, $contract_datum): bool
+    public static function new(Contract $contract): bool
     {
         $stmt = DB::conn()->prepare('INSERT INTO contracts (
                 id,
@@ -47,48 +47,32 @@ class ContractMapper
             ) VALUES (
                 NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?
             )');
-        return ($stmt->execute([$beuk_vertegenwoordiger, $band_naam, $bandcode, $bandleider_naam, $bandleider_adres, $bandleider_postcode, $bandleider_woonplaats, $bandleider_geboortedatum, $bandleider_telefoonnummer1, $bandleider_telefoonnummer2, $bandleider_email, $bandleider_bsn, $huur_oefenruimte_nr, $huur_dag, $huur_start, $huur_einde, $huur_kast_nr, $kosten_ruimte, $kosten_kast, $kosten_totaal, $kosten_borg, $contract_ingangsdatum, $contract_einddatum, $contract_datum]));
+        $stmt->execute([$contract->accountManager, $contract->name, $contract->code, $contract->contractContact->name, $contract->contractContact->address, $contract->contractContact->zipCode, $contract->contractContact->city, $contract->contractContact->dateOfBirth, $contract->contractContact->phonePrimary, $contract->contractContact->phoneSecodary, $contract->contractContact->phoneSecodary, $contract->contractContact->citizenServiceNumber, $contract->rehearsalRoomNumber, $contract->day, $contract->startTime, $contract->endTime, $contract->storageNumber, $contract->rehearsalRoomMonthlyCost, $contract->storageMonthlyCost, $contract->totalMonthlyCost, $contract->bailCost, $contract->startDate, $contract->endDate, $contract->contractDate]);
+        return ($stmt->rowCount() === 1);
     }
 
     public static function lastInsertedId(): ?int
     {
         $id = DB::conn()->query('SELECT max(id) from contracts')->fetchColumn();
         if (!empty($id) && is_numeric($id)) {
-            return (int) $id;
+            return (int)$id;
         }
         return null;
     }
 
-    public static function update($Id, $beuk_vertegenwoordiger, $band_naam, $bandcode, $bandleider_naam, $bandleider_adres, $bandleider_postcode, $bandleider_woonplaats, $bandleider_geboortedatum, $bandleider_telefoonnummer1, $bandleider_telefoonnummer2, $bandleider_email, $bandleider_bsn, $huur_oefenruimte_nr, $huur_dag, $huur_start, $huur_einde, $huur_kast_nr, $kosten_ruimte, $kosten_kast, $kosten_totaal, $kosten_borg, $contract_ingangsdatum, $contract_einddatum, $contract_datum): bool
+    public static function update(Contract $contract): bool
     {
-        $stmt = DB::conn()->prepare('UPDATE contracts
+        $stmt = DB::conn()->prepare(
+            'UPDATE contracts
                     SET
-                    beuk_vertegenwoordiger=?,
-                    band_naam=?,
-                    bandcode=?,
-                    bandleider_naam=?,
-                    bandleider_adres=?,
-                    bandleider_postcode=?,
-                    bandleider_woonplaats=?,
-                    bandleider_geboortedatum=?,
-                    bandleider_telefoonnummer1=?,
-                    bandleider_telefoonnummer2=?,
-                    bandleider_email=?,
-                    bandleider_bsn=?,
-                    huur_oefenruimte_nr=?,
-                    huur_dag=?,
-                    huur_start=?,
-                    huur_einde=?,
-                    huur_kast_nr=?,
-                    kosten_ruimte=?,
-                    kosten_kast=?,
-                    kosten_totaal=?,
-                    kosten_borg=?,
-                    contract_ingangsdatum=?,
-                    contract_einddatum=?,
-                    contract_datum=?
-                    WHERE id=?');
-        return ($stmt->execute([$beuk_vertegenwoordiger, $band_naam, $bandcode, $bandleider_naam, $bandleider_adres, $bandleider_postcode, $bandleider_woonplaats, $bandleider_geboortedatum, $bandleider_telefoonnummer1, $bandleider_telefoonnummer2, $bandleider_email, $bandleider_bsn, $huur_oefenruimte_nr, $huur_dag, $huur_start, $huur_einde, $huur_kast_nr, $kosten_ruimte, $kosten_kast, $kosten_totaal, $kosten_borg, $contract_ingangsdatum, $contract_einddatum, $contract_datum, $Id]));
+                    beuk_vertegenwoordiger=?, band_naam=?, bandcode=?, bandleider_naam=?, bandleider_adres=?, bandleider_postcode=?,
+                    bandleider_woonplaats=?, bandleider_geboortedatum=?, bandleider_telefoonnummer1=?, bandleider_telefoonnummer2=?,
+                    bandleider_email=?, bandleider_bsn=?, huur_oefenruimte_nr=?, huur_dag=?, huur_start=?, huur_einde=?, huur_kast_nr=?,
+                    kosten_ruimte=?, kosten_kast=?, kosten_totaal=?, kosten_borg=?, contract_ingangsdatum=?, contract_einddatum=?, contract_datum=?
+                    WHERE id=?'
+        );
+        $stmt->execute([$contract->accountManager, $contract->name, $contract->code, $contract->contractContact->name, $contract->contractContact->address, $contract->contractContact->zipCode, $contract->contractContact->city, $contract->contractContact->dateOfBirth, $contract->contractContact->phonePrimary, $contract->contractContact->phoneSecodary, $contract->contractContact->phoneSecodary, $contract->contractContact->citizenServiceNumber, $contract->rehearsalRoomNumber, $contract->day, $contract->startTime, $contract->endTime, $contract->storageNumber, $contract->rehearsalRoomMonthlyCost, $contract->storageMonthlyCost, $contract->totalMonthlyCost, $contract->bailCost, $contract->startDate, $contract->endDate, $contract->contractDate, $contract->id]);
+        return ($stmt->rowCount() === 1);
     }
 
     public static function delete(int $id): bool
