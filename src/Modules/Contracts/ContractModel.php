@@ -119,21 +119,19 @@ class ContractModel
     public static function delete(): bool
     {
         $contractId = (int) Request::post('id', true);
-        if (!empty(ContractMapper::getById($contractId))) {
-            if (empty(InvoiceMapper::getByContractId($contractId))) {
-                if (ContractMapper::delete($contractId)) {
-                    Activity::add('DeleteContract', Session::get('user_id'), 'ID: ' . $contractId, Session::get('user_name'));
-                    Session::add('feedback_positive', 'Contract verwijderd.');
-                    Redirect::to('Contracts/');
-                    return true;
-                }
-                Session::add('feedback_negative', 'Verwijderen van contract mislukt.');
-            }
-            Session::add('feedback_negative', 'Dit contract heeft al facturen.');
-        } else {
+        if (empty(ContractMapper::getById($contractId))) {
             Session::add('feedback_negative', 'Verwijderen van contract mislukt. Contract bestaat niet.');
+        } elseif (!empty(InvoiceMapper::getByContractId($contractId))) {
+            Session::add('feedback_negative', 'Dit contract heeft al facturen.');
+        } elseif (ContractMapper::delete($contractId)) {
+            Activity::add('DeleteContract', Session::get('user_id'), 'ID: ' . $contractId, Session::get('user_name'));
+            Session::add('feedback_positive', 'Contract verwijderd.');
+            Redirect::to('Contracts/Index');
+            return true;
+        } else {
+            Session::add('feedback_negative', 'Verwijderen van contract mislukt.');
         }
-        Redirect::to('Contracts/');
+        Redirect::to('Contracts/Index');
         return false;
     }
 }
