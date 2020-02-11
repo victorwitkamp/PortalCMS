@@ -22,7 +22,7 @@ use PortalCMS\Core\Session\Session;
 class UserManagementController extends Controller
 {
     /**
-     * The requests that this controller will handle
+     * Form POST requests
      * @var array $requests
      */
     private $requests = [
@@ -70,6 +70,16 @@ class UserManagementController extends Controller
         if (Authorization::hasPermission('role-management')) {
             $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/UserManagement/Roles/Index');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
+    }
+
+    public function adduser()
+    {
+        if (Authorization::hasPermission('user-management')) {
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/UserManagement/Users/AddUser');
         } else {
             Redirect::to('Error/PermissionError');
         }

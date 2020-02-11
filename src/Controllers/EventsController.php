@@ -109,12 +109,15 @@ class EventsController extends Controller
 
     public function loadCalendarEvents()
     {
-        echo json_encode(EventService::getByDate((string)Request::get('start'), (string)Request::get('end')), JSON_THROW_ON_ERROR);
+        echo json_encode(EventService::getByDate(
+            (string)Request::get('start'),
+            (string)Request::get('end')
+        ));
     }
 
     public function loadComingEvents()
     {
-        echo json_encode(EventService::loadComingEvents(), JSON_THROW_ON_ERROR);
+        echo json_encode(EventService::loadComingEvents());
     }
 
     public function updateEventDate(): bool

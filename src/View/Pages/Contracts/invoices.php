@@ -41,7 +41,7 @@ $pageName = 'Facturen voor ' . $contract->band_naam;
         <?php
         $invoices = InvoiceMapper::getByContractId($contractId);
         if (!empty($invoices)) {
-            include_once DIR_VIEW . '/Pages/Invoices/table.php';
+            include_once DIR_VIEW . '/Pages/Invoices/Inc/Table.php';
         } else {
             echo Text::get('LABEL_NOT_FOUND');
         } ?>

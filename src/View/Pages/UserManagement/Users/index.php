@@ -18,7 +18,7 @@ $pageName = Text::get('TITLE_USER_MANAGEMENT');
         <div class="container">
             <div class="row mt-5">
                 <div class="col-sm-8"><h1><?= $pageName ?></h1></div>
-                <!-- <div class="col-sm-4"><a href="#" class="btn btn-success navbar-btn float-right"><span class="fa fa-plus"></span> Toevoegen</a></div> -->
+                 <div class="col-sm-4"><a href="Users/AddUser" class="btn btn-success navbar-btn float-right"><span class="fa fa-plus"></span> Toevoegen</a></div>
             </div>
             <?php
             Alert::renderFeedbackMessages(); ?>

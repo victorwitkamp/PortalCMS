@@ -9,25 +9,23 @@ namespace PortalCMS\Controllers;
 
 use League\Plates\Engine;
 use PortalCMS\Core\Controllers\Controller;
+use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\View\Page;
 
 class PageController extends Controller
 {
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         parent::__construct();
 
         if (isset($_POST['updatePage'])) {
-            Page::updatePage($_POST['id'], $_POST['content']);
+            Page::updatePage(
+                (int) Request::post('id'),
+                (string) Request::post('content')
+            );
         }
     }
 
-    /**
-     * Overview
-     */
     public static function edit()
     {
         $templates = new Engine(DIR_VIEW);

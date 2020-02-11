@@ -41,7 +41,7 @@ $pageName = Text::get('TITLE_INVOICES');
 
 <?php if (!empty($invoices)) { ?>
     <div class="container-fluid">
-        <?php include_once DIR_VIEW . 'Pages/Invoices/table.php'; ?>
+        <?php include_once DIR_VIEW . 'Pages/Invoices/Inc/Table.php'; ?>
     </div>
 <?php } else { ?>
     <div class="container">

@@ -60,7 +60,7 @@ class LoginController extends Controller
                     Redirect::to('Login');
                 } else {
                     Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CHANGE_FAILED'));
-                    Redirect::to('Login/passwordReset.php');
+                    Redirect::to('Login/PasswordReset.php');
                 }
             }
         }
@@ -83,7 +83,7 @@ class LoginController extends Controller
             Redirect::to('Home');
         } else {
             $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/Login/indexNew');
+            echo $templates->render('Pages/Login/Index');
         }
     }
 
@@ -105,9 +105,6 @@ class LoginController extends Controller
         echo $templates->render('Pages/Login/Activate');
     }
 
-    /**
-     * The login action, when you do login/Login
-     */
     public static function loginWithPassword(): bool
     {
         if (!Csrf::isTokenValid()) {
@@ -133,9 +130,6 @@ class LoginController extends Controller
         return false;
     }
 
-    /**
-     * Login with cookie
-     */
     public static function loginWithCookie(): bool
     {
         $cookie = Request::cookie('remember_me');
@@ -147,10 +141,6 @@ class LoginController extends Controller
         return false;
     }
 
-    /**
-     * Login with Facebook
-     * @param $fbid
-     */
     public static function loginWithFacebook(int $fbid): bool
     {
         if (LoginService::loginWithFacebook($fbid)) {
