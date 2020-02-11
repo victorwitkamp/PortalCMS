@@ -13,6 +13,7 @@ namespace PortalCMS\Core\Security\Authentication\Service;
 use Exception;
 use PortalCMS\Core\Security\Encryption;
 use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\User\Password;
 use PortalCMS\Core\User\UserPDOReader;
 use PortalCMS\Core\User\UserPDOWriter;
 use PortalCMS\Core\View\Text;
@@ -85,7 +86,7 @@ class LoginValidator
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_WRONG_3_TIMES'));
         } elseif (!self::verifyIsActive($user)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET'));
-        } elseif (!self::verifyPassword($user, $user_password)) {
+        } elseif (!Password::verifyPassword($user, $user_password)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
         } else {
             self::resetUserNotFoundCounter();
@@ -121,15 +122,6 @@ class LoginValidator
     public static function verifyIsActive(object $user) : bool
     {
         if ($user->user_active !== 1) {
-            return false;
-        }
-        return true;
-    }
-
-    public static function verifyPassword(object $user, string $user_password) : bool
-    {
-        if (!password_verify(base64_encode($user_password), $user->user_password_hash)) {
-            UserPDOWriter::setFailedLoginByUsername($user->user_name);
             return false;
         }
         return true;

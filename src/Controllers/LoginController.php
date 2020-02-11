@@ -12,6 +12,7 @@ use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Cookie;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authentication\Service\LoginService;
 use PortalCMS\Core\Security\Csrf;
@@ -26,6 +27,16 @@ use PortalCMS\Core\View\Text;
 class LoginController extends Controller
 {
     /**
+     * The requests that this controller will handle
+     * @var array $requests
+     */
+    private $requests = [
+        'loginSubmit' => 'POST',
+        'requestPasswordResetSubmit' => 'POST',
+        'resetSubmit' => 'POST'
+    ];
+
+    /**
      * Construct this object by extending the basic Controller class. The parent::__construct thing is necessary to
      * put checkAuthentication in here to make an entire controller only usable for logged-in users (for sure not
      * needed in the LoginController).
@@ -33,10 +44,8 @@ class LoginController extends Controller
     public function __construct()
     {
         parent::__construct();
+        Router::processRequests($this->requests, __CLASS__);
 
-        if (isset($_POST['loginSubmit'])) {
-            self::loginWithPassword();
-        }
         // if (isset($_POST['signupSubmit'])) {
         //     $this->signup($_POST['email'], $_POST['username'], $_POST['password'], $_POST['confirm_password']);
         // }
@@ -45,25 +54,6 @@ class LoginController extends Controller
         //         Redirect::to('Login');
         //     }
         // }
-        if (isset($_POST['requestPasswordReset'])) {
-            if (PasswordReset::requestPasswordReset((string) Request::post('user_name_or_email'))) {
-                Redirect::to('Login');
-            }
-        }
-        if (isset($_POST['resetSubmit'])) {
-            $username = (string) Request::post('username');
-            $resetHash = (string) Request::post('password_reset_hash');
-            if (PasswordReset::verifyPasswordReset($username, $resetHash)) {
-                $passwordHash = password_hash(base64_encode((string) Request::post('password')), PASSWORD_DEFAULT);
-                if (PasswordReset::saveNewUserPassword($username, $passwordHash, $resetHash)) {
-                    Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_CHANGE_SUCCESSFUL'));
-                    Redirect::to('Login');
-                } else {
-                    Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CHANGE_FAILED'));
-                    Redirect::to('Login/PasswordReset.php');
-                }
-            }
-        }
     }
 
     /**
@@ -105,7 +95,7 @@ class LoginController extends Controller
         echo $templates->render('Pages/Login/Activate');
     }
 
-    public static function loginWithPassword(): bool
+    public static function loginSubmit(): bool
     {
         if (!Csrf::isTokenValid()) {
             Session::add('feedback_negative', 'Invalid CSRF token.');
@@ -157,5 +147,28 @@ class LoginController extends Controller
             Redirect::to('Login');
         }
         return false;
+    }
+
+    public static function requestPasswordResetSubmit()
+    {
+        if (PasswordReset::requestPasswordReset((string) Request::post('user_name_or_email'))) {
+            Redirect::to('Login');
+        }
+    }
+
+    public static function resetSubmit()
+    {
+        $username = (string) Request::post('username');
+        $resetHash = (string) Request::post('password_reset_hash');
+        if (PasswordReset::verifyPasswordReset($username, $resetHash)) {
+            $passwordHash = password_hash(base64_encode((string) Request::post('password')), PASSWORD_DEFAULT);
+            if (PasswordReset::saveNewUserPassword($username, $passwordHash, $resetHash)) {
+                Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_CHANGE_SUCCESSFUL'));
+                Redirect::to('Login');
+            } else {
+                Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CHANGE_FAILED'));
+                Redirect::to('Login/PasswordReset.php');
+            }
+        }
     }
 }

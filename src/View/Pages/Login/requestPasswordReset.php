@@ -33,6 +33,6 @@ $pageName = 'Wachtwoord vergeten';
     <input type="text" name="user_name_or_email" id="inputEmail" placeholder="email@voorbeeld.nl" class="form-control" required autofocus>
     <label for="inputEmail" class="label-float">Gebruikersnaam of e-mailadres</label>
 </div>
-<input type="submit" name="requestPasswordReset" value="Herstellen" class="btn btn-primary">
+<input type="submit" name="requestPasswordResetSubmit" value="Herstellen" class="btn btn-primary">
 
 <?= $this->end();
