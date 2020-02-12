@@ -32,8 +32,7 @@ class ContractContact
         string $phoneSecodary = null,
         string $emailAddress = null,
         int $citizenServiceNumber = null
-    )
-    {
+    ) {
         $this->name = $name;
         $this->address = $address;
         $this->zipCode = $zipCode;

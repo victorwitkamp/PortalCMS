@@ -55,7 +55,7 @@ class ContractMapper
     {
         $id = DB::conn()->query('SELECT max(id) from contracts')->fetchColumn();
         if (!empty($id) && is_numeric($id)) {
-            return (int)$id;
+            return (int) $id;
         }
         return null;
     }
