@@ -10,9 +10,9 @@ use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Modules\Contracts\ContractMapper;
 
 $contract = ContractMapper::getById((int) Request::get('id'));
- if (empty($contract)) {
-     Redirect::to('Error/NotFound');
- }
+if (empty($contract)) {
+ Redirect::to('Error/NotFound');
+}
 $pageName = 'Contract van ' . $contract->band_naam;
 ?>
 <?= $this->layout('layout', ['title' => $pageName]) ?>

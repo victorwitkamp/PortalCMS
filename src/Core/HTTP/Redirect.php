@@ -24,6 +24,8 @@ class Redirect
     {
         session_write_close();
         error_log($path);
-        header('location: ' . Config::get('URL') . ltrim($path, '/'));
+        $location = Config::get('URL') . ltrim($path, '/');
+        error_log($location);
+        header('location: ' . $location);
     }
 }
