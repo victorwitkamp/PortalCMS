@@ -10,6 +10,8 @@ namespace PortalCMS\Controllers;
 use League\Plates\Engine;
 use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Modules\Contracts\ContractModel;
@@ -20,6 +22,15 @@ use PortalCMS\Modules\Contracts\ContractModel;
 class ContractsController extends Controller
 {
     /**
+     * The requests that this controller will handle
+     * @var array $requests
+     */
+    private $requests = [
+        'newContract' => 'POST',
+        'updateContractt' => 'POST',
+        'deleteContract' => 'POST'
+    ];
+    /**
      * Constructor
      */
     public function __construct()
@@ -27,16 +38,7 @@ class ContractsController extends Controller
         parent::__construct();
 
         Authentication::checkAuthentication();
-
-        if (isset($_POST['updateContract'])) {
-            ContractModel::update();
-        }
-        if (isset($_POST['newContract'])) {
-            ContractModel::new();
-        }
-        if (isset($_POST['deleteContract'])) {
-            ContractModel::delete();
-        }
+        Router::processRequests($this->requests, __CLASS__);
     }
 
     public function index()
@@ -87,5 +89,23 @@ class ContractsController extends Controller
         } else {
             Redirect::to('Error/PermissionError');
         }
+    }
+
+    public static function newContract()
+    {
+        ContractModel::new();
+        Redirect::to('Contracts/');
+    }
+
+    public static function updateContract()
+    {
+        ContractModel::update();
+        Redirect::to('Contracts/');
+    }
+
+    public static function deleteContract()
+    {
+        ContractModel::delete((int) Request::post('id'));
+        Redirect::to('Contracts/Index');
     }
 }

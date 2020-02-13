@@ -6,12 +6,13 @@
 declare(strict_types=1);
 
 use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Modules\Contracts\ContractMapper;
 
-$contract = ContractMapper::getById((int) $_GET['id']);
-if (empty($contract)) {
-    Redirect::to('Error/NotFound');
-}
+$contract = ContractMapper::getById((int) Request::get('id'));
+ if (empty($contract)) {
+     Redirect::to('Error/NotFound');
+ }
 $pageName = 'Contract van ' . $contract->band_naam;
 ?>
 <?= $this->layout('layout', ['title' => $pageName]) ?>
@@ -23,7 +24,7 @@ $pageName = 'Contract van ' . $contract->band_naam;
         </div>
     </div>
     <div class="container">
-        <?php require DIR_VIEW . 'Pages/Contracts/inc/buttons.php'; ?>
+        <?php require __DIR__ . '/inc/buttons.php'; ?>
         <a href="Invoices?id=<?= $contract->id ?>">Facturen bekijken</a>
         <hr>
         <?php require __DIR__ . '/inc/view.php'; ?>
