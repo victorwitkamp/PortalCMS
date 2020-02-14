@@ -41,21 +41,23 @@ class Password
             $user = UserMapper::getByUsername($user_name);
             if (empty($user)) {
                 Session::add('feedback_negative', Text::get('FEEDBACK_USER_DOES_NOT_EXIST'));
-            } elseif (self::validatePasswordChange($user, $currentPassword, $newPassword) && self::saveChangedPassword($user_name, password_hash(base64_encode($newPassword), PASSWORD_DEFAULT))) {
+            } elseif (self::verifyPassword($user, $currentPassword) === false) {
+                Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CURRENT_INCORRECT'));
+            } elseif (self::validatePasswordChange($currentPassword, $newPassword) === false) {
+                Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CHANGE_FAILED'));
+            } elseif (self::saveChangedPassword($user_name, password_hash(base64_encode($newPassword), PASSWORD_DEFAULT)) === false) {
+                Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CHANGE_FAILED'));
+            } else {
                 Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_CHANGE_SUCCESSFUL'));
                 return true;
-            } else {
-                Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CHANGE_FAILED'));
             }
         }
         return false;
     }
 
-    public static function validatePasswordChange(object $user, string $currentPassword, string $newPassword): bool
+    public static function validatePasswordChange(string $currentPassword, string $newPassword): bool
     {
-        if (self::verifyPassword($user, $currentPassword) === false) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CURRENT_INCORRECT'));
-        } elseif ($currentPassword === $newPassword) {
+        if ($currentPassword === $newPassword) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_NEW_SAME_AS_CURRENT'));
         } elseif (strlen($newPassword) <= 6) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_TOO_SHORT'));
