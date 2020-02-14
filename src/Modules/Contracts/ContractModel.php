@@ -62,7 +62,6 @@ class ContractModel
         }
         Session::add('feedback_negative', 'Toevoegen van contract mislukt.');
         return false;
-
     }
 
     public static function update() : bool
@@ -101,7 +100,7 @@ class ContractModel
             (string) Request::post('contract_einddatumm', true),
             (string) Request::post('contract_datum', true)
         );
-        if (empty(ContractMapper::getById($contract->id))) {
+        if (empty(ContractMapper::getById((int) $contract->id))) {
             Session::add('feedback_negative', 'Wijzigen van contract mislukt. Contract bestaat niet.');
         } elseif (ContractMapper::update($contract)) {
             Activity::add('UpdateContract', Session::get('user_id'), 'ID: ' . $contract->id, Session::get('user_name'));

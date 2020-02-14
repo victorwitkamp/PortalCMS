@@ -31,7 +31,7 @@ class Application
     public function __construct()
     {
         $this->splitUrl();
-        $this->createControllerAndActionNames();
+        $this->setControllerAndAction();
         if (file_exists(DIR_CONTROLLERS . $this->controllerName . '.php')) {
             require DIR_CONTROLLERS . $this->controllerName . '.php';
             $name = "PortalCMS\\Controllers" . "\\" . $this->controllerName;
@@ -70,12 +70,12 @@ class Application
         }
     }
 
-    private function createControllerAndActionNames()
+    private function setControllerAndAction()
     {
-        if (!$this->controllerName) {
+        if (empty($this->controllerName)) {
             $this->controllerName = Config::get('DEFAULT_CONTROLLER');
         }
-        if (!$this->actionName || (strlen($this->actionName) === 0)) {
+        if (empty($this->actionName) || ($this->actionName === '')) {
             $this->actionName = Config::get('DEFAULT_ACTION');
         }
         $this->controllerName = ucwords($this->controllerName) . 'Controller';
