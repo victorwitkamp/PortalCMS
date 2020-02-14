@@ -12,12 +12,6 @@ use PortalCMS\Core\Database\DB;
 
 class UserPDOReader
 {
-    /**
-     * Checks if a username is already taken
-     *
-     * @param $user_name
-     * @return bool
-     */
     public static function usernameExists(string $user_name): bool
     {
         $stmt = DB::conn()->prepare(
@@ -60,10 +54,6 @@ class UserPDOReader
         return null;
     }
 
-    /**
-     * @param string $username User name
-     * @return object|null
-     */
     public static function getByUsername(string $username) : ?object
     {
         $stmt = DB::conn()->prepare(
@@ -89,12 +79,6 @@ class UserPDOReader
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
-    /**
-     * Gets the user's data by user's id and a token (used by login-via-cookie process)
-     * @param int $user_id
-     * @param string $token
-     * @return mixed Returns false if user does not exist, returns object with user's data when user exists
-     */
     public static function getByIdAndToken(int $user_id, string $token) : ?object
     {
         $stmt = DB::conn()->prepare(
@@ -126,10 +110,6 @@ class UserPDOReader
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
-    /**
-     * @param int $user_fbid
-     * @return object|null
-     */
     public static function getByFbid(int $user_fbid) : ?object
     {
         $stmt = DB::conn()->prepare(
@@ -146,10 +126,6 @@ class UserPDOReader
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
-    /**
-     * @param string $usernameOrEmail
-     * @return object|null
-     */
     public static function getByUsernameOrEmail(string $usernameOrEmail) : ?object
     {
         $stmt = DB::conn()->prepare(

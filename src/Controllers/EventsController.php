@@ -124,10 +124,11 @@ class EventsController extends Controller
         if (EventService::delete(
             (int) Request::post('id', true)
         )) {
-            return Redirect::to('Events/');
-        } else {
-            return Redirect::to('Error/Error');
+            Redirect::to('Events/');
+            return true;
         }
+        Redirect::to('Error/Error');
+        return false;
     }
 
     public static function updateEvent()

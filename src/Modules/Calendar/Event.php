@@ -22,18 +22,6 @@ class Event
     public $CreationDate;
     public $ModificationDate;
 
-    /**
-     * Event constructor.
-     * @param int $id
-     * @param int $CreatedBy
-     * @param string $title
-     * @param string $start_event
-     * @param string $end_event
-     * @param string $description
-     * @param int $status
-     * @param string $CreationDate
-     * @param string $ModificationDate
-     */
     public function __construct(int $id, int $CreatedBy, string $title, string $start_event, string $end_event, string $description, int $status, string $CreationDate, string $ModificationDate)
     {
         $this->id = $id;

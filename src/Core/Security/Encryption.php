@@ -9,6 +9,7 @@ namespace PortalCMS\Core\Security;
 
 use Exception;
 use PortalCMS\Core\Config\Config;
+use RuntimeException;
 use function function_exists;
 use function ord;
 
@@ -42,11 +43,6 @@ class Encryption
 
     /**
      * Encrypt a string.
-     *
-     * @access public
-     * @static static method
-     * @param  string $plain
-     * @return string
      * @throws Exception If functions don't exists
      */
     public static function encrypt(string $plain): string
@@ -55,46 +51,35 @@ class Encryption
             || !function_exists('openssl_random_pseudo_bytes')
             || !function_exists('openssl_encrypt')
         ) {
-
-            throw new \RuntimeException('Encryption function doesn\'t exist');
+            throw new RuntimeException('Encryption function doesn\'t exist');
         }
-
-        // generate initialization vector,
-        // this will make $iv different every time,
+        // generate initialization vector, this will make $iv different every time,
         // so, encrypted string will be also different.
-        $iv_size = openssl_cipher_iv_length(self::CIPHER);
-        $iv = openssl_random_pseudo_bytes($iv_size);
-
+        $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length(self::CIPHER));
+        if (!$iv || empty($iv)) {
+            throw new RuntimeException('openssl_random_pseudo_bytes returned false');
+        }
         // generate key for authentication using ENCRYPTION_KEY & HMAC_SALT
         $key = mb_substr(hash(self::HASH_FUNCTION, Config::get('ENCRYPTION_KEY') . Config::get('HMAC_SALT')), 0, 32, '8bit');
-
-        // append initialization vector
-        $encrypted_string = openssl_encrypt($plain, self::CIPHER, $key, OPENSSL_RAW_DATA, $iv);
-        $ciphertext = $iv . $encrypted_string;
-
+        $ciphertext = $iv . openssl_encrypt($plain, self::CIPHER, $key, OPENSSL_RAW_DATA, $iv);
         // apply the HMAC
         $hmac = hash_hmac('sha256', $ciphertext, $key);
-
         return $hmac . $ciphertext;
     }
 
     /**
      * Decrypted a string.
-     *
-     * @access public
-     * @static static method
-     * @param  string $ciphertext
      * @return string
      * @throws Exception If $ciphertext is empty, or If functions don't exists
      */
     public static function decrypt(string $ciphertext): ?string
     {
         if (empty($ciphertext)) {
-            throw new \RuntimeException('The String to decrypt can\'t be empty');
+            throw new RuntimeException('The String to decrypt can\'t be empty');
         }
 
         if (!function_exists('openssl_cipher_iv_length') || !function_exists('openssl_decrypt')) {
-            throw new \RuntimeException('Encryption function doesn\'t exist');
+            throw new RuntimeException('Encryption function doesn\'t exist');
         }
 
         // generate key used for authentication using ENCRYPTION_KEY & HMAC_SALT
@@ -113,10 +98,8 @@ class Encryption
 
         // split out the initialization vector and cipher
         $iv_size = openssl_cipher_iv_length(self::CIPHER);
-        $iv = mb_substr($iv_cipher, 0, $iv_size, '8bit');
-        $cipher = mb_substr($iv_cipher, $iv_size, null, '8bit');
 
-        return openssl_decrypt($cipher, self::CIPHER, $key, OPENSSL_RAW_DATA, $iv);
+        return openssl_decrypt(mb_substr($iv_cipher, $iv_size, null, '8bit'), self::CIPHER, $key, OPENSSL_RAW_DATA, mb_substr($iv_cipher, 0, $iv_size, '8bit'));
     }
 
     /**

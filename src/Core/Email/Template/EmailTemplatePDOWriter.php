@@ -11,10 +11,6 @@ use PortalCMS\Core\Database\DB;
 
 class EmailTemplatePDOWriter
 {
-    /**
-     * @param EmailTemplate $EmailTemplate
-     * @return int|bool
-     */
     public function create(EmailTemplate $EmailTemplate) : ?int
     {
         $stmt = DB::conn()->prepare(
@@ -30,10 +26,6 @@ class EmailTemplatePDOWriter
         return EmailTemplatePDOReader::lastInsertedId();
     }
 
-    /**
-     * @param EmailTemplate $emailTemplate
-     * @return bool
-     */
     public function update(EmailTemplate $emailTemplate) : bool
     {
         if (empty($emailTemplate->id) || ($emailTemplate->id <= 0)) {

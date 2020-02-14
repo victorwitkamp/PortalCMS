@@ -9,11 +9,6 @@ use PortalCMS\Core\Session\Session;
 
 class Authorization
 {
-    /**
-     * Check whether the logged on user has a specific permission
-     * @param string $perm_desc
-     * @return bool
-     */
     public static function hasPermission(string $perm_desc): bool
     {
         $Permissions = PermissionMapper::getPermissionsByUserId((int) Session::get('user_id'));

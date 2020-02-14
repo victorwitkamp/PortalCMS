@@ -28,21 +28,10 @@ class Registration
         $stmt->execute([$userID]);
     }
 
-
-    /**
-     * Writes the new user's data to the database
-     *
-     * @param $username
-     * @param $email
-     * @param $md5password
-     * @param $activationCode
-     *
-     * @return bool
-     */
     public static function writeNewUserToDatabase(string $username, string $email, string $md5password, string $activationCode): bool
     {
         $stmt = DB::conn()->prepare('INSERT INTO users (user_name, user_email, password, confirm_code) VALUES (?, ?, ?, ?)');
         $stmt->execute([$username, $email, $md5password, $activationCode]);
-        return $stmt->rowCount() === 1;
+        return ($stmt->rowCount() === 1);
     }
 }

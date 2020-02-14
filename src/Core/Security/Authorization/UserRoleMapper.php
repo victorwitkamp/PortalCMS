@@ -28,15 +28,6 @@ class UserRoleMapper
         return null;
     }
 
-
-    /**
-     * Check whether a user has a specific role
-     *
-     * @param string $user_id
-     * @param string $role_id
-     *
-     * @return bool
-     */
     public static function isAssigned(int $user_id, int $role_id): bool
     {
         $stmt = DB::conn()->prepare(
@@ -50,14 +41,6 @@ class UserRoleMapper
         return ($stmt->rowCount() === 1);
     }
 
-    /**
-     * Assign a role to a user
-     *
-     * @param string $user_id
-     * @param string $role_id
-     *
-     * @return bool
-     */
     public static function assign(int $user_id, int $role_id): bool
     {
         $stmt = DB::conn()->prepare(
@@ -70,14 +53,6 @@ class UserRoleMapper
         return false;
     }
 
-    /**
-     * Unassign a role from a user
-     *
-     * @param string $user_id
-     * @param string $role_id
-     *
-     * @return bool
-     */
     public static function unassign(int $user_id, int $role_id): bool
     {
         $stmt = DB::conn()->prepare(

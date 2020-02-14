@@ -11,7 +11,6 @@ use PortalCMS\Controllers\ErrorController;
 use PortalCMS\Core\Config\Config;
 use PortalCMS\Core\HTTP\Request;
 use function call_user_func_array;
-use function strlen;
 
 /**
  * Class Application
@@ -63,9 +62,7 @@ class Application
             $url = explode('/', $url);
             $this->controllerName = isset($url[0]) ? $url[0] : null;
             $this->actionName = isset($url[1]) ? $url[1] : null;
-            // remove controller name and action name from the split URL
             unset($url[0], $url[1]);
-            // rebase array keys and store the URL parameters
             $this->parameters = array_values($url);
         }
     }

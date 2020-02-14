@@ -41,10 +41,6 @@ class EmailTemplatePDOReader
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    /**
-     * @param int $id ID of the emailtemplate
-     * @return object
-     */
     public static function getById(int $id) : object
     {
         $stmt = DB::conn()->prepare(

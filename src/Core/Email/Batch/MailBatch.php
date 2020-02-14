@@ -37,10 +37,6 @@ class MailBatch
         return null;
     }
 
-    /**
-     * @param $used_template
-     * @return bool
-     */
     public static function create(int $used_template = null): bool
     {
         $stmt = DB::conn()->prepare(

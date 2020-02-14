@@ -35,10 +35,6 @@ class Csrf
 
     /**
      * get CSRF token and generate a new one if expired
-     *
-     * @access public
-     * @static static method
-     * @return string
      */
     public static function makeToken(): string
     {
@@ -58,10 +54,6 @@ class Csrf
 
     /**
      * checks if CSRF token in session is same as in the form submitted
-     *
-     * @access public
-     * @static static method
-     * @return bool
      */
     public static function isTokenValid(): bool
     {

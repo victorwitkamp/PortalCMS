@@ -48,10 +48,6 @@ class EmailTemplateManager
         return true;
     }
 
-    /**
-     * @param int $id
-     * @return EmailTemplate|null $emailTemplate
-     */
     public function getExisting(int $id) : ?EmailTemplate
     {
         $existing = EmailTemplatePDOReader::getById($id);
@@ -69,10 +65,6 @@ class EmailTemplateManager
         return null;
     }
 
-    /**
-     * Save the EmailTemplate to the database and return the id of the created record.
-     * @return bool
-     */
     public function store() : bool
     {
         if (empty($this->emailTemplate->type) || empty($this->emailTemplate->subject) || empty($this->emailTemplate->body)) {
@@ -88,19 +80,13 @@ class EmailTemplateManager
         return false;
     }
 
-    /**
-     * Save the EmailTemplate to the database and return the id of the created record.
-     * @param EmailTemplate $emailTemplate
-     * @return bool
-     */
     public function update(EmailTemplate $emailTemplate) : bool
     {
         if (empty($emailTemplate->subject || empty($emailTemplate->body))) {
             Session::add('feedback_negative', 'Niet alle velden zijn ingevuld');
             return false;
         }
-        $return = $this->EmailTemplatePDOWriter->update($emailTemplate);
-        if (!empty($return)) {
+        if ($this->EmailTemplatePDOWriter->update($emailTemplate)) {
             Session::add('feedback_positive', 'Template opgeslagen');
             return true;
         }
@@ -108,10 +94,6 @@ class EmailTemplateManager
         return false;
     }
 
-    /**
-     * @param int $id
-     * @return bool
-     */
     public static function delete(int $id): bool
     {
         if (!empty(EmailTemplatePDOReader::getById($id))) {

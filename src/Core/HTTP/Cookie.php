@@ -52,12 +52,8 @@ class Cookie
 
     /**
      * Deletes the cookie
-     * It's necessary to split deleteCookie() and logout() as cookies are deleted without logging out too!
      * Sets the remember-me-cookie to ten years ago (3600sec * 24 hours * 365 days * 10).
      * that's obviously the best practice to kill a cookie @see http://stackoverflow.com/a/686166/1114320
-     *
-     * @param int $user_id
-     * @return bool
      */
     public static function delete(int $user_id = null): bool
     {

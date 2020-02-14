@@ -151,13 +151,6 @@ class PasswordReset
         return false;
     }
 
-    /**
-     * Writes the new password to the database
-     * @param string $user_name           username
-     * @param string $passwordHash
-     * @param string $resetToken
-     * @return bool
-     */
     public static function saveNewUserPassword(string $user_name, string $passwordHash, string $resetToken): bool
     {
         $sql = 'UPDATE users SET user_password_hash = :user_password_hash, password_reset_hash = NULL,
@@ -171,10 +164,7 @@ class PasswordReset
                 ':password_reset_hash' => $resetToken
             ]
         );
-        if ($stmt->rowCount() === 1) {
-            return true;
-        }
-        return false;
+        return ($stmt->rowCount() === 1);
     }
 
     /**
@@ -182,11 +172,6 @@ class PasswordReset
      * Please note: At this point the user has already pre-verified via verifyPasswordReset() (within one hour),
      * so we don't need to check again for the 60min-limit here. In this method we authenticate
      * via username & password-reset-hash from (hidden) form fields.
-     * @param string $user_name
-     * @param string $resetToken
-     * @param string $user_password_new
-     * @param string $user_password_repeat
-     * @return bool success state of the password reset
      */
     public static function setNewPassword(string $user_name, string $resetToken, string $user_password_new, string $user_password_repeat): bool
     {

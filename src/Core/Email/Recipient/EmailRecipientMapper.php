@@ -11,77 +11,34 @@ use PortalCMS\Core\Database\DB;
 
 class EmailRecipientMapper
 {
-    /**
-     * Undocumented function
-     *
-     * @param string $email   The e-mailaddress of the recipient
-     * @param int    $mail_id The ID of the e-mail that was scheduled in the MailSchedule table.
-     * @param string $name    The name of the recipient
-     *
-     * @return bool
-     */
-    public static function createRecipient(int $mail_id, string $email, string $name = null): bool
+    public static function createRecipient(int $mail_id, string $emailAddress, string $name = null): bool
     {
         $stmt = DB::conn()->prepare(
             'INSERT INTO mail_recipients(id, email, mail_id, type, name) VALUES (NULL,?,?,1,?)'
         );
-        $stmt->execute([$email, $mail_id, $name]);
-        if (!$stmt) {
-            return false;
-        }
-        return true;
+        $stmt->execute([$emailAddress, $mail_id, $name]);
+        return ($stmt->rowCount() === 1);
     }
 
-    /**
-     * Undocumented function
-     *
-     * @param string $email   The e-mailaddress of the recipient
-     * @param int    $mail_id The ID of the e-mail that was scheduled in the MailSchedule table.
-     * @param string $name    The name of the recipient
-     *
-     * @return bool
-     */
-    public static function createCC(int $mail_id, string $email, string $name = null): bool
+    public static function createCC(int $mail_id, string $emailAddress, string $name = null): bool
     {
         $stmt = DB::conn()->prepare(
             'INSERT INTO mail_recipients(id, email, mail_id, type, name) VALUES (NULL,?,?,2,?)'
         );
-        $stmt->execute([$email, $mail_id, $name]);
-        if (!$stmt) {
-            return false;
-        }
-        return true;
+        $stmt->execute([$emailAddress, $mail_id, $name]);
+        return ($stmt->rowCount() === 1);
     }
 
-    /**
-     * Undocumented function
-     *
-     * @param string $email   The e-mailaddress of the recipient
-     * @param int    $mail_id The ID of the e-mail that was scheduled in the MailSchedule table.
-     * @param string $name    The name of the recipient
-     *
-     * @return bool
-     */
-    public static function createBCC(int $mail_id, string $email, string $name = null): bool
+    public static function createBCC(int $mail_id, string $emailAddress, string $name = null): bool
     {
         $stmt = DB::conn()->prepare(
             'INSERT INTO mail_recipients(id, email, mail_id, type, name) VALUES (NULL,?,?,3,?)'
         );
-        $stmt->execute([$email, $mail_id, $name]);
-        if (!$stmt) {
-            return false;
-        }
-        return true;
+        $stmt->execute([$emailAddress, $mail_id, $name]);
+        return ($stmt->rowCount() === 1);
     }
 
-    /**
-     * getAll
-     *
-     * @param int $mail_id The ID of the e-mail that was scheduled in the MailSchedule table.
-     *
-     * @return array|bool
-     */
-    public function getAll(int $mail_id)
+    public function getAll(int $mail_id) : ?array
     {
         $stmt = DB::conn()->prepare('
             SELECT * FROM mail_recipients where mail_id = ?
@@ -93,57 +50,38 @@ class EmailRecipientMapper
         return $stmt->fetchAll();
     }
 
-    /**
-     * getRecipients
-     *
-     * @param int    $mailId The ID of the e-mail that was scheduled in the MailSchedule table.
-     *
-     * @return array|bool
-     */
-    public function getRecipients(int $mailId)
+    public function getRecipients(int $mailId) : ?array
     {
         $stmt = DB::conn()->prepare('
             SELECT * FROM mail_recipients where mail_id = ? and type = 1
         ');
         $stmt->execute([$mailId]);
         if ($stmt->rowCount() === 0) {
-            return false;
+            return null;
         }
         return $stmt->fetchAll();
     }
 
-    /**
-     * getCC
-     *
-     * @param int $mailId The ID of the e-mail that was scheduled in the MailSchedule table.
-     * @return array|bool
-     */
-    public static function getCC(int $mailId)
+    public static function getCC(int $mailId) : ?array
     {
         $stmt = DB::conn()->prepare('
             SELECT * FROM mail_recipients where mail_id = ? and type = 2
         ');
         $stmt->execute([$mailId]);
         if ($stmt->rowCount() === 0) {
-            return false;
+            return null;
         }
         return $stmt->fetchAll();
     }
 
-    /**
-     * getBCC
-     *
-     * @param int $mailId The ID of the e-mail that was scheduled in the MailSchedule table.
-     * @return array|bool
-     */
-    public static function getBCC(int $mailId)
+    public static function getBCC(int $mailId) : ?array
     {
         $stmt = DB::conn()->prepare('
             SELECT * FROM mail_recipients where mail_id = ? and type = 3
         ');
         $stmt->execute([$mailId]);
         if ($stmt->rowCount() === 0) {
-            return false;
+            return null;
         }
         return $stmt->fetchAll();
     }

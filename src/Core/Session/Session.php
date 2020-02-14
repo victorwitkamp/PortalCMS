@@ -17,11 +17,6 @@ use PortalCMS\Core\Security\Filter;
  */
 class Session
 {
-    /**
-     * starts the session
-     *
-     * @return void
-     */
     public static function init() : void
     {
         // if no session exist, start the session
@@ -30,13 +25,6 @@ class Session
         }
     }
 
-    /**
-     * Sets a specific value to a specific key of the session
-     *
-     * @param mixed $key   key
-     * @param mixed $value value
-     * @return bool
-     */
     public static function set($key, $value) : bool
     {
         $_SESSION[$key] = $value;
@@ -62,25 +50,12 @@ class Session
         return null;
     }
 
-    /**
-     * Adds a value as a new array element to the key.
-     * useful for collecting error messages etc
-     *
-     * @param mixed $key
-     * @param mixed $value
-     * @return void
-     */
     public static function add($key, $value) : void
     {
         $_SESSION[$key][] = $value;
         // session_write_close();
     }
 
-    /**
-     * Deletes the session (= logs the user out)
-     *
-     * @return bool
-     */
     public static function destroy() : bool
     {
         if (!session_destroy()) {

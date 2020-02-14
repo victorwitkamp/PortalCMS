@@ -15,10 +15,6 @@ use PortalCMS\Core\Session\Session;
 
 class MemberModel
 {
-    /**
-     * @param int $id
-     * @return bool
-     */
     public static function delete(int $id): bool
     {
         if (self::doesMemberIdExist($id)) {

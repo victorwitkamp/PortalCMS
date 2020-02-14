@@ -18,13 +18,6 @@ use PortalCMS\Core\View\Text;
 
 class LoginService
 {
-    /**
-     * Login process
-     * @param string $username The user's name
-     * @param string $password The user's password
-     * @param bool $rememberMe Marker for usage of remember-me cookie feature
-     * @return bool
-     */
     public static function loginWithPassword(string $username, string $password, bool $rememberMe = false) : bool
     {
         $user = LoginValidator::validateLogin($username, $password);
@@ -45,11 +38,6 @@ class LoginService
         return false;
     }
 
-    /**
-     * performs the login via cookie (for DEFAULT user account, FACEBOOK-accounts are handled differently)
-     * @param string $cookie The cookie "remember_me"
-     * @return bool success state
-     */
     public static function loginWithCookie(string $cookie) : bool
     {
         if (!empty($cookie)) {
@@ -80,11 +68,6 @@ class LoginService
         return false;
     }
 
-    /**
-     * The real login process: The user's data is written into the session.
-     * Cheesy name, maybe rename. Also maybe refactoring this, using an array.
-     * @param $user
-     */
     public static function setSuccessfulLoginIntoSession(object $user)
     {
         Session::init();
@@ -101,11 +84,6 @@ class LoginService
         Cookie::setSessionCookie();
     }
 
-    /**
-     * Write remember-me token into database and into cookie
-     * @param $user_id
-     * @return bool
-     */
     public static function setRememberMe(int $user_id) : bool
     {
         // generate 64 char random string

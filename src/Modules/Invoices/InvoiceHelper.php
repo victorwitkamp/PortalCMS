@@ -51,13 +51,6 @@ class InvoiceHelper
         return false;
     }
 
-    /**
-     * @param $year
-     * @param $month
-     * @param $contract_id
-     * @param $factuurdatum
-     * @return bool
-     */
     public static function createInvoiceAction(int $year, string $month, int $contract_id, string $factuurdatum): bool
     {
         $contract = ContractMapper::getById($contract_id);
@@ -142,10 +135,6 @@ class InvoiceHelper
         return false;
     }
 
-    /**
-     * @param $id
-     * @return bool|mixed
-     */
     public static function render(int $id)
     {
         if (!empty($id)) {
@@ -179,12 +168,6 @@ class InvoiceHelper
         return false;
     }
 
-    /**
-     * @param $invoiceId
-     * @param $name
-     * @param $price
-     * @return bool
-     */
     public static function createItem(int $invoiceId, string $name, int $price): bool
     {
         if (!InvoiceItemMapper::create($invoiceId, $name, $price)) {

@@ -12,11 +12,6 @@ use PortalCMS\Core\Database\DB;
 
 class InvoiceMapper
 {
-    /**
-     * Delete an Invoice by Id.
-     * @param $id
-     * @return bool
-     */
     public static function delete(int $id): bool
     {
         $stmt = DB::conn()->prepare(

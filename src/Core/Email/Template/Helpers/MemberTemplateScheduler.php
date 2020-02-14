@@ -16,11 +16,6 @@ use PortalCMS\Modules\Members\MemberModel;
 
 class MemberTemplateScheduler
 {
-    /**
-     * @param object $template the template object
-     * @param array $memberIds array of recipient ids
-     * @return bool
-     */
     public function scheduleMails(object $template, array $memberIds) : bool
     {
         $success = 0;
