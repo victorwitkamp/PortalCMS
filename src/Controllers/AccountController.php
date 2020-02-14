@@ -19,24 +19,14 @@ use PortalCMS\Core\User\User;
 use PortalCMS\Core\User\UserPDOWriter;
 use PortalCMS\Core\View\Text;
 
-/**
- * AccountController
- */
 class AccountController extends Controller
 {
-    /**
-     * The requests that this controller will handle
-     * @var array $requests
-     */
     private $requests = [
         'changeUsername' => 'POST',
         'changepassword' => 'POST',
         'clearUserFbid' => 'POST'
     ];
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         parent::__construct();

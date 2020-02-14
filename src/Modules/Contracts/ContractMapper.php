@@ -47,7 +47,12 @@ class ContractMapper
             ) VALUES (
                 NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?
             )');
-        $stmt->execute([$contract->accountManager, $contract->name, $contract->code, $contract->contractContact->name, $contract->contractContact->address, $contract->contractContact->zipCode, $contract->contractContact->city, $contract->contractContact->dateOfBirth, $contract->contractContact->phonePrimary, $contract->contractContact->phoneSecodary, $contract->contractContact->phoneSecodary, $contract->contractContact->citizenServiceNumber, $contract->rehearsalRoomNumber, $contract->day, $contract->startTime, $contract->endTime, $contract->storageNumber, $contract->rehearsalRoomMonthlyCost, $contract->storageMonthlyCost, $contract->totalMonthlyCost, $contract->bailCost, $contract->startDate, $contract->endDate, $contract->contractDate]);
+        $stmt->execute([
+            $contract->accountManager, $contract->name, $contract->code, $contract->contractContact->name, $contract->contractContact->address,
+            $contract->contractContact->zipCode, $contract->contractContact->city, $contract->contractContact->dateOfBirth, $contract->contractContact->phonePrimary, $contract->contractContact->phoneSecodary,
+            $contract->contractContact->emailAddress, $contract->contractContact->citizenServiceNumber, $contract->rehearsalRoomNumber, $contract->day, $contract->startTime, $contract->endTime, $contract->storageNumber,
+            $contract->rehearsalRoomMonthlyCost, $contract->storageMonthlyCost, $contract->totalMonthlyCost, $contract->bailCost, $contract->startDate, $contract->endDate, $contract->contractDate
+        ]);
         return ($stmt->rowCount() === 1);
     }
 
@@ -71,7 +76,12 @@ class ContractMapper
                     kosten_ruimte=?, kosten_kast=?, kosten_totaal=?, kosten_borg=?, contract_ingangsdatum=?, contract_einddatum=?, contract_datum=?
                     WHERE id=?'
         );
-        $stmt->execute([$contract->accountManager, $contract->name, $contract->code, $contract->contractContact->name, $contract->contractContact->address, $contract->contractContact->zipCode, $contract->contractContact->city, $contract->contractContact->dateOfBirth, $contract->contractContact->phonePrimary, $contract->contractContact->phoneSecodary, $contract->contractContact->phoneSecodary, $contract->contractContact->citizenServiceNumber, $contract->rehearsalRoomNumber, $contract->day, $contract->startTime, $contract->endTime, $contract->storageNumber, $contract->rehearsalRoomMonthlyCost, $contract->storageMonthlyCost, $contract->totalMonthlyCost, $contract->bailCost, $contract->startDate, $contract->endDate, $contract->contractDate, $contract->id]);
+        $stmt->execute([
+            $contract->accountManager, $contract->name, $contract->code, $contract->contractContact->name, $contract->contractContact->address,
+            $contract->contractContact->zipCode, $contract->contractContact->city, $contract->contractContact->dateOfBirth, $contract->contractContact->phonePrimary, $contract->contractContact->phoneSecodary,
+            $contract->contractContact->emailAddress, $contract->contractContact->citizenServiceNumber, $contract->rehearsalRoomNumber, $contract->day, $contract->startTime, $contract->endTime, $contract->storageNumber,
+            $contract->rehearsalRoomMonthlyCost, $contract->storageMonthlyCost, $contract->totalMonthlyCost, $contract->bailCost, $contract->startDate, $contract->endDate, $contract->contractDate, $contract->id
+        ]);
         return ($stmt->rowCount() === 1);
     }
 

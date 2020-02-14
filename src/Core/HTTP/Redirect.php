@@ -20,12 +20,12 @@ class Redirect
      * Redirects to a RELATIVE path, like "user/profile"
      * @param $path
      */
-    public static function to(string $path)
+    public static function to(string $url, bool $permanent = false)
     {
-        session_write_close();
-        error_log($path);
-        $location = Config::get('URL') . ltrim($path, '/');
-        error_log($location);
-        header('location: ' . $location);
+        // session_write_close();
+        if (headers_sent() === false) {
+            header('Location: ' . Config::get('URL') . $url, true, ($permanent === true) ? 301 : 302);
+        }
+        exit();
     }
 }

@@ -5,16 +5,12 @@
  */
 
 declare(strict_types=1);
+
 namespace PortalCMS\Controllers;
 
 use League\Plates\Engine;
 use PortalCMS\Core\Controllers\Controller;
 
-/**
- * Class Error
- * This controller simply contains some methods that can be used to give proper feedback in certain error scenarios,
- * like a proper 404 response with an additional HTML page behind when something does not exist.
- */
 class ErrorController extends Controller
 {
     /**

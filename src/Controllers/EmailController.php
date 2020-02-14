@@ -22,10 +22,6 @@ use PortalCMS\Core\Security\Authorization\Authorization;
 
 class EmailController extends Controller
 {
-    /**
-     * The requests that this controller will handle
-     * @var array $requests
-     */
     private $requests = [
         'generateMemberSetYear' => 'POST',
         'uploadAttachment' => 'POST',
@@ -43,7 +39,6 @@ class EmailController extends Controller
     public function __construct()
     {
         parent::__construct();
-
         Authentication::checkAuthentication();
         Router::processRequests($this->requests, __CLASS__);
     }

@@ -13,9 +13,6 @@ use PortalCMS\Core\Session\Session;
 class EventService
 {
     /**
-     * @param string $startDate
-     * @param string $endDate
-     * @return array
      */
     public static function getByDate(string $startDate, string $endDate): array
     {
@@ -62,68 +59,52 @@ class EventService
         return $eventsArray;
     }
 
-    /**
-     * @param string $title
-     * @param string $start_event
-     * @param string $end_event
-     * @param string $description
-     * @return bool
-     */
     public static function create(string $title, string $start, string $end, string $description): bool
     {
-        if (!EventMapper::new($title, date('Y-m-d H:i:s', strtotime($start)), date('Y-m-d H:i:s', strtotime($end)), $description, (int) Session::get('user_id'))) {
-            Session::add('feedback_negative', 'Toevoegen van evenement mislukt.');
-            return false;
+        if (EventMapper::new(
+            $title,
+            date('Y-m-d H:i:s', strtotime($start)),
+            date('Y-m-d H:i:s', strtotime($end)),
+            $description,
+            (int) Session::get('user_id')
+        )) {
+            Session::add('feedback_positive', 'Evenement toegevoegd.');
+            return true;
         }
-        Session::add('feedback_positive', 'Evenement toegevoegd.');
-        return true;
+        Session::add('feedback_negative', 'Toevoegen van evenement mislukt.');
+        return false;
     }
-
-    /**
-     * @param $id
-     * @param $title
-     * @param $start_event
-     * @param $end_event
-     * @param $description
-     * @param $status
-     * @return bool
-     */
-    public static function update(int $id, string $title, string $start_event, string $end_event, string $description, int $status): bool
+    
+    public static function update(int $id, string $title, string $start, string $end, string $description, int $status): bool
     {
-        if (EventMapper::exists($id)) {
-            if (EventMapper::update(
-                $title,
-                date('Y-m-d H:i:s', strtotime($start_event)),
-                date('Y-m-d H:i:s', strtotime($end_event)),
-                $description,
-                $status,
-                $id
-            )) {
-                Activity::add('UpdateEvent', Session::get('user_id'), 'ID: ' . $id, Session::get('user_name'));
-                Session::add('feedback_positive', 'Evenement gewijzigd.');
-                return true;
-            }
-            Session::add('feedback_negative', 'Wijzigen van evenement mislukt.');
-        } else {
+        if (!EventMapper::exists($id)) {
             Session::add('feedback_negative', 'Wijzigen van evenement mislukt. Evenement bestaat niet.');
+        } elseif (EventMapper::update(
+            $title,
+            date('Y-m-d H:i:s', strtotime($start)),
+            date('Y-m-d H:i:s', strtotime($end)),
+            $description,
+            $status,
+            $id
+        )) {
+            Activity::add('UpdateEvent', Session::get('user_id'), 'ID: ' . $id, Session::get('user_name'));
+            Session::add('feedback_positive', 'Evenement gewijzigd.');
+            return true;
+        } else {
+            Session::add('feedback_negative', 'Wijzigen van evenement mislukt.');
         }
         return false;
     }
 
-    /**
-     * @param int $id
-     * @return bool
-     */
     public static function delete(int $id): bool
     {
-        if (!empty(EventMapper::getById($id))) {
-            if (EventMapper::delete($id)) {
-                Session::add('feedback_positive', 'Evenement verwijderd.');
-                return true;
-            }
-            Session::add('feedback_negative', 'Verwijderen van evenement mislukt.');
-        } else {
+        if (empty(EventMapper::getById($id))) {
             Session::add('feedback_negative', 'Verwijderen van evenement mislukt. Evenement bestaat niet.');
+        } elseif (EventMapper::delete($id)) {
+            Session::add('feedback_positive', 'Evenement verwijderd.');
+            return true;
+        } else {
+            Session::add('feedback_negative', 'Verwijderen van evenement mislukt.');
         }
         return false;
     }

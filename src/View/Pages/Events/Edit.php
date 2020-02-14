@@ -21,6 +21,12 @@ use PortalCMS\Core\View\Text;
         <div class="container">
             <?php Alert::renderFeedbackMessages(); ?>
             <form method="post">
+                <input name="id" type="hidden" id="deleteUrl" value="<?= $event->id ?>">
+                <button name="deleteEvent" type="submit" class="btn btn-danger">
+                    <i class="far fa-trash-alt"></i> <?= Text::get('LABEL_DELETE') ?>
+                </button>
+            </form>
+            <form method="post">
                 <div class="row">
                     <div class="col-sm-12">
                         <label class="control-label"><?= Text::get('LABEL_EVENT_TITLE') ?>

@@ -13,32 +13,24 @@ use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Router;
+use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Modules\Calendar\EventMapper;
 use PortalCMS\Modules\Calendar\EventService;
 
-/**
- * EventsController
- */
 class EventsController extends Controller
 {
-    /**
-     * The requests that this controller will handle
-     * @var array $requests
-     */
     private $requests = [
         'addEvent' => 'POST',
         'updateEvent' => 'POST',
         'deleteEvent' => 'POST'
     ];
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         parent::__construct();
+        Authentication::checkAuthentication();
         Router::processRequests($this->requests, __CLASS__);
     }
 
@@ -129,10 +121,12 @@ class EventsController extends Controller
 
     public static function deleteEvent()
     {
-        if (EventService::delete((int) Request::post('id', true))) {
-            Redirect::to('events/');
+        if (EventService::delete(
+            (int) Request::post('id', true)
+        )) {
+            return Redirect::to('Events/');
         } else {
-            Redirect::to('Error/Error');
+            return Redirect::to('Error/Error');
         }
     }
 

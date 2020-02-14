@@ -8,7 +8,6 @@ declare(strict_types=1);
 namespace PortalCMS\Modules\Contracts;
 
 use PortalCMS\Core\Activity\Activity;
-use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Modules\Invoices\InvoiceMapper;

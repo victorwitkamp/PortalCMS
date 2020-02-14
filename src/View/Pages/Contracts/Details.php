@@ -11,7 +11,7 @@ use PortalCMS\Modules\Contracts\ContractMapper;
 
 $contract = ContractMapper::getById((int) Request::get('id'));
 if (empty($contract)) {
- Redirect::to('Error/NotFound');
+    Redirect::to('Error/NotFound');
 }
 $pageName = 'Contract van ' . $contract->band_naam;
 ?>
@@ -25,7 +25,7 @@ $pageName = 'Contract van ' . $contract->band_naam;
     </div>
     <div class="container">
         <?php require __DIR__ . '/inc/buttons.php'; ?>
-        <a href="Invoices?id=<?= $contract->id ?>">Facturen bekijken</a>
+        <a href="/Invoices/?contract=<?= $contract->id ?>">Facturen bekijken</a>
         <hr>
         <?php require __DIR__ . '/inc/view.php'; ?>
         <hr>

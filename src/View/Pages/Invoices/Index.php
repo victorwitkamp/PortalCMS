@@ -5,11 +5,26 @@
 
 declare(strict_types=1);
 
+use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
+use PortalCMS\Modules\Contracts\ContractMapper;
 use PortalCMS\Modules\Invoices\InvoiceMapper;
 
-$pageName = Text::get('TITLE_INVOICES');
+$contractId = (int) Request::get('contract');
+if (!empty($contractId) && is_numeric($contractId)) {
+    $invoices = InvoiceMapper::getByContractId($contractId);
+    $contract = ContractMapper::getById($contractId);
+    if (empty($contract)) {
+        Redirect::to('Error/NotFound');
+    } else {
+        $pageName = Text::get('LABEL_CONTRACT_INVOICES_FOR') . $contract->band_naam;
+    }
+} else {
+    $invoices = InvoiceMapper::getAll();
+    $pageName = Text::get('TITLE_INVOICES');
+}
 ?>
 <?= $this->layout('layout', ['title' => $pageName]) ?>
 <?= $this->push('head-extra') ?>
@@ -37,7 +52,7 @@ $pageName = Text::get('TITLE_INVOICES');
     <?php Alert::renderFeedbackMessages(); ?>
 </div>
 
-<?php $invoices = InvoiceMapper::getAll(); ?>
+
 
 <?php if (!empty($invoices)) { ?>
     <div class="container-fluid">

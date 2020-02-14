@@ -102,7 +102,7 @@ return [
     // OVERVIEW
     'TITLE_OVERVIEW' => ' Overzicht',
     // CONTRACTS
-    'LABEL_CONTRACT_INVOICES_FOR_ID' => 'Facturen voor contract Id: ',
+    'LABEL_CONTRACT_INVOICES_FOR' => 'Facturen voor: ',
 
     // SITE SETTINGS
     'LABEL_SETTINGS_GENERAL' => 'ALGEMEEN',

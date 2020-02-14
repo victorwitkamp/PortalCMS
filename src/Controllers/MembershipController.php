@@ -23,7 +23,6 @@ class MembershipController extends Controller
     public function __construct()
     {
         parent::__construct();
-
         Authentication::checkAuthentication();
 
         if (isset($_POST['saveMember'])) {
@@ -34,10 +33,10 @@ class MembershipController extends Controller
         }
         if (isset($_POST['deleteMember'])) {
             MemberModel::delete((int) Request::post('id'));
-            Redirect::to('membership/');
+            Redirect::to('Membership/');
         }
         if (isset($_POST['showMembersByYear'])) {
-            Redirect::to('membership/?year=' . Request::post('year'));
+            Redirect::to('Membership/?year=' . Request::post('year'));
         }
     }
 

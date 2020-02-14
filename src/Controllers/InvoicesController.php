@@ -18,15 +18,8 @@ use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Modules\Invoices\InvoiceHelper;
 
-/**
- * InvoicesController
- */
 class InvoicesController extends Controller
 {
-    /**
-     * The requests that this controller will handle
-     * @var array $requests
-     */
     private $requests = [
         'createInvoiceMail' => 'POST',
         'writeInvoice' => 'POST',
@@ -36,9 +29,6 @@ class InvoicesController extends Controller
         'addInvoiceItem' => 'POST'
     ];
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         parent::__construct();
@@ -123,14 +113,13 @@ class InvoicesController extends Controller
         $factuurdatum = (string) Request::post('factuurdatum', true);
         if (InvoiceHelper::create($year, $month, $contracts, $factuurdatum)) {
             Session::add('feedback_positive', 'Factuur toegevoegd.');
-            Redirect::to('Invoices');
+            Redirect::to('Invoices/');
         }
     }
 
     public static function deleteInvoice()
     {
-        $id = (int) Request::post('id', true);
-        if (InvoiceHelper::delete($id)) {
+        if (InvoiceHelper::delete((int) Request::post('id', true))) {
             Redirect::to('Invoices/Index');
         } else {
             Redirect::to('Error/Error');
@@ -139,10 +128,8 @@ class InvoicesController extends Controller
 
     public static function deleteInvoiceItem()
     {
-        $invoiceId = (int) Request::post('invoiceid', true);
-        $id = (int) Request::post('id', true);
-        if (InvoiceHelper::deleteItem($id)) {
-            Redirect::to('Invoices/Details?id=' . $invoiceId);
+        if (InvoiceHelper::deleteItem((int) Request::post('id', true))) {
+            Redirect::to('Invoices/Details?id=' . (int) Request::post('invoiceid', true));
         } else {
             Redirect::to('Error/Error');
         }
@@ -151,9 +138,7 @@ class InvoicesController extends Controller
     public static function addInvoiceItem()
     {
         $invoiceId = (int) Request::post('invoiceid', true);
-        $name = (string) Request::post('name', true);
-        $price = (int) Request::post('price', true);
-        if (InvoiceHelper::createItem($invoiceId, $name, $price)) {
+        if (InvoiceHelper::createItem($invoiceId, (string) Request::post('name', true), (int) Request::post('price', true))) {
             Redirect::to('Invoices/Details?id=' . $invoiceId);
         } else {
             Redirect::to('Error/Error');

@@ -16,26 +16,18 @@ use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Modules\Contracts\ContractModel;
 
-/**
- * ContractsController
- */
 class ContractsController extends Controller
 {
-    /**
-     * The requests that this controller will handle
-     * @var array $requests
-     */
     private $requests = [
         'newContract' => 'POST',
-        'updateContractt' => 'POST',
+        'updateContract' => 'POST',
         'deleteContract' => 'POST'
     ];
-    /**
-     * Constructor
-     */
+
     public function __construct()
     {
         parent::__construct();
+        Authentication::checkAuthentication();
         Router::processRequests($this->requests, __CLASS__);
     }
 
@@ -69,11 +61,11 @@ class ContractsController extends Controller
         }
     }
 
-    public function view()
+    public function details()
     {
         if (Authorization::hasPermission('rental-contracts')) {
             $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/Contracts/View');
+            echo $templates->render('Pages/Contracts/Details');
         } else {
             Redirect::to('Error/PermissionError');
         }
@@ -103,7 +95,8 @@ class ContractsController extends Controller
 
     public static function deleteContract()
     {
-        ContractModel::delete((int) Request::post('id'));
-        Redirect::to('Contracts/Index');
+        if (ContractModel::delete((int) Request::post('id'))) {
+            Redirect::to('Contracts/');
+        }
     }
 }
