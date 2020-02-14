@@ -14,8 +14,7 @@ use Exception;
 use PortalCMS\Core\Security\Encryption;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\User\Password;
-use PortalCMS\Core\User\UserPDOReader;
-use PortalCMS\Core\User\UserPDOWriter;
+use PortalCMS\Core\User\UserMapper;
 use PortalCMS\Core\View\Text;
 
 /**
@@ -51,56 +50,38 @@ class LoginValidator
         return true;
     }
 
-    /**
-     * Validate the user, checks if password is correct.
-     * If successful, user is returned
-     * @param string $user_name user name
-     * @param string $user_password user password
-     * @return object|null
-     */
     public static function validateLogin(string $user_name, string $user_password) : ?object
     {
         if (empty($user_name) || empty($user_password)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
+        } elseif (self::checkSessionBruteForce()) {
+            return self::getUser($user_name, $user_password);
         } else {
-            if (self::checkSessionBruteForce()) {
-                return self::getUser($user_name, $user_password);
-            }
             Session::add('feedback_negative', Text::get('FEEDBACK_BRUTE_FORCE_CHECK_FAILED'));
         }
         return null;
     }
 
-    /**
-     * @param string $user_name user name
-     * @param string $user_password user password
-     * @return object|null
-     */
     public static function getUser(string $user_name, string $user_password) : ?object
     {
-        $user = UserPDOReader::getByUsername($user_name);
+        $user = UserMapper::getByUsername($user_name);
         if (empty($user)) {
             self::incrementUserNotFoundCounter();
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
-        } elseif (!self::checkUserBruteForce($user)) {
+        } elseif (self::checkUserBruteForce($user) === false) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_WRONG_3_TIMES'));
-        } elseif (!self::verifyIsActive($user)) {
+        } elseif (self::verifyIsActive($user) === false) {
             Session::add('feedback_negative', Text::get('FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET'));
-        } elseif (!Password::verifyPassword($user, $user_password)) {
-            UserPDOWriter::setFailedLoginByUsername($user->user_name);
-            Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
-        } else {
+        } elseif (Password::verifyPassword($user, $user_password) === true) {
             self::resetUserNotFoundCounter();
             return $user;
+        } else {
+            UserMapper::setFailedLoginByUsername($user->user_name);
+            Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
         }
-
         return null;
     }
 
-    /**
-     * @param string $cookie The cookie
-     * @return object|null
-     */
     public static function validateCookieLogin(string $cookie) : ?object
     {
         if (substr_count($cookie, ':') + 1 === 3) {
@@ -122,15 +103,9 @@ class LoginValidator
 
     public static function verifyIsActive(object $user) : bool
     {
-        if ($user->user_active !== 1) {
-            return false;
-        }
-        return true;
+        return ($user->user_active === 1);
     }
 
-    /**
-     * Reset the failed-login-count to 0. Reset the last-failed-login to an empty string.
-     */
     public static function resetUserNotFoundCounter() : bool
     {
         if (Session::set('failed-login-count', 0) && Session::set('last-failed-login', '')) {
@@ -139,9 +114,6 @@ class LoginValidator
         return false;
     }
 
-    /**
-     * Increment the failed-login-count by 1. Add timestamp to last-failed-login.
-     */
     public static function incrementUserNotFoundCounter() : bool
     {
         if (Session::set('failed-login-count', Session::get('failed-login-count') + 1) && Session::set('last-failed-login', time())) {

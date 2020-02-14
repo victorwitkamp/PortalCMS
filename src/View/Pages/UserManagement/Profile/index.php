@@ -7,11 +7,11 @@ declare(strict_types=1);
 
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\User\UserPDOReader;
+use PortalCMS\Core\User\UserMapper;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
-$user = UserPDOReader::getProfileById((int) Request::get('id'));
+$user = UserMapper::getProfileById((int) Request::get('id'));
 if (empty($user)) {
     Redirect::to('Error/NotFound');
 } else {

@@ -15,7 +15,7 @@ use PortalCMS\Core\Email\Message\EmailMessage;
 use PortalCMS\Core\Email\Recipient\EmailRecipient;
 use PortalCMS\Core\Email\SMTP\SMTPConfiguration;
 use PortalCMS\Core\Email\SMTP\SMTPTransport;
-use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
+use PortalCMS\Core\Email\Template\EmailTemplateMapper;
 use PortalCMS\Core\Email\Template\Helpers\PlaceholderHelper;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
@@ -36,7 +36,7 @@ class PasswordReset
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_EMAIL_FIELD_EMPTY'));
             return false;
         }
-        $result = UserPDOReader::getByUsernameOrEmail($user_name_or_email);
+        $result = UserMapper::getByUsernameOrEmail($user_name_or_email);
         if (empty($result)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USER_DOES_NOT_EXIST'));
             return false;
@@ -84,7 +84,7 @@ class PasswordReset
      */
     public static function sendPasswordResetMail(string $user_name, string $resetToken, string $user_email): bool
     {
-        $template = EmailTemplatePDOReader::getSystemTemplateByName('ResetPassword');
+        $template = EmailTemplateMapper::getSystemTemplateByName('ResetPassword');
         $resetlink = Config::get('URL') .
                         Config::get('EMAIL_PASSWORD_RESET_URL') .
                         '?username=' . $user_name .

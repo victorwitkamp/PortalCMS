@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace PortalCMS\Core\HTTP;
 
 use PortalCMS\Core\Config\Config;
-use PortalCMS\Core\User\UserPDOWriter;
+use PortalCMS\Core\User\UserMapper;
 
 class Cookie
 {
@@ -58,7 +58,7 @@ class Cookie
     public static function delete(int $user_id = null): bool
     {
         if (isset($user_id)) {
-            UserPDOWriter::clearRememberMeToken($user_id);
+            UserMapper::clearRememberMeToken($user_id);
         }
         if (setcookie(
             'remember_me',

@@ -5,7 +5,7 @@
 
 declare(strict_types=1);
 
-use PortalCMS\Core\User\UserPDOReader;
+use PortalCMS\Core\User\UserMapper;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
@@ -35,7 +35,7 @@ $pageName = Text::get('TITLE_USER_MANAGEMENT');
                     </thead>
                     <?php
 
-                    $users = UserPDOReader::getUsers();
+                    $users = UserMapper::getUsers();
                     if (!empty($users)) { ?>
                         <tbody>
                         <?php foreach ($users as $user) { ?>

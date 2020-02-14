@@ -5,7 +5,7 @@
 
 declare(strict_types=1);
 
-use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
+use PortalCMS\Core\Email\Template\EmailTemplateMapper;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Members\MemberModel;
@@ -55,7 +55,7 @@ if (empty($year)) {
                     <label>Template selecteren</label>
                     <select name='templateid'>
                         <?php
-                        $templates = EmailTemplatePDOReader::getByType('member');
+                        $templates = EmailTemplateMapper::getByType('member');
                         foreach ($templates as $template) : ?>
                             <option value="<?= $template->id ?>"><?= $template->subject ?></option>
                         <?php endforeach ?>

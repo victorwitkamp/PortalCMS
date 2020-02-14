@@ -16,7 +16,7 @@ use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\User\Password;
 use PortalCMS\Core\User\User;
-use PortalCMS\Core\User\UserPDOWriter;
+use PortalCMS\Core\User\UserMapper;
 use PortalCMS\Core\View\Text;
 
 class AccountController extends Controller
@@ -59,7 +59,7 @@ class AccountController extends Controller
 
     public static function clearUserFbid()
     {
-        if (UserPDOWriter::updateFBid(
+        if (UserMapper::updateFBid(
             (int) Session::get('user_id')
         )) {
             Session::set('user_fbid', null);
@@ -72,7 +72,7 @@ class AccountController extends Controller
 
     public static function setFbid(int $user_id, int $FbId = null)
     {
-        if (!empty($FbId) && UserPDOWriter::updateFBid($user_id, $FbId)) {
+        if (!empty($FbId) && UserMapper::updateFBid($user_id, $FbId)) {
             Session::set('user_fbid', $FbId);
             Session::add('feedback_positive', Text::get('FEEDBACK_CONNECT_FACEBOOK_ACCOUNT_SUCCESS'));
             Redirect::to('Account');

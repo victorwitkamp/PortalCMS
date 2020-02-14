@@ -12,8 +12,7 @@ use PortalCMS\Core\Activity\Activity;
 use PortalCMS\Core\HTTP\Cookie;
 use PortalCMS\Core\Security\Encryption;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\User\UserPDOReader;
-use PortalCMS\Core\User\UserPDOWriter;
+use PortalCMS\Core\User\UserMapper;
 use PortalCMS\Core\View\Text;
 
 class LoginService
@@ -23,7 +22,7 @@ class LoginService
         $user = LoginValidator::validateLogin($username, $password);
         if (!empty($user)) {
             if ($user->user_last_failed_login > 0) {
-                UserPDOWriter::resetFailedLoginsByUsername($user->user_name);
+                UserMapper::resetFailedLoginsByUsername($user->user_name);
             }
             if ($rememberMe) {
                 self::setRememberMe($user->user_id);
@@ -43,7 +42,7 @@ class LoginService
         if (!empty($cookie)) {
             $cookieResponse = LoginValidator::validateCookieLogin($cookie);
             if (!empty($cookieResponse->user_id) && (!empty($cookieResponse->token))) {
-                $user = UserPDOReader::getByIdAndToken($cookieResponse->user_id, $cookieResponse->token);
+                $user = UserMapper::getByIdAndToken($cookieResponse->user_id, $cookieResponse->token);
                 if (!empty($user)) {
                     self::setSuccessfulLoginIntoSession($user);
                     Session::add('feedback_positive', Text::get('FEEDBACK_COOKIE_LOGIN_SUCCESSFUL'));
@@ -57,7 +56,7 @@ class LoginService
     public static function loginWithFacebook(int $fbid) : bool
     {
         if (!empty($fbid)) {
-            $user = UserPDOReader::getByFbid($fbid);
+            $user = UserMapper::getByFbid($fbid);
             if (!empty($user)) {
                 self::setSuccessfulLoginIntoSession($user);
                 Session::add('feedback_positive', Text::get('FEEDBACK_SUCCESSFUL_FACEBOOK_LOGIN'));
@@ -79,8 +78,8 @@ class LoginService
         // Session::set('user_provider_type', 'DEFAULT');
         Session::set('user_fbid', $user->user_fbid);
         Session::set('user_logged_in', true);
-        UserPDOWriter::updateSessionId($user->user_id, session_id());
-        UserPDOWriter::saveTimestampByUsername($user->user_name);
+        UserMapper::updateSessionId($user->user_id, session_id());
+        UserMapper::saveTimestampByUsername($user->user_name);
         Cookie::setSessionCookie();
     }
 
@@ -89,7 +88,7 @@ class LoginService
         // generate 64 char random string
         $token = hash('sha256', (string) mt_rand());
 
-        UserPDOWriter::updateRememberMeToken($user_id, $token);
+        UserMapper::updateRememberMeToken($user_id, $token);
 
         // generate cookie string that consists of user id, random string and combined hash of both
         // never expose the original user id, instead, encrypt it.

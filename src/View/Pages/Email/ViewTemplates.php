@@ -5,7 +5,7 @@
 
 declare(strict_types=1);
 
-use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
+use PortalCMS\Core\Email\Template\EmailTemplateMapper;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
@@ -38,7 +38,7 @@ $pageName = Text::get('TITLE_MAIL_TEMPLATES');
         </thead>
         <tbody>
             <?php
-            foreach (EmailTemplatePDOReader::get() as $template) {
+            foreach (EmailTemplateMapper::get() as $template) {
                 ?><tr>
                     <td>
                         <form method="post">

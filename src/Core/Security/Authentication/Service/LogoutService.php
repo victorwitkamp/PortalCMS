@@ -11,7 +11,7 @@ use PortalCMS\Core\HTTP\Cookie;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\User\UserPDOWriter;
+use PortalCMS\Core\User\UserMapper;
 use PortalCMS\Core\View\Text;
 
 /**
@@ -25,9 +25,9 @@ class LogoutService
     public static function logout(): bool
     {
         if (Authentication::userIsLoggedIn()) {
-            $user_id = Session::get('user_id');
+            $user_id = (int) Session::get('user_id');
             if (!empty($user_id)) {
-                UserPDOWriter::clearRememberMeToken($user_id);
+                UserMapper::clearRememberMeToken($user_id);
                 if (Cookie::delete()) {
                     Session::destroy();
                     Session::init();

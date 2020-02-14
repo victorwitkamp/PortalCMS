@@ -6,14 +6,14 @@
 declare(strict_types=1);
 
 use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
-use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
+use PortalCMS\Core\Email\Template\EmailTemplateMapper;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
 $templateId = (int) Request::get('id');
-$template = EmailTemplatePDOReader::getById($templateId);
+$template = EmailTemplateMapper::getById($templateId);
 if (empty($template)) {
     Redirect::to('Error/NotFound');
 }

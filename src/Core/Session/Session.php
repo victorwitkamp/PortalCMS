@@ -19,7 +19,6 @@ class Session
 {
     public static function init() : void
     {
-        // if no session exist, start the session
         if (session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
         }
@@ -31,12 +30,6 @@ class Session
         return true;
     }
 
-    /**
-     * Gets/returns the value of a specific key of the session
-     *
-     * @param  mixed $key Usually a string, right ?
-     * @return mixed the key's value or nothing
-     */
     public static function get($key, bool $filter = true)
     {
         if (isset($_SESSION[$key])) {

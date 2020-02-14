@@ -43,7 +43,7 @@ class SiteSetting
         return true;
     }
 
-    public static function setSiteSetting($value, string $setting): bool
+    public static function setSiteSetting(string $value, string $setting): bool
     {
         $stmt = DB::conn()->prepare('UPDATE site_settings SET string_value = ? WHERE setting = ?');
         if (!$stmt->execute([$value, $setting])) {

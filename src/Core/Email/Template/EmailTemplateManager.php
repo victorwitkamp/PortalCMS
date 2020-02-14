@@ -19,19 +19,13 @@ class EmailTemplateManager
     public $emailTemplate;
 
     /**
-     * @var EmailTemplatePDOReader $EmailTemplatePDOReader
+     * @var EmailTemplateMapper $EmailTemplateMapper
      */
-    public $EmailTemplatePDOReader;
-
-    /**
-     * @var EmailTemplatePDOWriter $EmailTemplatePDOWriter
-     */
-    public $EmailTemplatePDOWriter;
+    public $EmailTemplateMapper;
 
     public function __construct()
     {
-        $this->EmailTemplatePDOReader = new EmailTemplatePDOReader();
-        $this->EmailTemplatePDOWriter = new EmailTemplatePDOWriter();
+        $this->EmailTemplateMapper = new EmailTemplateMapper();
     }
 
     public function create(string $type, string $subject, string $body): bool
@@ -50,7 +44,7 @@ class EmailTemplateManager
 
     public function getExisting(int $id) : ?EmailTemplate
     {
-        $existing = EmailTemplatePDOReader::getById($id);
+        $existing = EmailTemplateMapper::getById($id);
         if (!empty($existing)) {
             $emailTemplate = new EmailTemplate();
             $emailTemplate->id = $existing->id;
@@ -69,35 +63,35 @@ class EmailTemplateManager
     {
         if (empty($this->emailTemplate->type) || empty($this->emailTemplate->subject) || empty($this->emailTemplate->body)) {
             Session::add('feedback_negative', 'Nieuwe template aanmaken mislukt.');
-            return false;
+        } else {
+            $return = $this->EmailTemplateMapper->create($this->emailTemplate);
+            if ($return === null) {
+                Session::add('feedback_negative', 'Nieuwe template aanmaken mislukt.');
+            } else {
+                Session::add('feedback_positive', 'Template toegevoegd (ID = ' . $return . ')');
+                return true;
+            }
         }
-        $return = $this->EmailTemplatePDOWriter->create($this->emailTemplate);
-        if (!empty($return)) {
-            Session::add('feedback_positive', 'Template toegevoegd (ID = ' . $return . ')');
-            return true;
-        }
-        Session::add('feedback_negative', 'Nieuwe template aanmaken mislukt.');
         return false;
     }
 
     public function update(EmailTemplate $emailTemplate) : bool
     {
-        if (empty($emailTemplate->subject || empty($emailTemplate->body))) {
+        if (empty($emailTemplate->subject) || empty($emailTemplate->body)) {
             Session::add('feedback_negative', 'Niet alle velden zijn ingevuld');
-            return false;
-        }
-        if ($this->EmailTemplatePDOWriter->update($emailTemplate)) {
+        } elseif ($this->EmailTemplateMapper->update($emailTemplate)) {
             Session::add('feedback_positive', 'Template opgeslagen');
             return true;
+        } else {
+            Session::add('feedback_negative', 'Opslaan mislukt');
         }
-        Session::add('feedback_negative', 'Opslaan mislukt');
         return false;
     }
 
     public static function delete(int $id): bool
     {
-        if (!empty(EmailTemplatePDOReader::getById($id))) {
-            if (EmailTemplatePDOWriter::delete($id)) {
+        if (!empty(EmailTemplateMapper::getById($id))) {
+            if (EmailTemplateMapper::delete($id)) {
                 Session::add('feedback_positive', 'Template verwijderd.');
                 return true;
             }

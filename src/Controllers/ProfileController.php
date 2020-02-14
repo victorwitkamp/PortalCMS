@@ -12,7 +12,7 @@ use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
-use PortalCMS\Core\User\UserPDOReader;
+use PortalCMS\Core\User\UserMapper;
 
 class ProfileController extends Controller
 {
@@ -38,7 +38,7 @@ class ProfileController extends Controller
     public function index()
     {
         $templates = new Engine(DIR_VIEW);
-        $user = UserPDOReader::getProfileById((int) Request::get('id'));
+        $user = UserMapper::getProfileById((int) Request::get('id'));
         if (!empty($user)) {
             echo $templates->render('Pages/Profile/Index', (array) $user);
         } else {

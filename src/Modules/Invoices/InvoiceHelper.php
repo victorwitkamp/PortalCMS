@@ -11,7 +11,7 @@ use function is_array;
 use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
 use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
 use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
-use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
+use PortalCMS\Core\Email\Template\EmailTemplateMapper;
 use PortalCMS\Core\Email\Template\Helpers\PlaceholderHelper;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\PDF;
@@ -24,7 +24,7 @@ class InvoiceHelper
     {
         $invoice = InvoiceMapper::getById($invoiceId);
         if (!empty($invoice)) {
-            $template = EmailTemplatePDOReader::getSystemTemplateByName('InvoiceMail');
+            $template = EmailTemplateMapper::getSystemTemplateByName('InvoiceMail');
             $subject = PlaceholderHelper::replace(
                 'MAAND',
                 Text::get('MONTH_' . (((int) $invoice->month < 10) ? '0' : '') . $invoice->month),

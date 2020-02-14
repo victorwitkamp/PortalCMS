@@ -17,7 +17,7 @@ class Password
     public static function saveChangedPassword(string $user_name, string $user_password_hash): bool
     {
         $stmt = DB::conn()->prepare(
-            'UPDATE users 
+            'UPDATE users
                         SET user_password_hash = :user_password_hash
                             WHERE user_name = :user_name
                                 LIMIT 1'
@@ -51,7 +51,7 @@ class Password
 
     public static function validatePasswordChange(string $username, string $currentPassword, string $newPassword, string $repeatNewPassword): bool
     {
-        $user = UserPDOReader::getByUsername($username);
+        $user = UserMapper::getByUsername($username);
         if (!empty($user)) {
             if (empty($currentPassword) || empty($newPassword) || empty($repeatNewPassword)) {
                 Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_FIELD_EMPTY'));

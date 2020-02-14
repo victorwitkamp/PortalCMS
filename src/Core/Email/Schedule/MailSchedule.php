@@ -7,13 +7,12 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Email\Schedule;
 
-use PHPMailer\PHPMailer\Exception;
 use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
 use PortalCMS\Core\Email\Message\EmailMessage;
 use PortalCMS\Core\Email\Recipient\EmailRecipientCollectionCreator;
 use PortalCMS\Core\Email\SMTP\SMTPConfiguration;
 use PortalCMS\Core\Email\SMTP\SMTPTransport;
-use PortalCMS\Core\Email\Template\EmailTemplatePDOReader;
+use PortalCMS\Core\Email\Template\EmailTemplateMapper;
 use PortalCMS\Core\Email\Template\Helpers\MemberTemplateScheduler;
 use PortalCMS\Core\Session\Session;
 
@@ -130,7 +129,7 @@ class MailSchedule
 
     public static function createWithTemplate(int $templateId, array $recipientIds)
     {
-        $template = EmailTemplatePDOReader::getById($templateId);
+        $template = EmailTemplateMapper::getById($templateId);
         if (!empty($template)) {
             if ($template->type === 'member') {
                 $scheduler = new MemberTemplateScheduler();
