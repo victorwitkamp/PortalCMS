@@ -7,7 +7,6 @@ declare(strict_types=1);
 
 use PortalCMS\Core\View\Text;
 
-$pageType = 'edit';
 ?>
 <form method="post">
     <div class="row">
@@ -17,15 +16,13 @@ $pageType = 'edit';
                 <h3>Algemeen</h3>
                 <div class="row">
                     <div class="col-md-8">
-                        <label class="col-form-label">Huurder
+                        <label class="col-form-label">Huurder</label>
                             <input type="text" name="band_naam" class="form-control"  <?= ($pageType === 'edit' && !empty($contract->band_naam)) ? 'value="' . $contract->band_naam . '"' : '' ?> required>
-                        </label>
                     </div>
                     <div class="col-md-4">
-                        <label class="col-form-label">Klantcode
+                        <label class="col-form-label">Klantcode</label>
                         <input minlength="1" maxlength="2" type="number" name="bandcode"
                                class="form-control"  <?= ($pageType === 'edit' && !empty($contract->bandcode)) ? 'value="' . $contract->bandcode . '"' : '' ?> required>
-                        </label>
                     </div>
                 </div>
             </div>
@@ -84,7 +81,7 @@ $pageType = 'edit';
                             </div>
                             <input type="date"
                                    pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
-                                   name="contract_ingangsdatum" class="form-control" <?= ($pagetype = 'edit' && !empty($contract->contract_ingangsdatum)) ? 'value="' . date('Y-m-d', strtotime($contract->contract_ingangsdatum)) . '"' : '' ?>>>
+                                   name="contract_ingangsdatum" class="form-control" <?= ($pagetype = 'edit' && !empty($contract->contract_ingangsdatum)) ? 'value="' . date('Y-m-d', strtotime($contract->contract_ingangsdatum)) . '"' : '' ?>>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -119,31 +116,27 @@ $pageType = 'edit';
             <div class="form-group">
 
                 <div class="row">
-                    <div class="col-md-12">
-                        <label class="col-form-label">Naam
+                    <div class="col-md-6">
+                        <label class="col-form-label">Naam</label>
                             <input type="text" name="bandleider_naam" class="form-control" <?= ($pageType === 'edit' && !empty($contract->bandleider_naam)) ? 'value="' . $contract->bandleider_naam . '"' : '' ?>>
-                        </label>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6">
-                        <label class="col-form-label">Adres
+                        <label class="col-form-label">Adres</label>
                             <input type="text" name="bandleider_adres" class="form-control"
                                 placeholder="Voorbeeldadres 123" <?= ($pageType === 'edit' && !empty($contract->bandleider_adres)) ? 'value="' . $contract->bandleider_adres . '"' : '' ?>>
-                        </label>
                     </div>
                     <div class="col-md-2">
-                        <label class="col-form-label">Postcode
-                            <input type="text" name="bandleider_postcode" class="form-control" maxlength="6"
+                        <label class="col-form-label">Postcode</label>
+                        <input type="text" name="bandleider_postcode" class="form-control" maxlength="6"
                                placeholder="1234AB" <?= ($pageType === 'edit' && !empty($contract->bandleider_postcode)) ? 'value="' . $contract->bandleider_postcode . '"' : '' ?>>
-                        </label>
                     </div>
                     <div class="col-md-4">
-                        <label class="col-form-label">Woonplaats
+                        <label class="col-form-label">Woonplaats</label>
                         <input type="text" name="bandleider_woonplaats" class="form-control"
                                placeholder="Barendrecht" <?= ($pageType === 'edit' && !empty($contract->bandleider_woonplaats)) ? 'value="' . $contract->bandleider_woonplaats . '"' : '' ?>>
-                        </label>
                     </div>
                 </div>
 
@@ -172,7 +165,7 @@ $pageType = 'edit';
                 </div>
 
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <label class="col-form-label">E-mail</label>
                         <div class="input-group">
                             <div class="input-group-append">

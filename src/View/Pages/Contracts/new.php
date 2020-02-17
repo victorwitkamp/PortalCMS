@@ -6,7 +6,7 @@
 declare(strict_types=1);
 
 $pageName = 'Contract toevoegen';
-$loadData = false;
+$pageType = 'new';
 ?>
 
 <?= $this->layout('layout', ['title' => $pageName]) ?>
