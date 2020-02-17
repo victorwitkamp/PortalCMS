@@ -36,7 +36,6 @@ class UserMapper
             user_account_type,
             user_failed_logins,
             user_last_login_timestamp,
-            user_failed_logins,
             user_last_failed_login,
             user_provider_type,
             user_fbid,

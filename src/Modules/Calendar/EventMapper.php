@@ -31,12 +31,12 @@ class EventMapper
         return null;
     }
 
-    public static function getEventsAfter(string $dateTime) : ?array
+    public static function getEventsAfter(string $dateTime, int $limit = 3) : ?array
     {
         $stmt = DB::conn()->prepare(
-            'SELECT * FROM events WHERE start_event > ? ORDER BY start_event limit 3'
+            'SELECT * FROM events WHERE start_event > ? ORDER BY start_event limit ?'
         );
-        $stmt->execute([$dateTime]);
+        $stmt->execute([$dateTime, $limit]);
         if ($stmt->rowCount() > 0) {
             return $stmt->fetchAll(PDO::FETCH_OBJ);
         }

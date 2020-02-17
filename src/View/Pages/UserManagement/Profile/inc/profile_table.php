@@ -89,9 +89,7 @@ use PortalCMS\Core\Security\Authorization\UserRoleMapper;
                     $UserPermissions = PermissionMapper::getPermissionsByUserId($user->user_id);
                     if (!empty($UserPermissions)) {
                         foreach ($UserPermissions as $UserPermission) {
-                            echo '<li>';
-                            echo $UserPermission->perm_desc;
-                            echo '</li>';
+                            echo '<li>' .  $UserPermission->perm_desc . '</li>';
                         }
                     }
                     ?>

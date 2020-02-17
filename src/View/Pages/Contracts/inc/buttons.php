@@ -10,7 +10,7 @@ declare(strict_types=1);
     <a href="/Contracts" class="btn btn-sm btn-primary">
         <span class="fa fa-arrow-left"></span>
     </a>
-    <a href="/Contracts/Edit/?id=<?= $contract->id ?>" class="btn btn-sm btn-warning">
+    <a href="/Contracts/Edit?id=<?= $contract->id ?>" class="btn btn-sm btn-warning">
         <span class="fa fa-edit"></span>
     </a>
     <input type="hidden" name="id" value="<?= $contract->id ?>">

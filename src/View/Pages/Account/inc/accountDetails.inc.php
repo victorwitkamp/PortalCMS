@@ -5,6 +5,7 @@
 
 declare(strict_types=1);
 
+use PortalCMS\Core\Security\Authorization\UserRoleMapper;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\User\UserMapper;
 use PortalCMS\Core\View\Text;
@@ -30,6 +31,10 @@ $user = UserMapper::getProfileById((int) Session::get('user_id'));
         <td><?= $user->user_last_login_timestamp ?></td>
     </tr>
     <tr>
+        <th><?= Text::get('LABEL_USER_LAST_FAILED_LOGIN') ?></th>
+        <td><?= $user->user_last_failed_login ?></td>
+    </tr>
+    <tr>
         <th><?= Text::get('LABEL_USER_FBID') ?></th>
         <td><?php
         if (!empty(Session::get('user_fbid'))) {
@@ -41,5 +46,17 @@ $user = UserMapper::getProfileById((int) Session::get('user_id'));
             ?><a href="<?= $loginUrl ?>">Connect with Facebook!</a><?php
         }
         ?></td>
+    </tr>
+    <tr>
+        <th>Rollen</th>
+        <td>
+            <?php
+            $Roles = UserRoleMapper::getByUserId($user->user_id);
+            if (!empty($Roles)) {
+                foreach ($Roles as $Role) { ?>
+                    <?= $Role->role_name ?> (<?= $Role->role_id ?>)
+                <?php }
+            } ?>
+        </td>
     </tr>
 </table>

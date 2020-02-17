@@ -5,12 +5,13 @@
 
 declare(strict_types=1);
 
+use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Modules\Members\MemberModel;
 
 $pageName = 'Profiel';
 
-$row = MemberModel::getMemberById($_GET['id']);
-$pageName = 'Lidmaatschap van ' . $row->voornaam . ' ' . $row->achternaam;
+$member = MemberModel::getMemberById((int) Request::get('Id'));
+$pageName = 'Lidmaatschap van ' . $member->voornaam . ' ' . $member->achternaam;
 ?>
 <?= $this->layout('layout', ['title' => $pageName]) ?>
 <?= $this->push('main-content') ?>
@@ -26,75 +27,75 @@ $pageName = 'Lidmaatschap van ' . $row->voornaam . ' ' . $row->achternaam;
         <a href="/Membership" class="btn btn-sm btn-primary">
             <span class="fa fa-arrow-left"></span>
         </a>
-        <a href="Edit?id=<?= $row->id ?>" class="btn btn-sm btn-warning">
+        <a href="Edit?Id=<?= $member->id ?>" class="btn btn-sm btn-warning">
             <span class="fa fa-edit"></span>
         </a>
-        <input name="id" type="hidden" value="<?= $row->id ?>">
-        <button name="deleteMember" type="submit" onclick="return confirm('Weet je zeker dat je <?= $row->voornaam ?> <?= $row->achternaam ?> wilt verwijderen?')" class="btn btn-sm btn-danger">
+        <input name="id" type="hidden" value="<?= $member->id ?>">
+        <button name="deleteMember" type="submit" onclick="return confirm('Weet je zeker dat je <?= $member->voornaam ?> <?= $member->achternaam ?> wilt verwijderen?')" class="btn btn-sm btn-danger">
             <i class="far fa-trash-alt"></i>
         </button>
     </form>
     <hr>
-    <?php var_dump($row); ?>
+    <?php var_dump($member); ?>
 
     <div class="row">
         <div class="col-md-8">
             <table class="table table-striped table-condensed">
                 <tr>
                     <th>ID</th>
-                    <td><?= $row->id ?></td>
+                    <td><?= $member->id ?></td>
                 </tr>
                 <tr>
                     <th>Jaar van lidmaatschap</th>
-                    <td><?= $row->jaarlidmaatschap ?></td>
+                    <td><?= $member->jaarlidmaatschap ?></td>
                 </tr>
                 <tr>
                     <th>Voorletters</th>
-                    <td><?= $row->voorletters ?></td>
+                    <td><?= $member->voorletters ?></td>
                 </tr>
                 <tr>
                     <th>Voornaam</th>
-                    <td><?= $row->voornaam ?></td>
+                    <td><?= $member->voornaam ?></td>
                 </tr>
                 <tr>
                     <th>Achternaam</th>
-                    <td><?= $row->achternaam ?></td>
+                    <td><?= $member->achternaam ?></td>
                 </tr>
                 <tr>
                     <th>Geboortedatum</th>
-                    <td><?= $row->geboortedatum ?></td>
+                    <td><?= $member->geboortedatum ?></td>
                 </tr>
                 <tr>
                     <th>Adres</th>
-                    <td><?= $row->adres ?></td>
+                    <td><?= $member->adres ?></td>
                 </tr>
                 <tr>
                     <th>Postcode</th>
-                    <td><?= $row->postcode ?></td>
+                    <td><?= $member->postcode ?></td>
                 </tr>
                 <tr>
                     <th>Huisnummer</th>
-                    <td><?= $row->huisnummer ?></td>
+                    <td><?= $member->huisnummer ?></td>
                 </tr>
                 <tr>
                     <th>Woonplaats</th>
-                    <td><?= $row->woonplaats ?></td>
+                    <td><?= $member->woonplaats ?></td>
                 </tr>
                 <tr>
                     <th>Telefoon vast</th>
-                    <td><?= $row->telefoon_vast ?></td>
+                    <td><?= $member->telefoon_vast ?></td>
                 </tr>
                 <tr>
                     <th>Telefoon mobiel</th>
-                    <td><?= $row->telefoon_mobiel ?></td>
+                    <td><?= $member->telefoon_mobiel ?></td>
                 </tr>
                 <tr>
                     <th>E-mailadres</th>
-                    <td><?= $row->emailadres ?></td>
+                    <td><?= $member->emailadres ?></td>
                 </tr>
                 <tr>
                     <th>Lid vanaf</th>
-                    <td><?= $row->ingangsdatum ?></td>
+                    <td><?= $member->ingangsdatum ?></td>
                 </tr>
             </table>
         </div>
@@ -102,14 +103,14 @@ $pageName = 'Lidmaatschap van ' . $row->voornaam . ' ' . $row->achternaam;
             <table class="table table-striped table-condensed">
                 <tr>
                     <th>Geslacht</th>
-                    <td><?= $row->geslacht ?></td>
+                    <td><?= $member->geslacht ?></td>
                 </tr>
                 <tr>
                     <th>Nieuwsbrief</th>
                     <td><?php
-                    if ($row->nieuwsbrief === 1) {
+                    if ($member->nieuwsbrief === 1) {
                         echo 'ja';
-                    } elseif ($row->nieuwsbrief === 0) {
+                    } elseif ($member->nieuwsbrief === 0) {
                         echo 'nee';
                     } else {
                         echo 'n/a';
@@ -118,9 +119,9 @@ $pageName = 'Lidmaatschap van ' . $row->voornaam . ' ' . $row->achternaam;
                 <tr>
                     <th>Vrijwilliger</th>
                     <td><?php
-                    if ($row->vrijwilliger === 1) {
+                    if ($member->vrijwilliger === 1) {
                         echo 'ja';
-                    } elseif ($row->vrijwilliger === 0) {
+                    } elseif ($member->vrijwilliger === 0) {
                         echo 'nee';
                     } else {
                         echo 'n/a';
@@ -129,9 +130,9 @@ $pageName = 'Lidmaatschap van ' . $row->voornaam . ' ' . $row->achternaam;
                 <tr>
                     <th>Licht / geluid</th>
                     <td><?php
-                    if ($row->vrijwilligeroptie1 === 1) {
+                    if ($member->vrijwilligeroptie1 === 1) {
                         echo 'ja';
-                    } elseif ($row->vrijwilligeroptie1 === 0) {
+                    } elseif ($member->vrijwilligeroptie1 === 0) {
                         echo 'nee';
                     } else {
                         echo 'n/a';
@@ -140,9 +141,9 @@ $pageName = 'Lidmaatschap van ' . $row->voornaam . ' ' . $row->achternaam;
                 <tr>
                     <th>Bar</th>
                     <td><?php
-                    if ($row->vrijwilligeroptie2 === 1) {
+                    if ($member->vrijwilligeroptie2 === 1) {
                         echo 'ja';
-                    } elseif ($row->vrijwilligeroptie2 === 0) {
+                    } elseif ($member->vrijwilligeroptie2 === 0) {
                         echo 'nee';
                     } else {
                         echo 'n/a';
@@ -151,9 +152,9 @@ $pageName = 'Lidmaatschap van ' . $row->voornaam . ' ' . $row->achternaam;
                 <tr>
                     <th>Schoonmaken / klussen</th>
                     <td><?php
-                    if ($row->vrijwilligeroptie3 === 1) {
+                    if ($member->vrijwilligeroptie3 === 1) {
                         echo 'ja';
-                    } elseif ($row->vrijwilligeroptie3 === 0) {
+                    } elseif ($member->vrijwilligeroptie3 === 0) {
                         echo 'nee';
                     } else {
                         echo 'n/a';
@@ -162,9 +163,9 @@ $pageName = 'Lidmaatschap van ' . $row->voornaam . ' ' . $row->achternaam;
                 <tr>
                     <th>Promotie / flyeren</th>
                     <td><?php
-                    if ($row->vrijwilligeroptie4 === 1) {
+                    if ($member->vrijwilligeroptie4 === 1) {
                         echo 'ja';
-                    } elseif ($row->vrijwilligeroptie4 === 0) {
+                    } elseif ($member->vrijwilligeroptie4 === 0) {
                         echo 'nee';
                     } else {
                         echo 'n/a';
@@ -173,9 +174,9 @@ $pageName = 'Lidmaatschap van ' . $row->voornaam . ' ' . $row->achternaam;
                 <tr>
                     <th>Organisatie evenementen</th>
                     <td><?php
-                    if ($row->vrijwilligeroptie5 === 1) {
+                    if ($member->vrijwilligeroptie5 === 1) {
                         echo 'ja';
-                    } elseif ($row->vrijwilligeroptie5 === 0) {
+                    } elseif ($member->vrijwilligeroptie5 === 0) {
                         echo 'nee';
                     } else {
                         echo 'n/a';
@@ -185,38 +186,38 @@ $pageName = 'Lidmaatschap van ' . $row->voornaam . ' ' . $row->achternaam;
             <table class="table table-striped table-condensed">
                 <tr>
                     <th>CreationDate</th>
-                    <td><?= $row->CreationDate ?></td>
+                    <td><?= $member->CreationDate ?></td>
                 </tr>
                 <tr>
                     <th>ModificationDate</th>
-                    <td><?= $row->ModificationDate ?></td>
+                    <td><?= $member->ModificationDate ?></td>
                 </tr>
             </table>
         </div>
         <table class="table table-striped table-condensed">
             <tr>
                 <th>Betalingswijze</th>
-                <td><?= $row->betalingswijze ?></td>
+                <td><?= $member->betalingswijze ?></td>
             </tr>
             <tr>
                 <th>IBAN</th>
-                <td><?= $row->iban ?></td>
+                <td><?= $member->iban ?></td>
             </tr>
             <tr>
                 <th>Machtigingskenmerk</th>
-                <td><?= $row->machtigingskenmerk ?></td>
+                <td><?= $member->machtigingskenmerk ?></td>
             </tr>
             <tr>
                 <th>Status</th>
-                <td><?= $row->status ?></td>
+                <td><?= $member->status ?></td>
             </tr>
             <!--<tr>
-                <th>Incasso gelukt</th><td><?php //echo $row->incasso_gelukt;
+                <th>Incasso gelukt</th><td><?php //echo $member->incasso_gelukt;
                 ?></td>
             </tr>-->
             <tr>
                 <th>Opmerking</th>
-                <td><?= $row->opmerking ?></td>
+                <td><?= $member->opmerking ?></td>
             </tr>
         </table>
     </div>

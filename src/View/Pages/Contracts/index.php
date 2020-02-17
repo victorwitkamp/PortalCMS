@@ -45,7 +45,7 @@ $contracts = ContractMapper::get();
                     <?php
                     foreach ($contracts as $contract) { ?>
                         <tr>
-                            <td><a href="/Contracts/Details/?id=<?= $contract->id ?>"><?= $contract->band_naam ?></a></td>
+                            <td><a href="/Contracts/Details?id=<?= $contract->id ?>"><?= $contract->band_naam ?></a></td>
                             <td><?= $contract->bandcode ?></td>
                             <td><?= $contract->kosten_totaal ?></td>
                         </tr>

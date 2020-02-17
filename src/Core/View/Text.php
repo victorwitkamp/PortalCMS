@@ -33,6 +33,6 @@ class Text
             return 'LABEL_NOT_FOUND';
         }
 
-        return self::$texts[$key];
+        return strtoupper(self::$texts[$key]);
     }
 }

@@ -16,6 +16,9 @@ $permissions = ['email'];
 $loginUrl = $helper->getLoginUrl(Config::get('FB_ASSIGN_URL'), $permissions);
 ?>
 <?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->push('head-extra') ?>
+
+<?= $this->end() ?>
 <?= $this->push('main-content') ?>
 
     <div class="container">

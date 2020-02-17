@@ -104,11 +104,6 @@ class EventsController extends Controller
         echo json_encode(EventService::getByDate((string) Request::get('start'), (string) Request::get('end')));
     }
 
-    public function loadComingEvents()
-    {
-        echo json_encode(EventService::loadComingEvents());
-    }
-
     public function updateEventDate(): bool
     {
         return EventMapper::updateDate(

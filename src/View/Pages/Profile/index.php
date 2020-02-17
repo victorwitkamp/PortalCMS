@@ -4,13 +4,17 @@
  */
 
 declare(strict_types=1);
-$pageName = 'Gebruikersprofiel weergeven';
-?>
+
+use PortalCMS\Core\View\Text;
+
+$pageName = Text::get('TITLE_PROFILE') . ' ' . $this->e($user_name);
+
+ ?>
 <?= $this->layout('layout', ['title' => $pageName]) ?>
 <?= $this->push('main-content') ?>
         <div class="container">
             <div class="row mt-5">
-                <h1>Profiel van: <?= $this->e($user_name) ?></h1>
+                <h1><?= $pageName ?></h1>
             </div>
             <table class="table table-striped table-condensed">
                 <tr>

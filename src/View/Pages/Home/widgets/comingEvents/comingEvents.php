@@ -6,31 +6,28 @@
 declare(strict_types=1);
 
 use PortalCMS\Core\View\Text;
+use PortalCMS\Modules\Calendar\EventMapper;
 
 ?>
 <h4><?= Text::get('TITLE_WIDGET_COMING_EVENTS') ?></h4>
-<div class="card" id="show-events"></div>
-<script>
-$(document).ready(function () {
-    var showData = $('#show-events');
-    $.getJSON('/Events/loadComingEvents', function (data) {
-      var content;
-      var listContent;
-      var records = data.map(function (item) {
-        var tempdisplaydatetime = new Date(0);
-        tempdisplaydatetime.setUTCSeconds(item.date_time);
-        displaydate = tempdisplaydatetime.toLocaleDateString();
-        displaytime = tempdisplaydatetime.toLocaleTimeString();
-        displaydatetime = displaydate + ' ' + displaytime;
-        return '<i class="far fa-calendar"></i> <a href="/events/details?id=' + item.id + '">' + item.title + '</a><br>Start: ' + item.start;
-      });
-      showData.empty();
-      if (records.length) {
-        content = '<li class="list-group-item">' + records.join('</li><li>') + '</li>';
-        listContent = '<ul class="list-group list-group-flush">' + content + '</ul>';
-        showData.append(listContent);
-      }
-    });
-    // showData.text('Laden...');
-});
-</script>
+<div class="card" id="show-events">
+    <?php
+    $events = EventMapper::getEventsAfter(date('Y-m-d H:i:s'));
+    if (!empty($events)) {
+        ?>
+        <ul class="list-group">
+            <?php
+            foreach ($events as $event) {
+                ?><li class="list-group-item"><i class="far fa-calendar"></i> <a href="/Events/Details?id=<?= $event->id ?>"><?= $event->title ?></a>
+                <br>Start: <?= $event->start_event ?></li>
+                <?php
+            } ?>
+        </ul>
+        <?php
+    } else {
+        ?>
+        <p>Geen evenementen gevonden.</p>
+        <?php
+    }
+    ?>
+</div>

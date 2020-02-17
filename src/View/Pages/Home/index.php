@@ -24,13 +24,7 @@ $pageName = Text::get('TITLE_HOME');
                     </div>
                     <div class="col-sm-8">
                         <h1><?= SiteSetting::get('site_name') ?></h1>
-                        <p class="lead">
-                        <?php
-                        if (SiteSetting::get('site_description_type') === '1') {
-                            echo SiteSetting::get('site_description');
-                        }
-                        require __DIR__ . '/slogan.php';
-                        ?></p>
+                        <p class="lead"><?php require __DIR__ . '/inc/Description.php'; ?></p>
                     </div>
                 </div>
             </div>
