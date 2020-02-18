@@ -59,4 +59,4 @@ $user = UserMapper::getProfileById((int) Session::get('user_id'));
             } ?>
         </td>
     </tr>
-</table>
+</table><hr>

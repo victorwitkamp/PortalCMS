@@ -28,38 +28,12 @@ use PortalCMS\Core\View\Text;
     <div class="form-group row">
         <label for="newConfirmPassword" class="col-sm-4 col-form-label"><?= Text::get('LABEL_CONFIRM_PASSWORD') ?></label>
         <div class="col-sm-8">
-            <input type="password" name="newconfirmpassword" id="newConfirmPassword" class="form-control" autocomplete="new-password" required />
+            <input type="password" name="newconfirmpassword" id="newConfirmPassword" class="form-control" autocomplete="new-password" required/>
+            <div class="invalid-feedback">Passwords do not match. Please repeat the password to confirm it.</div>
         </div>
     </div>
-    <script>
-        var password = document.getElementById("newPassword"),
-            confirm_password = document.getElementById("newConfirmPassword");
-        function validatePassword(){
-            if (password.value !== confirm_password.value) {
-                confirm_password.setCustomValidity("Passwords do not match");
-            }
-        }
-
-        password.onchange = validatePassword;
-        confirm_password.onkeyup = validatePassword;
-    </script>
-    <script>
-        (function() {
-            'use strict';
-            window.addEventListener('load', function() {
-                var forms = document.getElementsByClassName('needs-validation');
-                var validation = Array.prototype.filter.call(forms, function(form) {
-                    form.addEventListener('submit', function(event) {
-                        validatePassword();
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-            }, false);
-        })();
+    <script type="text/javascript">
+        function validatePassword(){document.getElementById("newPassword").value===document.getElementById("newConfirmPassword").value?document.getElementById("newConfirmPassword").setCustomValidity(""):document.getElementById("newConfirmPassword").setCustomValidity("Passwords do not match. Please repeat the password to confirm it.")}window.onload=function(){document.getElementById("newPassword").onchange=validatePassword,document.getElementById("newConfirmPassword").onchange=validatePassword,Array.prototype.filter.call(document.getElementsByClassName("needs-validation"),function(e){e.addEventListener("submit",function(t){e.checkValidity()||(t.preventDefault(),t.stopPropagation()),e.classList.add("was-validated")},!1)})};
     </script>
     <input type="submit" name="changepassword" value="<?= Text::get('LABEL_SUBMIT') ?>" class="btn btn-primary" />
-</form>
+</form><hr>

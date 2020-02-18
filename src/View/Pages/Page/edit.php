@@ -5,6 +5,7 @@
 
 declare(strict_types=1);
 
+use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Page;
@@ -13,11 +14,12 @@ $pageName = 'Pagina bewerken';
 
 Authentication::checkAuthentication();
 
-if (!Page::checkPage($_GET['id'])) {
+$row = Page::getPage((int) Request::get('id'));
+if (empty($row)) {
     header('Location: /index.php');
     die;
 }
-$row = Page::getPage($_GET['id']);
+
 
 
 $pageName = 'Pagina ' . $row ['name'] . ' bewerken';
