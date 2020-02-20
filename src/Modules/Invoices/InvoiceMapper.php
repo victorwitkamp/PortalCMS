@@ -68,6 +68,16 @@ class InvoiceMapper
         return null;
     }
 
+    public static function getByYear(int $year) : ?array
+    {
+        $stmt = DB::conn()->prepare('SELECT * FROM invoices where year = ? ORDER BY factuurnummer');
+        $stmt->execute([$year]);
+        if ($stmt->rowCount() > 0) {
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
+        }
+        return null;
+    }
+
     public static function create(int $contract_id, string $factuurnummer, int $year, int $month, string $factuurdatum): bool
     {
         $stmt = DB::conn()->prepare(

@@ -17,7 +17,7 @@ $loginUrl = $helper->getLoginUrl(Config::get('FB_ASSIGN_URL'), $permissions);
 ?>
 <?= $this->layout('layout', ['title' => $pageName]) ?>
 <?= $this->push('head-extra') ?>
-
+    <script src="/includes/js/pass_req.js"></script>
 <?= $this->end() ?>
 <?= $this->push('main-content') ?>
 

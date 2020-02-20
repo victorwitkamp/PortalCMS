@@ -26,7 +26,8 @@ class InvoicesController extends Controller
         'createInvoice' => 'POST',
         'deleteInvoice' => 'POST',
         'deleteInvoiceItem' => 'POST',
-        'addInvoiceItem' => 'POST'
+        'addInvoiceItem' => 'POST',
+        'showInvoicesByYear' => 'POST'
     ];
 
     public function __construct()
@@ -143,5 +144,10 @@ class InvoicesController extends Controller
         } else {
             Redirect::to('Error/Error');
         }
+    }
+
+    public static function showInvoicesByYear()
+    {
+        Redirect::to('/Invoices?Year=' . Request::post('year'));
     }
 }

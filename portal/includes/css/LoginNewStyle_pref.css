@@ -98,14 +98,18 @@ label {
     font-weight: 400;
     text-align: center;
     vertical-align: middle;
-    touch-action: manipulation;
+    -ms-touch-action: manipulation;
+        touch-action: manipulation;
     cursor: pointer;
     background-image: none;
     border: 1px solid transparent;
     white-space: nowrap;
     padding: 6px 12px;
     border-radius: 4px;
-    user-select: none;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
 }
 .btn-primary {
     color: #fff;
@@ -176,7 +180,10 @@ label {
     position: absolute;
     top: 6px;
     left: 12px;
-    user-select: none;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
     transition: all .2s ease-in-out;
 }
 .float .form-control {

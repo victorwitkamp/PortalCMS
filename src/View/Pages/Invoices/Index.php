@@ -13,7 +13,9 @@ use PortalCMS\Modules\Contracts\ContractMapper;
 use PortalCMS\Modules\Invoices\InvoiceMapper;
 
 $contractId = (int) Request::get('contract');
+$year = (int) Request::get('Year');
 if (!empty($contractId) && is_numeric($contractId)) {
+
     $invoices = InvoiceMapper::getByContractId($contractId);
     $contract = ContractMapper::getById($contractId);
     if (empty($contract)) {
@@ -22,9 +24,14 @@ if (!empty($contractId) && is_numeric($contractId)) {
         $pageName = Text::get('LABEL_CONTRACT_INVOICES_FOR') . $contract->band_naam;
     }
 } else {
-    $invoices = InvoiceMapper::getAll();
+    if (empty($year)) {
+        $year = (int) date("Y");
+    }
+    $invoices = InvoiceMapper::getByYear($year);
     $pageName = Text::get('TITLE_INVOICES');
 }
+
+
 ?>
 <?= $this->layout('layout', ['title' => $pageName]) ?>
 <?= $this->push('head-extra') ?>
@@ -48,6 +55,11 @@ if (!empty($contractId) && is_numeric($contractId)) {
         </div>
         <div class="col-sm-4"><a href="/Invoices/Add" class="btn btn-success navbar-btn float-right"><span class="fa fa-plus"></span> Toevoegen</a></div>
     </div>
+    <form method="post">
+        <label><?= Text::get('YEAR') ?></label>
+        <input type="number" name="year" value="<?= $year ?>" />
+        <button type="submit" class="btn btn-primary" name="showInvoicesByYear"><i class="fab fa-sistrix"></i></button>
+    </form>
     <hr>
     <?php Alert::renderFeedbackMessages(); ?>
 </div>
