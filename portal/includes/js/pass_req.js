@@ -8,28 +8,18 @@ if (typeof jQuery === 'undefined') {
 
 (function ($) {
     $.fn.PassRequirements = function (options) {
-        // Provide fake gettext for when it is not available
-        if( typeof gettext !== 'function' ) { gettext = function(text) { return text; }; }
-        /*
-         * TODO
-         * ====
-         *
-         * store regexes in variables so they can be used by users through string
-         * specifications,ex 'number', 'special', etc
-         *
-         */
-
+        if (typeof gettext !== 'function') {
+            gettext = function (text) {
+                return text;
+            };
+        }
         var defaults = {
 //            defaults: true
         };
 
-        if (
-            !options ||                     //if no options are passed                                    /*
-            options.defaults === true ||     //if default option is passed with defaults set to true      * Extend options with default ones
-            options.defaults === undefined   //if options are passed but defaults is not passed           */
-        ) {
-            if (!options) {                   //if no options are passed,
-                options = {};               //create an options object
+        if (!options || options.defaults === true || options.defaults === undefined) {
+            if (!options) {
+                options = {};
             }
             defaults.rules = $.extend(true, {
                 minlength: {
@@ -59,7 +49,7 @@ if (typeof jQuery === 'undefined') {
                 }
             }, options.rules);
         } else {
-            defaults = options;     //if options are passed with defaults === false
+            defaults = options;
         }
 
         var i = 0;
@@ -70,7 +60,6 @@ if (typeof jQuery === 'undefined') {
                 console.error('You must pass in your rules if defaults is set to false. Skipping this input with id:[' + this.id + '] with class:[' + this.classList + ']');
                 return false;
             }
-
             var requirementList = "";
             $(this).data('pass-req-id', i++);
 
@@ -79,7 +68,7 @@ if (typeof jQuery === 'undefined') {
                 Object.getOwnPropertyNames(defaults.rules).forEach(function (val, idx, array) {
                     var rules = defaults.rules[val];
                     if (typeof rules.regex == 'string') {
-                        rules.regex = new RegExp(rules.regex, rules.regex_flags ? rules.regex_flags: null);
+                        rules.regex = new RegExp(rules.regex, rules.regex_flags ? rules.regex_flags : null);
                     }
                     if (this_.val().replace(rules.regex, "").length > defaults.rules[val].minLength - 1) {
                         this_.next('.popover').find('#' + val).css('text-decoration', 'line-through');
