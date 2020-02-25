@@ -14,14 +14,8 @@ use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\User\UserMapper;
 use PortalCMS\Core\View\Text;
 
-/**
- * LogoutService
- */
 class LogoutService
 {
-    /**
-     * Log out process: delete cookie, delete session
-     */
     public static function logout(): bool
     {
         if (Authentication::userIsLoggedIn()) {

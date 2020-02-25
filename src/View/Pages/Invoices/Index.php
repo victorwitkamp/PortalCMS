@@ -25,7 +25,7 @@ if (!empty($contractId) && is_numeric($contractId)) {
     }
 } else {
     if (empty($year)) {
-        $year = (int) date("Y");
+        $year = (int) date('Y');
     }
     $invoices = InvoiceMapper::getByYear($year);
     $pageName = Text::get('TITLE_INVOICES');

@@ -14,10 +14,10 @@ $pageName = (string) Text::get('TITLE_EVENTS');
 <?= $this->layout('layout', ['title' => $pageName]) ?>
 <?= $this->push('head-extra') ?>
 
-    <link rel="stylesheet" type="text/css" href="/dist/merged/@fullcalendar/fullcalendar.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/dist/merged/fullcalendar.min.css"/>
     <script src="/dist/moment/min/moment.min.js"></script>
     <script src="/dist/moment/locale/nl.js"></script>
-    <script src="/dist/merged/@fullcalendar/fullcalendar.min.js"></script>
+    <script src="/dist/merged/fullcalendar.min.js"></script>
     <script src="/includes/js/calendar.js"></script>
 
 <?= $this->end() ?>

@@ -83,8 +83,6 @@ class Filter
                 self::XSSFilter($valueInValue);
             }
         }
-
-        // other types are untouched
         return $value;
     }
 }

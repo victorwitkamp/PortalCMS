@@ -20,23 +20,15 @@ use PortalCMS\Core\Email\Template\Helpers\PlaceholderHelper;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
 
-/**
- * Class PasswordReset
- */
 class PasswordReset
 {
-    /**
-     * Perform the necessary actions to send a password reset mail
-     * @param string $user_name_or_email Username or user's email
-     * @return bool success status
-     */
-    public static function requestPasswordReset(string $user_name_or_email): bool
+    public static function requestPasswordReset(string $username_or_email): bool
     {
-        if (empty($user_name_or_email)) {
+        if (empty($username_or_email)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_EMAIL_FIELD_EMPTY'));
             return false;
         }
-        $result = UserMapper::getByUsernameOrEmail($user_name_or_email);
+        $result = UserMapper::getByUsernameOrEmail($username_or_email);
         if (empty($result)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USER_DOES_NOT_EXIST'));
             return false;
@@ -47,15 +39,8 @@ class PasswordReset
         }
         return false;
     }
-
-    /**
-     * Set password reset token in database (for DEFAULT user accounts)
-     * @param string $user_name username
-     * @param string $resetToken password reset hash
-     * @param string $timestamp timestamp
-     * @return bool success status
-     */
-    public static function writeTokenToDatabase(string $user_name, string $resetToken, string $timestamp): bool
+    
+    public static function writeTokenToDatabase(string $username, string $resetToken, string $timestamp): bool
     {
         $sql = 'UPDATE users
                 SET password_reset_hash = :password_reset_hash, user_password_reset_timestamp = :user_password_reset_timestamp
@@ -64,7 +49,7 @@ class PasswordReset
         $stmt = DB::conn()->prepare($sql);
         $stmt->execute(
             [
-                ':password_reset_hash' => $resetToken, ':user_name' => $user_name,
+                ':password_reset_hash' => $resetToken, ':user_name' => $username,
                 ':user_password_reset_timestamp' => $timestamp
             ]
         );
@@ -74,23 +59,16 @@ class PasswordReset
         Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_TOKEN_FAIL'));
         return false;
     }
-
-    /**
-     * Send the password reset mail
-     * @param string $user_name username
-     * @param string $resetToken password reset hash
-     * @param string $user_email user email
-     * @return bool success status
-     */
-    public static function sendPasswordResetMail(string $user_name, string $resetToken, string $user_email): bool
+    
+    public static function sendPasswordResetMail(string $username, string $resetToken, string $user_email): bool
     {
         $template = EmailTemplateMapper::getSystemTemplateByName('ResetPassword');
         $resetlink = Config::get('URL') .
                         Config::get('EMAIL_PASSWORD_RESET_URL') .
-                        '?username=' . $user_name .
+                        '?username=' . $username .
                         '&password_reset_hash='
                         .urlencode($resetToken);
-        $recipient = new EmailRecipient($user_name, $user_email);
+        $recipient = new EmailRecipient($username, $user_email);
         $SMTPTransport = new SMTPTransport(new SMTPConfiguration());
         if ($SMTPTransport->sendMail(new EmailMessage(
             Config::get('EMAIL_PASSWORD_RESET_SUBJECT'),
@@ -102,7 +80,7 @@ class PasswordReset
                     SiteSetting::get('site_name'),
                     PlaceholderHelper::replace(
                         'USERNAME',
-                        $user_name,
+                        $username,
                         $template['body']
                     )
                 )
@@ -116,14 +94,8 @@ class PasswordReset
         Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_MAIL_SENDING_ERROR') . $SMTPTransport->getError());
         return false;
     }
-
-    /**
-     * Verifies the password reset request via the verification hash token (that's only valid for one hour)
-     * @param  string $user_name         Username
-     * @param  string $verification_code Hash token
-     * @return bool Success status
-     */
-    public static function verifyPasswordReset(string $user_name, string $verification_code): bool
+    
+    public static function verifyPasswordReset(string $username, string $password_reset_hash): bool
     {
         $sql = 'SELECT user_id, user_password_reset_timestamp
                     FROM users
@@ -133,12 +105,12 @@ class PasswordReset
         $stmt = DB::conn()->prepare($sql);
         $stmt->execute(
             [
-            ':password_reset_hash' => $verification_code,
-            ':user_name' => $user_name]
+            ':password_reset_hash' => $password_reset_hash,
+            ':user_name' => $username]
         );
         if ($stmt->rowCount() !== 1) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_COMBINATION_DOES_NOT_EXIST'));
-            Session::add('feedback_negative', $user_name . ' ' . $sql);
+            Session::add('feedback_negative', $username . ' ' . $sql);
             return false;
         }
         $result_user_row = $stmt->fetch();
@@ -151,7 +123,7 @@ class PasswordReset
         return false;
     }
 
-    public static function saveNewUserPassword(string $user_name, string $passwordHash, string $resetToken): bool
+    public static function saveNewUserPassword(string $username, string $passwordHash, string $resetToken): bool
     {
         $sql = 'UPDATE users SET user_password_hash = :user_password_hash, password_reset_hash = NULL,
                        user_password_reset_timestamp = NULL
@@ -160,7 +132,7 @@ class PasswordReset
         $stmt = DB::conn()->prepare($sql);
         $stmt->execute(
             [
-                ':user_password_hash' => $passwordHash, ':user_name' => $user_name,
+                ':user_password_hash' => $passwordHash, ':user_name' => $username,
                 ':password_reset_hash' => $resetToken
             ]
         );
@@ -168,32 +140,23 @@ class PasswordReset
     }
 
     /**
-     * Set the new password (for DEFAULT user, FACEBOOK-users don't have a password)
      * Please note: At this point the user has already pre-verified via verifyPasswordReset() (within one hour),
      * so we don't need to check again for the 60min-limit here. In this method we authenticate
      * via username & password-reset-hash from (hidden) form fields.
      */
-    public static function setNewPassword(string $user_name, string $resetToken, string $user_password_new, string $user_password_repeat): bool
+    public static function setNewPassword(string $username, string $resetToken, string $user_password_new, string $user_password_repeat): bool
     {
-        if (self::validateResetPassword($user_name, $resetToken, $user_password_new, $user_password_repeat) && self::saveNewUserPassword($user_name, password_hash(base64_encode($user_password_new), PASSWORD_DEFAULT), $resetToken)) {
+        if (self::validateResetPassword($username, $resetToken, $user_password_new, $user_password_repeat) && self::saveNewUserPassword($username, password_hash(base64_encode($user_password_new), PASSWORD_DEFAULT), $resetToken)) {
             Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_CHANGE_SUCCESSFUL'));
             return true;
         }
         Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CHANGE_FAILED'));
         return false;
     }
-
-    /**
-     * Validate the password reset submission
-     * @param string $user_name user name
-     * @param string $resetToken The token required to reset the password
-     * @param string $user_password_new The new password of the user
-     * @param string $user_password_repeat Confirmation of the new password
-     * @return bool Did the password pass validation?
-     */
-    public static function validateResetPassword(string $user_name, string $resetToken, string $user_password_new, string $user_password_repeat) : bool
+    
+    public static function validateResetPassword(string $username, string $resetToken, string $user_password_new, string $user_password_repeat) : bool
     {
-        if (empty($user_name)) {
+        if (empty($username)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_FIELD_EMPTY'));
         } elseif (empty($resetToken)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_TOKEN_MISSING'));

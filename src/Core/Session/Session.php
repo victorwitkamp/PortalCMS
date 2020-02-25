@@ -9,12 +9,6 @@ namespace PortalCMS\Core\Session;
 
 use PortalCMS\Core\Security\Filter;
 
-/**
- * Session class
- *
- * handles the session stuff. creates session when no one exists, sets and gets values, and closes the session
- * properly (=logout). Not to forget the check if the user is logged in or not.
- */
 class Session
 {
     public static function init() : void
@@ -34,7 +28,6 @@ class Session
     {
         if (isset($_SESSION[$key])) {
             $value = $_SESSION[$key];
-            // filter the value for XSS vulnerabilities
             if ($filter) {
                 return Filter::XSSFilter($value);
             }

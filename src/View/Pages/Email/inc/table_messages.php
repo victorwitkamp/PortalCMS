@@ -10,7 +10,7 @@ use PortalCMS\Core\View\Text;
 
 ?>
 <form method="post">
-    <table id="messages" class="table table-sm" style="width:100%" data-page-length='25'>
+    <table id="messages" class="table table-sm" style="width:100%;" data-page-length='25'>
         <thead class="thead-dark">
             <tr>
                 <th class="text-center"><input type="checkbox" id="selectall" /></th>

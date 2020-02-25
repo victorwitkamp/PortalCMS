@@ -2,11 +2,7 @@
 /**
  * Copyright Victor Witkamp (c) 2020.
  */
-
 declare(strict_types=1);
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
 
 namespace PortalCMS\Core\HTTP;
 
@@ -67,7 +63,7 @@ class RemoteAddress
      * @see http://tools.ietf.org/html/draft-ietf-appsawg-http-forwarded-10#section-5.2
      * @return false|string
      */
-    protected function getIpAddressFromProxy()
+    private function getIpAddressFromProxy()
     {
         if (!$this->useProxy || (isset($_SERVER['REMOTE_ADDR']) && !in_array($_SERVER['REMOTE_ADDR'], $this->trustedProxies, true))) {
             return false;

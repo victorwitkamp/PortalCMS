@@ -10,26 +10,13 @@ namespace PortalCMS\Core\Security\Authentication;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
 
-/**
- * Class Auth
- * Checks if user is logged in, if not then sends the user to "yourdomain.com/Login".
- */
 class Authentication
 {
-    /**
-     * The normal authentication flow, just check if the user is logged in (by looking into the session).
-     * If user is not, then he will be redirected to login page and the application is hard-stopped via exit().
-     */
     public static function checkAuthentication()
     {
-        // initialize the session (if not initialized yet)
         Session::init();
 
-        // if user is NOT logged in...
-        // (if user IS logged in the application will not run the code below and therefore just go on)
         if (!self::userIsLoggedIn()) {
-
-            // ... then treat user as "not logged in", destroy session, redirect to login page
             // Session::destroy();
             Session::add('feedback_negative', 'You need to log-in first.');
 

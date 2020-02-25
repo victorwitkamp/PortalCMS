@@ -1,7 +1,6 @@
 /*
  * Copyright Victor Witkamp (c) 2020.
  */
-
 const { src, dest, parallel } = require('gulp');
 // const pug = require('gulp-pug');
 // const less = require('gulp-less');
@@ -49,7 +48,7 @@ function fullcalendarCss () {
   // .pipe(less())
     .pipe(concat('fullcalendar.min.css'))
     .pipe(minifyCSS())
-    .pipe(dest('portal/dist/merged/@fullcalendar/'))
+    .pipe(dest('portal/dist/merged/'))
 }
 function js () {
   return src([
@@ -81,7 +80,7 @@ function fullcalendarJs () {
     base: 'node_modules/'
   })
     .pipe(concat('fullcalendar.min.js'))
-    .pipe(dest('portal/dist/merged/@fullcalendar/'))
+    .pipe(dest('portal/dist/merged/'))
 }
 function woff () {
   return src('node_modules/**/*.woff', {

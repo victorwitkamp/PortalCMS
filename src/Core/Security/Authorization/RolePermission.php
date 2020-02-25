@@ -13,28 +13,28 @@ use PortalCMS\Core\Session\Session;
 class RolePermission
 {
 
-    public static function assignPermission(int $role_id, int $perm_id)
+    public static function assignPermission(int $roleId, int $permId)
     {
-        $Permission = PermissionMapper::getById($perm_id);
-        if (RolePermissionMapper::isAssigned($role_id, $Permission['perm_desc'])) {
+        $Permission = PermissionMapper::getById($permId);
+        if (RolePermissionMapper::isAssigned($roleId, $Permission['perm_desc'])) {
             Session::add('feedback_negative', 'Reeds toegewezen.');
             Redirect::to('Error/Error');
-        } elseif (RolePermissionMapper::assign($role_id, $perm_id)) {
+        } elseif (RolePermissionMapper::assign($roleId, $permId)) {
             Session::add('feedback_positive', 'Permissie toegewezen.');
-            Redirect::to('UserManagement/Role/?id=' . $role_id);
+            Redirect::to('UserManagement/Role/?id=' . $roleId);
         } else {
             Session::add('feedback_negative', 'Fout bij het toewijzen van de permissie.');
             Redirect::to('Error/Error');
         }
     }
 
-    public static function unassignPermission(int $role_id, int $perm_id)
+    public static function unassignPermission(int $roleId, int $permId)
     {
-        $Permission = PermissionMapper::getById($perm_id);
-        if (RolePermissionMapper::isAssigned($role_id, $Permission['perm_desc'])) {
-            if (RolePermissionMapper::unassign($role_id, $perm_id)) {
+        $Permission = PermissionMapper::getById($permId);
+        if (RolePermissionMapper::isAssigned($roleId, $Permission['perm_desc'])) {
+            if (RolePermissionMapper::unassign($roleId, $permId)) {
                 Session::add('feedback_positive', 'Permissie verwijderd.');
-                Redirect::to('UserManagement/Role/?id=' . $role_id);
+                Redirect::to('UserManagement/Role/?id=' . $roleId);
             } else {
                 Session::add('feedback_negative', 'Fout bij het verwijderen van de permissie.');
                 Redirect::to('Error/Error');

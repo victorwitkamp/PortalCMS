@@ -11,7 +11,7 @@ use PortalCMS\Modules\Invoices\InvoiceHelper;
 
 ?>
 <form method="post">
-    <table id="example" class="table table-sm table-striped table-hover table-dark" style="width:100%">
+    <table id="example" class="table table-sm table-striped table-hover table-dark" style="width:100%;">
         <thead class="thead-dark">
             <tr>
                 <th></th>

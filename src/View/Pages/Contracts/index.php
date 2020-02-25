@@ -33,7 +33,7 @@ $contracts = ContractMapper::get();
             <?php
             Alert::renderFeedbackMessages();
             if ($contracts) { ?>
-                <table id="example" class="table table-sm table-striped table-hover" style="width:100%">
+                <table id="example" class="table table-sm table-striped table-hover" style="width:100%;">
                     <thead class="thead-dark">
                         <tr>
                             <th>Huurder</th>
