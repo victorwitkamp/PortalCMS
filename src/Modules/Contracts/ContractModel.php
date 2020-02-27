@@ -19,7 +19,7 @@ use PortalCMS\Modules\Invoices\InvoiceMapper;
 
 class ContractModel
 {
-    public static function new()
+    public static function new(): bool
     {
         $kosten_ruimte              = (int) Request::post('kosten_ruimte', true);
         $kosten_kast                = (int) Request::post('kosten_kast', true);

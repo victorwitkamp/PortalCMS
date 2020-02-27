@@ -15,7 +15,6 @@ class Authentication
     public static function checkAuthentication()
     {
         Session::init();
-
         if (!self::userIsLoggedIn()) {
             // Session::destroy();
             Session::add('feedback_negative', 'You need to log-in first.');
@@ -31,16 +30,10 @@ class Authentication
 
         // Hook to check is a cookie exists and if it matches a remember me token in the database.
         // if (!Cookie::isValid()) {
-
         // }
     }
 
-    /**
-     * Checks if the user is logged in or not
-     *
-     * @return bool user's login status
-     */
-    public static function userIsLoggedIn(): bool
+    public static function userIsLoggedIn() : bool
     {
         return (Session::get('user_logged_in') ? true : false);
     }

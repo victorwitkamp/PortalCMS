@@ -16,9 +16,8 @@ use function is_string;
 class Request
 {
     /**
-     * Gets/returns the value of a specific key of the POST super-global.
      * When using just Request::post('x') it will return the raw and untouched $_POST['x'], when using it like
-     * Request::post('x', true) then it will return a trimmed and stripped $_POST['x'] !
+     * Request::post('x', true) will return a trimmed and stripped $_POST['x'] !
      */
     public static function post($key, bool $clean = false)
     {

@@ -7,10 +7,6 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Config;
 
-/**
- * Class Config
- * Gets the configuration
- */
 class Config
 {
     public static $config;

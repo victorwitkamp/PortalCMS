@@ -25,8 +25,7 @@ class Controller
     public function __construct()
     {
         Session::init();
-
-        if (!Authentication::userIsLoggedIn() && Request::cookie('remember_me')) {
+        if (!Authentication::userIsLoggedIn() && !empty(Request::cookie('remember_me'))) {
             if (LoginController::loginWithCookie()) {
                 Redirect::to('Home');
             } else {

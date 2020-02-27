@@ -12,6 +12,7 @@ use PortalCMS\Core\Activity\Activity;
 use PortalCMS\Core\HTTP\Cookie;
 use PortalCMS\Core\Security\Encryption;
 use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\Session\SessionCookie;
 use PortalCMS\Core\User\UserMapper;
 use PortalCMS\Core\View\Text;
 
@@ -74,13 +75,15 @@ class LoginService
         Session::set('user_id', $user->user_id);
         Session::set('user_name', $user->user_name);
         Session::set('user_email', $user->user_email);
-        // Session::set('user_account_type', $user->user_account_type);
-        // Session::set('user_provider_type', 'DEFAULT');
         Session::set('user_fbid', $user->user_fbid);
         Session::set('user_logged_in', true);
         UserMapper::updateSessionId($user->user_id, session_id());
         UserMapper::saveTimestampByUsername($user->user_name);
-        Cookie::setSessionCookie();
+        if (SessionCookie::setSessionCookie()) {
+            return true;
+        } else {
+            error_log('Could not set session cookie');
+        }
     }
 
     public static function setRememberMe(int $user_id) : bool

@@ -19,7 +19,7 @@ class HomeController extends Controller
         Authentication::checkAuthentication();
     }
 
-    public static function index()
+    public function index()
     {
         $templates = new Engine(DIR_VIEW);
         echo $templates->render('Pages/Home/Index');

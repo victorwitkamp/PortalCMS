@@ -108,8 +108,8 @@ class LoginController extends Controller
         }
         $username = Request::post('user_name');
         $password = Request::post('user_password');
-        if (!empty($username) && (!empty($password)) && LoginService::loginWithPassword($username, $password, $rememberMe)) {
-            if (Request::post('redirect')) {
+        if (!empty($username) && !empty($password) && LoginService::loginWithPassword($username, $password, $rememberMe)) {
+            if (!empty(Request::post('redirect'))) {
                 Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
             } else {
                 Redirect::to('Home');
