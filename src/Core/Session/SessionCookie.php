@@ -3,6 +3,8 @@
  * Copyright Victor Witkamp (c) 2020.
  */
 
+declare(strict_types=1);
+
 namespace PortalCMS\Core\Session;
 
 use PortalCMS\Core\Config\Config;
@@ -11,8 +13,6 @@ class SessionCookie
 {
     public static function set() : bool
     {
-        // set session cookie setting manually,
-        // Why? because you need to explicitly set session expiry, path, domain, secure, and HTTP.
         // @see https://www.owasp.org/index.php/PHP_Security_Cheat_Sheet#Cookies
         $runtime = (int) Config::get('SESSION_RUNTIME');
         if ($runtime !== 0) {

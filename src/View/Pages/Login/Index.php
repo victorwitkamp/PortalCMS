@@ -41,7 +41,7 @@ require __DIR__ . '/inc/loadingAnimation.php';
 <input type="hidden" name="csrf_token" value="<?= Csrf::makeToken() ?>" />
 <?php
 if (!empty(Request::get('redirect'))) {
-    ?><input type="hidden" name="redirect" value="<?= View::encodeHTML(Request::get('redirect')) ?>" /><?php
+    ?><input type="hidden" name="redirect" value="<?= View::encodeHTML((string) Request::get('redirect')) ?>" /><?php
 }
 ?>
 <input type="submit" name="loginSubmit" class="btn btn-primary" value="<?= Text::get('LABEL_LOG_IN') ?>" />

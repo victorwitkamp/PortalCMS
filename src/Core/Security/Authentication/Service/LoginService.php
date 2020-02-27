@@ -68,7 +68,7 @@ class LoginService
         return false;
     }
 
-    public static function setSuccessfulLoginIntoSession(object $user)
+    public static function setSuccessfulLoginIntoSession(object $user): bool
     {
         Session::init();
         session_regenerate_id(true);
@@ -79,11 +79,11 @@ class LoginService
         Session::set('user_logged_in', true);
         UserMapper::updateSessionId($user->user_id, session_id());
         UserMapper::saveTimestampByUsername($user->user_name);
-        if (SessionCookie::setSessionCookie()) {
+        if (SessionCookie::set()) {
             return true;
-        } else {
-            error_log('Could not set session cookie');
         }
+        error_log('Could not set session cookie');
+        return false;
     }
 
     public static function setRememberMe(int $user_id) : bool

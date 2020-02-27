@@ -60,8 +60,8 @@ class Application
             $url = trim(Request::get('url'), '/');
             $url = filter_var($url, FILTER_SANITIZE_URL);
             $url = explode('/', $url);
-            $this->controllerName = isset($url[0]) ? $url[0] : null;
-            $this->actionName = isset($url[1]) ? $url[1] : null;
+            $this->controllerName = $url[0] ?? null;
+            $this->actionName = $url[1] ?? null;
             unset($url[0], $url[1]);
             $this->parameters = array_values($url);
         }

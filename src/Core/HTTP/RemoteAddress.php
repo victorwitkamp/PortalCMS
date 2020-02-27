@@ -51,11 +51,7 @@ class RemoteAddress
         }
 
         // direct IP address
-        if (isset($_SERVER['REMOTE_ADDR'])) {
-            return $_SERVER['REMOTE_ADDR'];
-        }
-
-        return null;
+        return $_SERVER['REMOTE_ADDR'] ?? null;
     }
 
     /**

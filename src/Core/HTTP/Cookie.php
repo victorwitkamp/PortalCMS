@@ -8,7 +8,6 @@ declare(strict_types=1);
 namespace PortalCMS\Core\HTTP;
 
 use PortalCMS\Core\Config\Config;
-use PortalCMS\Core\User\UserMapper;
 
 class Cookie
 {
