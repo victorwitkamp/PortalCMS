@@ -15,11 +15,12 @@ class Cookie
 
     public static function setRememberMe(string $token): bool
     {
+        $runtime = time() + (int) Config::get('COOKIE_RUNTIME');
         return setcookie(
             'remember_me',
             $token,
             [
-                'expires' => time() + (int) Config::get('COOKIE_RUNTIME'),
+                'expires' => $runtime,
                 'path' => (string) Config::get('COOKIE_PATH'),
                 'domain' => (string) Config::get('COOKIE_DOMAIN'),
                 'secure' => (bool) Config::get('COOKIE_SECURE'),
