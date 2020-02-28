@@ -20,10 +20,13 @@ class Application
 {
     /** @var mixed Instance of the controller */
     private $controller;
+
     /** @var array URL parameters, will be passed to used controller-method */
     private $parameters = [];
+
     /** @var string Just the name of the controller, useful for checks inside the view ("where am I ?") */
     private $controllerName;
+
     /** @var string Just the name of the controller's method, useful for checks inside the view ("where am I ?") */
     private $actionName;
 
@@ -51,9 +54,6 @@ class Application
         }
     }
 
-    /**
-     * Get and split the URL
-     */
     private function splitUrl()
     {
         if (Request::get('url')) {

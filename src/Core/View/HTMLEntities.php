@@ -11,13 +11,13 @@ namespace PortalCMS\Core\View;
  * Class View
  * The part that handles all the output
  */
-class View
+class HTMLEntities
 {
     /**
      * Converts characters to HTML entities
      * This is important to avoid XSS attacks, and attempts to inject malicious code in your page.
      */
-    public static function encodeHTML(string $string): string
+    public static function encode(string $string): string
     {
         return htmlentities($string, ENT_QUOTES, 'UTF-8');
     }
@@ -25,7 +25,7 @@ class View
     /**
      * Converts HTML entities back to characters
      */
-    public function decodeHTML(string $string): string
+    public function decode(string $string): string
     {
         return html_entity_decode($string, ENT_QUOTES, 'UTF-8');
     }

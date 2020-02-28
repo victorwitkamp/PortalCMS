@@ -8,6 +8,7 @@ declare(strict_types=1);
 use PortalCMS\Core\Config\Config;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Security\Csrf;
+use PortalCMS\Core\View\HTMLEntities;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Core\View\View;
 
@@ -41,7 +42,7 @@ require __DIR__ . '/inc/loadingAnimation.php';
 <input type="hidden" name="csrf_token" value="<?= Csrf::makeToken() ?>" />
 <?php
 if (!empty(Request::get('redirect'))) {
-    ?><input type="hidden" name="redirect" value="<?= View::encodeHTML((string) Request::get('redirect')) ?>" /><?php
+    ?><input type="hidden" name="redirect" value="<?= HTMLEntities::encode((string) Request::get('redirect')) ?>" /><?php
 }
 ?>
 <input type="submit" name="loginSubmit" class="btn btn-primary" value="<?= Text::get('LABEL_LOG_IN') ?>" />

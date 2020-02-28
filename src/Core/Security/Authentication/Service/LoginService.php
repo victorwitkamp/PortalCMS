@@ -27,7 +27,7 @@ class LoginService
             }
             if ($rememberMe) {
                 self::setRememberMe($user->user_id);
-                Session::add('feedback_positive', 'Aangemeld blijven ingeschakeld');
+                Session::add('feedback_positive', Text::get('FEEDBACK_REMEMBER_ME_ENABLED'));
             }
             self::setSuccessfulLoginIntoSession($user);
             Activity::add('LoginWithPassword', $user->user_id);

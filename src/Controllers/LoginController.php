@@ -70,7 +70,11 @@ class LoginController extends Controller
             }
         } elseif (self::loginWithCookie()) {
             Session::add('feedback_positive', 'You are automatically logged in using a cookie.');
-            Redirect::to('Home');
+            if (Request::post('redirect')) {
+                Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
+            } else {
+                Redirect::to('Home');
+            }
         } else {
             $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Login/Index');

@@ -20,11 +20,12 @@ class Controller
     /**
      * @var View View The view object
      */
-    public $View;
+//    public $View;
 
     public function __construct()
     {
         Session::init();
+
         if (!Authentication::userIsLoggedIn() && !empty(Request::cookie('remember_me'))) {
             if (LoginController::loginWithCookie()) {
                 Redirect::to('Home');
@@ -34,6 +35,6 @@ class Controller
             }
         }
 
-        $this->View = new View();
+//        $this->View = new View();
     }
 }
