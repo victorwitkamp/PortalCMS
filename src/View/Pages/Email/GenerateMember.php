@@ -8,6 +8,7 @@ declare(strict_types=1);
 use PortalCMS\Core\Email\Template\EmailTemplateMapper;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\View\Text;
+use PortalCMS\Modules\Members\MemberMapper;
 use PortalCMS\Modules\Members\MemberModel;
 
 $pageName = 'Nieuw bericht';
@@ -81,7 +82,7 @@ if (empty($year)) {
             <div id="example" class="row">
                 <?php
 
-                $members = MemberModel::getMembersByYear($year);
+                $members = MemberMapper::getMembersByYear($year);
                 if (!empty($members)) {
                     $count = 0;
                     foreach ($members as $member) {

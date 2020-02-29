@@ -6,11 +6,12 @@
 declare(strict_types=1);
 
 use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Modules\Members\MemberMapper;
 use PortalCMS\Modules\Members\MemberModel;
 
 $pageName = 'Profiel';
 
-$member = MemberModel::getMemberById((int) Request::get('Id'));
+$member = MemberMapper::getMemberById((int) Request::get('Id'));
 $pageName = 'Lidmaatschap van ' . $member->voornaam . ' ' . $member->achternaam;
 ?>
 <?= $this->layout('layout', ['title' => $pageName]) ?>

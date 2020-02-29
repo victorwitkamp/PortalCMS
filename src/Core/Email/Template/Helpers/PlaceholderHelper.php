@@ -30,7 +30,7 @@ class PlaceholderHelper
 
     public static function replaceMemberPlaceholders(int $memberId, string $text): string
     {
-        $member = MemberModel::getMemberById($memberId);
+        $member = MemberMapper::getMemberById($memberId);
         $variables = [
             'voornaam' => $member->voornaam,
             'achternaam' => $member->achternaam,

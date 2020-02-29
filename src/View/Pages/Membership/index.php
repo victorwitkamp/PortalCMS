@@ -45,9 +45,9 @@ if (!isset($year) || empty($year)) {
     </form>
 
     <?php
-    $years = MemberModel::getYears();
+    $years = MembeMapper::getYears();
     foreach ($years as $jaar) {
-        ?><li><?= $jaar['jaarlidmaatschap'] ?> (<?= MemberModel::getMemberCountByYear($jaar['jaarlidmaatschap']) ?>)</li><?php
+        ?><li><?= $jaar['jaarlidmaatschap'] ?> (<?= MemberMapper::getMemberCountByYear($jaar['jaarlidmaatschap']) ?>)</li><?php
     }
 
     ?>
@@ -55,7 +55,7 @@ if (!isset($year) || empty($year)) {
     <hr>
     <?php Alert::renderFeedbackMessages(); ?>
     <?php
-    $members = MemberModel::getMembersByYear($year);
+    $members = MemberMapper::getMembersByYear($year);
     if (!empty($members)) {
         include_once DIR_VIEW . 'Pages/Membership/inc/table.php';
     } else {
