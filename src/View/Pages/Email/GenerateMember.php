@@ -9,7 +9,6 @@ use PortalCMS\Core\Email\Template\EmailTemplateMapper;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Members\MemberMapper;
-use PortalCMS\Modules\Members\MemberModel;
 
 $pageName = 'Nieuw bericht';
 

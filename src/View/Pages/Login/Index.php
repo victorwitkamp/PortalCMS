@@ -10,7 +10,6 @@ use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Security\Csrf;
 use PortalCMS\Core\View\HTMLEntities;
 use PortalCMS\Core\View\Text;
-use PortalCMS\Core\View\View;
 
 require DIR_ROOT . 'login/ext/fb/config.php';
 $loginUrl = $helper->getLoginUrl(Config::get('FB_LOGIN_URL'), ['email']);

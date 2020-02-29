@@ -45,7 +45,7 @@ if (!isset($year) || empty($year)) {
     </form>
 
     <?php
-    $years = MembeMapper::getYears();
+    $years = MemberMapper::getYears();
     foreach ($years as $jaar) {
         ?><li><?= $jaar['jaarlidmaatschap'] ?> (<?= MemberMapper::getMemberCountByYear($jaar['jaarlidmaatschap']) ?>)</li><?php
     }

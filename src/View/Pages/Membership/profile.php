@@ -7,7 +7,6 @@ declare(strict_types=1);
 
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Modules\Members\MemberMapper;
-use PortalCMS\Modules\Members\MemberModel;
 
 $pageName = 'Profiel';
 

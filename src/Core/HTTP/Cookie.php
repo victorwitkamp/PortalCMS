@@ -11,8 +11,6 @@ use PortalCMS\Core\Config\Config;
 
 class Cookie
 {
-
-
     public static function setRememberMe(string $token): bool
     {
         $runtime = time() + (int) Config::get('COOKIE_RUNTIME');
@@ -40,7 +38,7 @@ class Cookie
             'remember_me',
             '',
             [
-                'expires' => time() - (3600 * 24 * 3650),
+                'expires' => (time() - (3600 * 24 * 3650)),
                 'path' => (string) Config::get('COOKIE_PATH'),
                 'domain' => (string) Config::get('COOKIE_DOMAIN'),
                 'secure' => (bool) Config::get('COOKIE_SECURE'),

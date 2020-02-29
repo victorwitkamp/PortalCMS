@@ -13,14 +13,13 @@ use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\View\View;
 
 class Controller
 {
     /**
      * @var View View The view object
      */
-//    public $View;
+    // public $View;
 
     public function __construct()
     {
@@ -34,7 +33,6 @@ class Controller
                 echo $templates->render('Pages/Login/indexNew');
             }
         }
-
-//        $this->View = new View();
+    // $this->View = new View();
     }
 }

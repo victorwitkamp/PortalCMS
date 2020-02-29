@@ -12,7 +12,6 @@ namespace PortalCMS\Core\Email\Template\Helpers;
 
 use PortalCMS\Core\Config\SiteSetting;
 use PortalCMS\Modules\Members\MemberMapper;
-use PortalCMS\Modules\Members\MemberModel;
 
 class PlaceholderHelper
 {
