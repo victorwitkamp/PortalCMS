@@ -9,7 +9,7 @@ use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
-use PortalCMS\Modules\Members\MemberModel;
+use PortalCMS\Modules\Members\MemberMapper;
 
 $pageName = Text::get('TITLE_MEMBERS');
 $year = (int) Request::get('year');
