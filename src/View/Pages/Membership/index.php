@@ -43,6 +43,15 @@ if (!isset($year) || empty($year)) {
         <input type="number" name="year" value="<?= $year ?>" />
         <button type="submit" class="btn btn-primary" name="showMembersByYear"><i class="fab fa-sistrix"></i></button>
     </form>
+
+    <?php
+    $years = MemberModel::getYears();
+    foreach ($years as $jaar) {
+        ?><li><?= $jaar['jaarlidmaatschap'] ?> (<?= MemberModel::getMemberCountByYear($jaar['jaarlidmaatschap']) ?>)</li><?php
+    }
+
+    ?>
+
     <hr>
     <?php Alert::renderFeedbackMessages(); ?>
     <?php
