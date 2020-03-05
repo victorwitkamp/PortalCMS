@@ -14,7 +14,7 @@ if (SiteSetting::get('site_description_type') === '1') {
 if (SiteSetting::get('site_description_type') === '2') {
     $request_headers = [];
     $request_headers[] = 'accept: (application/json|text/plain)';
-    $url = 'https://sv443.net/jokeapi/v2/joke/Any?format=json';
+    $url = 'https://sv443.net/jokeapi/v2/joke/Dark?format=json';
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_VERBOSE, true);

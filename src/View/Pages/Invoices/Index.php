@@ -60,6 +60,12 @@ if (!empty($contractId) && is_numeric($contractId)) {
         <input type="number" name="year" value="<?= $year ?>" />
         <button type="submit" class="btn btn-primary" name="showInvoicesByYear"><i class="fab fa-sistrix"></i></button>
     </form>
+    <?php
+    $years = InvoiceMapper::getYears();
+    foreach ($years as $jaar) {
+        ?><li><a href="/Invoices?year=<?= $jaar['year'] ?>"><?= $jaar['year'] ?></a> (<?= InvoiceMapper::getInvoiceCountByYear($jaar['year']) ?>)</li><?php
+    }
+    ?>
     <hr>
     <?php Alert::renderFeedbackMessages(); ?>
 </div>

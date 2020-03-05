@@ -47,9 +47,8 @@ if (!isset($year) || empty($year)) {
     <?php
     $years = MemberMapper::getYears();
     foreach ($years as $jaar) {
-        ?><li><?= $jaar['jaarlidmaatschap'] ?> (<?= MemberMapper::getMemberCountByYear($jaar['jaarlidmaatschap']) ?>)</li><?php
+        ?><li><a href="/Membership?year=<?= $jaar['jaarlidmaatschap'] ?>"><?= $jaar['jaarlidmaatschap'] ?></a> (<?= MemberMapper::getMemberCountByYear($jaar['jaarlidmaatschap']) ?>)</li><?php
     }
-
     ?>
 
     <hr>

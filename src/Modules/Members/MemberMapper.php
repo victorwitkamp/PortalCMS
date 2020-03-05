@@ -1,8 +1,10 @@
 <?php
-declare(strict_types=1);
+
 /**
  * Copyright Victor Witkamp (c) 2020.
  */
+
+declare(strict_types=1);
 
 namespace PortalCMS\Modules\Members;
 
@@ -13,70 +15,61 @@ class MemberMapper
 {
     public static function getMembers() : ?array
     {
-        $stmt = DB::conn()
-            ->query('SELECT * FROM members ORDER BY id');
+        $stmt = DB::conn()->query('SELECT * FROM members ORDER BY id');
         return ($stmt->rowCount() === 0) ? null : $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
     public static function getMembersByYear(int $year) : ?array
     {
-        $stmt = DB::conn()
-            ->prepare('SELECT * FROM members where jaarlidmaatschap = ? ORDER BY id')
-            ->execute([$year]);
+        $stmt = DB::conn()->prepare('SELECT * FROM members where jaarlidmaatschap = ? ORDER BY id');
+        $stmt->execute([$year]);
         return ($stmt->rowCount() === 0) ? null : $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
     public static function getMembersWithValidEmail() : ?array
     {
-        $stmt = DB::conn()
-            ->query('SELECT * FROM members WHERE emailadres IS NOT NULL ORDER BY id');
+        $stmt = DB::conn()->query('SELECT * FROM members WHERE emailadres IS NOT NULL ORDER BY id');
         return ($stmt->rowCount() === 0) ? null : $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
     public static function getMemberCountByYear(int $year) : int
     {
-        $stmt = DB::conn()
-            ->prepare('SELECT id FROM members WHERE jaarlidmaatschap = ?')
-            ->execute([$year]);
+        $stmt = DB::conn()->prepare('SELECT id FROM members WHERE jaarlidmaatschap = ?');
+        $stmt->execute([$year]);
         return $stmt->rowCount();
     }
 
     public static function getYears() : array
     {
-        $stmt = DB::conn()
-            ->query('SELECT distinct jaarlidmaatschap FROM members');
+        $stmt = DB::conn()->query('SELECT distinct jaarlidmaatschap FROM members');
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public static function doesMemberIdExist(int $memberId) : bool
     {
-        $stmt = DB::conn()
-            ->prepare('SELECT id FROM members WHERE id = ? LIMIT 1')
-            ->execute([$memberId]);
+        $stmt = DB::conn()->prepare('SELECT id FROM members WHERE id = ? LIMIT 1');
+        $stmt->execute([$memberId]);
         return ($stmt->rowCount() === 1);
     }
 
     public static function doesEmailforYearExist(int $jaarlidmaatschap, string $email) : bool
     {
-        $stmt = DB::conn()
-            ->prepare('SELECT id FROM members WHERE jaarlidmaatschap = ? AND emailadres = ? LIMIT 1')
-            ->execute([$jaarlidmaatschap, $email]);
+        $stmt = DB::conn()->prepare('SELECT id FROM members WHERE jaarlidmaatschap = ? AND emailadres = ? LIMIT 1');
+        $stmt->execute([$jaarlidmaatschap, $email]);
         return ($stmt->rowCount() === 1);
     }
 
     public static function getMemberById(int $id) : ?object
     {
-        $stmt = DB::conn()
-            ->prepare('SELECT * FROM members WHERE id=? LIMIT 1')
-            ->execute([$id]);
+        $stmt = DB::conn()->prepare('SELECT * FROM members WHERE id=? LIMIT 1');
+        $stmt->execute([$id]);
         return ($stmt->rowCount() === 1) ? $stmt->fetch(PDO::FETCH_OBJ) : null;
     }
 
     public static function delete(int $id) : bool
     {
-        $stmt = DB::conn()
-            ->prepare('DELETE FROM members WHERE id = ? LIMIT 1')
-            ->execute([$id]);
+        $stmt = DB::conn()->prepare('DELETE FROM members WHERE id = ? LIMIT 1');
+        $stmt->execute([$id]);
         return ($stmt->rowCount() === 1);
     }
 }
