@@ -50,7 +50,7 @@ class AccountController extends Controller
     public static function changepassword()
     {
         Password::changePassword(
-            (string) Session::get('user_name'),
+            UserMapper::getByUsername((string) Session::get('user_name')),
             (string) Request::post('currentpassword'),
             (string) Request::post('newpassword'),
             (string) Request::post('newconfirmpassword')
