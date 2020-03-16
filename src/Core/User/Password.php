@@ -8,7 +8,6 @@ declare(strict_types=1);
 namespace PortalCMS\Core\User;
 
 use function strlen;
-use PortalCMS\Core\Database\DB;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
 

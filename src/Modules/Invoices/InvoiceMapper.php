@@ -40,6 +40,13 @@ class InvoiceMapper
         return ($stmt->rowCount() > 0) ? $stmt->fetchAll(PDO::FETCH_OBJ) : null;
     }
 
+    public static function getByContractIdAndYear(int $contractId, int $year) : ?array
+    {
+        $stmt = DB::conn()->prepare('SELECT * FROM invoices where contract_id = ? AND year = ?');
+        $stmt->execute([$contractId, $year]);
+        return ($stmt->rowCount() > 0) ? $stmt->fetchAll(PDO::FETCH_OBJ) : null;
+    }
+
     public static function getAll() : ?array
     {
         $stmt = DB::conn()->query('SELECT * FROM invoices ORDER BY factuurnummer');

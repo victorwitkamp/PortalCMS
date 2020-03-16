@@ -9,7 +9,6 @@ namespace PortalCMS\Core\Controllers;
 
 use League\Plates\Engine;
 use PortalCMS\Controllers\LoginController;
-use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Session\Session;

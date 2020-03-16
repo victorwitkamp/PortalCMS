@@ -148,6 +148,6 @@ class InvoicesController extends Controller
 
     public static function showInvoicesByYear()
     {
-        Redirect::to('/Invoices?Year=' . Request::post('year'));
+        Redirect::to('Invoices?Year=' . Request::post('year'));
     }
 }

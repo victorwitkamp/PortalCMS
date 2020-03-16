@@ -5,6 +5,7 @@
 
 declare(strict_types=1);
 
+use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Modules\Invoices\InvoiceHelper;
 
-InvoiceHelper::render($_GET['id']);
+InvoiceHelper::render((int) Request::get('id'));

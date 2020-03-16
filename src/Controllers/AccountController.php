@@ -23,7 +23,7 @@ class AccountController extends Controller
 {
     private $requests = [
         'changeUsername' => 'POST',
-        'changepassword' => 'POST',
+        'changePassword' => 'POST',
         'clearUserFbid' => 'POST'
     ];
 

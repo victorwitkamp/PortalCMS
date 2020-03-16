@@ -14,9 +14,12 @@ use PortalCMS\Modules\Invoices\InvoiceMapper;
 
 $contractId = (int) Request::get('contract');
 $year = (int) Request::get('Year');
+if (empty($year)) {
+    $year = (int) date('Y');
+}
 if (!empty($contractId) && is_numeric($contractId)) {
 
-    $invoices = InvoiceMapper::getByContractId($contractId);
+    $invoices = InvoiceMapper::getByContractIdAndYear($contractId, $year);
     $contract = ContractMapper::getById($contractId);
     if (empty($contract)) {
         Redirect::to('Error/NotFound');
@@ -24,9 +27,7 @@ if (!empty($contractId) && is_numeric($contractId)) {
         $pageName = Text::get('LABEL_CONTRACT_INVOICES_FOR') . $contract->band_naam;
     }
 } else {
-    if (empty($year)) {
-        $year = (int) date('Y');
-    }
+
     $invoices = InvoiceMapper::getByYear($year);
     $pageName = Text::get('TITLE_INVOICES');
 }

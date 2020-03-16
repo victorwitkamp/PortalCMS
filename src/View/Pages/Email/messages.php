@@ -8,6 +8,7 @@ declare(strict_types=1);
 use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
+use PortalCMS\Core\HTTP\Request;
 
 $pageType = 'index';
 
@@ -51,15 +52,15 @@ $pageName = Text::get('TITLE_MAIL_MESSAGES');
 <div class="container">
     <?php
 
-    if (!empty($_GET['batch_id'])) {
-        $result = MailScheduleMapper::getByBatchId($_GET['batch_id']);
+    if (!empty(Request::get('batch_id'))) {
+        $result = MailScheduleMapper::getByBatchId((int) Request::get('batch_id'));
     } else {
         $result = MailScheduleMapper::getAll();
     }
     $mailcount = count($result);
     if ($result) {
-        if (!empty($_GET['batch_id'])) {
-            echo '<h3>Berichten van batch ' . $_GET['batch_id'] . '</h3>';
+        if (!empty(Request::get('batch_id'))) {
+            echo '<h3>Berichten van batch ' . Request::get('batch_id') . '</h3>';
         } else {
             echo '<h3>Alle berichten</h3>';
         }
