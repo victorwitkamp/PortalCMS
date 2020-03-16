@@ -20,19 +20,14 @@ class Password
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_FIELD_EMPTY'));
         } elseif ($newPassword !== $repeatNewPassword) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_REPEAT_WRONG'));
-
-//        } else {
-//            if (empty($user)) {
-//                Session::add('feedback_negative', Text::get('FEEDBACK_USER_DOES_NOT_EXIST'));
-            } elseif (self::verifyPassword($user, $currentPassword) === false) {
-                Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CURRENT_INCORRECT'));
-            } elseif (self::validatePasswordChange($currentPassword, $newPassword) && UserMapper::updatePassword($username, password_hash(base64_encode($newPassword), PASSWORD_DEFAULT))) {
-                Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_CHANGE_SUCCESSFUL'));
-                return true;
-            } else {
-                Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CHANGE_FAILED'));
-            }
-//        }
+        } elseif (self::verifyPassword($user, $currentPassword) === false) {
+            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CURRENT_INCORRECT'));
+        } elseif (self::validatePasswordChange($currentPassword, $newPassword) && UserMapper::updatePassword($user->user_name, password_hash(base64_encode($newPassword), PASSWORD_DEFAULT))) {
+            Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_CHANGE_SUCCESSFUL'));
+            return true;
+        } else {
+            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CHANGE_FAILED'));
+        }
         return false;
     }
 

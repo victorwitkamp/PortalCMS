@@ -151,7 +151,7 @@ class UserMapper
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public static function saveChangedPassword(string $username, string $user_password_hash): bool
+    public static function updatePassword(string $username, string $user_password_hash): bool
     {
         $stmt = DB::conn()->prepare(
             'UPDATE users

@@ -47,7 +47,7 @@ class AccountController extends Controller
         );
     }
 
-    public static function changepassword()
+    public static function changePassword()
     {
         Password::changePassword(
             UserMapper::getByUsername((string) Session::get('user_name')),

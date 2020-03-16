@@ -33,7 +33,7 @@ use PortalCMS\Core\View\Text;
         </div>
     </div>
 
-    <input type="submit" name="changepassword" value="<?= Text::get('LABEL_SUBMIT') ?>" class="btn btn-primary" />
+    <input type="submit" name="changePassword" value="<?= Text::get('LABEL_SUBMIT') ?>" class="btn btn-primary" />
     <script type="text/javascript">
         function validatePassword(){document.getElementById("newPassword").value===document.getElementById("newConfirmPassword").value?document.getElementById("newConfirmPassword").setCustomValidity(""):document.getElementById("newConfirmPassword").setCustomValidity("Passwords do not match. Please repeat the password to confirm it.")}window.onload=function(){document.getElementById("newPassword").onchange=validatePassword,document.getElementById("newConfirmPassword").onchange=validatePassword,Array.prototype.filter.call(document.getElementsByClassName("needs-validation"),function(e){e.addEventListener("submit",function(t){e.checkValidity()||(t.preventDefault(),t.stopPropagation()),e.classList.add("was-validated")},!1)})};
     </script>
