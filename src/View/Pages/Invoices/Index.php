@@ -13,12 +13,11 @@ use PortalCMS\Modules\Contracts\ContractMapper;
 use PortalCMS\Modules\Invoices\InvoiceMapper;
 
 $contractId = (int) Request::get('contract');
-$year = (int) Request::get('Year');
-if (empty($year)) {
-    $year = (int) date('Y');
-}
-if (!empty($contractId) && is_numeric($contractId)) {
-
+$year = (int) Request::get('year');
+//if (empty($year)) {
+//    $year = (int) date('Y');
+//}
+if (!empty($year) && !empty($contractId) && is_numeric($contractId)) {
     $invoices = InvoiceMapper::getByContractIdAndYear($contractId, $year);
     $contract = ContractMapper::getById($contractId);
     if (empty($contract)) {
@@ -26,9 +25,19 @@ if (!empty($contractId) && is_numeric($contractId)) {
     } else {
         $pageName = Text::get('LABEL_CONTRACT_INVOICES_FOR') . $contract->band_naam;
     }
-} else {
-
+} elseif (!empty($year) && empty($contractId)) {
     $invoices = InvoiceMapper::getByYear($year);
+    $pageName = Text::get('TITLE_INVOICES');
+} elseif (empty($year) && !empty($contractId) && is_numeric($contractId)) {
+    $invoices = InvoiceMapper::getByContractId($contractId);
+    $contract = ContractMapper::getById($contractId);
+    if (empty($contract)) {
+        Redirect::to('Error/NotFound');
+    } else {
+        $pageName = Text::get('LABEL_CONTRACT_INVOICES_FOR') . $contract->band_naam;
+    }
+} elseif (empty($year) && empty($contractId)) {
+    $invoices = InvoiceMapper::getAll();
     $pageName = Text::get('TITLE_INVOICES');
 }
 
@@ -56,11 +65,11 @@ if (!empty($contractId) && is_numeric($contractId)) {
         </div>
         <div class="col-sm-4"><a href="/Invoices/Add" class="btn btn-success navbar-btn float-right"><span class="fa fa-plus"></span> Toevoegen</a></div>
     </div>
-    <form method="post">
-        <label><?= Text::get('YEAR') ?></label>
-        <input type="number" name="year" value="<?= $year ?>" />
-        <button type="submit" class="btn btn-primary" name="showInvoicesByYear"><i class="fab fa-sistrix"></i></button>
-    </form>
+<!--    <form method="post">-->
+<!--        <label>--><?//= Text::get('YEAR') ?><!--</label>-->
+<!--        <input type="number" name="year" value="--><?//= $year ?><!--" />-->
+<!--        <button type="submit" class="btn btn-primary" name="showInvoicesByYear"><i class="fab fa-sistrix"></i></button>-->
+<!--    </form>-->
     <?php
     $years = InvoiceMapper::getYears();
     foreach ($years as $jaar) {

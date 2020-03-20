@@ -10,6 +10,7 @@ $(document).ready(function () {
         },
         paging: !1,
         ordering: !0,
+        "order": [[ 1, 'asc' ]],
         compact: true,
         select: true
     })

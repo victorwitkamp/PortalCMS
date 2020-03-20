@@ -41,7 +41,7 @@ $pageName = 'Factuur toevoegen';
         <div class="form-group row">
             <label class="col-sm-2 col-form-label"><?= Text::get('YEAR') ?></label>
             <div class="col-sm-10">
-                <input type="text" name="year" class="form-control" value="<?= date('Y') ?>">
+                <input type="number" minlength="4" maxlength="4" name="year" class="form-control" value="<?= date('Y') ?>">
             </div>
         </div>
 
@@ -68,7 +68,12 @@ $pageName = 'Factuur toevoegen';
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Factuurdatum</label>
             <div class="col-sm-10">
-                <input type="text" name="factuurdatum" placeholder="YYYY-MM-DD">
+                <input type="date"
+                       pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
+                       class="form-control"
+                       name="factuurdatum"
+                       value="<?= date('Y-m-d') ?>"
+                >
             </div>
         </div>
 

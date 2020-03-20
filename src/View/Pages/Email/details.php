@@ -10,13 +10,14 @@ use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
 use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
 use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
 use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
 $pageName = Text::get('TITLE_MAIL_DETAILS');
 ?>
 <?php
-$id = $_GET['id'];
+$id = (int) Request::get('id');
 
 if (MailScheduleMapper::exists($id)) {
     $row = MailScheduleMapper::getById($id);
