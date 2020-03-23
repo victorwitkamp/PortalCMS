@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Modules\Invoices;
 
+use PortalCMS\Core\Activity\Activity;
 use function is_array;
 use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
 use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
@@ -66,6 +67,7 @@ class InvoiceHelper
                 if (($kosten_kast > 0)) {
                     InvoiceItemMapper::create($invoice->id, 'Huur kast - ' . Text::get('MONTH_' . $month), $kosten_kast);
                 }
+                Activity::add('NewInvoice', Session::get('user_id'), 'Factuurnr.: ' . $factuurnummer);
                 return true;
             }
             Session::add('feedback_negative', 'Toevoegen van factuur mislukt.');
@@ -128,6 +130,7 @@ class InvoiceHelper
             Session::add('feedback_negative', 'Verwijderen van factuur mislukt. PDF niet gevonden.');
         } elseif (InvoiceMapper::delete($id)) {
             Session::add('feedback_positive', 'Factuur verwijderd.');
+            Activity::add('NewInvoice', Session::get('user_id'), 'Factuurnr.: ' . $invoice->factuurnummer);
             return true;
         } else {
             Session::add('feedback_negative', 'Verwijderen van factuur mislukt.');
@@ -175,6 +178,7 @@ class InvoiceHelper
             return false;
         }
         Session::add('feedback_positive', 'Factuuritem toegevoegd.');
+        Activity::add('AddInvoiceItem', Session::get('user_id'), 'Added item "' . $name . '" to invoice with ID = ' . $invoiceId);
         return true;
     }
 

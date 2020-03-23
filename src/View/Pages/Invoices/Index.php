@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright Victor Witkamp (c) 2020.
  */
@@ -46,13 +47,8 @@ if (!empty($year) && !empty($contractId) && is_numeric($contractId)) {
 <?= $this->layout('layout', ['title' => $pageName]) ?>
 <?= $this->push('head-extra') ?>
 
-<link rel="stylesheet" type="text/css" href="/dist/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
-<!-- <link rel="stylesheet" type="text/css" href="/dist/datatables.net-select-bs4/css/select.bootstrap4.min.css"> -->
-
-<script src="/dist/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="/dist/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="/dist/datatables.net-select/js/dataTables.select.min.js"></script>
-<script src="/dist/datatables.net-select-bs4/js/select.bootstrap4.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/dist/merged/dataTables.min.css">
+<script src="/dist/merged/dataTables.min.js"></script>
 <script src="/includes/js/init.datatables.js" class="init"></script>
 
 <?= $this->end() ?>
@@ -65,17 +61,21 @@ if (!empty($year) && !empty($contractId) && is_numeric($contractId)) {
         </div>
         <div class="col-sm-4"><a href="/Invoices/Add" class="btn btn-success navbar-btn float-right"><span class="fa fa-plus"></span> Toevoegen</a></div>
     </div>
-<!--    <form method="post">-->
-<!--        <label>--><?//= Text::get('YEAR') ?><!--</label>-->
-<!--        <input type="number" name="year" value="--><?//= $year ?><!--" />-->
-<!--        <button type="submit" class="btn btn-primary" name="showInvoicesByYear"><i class="fab fa-sistrix"></i></button>-->
-<!--    </form>-->
+    <!--    <form method="post">-->
+    <!--        <label>--><? //= Text::get('YEAR')
+                            ?>
+    <!--</label>-->
+    <!--        <input type="number" name="year" value="--><? //= $year
+                                                            ?>
+    <!--" />-->
+    <!--        <button type="submit" class="btn btn-primary" name="showInvoicesByYear"><i class="fab fa-sistrix"></i></button>-->
+    <!--    </form>-->
     <?php
     $years = InvoiceMapper::getYears();
     foreach ($years as $jaar) {
-        ?><li><a href="/Invoices?year=<?= $jaar['year'] ?>"><?= $jaar['year'] ?></a> (<?= InvoiceMapper::getInvoiceCountByYear($jaar['year']) ?>)</li><?php
-    }
-    ?>
+    ?><li><a href="/Invoices?year=<?= $jaar['year'] ?>"><?= $jaar['year'] ?></a> (<?= InvoiceMapper::getInvoiceCountByYear($jaar['year']) ?>)</li><?php
+                                                                                                                                                    }
+                                                                                                                                                        ?>
     <hr>
     <?php Alert::renderFeedbackMessages(); ?>
 </div>

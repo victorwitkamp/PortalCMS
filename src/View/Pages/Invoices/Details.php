@@ -73,7 +73,7 @@ if (!empty($invoice)) {
             foreach ($invoiceitems as $invoiceitem) { ?>
                 <tr>
                     <td>
-                        <?php if ($invoice->status === '0') { ?>
+                        <?php if ($invoice->status === 0) { ?>
                             <form method="post">
                                 <input type="hidden" name="invoiceid" value="<?= $invoice->id ?>">
                                 <input type="hidden" name="id" value="<?= $invoiceitem->id ?>">
@@ -87,7 +87,7 @@ if (!empty($invoice)) {
             <?php } ?>
         </table>
         <h3>Items toevoegen</h3>
-        <?php if ($invoice->status === '0') { ?>
+        <?php if ($invoice->status === 0) { ?>
             <form method="post">
                 <div class="form-row">
                     <div class="form-group col-md-6">

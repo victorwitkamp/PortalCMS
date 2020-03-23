@@ -2,15 +2,14 @@
  * Copyright Victor Witkamp (c) 2020.
  */
 const { src, dest, parallel } = require('gulp');
-// const pug = require('gulp-pug');
 // const less = require('gulp-less');
 const minifyCSS = require('gulp-csso');
 const concat = require('gulp-concat');
-// function html() {
-//     return src('client/templates/*.pug')
-//         .pipe(pug())
-//         .pipe(dest('build/html'))
-// }
+const autoprefixer = require('autoprefixer');
+const sourcemaps = require('gulp-sourcemaps');
+const postcss = require('gulp-postcss');
+const minify = require("gulp-minify");
+
 // function css() {
 //     return src('portal/includes/css/*.css')
 //         // .pipe(less())
@@ -26,16 +25,47 @@ function css () {
     'node_modules/@fullcalendar/bootstrap/main.min.css',
     'node_modules/@fullcalendar/daygrid/main.min.css',
     'node_modules/cookieconsent/build/cookieconsent.min.css',
-    'node_modules/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css',
-    'node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css',
-    'node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css'
+    'node_modules/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css'
   ], {
     base: 'node_modules/'
   })
   // .pipe(less())
   // .pipe(minifyCSS())
-    .pipe(dest('portal/dist/'))
+  .pipe(dest('portal/dist/'))
 }
+
+function dataTablesCss () {
+  return src([
+    'node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css',
+    'node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css',
+    'node_modules/datatables.net-buttons-bs4/css/buttons.bootstrap4.css'
+  ], {
+    base: 'node_modules/'
+  })
+  .pipe(concat('dataTables.min.css'))
+  .pipe(sourcemaps.init())
+  .pipe(postcss([ autoprefixer() ]))
+  .pipe(minifyCSS())
+  .pipe(sourcemaps.write('.'))
+  .pipe(dest('portal/dist/merged/'))
+}
+
+function dataTablesJs () {
+  return src([
+    'node_modules/datatables.net/js/jquery.dataTables.min.js',
+    'node_modules/datatables.net-select/js/dataTables.select.min.js',
+    'node_modules/datatables.net-select-bs4/js/select.bootstrap4.min.js',
+    'node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js',
+    'node_modules/datatables.net-buttons/js/dataTables.buttons.min.js',
+    'node_modules/datatables.net-buttons-bs4/js/buttons.bootstrap4.js'
+  ], {
+    base: 'node_modules/'
+  })
+  .pipe(concat('dataTables.js'))
+  .pipe(minify())
+  .pipe(dest('portal/dist/merged/'))
+}
+
 function fullcalendarCss () {
   return src([
     'node_modules/@fullcalendar/core/main.min.css',
@@ -45,10 +75,9 @@ function fullcalendarCss () {
   ], {
     base: 'node_modules/'
   })
-  // .pipe(less())
-    .pipe(concat('fullcalendar.min.css'))
-    .pipe(minifyCSS())
-    .pipe(dest('portal/dist/merged/'))
+  .pipe(concat('fullcalendar.min.css'))
+  .pipe(minifyCSS())
+  .pipe(dest('portal/dist/merged/'))
 }
 function js () {
   return src([
@@ -58,15 +87,11 @@ function js () {
     'node_modules/jquery/dist/jquery.min.js',
     'node_modules/cookieconsent/build/cookieconsent.min.js',
     'node_modules/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js',
-    'node_modules/datatables.net/js/jquery.dataTables.min.js',
-    'node_modules/datatables.net-select/js/dataTables.select.min.js',
-    'node_modules/datatables.net-select-bs4/js/select.bootstrap4.min.js',
-    'node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js',
     'node_modules/bs-custom-file-input/dist/bs-custom-file-input.min.js'
   ], {
     base: 'node_modules/'
   })
-    .pipe(dest('portal/dist/'))
+  .pipe(dest('portal/dist/'))
 }
 function fullcalendarJs () {
   return src([
@@ -79,30 +104,30 @@ function fullcalendarJs () {
   ], {
     base: 'node_modules/'
   })
-    .pipe(concat('fullcalendar.min.js'))
-    .pipe(dest('portal/dist/merged/'))
+  .pipe(concat('fullcalendar.min.js'))
+  .pipe(dest('portal/dist/merged/'))
 }
 function woff () {
   return src('node_modules/**/*.woff', {
     base: 'node_modules/'
   })
-    .pipe(dest('portal/dist/'))
+  .pipe(dest('portal/dist/'))
 }
 function woff2 () {
   return src('node_modules/**/*.woff2', {
     base: 'node_modules/'
   })
-    .pipe(dest('portal/dist/'))
+  .pipe(dest('portal/dist/'))
 }
 function ttf () {
   return src('node_modules/**/*.ttf', {
     base: 'node_modules/'
   })
-    .pipe(dest('portal/dist/'))
+  .pipe(dest('portal/dist/'))
 }
 exports.js = js;
 exports.css = css;
 exports.woff = woff;
 exports.woff2 = woff2;
 exports.ttf = ttf;
-exports.default = parallel(js, css, fullcalendarJs, fullcalendarCss, woff, woff2, ttf);
+exports.default = parallel(js, css, dataTablesJs, dataTablesCss, fullcalendarJs, fullcalendarCss, woff, woff2, ttf);

@@ -11,44 +11,49 @@ use PortalCMS\Core\View\Text;
 
 $pageName = Text::get('TITLE_RECENT_ACTIVITY'); ?>
 <?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->push('head-extra') ?>
+
+    <link rel="stylesheet" type="text/css" href="/dist/merged/dataTables.min.css">
+    <script src="/dist/merged/dataTables.min.js"></script>
+    <script src="/includes/js/init.datatables.js" class="init"></script>
+
+<?= $this->end() ?>
 <?= $this->push('main-content') ?>
 
-<div class="container">
-    <div class="row mt-5">
-        <div class="col-sm-12">
-            <h1><?= $pageName ?></h1>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-sm-12">
+                <h1><?= $pageName ?></h1>
+            </div>
         </div>
+        <?php Alert::renderFeedbackMessages(); ?>
     </div>
-    <?php Alert::renderFeedbackMessages(); ?>
-</div>
-<div class="container">
-    <table class="table table-sm table-striped table-hover table-dark">
-        <thead>
+    <div class="container">
+        <table id="example" class="table table-sm table-striped table-hover table-dark" style="width:100%;">
+            <thead>
             <tr>
-                <th>ID</th>
+                <th>CreationDate</th>
                 <th>User ID</th>
-                <th>Gebruikersnaam</th>
                 <th>IP Address</th>
                 <th>Activity</th>
                 <th>Details</th>
-                <th>CreationDate</th>
+
             </tr>
-        </thead>
-        <?php $Activities = Activity::load();
-        foreach ($Activities as $Activity) {
-            ?>
-            <tr>
-                <td><?= $Activity['id'] ?></td>
-                <td><?= $Activity['user_id'] ?></td>
-                <td><?= $Activity['user_name'] ?></td>
-                <td><?= $Activity['ip_address'] ?></td>
-                <td><?= $Activity['activity'] ?></td>
-                <td><?= $Activity['details'] ?></td>
-                <td><?= $Activity['CreationDate'] ?></td>
-            </tr>
+            </thead>
             <?php
-        } ?>
-    </table>
-</div>
+            $activities = Activity::load();
+            foreach ($activities as $Activity) {
+                ?>
+                <tr>
+                    <td><?= $Activity['CreationDate'] ?></td>
+                    <td><?= $Activity['user_id'] ?></td>
+                    <td><?= $Activity['ip_address'] ?></td>
+                    <td><?= $Activity['activity'] ?></td>
+                    <td><?= $Activity['details'] ?></td>
+                </tr>
+                <?php
+            } ?>
+        </table>
+    </div>
 
 <?= $this->end();

@@ -56,7 +56,7 @@ class ContractModel
             (string) Request::post('contract_datum', true)
         );
         if (ContractMapper::new($contract)) {
-            Activity::add('NewContract', Session::get('user_id'), 'ID: ' . ContractMapper::lastInsertedId(), Session::get('user_name'));
+            Activity::add('NewContract', Session::get('user_id'), 'ID: ' . ContractMapper::lastInsertedId());
             Session::add('feedback_positive', 'Contract toegevoegd.');
             return true;
         }
@@ -103,7 +103,7 @@ class ContractModel
         if (empty(ContractMapper::getById((int) $contract->id))) {
             Session::add('feedback_negative', 'Wijzigen van contract mislukt. Contract bestaat niet.');
         } elseif (ContractMapper::update($contract)) {
-            Activity::add('UpdateContract', Session::get('user_id'), 'ID: ' . $contract->id, Session::get('user_name'));
+            Activity::add('UpdateContract', Session::get('user_id'), 'ID: ' . $contract->id);
             Session::add('feedback_positive', 'Contract gewijzigd.');
             return true;
         } else {
@@ -120,7 +120,7 @@ class ContractModel
         } elseif (!empty(InvoiceMapper::getByContractId($contract->id))) {
             Session::add('feedback_negative', 'Dit contract heeft al facturen.');
         } elseif (ContractMapper::delete($contract->id)) {
-            Activity::add('DeleteContract', Session::get('user_id'), 'ID: ' . $contract->id, Session::get('user_name'));
+            Activity::add('DeleteContract', Session::get('user_id'), 'ID: ' . $contract->id);
             Session::add('feedback_positive', 'Contract verwijderd.');
             return true;
         } else {
