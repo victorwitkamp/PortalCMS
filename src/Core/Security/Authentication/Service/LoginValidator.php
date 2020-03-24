@@ -54,12 +54,13 @@ class LoginValidator
     {
         if (empty($user_name) || empty($user_password)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
-        } elseif (self::checkSessionBruteForce()) {
-            return self::getUser($user_name, $user_password);
-        } else {
+            return null;
+        } elseif (!self::checkSessionBruteForce()) {
             Session::add('feedback_negative', Text::get('FEEDBACK_BRUTE_FORCE_CHECK_FAILED'));
+            return null;
+        } else {
+            return self::getUser($user_name, $user_password);
         }
-        return null;
     }
 
     public static function getUser(string $user_name, string $user_password) : ?object
@@ -68,18 +69,21 @@ class LoginValidator
         if (empty($user)) {
             self::incrementUserNotFoundCounter();
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
+            return null;
         } elseif (self::checkUserBruteForce($user) === false) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_WRONG_3_TIMES'));
+            return null;
         } elseif (self::verifyIsActive($user) === false) {
             Session::add('feedback_negative', Text::get('FEEDBACK_ACCOUNT_NOT_ACTIVATED_YET'));
-        } elseif (Password::verifyPassword($user, $user_password) === true) {
-            self::resetUserNotFoundCounter();
-            return $user;
-        } else {
+            return null;
+        } elseif (Password::verifyPassword($user, $user_password) !== true) {
             UserMapper::setFailedLoginByUsername($user->user_name);
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
+            return null;
+        } else {
+            self::resetUserNotFoundCounter();
+            return $user;
         }
-        return null;
     }
 
     public static function validateCookieLogin(string $cookie) : ?object
