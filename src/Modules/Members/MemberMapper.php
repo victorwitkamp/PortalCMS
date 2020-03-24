@@ -41,7 +41,7 @@ class MemberMapper
 
     public static function getYears() : array
     {
-        $stmt = DB::conn()->query('SELECT distinct jaarlidmaatschap FROM members');
+        $stmt = DB::conn()->query('SELECT distinct jaarlidmaatschap FROM members order by jaarlidmaatschap desc');
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 

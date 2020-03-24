@@ -15,33 +15,27 @@ use PortalCMS\Modules\Invoices\InvoiceMapper;
 
 $contractId = (int) Request::get('contract');
 $year = (int) Request::get('year');
-//if (empty($year)) {
-//    $year = (int) date('Y');
-//}
-if (!empty($year) && !empty($contractId) && is_numeric($contractId)) {
-    $invoices = InvoiceMapper::getByContractIdAndYear($contractId, $year);
+
+if (!empty($contractId) && is_numeric($contractId)) {
     $contract = ContractMapper::getById($contractId);
     if (empty($contract)) {
         Redirect::to('Error/NotFound');
-    } else {
-        $pageName = Text::get('LABEL_CONTRACT_INVOICES_FOR') . $contract->band_naam;
     }
-} elseif (!empty($year) && empty($contractId)) {
-    $invoices = InvoiceMapper::getByYear($year);
-    $pageName = Text::get('TITLE_INVOICES');
-} elseif (empty($year) && !empty($contractId) && is_numeric($contractId)) {
-    $invoices = InvoiceMapper::getByContractId($contractId);
-    $contract = ContractMapper::getById($contractId);
-    if (empty($contract)) {
-        Redirect::to('Error/NotFound');
-    } else {
+    if (!empty($year)) {
+        $invoices = InvoiceMapper::getByContractIdAndYear($contractId, $year);
         $pageName = Text::get('LABEL_CONTRACT_INVOICES_FOR') . $contract->band_naam;
+    } else {
+        $invoices = InvoiceMapper::getByContractId($contractId);
+        $pageName = Text::get('LABEL_CONTRACT_INVOICES_FOR') . $contract->band_naam . ' (voor jaar: ' . $year . ')';
     }
-} elseif (empty($year) && empty($contractId)) {
-    $invoices = InvoiceMapper::getAll();
+} else {
+    if (!empty($year)) {
+        $invoices = InvoiceMapper::getByYear($year);
+    } else {
+        $invoices = InvoiceMapper::getAll();
+    }
     $pageName = Text::get('TITLE_INVOICES');
 }
-
 
 ?>
 <?= $this->layout('layout', ['title' => $pageName]) ?>
@@ -61,26 +55,15 @@ if (!empty($year) && !empty($contractId) && is_numeric($contractId)) {
         </div>
         <div class="col-sm-4"><a href="/Invoices/Add" class="btn btn-success navbar-btn float-right"><span class="fa fa-plus"></span> Toevoegen</a></div>
     </div>
-    <!--    <form method="post">-->
-    <!--        <label>--><? //= Text::get('YEAR')
-                            ?>
-    <!--</label>-->
-    <!--        <input type="number" name="year" value="--><? //= $year
-                                                            ?>
-    <!--" />-->
-    <!--        <button type="submit" class="btn btn-primary" name="showInvoicesByYear"><i class="fab fa-sistrix"></i></button>-->
-    <!--    </form>-->
+
     <?php
     $years = InvoiceMapper::getYears();
     foreach ($years as $jaar) {
-    ?><li><a href="/Invoices?year=<?= $jaar['year'] ?>"><?= $jaar['year'] ?></a> (<?= InvoiceMapper::getInvoiceCountByYear($jaar['year']) ?>)</li><?php
-                                                                                                                                                    }
-                                                                                                                                                        ?>
+        ?><li><a href="/Invoices?year=<?= $jaar['year'] ?>"><?= $jaar['year'] ?></a> (<?= InvoiceMapper::getInvoiceCountByYear($jaar['year']) ?>)</li><?php
+    } ?>
     <hr>
     <?php Alert::renderFeedbackMessages(); ?>
 </div>
-
-
 
 <?php if (!empty($invoices)) { ?>
     <div class="container-fluid">
