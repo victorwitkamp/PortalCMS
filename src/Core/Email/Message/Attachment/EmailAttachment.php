@@ -51,10 +51,7 @@ class EmailAttachment
 
     public function validate() : bool
     {
-        if (empty($this->path) || empty($this->name) || empty($this->extension) || empty($this->encoding) || empty($this->type)) {
-            return false;
-        }
-        return true;
+        return !(empty($this->path) || empty($this->name) || empty($this->extension) || empty($this->encoding) || empty($this->type));
     }
 
     public function store(int $mailId = null, int $templateId = null) : bool

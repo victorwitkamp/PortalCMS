@@ -21,9 +21,7 @@ use PortalCMS\Core\View\Alert;
     <link rel="stylesheet" href="/includes/css/LoginNewStyle.css" />
     <link rel="stylesheet" type="text/css" href="/dist/cookieconsent/build/cookieconsent.min.css" />
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="/dist/cookieconsent/build/cookieconsent.min.js"></script>
-    <script src="/includes/js/cookieconsent.init.js"></script>
-    <link rel="stylesheet" type="text/css" href="/includes/css/loadingAnimation.css">
+<!--    <link rel="stylesheet" type="text/css" href="/includes/css/loadingAnimation.css">-->
     <?= $this->section('head-extra') ?>
 </head>
 
@@ -64,6 +62,9 @@ use PortalCMS\Core\View\Alert;
         <li><a href="#" class="text-muted"><del>Contact us</del></a></li>
     </ul>
     <div class="webmail-bg"></div>
+
+    <script src="/dist/cookieconsent/build/cookieconsent.min.js"></script>
+    <script src="/includes/js/cookieconsent.init.js"></script>
 
 </body>
 

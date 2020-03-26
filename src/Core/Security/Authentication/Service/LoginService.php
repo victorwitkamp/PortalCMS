@@ -82,7 +82,6 @@ class LoginService
         if (SessionCookie::set()) {
             return true;
         }
-        error_log('Could not set session cookie');
         return false;
     }
 

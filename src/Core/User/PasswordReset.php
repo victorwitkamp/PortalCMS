@@ -34,10 +34,7 @@ class PasswordReset
             return false;
         }
         $resetToken = sha1(uniqid((string) mt_rand(), true));
-        if (self::writeTokenToDatabase($result->user_name, $resetToken, (string) date('Y-m-d H:i:s')) && self::sendPasswordResetMail($result->user_name, $resetToken, $result->user_email)) {
-            return true;
-        }
-        return false;
+        return self::writeTokenToDatabase($result->user_name, $resetToken, (string)date('Y-m-d H:i:s')) && self::sendPasswordResetMail($result->user_name, $resetToken, $result->user_email);
     }
     
     public static function writeTokenToDatabase(string $username, string $resetToken, string $timestamp): bool

@@ -44,10 +44,7 @@ class LoginValidator
      */
     public static function checkUserBruteForce(object $user) : bool
     {
-        if (($user->user_failed_logins >= 3) && strtotime($user->user_last_failed_login) > (strtotime(date('Y-m-d H:i:s')) - 30)) {
-            return false;
-        }
-        return true;
+        return !(($user->user_failed_logins >= 3) && strtotime($user->user_last_failed_login) > (strtotime(date('Y-m-d H:i:s')) - 30));
     }
 
     public static function validateLogin(string $user_name, string $user_password) : ?object
@@ -112,17 +109,11 @@ class LoginValidator
 
     public static function resetUserNotFoundCounter() : bool
     {
-        if (Session::set('failed-login-count', 0) && Session::set('last-failed-login', '')) {
-            return true;
-        }
-        return false;
+        return Session::set('failed-login-count', 0) && Session::set('last-failed-login', '');
     }
 
     public static function incrementUserNotFoundCounter() : bool
     {
-        if (Session::set('failed-login-count', Session::get('failed-login-count') + 1) && Session::set('last-failed-login', time())) {
-            return true;
-        }
-        return false;
+        return Session::set('failed-login-count', Session::get('failed-login-count') + 1) && Session::set('last-failed-login', time());
     }
 }

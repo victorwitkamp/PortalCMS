@@ -53,7 +53,7 @@ class EventsController extends Controller
     public function details()
     {
         if (Authorization::hasPermission('events')) {
-            $event = EventMapper::getById((int) $_GET['id']);
+            $event = EventMapper::getById((int) Request::get('id'));
             if (!empty($event)) {
                 $templates = new Engine(DIR_VIEW);
                 echo $templates->render('Pages/Events/Details', ['event' => $event]);
@@ -85,7 +85,7 @@ class EventsController extends Controller
     public function edit()
     {
         if (Authorization::hasPermission('events')) {
-            $event = EventMapper::getById((int) $_GET['id']);
+            $event = EventMapper::getById((int) Request::get('id'));
             if (!empty($event)) {
                 $pageName = 'Evenement ' . $event->title . ' bewerken';
                 $templates = new Engine(DIR_VIEW);
@@ -120,10 +120,8 @@ class EventsController extends Controller
             (int) Request::post('id', true)
         )) {
             Redirect::to('Events/');
-            return true;
         }
         Redirect::to('Error/Error');
-        return false;
     }
 
     public static function updateEvent()
@@ -136,7 +134,7 @@ class EventsController extends Controller
             (string) Request::post('description', true),
             (int) Request::post('status', true)
         )) {
-            Redirect::to('events/');
+            Redirect::to('Events/');
         } else {
             Redirect::to('Error/Error');
         }
@@ -150,7 +148,7 @@ class EventsController extends Controller
             (string) Request::post('end_event', true),
             (string) Request::post('description', true)
         )) {
-            Redirect::to('events/');
+            Redirect::to('Events/');
         } else {
             Redirect::to('Error/Error');
         }

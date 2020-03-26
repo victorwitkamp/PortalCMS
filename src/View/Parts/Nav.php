@@ -14,7 +14,7 @@ use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
 
 ?>
-<div class="navbar bg-light p-0">
+<div class="navbar navbar-light bg-light p-0">
     <div class="container">
         <a class="navbar-brand mr-auto mr-lg-0" href="/Home"><?= SiteSetting::get('site_name') ?></a>
         <span class="navbar-text p-0">
@@ -23,7 +23,7 @@ use PortalCMS\Core\View\Text;
         </span>
     </div>
 </div>
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+<nav class="navbar navbar-expand-sm navbar-dark bg-secondary">
     <div class="container">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

@@ -13,7 +13,7 @@ use PortalCMS\Core\View\Text;
 
 class Password
 {
-    public static function changePassword($user, string $currentPassword, string $newPassword, string $repeatNewPassword): bool
+    public static function changePassword(object $user, string $currentPassword, string $newPassword, string $repeatNewPassword): bool
     {
         if (empty($currentPassword) || empty($newPassword) || empty($repeatNewPassword)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_FIELD_EMPTY'));

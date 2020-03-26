@@ -67,6 +67,13 @@ class InvoiceMapper
         return $stmt->rowCount();
     }
 
+    public static function getInvoiceCount() : int
+    {
+        $stmt = DB::conn()->prepare('SELECT id FROM invoices');
+        $stmt->execute([]);
+        return $stmt->rowCount();
+    }
+
     public static function getYears() : array
     {
         $stmt = DB::conn()->query('SELECT distinct year FROM invoices');

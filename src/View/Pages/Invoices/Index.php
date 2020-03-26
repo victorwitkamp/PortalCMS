@@ -56,13 +56,16 @@ if (!empty($contractId) && is_numeric($contractId)) {
         <div class="col-sm-4"><a href="/Invoices/Add" class="btn btn-success navbar-btn float-right"><span class="fa fa-plus"></span> Toevoegen</a></div>
     </div>
 
-    <?php
-    $years = InvoiceMapper::getYears();
-    foreach ($years as $jaar) {
-        ?><li>
-        <a href="/Invoices?year=<?= $jaar['year'] ?>"><?= $jaar['year'] ?></a> (<?= InvoiceMapper::getInvoiceCountByYear($jaar['year']) ?>)
-        </li><?php
-    } ?>
+    <ul>
+        <li><a href="/Invoices">Alle</a> (<?= InvoiceMapper::getInvoiceCount() ?>)</li>
+        <?php
+        $years = InvoiceMapper::getYears();
+        foreach ($years as $jaar) {
+            ?><li><a href="/Invoices?year=<?= $jaar['year'] ?>"><?= $jaar['year'] ?></a> (<?= InvoiceMapper::getInvoiceCountByYear($jaar['year']) ?>) <?php if ((int) Request::get('year') === $jaar['year']) { echo ' - Geselecteerd'; }?></li><?php
+        } ?>
+    </ul>
+
+
     <hr>
     <?php Alert::renderFeedbackMessages(); ?>
 </div>

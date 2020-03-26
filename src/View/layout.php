@@ -26,8 +26,6 @@ use PortalCMS\Core\Config\SiteSetting;
     <![endif]-->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
-    <script src="/dist/cookieconsent/build/cookieconsent.min.js"></script>
-    <script src="/includes/js/cookieconsent.init.js"></script>
     <?= $this->section('head-extra') ?>
 </head>
 <body>
@@ -39,5 +37,8 @@ use PortalCMS\Core\Config\SiteSetting;
     </main>
     <?php require DIR_VIEW . 'Parts/Footer.php'; ?>
     <?=$this->section('scripts')?>
+
+    <script src="/dist/cookieconsent/build/cookieconsent.min.js"></script>
+    <script src="/includes/js/cookieconsent.init.js"></script>
 </body>
 </html>

@@ -13,8 +13,5 @@ $(document).ready(function () {
         "order": [[ 1, 'asc' ]],
         compact: true,
         select: true,
-        buttons: [
-            'excelHtml5'
-        ]
     });
 });

@@ -110,10 +110,7 @@ class EmailTemplateMapper
             $emailTemplate->status,
             $emailTemplate->id
         ]);
-        if ($stmt->rowCount() === 0) {
-            return false;
-        }
-        return true;
+        return !($stmt->rowCount() === 0);
     }
 
     public static function delete(int $id) : bool
@@ -124,9 +121,6 @@ class EmailTemplateMapper
                     AND type != 'system'"
         );
         $stmt->execute([$id]);
-        if ($stmt->rowCount() === 0) {
-            return false;
-        }
-        return true;
+        return !($stmt->rowCount() === 0);
     }
 }
