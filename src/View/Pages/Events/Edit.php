@@ -21,7 +21,7 @@ use PortalCMS\Core\View\Text;
         <div class="container">
             <?php Alert::renderFeedbackMessages(); ?>
             <form method="post">
-                <input name="id" type="hidden" id="deleteUrl" value="<?= $event->id ?>">
+                <input name="id" type="hidden" value="<?= $event->id ?>">
                 <button name="deleteEvent" type="submit" class="btn btn-danger">
                     <i class="far fa-trash-alt"></i> <?= Text::get('LABEL_DELETE') ?>
                 </button>
@@ -29,37 +29,33 @@ use PortalCMS\Core\View\Text;
             <form method="post">
                 <div class="row">
                     <div class="col-sm-12">
-                        <label class="control-label"><?= Text::get('LABEL_EVENT_TITLE') ?>
-                            <input type="text" name="title" value="<?= $event->title ?>" class="form-control" required>
-                        </label>
+                        <label for="eventTitle" class="control-label"><?= Text::get('LABEL_EVENT_TITLE') ?></label>
+                        <input type="text" id="eventTitle" name="title" value="<?= $event->title ?>" class="form-control" required>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-sm-6">
-                        <label class="control-label"><?= Text::get('LABEL_EVENT_START') ?>
-                            <input type="datetime-local" name="start_event" value="<?= date('Y-m-d\TH:i', strtotime($event->start_event)) ?>" class="form-control" required>
-                        </label>
+                        <label for="eventStart" class="control-label"><?= Text::get('LABEL_EVENT_START') ?></label>
+                        <input type="datetime-local" id="eventStart" name="start_event" value="<?= date('Y-m-d\TH:i', strtotime($event->start_event)) ?>" class="form-control" required>
                     </div>
                     <div class="col-sm-6">
-                        <label class="control-label"><?= Text::get('LABEL_EVENT_END') ?>
-                            <input type="datetime-local" name="end_event" value="<?= date('Y-m-d\TH:i', strtotime($event->end_event)) ?>" class="form-control" required>
-                        </label>
+                        <label for="eventEnd" class="control-label"><?= Text::get('LABEL_EVENT_END') ?></label>
+                        <input type="datetime-local" id="eventEnd" name="end_event" value="<?= date('Y-m-d\TH:i', strtotime($event->end_event)) ?>" class="form-control" required>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-sm-12">
-                        <label class="control-label"><?= Text::get('LABEL_EVENT_DESC') ?>
-                            <input type="text" name="description" value="<?= $event->description ?>" class="form-control" required>
-                        </label>
+                        <label for="eventDesc" class="control-label"><?= Text::get('LABEL_EVENT_DESC') ?></label>
+                        <input type="text" id="eventDesc" name="description" value="<?= $event->description ?>" class="form-control">
                     </div>
                 </div>
-                <hr>
+
                 <div class="row">
                     <div class="col-sm-6">
-                        <label class="control-label"><?= Text::get('LABEL_EVENT_STATUS') ?></label>
-                        <select name="status" class="form-control" required>
+                        <label for="eventStatus" class="control-label"><?= Text::get('LABEL_EVENT_STATUS') ?></label>
+                        <select id="eventStatus" name="status" class="form-control" required>
                             <option value="0" <?= ($event->status === 0) ? 'selected' : '' ?>>0 - <?= Text::get('LABEL_EVENT_DRAFT') ?></option>
                             <option value="1" <?= ($event->status === 1) ? 'selected' : '' ?>>1 - <?= Text::get('LABEL_EVENT_CONFIRMED') ?></option>
                             <option value="2" <?= ($event->status === 2) ? 'selected' : '' ?>>2 - <?= Text::get('LABEL_EVENT_CANCELED') ?></option>

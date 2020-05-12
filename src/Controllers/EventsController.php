@@ -16,6 +16,7 @@ use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Calendar\EventMapper;
 use PortalCMS\Modules\Calendar\EventService;
 
@@ -34,9 +35,6 @@ class EventsController extends Controller
         Router::processRequests($this->requests, __CLASS__);
     }
 
-    /**
-     * Route: index.
-     */
     public function index()
     {
         if (Authorization::hasPermission('events')) {
@@ -47,9 +45,6 @@ class EventsController extends Controller
         }
     }
 
-    /**
-     * Route: details.
-     */
     public function details()
     {
         if (Authorization::hasPermission('events')) {
@@ -66,30 +61,28 @@ class EventsController extends Controller
         }
     }
 
-    /**
-     * Route: add.
-     */
     public function add()
     {
         if (Authorization::hasPermission('events')) {
             $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/Events/Add');
+            echo $templates->render('Pages/Events/Add', [
+                'pageName' => (string) Text::get('TITLE_EVENTS_ADD')
+            ]);
         } else {
             Redirect::to('Error/PermissionError');
         }
     }
 
-    /**
-     * Route: edit.
-     */
     public function edit()
     {
         if (Authorization::hasPermission('events')) {
             $event = EventMapper::getById((int) Request::get('id'));
             if (!empty($event)) {
-                $pageName = 'Evenement ' . $event->title . ' bewerken';
                 $templates = new Engine(DIR_VIEW);
-                echo $templates->render('Pages/Events/Edit', ['event' => $event, 'pageName' => $pageName]);
+                echo $templates->render('Pages/Events/Edit', [
+                    'event' => $event,
+                    'pageName' => 'Evenement ' . $event->title . ' bewerken'
+                ]);
             } else {
                 Session::add('feedback_negative', 'Geen resultaten voor opgegeven event ID.');
                 Redirect::to('Error/Error');

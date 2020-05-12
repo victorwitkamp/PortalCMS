@@ -11,6 +11,7 @@ namespace PortalCMS\Controllers;
 use League\Plates\Engine;
 use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
@@ -21,10 +22,6 @@ use PortalCMS\Core\Session\Session;
 
 class UserManagementController extends Controller
 {
-    /**
-     * Form POST requests
-     * @var array $requests
-     */
     private $requests = [
         'deleteuser' => 'POST',
         'deleterole' => 'POST',
@@ -36,9 +33,6 @@ class UserManagementController extends Controller
         'addNewUser' => 'POST'
     ];
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         parent::__construct();
@@ -105,7 +99,7 @@ class UserManagementController extends Controller
 
     public static function deleterole()
     {
-        if (RoleMapper::delete((int) $_POST['role_id'])) {
+        if (RoleMapper::delete((int) Request::post('role_id'))) {
             Session::add('feedback_positive', 'Rol verwijderd.');
             Redirect::to('UserManagement/Roles');
         } else {
@@ -116,7 +110,7 @@ class UserManagementController extends Controller
 
     public static function addrole()
     {
-        if (RoleMapper::create($_POST['role_name'])) {
+        if (RoleMapper::create(Request::post('role_name'))) {
             Session::add('feedback_positive', 'Nieuwe rol aangemaakt.');
             Redirect::to('UserManagement/Roles');
         } else {
@@ -127,18 +121,18 @@ class UserManagementController extends Controller
 
     public static function setrolepermission()
     {
-        RolePermission::assignPermission((int) $_POST['role_id'], (int) $_POST['perm_id']);
+        RolePermission::assignPermission((int) Request::post('role_id'), (int) Request::post('perm_id'));
     }
 
     public static function deleterolepermission()
     {
-        RolePermission::unassignPermission((int) $_POST['role_id'], (int) $_POST['perm_id']);
+        RolePermission::unassignPermission((int) Request::post('role_id'), (int) Request::post('perm_id'));
     }
 
     public static function assignrole(): bool
     {
-        $user_id = (int) $_POST['user_id'];
-        $role_id = (int) $_POST['role_id'];
+        $user_id = (int) Request::post('user_id');
+        $role_id = (int) Request::post('role_id');
         if (UserRoleMapper::isAssigned($user_id, $role_id)) {
             Session::add('feedback_negative', 'Rol is reeds toegewezen aan deze gebruiker.');
         } elseif (UserRoleMapper::assign($user_id, $role_id)) {
@@ -154,8 +148,8 @@ class UserManagementController extends Controller
 
     public static function unassignrole(): bool
     {
-        $user_id = (int) $_POST['user_id'];
-        $role_id = (int) $_POST['role_id'];
+        $user_id = (int) Request::post('user_id');
+        $role_id = (int) Request::post('role_id');
         if (!UserRoleMapper::isAssigned($user_id, $role_id)) {
             Session::add('feedback_negative', 'Rol is niet aan deze gebruiker toegewezen. Er is geen toewijzing om te verwijderen.');
         } elseif (UserRoleMapper::unassign($user_id, $role_id)) {

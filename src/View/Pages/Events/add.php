@@ -5,19 +5,16 @@
 
 declare(strict_types=1);
 
-use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
-$pageName = (string) Text::get('TITLE_EVENTS_ADD');
-
 ?>
-<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->layout('layout', ['title' => $this->e($pageName)]) ?>
 <?= $this->push('main-content') ?>
 
     <div class="container">
         <div class="row mt-5">
-            <h1><?= $pageName ?></h1>
+            <h1><?= $this->e($pageName) ?></h1>
         </div>
     </div>
     <hr>
@@ -26,35 +23,30 @@ $pageName = (string) Text::get('TITLE_EVENTS_ADD');
         <form method="post">
             <div class="row">
                 <div class="col-sm-12">
-                    <label class="control-label"><?= Text::get('LABEL_EVENT_TITLE') ?>
-                        <input type="text" name="title" class="form-control" placeholder="" required>
-                    </label>
+                    <label for="eventTitle" class="control-label"><?= Text::get('LABEL_EVENT_TITLE') ?></label>
+                    <input type="text" id="eventTitle" name="title" class="form-control" placeholder="" required>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-sm-6">
-                    <label class="control-label"><?= Text::get('LABEL_EVENT_START') ?>
-                        <input type="datetime-local" name="start_event" class="form-control" required>
-                    </label>
+                    <label for="eventStart" class="control-label"><?= Text::get('LABEL_EVENT_START') ?></label>
+                    <input type="datetime-local" id="eventStart" name="start_event" class="form-control" required>
                 </div>
                 <div class="col-sm-6">
-                    <label class="control-label"><?= Text::get('LABEL_EVENT_END') ?>
-                        <input type="datetime-local" name="end_event" class="form-control" required>
-                    </label>
+                    <label for="eventEnd" class="control-label"><?= Text::get('LABEL_EVENT_END') ?></label>
+                    <input type="datetime-local" id="eventEnd" name="end_event" class="form-control" required>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-sm-12">
-                    <label class="control-label"><?= Text::get('LABEL_EVENT_DESC') ?>
-                        <input type="text" name="description" class="form-control">
-                    </label>
+                    <label for="eventDesc" class="control-label"><?= Text::get('LABEL_EVENT_DESC') ?></label>
+                    <input type="text" id="eventDesc" name="description" class="form-control">
                 </div>
             </div>
             <hr />
             <div class="row">
-                <input type="text" name="CreatedBy" value="<?= Session::get('user_id') ?>" hidden>
                 <input type="submit" name="addEvent" class="btn btn-primary" value="<?= Text::get('LABEL_SUBMIT') ?>">
                 <a href="/Events" class="btn btn-danger"><?= Text::get('LABEL_CANCEL') ?></a>
             </div>
