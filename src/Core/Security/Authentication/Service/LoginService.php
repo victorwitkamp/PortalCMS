@@ -46,6 +46,7 @@ class LoginService
                 $user = UserMapper::getByIdAndToken($cookieResponse->user_id, $cookieResponse->token);
                 if (!empty($user)) {
                     self::setSuccessfulLoginIntoSession($user);
+                    Activity::add('LoginWithCookie', $user->user_id);
                     Session::add('feedback_positive', Text::get('FEEDBACK_COOKIE_LOGIN_SUCCESSFUL'));
                     return true;
                 }
@@ -60,6 +61,7 @@ class LoginService
             $user = UserMapper::getByFbid($fbid);
             if (!empty($user)) {
                 self::setSuccessfulLoginIntoSession($user);
+                Activity::add('LoginWithFacebook', $user->user_id);
                 Session::add('feedback_positive', Text::get('FEEDBACK_SUCCESSFUL_FACEBOOK_LOGIN'));
                 return true;
             }

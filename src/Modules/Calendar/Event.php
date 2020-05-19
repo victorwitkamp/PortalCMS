@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 namespace PortalCMS\Modules\Calendar;
 
+use PortalCMS\Core\Session\Session;
+
 class Event
 {
     public $id;
@@ -19,19 +21,39 @@ class Event
     public $end_event;
     public $description;
     public $status;
-    public $CreationDate;
-    public $ModificationDate;
 
-    public function __construct(int $id, int $CreatedBy, string $title, string $start_event, string $end_event, string $description, int $status, string $CreationDate, string $ModificationDate)
+    public function setId(int $id)
     {
         $this->id = $id;
-        $this->CreatedBy = $CreatedBy;
+    }
+
+    public function setCreatedBy()
+    {
+        $this->CreatedBy = (int) Session::get('user_id');
+    }
+
+    public function setTitle(string $title)
+    {
         $this->title = $title;
-        $this->start_event = $start_event;
-        $this->end_event = $end_event;
+    }
+
+    public function setStart(string $start)
+    {
+        $this->start_event = date('Y-m-d H:i:s', strtotime($start));
+    }
+
+    public function setEnd(string $end)
+    {
+        $this->end_event = date('Y-m-d H:i:s', strtotime($end));
+    }
+
+    public function setDescription(string $description)
+    {
         $this->description = $description;
+    }
+
+    public function setStatus(int $status)
+    {
         $this->status = $status;
-        $this->CreationDate = $CreationDate;
-        $this->ModificationDate = $ModificationDate;
     }
 }

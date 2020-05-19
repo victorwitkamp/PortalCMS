@@ -10,10 +10,8 @@ namespace PortalCMS\Modules\Calendar;
 use PortalCMS\Core\Activity\Activity;
 use PortalCMS\Core\Session\Session;
 
-class EventService
+class EventModel
 {
-    /**
-     */
     public static function getByDate(string $startDate, string $endDate): array
     {
         $eventsArray = [];
@@ -59,14 +57,14 @@ class EventService
         return $eventsArray;
     }
 
-    public static function create(string $title, string $start, string $end, string $description): bool
+    public static function create(Event $event): bool
     {
         if (EventMapper::new(
-            $title,
-            date('Y-m-d H:i:s', strtotime($start)),
-            date('Y-m-d H:i:s', strtotime($end)),
-            $description,
-            (int) Session::get('user_id')
+            $event->title,
+            $event->start_event,
+            $event->end_event,
+            $event->description,
+            $event->CreatedBy
         )) {
             Session::add('feedback_positive', 'Evenement toegevoegd.');
             return true;
@@ -74,20 +72,20 @@ class EventService
         Session::add('feedback_negative', 'Toevoegen van evenement mislukt.');
         return false;
     }
-    
-    public static function update(int $id, string $title, string $start, string $end, string $description, int $status): bool
+
+    public static function update(Event $event): bool
     {
-        if (!EventMapper::exists($id)) {
+        if (!EventMapper::exists($event->id)) {
             Session::add('feedback_negative', 'Wijzigen van evenement mislukt. Evenement bestaat niet.');
         } elseif (EventMapper::update(
-            $title,
-            date('Y-m-d H:i:s', strtotime($start)),
-            date('Y-m-d H:i:s', strtotime($end)),
-            $description,
-            $status,
-            $id
+            $event->title,
+            $event->start_event,
+            $event->end_event,
+            $event->description,
+            $event->status,
+            $event->id
         )) {
-            Activity::add('UpdateEvent', Session::get('user_id'), 'ID: ' . $id, Session::get('user_name'));
+            Activity::add('UpdateEvent', Session::get('user_id'), 'ID: ' . $event->id, Session::get('user_name'));
             Session::add('feedback_positive', 'Evenement gewijzigd.');
             return true;
         } else {

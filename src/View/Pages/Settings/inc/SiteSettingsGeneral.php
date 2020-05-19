@@ -132,7 +132,7 @@ use PortalCMS\Core\View\Text;
                 <?php $MailServerSecure = SiteSetting::get('MailServerSecure'); ?>
                 <option value="tls" <?= ($MailServerSecure === 'tls') ? 'selected' : '' ?>>tls</option>
                 <option value="ssl" <?= ($MailServerSecure === 'ssl') ? 'selected' : '' ?>>ssl</option>
-                <option value="" <?= ($MailServerSecure === '') ? 'selected' : '' ?>>Disabled</option>
+                <option value="off" <?= ($MailServerSecure === 'off') ? 'selected' : '' ?>>Disabled</option>
             </select>
         </div>
     </div>

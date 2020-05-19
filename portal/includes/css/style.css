@@ -6,17 +6,13 @@ body {
 hr {
     border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
-.dropdown-submenu {
-    position: relative;
-}
+
 .dropdown-submenu .dropdown-menu {
     top: 0;
     left: 100%;
     margin-top: -1px;
 }
-.cc-window.cc-static {
-    position: fixed;
-}
+
 main {
     padding-bottom: 90px;
     height: auto;

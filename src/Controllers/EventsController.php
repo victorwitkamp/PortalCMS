@@ -17,8 +17,10 @@ use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
+use PortalCMS\Modules\Calendar\Event;
+use PortalCMS\Modules\Calendar\EventFactory;
 use PortalCMS\Modules\Calendar\EventMapper;
-use PortalCMS\Modules\Calendar\EventService;
+use PortalCMS\Modules\Calendar\EventModel;
 
 class EventsController extends Controller
 {
@@ -94,7 +96,7 @@ class EventsController extends Controller
 
     public function loadCalendarEvents()
     {
-        echo json_encode(EventService::getByDate((string) Request::get('start'), (string) Request::get('end')));
+        echo json_encode(EventModel::getByDate((string) Request::get('start'), (string) Request::get('end')));
     }
 
     public function updateEventDate(): bool
@@ -109,7 +111,7 @@ class EventsController extends Controller
 
     public static function deleteEvent()
     {
-        if (EventService::delete(
+        if (EventModel::delete(
             (int) Request::post('id', true)
         )) {
             Redirect::to('Events/');
@@ -119,14 +121,7 @@ class EventsController extends Controller
 
     public static function updateEvent()
     {
-        if (EventService::update(
-            (int) Request::post('id', true),
-            (string) Request::post('title', true),
-            (string) Request::post('start_event', true),
-            (string) Request::post('end_event', true),
-            (string) Request::post('description', true),
-            (int) Request::post('status', true)
-        )) {
+        if (EventModel::update(EventFactory::updateEventRequest())) {
             Redirect::to('Events/');
         } else {
             Redirect::to('Error/Error');
@@ -135,12 +130,7 @@ class EventsController extends Controller
 
     public static function addEvent()
     {
-        if (EventService::create(
-            (string) Request::post('title', true),
-            (string) Request::post('start_event', true),
-            (string) Request::post('end_event', true),
-            (string) Request::post('description', true)
-        )) {
+        if (EventModel::create(EventFactory::newEventRequest())) {
             Redirect::to('Events/');
         } else {
             Redirect::to('Error/Error');

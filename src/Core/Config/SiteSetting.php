@@ -19,27 +19,28 @@ use PortalCMS\Core\View\Text;
  */
 class SiteSetting
 {
+    public static function fillProperties(): array
+    {
+        $properties = [
+            'site_name','site_description','site_description_type',
+            'site_url','site_logo','site_theme','site_layout',
+            'WidgetComingEvents','WidgetDebug',
+            'MailServer','MailServerPort','MailServerSecure','MailServerAuth','MailServerUsername','MailServerPassword','MailServerDebug',
+            'MailFromName','MailFromEmail','MailIsHTML'
+        ];
+        $settings = [];
+        foreach ($properties as $property) {
+            $settings[$property] = (string) Request::post($property);
+        }
+        return $settings;
+    }
+
     public static function saveSiteSettings(): bool
     {
-        self::setSiteSetting((string) Request::post('site_name'), 'site_name');
-        self::setSiteSetting((string) Request::post('site_description'), 'site_description');
-        self::setSiteSetting((string) Request::post('site_description_type'), 'site_description_type');
-        self::setSiteSetting((string) Request::post('site_url'), 'site_url');
-        self::setSiteSetting((string) Request::post('site_logo'), 'site_logo');
-        self::setSiteSetting((string) Request::post('site_theme'), 'site_theme');
-        self::setSiteSetting((string) Request::post('site_layout'), 'site_layout');
-        self::setSiteSetting((string) Request::post('WidgetComingEvents'), 'WidgetComingEvents');
-        self::setSiteSetting((string) Request::post('WidgetDebug'), 'WidgetDebug');
-        self::setSiteSetting((string) Request::post('MailServer'), 'MailServer');
-        self::setSiteSetting((string) Request::post('MailServerPort'), 'MailServerPort');
-        self::setSiteSetting((string) Request::post('MailServerSecure'), 'MailServerSecure');
-        self::setSiteSetting((string) Request::post('MailServerAuth'), 'MailServerAuth');
-        self::setSiteSetting((string) Request::post('MailServerUsername'), 'MailServerUsername');
-        self::setSiteSetting((string) Request::post('MailServerPassword'), 'MailServerPassword');
-        self::setSiteSetting((string) Request::post('MailServerDebug'), 'MailServerDebug');
-        self::setSiteSetting((string) Request::post('MailFromName'), 'MailFromName');
-        self::setSiteSetting((string) Request::post('MailFromEmail'), 'MailFromEmail');
-        self::setSiteSetting((string) Request::post('MailIsHTML'), 'MailIsHTML');
+        $settings = self::fillProperties();
+        foreach ($settings as $setting => $value) {
+            self::setSiteSetting($value, $setting);
+        }
         return true;
     }
 
