@@ -9,7 +9,6 @@ namespace PortalCMS\Core\Config;
 
 use PDO;
 use PortalCMS\Core\Database\DB;
-use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
 
@@ -19,36 +18,11 @@ use PortalCMS\Core\View\Text;
  */
 class SiteSetting
 {
-    public static function fillProperties(): array
-    {
-        $properties = [
-            'site_name','site_description','site_description_type',
-            'site_url','site_logo','site_theme','site_layout',
-            'WidgetComingEvents','WidgetDebug',
-            'MailServer','MailServerPort','MailServerSecure','MailServerAuth','MailServerUsername','MailServerPassword','MailServerDebug',
-            'MailFromName','MailFromEmail','MailIsHTML'
-        ];
-        $settings = [];
-        foreach ($properties as $property) {
-            $settings[$property] = (string) Request::post($property);
-        }
-        return $settings;
-    }
-
     public static function saveSiteSettings(): bool
     {
-        $settings = self::fillProperties();
+        $settings = SiteSettingsFactory::updateRequest();
         foreach ($settings as $setting => $value) {
-            self::setSiteSetting($value, $setting);
-        }
-        return true;
-    }
-
-    public static function setSiteSetting(string $value, string $setting): bool
-    {
-        $stmt = DB::conn()->prepare('UPDATE site_settings SET string_value = ? WHERE setting = ?');
-        if (!$stmt->execute([$value, $setting])) {
-            return false;
+            SiteSettingsMapper::update($setting, $value);
         }
         return true;
     }
@@ -121,12 +95,11 @@ class SiteSetting
 
     public static function writeLogoToDatabase(string $fileName): bool
     {
-        $stmt = DB::conn()->prepare("UPDATE site_settings SET string_value = ? WHERE setting = 'site_logo' LIMIT 1");
-        if (!$stmt->execute([$fileName])) {
-            Session::add('feedback_negative', 'Could not write to database');
-            return false;
+        if (SiteSettingsMapper::update('site_logo', $fileName)) {
+            return true;
         }
-        return true;
+        Session::add('feedback_negative', 'Could not write to database');
+        return false;
     }
 
     /**

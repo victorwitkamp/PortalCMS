@@ -59,13 +59,7 @@ class EventModel
 
     public static function create(Event $event): bool
     {
-        if (EventMapper::new(
-            $event->title,
-            $event->start_event,
-            $event->end_event,
-            $event->description,
-            $event->CreatedBy
-        )) {
+        if (EventMapper::new($event)) {
             Session::add('feedback_positive', 'Evenement toegevoegd.');
             return true;
         }
@@ -78,12 +72,7 @@ class EventModel
         if (!EventMapper::exists($event->id)) {
             Session::add('feedback_negative', 'Wijzigen van evenement mislukt. Evenement bestaat niet.');
         } elseif (EventMapper::update(
-            $event->title,
-            $event->start_event,
-            $event->end_event,
-            $event->description,
-            $event->status,
-            $event->id
+            $event
         )) {
             Activity::add('UpdateEvent', Session::get('user_id'), 'ID: ' . $event->id, Session::get('user_name'));
             Session::add('feedback_positive', 'Evenement gewijzigd.');

@@ -53,36 +53,36 @@ class EventMapper
         return null;
     }
 
-    public static function new(string $title, string $start_event, string $end_event, string $description, int $CreatedBy) : bool
+    public static function new(Event $event) : bool
     {
         $stmt = DB::conn()->prepare(
             'INSERT INTO events(
                 id, title, start_event, end_event, description, CreatedBy
             ) VALUES (NULL,?,?,?,?,?)'
         );
-        $stmt->execute([$title, $start_event, $end_event, $description, $CreatedBy]);
+        $stmt->execute([$event->title, $event->start_event, $event->end_event, $event->description, $event->CreatedBy]);
         return ($stmt->rowCount() === 1);
     }
 
-    public static function update(string $title, string $start_event, string $end_event, string $description, int $status, int $id): bool
+    public static function update(Event $event): bool
     {
         $stmt = DB::conn()->prepare(
             'UPDATE events
             SET title=?, start_event=?, end_event=?, description=?, status=?
             WHERE id=?'
         );
-        $stmt->execute([$title, $start_event, $end_event, $description, $status, $id]);
+        $stmt->execute([$event->title, $event->start_event, $event->end_event, $event->description, $event->status, $event->id]);
         return ($stmt->rowCount() === 1);
     }
 
-    public static function updateDate(int $event_id, string $title, string $start_event, string $end_event): bool
+    public static function updateDate(int $event_id, string $start_event, string $end_event): bool
     {
         $stmt = DB::conn()->prepare(
             'UPDATE events
-            SET title=?, start_event=?, end_event=?
+            SET start_event=?, end_event=?
             WHERE id=?'
         );
-        $stmt->execute([$title, $start_event, $end_event, $event_id]);
+        $stmt->execute([$start_event, $end_event, $event_id]);
         return ($stmt->rowCount() === 1);
     }
 

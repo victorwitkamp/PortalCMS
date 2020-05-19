@@ -17,7 +17,6 @@ use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
-use PortalCMS\Modules\Calendar\Event;
 use PortalCMS\Modules\Calendar\EventFactory;
 use PortalCMS\Modules\Calendar\EventMapper;
 use PortalCMS\Modules\Calendar\EventModel;
@@ -103,7 +102,6 @@ class EventsController extends Controller
     {
         return EventMapper::updateDate(
             (int) Request::post('id'),
-            (string) Request::post('title'),
             (string) Request::post('start'),
             (string) Request::post('end')
         );
@@ -121,7 +119,7 @@ class EventsController extends Controller
 
     public static function updateEvent()
     {
-        if (EventModel::update(EventFactory::updateEventRequest())) {
+        if (EventModel::update(EventFactory::updateRequest())) {
             Redirect::to('Events/');
         } else {
             Redirect::to('Error/Error');
@@ -130,7 +128,7 @@ class EventsController extends Controller
 
     public static function addEvent()
     {
-        if (EventModel::create(EventFactory::newEventRequest())) {
+        if (EventModel::create(EventFactory::newRequest())) {
             Redirect::to('Events/');
         } else {
             Redirect::to('Error/Error');

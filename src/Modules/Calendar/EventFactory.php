@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * Copyright Victor Witkamp (c) 2020.
  */
@@ -6,11 +7,10 @@
 namespace PortalCMS\Modules\Calendar;
 
 use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\Session\Session;
 
 class EventFactory
 {
-    public static function newEventRequest()
+    public static function newRequest(): Event
     {
         $event = new Event();
         $event->setCreatedBy();
@@ -21,7 +21,7 @@ class EventFactory
         return $event;
     }
 
-    public static function updateEventRequest()
+    public static function updateRequest(): Event
     {
         $event = new Event();
         $event->setId((int) Request::post('id', true));
