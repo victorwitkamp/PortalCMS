@@ -119,7 +119,7 @@ class EventsController extends Controller
 
     public static function updateEvent()
     {
-        if (EventModel::update(EventFactory::updateRequest())) {
+        if (EventModel::update(EventFactory::byUpdateRequest())) {
             Redirect::to('Events/');
         } else {
             Redirect::to('Error/Error');
@@ -128,7 +128,7 @@ class EventsController extends Controller
 
     public static function addEvent()
     {
-        if (EventModel::create(EventFactory::newRequest())) {
+        if (EventModel::create(EventFactory::byCreateRequest())) {
             Redirect::to('Events/');
         } else {
             Redirect::to('Error/Error');

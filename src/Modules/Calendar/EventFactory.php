@@ -10,7 +10,7 @@ use PortalCMS\Core\HTTP\Request;
 
 class EventFactory
 {
-    public static function newRequest(): Event
+    public static function byCreateRequest(): Event
     {
         $event = new Event();
         $event->setCreatedBy();
@@ -21,7 +21,7 @@ class EventFactory
         return $event;
     }
 
-    public static function updateRequest(): Event
+    public static function byUpdateRequest(): Event
     {
         $event = new Event();
         $event->setId((int) Request::post('id', true));
