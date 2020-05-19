@@ -110,7 +110,7 @@ class UserManagementController extends Controller
 
     public static function addrole()
     {
-        if (RoleMapper::create(Request::post('role_name'))) {
+        if (RoleMapper::create((string) Request::post('role_name'))) {
             Session::add('feedback_positive', 'Nieuwe rol aangemaakt.');
             Redirect::to('UserManagement/Roles');
         } else {
