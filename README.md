@@ -2,6 +2,7 @@
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/victorwitkamp/PortalCMS/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/victorwitkamp/PortalCMS/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/victorwitkamp/PortalCMS/badges/build.png?b=master)](https://scrutinizer-ci.com/g/victorwitkamp/PortalCMS/build-status/master)
+[![Build Status](https://dev.azure.com/99038776/php/_apis/build/status/victorwitkamp.PortalCMS?branchName=refs%2Fpull%2F35%2Fmerge)](https://dev.azure.com/99038776/php/_build/latest?definitionId=1&branchName=refs%2Fpull%2F35%2Fmerge)
 
 ## About
 
