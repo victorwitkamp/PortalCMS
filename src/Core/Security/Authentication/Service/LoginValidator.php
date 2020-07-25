@@ -56,7 +56,8 @@ class LoginValidator
             Session::add('feedback_negative', Text::get('FEEDBACK_BRUTE_FORCE_CHECK_FAILED'));
             return null;
         } else {
-            return self::getUser($user_name, $user_password);
+            $var = self::getUser($user_name, $user_password);
+            return $var;
         }
     }
 
