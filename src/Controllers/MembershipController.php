@@ -38,6 +38,9 @@ class MembershipController extends Controller
         if (isset($_POST['showMembersByYear'])) {
             Redirect::to('Membership?year=' . Request::post('year'));
         }
+        if (isset($_POST['copyMembersToYear'])) {
+            MemberModel::copyMembersToYear();
+        }
     }
 
     public function index()

@@ -37,20 +37,21 @@ if (!isset($year) || empty($year)) {
         <div class="col-sm-4"><a href="/Membership/New" class="btn btn-success float-right"><span class="fa fa-plus"></span> <?= Text::get('LABEL_ADD') ?></a></div>
     </div>
 
+<!--    <form method="post">-->
+<!--        <label>--><?//= Text::get('YEAR') ?><!--</label>-->
+<!--        <input type="number" name="year" value="--><?//= $year ?><!--" />-->
+<!--        <button type="submit" class="btn btn-primary" name="showMembersByYear"><i class="fab fa-sistrix"></i></button>-->
+<!--    </form>-->
 
-    <form method="post">
-        <label><?= Text::get('YEAR') ?></label>
-        <input type="number" name="year" value="<?= $year ?>" />
-        <button type="submit" class="btn btn-primary" name="showMembersByYear"><i class="fab fa-sistrix"></i></button>
-    </form>
-
+    <ul>
     <?php
     $years = MemberMapper::getYears();
     foreach ($years as $jaar) {
         ?><li>
-        <a href="/Membership?year=<?= $jaar['jaarlidmaatschap'] ?>"><?= $jaar['jaarlidmaatschap'] ?></a> (<?= MemberMapper::getMemberCountByYear($jaar['jaarlidmaatschap']) ?>)
+        <a href="/Membership?year=<?= $jaar['jaarlidmaatschap'] ?>"><?= $jaar['jaarlidmaatschap'] ?></a> (<?= MemberMapper::getMemberCountByYear($jaar['jaarlidmaatschap']) ?>)<?php if ($year === $jaar['jaarlidmaatschap']) { echo ' (selected)';} ?>
         </li><?php
     } ?>
+    </ul>
 
     <hr>
     <?php Alert::renderFeedbackMessages(); ?>
