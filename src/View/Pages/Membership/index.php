@@ -29,17 +29,18 @@ if (!isset($year) || empty($year)) {
 <?= $this->end() ?>
 <?= $this->push('main-content') ?>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row mt-5">
         <div class="col-sm-8">
             <h1><?= $pageName ?></h1>
         </div>
-        <div class="col-sm-4"><a href="/Membership/New" class="btn btn-success float-right"><span class="fa fa-plus"></span> <?= Text::get('LABEL_ADD') ?></a></div>
+        <div class="col-sm-4"><a href="/Membership/NewFromExisting" class="btn btn-success float-right"><span class="fa fa-plus"></span> NewFromExisting</a>
+        <a href="/Membership/New" class="btn btn-success float-right"><span class="fa fa-plus"></span> <?= Text::get('LABEL_ADD') ?></a></div>
     </div>
 
 <!--    <form method="post">-->
-<!--        <label>--><?//= Text::get('YEAR') ?><!--</label>-->
-<!--        <input type="number" name="year" value="--><?//= $year ?><!--" />-->
+<!--        <label>--><?php //echo Text::get('YEAR') ?><!--</label>-->
+<!--        <input type="number" name="year" value="--><?php //echo $year ?><!--" />-->
 <!--        <button type="submit" class="btn btn-primary" name="showMembersByYear"><i class="fab fa-sistrix"></i></button>-->
 <!--    </form>-->
 
@@ -48,7 +49,7 @@ if (!isset($year) || empty($year)) {
     $years = MemberMapper::getYears();
     foreach ($years as $jaar) {
         ?><li>
-        <a href="/Membership?year=<?= $jaar['jaarlidmaatschap'] ?>"><?= $jaar['jaarlidmaatschap'] ?></a> (<?= MemberMapper::getMemberCountByYear($jaar['jaarlidmaatschap']) ?>)<?php if ($year === $jaar['jaarlidmaatschap']) { echo ' (selected)';} ?>
+        <a href="/Membership?year=<?= $jaar ?>"><?= $jaar ?></a> (<?= MemberMapper::getMemberCountByYear($jaar) ?>)<?php if ($year === $jaar) { echo ' - Huidige selectie';} ?>
         </li><?php
     } ?>
     </ul>
@@ -56,7 +57,7 @@ if (!isset($year) || empty($year)) {
     <hr>
     <?php Alert::renderFeedbackMessages(); ?>
     <?php
-    $members = MemberMapper::getMembersByYear($year);
+    $members = MemberMapper::getMembers($year);
     if (!empty($members)) {
         include_once DIR_VIEW . 'Pages/Membership/inc/table.php';
     } else {

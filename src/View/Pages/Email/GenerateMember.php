@@ -81,12 +81,12 @@ if (empty($year)) {
             <div id="example" class="row">
                 <?php
 
-                $members = MemberMapper::getMembersByYear($year);
+                $members = MemberMapper::getMembers($year);
                 if (!empty($members)) {
                     $count = 0;
                     foreach ($members as $member) {
                         $count++;
-                        if (!empty($member->emailadres)) { ?>
+                        if (!empty($member->memberContactDetails->emailadres)) { ?>
                             <div class="col-md-4">
                                 <div class="custom-control custom-checkbox">
                                     <input type="checkbox" class="custom-control-input" name='recipients[]' id="customCheck<?= $count ?>" value="<?= $member->id ?>">

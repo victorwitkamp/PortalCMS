@@ -131,7 +131,7 @@ if ($edit) {
                         </div>
                         <input type="email" name="emailadres" value="<?php
                         if ($edit) {
-                            echo $member->emailadres;
+                            echo $member->memberContactDetails->emailadres;
                         } ?>" class="form-control" autocomplete="email">
                     </div>
                 </div>

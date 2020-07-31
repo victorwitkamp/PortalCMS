@@ -13,7 +13,12 @@ use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
+use PortalCMS\Modules\Members\Member;
+use PortalCMS\Modules\Members\MemberAddress;
+use PortalCMS\Modules\Members\MemberContactDetails;
 use PortalCMS\Modules\Members\MemberModel;
+use PortalCMS\Modules\Members\MemberPaymentDetails;
+use PortalCMS\Modules\Members\MemberPreferences;
 
 class MembershipController extends Controller
 {
@@ -26,10 +31,85 @@ class MembershipController extends Controller
         Authentication::checkAuthentication();
 
         if (isset($_POST['saveMember'])) {
-            MemberModel::saveMember();
+            MemberModel::saveMember(
+                new Member(
+                    (int) Request::post('id', true),
+                    (int) Request::post('jaarlidmaatschap', true),
+                    Request::post('voorletters', true),
+                    Request::post('voornaam', true),
+                    Request::post('achternaam', true),
+                    Request::post('geboortedatum', true),
+                    new MemberAddress(
+                        Request::post('adres', true),
+                        Request::post('postcode', true),
+                        Request::post('huisnummer', true),
+                        Request::post('woonplaats', true)
+                    ),
+                    new MemberContactDetails(
+                        Request::post('telefoon_vast', true),
+                        Request::post('telefoon_mobiel', true),
+                        Request::post('emailadres', true)
+                    ),
+                    Request::post('ingangsdatum', true),
+                    Request::post('geslacht', true),
+                    new MemberPreferences(
+                        (int) Request::post('nieuwsbrief', true),
+                        (int) Request::post('vrijwilliger', true),
+                        (int) Request::post('vrijwilligeroptie1', true),
+                        (int) Request::post('vrijwilligeroptie2', true),
+                        (int) Request::post('vrijwilligeroptie3', true),
+                        (int) Request::post('vrijwilligeroptie4', true),
+                        (int) Request::post('vrijwilligeroptie5', true)
+                    ),
+                    new MemberPaymentDetails(
+                        (string) Request::post('betalingswijze', true),
+                        (string) Request::post('iban', true),
+                        (string) Request::post('machtigingskenmerk', true),
+                        (int) Request::post('status', true)
+                    )
+                )
+            );
+
         }
         if (isset($_POST['saveNewMember'])) {
-            MemberModel::newMember();
+            MemberModel::newMember(
+                new Member(
+                    null,
+                    (int) Request::post('jaarlidmaatschap', true),
+                    Request::post('voorletters', true),
+                    Request::post('voornaam', true),
+                    Request::post('achternaam', true),
+                    Request::post('geboortedatum', true),
+                    new MemberAddress(
+                        Request::post('adres', true),
+                        Request::post('postcode', true),
+                        Request::post('huisnummer', true),
+                        Request::post('woonplaats', true)
+                    ),
+                    new MemberContactDetails(
+                        Request::post('telefoon_vast', true),
+                        Request::post('telefoon_mobiel', true),
+                        Request::post('emailadres', true)
+                    ),
+                    Request::post('ingangsdatum', true),
+                    Request::post('geslacht', true),
+                    new MemberPreferences(
+                        (int) Request::post('nieuwsbrief', true),
+                        (int) Request::post('vrijwilliger', true),
+                        (int) Request::post('vrijwilligeroptie1', true),
+                        (int) Request::post('vrijwilligeroptie2', true),
+                        (int) Request::post('vrijwilligeroptie3', true),
+                        (int) Request::post('vrijwilligeroptie4', true),
+                        (int) Request::post('vrijwilligeroptie5', true)
+                    ),
+                    new MemberPaymentDetails(
+                        (string) Request::post('betalingswijze', true),
+                        (string) Request::post('iban', true),
+                        (string) Request::post('machtigingskenmerk', true),
+                        (int) Request::post('status', true)
+                    )
+                )
+            );
         }
         if (isset($_POST['deleteMember'])) {
             MemberModel::delete((int) Request::post('id'));
@@ -38,8 +118,8 @@ class MembershipController extends Controller
         if (isset($_POST['showMembersByYear'])) {
             Redirect::to('Membership?year=' . Request::post('year'));
         }
-        if (isset($_POST['copyMembersToYear'])) {
-            MemberModel::copyMembersToYear();
+        if (isset($_POST['copyMembersById'])) {
+            MemberModel::copyMembersById();
         }
     }
 
@@ -68,6 +148,16 @@ class MembershipController extends Controller
         if (Authorization::hasPermission('membership')) {
             $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Membership/Edit');
+        } else {
+            Redirect::to('Error/PermissionError');
+        }
+    }
+
+    public function newFromExisting()
+    {
+        if (Authorization::hasPermission('membership')) {
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/Membership/NewFromExisting');
         } else {
             Redirect::to('Error/PermissionError');
         }

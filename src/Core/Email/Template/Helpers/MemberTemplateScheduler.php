@@ -62,7 +62,7 @@ class MemberTemplateScheduler
         }
         $mailId = MailScheduleMapper::lastInsertedId();
         $memberFullname = $member->voornaam . ' ' . $member->achternaam;
-        EmailRecipientMapper::createRecipient($mailId, $member->emailadres, $memberFullname);
+        EmailRecipientMapper::createRecipient($mailId, $member->memberContactDetails->emailadres, $memberFullname);
         $attachments = EmailAttachmentMapper::getByTemplateId($template->id);
         if (!empty($attachments)) {
             foreach ($attachments as $attachment) {
