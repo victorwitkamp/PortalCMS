@@ -38,11 +38,12 @@ if (!isset($year) || empty($year)) {
         <a href="/Membership/New" class="btn btn-success float-right"><span class="fa fa-plus"></span> <?= Text::get('LABEL_ADD') ?></a></div>
     </div>
 
-<!--    <form method="post">-->
-<!--        <label>--><?php //echo Text::get('YEAR') ?><!--</label>-->
-<!--        <input type="number" name="year" value="--><?php //echo $year ?><!--" />-->
-<!--        <button type="submit" class="btn btn-primary" name="showMembersByYear"><i class="fab fa-sistrix"></i></button>-->
-<!--    </form>-->
+<!--<form method="post"><label>
+<?php //echo Text::get('YEAR'); ?>
+    <!--</label><input type="number" name="year" value="<?php //echo $year; ?>" />
+    <button type="submit" class="btn btn-primary" name="showMembersByYear">
+    <i class="fab fa-sistrix"></i></button>
+    </form>-->
 
     <ul>
     <?php

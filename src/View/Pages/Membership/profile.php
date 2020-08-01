@@ -8,7 +8,6 @@ declare(strict_types=1);
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Modules\Members\MemberModel;
 
-
 $pageName = 'Profiel';
 
 $member = MemberModel::getMember((int) Request::get('Id'));
@@ -68,31 +67,31 @@ $pageName = 'Lidmaatschap van ' . $member->voornaam . ' ' . $member->achternaam;
                 </tr>
                 <tr>
                     <th>Adres</th>
-                    <td><?= $member->memberAddress->adres ?></td>
+                    <td><?= $member->address->adres ?></td>
                 </tr>
                 <tr>
                     <th>Postcode</th>
-                    <td><?= $member->memberAddress->postcode ?></td>
+                    <td><?= $member->address->postcode ?></td>
                 </tr>
                 <tr>
                     <th>Huisnummer</th>
-                    <td><?= $member->memberAddress->huisnummer ?></td>
+                    <td><?= $member->address->huisnummer ?></td>
                 </tr>
                 <tr>
                     <th>Woonplaats</th>
-                    <td><?= $member->memberAddress->woonplaats ?></td>
+                    <td><?= $member->address->woonplaats ?></td>
                 </tr>
                 <tr>
                     <th>Telefoon vast</th>
-                    <td><?= $member->memberContactDetails->telefoon_vast ?></td>
+                    <td><?= $member->contactDetails->telefoon_vast ?></td>
                 </tr>
                 <tr>
                     <th>Telefoon mobiel</th>
-                    <td><?= $member->memberContactDetails->telefoon_mobiel ?></td>
+                    <td><?= $member->contactDetails->telefoon_mobiel ?></td>
                 </tr>
                 <tr>
                     <th>E-mailadres</th>
-                    <td><?= $member->memberContactDetails->emailadres ?></td>
+                    <td><?= $member->contactDetails->emailadres ?></td>
                 </tr>
                 <tr>
                     <th>Lid vanaf</th>
@@ -109,9 +108,9 @@ $pageName = 'Lidmaatschap van ' . $member->voornaam . ' ' . $member->achternaam;
                 <tr>
                     <th>Nieuwsbrief</th>
                     <td><?php
-                    if ($member->memberPreferences->nieuwsbrief === 1) {
+                    if ($member->preferences->nieuwsbrief === 1) {
                         echo 'ja';
-                    } elseif ($member->memberPreferences->nieuwsbrief === 0) {
+                    } elseif ($member->preferences->nieuwsbrief === 0) {
                         echo 'nee';
                     } else {
                         echo 'n/a';
@@ -120,9 +119,9 @@ $pageName = 'Lidmaatschap van ' . $member->voornaam . ' ' . $member->achternaam;
                 <tr>
                     <th>Vrijwilliger</th>
                     <td><?php
-                    if ($member->memberPreferences->vrijwilliger === 1) {
+                    if ($member->preferences->vrijwilliger === 1) {
                         echo 'ja';
-                    } elseif ($member->memberPreferences->vrijwilliger === 0) {
+                    } elseif ($member->preferences->vrijwilliger === 0) {
                         echo 'nee';
                     } else {
                         echo 'n/a';
@@ -131,9 +130,9 @@ $pageName = 'Lidmaatschap van ' . $member->voornaam . ' ' . $member->achternaam;
                 <tr>
                     <th>Licht / geluid</th>
                     <td><?php
-                    if ($member->memberPreferences->vrijwilligeroptie1 === 1) {
+                    if ($member->preferences->vrijwilligeroptie1 === 1) {
                         echo 'ja';
-                    } elseif ($member->memberPreferences->vrijwilligeroptie1 === 0) {
+                    } elseif ($member->preferences->vrijwilligeroptie1 === 0) {
                         echo 'nee';
                     } else {
                         echo 'n/a';
@@ -142,9 +141,9 @@ $pageName = 'Lidmaatschap van ' . $member->voornaam . ' ' . $member->achternaam;
                 <tr>
                     <th>Bar</th>
                     <td><?php
-                    if ($member->memberPreferences->vrijwilligeroptie2 === 1) {
+                    if ($member->preferences->vrijwilligeroptie2 === 1) {
                         echo 'ja';
-                    } elseif ($member->memberPreferences->vrijwilligeroptie2 === 0) {
+                    } elseif ($member->preferences->vrijwilligeroptie2 === 0) {
                         echo 'nee';
                     } else {
                         echo 'n/a';
@@ -153,9 +152,9 @@ $pageName = 'Lidmaatschap van ' . $member->voornaam . ' ' . $member->achternaam;
                 <tr>
                     <th>Schoonmaken / klussen</th>
                     <td><?php
-                    if ($member->memberPreferences->vrijwilligeroptie3 === 1) {
+                    if ($member->preferences->vrijwilligeroptie3 === 1) {
                         echo 'ja';
-                    } elseif ($member->memberPreferences->vrijwilligeroptie3 === 0) {
+                    } elseif ($member->preferences->vrijwilligeroptie3 === 0) {
                         echo 'nee';
                     } else {
                         echo 'n/a';
@@ -164,9 +163,9 @@ $pageName = 'Lidmaatschap van ' . $member->voornaam . ' ' . $member->achternaam;
                 <tr>
                     <th>Promotie / flyeren</th>
                     <td><?php
-                    if ($member->memberPreferences->vrijwilligeroptie4 === 1) {
+                    if ($member->preferences->vrijwilligeroptie4 === 1) {
                         echo 'ja';
-                    } elseif ($member->memberPreferences->vrijwilligeroptie4 === 0) {
+                    } elseif ($member->preferences->vrijwilligeroptie4 === 0) {
                         echo 'nee';
                     } else {
                         echo 'n/a';
@@ -175,9 +174,9 @@ $pageName = 'Lidmaatschap van ' . $member->voornaam . ' ' . $member->achternaam;
                 <tr>
                     <th>Organisatie evenementen</th>
                     <td><?php
-                    if ($member->memberPreferences->vrijwilligeroptie5 === 1) {
+                    if ($member->preferences->vrijwilligeroptie5 === 1) {
                         echo 'ja';
-                    } elseif ($member->memberPreferences->vrijwilligeroptie5 === 0) {
+                    } elseif ($member->preferences->vrijwilligeroptie5 === 0) {
                         echo 'nee';
                     } else {
                         echo 'n/a';
@@ -187,30 +186,30 @@ $pageName = 'Lidmaatschap van ' . $member->voornaam . ' ' . $member->achternaam;
             <table class="table table-striped table-condensed">
                 <tr>
                     <th>CreationDate</th>
-                    <td><?= $member->CreationDate ?></td>
+                    <td><?= $member->creationDate ?></td>
                 </tr>
                 <tr>
                     <th>ModificationDate</th>
-                    <td><?= $member->ModificationDate ?></td>
+                    <td><?= $member->modificationDate ?></td>
                 </tr>
             </table>
         </div>
         <table class="table table-striped table-condensed">
             <tr>
                 <th>Betalingswijze</th>
-                <td><?= $member->memberPaymentDetails->betalingswijze ?></td>
+                <td><?= $member->paymentDetails->betalingswijze ?></td>
             </tr>
             <tr>
                 <th>IBAN</th>
-                <td><?= $member->memberPaymentDetails->iban ?></td>
+                <td><?= $member->paymentDetails->iban ?></td>
             </tr>
             <tr>
                 <th>Machtigingskenmerk</th>
-                <td><?= $member->memberPaymentDetails->machtigingskenmerk ?></td>
+                <td><?= $member->paymentDetails->machtigingskenmerk ?></td>
             </tr>
             <tr>
                 <th>Status</th>
-                <td><?= $member->memberPaymentDetails->status ?></td>
+                <td><?= $member->paymentDetails->status ?></td>
             </tr>
             <!--<tr>
                 <th>Incasso gelukt</th><td><?php //echo $member->incasso_gelukt;

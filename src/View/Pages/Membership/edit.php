@@ -7,11 +7,12 @@ declare(strict_types=1);
 
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Modules\Members\MemberMapper;
+//use PortalCMS\Modules\Members\MemberMapper;
+use PortalCMS\Modules\Members\MemberModel;
 
 $pageName = 'Wijzigen';
 $pageType = 'edit';
-$member = MemberMapper::getMemberById((int) Request::get('Id'));
+$member = MemberModel::getMember((int) Request::get('Id'));
 if (!empty($member)) {
     $allowEdit = true;
     $pageName = 'Lidmaatschap van ' . $member->voornaam . ' ' . $member->achternaam . ' bewerken';

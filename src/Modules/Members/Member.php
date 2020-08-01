@@ -18,12 +18,14 @@ class Member
     public $voornaam;
     public $achternaam;
     public $geboortedatum;
-    public $memberAddress;
-    public $memberContactDetails;
+    public $address;
+    public $contactDetails;
     public $ingangsdatum;
     public $geslacht;
-    public $memberPreferences;
-    public $memberPaymentDetails;
+    public $preferences;
+    public $paymentDetails;
+    public $creationDate;
+    public $modificationDate;
 
     public function __construct(
         int $id = null,
@@ -32,12 +34,14 @@ class Member
         string $voornaam = null,
         string $achternaam = null,
         string $geboortedatum = null,
-        MemberAddress $memberAddress = null,
-        MemberContactDetails $memberContactDetails = null,
+        MemberAddress $address = null,
+        MemberContactDetails $contactDetails = null,
         string $ingangsdatum = null,
         string $geslacht = null,
-        MemberPreferences $memberPreferences = null,
-        MemberPaymentDetails $memberPaymentDetails = null
+        MemberPreferences $preferences = null,
+        MemberPaymentDetails $paymentDetails = null,
+        string $creationDate = null,
+        string $modificationDate = null
     ) {
         $this->id = $id;
         $this->jaarlidmaatschap = $jaarlidmaatschap;
@@ -45,11 +49,13 @@ class Member
         $this->voornaam = $voornaam;
         $this->achternaam = $achternaam;
         $this->geboortedatum = $geboortedatum;
-        $this->memberAddress = $memberAddress;
-        $this->memberContactDetails = $memberContactDetails;
+        $this->address = $address;
+        $this->contactDetails = $contactDetails;
         $this->ingangsdatum = $ingangsdatum;
         $this->geslacht = $geslacht;
-        $this->memberPreferences = $memberPreferences;
-        $this->memberPaymentDetails = $memberPaymentDetails;
+        $this->preferences = $preferences;
+        $this->paymentDetails = $paymentDetails;
+        $this->creationDate = $creationDate;
+        $this->modificationDate = $modificationDate;
     }
 }

@@ -26,7 +26,7 @@ class MemberModel
             } else {
                 $member->id = null;
                 $member->jaarlidmaatschap = $targetYear;
-                $member->memberPaymentDetails->status = 0;
+                $member->paymentDetails->status = 0;
 //                $member->CreationDate = null;
 //                $member->ModificationDate = null;
                 var_dump($member);

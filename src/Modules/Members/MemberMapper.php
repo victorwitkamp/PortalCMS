@@ -130,10 +130,10 @@ class MemberMapper
                 $member->memberContactDetails->emailadres, $member->ingangsdatum, $member->geslacht, $member->memberPreferences->nieuwsbrief,
                 $member->memberPreferences->vrijwilliger, $member->memberPreferences->vrijwilligeroptie1, $member->memberPreferences->vrijwilligeroptie2,
                 $member->memberPreferences->vrijwilligeroptie3, $member->memberPreferences->vrijwilligeroptie4, $member->memberPreferences->vrijwilligeroptie5,
-                $member->memberPaymentDetails->betalingswijze,
-                $member->memberPaymentDetails->iban,
-                $member->memberPaymentDetails->machtigingskenmerk,
-                $member->memberPaymentDetails->status,
+                $member->paymentDetails->betalingswijze,
+                $member->paymentDetails->iban,
+                $member->paymentDetails->machtigingskenmerk,
+                $member->paymentDetails->status,
                 $member->id
             ]
         );
@@ -156,7 +156,7 @@ class MemberMapper
                 $member->jaarlidmaatschap, $member->voorletters, $member->voornaam, $member->achternaam, $member->geboortedatum,
                 $member->memberAddress->adres, $member->memberAddress->postcode, $member->memberAddress->huisnummer, $member->memberAddress->woonplaats, $member->memberContactDetails->telefoon_vast, $member->memberContactDetails->telefoon_mobiel,
                 $member->memberContactDetails->emailadres, $member->ingangsdatum, $member->geslacht, $member->memberPreferences->nieuwsbrief, $member->memberPreferences->vrijwilliger, $member->memberPreferences->vrijwilligeroptie1,
-                $member->memberPreferences->vrijwilligeroptie2, $member->memberPreferences->vrijwilligeroptie3, $member->memberPreferences->vrijwilligeroptie4, $member->memberPreferences->vrijwilligeroptie5, $member->memberPaymentDetails->betalingswijze, $member->memberPaymentDetails->iban, $member->memberPaymentDetails->machtigingskenmerk, $member->memberPaymentDetails->status
+                $member->memberPreferences->vrijwilligeroptie2, $member->memberPreferences->vrijwilligeroptie3, $member->memberPreferences->vrijwilligeroptie4, $member->memberPreferences->vrijwilligeroptie5, $member->paymentDetails->betalingswijze, $member->paymentDetails->iban, $member->paymentDetails->machtigingskenmerk, $member->paymentDetails->status
             ]
         );
     }
