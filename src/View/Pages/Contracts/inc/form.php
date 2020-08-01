@@ -81,7 +81,7 @@ use PortalCMS\Core\View\Text;
                             </div>
                             <input type="date"
                                    pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
-                                   name="contract_ingangsdatum" class="form-control" <?= ($pagetype = 'edit' && !empty($contract->contract_ingangsdatum)) ? 'value="' . date('Y-m-d', strtotime($contract->contract_ingangsdatum)) . '"' : '' ?>>
+                                   name="contract_ingangsdatum" class="form-control" <?= ($pagetype === 'edit' && !empty($contract->contract_ingangsdatum)) ? 'value="' . date('Y-m-d', strtotime($contract->contract_ingangsdatum)) . '"' : '' ?>>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -93,7 +93,7 @@ use PortalCMS\Core\View\Text;
                             <input type="date"
                                    pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
                                    name="contract_einddatum"
-                                   class="form-control" <?= ($pagetype = 'edit' && !empty($contract->contract_einddatum)) ? 'value="' . date('Y-m-d', strtotime($contract->contract_einddatum)) . '"' : '' ?>>
+                                   class="form-control" <?= ($pagetype === 'edit' && !empty($contract->contract_einddatum)) ? 'value="' . date('Y-m-d', strtotime($contract->contract_einddatum)) . '"' : '' ?>>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -105,7 +105,7 @@ use PortalCMS\Core\View\Text;
                             <input type="date"
                                    pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
                                    name="contract_datum"
-                                   class="form-control" <?= ($pagetype = 'edit' && !empty($contract->contract_datum)) ? 'value="' . date('Y-m-d', strtotime($contract->contract_datum)) . '"' : '' ?>>
+                                   class="form-control" <?= ($pagetype === 'edit' && !empty($contract->contract_datum)) ? 'value="' . date('Y-m-d', strtotime($contract->contract_datum)) . '"' : '' ?>>
                         </div>
                     </div>
                 </div>
@@ -200,7 +200,7 @@ use PortalCMS\Core\View\Text;
                             <input type="date"
                                    pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
                                    name="bandleider_geboortedatum"
-                                   class="form-control" <?= ($pagetype = 'edit' && !empty($contract->bandleider_geboortedatum)) ? 'value="' . date('Y-m-d', strtotime($contract->bandleider_geboortedatum)) . '"' : '' ?>
+                                   class="form-control" <?= ($pagetype === 'edit' && !empty($contract->bandleider_geboortedatum)) ? 'value="' . date('Y-m-d', strtotime($contract->bandleider_geboortedatum)) . '"' : '' ?>
                         </div>
                     </div>
                 </div>

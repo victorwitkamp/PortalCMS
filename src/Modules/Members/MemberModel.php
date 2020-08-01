@@ -7,7 +7,6 @@ declare(strict_types=1);
 
 namespace PortalCMS\Modules\Members;
 
-use PortalCMS\Core\Database\DB;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Session\Session;
@@ -41,7 +40,7 @@ class MemberModel
         }
     }
 
-    public static function getMember(int $id)
+    public static function getMember(int $id): Member
     {
         $membermap = MemberMapper::getMemberById($id);
 

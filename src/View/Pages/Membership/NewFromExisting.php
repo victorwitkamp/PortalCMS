@@ -6,7 +6,6 @@
 
 declare(strict_types=1);
 
-use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;

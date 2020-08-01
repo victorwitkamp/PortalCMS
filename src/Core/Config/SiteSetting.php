@@ -118,10 +118,10 @@ class SiteSetting
 
         if ($width > $height) {
             $y = 0;
-            $x = (int) ($width - $height) / 2;
+            $x = ($width - $height) / 2;
             $smallestSide = $height;
         } else {
-            $x = (int) 0;
+            $x = 0;
             $y = ($height - $width) / 2;
             $smallestSide = $width;
         }
