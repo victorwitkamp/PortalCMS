@@ -14,31 +14,31 @@ use PortalCMS\Core\Session\Session;
 
 class MemberModel
 {
+    public static function copyMember(int $id = null, int $targetYear = null) : bool
+    {
+        $member = self::getMember($id);
+        if ($member->jaarlidmaatschap === $targetYear) {
+            return false;
+        }
+        $member->id = null;
+        $member->jaarlidmaatschap = $targetYear;
+        $member->paymentDetails->status = 0;
+        $member->creationDate = null;
+        $member->modificationDate = null;
+
+        if (MemberMapper::new($member)) {
+            return true;
+        }
+        return false;
+    }
+
     public static function copyMembersById()
     {
         $targetYear = (int) Request::post('targetYear', true);
         $ids = (array) Request::post('id');
         foreach ($ids as $id) {
-            $member = self::getMember((int) $id);
-            var_dump($member);
-            if ($member->jaarlidmaatschap === $targetYear) {
-                echo 'error. target year is the same as current year.';
-            } else {
-                $member->id = null;
-                $member->jaarlidmaatschap = $targetYear;
-                $member->paymentDetails->status = 0;
-//                $member->CreationDate = null;
-//                $member->ModificationDate = null;
-                var_dump($member);
-            }
-            if (MemberMapper::new($member)) {
-                echo 'saved';
-            } else {
-                echo 'could not be saved';
-            }
-            echo '<hr>';
+            self::copyMember($id, $targetYear);
         }
-        die;
     }
 
     public static function getMember(int $id)
