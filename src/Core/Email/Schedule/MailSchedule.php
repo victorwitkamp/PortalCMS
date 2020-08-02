@@ -130,11 +130,9 @@ class MailSchedule
     public static function createWithTemplate(int $templateId, array $recipientIds)
     {
         $template = EmailTemplateMapper::getById($templateId);
-        if (!empty($template)) {
-            if ($template->type === 'member') {
-                $scheduler = new MemberTemplateScheduler();
-                $scheduler->scheduleMails($template, $recipientIds);
-            }
+        if (!empty($template) && $template->type === 'member') {
+            $scheduler = new MemberTemplateScheduler();
+            $scheduler->scheduleMails($template, $recipientIds);
         }
     }
 

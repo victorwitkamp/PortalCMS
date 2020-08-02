@@ -61,7 +61,9 @@ if (!empty($contractId) && is_numeric($contractId)) {
         <?php
         $years = InvoiceMapper::getYears();
         foreach ($years as $jaar) {
-            ?><li><a href="/Invoices?year=<?= $jaar['year'] ?>"><?= $jaar['year'] ?></a> (<?= InvoiceMapper::getInvoiceCountByYear($jaar['year']) ?>) <?php if ((int) Request::get('year') === $jaar['year']) { echo ' - Geselecteerd'; }?></li><?php
+            ?><li><a href="/Invoices?year=<?= $jaar['year'] ?>"><?= $jaar['year'] ?></a> (<?= InvoiceMapper::getInvoiceCountByYear($jaar['year']) ?>) <?php if ((int) Request::get('year') === $jaar['year']) {
+                echo ' - Geselecteerd';
+            } ?></li><?php
         } ?>
     </ul>
 

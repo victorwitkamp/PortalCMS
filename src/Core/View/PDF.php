@@ -81,7 +81,7 @@ class PDF
 
     public static function createInvoice(TCPDF $pdf, object $invoice, array $invoiceitems, object $contract) : TCPDF
     {
-         return self::setInvoiceFooter(self::setInvoiceContent(self::setInvoiceHeader($pdf, $invoice, $contract), $invoiceitems));
+        return self::setInvoiceFooter(self::setInvoiceContent(self::setInvoiceHeader($pdf, $invoice, $contract), $invoiceitems));
     }
 
     public static function setInvoiceHeader(TCPDF $pdf, $invoice, $contract): TCPDF

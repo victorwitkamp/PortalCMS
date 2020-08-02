@@ -123,11 +123,11 @@ class MemberMapper
         $stmt->execute(
             [
                 $member->jaarlidmaatschap, $member->voorletters, $member->voornaam, $member->achternaam,
-                $member->geboortedatum, $member->memberAddress->adres, $member->memberAddress->postcode, $member->memberAddress->huisnummer,
-                $member->memberAddress->woonplaats, $member->memberContactDetails->telefoon_vast, $member->memberContactDetails->telefoon_mobiel,
-                $member->memberContactDetails->emailadres, $member->ingangsdatum, $member->geslacht, $member->memberPreferences->nieuwsbrief,
-                $member->memberPreferences->vrijwilliger, $member->memberPreferences->vrijwilligeroptie1, $member->memberPreferences->vrijwilligeroptie2,
-                $member->memberPreferences->vrijwilligeroptie3, $member->memberPreferences->vrijwilligeroptie4, $member->memberPreferences->vrijwilligeroptie5,
+                $member->geboortedatum, $member->address->adres, $member->address->postcode, $member->address->huisnummer,
+                $member->address->woonplaats, $member->contactDetails->telefoon_vast, $member->contactDetails->telefoon_mobiel,
+                $member->contactDetails->emailadres, $member->ingangsdatum, $member->geslacht, $member->preferences->nieuwsbrief,
+                $member->preferences->vrijwilliger, $member->preferences->vrijwilligeroptie1, $member->preferences->vrijwilligeroptie2,
+                $member->preferences->vrijwilligeroptie3, $member->preferences->vrijwilligeroptie4, $member->preferences->vrijwilligeroptie5,
                 $member->paymentDetails->betalingswijze,
                 $member->paymentDetails->iban,
                 $member->paymentDetails->machtigingskenmerk,
@@ -152,9 +152,9 @@ class MemberMapper
         return $stmt->execute(
             [
                 $member->jaarlidmaatschap, $member->voorletters, $member->voornaam, $member->achternaam, $member->geboortedatum,
-                $member->memberAddress->adres, $member->memberAddress->postcode, $member->memberAddress->huisnummer, $member->memberAddress->woonplaats, $member->memberContactDetails->telefoon_vast, $member->memberContactDetails->telefoon_mobiel,
-                $member->memberContactDetails->emailadres, $member->ingangsdatum, $member->geslacht, $member->memberPreferences->nieuwsbrief, $member->memberPreferences->vrijwilliger, $member->memberPreferences->vrijwilligeroptie1,
-                $member->memberPreferences->vrijwilligeroptie2, $member->memberPreferences->vrijwilligeroptie3, $member->memberPreferences->vrijwilligeroptie4, $member->memberPreferences->vrijwilligeroptie5, $member->paymentDetails->betalingswijze, $member->paymentDetails->iban, $member->paymentDetails->machtigingskenmerk, $member->paymentDetails->status
+                $member->address->adres, $member->address->postcode, $member->address->huisnummer, $member->address->woonplaats, $member->contactDetails->telefoon_vast, $member->contactDetails->telefoon_mobiel,
+                $member->contactDetails->emailadres, $member->ingangsdatum, $member->geslacht, $member->preferences->nieuwsbrief, $member->preferences->vrijwilliger, $member->preferences->vrijwilligeroptie1,
+                $member->preferences->vrijwilligeroptie2, $member->preferences->vrijwilligeroptie3, $member->preferences->vrijwilligeroptie4, $member->preferences->vrijwilligeroptie5, $member->paymentDetails->betalingswijze, $member->paymentDetails->iban, $member->paymentDetails->machtigingskenmerk, $member->paymentDetails->status
             ]
         );
     }

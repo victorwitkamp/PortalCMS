@@ -17,10 +17,8 @@ class Router
     public static function processRequests(array $requests, $class) : void
     {
         foreach ($requests as $key => $value) {
-            if ($value === 'POST') {
-                if (isset($_POST[$key])) {
-                    call_user_func([$class, $key]);
-                }
+            if (($value === 'POST') && isset($_POST[$key])) {
+                call_user_func([$class, $key]);
             }
         }
     }

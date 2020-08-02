@@ -39,8 +39,8 @@ if (!isset($year) || empty($year)) {
     </div>
 
 <!--<form method="post"><label>
-<?php //echo Text::get('YEAR'); ?>
-    <!--</label><input type="number" name="year" value="<?php //echo $year; ?>" />
+<?php //echo Text::get('YEAR');?>
+    <!--</label><input type="number" name="year" value="<?php //echo $year;?>" />
     <button type="submit" class="btn btn-primary" name="showMembersByYear">
     <i class="fab fa-sistrix"></i></button>
     </form>-->
@@ -50,7 +50,9 @@ if (!isset($year) || empty($year)) {
     $years = MemberMapper::getYears();
     foreach ($years as $jaar) {
         ?><li>
-        <a href="/Membership?year=<?= $jaar ?>"><?= $jaar ?></a> (<?= MemberMapper::getMemberCountByYear($jaar) ?>)<?php if ($year === $jaar) { echo ' - Huidige selectie';} ?>
+        <a href="/Membership?year=<?= $jaar ?>"><?= $jaar ?></a> (<?= MemberMapper::getMemberCountByYear($jaar) ?>)<?php if ($year === $jaar) {
+            echo ' - Huidige selectie';
+        } ?>
         </li><?php
     } ?>
     </ul>

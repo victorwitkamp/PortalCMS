@@ -107,7 +107,7 @@ class MemberModel
 
     public static function newMember(Member $member)
     {
-        if (MemberMapper::doesEmailforYearExist($member->jaarlidmaatschap, $member->memberContactDetails->emailadres)) {
+        if (MemberMapper::doesEmailforYearExist($member->jaarlidmaatschap, $member->ContactDetails->emailadres)) {
             Session::add('feedback_negative', 'Emailadres wordt dit jaar al gebruikt door een ander lid.');
             Redirect::to('membership/');
         } else {

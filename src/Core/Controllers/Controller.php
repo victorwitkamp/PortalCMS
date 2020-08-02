@@ -19,12 +19,10 @@ class Controller
     {
         Session::init();
 
-        if (!Authentication::userIsLoggedIn() && !empty(Request::cookie('remember_me'))) {
-            if (!LoginController::loginWithCookie()) {
-                $templates = new Engine(DIR_VIEW);
-                echo $templates->render('Pages/Login/indexNew');
+        if (!Authentication::userIsLoggedIn() && !empty(Request::cookie('remember_me')) && !LoginController::loginWithCookie()) {
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/Login/indexNew');
 
-            }
         }
     }
 }

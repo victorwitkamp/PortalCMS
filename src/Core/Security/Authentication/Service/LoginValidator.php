@@ -55,9 +55,8 @@ class LoginValidator
         } elseif (!self::checkSessionBruteForce()) {
             Session::add('feedback_negative', Text::get('FEEDBACK_BRUTE_FORCE_CHECK_FAILED'));
             return null;
-        } else {
-            return self::getUser($user_name, $user_password);
         }
+        return self::getUser($user_name, $user_password);
     }
 
     public static function getUser(string $user_name, string $user_password) : ?object
