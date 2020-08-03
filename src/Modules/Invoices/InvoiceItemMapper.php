@@ -8,13 +8,13 @@ declare(strict_types=1);
 namespace PortalCMS\Modules\Invoices;
 
 use PDO;
-use PortalCMS\Core\Database\DB;
+use PortalCMS\Core\Database\Database;
 
 class InvoiceItemMapper
 {
     public static function getByInvoiceId(int $invoiceId) : ?array
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'SELECT *
                 FROM invoice_items
                 WHERE invoice_id = ?'
@@ -28,7 +28,7 @@ class InvoiceItemMapper
 
     public static function create(int $invoiceId, string $name, int $price): bool
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'INSERT INTO invoice_items(
                 id, invoice_id, name, price
                 )
@@ -43,7 +43,7 @@ class InvoiceItemMapper
 
     public static function delete(int $id): bool
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'DELETE
                 FROM invoice_items
                     WHERE id = ?'
@@ -54,7 +54,7 @@ class InvoiceItemMapper
 
     public static function deleteByInvoiceId(int $id): bool
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'DELETE
                 FROM invoice_items
                     WHERE invoice_id = ?'
@@ -65,7 +65,7 @@ class InvoiceItemMapper
 
     public static function exists(int $id): bool
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'SELECT id
                     FROM invoice_items
                         WHERE id = ?

@@ -6,13 +6,13 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Config;
 
-use PortalCMS\Core\Database\DB;
+use PortalCMS\Core\Database\Database;
 
 class SiteSettingsMapper
 {
     public static function update(string $setting, string $value): bool
     {
-        $stmt = DB::conn()->prepare('UPDATE site_settings SET string_value = ? WHERE setting = ? LIMIT 1');
+        $stmt = Database::conn()->prepare('UPDATE site_settings SET string_value = ? WHERE setting = ? LIMIT 1');
         if (!$stmt->execute([$value, $setting])) {
             return false;
         }

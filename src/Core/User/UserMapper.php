@@ -8,13 +8,13 @@ declare(strict_types=1);
 namespace PortalCMS\Core\User;
 
 use PDO;
-use PortalCMS\Core\Database\DB;
+use PortalCMS\Core\Database\Database;
 
 class UserMapper
 {
     public static function usernameExists(string $user_name): bool
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'SELECT user_id
                     FROM users
                         WHERE user_name = ?
@@ -26,7 +26,7 @@ class UserMapper
 
     public static function getProfileById(int $Id): ?object
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'SELECT user_id,
             user_name,
             session_id,
@@ -55,7 +55,7 @@ class UserMapper
 
     public static function getByUsername(string $username): ?object
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'SELECT user_id,
                     user_name,
                     user_email,
@@ -80,7 +80,7 @@ class UserMapper
 
     public static function getByIdAndToken(int $user_id, string $token): ?object
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'SELECT user_id,
                     user_name,
                     user_email,
@@ -111,7 +111,7 @@ class UserMapper
 
     public static function getByFbid(int $user_fbid): ?object
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'SELECT *
                             FROM users
                                 WHERE user_fbid = :user_fbid
@@ -127,7 +127,7 @@ class UserMapper
 
     public static function getByUsernameOrEmail(string $usernameOrEmail): ?object
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'SELECT user_id, user_name, user_email
                     FROM users
                         WHERE user_name = ?
@@ -143,7 +143,7 @@ class UserMapper
 
     public static function getUsers(): ?array
     {
-        $stmt = DB::conn()->query('SELECT * FROM users ORDER BY user_id ');
+        $stmt = Database::conn()->query('SELECT * FROM users ORDER BY user_id ');
         $stmt->execute();
         if ($stmt->rowCount() === 0) {
             return null;
@@ -153,7 +153,7 @@ class UserMapper
 
     public static function updatePassword(string $username, string $user_password_hash): bool
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'UPDATE users
                         SET user_password_hash = :user_password_hash
                             WHERE user_name = :user_name
@@ -170,7 +170,7 @@ class UserMapper
 
     public static function updateUsername(int $user_id, string $newUsername): bool
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'UPDATE users
                 SET user_name = :user_name
                     WHERE user_id = :user_id
@@ -182,7 +182,7 @@ class UserMapper
 
     public static function updateFBid(int $user_id, int $fbid = null): bool
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'UPDATE users
                 SET user_fbid = ?
                     WHERE user_id = ?
@@ -194,7 +194,7 @@ class UserMapper
 
     public static function updateRememberMeToken(int $user_id, string $token): bool
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'UPDATE users
                     SET user_remember_me_token = ?
                         WHERE user_id = ?
@@ -206,7 +206,7 @@ class UserMapper
 
     public static function updateSessionId(int $userId, string $sessionId = null): bool
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'UPDATE users
                     SET session_id = :session_id
                         WHERE user_id = :user_id
@@ -218,7 +218,7 @@ class UserMapper
 
     public static function saveTimestampByUsername(string $username): bool
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'UPDATE users
                 SET user_last_login_timestamp = ?
                     WHERE user_name = ?
@@ -230,7 +230,7 @@ class UserMapper
 
     public static function resetFailedLoginsByUsername(string $username): bool
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'UPDATE users
                 SET user_failed_logins = 0, user_last_failed_login = NULL
                     WHERE user_name = ?
@@ -243,7 +243,7 @@ class UserMapper
 
     public static function setFailedLoginByUsername(string $username): bool
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'UPDATE users
                 SET user_failed_logins = user_failed_logins+1, user_last_failed_login = :user_last_failed_login
                     WHERE user_name = :user_name
@@ -256,7 +256,7 @@ class UserMapper
 
     public static function clearRememberMeToken(int $user_id): bool
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'UPDATE users
                     SET user_remember_me_token = NULL
                         WHERE user_id = ?
@@ -268,7 +268,7 @@ class UserMapper
 
     public static function deleteUser(int $user_id) : bool
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'DELETE FROM users
                 WHERE user_id = ?
                     LIMIT 1'

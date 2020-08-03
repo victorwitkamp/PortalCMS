@@ -8,13 +8,13 @@ declare(strict_types=1);
 namespace PortalCMS\Modules\Contracts;
 
 use PDO;
-use PortalCMS\Core\Database\DB;
+use PortalCMS\Core\Database\Database;
 
 class ContractMapper
 {
     public static function get(): ?array
     {
-        $stmt = DB::conn()->prepare('SELECT * FROM contracts ORDER BY id');
+        $stmt = Database::conn()->prepare('SELECT * FROM contracts ORDER BY id');
         $stmt->execute([]);
         if ($stmt->rowCount() > 0) {
             return $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -24,7 +24,7 @@ class ContractMapper
 
     public static function getById(int $Id): ?object
     {
-        $stmt = DB::conn()->prepare('SELECT * FROM contracts WHERE id = ? LIMIT 1');
+        $stmt = Database::conn()->prepare('SELECT * FROM contracts WHERE id = ? LIMIT 1');
         $stmt->execute([$Id]);
         if ($stmt->rowCount() === 1) {
             return $stmt->fetch(PDO::FETCH_OBJ);
@@ -34,7 +34,7 @@ class ContractMapper
 
     public static function new(Contract $contract): bool
     {
-        $stmt = DB::conn()->prepare('INSERT INTO contracts (
+        $stmt = Database::conn()->prepare('INSERT INTO contracts (
                 id,
                 beuk_vertegenwoordiger,
                 band_naam,
@@ -58,7 +58,7 @@ class ContractMapper
 
     public static function lastInsertedId(): ?int
     {
-        $id = DB::conn()->query('SELECT max(id) from contracts')->fetchColumn();
+        $id = Database::conn()->query('SELECT max(id) from contracts')->fetchColumn();
         if (!empty($id) && is_numeric($id)) {
             return (int) $id;
         }
@@ -67,7 +67,7 @@ class ContractMapper
 
     public static function update(Contract $contract): bool
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'UPDATE contracts
                     SET
                     beuk_vertegenwoordiger=?, band_naam=?, bandcode=?, bandleider_naam=?, bandleider_adres=?, bandleider_postcode=?,
@@ -87,7 +87,7 @@ class ContractMapper
 
     public static function delete(int $id): bool
     {
-        $stmt = DB::conn()->prepare('DELETE FROM contracts WHERE id = ? LIMIT 1');
+        $stmt = Database::conn()->prepare('DELETE FROM contracts WHERE id = ? LIMIT 1');
         $stmt->execute([$id]);
         return ($stmt->rowCount() === 1);
     }

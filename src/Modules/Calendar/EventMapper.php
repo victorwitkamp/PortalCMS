@@ -8,13 +8,13 @@ declare(strict_types=1);
 namespace PortalCMS\Modules\Calendar;
 
 use PDO;
-use PortalCMS\Core\Database\DB;
+use PortalCMS\Core\Database\Database;
 
 class EventMapper
 {
     public static function exists(int $id): bool
     {
-        $stmt = DB::conn()->prepare('SELECT id FROM events WHERE id = ? LIMIT 1');
+        $stmt = Database::conn()->prepare('SELECT id FROM events WHERE id = ? LIMIT 1');
         $stmt->execute([$id]);
         return ($stmt->rowCount() === 1);
     }
@@ -23,7 +23,7 @@ class EventMapper
     {
         $startDateTime = $startDate . ' 00:00:00';
         $endDateTime = $endDate . ' 00:00:00';
-        $stmt = DB::conn()->prepare('SELECT * FROM events where start_event < ? and end_event > ? ORDER BY id');
+        $stmt = Database::conn()->prepare('SELECT * FROM events where start_event < ? and end_event > ? ORDER BY id');
         $stmt->execute([$endDateTime, $startDateTime]);
         if ($stmt->rowCount() > 0) {
             return $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -33,7 +33,7 @@ class EventMapper
 
     public static function getEventsAfter(string $dateTime, int $limit = 3) : ?array
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'SELECT * FROM events WHERE start_event > ? ORDER BY start_event limit ?'
         );
         $stmt->execute([$dateTime, $limit]);
@@ -45,7 +45,7 @@ class EventMapper
 
     public static function getById(int $id) : ?object
     {
-        $stmt = DB::conn()->prepare('SELECT * FROM events WHERE id = ? LIMIT 1');
+        $stmt = Database::conn()->prepare('SELECT * FROM events WHERE id = ? LIMIT 1');
         $stmt->execute([$id]);
         if ($stmt->rowCount() === 1) {
             return $stmt->fetch(PDO::FETCH_OBJ);
@@ -55,7 +55,7 @@ class EventMapper
 
     public static function new(Event $event) : bool
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'INSERT INTO events(
                 id, title, start_event, end_event, description, CreatedBy
             ) VALUES (NULL,?,?,?,?,?)'
@@ -66,7 +66,7 @@ class EventMapper
 
     public static function update(Event $event): bool
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'UPDATE events
             SET title=?, start_event=?, end_event=?, description=?, status=?
             WHERE id=?'
@@ -77,7 +77,7 @@ class EventMapper
 
     public static function updateDate(int $event_id, string $start_event, string $end_event): bool
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'UPDATE events
             SET start_event=?, end_event=?
             WHERE id=?'
@@ -88,7 +88,7 @@ class EventMapper
 
     public static function delete(int $id): bool
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'DELETE FROM events 
                         WHERE id = ?
                             LIMIT 1'

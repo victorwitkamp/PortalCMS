@@ -10,7 +10,7 @@ namespace PortalCMS\Core\User;
 use function strlen;
 use PortalCMS\Core\Config\Config;
 use PortalCMS\Core\Config\SiteSetting;
-use PortalCMS\Core\Database\DB;
+use PortalCMS\Core\Database\Database;
 use PortalCMS\Core\Email\Message\EmailMessage;
 use PortalCMS\Core\Email\Recipient\EmailRecipient;
 use PortalCMS\Core\Email\SMTP\SMTPConfiguration;
@@ -43,7 +43,7 @@ class PasswordReset
                 SET password_reset_hash = :password_reset_hash, user_password_reset_timestamp = :user_password_reset_timestamp
                 WHERE user_name = :user_name
                 LIMIT 1';
-        $stmt = DB::conn()->prepare($sql);
+        $stmt = Database::conn()->prepare($sql);
         $stmt->execute(
             [
                 ':password_reset_hash' => $resetToken, ':user_name' => $username,
@@ -99,7 +99,7 @@ class PasswordReset
                         WHERE user_name = :user_name
                             AND password_reset_hash = :password_reset_hash
                                 LIMIT 1';
-        $stmt = DB::conn()->prepare($sql);
+        $stmt = Database::conn()->prepare($sql);
         $stmt->execute(
             [
             ':password_reset_hash' => $password_reset_hash,
@@ -126,7 +126,7 @@ class PasswordReset
                        user_password_reset_timestamp = NULL
                  WHERE user_name = :user_name AND password_reset_hash = :password_reset_hash
                        LIMIT 1';
-        $stmt = DB::conn()->prepare($sql);
+        $stmt = Database::conn()->prepare($sql);
         $stmt->execute(
             [
                 ':user_password_hash' => $passwordHash, ':user_name' => $username,

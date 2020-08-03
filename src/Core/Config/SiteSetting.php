@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace PortalCMS\Core\Config;
 
 use PDO;
-use PortalCMS\Core\Database\DB;
+use PortalCMS\Core\Database\Database;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
 
@@ -29,7 +29,7 @@ class SiteSetting
 
     public static function get(string $setting) : ?string
     {
-        $stmt = DB::conn()->prepare('SELECT string_value FROM site_settings WHERE setting = ?');
+        $stmt = Database::conn()->prepare('SELECT string_value FROM site_settings WHERE setting = ?');
         $stmt->execute([$setting]);
         $value = $stmt->fetch(PDO::FETCH_COLUMN);
         if (!empty($value) && $value !== false) {

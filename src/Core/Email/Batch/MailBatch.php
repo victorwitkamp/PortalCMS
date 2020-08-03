@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Email\Batch;
 
-use PortalCMS\Core\Database\DB;
+use PortalCMS\Core\Database\Database;
 use PortalCMS\Core\Email\Schedule\MailSchedule;
 use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
 use PortalCMS\Core\HTTP\Redirect;
@@ -20,7 +20,7 @@ class MailBatch
 {
     public static function getAll(): array
     {
-        $stmt = DB::conn()->prepare('SELECT * FROM mail_batches ORDER BY id ');
+        $stmt = Database::conn()->prepare('SELECT * FROM mail_batches ORDER BY id ');
         $stmt->execute([]);
         return $stmt->fetchAll();
     }
@@ -30,7 +30,7 @@ class MailBatch
      */
     public static function lastInsertedId()
     {
-        $batchId = (int) DB::conn()->query('SELECT max(id) from mail_batches')->fetchColumn();
+        $batchId = (int) Database::conn()->query('SELECT max(id) from mail_batches')->fetchColumn();
         if (!empty($batchId)) {
             return $batchId;
         }
@@ -39,7 +39,7 @@ class MailBatch
 
     public static function create(int $used_template = null): bool
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'INSERT INTO mail_batches(id, status, UsedTemplate) VALUES (NULL,1,?)'
         );
         $stmt->execute([$used_template]);
@@ -57,7 +57,7 @@ class MailBatch
 
         if (!empty($IDs)) {
             foreach ($IDs as $id) {
-                $stmt = DB::conn()->prepare('DELETE FROM mail_batches WHERE id = ? LIMIT 1');
+                $stmt = Database::conn()->prepare('DELETE FROM mail_batches WHERE id = ? LIMIT 1');
                 $stmt->execute([(int) $id]);
                 if ($stmt->rowCount() === 1) {
                     $deletedMessageCount += MailScheduleMapper::deleteByBatchId((int) $id);
@@ -78,7 +78,7 @@ class MailBatch
 
     public static function countMessages(int $batch_id)
     {
-        $stmt = DB::conn()->prepare('SELECT count(1) FROM mail_schedule where batch_id = ?');
+        $stmt = Database::conn()->prepare('SELECT count(1) FROM mail_schedule where batch_id = ?');
         $stmt->execute([$batch_id]);
         return $stmt->fetchColumn();
     }

@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace PortalCMS\Core\View;
 
 use PDO;
-use PortalCMS\Core\Database\DB;
+use PortalCMS\Core\Database\Database;
 use PortalCMS\Core\Session\Session;
 
 /**
@@ -18,7 +18,7 @@ class Page
 {
     public static function checkPage(int $page_id): bool
     {
-        $stmt = DB::conn()->prepare('SELECT * FROM pages WHERE id = ? LIMIT 1');
+        $stmt = Database::conn()->prepare('SELECT * FROM pages WHERE id = ? LIMIT 1');
         $stmt->execute([$page_id]);
         if ($stmt->rowCount() === 1) {
             return true;
@@ -29,7 +29,7 @@ class Page
 
     public static function getPage(int $page_id)
     {
-        $stmt = DB::conn()->prepare('SELECT * FROM pages WHERE id = ? LIMIT 1');
+        $stmt = Database::conn()->prepare('SELECT * FROM pages WHERE id = ? LIMIT 1');
         $stmt->execute([$page_id]);
         if ($stmt->rowCount() !== 1) {
             Session::add('feedback_negative', 'Geen pagina gevonden voor weergave.');
@@ -40,14 +40,14 @@ class Page
 
     public static function updatePage(int $page_id, string $content): bool
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'SELECT id
                             FROM pages
                                 WHERE id = ? LIMIT 1'
         );
         $stmt->execute([$page_id]);
         if ($stmt->rowCount() === 1) {
-            $stmt = DB::conn()->prepare(
+            $stmt = Database::conn()->prepare(
                 'UPDATE pages
                                 SET content=?
                                     WHERE id=?'

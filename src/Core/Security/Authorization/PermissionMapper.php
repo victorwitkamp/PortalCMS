@@ -8,13 +8,13 @@ declare(strict_types=1);
 namespace PortalCMS\Core\Security\Authorization;
 
 use PDO;
-use PortalCMS\Core\Database\DB;
+use PortalCMS\Core\Database\Database;
 
 class PermissionMapper
 {
     public static function getById(int $perm_id)
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'SELECT *
                     FROM permissions
                         WHERE perm_id = ?
@@ -29,7 +29,7 @@ class PermissionMapper
 
     public static function getPermissionsByUserId(int $user_id) : ?array
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'SELECT DISTINCT t2.perm_desc
                     FROM role_perm as t1
                         JOIN permissions as t2 ON t1.perm_id = t2.perm_id

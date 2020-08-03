@@ -7,13 +7,13 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Email\Recipient;
 
-use PortalCMS\Core\Database\DB;
+use PortalCMS\Core\Database\Database;
 
 class EmailRecipientMapper
 {
     public static function createRecipient(int $mail_id, string $emailAddress, string $name = null): bool
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'INSERT INTO mail_recipients(id, email, mail_id, type, name) VALUES (NULL,?,?,1,?)'
         );
         $stmt->execute([$emailAddress, $mail_id, $name]);
@@ -22,7 +22,7 @@ class EmailRecipientMapper
 
     public static function createCC(int $mail_id, string $emailAddress, string $name = null): bool
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'INSERT INTO mail_recipients(id, email, mail_id, type, name) VALUES (NULL,?,?,2,?)'
         );
         $stmt->execute([$emailAddress, $mail_id, $name]);
@@ -31,7 +31,7 @@ class EmailRecipientMapper
 
     public static function createBCC(int $mail_id, string $emailAddress, string $name = null): bool
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'INSERT INTO mail_recipients(id, email, mail_id, type, name) VALUES (NULL,?,?,3,?)'
         );
         $stmt->execute([$emailAddress, $mail_id, $name]);
@@ -40,7 +40,7 @@ class EmailRecipientMapper
 
     public function getAll(int $mail_id) : ?array
     {
-        $stmt = DB::conn()->prepare('
+        $stmt = Database::conn()->prepare('
             SELECT * FROM mail_recipients where mail_id = ?
         ');
         $stmt->execute([$mail_id]);
@@ -52,7 +52,7 @@ class EmailRecipientMapper
 
     public function getRecipients(int $mailId) : ?array
     {
-        $stmt = DB::conn()->prepare('
+        $stmt = Database::conn()->prepare('
             SELECT * FROM mail_recipients where mail_id = ? and type = 1
         ');
         $stmt->execute([$mailId]);
@@ -64,7 +64,7 @@ class EmailRecipientMapper
 
     public static function getCC(int $mailId) : ?array
     {
-        $stmt = DB::conn()->prepare('
+        $stmt = Database::conn()->prepare('
             SELECT * FROM mail_recipients where mail_id = ? and type = 2
         ');
         $stmt->execute([$mailId]);
@@ -76,7 +76,7 @@ class EmailRecipientMapper
 
     public static function getBCC(int $mailId) : ?array
     {
-        $stmt = DB::conn()->prepare('
+        $stmt = Database::conn()->prepare('
             SELECT * FROM mail_recipients where mail_id = ? and type = 3
         ');
         $stmt->execute([$mailId]);

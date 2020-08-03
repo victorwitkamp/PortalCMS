@@ -8,13 +8,13 @@ declare(strict_types=1);
 namespace PortalCMS\Core\Email\Template;
 
 use PDO;
-use PortalCMS\Core\Database\DB;
+use PortalCMS\Core\Database\Database;
 
 class EmailTemplateMapper
 {
     public static function get()
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'SELECT *
                 FROM mail_templates
                     ORDER BY id'
@@ -28,7 +28,7 @@ class EmailTemplateMapper
 
     public static function getByType(string $type): ?array
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'SELECT *
                 FROM mail_templates
                     WHERE type = ?
@@ -43,7 +43,7 @@ class EmailTemplateMapper
 
     public static function getById(int $id): object
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'SELECT *
                 FROM mail_templates
                     WHERE id = ?
@@ -58,7 +58,7 @@ class EmailTemplateMapper
 
     public static function getSystemTemplateByName(string $name)
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             "SELECT *
                 FROM mail_templates
                     WHERE type = 'system'
@@ -74,12 +74,12 @@ class EmailTemplateMapper
 
     public static function lastInsertedId()
     {
-        return DB::conn()->query('SELECT max(id) from mail_templates')->fetchColumn();
+        return Database::conn()->query('SELECT max(id) from mail_templates')->fetchColumn();
     }
 
     public function create(EmailTemplate $EmailTemplate) : ?int
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'INSERT INTO mail_templates(
                 id, type, subject, body, status, CreatedBy
                 ) VALUES (
@@ -97,7 +97,7 @@ class EmailTemplateMapper
         if (empty($emailTemplate->id) || ($emailTemplate->id <= 0)) {
             return false;
         }
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'UPDATE mail_templates
                 SET type = ?, subject = ?, body = ?, status = ?
                     WHERE id = ?
@@ -115,7 +115,7 @@ class EmailTemplateMapper
 
     public static function delete(int $id) : bool
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             "DELETE FROM mail_templates
                 WHERE id = ?
                     AND type != 'system'"

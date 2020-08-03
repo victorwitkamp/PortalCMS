@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace PortalCMS\Core\Email\Message\Attachment;
 
 use PDO;
-use PortalCMS\Core\Database\DB;
+use PortalCMS\Core\Database\Database;
 
 class EmailAttachmentMapper
 {
@@ -17,7 +17,7 @@ class EmailAttachmentMapper
      */
     public static function create(int $mailId, string $path, string $name, string $extension, string $encoding = 'base64', string $type = 'application/octet-stream'): bool
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'INSERT INTO mail_attachments(id, mail_id, template_id, path, name, extension, encoding, type)
                     VALUES (NULL,?,NULL,?,?,?,?,?)'
         );
@@ -33,7 +33,7 @@ class EmailAttachmentMapper
      */
     public static function createForTemplate(int $templateId, EmailAttachment $attachment): bool
     {
-        $stmt = DB::conn()->prepare(
+        $stmt = Database::conn()->prepare(
             'INSERT INTO mail_attachments(id, mail_id, template_id, path, name, extension, encoding, type)
                     VALUES (NULL,NULL,?,?,?,?,?,?)'
         );
@@ -46,7 +46,7 @@ class EmailAttachmentMapper
 
     public static function getByMailId(int $mailId) : ?array
     {
-        $stmt = DB::conn()->prepare('SELECT * FROM mail_attachments where mail_id = ?');
+        $stmt = Database::conn()->prepare('SELECT * FROM mail_attachments where mail_id = ?');
         $stmt->execute([$mailId]);
         if ($stmt->rowCount() > 0) {
             return $stmt->fetchAll();
@@ -56,7 +56,7 @@ class EmailAttachmentMapper
 
     public static function getByTemplateId(int $templateId) : ?array
     {
-        $stmt = DB::conn()->prepare('SELECT * FROM mail_attachments where template_id = ?');
+        $stmt = Database::conn()->prepare('SELECT * FROM mail_attachments where template_id = ?');
         $stmt->execute([$templateId]);
         if ($stmt->rowCount() > 0) {
             return $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -66,14 +66,14 @@ class EmailAttachmentMapper
 
     public static function deleteById(int $id): bool
     {
-        $stmt = DB::conn()->prepare('DELETE FROM mail_attachments WHERE id = ? LIMIT 1');
+        $stmt = Database::conn()->prepare('DELETE FROM mail_attachments WHERE id = ? LIMIT 1');
         $stmt->execute([$id]);
         return ($stmt->rowCount() === 1);
     }
 
     public static function deleteByMailId(int $id): bool
     {
-        $stmt = DB::conn()->prepare('DELETE FROM mail_attachments WHERE mail_id = ? LIMIT 1');
+        $stmt = Database::conn()->prepare('DELETE FROM mail_attachments WHERE mail_id = ? LIMIT 1');
         $stmt->execute([$id]);
         return ($stmt->rowCount() === 1);
     }
