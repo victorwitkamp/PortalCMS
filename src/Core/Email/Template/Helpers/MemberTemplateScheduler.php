@@ -47,6 +47,9 @@ class MemberTemplateScheduler
 
     public function processSingleMail(int $memberId = null, int $batchId = null, object $template = null): bool
     {
+        if (empty($memberId) || empty($batchId) || empty($template)) {
+            return false;
+        }
         $member = MemberModel::getMember($memberId);
         $return = MailScheduleMapper::create(
             $batchId,

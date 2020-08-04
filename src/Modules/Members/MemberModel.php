@@ -15,6 +15,9 @@ class MemberModel
 {
     public static function copyMember(int $id = null, int $targetYear = null) : bool
     {
+        if (empty($id) || empty($targetYear)) {
+            return false;
+        }
         $member = self::getMember($id);
         if ($member->jaarlidmaatschap === $targetYear) {
             return false;
@@ -105,7 +108,7 @@ class MemberModel
         Redirect::to('membership/');
     }
 
-    public static function newMember(Member $member)
+    public static function newMember(Member $member = null)
     {
         if (MemberMapper::doesEmailforYearExist($member->jaarlidmaatschap, $member->contactDetails->emailadres)) {
             Session::add('feedback_negative', 'Emailadres wordt dit jaar al gebruikt door een ander lid.');
