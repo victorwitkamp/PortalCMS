@@ -24,8 +24,7 @@ class SettingsController extends Controller
      * @var array $requests
      */
     private $requests = [
-        'saveSiteSettings' => 'POST',
-        'uploadLogo' => 'POST'
+        'saveSiteSettings' => 'POST', 'uploadLogo' => 'POST'
     ];
 
     public function __construct()
@@ -33,6 +32,28 @@ class SettingsController extends Controller
         parent::__construct();
         Authentication::checkAuthentication();
         Router::processRequests($this->requests, __CLASS__);
+    }
+
+    public static function saveSiteSettings()
+    {
+        if (SiteSetting::saveSiteSettings()) {
+            Session::add('feedback_positive', 'Instellingen succesvol opgeslagen.');
+            Redirect::to('Settings/SiteSettings');
+        } else {
+            Session::add('feedback_negative', 'Fout bij opslaan van instellingen.');
+            Redirect::to('Settings/SiteSettings');
+        }
+    }
+
+    public static function uploadLogo()
+    {
+        Authentication::checkAuthentication();
+        if (SiteSetting::uploadLogo()) {
+            Session::add('feedback_positive', Text::get('FEEDBACK_AVATAR_UPLOAD_SUCCESSFUL'));
+            Redirect::to('Home');
+        } else {
+            Redirect::to('Settings/Logo');
+        }
     }
 
     public function siteSettings()
@@ -72,28 +93,6 @@ class SettingsController extends Controller
             echo $templates->render('Pages/Settings/Debug');
         } else {
             Redirect::to('Error/PermissionError');
-        }
-    }
-
-    public static function saveSiteSettings()
-    {
-        if (SiteSetting::saveSiteSettings()) {
-            Session::add('feedback_positive', 'Instellingen succesvol opgeslagen.');
-            Redirect::to('Settings/SiteSettings');
-        } else {
-            Session::add('feedback_negative', 'Fout bij opslaan van instellingen.');
-            Redirect::to('Settings/SiteSettings');
-        }
-    }
-
-    public static function uploadLogo()
-    {
-        Authentication::checkAuthentication();
-        if (SiteSetting::uploadLogo()) {
-            Session::add('feedback_positive', Text::get('FEEDBACK_AVATAR_UPLOAD_SUCCESSFUL'));
-            Redirect::to('Home');
-        } else {
-            Redirect::to('Settings/Logo');
         }
     }
 }

@@ -13,7 +13,8 @@ use PortalCMS\Core\View\Text;
 </li>
 
 <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <?= Text::get('NAV_TITLE_MENU') ?></a>
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+       aria-expanded="false"> <?= Text::get('NAV_TITLE_MENU') ?></a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
         <a class="dropdown-item" href="/events/" class="fa fa-calendar"> <?= Text::get('TITLE_EVENTS') ?></a>
         <a class="dropdown-item" href="/membership/" class="fa fa-user"> <?= Text::get('TITLE_MEMBERS') ?></a>
@@ -21,7 +22,8 @@ use PortalCMS\Core\View\Text;
 </li>
 
 <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <?= Text::get('NAV_TITLE_RENTAL') ?></a>
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+       aria-expanded="false"> <?= Text::get('NAV_TITLE_RENTAL') ?></a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
         <a class="dropdown-item" href="/Contracts/"><?= Text::get('TITLE_CONTRACTS') ?></a>
         <a class="dropdown-item" href="/Invoices/"><?= Text::get('TITLE_INVOICES') ?></a>
@@ -29,7 +31,8 @@ use PortalCMS\Core\View\Text;
 </li>
 
 <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <?= Text::get('NAV_TITLE_EMAIL') ?></a>
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+       aria-expanded="false"> <?= Text::get('NAV_TITLE_EMAIL') ?></a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
         <h6 class="dropdown-header"><?= Text::get('LABEL_SCHEDULE') ?></h6>
         <a class="dropdown-item" href="/Email/Batches"><?= Text::get('LABEL_BATCHES') ?></a>
@@ -42,7 +45,8 @@ use PortalCMS\Core\View\Text;
 </li>
 
 <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+       aria-expanded="false">
         <?= Text::get('NAV_TITLE_SETTINGS') ?>
     </a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">

@@ -19,9 +19,7 @@ use PortalCMS\Modules\Contracts\ContractModel;
 class ContractsController extends Controller
 {
     private $requests = [
-        'newContract' => 'POST',
-        'updateContract' => 'POST',
-        'deleteContract' => 'POST'
+        'newContract' => 'POST', 'updateContract' => 'POST', 'deleteContract' => 'POST'
     ];
 
     public function __construct()
@@ -29,6 +27,25 @@ class ContractsController extends Controller
         parent::__construct();
         Authentication::checkAuthentication();
         Router::processRequests($this->requests, __CLASS__);
+    }
+
+    public static function newContract()
+    {
+        ContractModel::new();
+        Redirect::to('Contracts/');
+    }
+
+    public static function updateContract()
+    {
+        ContractModel::update();
+        Redirect::to('Contracts/');
+    }
+
+    public static function deleteContract()
+    {
+        if (ContractModel::delete((int)Request::post('id'))) {
+            Redirect::to('Contracts/');
+        }
     }
 
     public function index()
@@ -78,25 +95,6 @@ class ContractsController extends Controller
             echo $templates->render('Pages/Contracts/Invoices');
         } else {
             Redirect::to('Error/PermissionError');
-        }
-    }
-
-    public static function newContract()
-    {
-        ContractModel::new();
-        Redirect::to('Contracts/');
-    }
-
-    public static function updateContract()
-    {
-        ContractModel::update();
-        Redirect::to('Contracts/');
-    }
-
-    public static function deleteContract()
-    {
-        if (ContractModel::delete((int) Request::post('id'))) {
-            Redirect::to('Contracts/');
         }
     }
 }

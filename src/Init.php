@@ -6,7 +6,6 @@
 declare(strict_types=1);
 /**
  * Initialization file
- *
  * @package PortalCMS
  * @link    https://portal.victorwitkamp.nl/
  */

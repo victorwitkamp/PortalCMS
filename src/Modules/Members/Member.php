@@ -27,22 +27,8 @@ class Member
     public $creationDate;
     public $modificationDate;
 
-    public function __construct(
-        int $id = null,
-        int $jaarlidmaatschap = null,
-        string $voorletters = null,
-        string $voornaam = null,
-        string $achternaam = null,
-        string $geboortedatum = null,
-        MemberAddress $address = null,
-        MemberContactDetails $contactDetails = null,
-        string $ingangsdatum = null,
-        string $geslacht = null,
-        MemberPreferences $preferences = null,
-        MemberPaymentDetails $paymentDetails = null,
-        string $creationDate = null,
-        string $modificationDate = null
-    ) {
+    public function __construct(int $id = null, int $jaarlidmaatschap = null, string $voorletters = null, string $voornaam = null, string $achternaam = null, string $geboortedatum = null, MemberAddress $address = null, MemberContactDetails $contactDetails = null, string $ingangsdatum = null, string $geslacht = null, MemberPreferences $preferences = null, MemberPaymentDetails $paymentDetails = null, string $creationDate = null, string $modificationDate = null)
+    {
         $this->id = $id;
         $this->jaarlidmaatschap = $jaarlidmaatschap;
         $this->voorletters = $voorletters;

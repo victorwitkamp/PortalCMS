@@ -12,22 +12,22 @@ use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Members\MemberMapper;
 
 $pageName = 'NewFromExisting';
-$selectedYear = (int) Request::get('Year');
+$selectedYear = (int)Request::get('Year');
 if (!isset($selectedYear) || empty($selectedYear)) {
-    $selectedYear = (int) date('Y');
+    $selectedYear = (int)date('Y');
 }
-$selectedPaymentType = (string) Request::get('PaymentType');
+$selectedPaymentType = (string)Request::get('PaymentType');
 if (!isset($selectedPaymentType) || empty($selectedPaymentType)) {
     $selectedPaymentType = 'incasso';
 }
 
 ?>
-<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->layout('layout', [ 'title' => $pageName ]) ?>
 <?= $this->push('head-extra') ?>
 
-<!--    <link rel="stylesheet" type="text/css" href="/dist/merged/dataTables.min.css">-->
-<!--    <script src="/dist/merged/dataTables.min.js"></script>-->
-<!--    <script src="/includes/js/init.datatables.js" class="init"></script>-->
+    <!--    <link rel="stylesheet" type="text/css" href="/dist/merged/dataTables.min.css">-->
+    <!--    <script src="/dist/merged/dataTables.min.js"></script>-->
+    <!--    <script src="/includes/js/init.datatables.js" class="init"></script>-->
 
 <?= $this->end() ?>
 <?= $this->push('main-content') ?>
@@ -46,8 +46,10 @@ if (!isset($selectedPaymentType) || empty($selectedPaymentType)) {
             <?php
             $years = MemberMapper::getYears();
             foreach ($years as $year) {
-                ?><li>
-                <a href="/Membership/NewFromExisting?Year=<?= $year ?><?= (!empty($selectedPaymentType)) ? '&PaymentType=' . $selectedPaymentType : '' ?>"><?= $year ?></a> (<?= MemberMapper::getMemberCountByYear($year) ?>)<?php if ($selectedYear === $year) {
+                ?>
+                <li>
+                <a href="/Membership/NewFromExisting?Year=<?= $year ?><?= (!empty($selectedPaymentType)) ? '&PaymentType=' . $selectedPaymentType : '' ?>"><?= $year ?></a>
+                (<?= MemberMapper::getMemberCountByYear($year) ?>)<?php if ($selectedYear === $year) {
                     echo ' - Huidige selectie';
                 } ?>
                 </li><?php
@@ -58,8 +60,10 @@ if (!isset($selectedPaymentType) || empty($selectedPaymentType)) {
             <?php
             $paymentTypes = MemberMapper::getPaymentTypes();
             foreach ($paymentTypes as $paymentType) {
-                ?><li>
-                <a href="/Membership/NewFromExisting?PaymentType=<?= $paymentType ?><?= (!empty($selectedYear)) ? '&Year=' . $selectedYear : '' ?>"><?= $paymentType ?></a><?= ($selectedPaymentType === $paymentType) ? ' - Huidige selectie' : '' ?>
+                ?>
+                <li>
+                <a
+                href="/Membership/NewFromExisting?PaymentType=<?= $paymentType ?><?= (!empty($selectedYear)) ? '&Year=' . $selectedYear : '' ?>"><?= $paymentType ?></a><?= ($selectedPaymentType === $paymentType) ? ' - Huidige selectie' : '' ?>
                 </li><?php
             } ?>
         </ul>

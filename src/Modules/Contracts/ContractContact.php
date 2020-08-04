@@ -18,17 +18,8 @@ class ContractContact
     public $emailAddress;
     public $citizenServiceNumber;
 
-    public function __construct(
-        string $name = null,
-        string $address = null,
-        string $zipCode = null,
-        string $city = null,
-        string $dateOfBirth = null,
-        string $phonePrimary = null,
-        string $phoneSecodary = null,
-        string $emailAddress = null,
-        int $citizenServiceNumber = null
-    ) {
+    public function __construct(string $name = null, string $address = null, string $zipCode = null, string $city = null, string $dateOfBirth = null, string $phonePrimary = null, string $phoneSecodary = null, string $emailAddress = null, int $citizenServiceNumber = null)
+    {
         $this->name = $name;
         $this->address = $address;
         $this->zipCode = $zipCode;

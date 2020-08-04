@@ -8,7 +8,6 @@ declare(strict_types=1);
 namespace PortalCMS\Modules\Invoices;
 
 use PortalCMS\Core\Activity\Activity;
-use function is_array;
 use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
 use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
 use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
@@ -18,6 +17,7 @@ use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\PDF;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Contracts\ContractMapper;
+use function is_array;
 
 class InvoiceHelper
 {
@@ -26,16 +26,8 @@ class InvoiceHelper
         $invoice = InvoiceMapper::getById($invoiceId);
         if (!empty($invoice)) {
             $template = EmailTemplateMapper::getSystemTemplateByName('InvoiceMail');
-            $subject = PlaceholderHelper::replace(
-                'MAAND',
-                Text::get('MONTH_' . (((int) $invoice->month < 10) ? '0' : '') . $invoice->month),
-                $template['subject']
-            );
-            $body = PlaceholderHelper::replace(
-                'FACTUURNUMMER',
-                $invoice->factuurnummer,
-                $template['body']
-            );
+            $subject = PlaceholderHelper::replace('MAAND', Text::get('MONTH_' . (((int)$invoice->month < 10) ? '0' : '') . $invoice->month), $template['subject']);
+            $body = PlaceholderHelper::replace('FACTUURNUMMER', $invoice->factuurnummer, $template['body']);
             if (MailScheduleMapper::create($batchId, null, $subject, $body)) {
                 $createdMailId = MailScheduleMapper::lastInsertedId();
                 $contract = ContractMapper::getById($invoice->contract_id);
@@ -52,31 +44,6 @@ class InvoiceHelper
         return false;
     }
 
-    public static function createInvoiceAction(int $year, string $month, int $contract_id, string $factuurdatum): bool
-    {
-        $contract = ContractMapper::getById($contract_id);
-        $factuurnummer = $year . $contract->bandcode . $month;
-        if (empty(InvoiceMapper::getByFactuurnummer($factuurnummer))) {
-            if (InvoiceMapper::create($contract_id, $factuurnummer, $year, (int) $month, $factuurdatum)) {
-                $invoice = InvoiceMapper::getByFactuurnummer($factuurnummer);
-                $kosten_ruimte = (int) $contract->kosten_ruimte;
-                $kosten_kast = (int) $contract->kosten_kast;
-                if (($kosten_ruimte > 0)) {
-                    InvoiceItemMapper::create($invoice->id, 'Huur oefenruimte - ' . Text::get('MONTH_' . $month), $kosten_ruimte);
-                }
-                if (($kosten_kast > 0)) {
-                    InvoiceItemMapper::create($invoice->id, 'Huur kast - ' . Text::get('MONTH_' . $month), $kosten_kast);
-                }
-                Activity::add('NewInvoice', Session::get('user_id'), 'Factuurnr.: ' . $factuurnummer);
-                return true;
-            }
-            Session::add('feedback_negative', 'Toevoegen van factuur mislukt.');
-        } else {
-            Session::add('feedback_negative', 'Factuurnummer bestaat al.');
-        }
-        return false;
-    }
-
     public static function create(int $year, string $month, array $contract_ids, string $factuurdatum): bool
     {
         if (empty($factuurdatum)) {
@@ -89,11 +56,36 @@ class InvoiceHelper
             Session::add('feedback_negative', 'Incompleet verzoek.');
         } else {
             foreach ($contract_ids as $contract_id) {
-                if (!self::createInvoiceAction($year, $month, (int) $contract_id, $factuurdatum)) {
+                if (!self::createInvoiceAction($year, $month, (int)$contract_id, $factuurdatum)) {
                     return false;
                 }
             }
             return true;
+        }
+        return false;
+    }
+
+    public static function createInvoiceAction(int $year, string $month, int $contract_id, string $factuurdatum): bool
+    {
+        $contract = ContractMapper::getById($contract_id);
+        $factuurnummer = $year . $contract->bandcode . $month;
+        if (empty(InvoiceMapper::getByFactuurnummer($factuurnummer))) {
+            if (InvoiceMapper::create($contract_id, $factuurnummer, $year, (int)$month, $factuurdatum)) {
+                $invoice = InvoiceMapper::getByFactuurnummer($factuurnummer);
+                $kosten_ruimte = (int)$contract->kosten_ruimte;
+                $kosten_kast = (int)$contract->kosten_kast;
+                if (($kosten_ruimte > 0)) {
+                    InvoiceItemMapper::create($invoice->id, 'Huur oefenruimte - ' . Text::get('MONTH_' . $month), $kosten_ruimte);
+                }
+                if (($kosten_kast > 0)) {
+                    InvoiceItemMapper::create($invoice->id, 'Huur kast - ' . Text::get('MONTH_' . $month), $kosten_kast);
+                }
+                Activity::add('NewInvoice', Session::get('user_id'), 'Factuurnr.: ' . $factuurnummer);
+                return true;
+            }
+            Session::add('feedback_negative', 'Toevoegen van factuur mislukt.');
+        } else {
+            Session::add('feedback_negative', 'Factuurnummer bestaat al.');
         }
         return false;
     }

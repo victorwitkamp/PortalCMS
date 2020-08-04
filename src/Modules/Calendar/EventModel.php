@@ -26,11 +26,7 @@ class EventModel
                     $color = 'var(--info)';
                 }
                 $eventsArray[] = [
-                    'id' => $event->id,
-                    'title' => $event->title,
-                    'start' => $event->start_event,
-                    'end' => $event->end_event,
-                    'backgroundColor' => $color
+                    'id' => $event->id, 'title' => $event->title, 'start' => $event->start_event, 'end' => $event->end_event, 'backgroundColor' => $color
                 ];
             }
         }
@@ -47,10 +43,7 @@ class EventModel
         if (!empty($events)) {
             foreach ($events as $event) {
                 $eventsArray[] = [
-                    'id' => $event->id,
-                    'title' => $event->title,
-                    'start' => $event->start_event,
-                    'end' => $event->end_event
+                    'id' => $event->id, 'title' => $event->title, 'start' => $event->start_event, 'end' => $event->end_event
                 ];
             }
         }
@@ -71,9 +64,7 @@ class EventModel
     {
         if (!EventMapper::exists($event->id)) {
             Session::add('feedback_negative', 'Wijzigen van evenement mislukt. Evenement bestaat niet.');
-        } elseif (EventMapper::update(
-            $event
-        )) {
+        } elseif (EventMapper::update($event)) {
             Activity::add('UpdateEvent', Session::get('user_id'), 'ID: ' . $event->id, Session::get('user_name'));
             Session::add('feedback_positive', 'Evenement gewijzigd.');
             return true;

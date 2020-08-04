@@ -26,25 +26,8 @@ class Contract
     public $endDate;
     public $contractDate;
 
-    public function __construct(
-        int $id = null,
-        string $accountManager = null,
-        string $name = null,
-        string $code = null,
-        ContractContact $contractContact = null,
-        int $rehearsalRoomNumber = null,
-        string $day = null,
-        string $startTime = null,
-        string $endTime = null,
-        int $storageNumber = null,
-        int $rehearsalRoomMonthlyCost = null,
-        int $storageMonthlyCost = null,
-        int $totalMonthlyCost = null,
-        int $bailCost = null,
-        string $startDate = null,
-        string $endDate = null,
-        string $contractDate = null
-    ) {
+    public function __construct(int $id = null, string $accountManager = null, string $name = null, string $code = null, ContractContact $contractContact = null, int $rehearsalRoomNumber = null, string $day = null, string $startTime = null, string $endTime = null, int $storageNumber = null, int $rehearsalRoomMonthlyCost = null, int $storageMonthlyCost = null, int $totalMonthlyCost = null, int $bailCost = null, string $startDate = null, string $endDate = null, string $contractDate = null)
+    {
         $this->id = $id;
         $this->accountManager = $accountManager;
         $this->name = $name;

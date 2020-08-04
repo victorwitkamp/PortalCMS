@@ -31,9 +31,7 @@ class LoginController extends Controller
      * @var array $requests
      */
     private $requests = [
-        'loginSubmit' => 'POST',
-        'requestPasswordResetSubmit' => 'POST',
-        'resetSubmit' => 'POST'
+        'loginSubmit' => 'POST', 'requestPasswordResetSubmit' => 'POST', 'resetSubmit' => 'POST'
     ];
 
     /**
@@ -54,49 +52,6 @@ class LoginController extends Controller
         //         Redirect::to('Login');
         //     }
         // }
-    }
-
-    /**
-     * Index, default action (shows the login form), when you do login/index
-     */
-    public function index()
-    {
-        if (Authentication::userIsLoggedIn()) {
-            Session::add('feedback_positive', 'You are already logged in.');
-            if (Request::post('redirect')) {
-                Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
-            } else {
-                Redirect::to('Home');
-            }
-        } elseif (self::loginWithCookie()) {
-            Session::add('feedback_positive', 'You are automatically logged in using a cookie.');
-            if (Request::post('redirect')) {
-                Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
-            } else {
-                Redirect::to('Home');
-            }
-        } else {
-            $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/Login/Index');
-        }
-    }
-
-    public function requestPasswordReset()
-    {
-        $templates = new Engine(DIR_VIEW);
-        echo $templates->render('Pages/Login/RequestPasswordReset');
-    }
-
-    public function passwordReset()
-    {
-        $templates = new Engine(DIR_VIEW);
-        echo $templates->render('Pages/Login/PasswordReset');
-    }
-
-    public function activate()
-    {
-        $templates = new Engine(DIR_VIEW);
-        echo $templates->render('Pages/Login/Activate');
     }
 
     public static function loginSubmit(): bool
@@ -124,17 +79,6 @@ class LoginController extends Controller
         return false;
     }
 
-    public static function loginWithCookie(): bool
-    {
-        $cookie = Request::cookie('remember_me');
-        if (!empty($cookie) && LoginService::loginWithCookie((string) $cookie)) {
-            return true;
-        }
-        // if not, delete cookie (outdated? attack?) and route user to login form to prevent infinite login loops
-        Cookie::delete();
-        return false;
-    }
-
     public static function loginWithFacebook(int $fbid): bool
     {
         if (LoginService::loginWithFacebook($fbid)) {
@@ -155,17 +99,17 @@ class LoginController extends Controller
 
     public static function requestPasswordResetSubmit()
     {
-        if (PasswordReset::requestPasswordReset((string) Request::post('user_name_or_email'))) {
+        if (PasswordReset::requestPasswordReset((string)Request::post('user_name_or_email'))) {
             Redirect::to('Login');
         }
     }
 
     public static function resetSubmit()
     {
-        $username = (string) Request::post('username');
-        $resetHash = (string) Request::post('password_reset_hash');
+        $username = (string)Request::post('username');
+        $resetHash = (string)Request::post('password_reset_hash');
         if (PasswordReset::verifyPasswordReset($username, $resetHash)) {
-            $passwordHash = password_hash(base64_encode((string) Request::post('password')), PASSWORD_DEFAULT);
+            $passwordHash = password_hash(base64_encode((string)Request::post('password')), PASSWORD_DEFAULT);
             if (PasswordReset::saveNewUserPassword($username, $passwordHash, $resetHash)) {
                 Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_CHANGE_SUCCESSFUL'));
                 Redirect::to('Login');
@@ -174,5 +118,59 @@ class LoginController extends Controller
                 Redirect::to('Login/PasswordReset.php');
             }
         }
+    }
+
+    /**
+     * Index, default action (shows the login form), when you do login/index
+     */
+    public function index()
+    {
+        if (Authentication::userIsLoggedIn()) {
+            Session::add('feedback_positive', 'You are already logged in.');
+            if (Request::post('redirect')) {
+                Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
+            } else {
+                Redirect::to('Home');
+            }
+        } elseif (self::loginWithCookie()) {
+            Session::add('feedback_positive', 'You are automatically logged in using a cookie.');
+            if (Request::post('redirect')) {
+                Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
+            } else {
+                Redirect::to('Home');
+            }
+        } else {
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/Login/Index');
+        }
+    }
+
+    public static function loginWithCookie(): bool
+    {
+        $cookie = Request::cookie('remember_me');
+        if (!empty($cookie) && LoginService::loginWithCookie((string)$cookie)) {
+            return true;
+        }
+        // if not, delete cookie (outdated? attack?) and route user to login form to prevent infinite login loops
+        Cookie::delete();
+        return false;
+    }
+
+    public function requestPasswordReset()
+    {
+        $templates = new Engine(DIR_VIEW);
+        echo $templates->render('Pages/Login/RequestPasswordReset');
+    }
+
+    public function passwordReset()
+    {
+        $templates = new Engine(DIR_VIEW);
+        echo $templates->render('Pages/Login/PasswordReset');
+    }
+
+    public function activate()
+    {
+        $templates = new Engine(DIR_VIEW);
+        echo $templates->render('Pages/Login/Activate');
     }
 }

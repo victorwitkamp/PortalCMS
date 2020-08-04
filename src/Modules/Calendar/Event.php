@@ -29,7 +29,7 @@ class Event
 
     public function setCreatedBy()
     {
-        $this->CreatedBy = (int) Session::get('user_id');
+        $this->CreatedBy = (int)Session::get('user_id');
     }
 
     public function setTitle(string $title)

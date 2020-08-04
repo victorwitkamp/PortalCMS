@@ -72,12 +72,13 @@ use PortalCMS\Core\Security\Authorization\UserRoleMapper;
                     $Roles = UserRoleMapper::getByUserId($user->user_id);
                     if (!empty($Roles)) {
                         foreach ($Roles as $Role) { ?>
-                        <form method="post">
-                            <label><?= $Role->role_name ?></label>
-                            <input type="hidden" name="user_id" value="<?= $user->user_id ?>">
-                            <input type="hidden" name="role_id" value="<?= $Role->role_id ?>">
-                            <button type="submit" name="unassignrole" class="btn btn-danger"><span class="fa fa-trash"></span></button>
-                        </form>
+                            <form method="post">
+                                <label><?= $Role->role_name ?></label>
+                                <input type="hidden" name="user_id" value="<?= $user->user_id ?>">
+                                <input type="hidden" name="role_id" value="<?= $Role->role_id ?>">
+                                <button type="submit" name="unassignrole" class="btn btn-danger"><span
+                                            class="fa fa-trash"></span></button>
+                            </form>
                         <?php }
                     } ?>
                 </td>
@@ -89,7 +90,7 @@ use PortalCMS\Core\Security\Authorization\UserRoleMapper;
                     $UserPermissions = PermissionMapper::getPermissionsByUserId($user->user_id);
                     if (!empty($UserPermissions)) {
                         foreach ($UserPermissions as $UserPermission) {
-                            echo '<li>' .  $UserPermission->perm_desc . '</li>';
+                            echo '<li>' . $UserPermission->perm_desc . '</li>';
                         }
                     }
                     ?>
@@ -104,9 +105,9 @@ use PortalCMS\Core\Security\Authorization\UserRoleMapper;
                         $roles = RoleMapper::getRoles();
                         if (!empty($roles)) { ?>
                             <select name='role_id'>
-                            <?php foreach ($roles as $role) { ?>
-                                <option value="<?= $role->role_id ?>"><?= $role->role_name ?></option>
-                            <?php } ?>
+                                <?php foreach ($roles as $role) { ?>
+                                    <option value="<?= $role->role_id ?>"><?= $role->role_name ?></option>
+                                <?php } ?>
                             </select>
                         <?php } ?>
                         <input type="submit" name="assignrole" value="Toewijzen" class="btn btn-primary ml-2">
