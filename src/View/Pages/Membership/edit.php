@@ -13,7 +13,7 @@ use PortalCMS\Modules\Members\MemberModel;
 $pageName = 'Wijzigen';
 $pageType = 'edit';
 $member = MemberModel::getMember((int) Request::get('Id'));
-if (!empty($member)) {
+if ($member !== null) {
     $allowEdit = true;
     $pageName = 'Lidmaatschap van ' . $member->voornaam . ' ' . $member->achternaam . ' bewerken';
 } else {

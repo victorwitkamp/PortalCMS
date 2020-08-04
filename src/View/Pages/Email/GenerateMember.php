@@ -9,6 +9,7 @@ use PortalCMS\Core\Email\Template\EmailTemplateMapper;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Members\MemberMapper;
+use PortalCMS\Modules\Members\MemberModel;
 
 $pageName = 'Nieuw bericht';
 
@@ -20,11 +21,7 @@ if (empty($year)) {
 <?= $this->layout('layout', ['title' => $pageName]) ?>
 <?= $this->push('head-extra') ?>
 
-<script>
-    $('#selectall').click(function() {
-        $('#example #checkbox').prop('checked', this.checked)
-    })
-</script>
+
 <?= $this->end() ?>
 <?= $this->push('main-content') ?>
 
@@ -84,9 +81,11 @@ if (empty($year)) {
                 $members = MemberMapper::getMembers($year);
                 if (!empty($members)) {
                     $count = 0;
-                    foreach ($members as $member) {
+                    foreach ($members as $memberId) {
+
                         $count++;
-                        if (!empty($member->memberContactDetails->emailadres)) { ?>
+                        $member = MemberModel::getMember($memberId->id);
+                        if (!empty($member->contactDetails->emailadres)) { ?>
                             <div class="col-md-4">
                                 <div class="custom-control custom-checkbox">
                                     <input type="checkbox" class="custom-control-input" name='recipients[]' id="customCheck<?= $count ?>" value="<?= $member->id ?>">
@@ -106,5 +105,13 @@ if (empty($year)) {
             </div>
         </div>
     </form>
+    <script>
+        document.getElementById('selectall').onclick = function() {
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            for (var checkbox of checkboxes) {
+                checkbox.checked = this.checked;
+            }
+        }
+    </script>
 </div>
 <?= $this->end();

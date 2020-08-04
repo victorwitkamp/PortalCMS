@@ -12,7 +12,7 @@ use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
 use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
 use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
 use PortalCMS\Core\Session\Session;
-use PortalCMS\Modules\Members\MemberMapper;
+use PortalCMS\Modules\Members\MemberModel;
 
 class MemberTemplateScheduler
 {
@@ -45,9 +45,9 @@ class MemberTemplateScheduler
         }
     }
 
-    public function processSingleMail(int $memberId, int $batchId, object $template): bool
+    public function processSingleMail(int $memberId = null, int $batchId = null, object $template = null): bool
     {
-        $member = MemberMapper::getMemberById($memberId);
+        $member = MemberModel::getMember($memberId);
         $return = MailScheduleMapper::create(
             $batchId,
             $memberId,
@@ -62,7 +62,7 @@ class MemberTemplateScheduler
         }
         $mailId = MailScheduleMapper::lastInsertedId();
         $memberFullname = $member->voornaam . ' ' . $member->achternaam;
-        EmailRecipientMapper::createRecipient($mailId, $member->memberContactDetails->emailadres, $memberFullname);
+        EmailRecipientMapper::createRecipient($mailId, $member->contactDetails->emailadres, $memberFullname);
         $attachments = EmailAttachmentMapper::getByTemplateId($template->id);
         if (!empty($attachments)) {
             foreach ($attachments as $attachment) {
