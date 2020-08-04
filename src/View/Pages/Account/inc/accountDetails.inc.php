@@ -10,7 +10,7 @@ use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\User\UserMapper;
 use PortalCMS\Core\View\Text;
 
-$user = UserMapper::getProfileById((int) Session::get('user_id'));
+$user = UserMapper::getProfileById((int)Session::get('user_id'));
 ?>
 <h3><?= Text::get('LABEL_ACCOUNT_DETAILS') ?></h3>
 <table class="table table-striped table-condensed">
@@ -37,15 +37,16 @@ $user = UserMapper::getProfileById((int) Session::get('user_id'));
     <tr>
         <th><?= Text::get('LABEL_USER_FBID') ?></th>
         <td><?php
-        if (!empty($user->user_fbid)) {
-            echo $user->user_fbid . ' '; ?>
-            <form method="post">
-            <input type="submit" name="clearUserFbid" class="btn btn-outline-success user_registered-login" value="<?= Text::get('LABEL_USER_CLEAR_FBID') ?>"/>
-            </form><?php
-        } else {
-            ?><a href="<?= $loginUrl ?>"><?= Text::get('LABEL_USER_CONNECT_FB') ?></a><?php
-        }
-        ?></td>
+            if (!empty($user->user_fbid)) {
+                echo $user->user_fbid . ' '; ?>
+                <form method="post">
+                <input type="submit" name="clearUserFbid" class="btn btn-outline-success user_registered-login"
+                       value="<?= Text::get('LABEL_USER_CLEAR_FBID') ?>"/>
+                </form><?php
+            } else {
+                ?><a href="<?= $loginUrl ?>"><?= Text::get('LABEL_USER_CONNECT_FB') ?></a><?php
+            }
+            ?></td>
     </tr>
     <tr>
         <th>Rollen</th>
@@ -59,4 +60,5 @@ $user = UserMapper::getProfileById((int) Session::get('user_id'));
             } ?>
         </td>
     </tr>
-</table><hr>
+</table>
+<hr>

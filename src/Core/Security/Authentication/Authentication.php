@@ -33,7 +33,7 @@ class Authentication
         // }
     }
 
-    public static function userIsLoggedIn() : bool
+    public static function userIsLoggedIn(): bool
     {
         return (Session::get('user_logged_in') ? true : false);
     }

@@ -73,73 +73,73 @@ use PortalCMS\Core\View\Text;
         <h3>Contract datum</h3>
         <table class="table table-striped table-condensed">
             <tbody>
-                <tr>
-                    <th>Ingangsdatum</th>
-                    <td><?= $contract->contract_ingangsdatum ?></td>
-                </tr>
-                <tr>
-                    <th>Einddatum</th>
-                    <td><?= $contract->contract_einddatum ?></td>
-                </tr>
-                <tr>
-                    <th>Contractdatum</th>
-                    <td><?= $contract->contract_datum ?></td>
-                </tr>
+            <tr>
+                <th>Ingangsdatum</th>
+                <td><?= $contract->contract_ingangsdatum ?></td>
+            </tr>
+            <tr>
+                <th>Einddatum</th>
+                <td><?= $contract->contract_einddatum ?></td>
+            </tr>
+            <tr>
+                <th>Contractdatum</th>
+                <td><?= $contract->contract_datum ?></td>
+            </tr>
             </tbody>
         </table>
-                <h3>Oefenruimte</h3>
-                <table class="table table-striped table-condensed">
-                    <tbody>
-                        <tr>
-                            <th>Ruimte</th>
-                            <td><?= $contract->huur_oefenruimte_nr ?></td>
-                        </tr>
-                        <tr>
-                            <th><?= Text::get('DAY') ?></th>
-                            <td><?= $contract->huur_dag ?></td>
-                        </tr>
-                        <tr>
-                            <th>huur_start</th>
-                            <td><?= $contract->huur_start ?></td>
-                        </tr>
-                        <tr>
-                            <th>huur_eind</th>
-                            <td><?= $contract->huur_einde ?></td>
-                        </tr>
-                        <tr>
-                            <th>huur_kast_nr</th>
-                            <td><?= $contract->huur_kast_nr ?></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <h3>Kosten</h3>
-                <h4>Maandelijks</h4>
-                <table class="table table-striped table-condensed">
-                    <tbody>
-                        <tr>
-                            <th>Ruimte</th>
-                            <td><?= $contract->kosten_ruimte ?></td>
-                        </tr>
-                        <tr>
-                            <th>Kast</th>
-                            <td><?= $contract->kosten_kast ?></td>
-                        </tr>
-                        <tr>
-                            <th>Totaal</th>
-                            <td><?= $contract->kosten_totaal ?></td>
-                        </tr>
-                    </tbody>
-                </table>
+        <h3>Oefenruimte</h3>
+        <table class="table table-striped table-condensed">
+            <tbody>
+            <tr>
+                <th>Ruimte</th>
+                <td><?= $contract->huur_oefenruimte_nr ?></td>
+            </tr>
+            <tr>
+                <th><?= Text::get('DAY') ?></th>
+                <td><?= $contract->huur_dag ?></td>
+            </tr>
+            <tr>
+                <th>huur_start</th>
+                <td><?= $contract->huur_start ?></td>
+            </tr>
+            <tr>
+                <th>huur_eind</th>
+                <td><?= $contract->huur_einde ?></td>
+            </tr>
+            <tr>
+                <th>huur_kast_nr</th>
+                <td><?= $contract->huur_kast_nr ?></td>
+            </tr>
+            </tbody>
+        </table>
+        <h3>Kosten</h3>
+        <h4>Maandelijks</h4>
+        <table class="table table-striped table-condensed">
+            <tbody>
+            <tr>
+                <th>Ruimte</th>
+                <td><?= $contract->kosten_ruimte ?></td>
+            </tr>
+            <tr>
+                <th>Kast</th>
+                <td><?= $contract->kosten_kast ?></td>
+            </tr>
+            <tr>
+                <th>Totaal</th>
+                <td><?= $contract->kosten_totaal ?></td>
+            </tr>
+            </tbody>
+        </table>
 
-                <h4>Eenmalig</h4>
-                <table class="table table-striped table-condensed">
-                    <tbody>
-                        <tr>
-                            <th>Borg</th>
-                            <td><?= $contract->kosten_borg ?></td>
-                        </tr>
-                    </tbody>
-                </table>
+        <h4>Eenmalig</h4>
+        <table class="table table-striped table-condensed">
+            <tbody>
+            <tr>
+                <th>Borg</th>
+                <td><?= $contract->kosten_borg ?></td>
+            </tr>
+            </tbody>
+        </table>
 
     </div>
 </div>

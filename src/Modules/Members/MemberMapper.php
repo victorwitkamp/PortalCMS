@@ -13,13 +13,12 @@ use PortalCMS\Core\Database\Database;
 
 class MemberMapper
 {
-    public static function getMembers(int $year = null, string $paymentType = null) : ?array
+    public static function getMembers(int $year = null, string $paymentType = null): ?array
     {
         if (!empty($year) && !empty($paymentType)) {
             $stmt = Database::conn()->prepare('SELECT * FROM members WHERE jaarlidmaatschap = ? AND betalingswijze = ? ORDER BY id');
             $stmt->execute([
-                $year,
-                $paymentType
+                $year, $paymentType
             ]);
             return ($stmt->rowCount() === 0) ? null : $stmt->fetchAll(PDO::FETCH_OBJ);
         } elseif (!empty($year) && empty($paymentType)) {
@@ -40,122 +39,101 @@ class MemberMapper
         }
     }
 
-    public static function getMembersByPaymentType(string $paymentType) : ?array
+    public static function getMembersByPaymentType(string $paymentType): ?array
     {
         $stmt = Database::conn()->prepare('SELECT * FROM members where betalingswijze = ? ORDER BY id');
-        $stmt->execute([$paymentType]);
+        $stmt->execute([ $paymentType ]);
         return ($stmt->rowCount() === 0) ? null : $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public static function getMembersByYearAndPaymentType(int $year, string $paymentType) : ?array
+    public static function getMembersByYearAndPaymentType(int $year, string $paymentType): ?array
     {
         $stmt = Database::conn()->prepare('SELECT * FROM members where jaarlidmaatschap = ? and betalingswijze = ? ORDER BY id');
-        $stmt->execute([$year, $paymentType]);
+        $stmt->execute([ $year, $paymentType ]);
         return ($stmt->rowCount() === 0) ? null : $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public static function getPaymentTypes() : ?array
+    public static function getPaymentTypes(): ?array
     {
         $stmt = Database::conn()->prepare('SELECT distinct betalingswijze FROM members');
         $stmt->execute([]);
         return ($stmt->rowCount() === 0) ? null : $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
-    public static function getMembersWithValidEmail() : ?array
+    public static function getMembersWithValidEmail(): ?array
     {
         $stmt = Database::conn()->query('SELECT * FROM members WHERE emailadres IS NOT NULL ORDER BY id');
         return ($stmt->rowCount() === 0) ? null : $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public static function getMemberCountByYear(int $year) : int
+    public static function getMemberCountByYear(int $year): int
     {
         $stmt = Database::conn()->prepare('SELECT id FROM members WHERE jaarlidmaatschap = ?');
-        $stmt->execute([$year]);
+        $stmt->execute([ $year ]);
         return $stmt->rowCount();
     }
 
-    public static function getYears() : array
+    public static function getYears(): array
     {
         $stmt = Database::conn()->query('SELECT distinct jaarlidmaatschap FROM members order by jaarlidmaatschap desc');
         return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
-    public static function doesMemberIdExist(int $memberId) : bool
+    public static function doesMemberIdExist(int $memberId): bool
     {
         $stmt = Database::conn()->prepare('SELECT id FROM members WHERE id = ? LIMIT 1');
-        $stmt->execute([$memberId]);
+        $stmt->execute([ $memberId ]);
         return ($stmt->rowCount() === 1);
     }
 
-    public static function doesEmailforYearExist(int $jaarlidmaatschap, string $email) : bool
+    public static function doesEmailforYearExist(int $jaarlidmaatschap, string $email): bool
     {
         $stmt = Database::conn()->prepare('SELECT id FROM members WHERE jaarlidmaatschap = ? AND emailadres = ? LIMIT 1');
-        $stmt->execute([$jaarlidmaatschap, $email]);
+        $stmt->execute([ $jaarlidmaatschap, $email ]);
         return ($stmt->rowCount() === 1);
     }
 
-    public static function getMemberById(int $id) : ?object
+    public static function getMemberById(int $id): ?object
     {
         $stmt = Database::conn()->prepare('SELECT * FROM members WHERE id=? LIMIT 1');
-        $stmt->execute([$id]);
+        $stmt->execute([ $id ]);
         return ($stmt->rowCount() === 1) ? $stmt->fetch(PDO::FETCH_OBJ) : null;
     }
 
-    public static function delete(int $id) : bool
+    public static function delete(int $id): bool
     {
         $stmt = Database::conn()->prepare('DELETE FROM members WHERE id = ? LIMIT 1');
-        $stmt->execute([$id]);
+        $stmt->execute([ $id ]);
         return ($stmt->rowCount() === 1);
     }
 
-    public static function updateMember(Member $member = null) : bool
+    public static function updateMember(Member $member = null): bool
     {
-        $stmt = Database::conn()->prepare(
-            'UPDATE members
+        $stmt = Database::conn()->prepare('UPDATE members
                 SET jaarlidmaatschap=?, voorletters=?, voornaam=?, achternaam=?,
                 geboortedatum=?, adres=?, postcode=?, huisnummer=?,
                 woonplaats=?, telefoon_vast=?, telefoon_mobiel=?,
                 emailadres=?, ingangsdatum=?, geslacht=?, nieuwsbrief=?,
                 vrijwilliger=?, vrijwilligeroptie1=?, vrijwilligeroptie2=?,
                 vrijwilligeroptie3=?, vrijwilligeroptie4=?, vrijwilligeroptie5=?,
-                betalingswijze=?, iban=?, machtigingskenmerk=?, status=? WHERE id=?'
-        );
-        $stmt->execute(
-            [
-                $member->jaarlidmaatschap, $member->voorletters, $member->voornaam, $member->achternaam,
-                $member->geboortedatum, $member->address->adres, $member->address->postcode, $member->address->huisnummer,
-                $member->address->woonplaats, $member->contactDetails->telefoon_vast, $member->contactDetails->telefoon_mobiel,
-                $member->contactDetails->emailadres, $member->ingangsdatum, $member->geslacht, $member->preferences->nieuwsbrief,
-                $member->preferences->vrijwilliger, $member->preferences->vrijwilligeroptie1, $member->preferences->vrijwilligeroptie2,
-                $member->preferences->vrijwilligeroptie3, $member->preferences->vrijwilligeroptie4, $member->preferences->vrijwilligeroptie5,
-                $member->paymentDetails->betalingswijze,
-                $member->paymentDetails->iban,
-                $member->paymentDetails->machtigingskenmerk,
-                $member->paymentDetails->status,
-                $member->id
-            ]
-        );
+                betalingswijze=?, iban=?, machtigingskenmerk=?, status=? WHERE id=?');
+        $stmt->execute([
+                $member->jaarlidmaatschap, $member->voorletters, $member->voornaam, $member->achternaam, $member->geboortedatum, $member->address->adres, $member->address->postcode, $member->address->huisnummer, $member->address->woonplaats, $member->contactDetails->telefoon_vast, $member->contactDetails->telefoon_mobiel, $member->contactDetails->emailadres, $member->ingangsdatum, $member->geslacht, $member->preferences->nieuwsbrief, $member->preferences->vrijwilliger, $member->preferences->vrijwilligeroptie1, $member->preferences->vrijwilligeroptie2, $member->preferences->vrijwilligeroptie3, $member->preferences->vrijwilligeroptie4, $member->preferences->vrijwilligeroptie5, $member->paymentDetails->betalingswijze, $member->paymentDetails->iban, $member->paymentDetails->machtigingskenmerk, $member->paymentDetails->status, $member->id
+            ]);
         return ($stmt->rowCount() === 1);
     }
 
-    public static function new(Member $member) : bool
+    public static function new(Member $member): bool
     {
-        $stmt = Database::conn()->prepare(
-            'INSERT INTO members
+        $stmt = Database::conn()->prepare('INSERT INTO members
                         (
                             id, jaarlidmaatschap, voorletters, voornaam, achternaam, geboortedatum,
                             adres, postcode, huisnummer, woonplaats, telefoon_vast, telefoon_mobiel,
                             emailadres, ingangsdatum, geslacht, nieuwsbrief, vrijwilliger, vrijwilligeroptie1,
                             vrijwilligeroptie2, vrijwilligeroptie3, vrijwilligeroptie4, vrijwilligeroptie5, betalingswijze, iban, machtigingskenmerk, status
-                        ) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
-        );
-        return $stmt->execute(
-            [
-                $member->jaarlidmaatschap, $member->voorletters, $member->voornaam, $member->achternaam, $member->geboortedatum,
-                $member->address->adres, $member->address->postcode, $member->address->huisnummer, $member->address->woonplaats, $member->contactDetails->telefoon_vast, $member->contactDetails->telefoon_mobiel,
-                $member->contactDetails->emailadres, $member->ingangsdatum, $member->geslacht, $member->preferences->nieuwsbrief, $member->preferences->vrijwilliger, $member->preferences->vrijwilligeroptie1,
-                $member->preferences->vrijwilligeroptie2, $member->preferences->vrijwilligeroptie3, $member->preferences->vrijwilligeroptie4, $member->preferences->vrijwilligeroptie5, $member->paymentDetails->betalingswijze, $member->paymentDetails->iban, $member->paymentDetails->machtigingskenmerk, $member->paymentDetails->status
-            ]
-        );
+                        ) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        return $stmt->execute([
+                $member->jaarlidmaatschap, $member->voorletters, $member->voornaam, $member->achternaam, $member->geboortedatum, $member->address->adres, $member->address->postcode, $member->address->huisnummer, $member->address->woonplaats, $member->contactDetails->telefoon_vast, $member->contactDetails->telefoon_mobiel, $member->contactDetails->emailadres, $member->ingangsdatum, $member->geslacht, $member->preferences->nieuwsbrief, $member->preferences->vrijwilliger, $member->preferences->vrijwilligeroptie1, $member->preferences->vrijwilligeroptie2, $member->preferences->vrijwilligeroptie3, $member->preferences->vrijwilligeroptie4, $member->preferences->vrijwilligeroptie5, $member->paymentDetails->betalingswijze, $member->paymentDetails->iban, $member->paymentDetails->machtigingskenmerk, $member->paymentDetails->status
+            ]);
     }
 }

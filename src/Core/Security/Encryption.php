@@ -20,21 +20,18 @@ class Encryption
 {
     /**
      * Cipher algorithm
-     *
      * @var string
      */
     private const CIPHER = 'aes-256-cbc';
 
     /**
      * Hash function
-     *
      * @var string
      */
     private const HASH_FUNCTION = 'sha256';
 
     /**
      * Constructor for Encryption object. This is empty and private so that this object cannot be instantiated.
-     *
      * @access private
      */
     private function __construct()
@@ -47,10 +44,7 @@ class Encryption
      */
     public static function encrypt(string $plain): string
     {
-        if (!function_exists('openssl_cipher_iv_length')
-            || !function_exists('openssl_random_pseudo_bytes')
-            || !function_exists('openssl_encrypt')
-        ) {
+        if (!function_exists('openssl_cipher_iv_length') || !function_exists('openssl_random_pseudo_bytes') || !function_exists('openssl_encrypt')) {
             throw new RuntimeException('Encryption function doesn\'t exist');
         }
         // generate initialization vector, this will make $iv different every time,
@@ -104,11 +98,10 @@ class Encryption
 
     /**
      * A timing attack resistant comparison.
-     *
      * @access private
      * @static static method
-     * @param  string $hmac    The hmac from the ciphertext being decrypted.
-     * @param  string $compare The comparison hmac.
+     * @param string $hmac    The hmac from the ciphertext being decrypted.
+     * @param string $compare The comparison hmac.
      * @return bool
      * @see    https://github.com/sarciszewski/php-future/blob/bd6c91fb924b2b35a3e4f4074a642868bd051baf/src/Security.php#L36
      */

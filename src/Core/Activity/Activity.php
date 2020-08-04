@@ -20,7 +20,7 @@ class Activity
         return ActivityMapper::load();
     }
 
-    public static function add(string $activity, int $user_id = null, string $details = null, string $user_name = null) : bool
+    public static function add(string $activity, int $user_id = null, string $details = null, string $user_name = null): bool
     {
         if (!empty($activity)) {
             $remoteAdd = new RemoteAddress();

@@ -40,7 +40,7 @@ class Application
             $this->controller = new $name();
             if (method_exists($this->controller, $this->actionName)) {
                 if (!empty($this->parameters)) {
-                    call_user_func_array([$this->controller, $this->actionName], $this->parameters);
+                    call_user_func_array([ $this->controller, $this->actionName ], $this->parameters);
                 } else {
                     $this->controller->{$this->actionName}();
                 }

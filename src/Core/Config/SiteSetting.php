@@ -27,10 +27,10 @@ class SiteSetting
         return true;
     }
 
-    public static function get(string $setting) : ?string
+    public static function get(string $setting): ?string
     {
         $stmt = Database::conn()->prepare('SELECT string_value FROM site_settings WHERE setting = ?');
-        $stmt->execute([$setting]);
+        $stmt->execute([ $setting ]);
         $value = $stmt->fetch(PDO::FETCH_COLUMN);
         if (!empty($value) && $value !== false) {
             return $value;
@@ -48,17 +48,6 @@ class SiteSetting
                 self::writeLogoToDatabase($publicPath . '.jpg');
                 return true;
             }
-        }
-        return false;
-    }
-
-    public static function writeJPG($image, string $destination): bool
-    {
-        $destination .= '.jpg';
-        imagejpeg($image, $destination, 100);
-        imagedestroy($image);
-        if (file_exists($destination)) {
-            return true;
         }
         return false;
     }
@@ -93,15 +82,6 @@ class SiteSetting
         return true;
     }
 
-    public static function writeLogoToDatabase(string $fileName): bool
-    {
-        if (SiteSettingsMapper::update('site_logo', $fileName)) {
-            return true;
-        }
-        Session::add('feedback_negative', 'Could not write to database');
-        return false;
-    }
-
     /**
      * Resize logo
      * @param string $source The location to the original raw image.
@@ -109,7 +89,7 @@ class SiteSetting
      */
     public static function resizeLogo(string $source)
     {
-        [$width, $height] = getimagesize($source);
+        [ $width, $height ] = getimagesize($source);
         if (!$width || !$height) {
             return null;
         }
@@ -132,5 +112,25 @@ class SiteSetting
             return $thumb;
         }
         return null;
+    }
+
+    public static function writeJPG($image, string $destination): bool
+    {
+        $destination .= '.jpg';
+        imagejpeg($image, $destination, 100);
+        imagedestroy($image);
+        if (file_exists($destination)) {
+            return true;
+        }
+        return false;
+    }
+
+    public static function writeLogoToDatabase(string $fileName): bool
+    {
+        if (SiteSettingsMapper::update('site_logo', $fileName)) {
+            return true;
+        }
+        Session::add('feedback_negative', 'Could not write to database');
+        return false;
     }
 }

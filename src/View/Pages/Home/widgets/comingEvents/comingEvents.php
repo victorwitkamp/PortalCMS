@@ -18,7 +18,9 @@ use PortalCMS\Modules\Calendar\EventMapper;
         <ul class="list-group">
             <?php
             foreach ($events as $event) {
-                ?><li class="list-group-item"><i class="far fa-calendar"></i> <a href="/Events/Details?id=<?= $event->id ?>"><?= $event->title ?></a>
+                ?>
+                <li class="list-group-item"><i class="far fa-calendar"></i> <a
+                        href="/Events/Details?id=<?= $event->id ?>"><?= $event->title ?></a>
                 <br>Start: <?= $event->start_event ?></li>
                 <?php
             } ?>

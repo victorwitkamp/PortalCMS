@@ -23,7 +23,8 @@ use PortalCMS\Core\View\Text;
 
     <label class="col-4 col-form-label"><?= Text::get('LABEL_SITE_DESC') ?></label>
     <div class="col-8">
-        <input type="text" name="site_description" value="<?= SiteSetting::get('site_description') ?>" class="form-control">
+        <input type="text" name="site_description" value="<?= SiteSetting::get('site_description') ?>"
+               class="form-control">
     </div>
 
     <label class="col-4 col-form-label"><?= Text::get('LABEL_SITE_DESC_TYPE') ?></label>
@@ -63,8 +64,10 @@ use PortalCMS\Core\View\Text;
         <div class="input-group">
             <select class="form-control" name="site_layout">
                 <?php $SiteLayout = SiteSetting::get('site_layout'); ?>
-                <option value="right-sidebar" <?= ($SiteLayout === 'right-sidebar') ? 'selected' : '' ?>>right-sidebar</option>
-                <option value="left-sidebar" <?= ($SiteLayout === 'left-sidebar') ? 'selected' : '' ?>>left-sidebar</option>
+                <option value="right-sidebar" <?= ($SiteLayout === 'right-sidebar') ? 'selected' : '' ?>>right-sidebar
+                </option>
+                <option value="left-sidebar" <?= ($SiteLayout === 'left-sidebar') ? 'selected' : '' ?>>left-sidebar
+                </option>
             </select>
         </div>
     </div>
@@ -148,11 +151,13 @@ use PortalCMS\Core\View\Text;
     </div>
     <label class="col-4 col-form-label">SMTP username</label>
     <div class="col-8">
-        <input type="text" name="MailServerUsername" value="<?= SiteSetting::get('MailServerUsername') ?>" class="form-control">
+        <input type="text" name="MailServerUsername" value="<?= SiteSetting::get('MailServerUsername') ?>"
+               class="form-control">
     </div>
     <label class="col-4 col-form-label">SMTP password</label>
     <div class="col-8">
-        <input type="password" name="MailServerPassword" value="<?= SiteSetting::get('MailServerPassword') ?>" class="form-control">
+        <input type="password" name="MailServerPassword" value="<?= SiteSetting::get('MailServerPassword') ?>"
+               class="form-control">
     </div>
     <label class="col-4 col-form-label">SMTP debug</label>
     <div class="col-8">

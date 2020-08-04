@@ -25,7 +25,7 @@ class EmailAttachment
         $this->processUpload($file);
     }
 
-    public function processUpload(array $file) : bool
+    public function processUpload(array $file): bool
     {
         if (!empty($file)) {
             if ($this->isFolderWritable($this->path)) {
@@ -49,38 +49,12 @@ class EmailAttachment
         return false;
     }
 
-    public function validate() : bool
-    {
-        return !(empty($this->path) || empty($this->name) || empty($this->extension) || empty($this->encoding) || empty($this->type));
-    }
-
-    public function store(int $mailId = null, int $templateId = null) : bool
-    {
-        if (!$this->validate()) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_FAILED'));
-        } elseif (!empty($mailId) && empty($templateId)) {
-            // No implementation yet
-            Session::add('feedback_negative', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_FAILED'));
-        } elseif (empty($mailId) && !empty($templateId) && EmailAttachmentMapper::createForTemplate($templateId, $this)) {
-            Session::add('feedback_positive', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_SUCCESSFUL'));
-            return true;
-        }
-        return false;
-    }
-
-    public function getMIMEType(string $filename) : string
-    {
-        $realpath = realpath($filename);
-        return finfo_file(finfo_open(FILEINFO_MIME_TYPE), $realpath);
-    }
-
     /**
      * Checks if the upload folder exists and if it is writable
-     *
-     * @var string $path Path of the target upload folder
      * @return bool success status
+     * @var string $path Path of the target upload folder
      */
-    public function isFolderWritable(string $path) : bool
+    public function isFolderWritable(string $path): bool
     {
         if (is_dir(DIR_ROOT . $path)) {
             if (is_writable(DIR_ROOT . $path)) {
@@ -93,9 +67,53 @@ class EmailAttachment
         return false;
     }
 
+    public function getMIMEType(string $filename): string
+    {
+        $realpath = realpath($filename);
+        return finfo_file(finfo_open(FILEINFO_MIME_TYPE), $realpath);
+    }
+
+    /**
+     * Delete attachment(s)
+     */
+    public static function deleteById(array $attachmentIds = null): bool
+    {
+        $deleted = 0;
+        $error = 0;
+        if (empty($attachmentIds)) {
+            Session::add('feedback_negative', 'Verwijderen mislukt. Ongeldig verzoek');
+            return false;
+        }
+        foreach ($attachmentIds as $attachmentId) {
+            if (EmailAttachmentMapper::deleteById((int)$attachmentId)) {
+                ++$deleted;
+            } else {
+                ++$error;
+            }
+        }
+        return self::deleteFeedbackHandler($deleted, $error);
+    }
+
+    /**
+     * Handle feedback for the deleteById method
+     */
+    public static function deleteFeedbackHandler(int $deleted, int $error): bool
+    {
+        if ($deleted > 0) {
+            if ($error === 0) {
+                Session::add('feedback_positive', 'Aantal bijlagen verwijderd: ' . $deleted);
+            }
+            if ($error > 0) {
+                Session::add('feedback_warning', 'Aantal bijlagen verwijderd: ' . $deleted . '. Aantal bijlagen met problemen: ' . $error);
+            }
+            return true;
+        }
+        Session::add('feedback_negative', 'Verwijderen mislukt. Aantal bijlagen met problemen: ' . $error);
+        return false;
+    }
+
     /**
      * Validates is the file size of the attachment is within range.
-     *
      * @param $attachmentFile
      * @return bool
      */
@@ -126,42 +144,22 @@ class EmailAttachment
     //    //        return false;
     //    //    }
 
-    /**
-     * Delete attachment(s)
-     */
-    public static function deleteById(array $attachmentIds = null) : bool
+    public function store(int $mailId = null, int $templateId = null): bool
     {
-        $deleted = 0;
-        $error = 0;
-        if (empty($attachmentIds)) {
-            Session::add('feedback_negative', 'Verwijderen mislukt. Ongeldig verzoek');
-            return false;
-        }
-        foreach ($attachmentIds as $attachmentId) {
-            if (EmailAttachmentMapper::deleteById((int) $attachmentId)) {
-                ++$deleted;
-            } else {
-                ++$error;
-            }
-        }
-        return self::deleteFeedbackHandler($deleted, $error);
-    }
-
-    /**
-     * Handle feedback for the deleteById method
-     */
-    public static function deleteFeedbackHandler(int $deleted, int $error) : bool
-    {
-        if ($deleted > 0) {
-            if ($error === 0) {
-                Session::add('feedback_positive', 'Aantal bijlagen verwijderd: ' . $deleted);
-            }
-            if ($error > 0) {
-                Session::add('feedback_warning', 'Aantal bijlagen verwijderd: ' . $deleted . '. Aantal bijlagen met problemen: ' . $error);
-            }
+        if (!$this->validate()) {
+            Session::add('feedback_negative', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_FAILED'));
+        } elseif (!empty($mailId) && empty($templateId)) {
+            // No implementation yet
+            Session::add('feedback_negative', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_FAILED'));
+        } elseif (empty($mailId) && !empty($templateId) && EmailAttachmentMapper::createForTemplate($templateId, $this)) {
+            Session::add('feedback_positive', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_SUCCESSFUL'));
             return true;
         }
-        Session::add('feedback_negative', 'Verwijderen mislukt. Aantal bijlagen met problemen: ' . $error);
         return false;
+    }
+
+    public function validate(): bool
+    {
+        return !(empty($this->path) || empty($this->name) || empty($this->extension) || empty($this->encoding) || empty($this->type));
     }
 }

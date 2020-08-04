@@ -15,28 +15,12 @@ use PortalCMS\Modules\Members\MemberModel;
 
 class PlaceholderHelper
 {
-    /**
-     * replace
-     *
-     * @param $placeholder
-     * @param $value
-     * @param $text
-     * @return string The $text string with the specified placeholder replaced by the specified value.
-     */
-    public static function replace(string $placeholder, string $value, string $text): string
-    {
-        return str_replace('{' . strtoupper($placeholder) . '}', $value, $text);
-    }
-
     public static function replaceMemberPlaceholders(int $memberId, string $text): string
     {
-//        $member = MemberMapper::getMemberById($memberId);
+        //        $member = MemberMapper::getMemberById($memberId);
         $member = MemberModel::getMember($memberId);
         $variables = [
-            'voornaam' => $member->voornaam,
-            'achternaam' => $member->achternaam,
-            'iban' => $member->paymentDetails->iban,
-            'afzender' => SiteSetting::get('MailFromName')
+            'voornaam' => $member->voornaam, 'achternaam' => $member->achternaam, 'iban' => $member->paymentDetails->iban, 'afzender' => SiteSetting::get('MailFromName')
         ];
         if (!empty($variables)) {
             foreach ($variables as $placeholder => $value) {
@@ -46,5 +30,17 @@ class PlaceholderHelper
             }
         }
         return $text;
+    }
+
+    /**
+     * replace
+     * @param $placeholder
+     * @param $value
+     * @param $text
+     * @return string The $text string with the specified placeholder replaced by the specified value.
+     */
+    public static function replace(string $placeholder, string $value, string $text): string
+    {
+        return str_replace('{' . strtoupper($placeholder) . '}', $value, $text);
     }
 }

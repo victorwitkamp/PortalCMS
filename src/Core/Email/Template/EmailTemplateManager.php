@@ -13,7 +13,6 @@ class EmailTemplateManager
 {
     /**
      * Instance of the MailTemplateMapper class
-     *
      * @var EmailTemplate $emailTemplate
      */
     public $emailTemplate;
@@ -28,6 +27,20 @@ class EmailTemplateManager
         $this->EmailTemplateMapper = new EmailTemplateMapper();
     }
 
+    public static function delete(int $id): bool
+    {
+        if (!empty(EmailTemplateMapper::getById($id))) {
+            if (EmailTemplateMapper::delete($id)) {
+                Session::add('feedback_positive', 'Template verwijderd.');
+                return true;
+            }
+            Session::add('feedback_negative', 'Verwijderen van template mislukt.');
+        } else {
+            Session::add('feedback_negative', 'Verwijderen van template mislukt. Template bestaat niet.');
+        }
+        return false;
+    }
+
     public function create(string $type, string $subject, string $body): bool
     {
         if (empty($type) || empty($subject) || empty($body)) {
@@ -38,11 +51,11 @@ class EmailTemplateManager
         $this->emailTemplate->subject = $subject;
         $this->emailTemplate->body = $body;
         $this->emailTemplate->status = 1;
-        $this->emailTemplate->CreatedBy = (int) Session::get('user_id');
+        $this->emailTemplate->CreatedBy = (int)Session::get('user_id');
         return true;
     }
 
-    public function getExisting(int $id) : ?EmailTemplate
+    public function getExisting(int $id): ?EmailTemplate
     {
         $existing = EmailTemplateMapper::getById($id);
         if (!empty($existing)) {
@@ -59,7 +72,7 @@ class EmailTemplateManager
         return null;
     }
 
-    public function store() : bool
+    public function store(): bool
     {
         if (empty($this->emailTemplate->type) || empty($this->emailTemplate->subject) || empty($this->emailTemplate->body)) {
             Session::add('feedback_negative', 'Nieuwe template aanmaken mislukt.');
@@ -75,7 +88,7 @@ class EmailTemplateManager
         return false;
     }
 
-    public function update(EmailTemplate $emailTemplate) : bool
+    public function update(EmailTemplate $emailTemplate): bool
     {
         if (empty($emailTemplate->subject) || empty($emailTemplate->body)) {
             Session::add('feedback_negative', 'Niet alle velden zijn ingevuld');
@@ -84,20 +97,6 @@ class EmailTemplateManager
             return true;
         } else {
             Session::add('feedback_negative', 'Opslaan mislukt');
-        }
-        return false;
-    }
-
-    public static function delete(int $id): bool
-    {
-        if (!empty(EmailTemplateMapper::getById($id))) {
-            if (EmailTemplateMapper::delete($id)) {
-                Session::add('feedback_positive', 'Template verwijderd.');
-                return true;
-            }
-            Session::add('feedback_negative', 'Verwijderen van template mislukt.');
-        } else {
-            Session::add('feedback_negative', 'Verwijderen van template mislukt. Template bestaat niet.');
         }
         return false;
     }

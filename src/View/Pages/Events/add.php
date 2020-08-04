@@ -9,7 +9,7 @@ use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
 ?>
-<?= $this->layout('layout', ['title' => $this->e($pageName)]) ?>
+<?= $this->layout('layout', [ 'title' => $this->e($pageName) ]) ?>
 <?= $this->push('main-content') ?>
 
     <div class="container">
@@ -45,7 +45,7 @@ use PortalCMS\Core\View\Text;
                     <input type="text" id="eventDesc" name="description" class="form-control">
                 </div>
             </div>
-            <hr />
+            <hr/>
             <div class="row">
                 <input type="submit" name="addEvent" class="btn btn-primary" value="<?= Text::get('LABEL_SUBMIT') ?>">
                 <a href="/Events" class="btn btn-danger"><?= Text::get('LABEL_CANCEL') ?></a>

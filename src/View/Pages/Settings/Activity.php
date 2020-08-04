@@ -10,7 +10,7 @@ use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
 $pageName = Text::get('TITLE_RECENT_ACTIVITY'); ?>
-<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->layout('layout', [ 'title' => $pageName ]) ?>
 <?= $this->push('head-extra') ?>
 
     <link rel="stylesheet" type="text/css" href="/dist/merged/dataTables.min.css">

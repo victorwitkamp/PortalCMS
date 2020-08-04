@@ -11,14 +11,14 @@ use PortalCMS\Core\Security\Filter;
 
 class Session
 {
-    public static function init() : void
+    public static function init(): void
     {
         if (session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
         }
     }
 
-    public static function set($key, $value) : bool
+    public static function set($key, $value): bool
     {
         $_SESSION[$key] = $value;
         return true;
@@ -36,13 +36,7 @@ class Session
         return null;
     }
 
-    public static function add($key, $value) : void
-    {
-        $_SESSION[$key][] = $value;
-        // session_write_close();
-    }
-
-    public static function destroy() : bool
+    public static function destroy(): bool
     {
         if (!session_destroy()) {
             self::add('feedback_warning', 'Session could not be destroyed.');
@@ -50,5 +44,11 @@ class Session
         }
         self::add('feedback_warning', 'Session destroyed.');
         return true;
+    }
+
+    public static function add($key, $value): void
+    {
+        $_SESSION[$key][] = $value;
+        // session_write_close();
     }
 }

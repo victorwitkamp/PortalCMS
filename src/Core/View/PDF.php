@@ -7,10 +7,10 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\View;
 
-use function define;
 use PortalCMS\Core\Config\SiteSetting;
 use PortalCMS\Core\Session\Session;
 use TCPDF;
+use function define;
 
 class PDF
 {
@@ -20,6 +20,23 @@ class PDF
      * @var mixed variable to collect errors
      */
     public static $error;
+
+    /**
+     * @param $invoice
+     * @param $invoiceitems
+     * @param $contract
+     * @return mixed
+     */
+    public static function renderInvoice(object $invoice, array $invoiceitems, object $contract)
+    {
+        if (self::$defined === false) {
+            self::config();
+        }
+        $pdf = self::configPDF();
+        $pdf = self::createInvoice($pdf, $invoice, $invoiceitems, $contract);
+        ob_end_clean();
+        return $pdf->Output($invoice->factuurnummer . '.pdf');
+    }
 
     public static function config()
     {
@@ -79,37 +96,23 @@ class PDF
         return $pdf;
     }
 
-    public static function createInvoice(TCPDF $pdf, object $invoice, array $invoiceitems, object $contract) : TCPDF
+    public static function createInvoice(TCPDF $pdf, object $invoice, array $invoiceitems, object $contract): TCPDF
     {
         return self::setInvoiceFooter(self::setInvoiceContent(self::setInvoiceHeader($pdf, $invoice, $contract), $invoiceitems));
     }
 
-    public static function setInvoiceHeader(TCPDF $pdf, $invoice, $contract): TCPDF
+    public static function setInvoiceFooter(TCPDF $pdf): TCPDF
     {
-        $pdf->SetTitle('Factuur ' . $invoice->factuurnummer);
-        $pdf->SetXY(165, 15);
-        $pdf->Image(DIR_IMG . 'logo_new_280px.jpg', '', '', 25, 25, '', '', 'T');
-        $pdf->SetXY(120, 60);
-        $pdf->MultiCell(0, 2, "Poppodium de Beuk\n1e Barendrechtseweg 53-55\n2992XE, Barendrecht\n\nKVK: 40341794\nIBAN: NL19RABO1017541353", $border = 0, $align = 'R');
-        $pdf->SetXY(20, 70);
-        $pdf->SetFont('dejavusans', 'B', 11, '', true);
-        $pdf->Write(0, $contract->band_naam . "\n", '', 0, 'L', true);
-        $pdf->SetFont('dejavusans', '', 11, '', true);
         $pdf->SetX(20);
-        $pdf->Write(0, 'T.a.v. ' . $contract->bandleider_naam . "\n", '', 0, 'L', true);
+        $pdf->Write(0, 'Wij verzoeken u het bedrag binnen 14 dagen over te maken naar', '', 0, '', true);
         $pdf->SetX(20);
-        $pdf->Write(0, $contract->bandleider_adres . "\n", '', 0, 'L', true);
+        $pdf->Write(0, 'NL19 RABO 1017 5413 53 o.v.v. het factuurnummer t.n.v. SOCIETEIT DE BEUK.' . "\n", '', 0, 'L', true);
         $pdf->SetX(20);
-        $pdf->Write(0, $contract->bandleider_postcode . ' ' . $contract->bandleider_woonplaats, '', 0, 'L', true);
-        $pdf->SetXY(20, 110);
-        $pdf->SetFont('dejavusans', 'B', 11, '', true);
-        $pdf->Write(0, 'Factuur', '', 0, 'L', true);
-        $pdf->SetXY(20, 120);
-        $pdf->SetFont('dejavusans', '', 11, '', true);
-        $pdf->Write(0, 'Factuurnummer: ' . $invoice->factuurnummer, '', 0, 'L', true);
-        $pdf->SetXY(120, 120);
-        $pdf->Write(0, 'Factuurdatum: ' . date('d-m-Y', strtotime($invoice->factuurdatum)), '', 0, 'R', true);
-        $pdf->SetXY(20, 140);
+        $pdf->Write(0, 'Neem voor vragen over facturatie contact op met penningmeester@beukonline.nl.' . "\n\n", '', 0, 'L', true);
+        $pdf->SetX(20);
+        $pdf->Write(0, 'Met vriendelijke groet,' . "\n\n", '', 0, 'L', true);
+        $pdf->SetX(20);
+        $pdf->Write(0, 'De penningmeester van Poppodium de Beuk.', '', 0, 'L', true);
         return $pdf;
     }
 
@@ -147,39 +150,36 @@ class PDF
         return $pdf;
     }
 
-    public static function setInvoiceFooter(TCPDF $pdf): TCPDF
+    public static function setInvoiceHeader(TCPDF $pdf, $invoice, $contract): TCPDF
     {
+        $pdf->SetTitle('Factuur ' . $invoice->factuurnummer);
+        $pdf->SetXY(165, 15);
+        $pdf->Image(DIR_IMG . 'logo_new_280px.jpg', '', '', 25, 25, '', '', 'T');
+        $pdf->SetXY(120, 60);
+        $pdf->MultiCell(0, 2, "Poppodium de Beuk\n1e Barendrechtseweg 53-55\n2992XE, Barendrecht\n\nKVK: 40341794\nIBAN: NL19RABO1017541353", $border = 0, $align = 'R');
+        $pdf->SetXY(20, 70);
+        $pdf->SetFont('dejavusans', 'B', 11, '', true);
+        $pdf->Write(0, $contract->band_naam . "\n", '', 0, 'L', true);
+        $pdf->SetFont('dejavusans', '', 11, '', true);
         $pdf->SetX(20);
-        $pdf->Write(0, 'Wij verzoeken u het bedrag binnen 14 dagen over te maken naar', '', 0, '', true);
+        $pdf->Write(0, 'T.a.v. ' . $contract->bandleider_naam . "\n", '', 0, 'L', true);
         $pdf->SetX(20);
-        $pdf->Write(0, 'NL19 RABO 1017 5413 53 o.v.v. het factuurnummer t.n.v. SOCIETEIT DE BEUK.' . "\n", '', 0, 'L', true);
+        $pdf->Write(0, $contract->bandleider_adres . "\n", '', 0, 'L', true);
         $pdf->SetX(20);
-        $pdf->Write(0, 'Neem voor vragen over facturatie contact op met penningmeester@beukonline.nl.' . "\n\n", '', 0, 'L', true);
-        $pdf->SetX(20);
-        $pdf->Write(0, 'Met vriendelijke groet,' . "\n\n", '', 0, 'L', true);
-        $pdf->SetX(20);
-        $pdf->Write(0, 'De penningmeester van Poppodium de Beuk.', '', 0, 'L', true);
+        $pdf->Write(0, $contract->bandleider_postcode . ' ' . $contract->bandleider_woonplaats, '', 0, 'L', true);
+        $pdf->SetXY(20, 110);
+        $pdf->SetFont('dejavusans', 'B', 11, '', true);
+        $pdf->Write(0, 'Factuur', '', 0, 'L', true);
+        $pdf->SetXY(20, 120);
+        $pdf->SetFont('dejavusans', '', 11, '', true);
+        $pdf->Write(0, 'Factuurnummer: ' . $invoice->factuurnummer, '', 0, 'L', true);
+        $pdf->SetXY(120, 120);
+        $pdf->Write(0, 'Factuurdatum: ' . date('d-m-Y', strtotime($invoice->factuurdatum)), '', 0, 'R', true);
+        $pdf->SetXY(20, 140);
         return $pdf;
     }
 
-    /**
-     * @param $invoice
-     * @param $invoiceitems
-     * @param $contract
-     * @return mixed
-     */
-    public static function renderInvoice(object $invoice, array $invoiceitems, object $contract)
-    {
-        if (self::$defined === false) {
-            self::config();
-        }
-        $pdf = self::configPDF();
-        $pdf = self::createInvoice($pdf, $invoice, $invoiceitems, $contract);
-        ob_end_clean();
-        return $pdf->Output($invoice->factuurnummer . '.pdf');
-    }
-
-    public static function writeInvoice(object $invoice, array $invoiceitems, object $contract) : bool
+    public static function writeInvoice(object $invoice, array $invoiceitems, object $contract): bool
     {
         if (self::$defined === false) {
             self::config();

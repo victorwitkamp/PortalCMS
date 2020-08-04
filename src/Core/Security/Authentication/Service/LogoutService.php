@@ -19,7 +19,7 @@ class LogoutService
     public static function logout(): bool
     {
         if (Authentication::userIsLoggedIn()) {
-            $user_id = (int) Session::get('user_id');
+            $user_id = (int)Session::get('user_id');
             if (!empty($user_id)) {
                 UserMapper::clearRememberMeToken($user_id);
                 if (Cookie::delete()) {

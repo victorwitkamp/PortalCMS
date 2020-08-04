@@ -26,8 +26,8 @@ class MailSchedule
             Session::add('feedback_negative', 'Invalid request');
         } else {
             foreach ($mailIds as $mailId) {
-                if (MailScheduleMapper::deleteById((int) $mailId)) {
-                    EmailAttachmentMapper::deleteByMailId((int) $mailId);
+                if (MailScheduleMapper::deleteById((int)$mailId)) {
+                    EmailAttachmentMapper::deleteByMailId((int)$mailId);
                     ++$deleted;
                 } else {
                     ++$error;
@@ -42,12 +42,7 @@ class MailSchedule
         return false;
     }
 
-    public static function isSent(int $mailId): bool
-    {
-        return MailScheduleMapper::getStatusById($mailId) !== 1;
-    }
-
-    public static function sendMailsById(array $mailIds) : bool
+    public static function sendMailsById(array $mailIds): bool
     {
         $success = 0;
         $failed = 0;
@@ -56,9 +51,9 @@ class MailSchedule
             return false;
         }
         foreach ($mailIds as $mailId) {
-            if (self::isSent((int) $mailId)) {
+            if (self::isSent((int)$mailId)) {
                 ++$alreadySent;
-            } elseif (self::prepareMailData((int) $mailId)) {
+            } elseif (self::prepareMailData((int)$mailId)) {
                 ++$success;
             } else {
                 ++$failed;
@@ -68,22 +63,9 @@ class MailSchedule
         return true;
     }
 
-    public static function sendFeedbackHandler(int $failed, int $success, int $alreadySent): bool
+    public static function isSent(int $mailId): bool
     {
-        if (($success === 0) && ($failed === 0) && ($alreadySent === 0)) {
-            Session::add('feedback_negative', 'Invalid request.');
-        }
-        if ($failed > 0) {
-            Session::add('feedback_negative', $failed . ' bericht(en) mislukt.');
-        }
-        if ($alreadySent > 0) {
-            Session::add('feedback_warning', $alreadySent . ' bericht(en) reeds verstuurd.');
-        }
-        if ($success > 0) {
-            Session::add('feedback_positive', $success . ' bericht(en) succesvol verstuurd.');
-            return true;
-        }
-        return false;
+        return MailScheduleMapper::getStatusById($mailId) !== 1;
     }
 
     public static function prepareMailData(int $mailId): bool
@@ -106,14 +88,9 @@ class MailSchedule
         return false;
     }
 
-    public static function sendSingleMailHandler(int $mailId, object $scheduledMail, array $recipients, array $attachments = null) : bool
+    public static function sendSingleMailHandler(int $mailId, object $scheduledMail, array $recipients, array $attachments = null): bool
     {
-        $EmailMessage = new EmailMessage(
-            $scheduledMail->subject,
-            $scheduledMail->body,
-            $recipients,
-            $attachments
-        );
+        $EmailMessage = new EmailMessage($scheduledMail->subject, $scheduledMail->body, $recipients, $attachments);
         $configuration = new SMTPConfiguration();
         $transport = new SMTPTransport($configuration);
         if (!$transport->sendMail($EmailMessage)) {
@@ -125,6 +102,24 @@ class MailSchedule
         MailScheduleMapper::updateDateSent($mailId);
         MailScheduleMapper::updateSender($mailId, $configuration->fromName, $configuration->fromEmail);
         return true;
+    }
+
+    public static function sendFeedbackHandler(int $failed, int $success, int $alreadySent): bool
+    {
+        if (($success === 0) && ($failed === 0) && ($alreadySent === 0)) {
+            Session::add('feedback_negative', 'Invalid request.');
+        }
+        if ($failed > 0) {
+            Session::add('feedback_negative', $failed . ' bericht(en) mislukt.');
+        }
+        if ($alreadySent > 0) {
+            Session::add('feedback_warning', $alreadySent . ' bericht(en) reeds verstuurd.');
+        }
+        if ($success > 0) {
+            Session::add('feedback_positive', $success . ' bericht(en) succesvol verstuurd.');
+            return true;
+        }
+        return false;
     }
 
     public static function createWithTemplate(int $templateId, array $recipientIds)

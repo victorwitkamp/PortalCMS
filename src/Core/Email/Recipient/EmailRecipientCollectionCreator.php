@@ -11,7 +11,6 @@ class EmailRecipientCollectionCreator
 {
     /**
      * Recipients
-     *
      * @var array
      */
     public $recipients;

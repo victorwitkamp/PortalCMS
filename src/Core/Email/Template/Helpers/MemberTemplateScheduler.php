@@ -16,7 +16,7 @@ use PortalCMS\Modules\Members\MemberModel;
 
 class MemberTemplateScheduler
 {
-    public function scheduleMails(object $template, array $memberIds) : bool
+    public function scheduleMails(object $template, array $memberIds): bool
     {
         $success = 0;
         $failed = 0;
@@ -26,7 +26,7 @@ class MemberTemplateScheduler
         }
         $batchId = MailBatch::lastInsertedId();
         foreach ($memberIds as $memberId) {
-            if ($this->processSingleMail((int) $memberId, $batchId, $template)) {
+            if ($this->processSingleMail((int)$memberId, $batchId, $template)) {
                 ++$success;
             } else {
                 ++$failed;
@@ -36,30 +36,13 @@ class MemberTemplateScheduler
         return true;
     }
 
-    public function processFeedback(int $success, int $failed)
-    {
-        if ($failed === 0) {
-            Session::add('feedback_positive', 'Totaal aantal berichten aangemaakt:' . $success);
-        } else {
-            Session::add('feedback_warning', 'Totaal aantal berichten aangemaakt: ' . $success . '. Berichten met fout: ' . $failed);
-        }
-    }
-
     public function processSingleMail(int $memberId = null, int $batchId = null, object $template = null): bool
     {
         if (empty($memberId) || empty($batchId) || empty($template)) {
             return false;
         }
         $member = MemberModel::getMember($memberId);
-        $return = MailScheduleMapper::create(
-            $batchId,
-            $memberId,
-            $template->subject,
-            PlaceholderHelper::replaceMemberPlaceholders(
-                $memberId,
-                $template->body
-            )
-        );
+        $return = MailScheduleMapper::create($batchId, $memberId, $template->subject, PlaceholderHelper::replaceMemberPlaceholders($memberId, $template->body));
         if (!$return) {
             return false;
         }
@@ -73,5 +56,14 @@ class MemberTemplateScheduler
             }
         }
         return true;
+    }
+
+    public function processFeedback(int $success, int $failed)
+    {
+        if ($failed === 0) {
+            Session::add('feedback_positive', 'Totaal aantal berichten aangemaakt:' . $success);
+        } else {
+            Session::add('feedback_warning', 'Totaal aantal berichten aangemaakt: ' . $success . '. Berichten met fout: ' . $failed);
+        }
     }
 }

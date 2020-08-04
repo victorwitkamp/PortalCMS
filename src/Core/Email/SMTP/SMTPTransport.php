@@ -42,15 +42,51 @@ class SMTPTransport
         $this->PHPMailer = new PHPMailer(true);
     }
 
+    /**
+     * The different mail sending methods write errors to the error property $this->error,
+     * this method simply returns this error / error array.
+     * @return mixed
+     */
+    public function getError()
+    {
+        return $this->error;
+    }
+
+    public function sendMail(EmailMessage $emailMessage): bool
+    {
+        $this->emailMessage = $emailMessage;
+        if (!$this->verifyMessage()) {
+            return false;
+        }
+        $this->prepareConfiguration();
+        $this->processRecipients();
+        $this->PHPMailer->Subject = $this->emailMessage->subject;
+        $this->PHPMailer->Body = $this->emailMessage->body;
+        $this->processAttachments();
+        return $this->send();
+    }
+
+    public function verifyMessage(): bool
+    {
+        if (empty($this->emailMessage->recipients)) {
+            $this->error = 'Recipients incompleet';
+        } elseif (empty($this->emailMessage->subject)) {
+            $this->error = 'Subject incompleet';
+        } elseif (empty($this->emailMessage->body)) {
+            $this->error = 'Body incompleet';
+        } else {
+            return true;
+        }
+        return false;
+    }
+
     public function prepareConfiguration()
     {
         $this->PHPMailer->CharSet = $this->config->charset;
         $this->PHPMailer->isSMTP();
         $this->PHPMailer->SMTPOptions = [
             'ssl' => [
-                'verify_peer' => false,
-                'verify_peer_name' => false,
-                'allow_self_signed' => true
+                'verify_peer' => false, 'verify_peer_name' => false, 'allow_self_signed' => true
             ]
         ];
         $this->PHPMailer->Host = $this->config->SMTPHost;
@@ -70,65 +106,14 @@ class SMTPTransport
         }
     }
 
-    /**
-     * The different mail sending methods write errors to the error property $this->error,
-     * this method simply returns this error / error array.
-     *
-     * @return mixed
-     */
-    public function getError()
-    {
-        return $this->error;
-    }
-
-    public function verifyMessage(): bool
-    {
-        if (empty($this->emailMessage->recipients)) {
-            $this->error = 'Recipients incompleet';
-        } elseif (empty($this->emailMessage->subject)) {
-            $this->error = 'Subject incompleet';
-        } elseif (empty($this->emailMessage->body)) {
-            $this->error = 'Body incompleet';
-        } else {
-            return true;
-        }
-        return false;
-    }
-
-    public function sendMail(EmailMessage $emailMessage): bool
-    {
-        $this->emailMessage = $emailMessage;
-        if (!$this->verifyMessage()) {
-            return false;
-        }
-        $this->prepareConfiguration();
-        $this->processRecipients();
-        $this->PHPMailer->Subject = $this->emailMessage->subject;
-        $this->PHPMailer->Body = $this->emailMessage->body;
-        $this->processAttachments();
-        return $this->send();
-    }
-
-    public function send() : bool
-    {
-        try {
-            $this->PHPMailer->send();
-        } catch (Exception $e) {
-            $this->error = $e->errorMessage();
-        } finally {
-            $this->emailMessage = null;
-            return true;
-        }
-    }
-
-    public function processRecipients() : bool
+    public function processRecipients(): bool
     {
         if (!empty($this->emailMessage->recipients)) {
             foreach ($this->emailMessage->recipients as $recipient) {
                 try {
                     $this->PHPMailer->addAddress($recipient->email, $recipient->name);
                 } catch (Exception $e) {
-                    echo 'Caught exception: ',  $e->getMessage(), "\n";
+                    echo 'Caught exception: ', $e->getMessage(), "\n";
                 }
             }
             return true;
@@ -145,9 +130,21 @@ class SMTPTransport
                 try {
                     $this->PHPMailer->addAttachment($fullPath, $name, $attachment['encoding'], $attachment['type']);
                 } catch (Exception $e) {
-                    echo 'Caught exception: ',  $e->getMessage(), "\n";
+                    echo 'Caught exception: ', $e->getMessage(), "\n";
                 }
             }
+        }
+    }
+
+    public function send(): bool
+    {
+        try {
+            $this->PHPMailer->send();
+        } catch (Exception $e) {
+            $this->error = $e->errorMessage();
+        } finally {
+            $this->emailMessage = null;
+            return true;
         }
     }
 }

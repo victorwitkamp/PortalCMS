@@ -13,23 +13,18 @@ use PortalCMS\Core\Session\Session;
 /**
  * Cross Site Request Forgery Class
  */
-
 class Csrf
 {
     /**
      * Instructions:
-     *
      * At your form, before the submit button put:
      * <input type="hidden" name="csrf_token" value="<?= Csrf::makeToken(); ?>" />
-     *
      * This validation needed in the controller action method to validate CSRF token submitted with the form:
-     *
      * if (!Csrf::isTokenValid()) {
      *     LogoutService::logout();
      *     Redirect::to('Home');
      *     exit();
      * }
-     *
      * To get simpler code it might be better to put the logout, redirect, exit into an own (static) method.
      */
 
@@ -39,12 +34,12 @@ class Csrf
     public static function makeToken(): string
     {
         // token is valid for 1 day
-        $max_time    = 60 * 60 * 24;
+        $max_time = 60 * 60 * 24;
         $stored_time = Session::get('csrf_token_time');
-        $csrf_token  = Session::get('csrf_token');
+        $csrf_token = Session::get('csrf_token');
 
         if (empty($csrf_token) || $max_time + $stored_time <= time()) {
-            $csrf_token = md5(uniqid((string) mt_rand(), true));
+            $csrf_token = md5(uniqid((string)mt_rand(), true));
             Session::set('csrf_token', $csrf_token);
             Session::set('csrf_token_time', time());
         }

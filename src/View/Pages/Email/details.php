@@ -17,7 +17,7 @@ use PortalCMS\Core\View\Text;
 $pageName = Text::get('TITLE_MAIL_DETAILS');
 ?>
 <?php
-$id = (int) Request::get('id');
+$id = (int)Request::get('id');
 
 if (MailScheduleMapper::exists($id)) {
     $row = MailScheduleMapper::getById($id);
@@ -25,7 +25,7 @@ if (MailScheduleMapper::exists($id)) {
     Redirect::to('Error/NotFound');
 }
 ?>
-<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->layout('layout', [ 'title' => $pageName ]) ?>
 <?= $this->push('main-content') ?>
 
     <div class="container">
@@ -108,16 +108,16 @@ if (MailScheduleMapper::exists($id)) {
                         <th><?= Text::get('LABEL_MAILDETAILS_ATTACHMENTS') ?></th>
                         <td><?php
                             $attachments = EmailAttachmentMapper::getByMailId($row->id);
-                        if (!empty($attachments)) {
-                            foreach ($attachments as $attachment) {
-                                $file = $attachment['path'] . $attachment['name'] . $attachment['extension'];
+                            if (!empty($attachments)) {
+                                foreach ($attachments as $attachment) {
+                                    $file = $attachment['path'] . $attachment['name'] . $attachment['extension'];
 
-                                echo '<a href="' . Config::get('URL') . $file . '">' . $file . '</a><br>';
+                                    echo '<a href="' . Config::get('URL') . $file . '">' . $file . '</a><br>';
+                                }
+                            } else {
+                                echo 'n/a';
                             }
-                        } else {
-                            echo 'n/a';
-                        }
-                        ?></td>
+                            ?></td>
                     </tr>
                     <tr>
                         <th><?= Text::get('LABEL_MAILDETAILS_MEMBER_ID') ?></th>

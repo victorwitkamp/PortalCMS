@@ -13,16 +13,8 @@ class Cookie
 {
     public static function setRememberMe(string $token): bool
     {
-        $runtime = time() + (int) Config::get('COOKIE_RUNTIME');
-        return setcookie(
-            'remember_me',
-            $token,
-            $runtime,
-            (string) Config::get('COOKIE_PATH'),
-            (string) Config::get('COOKIE_DOMAIN'),
-            (bool) Config::get('COOKIE_SECURE'),
-            (bool) Config::get('COOKIE_HTTP')
-        );
+        $runtime = time() + (int)Config::get('COOKIE_RUNTIME');
+        return setcookie('remember_me', $token, $runtime, (string)Config::get('COOKIE_PATH'), (string)Config::get('COOKIE_DOMAIN'), (bool)Config::get('COOKIE_SECURE'), (bool)Config::get('COOKIE_HTTP'));
     }
 
     /**
@@ -33,14 +25,6 @@ class Cookie
     public static function delete(): bool
     {
         $runtime = time() - (3600 * 24 * 3650);
-        return setcookie(
-            'remember_me',
-            '',
-            $runtime,
-            (string) Config::get('COOKIE_PATH'),
-            (string) Config::get('COOKIE_DOMAIN'),
-            (bool) Config::get('COOKIE_SECURE'),
-            (bool) Config::get('COOKIE_HTTP')
-        );
+        return setcookie('remember_me', '', $runtime, (string)Config::get('COOKIE_PATH'), (string)Config::get('COOKIE_DOMAIN'), (bool)Config::get('COOKIE_SECURE'), (bool)Config::get('COOKIE_HTTP'));
     }
 }

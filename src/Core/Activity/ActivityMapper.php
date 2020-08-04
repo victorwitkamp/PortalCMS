@@ -12,11 +12,11 @@ use PortalCMS\Core\Database\Database;
 
 class ActivityMapper
 {
-    public static function add(string $activity, int $user_id = null, string $user_name = null, string $ip = null, string $details = null) : bool
+    public static function add(string $activity, int $user_id = null, string $user_name = null, string $ip = null, string $details = null): bool
     {
         $sql = 'INSERT INTO activity (id, user_id, user_name, ip_address, activity, details) VALUES (NULL, ?, ?, ?, ?, ?)';
         $stmt = Database::conn()->prepare($sql);
-        if ($stmt->execute([$user_id, $user_name, $ip, $activity, $details])) {
+        if ($stmt->execute([ $user_id, $user_name, $ip, $activity, $details ])) {
             return true;
         }
         return false;

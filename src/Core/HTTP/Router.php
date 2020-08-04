@@ -14,11 +14,11 @@ use function call_user_func;
 
 class Router
 {
-    public static function processRequests(array $requests, $class) : void
+    public static function processRequests(array $requests, $class): void
     {
         foreach ($requests as $key => $value) {
             if (($value === 'POST') && isset($_POST[$key])) {
-                call_user_func([$class, $key]);
+                call_user_func([ $class, $key ]);
             }
         }
     }

@@ -23,7 +23,7 @@ class User
             $username = substr(strip_tags($newUsername), 0, 64);
             if (UserMapper::usernameExists($username)) {
                 Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_ALREADY_TAKEN'));
-            } elseif (!UserMapper::updateUsername((int) Session::get('user_id'), $username)) {
+            } elseif (!UserMapper::updateUsername((int)Session::get('user_id'), $username)) {
                 Session::add('feedback_negative', Text::get('FEEDBACK_UNKNOWN_ERROR'));
             } else {
                 Session::set('user_name', $username);

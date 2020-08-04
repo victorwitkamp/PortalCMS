@@ -13,8 +13,8 @@ use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Contracts\ContractMapper;
 use PortalCMS\Modules\Invoices\InvoiceMapper;
 
-$contractId = (int) Request::get('contract');
-$year = (int) Request::get('year');
+$contractId = (int)Request::get('contract');
+$year = (int)Request::get('year');
 
 if (!empty($contractId) && is_numeric($contractId)) {
     $contract = ContractMapper::getById($contractId);
@@ -38,39 +38,43 @@ if (!empty($contractId) && is_numeric($contractId)) {
 }
 
 ?>
-<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->layout('layout', [ 'title' => $pageName ]) ?>
 <?= $this->push('head-extra') ?>
 
-<link rel="stylesheet" type="text/css" href="/dist/merged/dataTables.min.css">
-<script src="/dist/merged/dataTables.min.js"></script>
-<script src="/includes/js/init.datatables.js" class="init"></script>
+    <link rel="stylesheet" type="text/css" href="/dist/merged/dataTables.min.css">
+    <script src="/dist/merged/dataTables.min.js"></script>
+    <script src="/includes/js/init.datatables.js" class="init"></script>
 
 <?= $this->end() ?>
 <?= $this->push('main-content') ?>
 
-<div class="container">
-    <div class="row mt-5">
-        <div class="col-sm-8">
-            <h1><?= $pageName ?></h1>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-sm-8">
+                <h1><?= $pageName ?></h1>
+            </div>
+            <div class="col-sm-4"><a href="/Invoices/Add" class="btn btn-success navbar-btn float-right"><span
+                            class="fa fa-plus"></span> Toevoegen</a></div>
         </div>
-        <div class="col-sm-4"><a href="/Invoices/Add" class="btn btn-success navbar-btn float-right"><span class="fa fa-plus"></span> Toevoegen</a></div>
+
+        <ul>
+            <li><a href="/Invoices">Alle</a> (<?= InvoiceMapper::getInvoiceCount() ?>)</li>
+            <?php
+            $years = InvoiceMapper::getYears();
+            foreach ($years as $jaar) {
+                ?>
+                <li><a href="/Invoices?year=<?= $jaar['year'] ?>"><?= $jaar['year'] ?></a>
+                (<?= InvoiceMapper::getInvoiceCountByYear($jaar['year']) ?>
+                ) <?php if ((int)Request::get('year') === $jaar['year']) {
+                    echo ' - Geselecteerd';
+                } ?></li><?php
+            } ?>
+        </ul>
+
+
+        <hr>
+        <?php Alert::renderFeedbackMessages(); ?>
     </div>
-
-    <ul>
-        <li><a href="/Invoices">Alle</a> (<?= InvoiceMapper::getInvoiceCount() ?>)</li>
-        <?php
-        $years = InvoiceMapper::getYears();
-        foreach ($years as $jaar) {
-            ?><li><a href="/Invoices?year=<?= $jaar['year'] ?>"><?= $jaar['year'] ?></a> (<?= InvoiceMapper::getInvoiceCountByYear($jaar['year']) ?>) <?php if ((int) Request::get('year') === $jaar['year']) {
-                echo ' - Geselecteerd';
-            } ?></li><?php
-        } ?>
-    </ul>
-
-
-    <hr>
-    <?php Alert::renderFeedbackMessages(); ?>
-</div>
 
 <?php if (!empty($invoices)) { ?>
     <div class="container-fluid">

@@ -29,11 +29,7 @@ if (SiteSetting::get('site_description_type') === '2') {
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
     $result = curl_exec($curl);
     if ($result === false) {
-        printf(
-            "cUrl error (#%d): %s<br>\n",
-            curl_errno($curl),
-            htmlspecialchars(curl_error($curl))
-        );
+        printf("cUrl error (#%d): %s<br>\n", curl_errno($curl), htmlspecialchars(curl_error($curl)));
     }
     $debug = true;
     if (!empty($result)) {

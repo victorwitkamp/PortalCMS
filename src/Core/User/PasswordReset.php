@@ -7,7 +7,6 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\User;
 
-use function strlen;
 use PortalCMS\Core\Config\Config;
 use PortalCMS\Core\Config\SiteSetting;
 use PortalCMS\Core\Database\Database;
@@ -19,6 +18,7 @@ use PortalCMS\Core\Email\Template\EmailTemplateMapper;
 use PortalCMS\Core\Email\Template\Helpers\PlaceholderHelper;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
+use function strlen;
 
 class PasswordReset
 {
@@ -33,10 +33,10 @@ class PasswordReset
             Session::add('feedback_negative', Text::get('FEEDBACK_USER_DOES_NOT_EXIST'));
             return false;
         }
-        $resetToken = sha1(uniqid((string) mt_rand(), true));
+        $resetToken = sha1(uniqid((string)mt_rand(), true));
         return self::writeTokenToDatabase($result->user_name, $resetToken, (string)date('Y-m-d H:i:s')) && self::sendPasswordResetMail($result->user_name, $resetToken, $result->user_email);
     }
-    
+
     public static function writeTokenToDatabase(string $username, string $resetToken, string $timestamp): bool
     {
         $sql = 'UPDATE users
@@ -44,54 +44,30 @@ class PasswordReset
                 WHERE user_name = :user_name
                 LIMIT 1';
         $stmt = Database::conn()->prepare($sql);
-        $stmt->execute(
-            [
-                ':password_reset_hash' => $resetToken, ':user_name' => $username,
-                ':user_password_reset_timestamp' => $timestamp
-            ]
-        );
+        $stmt->execute([
+                ':password_reset_hash' => $resetToken, ':user_name' => $username, ':user_password_reset_timestamp' => $timestamp
+            ]);
         if ($stmt->rowCount() === 1) {
             return true;
         }
         Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_TOKEN_FAIL'));
         return false;
     }
-    
+
     public static function sendPasswordResetMail(string $username, string $resetToken, string $user_email): bool
     {
         $template = EmailTemplateMapper::getSystemTemplateByName('ResetPassword');
-        $resetlink = Config::get('URL') .
-                        Config::get('EMAIL_PASSWORD_RESET_URL') .
-                        '?username=' . $username .
-                        '&password_reset_hash='
-                        .urlencode($resetToken);
+        $resetlink = Config::get('URL') . Config::get('EMAIL_PASSWORD_RESET_URL') . '?username=' . $username . '&password_reset_hash=' . urlencode($resetToken);
         $recipient = new EmailRecipient($username, $user_email);
         $SMTPTransport = new SMTPTransport(new SMTPConfiguration());
-        if ($SMTPTransport->sendMail(new EmailMessage(
-            Config::get('EMAIL_PASSWORD_RESET_SUBJECT'),
-            PlaceholderHelper::replace(
-                'RESETLINK',
-                $resetlink,
-                PlaceholderHelper::replace(
-                    'SITENAME',
-                    SiteSetting::get('site_name'),
-                    PlaceholderHelper::replace(
-                        'USERNAME',
-                        $username,
-                        $template['body']
-                    )
-                )
-            ),
-            [$recipient->get()],
-            null
-        ))) {
+        if ($SMTPTransport->sendMail(new EmailMessage(Config::get('EMAIL_PASSWORD_RESET_SUBJECT'), PlaceholderHelper::replace('RESETLINK', $resetlink, PlaceholderHelper::replace('SITENAME', SiteSetting::get('site_name'), PlaceholderHelper::replace('USERNAME', $username, $template['body']))), [ $recipient->get() ], null))) {
             Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_RESET_MAIL_SENDING_SUCCESSFUL'));
             return true;
         }
         Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_MAIL_SENDING_ERROR') . $SMTPTransport->getError());
         return false;
     }
-    
+
     public static function verifyPasswordReset(string $username, string $password_reset_hash): bool
     {
         $sql = 'SELECT user_id, user_password_reset_timestamp
@@ -100,11 +76,9 @@ class PasswordReset
                             AND password_reset_hash = :password_reset_hash
                                 LIMIT 1';
         $stmt = Database::conn()->prepare($sql);
-        $stmt->execute(
-            [
-            ':password_reset_hash' => $password_reset_hash,
-            ':user_name' => $username]
-        );
+        $stmt->execute([
+                ':password_reset_hash' => $password_reset_hash, ':user_name' => $username
+            ]);
         if ($stmt->rowCount() !== 1) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_COMBINATION_DOES_NOT_EXIST'));
             Session::add('feedback_negative', $username . ' ' . $sql);
@@ -118,22 +92,6 @@ class PasswordReset
         }
         Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_LINK_EXPIRED'));
         return false;
-    }
-
-    public static function saveNewUserPassword(string $username, string $passwordHash, string $resetToken): bool
-    {
-        $sql = 'UPDATE users SET user_password_hash = :user_password_hash, password_reset_hash = NULL,
-                       user_password_reset_timestamp = NULL
-                 WHERE user_name = :user_name AND password_reset_hash = :password_reset_hash
-                       LIMIT 1';
-        $stmt = Database::conn()->prepare($sql);
-        $stmt->execute(
-            [
-                ':user_password_hash' => $passwordHash, ':user_name' => $username,
-                ':password_reset_hash' => $resetToken
-            ]
-        );
-        return ($stmt->rowCount() === 1);
     }
 
     /**
@@ -150,8 +108,8 @@ class PasswordReset
         Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CHANGE_FAILED'));
         return false;
     }
-    
-    public static function validateResetPassword(string $username, string $resetToken, string $user_password_new, string $user_password_repeat) : bool
+
+    public static function validateResetPassword(string $username, string $resetToken, string $user_password_new, string $user_password_repeat): bool
     {
         if (empty($username)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_FIELD_EMPTY'));
@@ -167,5 +125,18 @@ class PasswordReset
             return true;
         }
         return false;
+    }
+
+    public static function saveNewUserPassword(string $username, string $passwordHash, string $resetToken): bool
+    {
+        $sql = 'UPDATE users SET user_password_hash = :user_password_hash, password_reset_hash = NULL,
+                       user_password_reset_timestamp = NULL
+                 WHERE user_name = :user_name AND password_reset_hash = :password_reset_hash
+                       LIMIT 1';
+        $stmt = Database::conn()->prepare($sql);
+        $stmt->execute([
+                ':user_password_hash' => $passwordHash, ':user_name' => $username, ':password_reset_hash' => $resetToken
+            ]);
+        return ($stmt->rowCount() === 1);
     }
 }

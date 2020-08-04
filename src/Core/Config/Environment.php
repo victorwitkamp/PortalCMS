@@ -9,7 +9,6 @@ namespace PortalCMS\Core\Config;
 
 /**
  * Class Environment
- *
  * Extremely simple way to get the environment, everywhere inside your application.
  * Extend this the way you want.
  */

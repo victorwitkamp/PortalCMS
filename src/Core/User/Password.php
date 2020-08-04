@@ -7,9 +7,9 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\User;
 
-use function strlen;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
+use function strlen;
 
 class Password
 {
@@ -30,6 +30,14 @@ class Password
         return false;
     }
 
+    public static function verifyPassword(object $user, string $user_password): bool
+    {
+        if (!password_verify(base64_encode($user_password), $user->user_password_hash)) {
+            return false;
+        }
+        return true;
+    }
+
     public static function validatePasswordChange(string $currentPassword, string $newPassword): bool
     {
         if ($currentPassword === $newPassword) {
@@ -40,13 +48,5 @@ class Password
             return true;
         }
         return false;
-    }
-
-    public static function verifyPassword(object $user, string $user_password) : bool
-    {
-        if (!password_verify(base64_encode($user_password), $user->user_password_hash)) {
-            return false;
-        }
-        return true;
     }
 }

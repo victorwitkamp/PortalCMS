@@ -32,7 +32,8 @@ use PortalCMS\Core\View\Text;
     if (SiteSetting::get('WidgetComingEvents') === 'true') {
         include DIR_VIEW . 'Pages/Home/widgets/comingEvents/comingEvents.php';
     }
-    ?><hr>
+    ?>
+    <hr>
     <?php
     if (SiteSetting::get('WidgetDebug') === 'true') {
         include DIR_VIEW . 'Pages/Home/widgets/debug/debug.php';

@@ -23,7 +23,6 @@ class SMTPConfiguration
 
     /**
      * Encryption type for the SMTP connection (tls, ssl or empty)
-     *
      * @var string
      */
     public $SMTPCrypto;
@@ -65,14 +64,12 @@ class SMTPConfiguration
 
     /**
      * Character set (utf-8, iso-8859-1, etc.)
-     *
      * @var string
      */
     public $charset = 'UTF-8';
 
     /**
      * Initialize preferences
-     *
      */
     public function __construct()
     {
