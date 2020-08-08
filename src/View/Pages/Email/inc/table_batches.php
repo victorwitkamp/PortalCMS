@@ -57,7 +57,7 @@ use PortalCMS\Core\View\Text;
     <hr>
     <?php
     if ($pageType === 'index') { ?>
-        "><?php
+        <input type="submit" class="btn btn-primary" name="sendBatchById" value="<?= Text::get('LABEL_SEND_EMAIL') ?>"><?php
     } ?>
     <input type="submit" class="btn btn-danger" name="deleteBatchById" value="<?= Text::get('LABEL_DELETE_EMAIL') ?>">
 </form>

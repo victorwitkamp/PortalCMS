@@ -13,13 +13,18 @@ use PortalCMS\Core\Session\Session;
 
 class MemberModel
 {
-    public static function copyMembersById()
+    public static function setStatus(int $id = null, int $status = null) : bool
     {
-        $targetYear = (int)Request::post('targetYear', true);
-        $ids = (array)Request::post('id');
-        foreach ($ids as $id) {
-            self::copyMember($id, $targetYear);
+        if (MemberMapper::doesMemberIdExist($id)) {
+            if (MemberMapper::setStatus($id, $status)) {
+                Session::add('feedback_positive', 'Status gewijzigd naar "' . $status . '" voor lid met ID: ' . $id);
+                return true;
+            }
+            Session::add('feedback_negative', 'Verwijderen van lid mislukt.');
+        } else {
+            Session::add('feedback_negative', 'Verwijderen van lid mislukt. Lid bestaat niet.');
         }
+        return false;
     }
 
     public static function copyMember(int $id = null, int $targetYear = null): bool
@@ -54,27 +59,22 @@ class MemberModel
     {
         if (MemberMapper::doesMemberIdExist($id)) {
             if (MemberMapper::delete($id)) {
-                Session::add('feedback_positive', 'Lid verwijderd.');
+                Session::add('feedback_positive', 'Lid verwijderd (ID: '.$id.').');
                 return true;
             }
             Session::add('feedback_negative', 'Verwijderen van lid mislukt.');
         } else {
-            Session::add('feedback_negative', 'Verwijderen van lid. Evenement bestaat niet.');
+            Session::add('feedback_negative', 'Verwijderen van lid mislukt. Lid bestaat niet.');
         }
         return false;
     }
 
-    public static function saveMember(Member $member = null)
+    public static function updateMember(Member $member = null): bool
     {
-        if (MemberMapper::updateMember($member)) {
-            Session::add('feedback_positive', 'Lid opgeslagen.');
-            Redirect::to('membership/');
-        }
-        Session::add('feedback_negative', 'Lid opslaan mislukt.');
-        Redirect::to('membership/');
+        return (MemberMapper::updateMember($member));
     }
 
-    public static function newMember(Member $member = null)
+    public static function createMember(Member $member = null)
     {
         if (MemberMapper::doesEmailforYearExist($member->jaarlidmaatschap, $member->contactDetails->emailadres)) {
             Session::add('feedback_negative', 'Emailadres wordt dit jaar al gebruikt door een ander lid.');

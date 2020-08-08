@@ -16,27 +16,27 @@ class MemberMapper
     public static function getMembers(int $year = null, string $paymentType = null): ?array
     {
         if (!empty($year) && !empty($paymentType)) {
-            $stmt = Database::conn()->prepare('SELECT * FROM members WHERE jaarlidmaatschap = ? AND betalingswijze = ? ORDER BY id');
-            $stmt->execute([
-                $year, $paymentType
-            ]);
-            return ($stmt->rowCount() === 0) ? null : $stmt->fetchAll(PDO::FETCH_OBJ);
-        } elseif (!empty($year) && empty($paymentType)) {
-            $stmt = Database::conn()->prepare('SELECT * FROM members WHERE jaarlidmaatschap = ? ORDER BY id');
-            $stmt->execute([
-                $year
-            ]);
-            return ($stmt->rowCount() === 0) ? null : $stmt->fetchAll(PDO::FETCH_OBJ);
-        } elseif (empty($year) && !empty($paymentType)) {
-            $stmt = Database::conn()->prepare('SELECT * FROM members WHERE betalingswijze = ? ORDER BY id');
-            $stmt->execute([
-                $paymentType
-            ]);
-            return ($stmt->rowCount() === 0) ? null : $stmt->fetchAll(PDO::FETCH_OBJ);
-        } else {
-            $stmt = Database::conn()->query('SELECT * FROM members ORDER BY id');
-            return ($stmt->rowCount() === 0) ? null : $stmt->fetchAll(PDO::FETCH_OBJ);
+            return self::getMembersByYearAndPaymentType($year, $paymentType);
         }
+        if (!empty($year) && empty($paymentType)) {
+            return self::getMembersByYear($year);
+        }
+        if (empty($year) && !empty($paymentType)) {
+            return self::getMembersByPaymentType($paymentType);
+        }
+        $stmt = Database::conn()->query('SELECT * FROM members ORDER BY id');
+        return ($stmt->rowCount() === 0) ? null : $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public static function getMembersByYear(int $year): ?array
+    {
+        $stmt = Database::conn()->prepare(
+            'SELECT * FROM members WHERE jaarlidmaatschap = ? ORDER BY id'
+        );
+        $stmt->execute([
+            $year
+        ]);
+        return ($stmt->rowCount() === 0) ? null : $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
     public static function getMembersByPaymentType(string $paymentType): ?array
@@ -120,6 +120,15 @@ class MemberMapper
         $stmt->execute([
                 $member->jaarlidmaatschap, $member->voorletters, $member->voornaam, $member->achternaam, $member->geboortedatum, $member->address->adres, $member->address->postcode, $member->address->huisnummer, $member->address->woonplaats, $member->contactDetails->telefoon_vast, $member->contactDetails->telefoon_mobiel, $member->contactDetails->emailadres, $member->ingangsdatum, $member->geslacht, $member->preferences->nieuwsbrief, $member->preferences->vrijwilliger, $member->preferences->vrijwilligeroptie1, $member->preferences->vrijwilligeroptie2, $member->preferences->vrijwilligeroptie3, $member->preferences->vrijwilligeroptie4, $member->preferences->vrijwilligeroptie5, $member->paymentDetails->betalingswijze, $member->paymentDetails->iban, $member->paymentDetails->machtigingskenmerk, $member->paymentDetails->status, $member->id
             ]);
+        return ($stmt->rowCount() === 1);
+    }
+
+    public static function setStatus(int $id = null, int $status = null) : bool
+    {
+        $stmt = Database::conn()->prepare(
+            'UPDATE members SET status=? WHERE id=?'
+        );
+        $stmt->execute([$status, $id]);
         return ($stmt->rowCount() === 1);
     }
 
