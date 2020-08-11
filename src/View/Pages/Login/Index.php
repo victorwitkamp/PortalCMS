@@ -18,9 +18,6 @@ $pageName = Text::get('LABEL_LOG_IN');
 
 <?= $this->layout('layoutLogin', [ 'title' => $pageName ]) ?>
 <?= $this->push('body-start') ?>
-<?php
-//require __DIR__ . '/inc/loadingAnimation.php';
-?>
 <?= $this->end() ?>
 <?= $this->push('body') ?>
 

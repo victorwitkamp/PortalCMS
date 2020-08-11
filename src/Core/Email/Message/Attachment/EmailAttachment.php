@@ -75,6 +75,8 @@ class EmailAttachment
 
     /**
      * Delete attachment(s)
+     * @param array|null $attachmentIds
+     * @return bool
      */
     public static function deleteById(array $attachmentIds = null): bool
     {
@@ -96,6 +98,9 @@ class EmailAttachment
 
     /**
      * Handle feedback for the deleteById method
+     * @param int $deleted
+     * @param int $error
+     * @return bool
      */
     public static function deleteFeedbackHandler(int $deleted, int $error): bool
     {
@@ -112,11 +117,11 @@ class EmailAttachment
         return false;
     }
 
-    /**
-     * Validates is the file size of the attachment is within range.
-     * @param $attachmentFile
-     * @return bool
-     */
+//    /**
+    ////     * Validates is the file size of the attachment is within range.
+    ////     * @param $attachmentFile
+    ////     * @return bool
+    ////     */
     //    public function validateFileSize($attachmentFile) : bool
     //    {
     //        if ($attachmentFile['size'] > 5000000) {
