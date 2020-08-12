@@ -23,7 +23,7 @@ class PageController extends Controller
         }
     }
 
-    public static function edit()
+    public function edit() : void
     {
         $templates = new Engine(DIR_VIEW);
         echo $templates->render('Pages/Page/Edit');

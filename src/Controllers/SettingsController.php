@@ -56,7 +56,7 @@ class SettingsController extends Controller
         }
     }
 
-    public function siteSettings()
+    public function siteSettings() : void
     {
         if (Authorization::hasPermission('site-settings')) {
             $templates = new Engine(DIR_VIEW);
@@ -66,7 +66,7 @@ class SettingsController extends Controller
         }
     }
 
-    public function activity()
+    public function activity() : void
     {
         if (Authorization::hasPermission('recent-activity')) {
             $templates = new Engine(DIR_VIEW);
@@ -76,7 +76,7 @@ class SettingsController extends Controller
         }
     }
 
-    public function logo()
+    public function logo() : void
     {
         if (Authorization::hasPermission('site-settings')) {
             $templates = new Engine(DIR_VIEW);
@@ -86,7 +86,7 @@ class SettingsController extends Controller
         }
     }
 
-    public function debug()
+    public function debug() : void
     {
         if (Authorization::hasPermission('debug')) {
             $templates = new Engine(DIR_VIEW);

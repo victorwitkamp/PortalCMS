@@ -14,6 +14,13 @@ class EmailAttachmentMapper
 {
     /**
      * Create a new attachment for an e-mail in the schedule.
+     * @param int    $mailId
+     * @param string $path
+     * @param string $name
+     * @param string $extension
+     * @param string $encoding
+     * @param string $type
+     * @return bool
      */
     public static function create(int $mailId, string $path, string $name, string $extension, string $encoding = 'base64', string $type = 'application/octet-stream'): bool
     {

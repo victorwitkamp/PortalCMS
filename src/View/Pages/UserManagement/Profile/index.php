@@ -29,7 +29,7 @@ if (empty($user)) {
             <input type="hidden" name="user_id" value="<?= $user->user_id ?>">
             <button type="submit" name="deleteuser"
                     onclick="return confirm('Weet je zeker dat je <?= $user->user_name ?> wilt verwijderen?')"
-                    class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></button>
+                    class="btn btn-sm btn-danger" disabled><span class="fa fa-trash"></span></button>
         </form>
         <hr>
         <?php Alert::renderFeedbackMessages(); ?>

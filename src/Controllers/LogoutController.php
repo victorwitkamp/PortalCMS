@@ -16,8 +16,8 @@ use PortalCMS\Core\Security\Authentication\Service\LogoutService;
  */
 class LogoutController extends Controller
 {
-    public function index()
+    public function index() : bool
     {
-        LogoutService::logout();
+        return LogoutService::logout();
     }
 }

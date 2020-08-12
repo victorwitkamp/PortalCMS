@@ -1,15 +1,15 @@
 /*
  * Copyright Victor Witkamp (c) 2020.
  */
-const { src, dest, parallel } = require('gulp');
+const { src, dest, parallel } = require('gulp')
 // const less = require('gulp-less');
-const minifyCSS = require('gulp-csso');
-const concat = require('gulp-concat');
-const autoprefixer = require('autoprefixer');
-const sourcemaps = require('gulp-sourcemaps');
-const postcss = require('gulp-postcss');
-const minify = require("gulp-minify");
-const rename = require('gulp-rename');
+const minifyCSS = require('gulp-csso')
+const concat = require('gulp-concat')
+const autoprefixer = require('autoprefixer')
+const sourcemaps = require('gulp-sourcemaps')
+const postcss = require('gulp-postcss')
+const minify = require('gulp-minify')
+const rename = require('gulp-rename')
 
 // function css() {
 //     return src('portal/includes/css/*.css')
@@ -32,9 +32,8 @@ function css () {
   })
   // .pipe(less())
   // .pipe(minifyCSS())
-  .pipe(dest('portal/dist/'))
+    .pipe(dest('portal/dist/'))
 }
-
 
 function dataTablesCss () {
   return src([
@@ -44,11 +43,11 @@ function dataTablesCss () {
   ], {
     base: 'node_modules/'
   })
-      .pipe(sourcemaps.init())
-      .pipe(concat('dataTables.css'))
-      .pipe(postcss([ autoprefixer() ]))
-      .pipe(sourcemaps.write('./'))
-      .pipe(dest('portal/dist/merged/'))
+    .pipe(sourcemaps.init())
+    .pipe(concat('dataTables.css'))
+    .pipe(postcss([autoprefixer()]))
+    .pipe(sourcemaps.write('./'))
+    .pipe(dest('portal/dist/merged/'))
 }
 
 function dataTablesMinCss () {
@@ -59,13 +58,13 @@ function dataTablesMinCss () {
   ], {
     base: 'node_modules/'
   })
-  .pipe(sourcemaps.init())
-  .pipe(concat('dataTables.css'))
-  .pipe(postcss([ autoprefixer() ]))
-  .pipe(minifyCSS())
-  .pipe(rename({suffix: '.min'}))
-  .pipe(sourcemaps.write('./'))
-  .pipe(dest('portal/dist/merged/'))
+    .pipe(sourcemaps.init())
+    .pipe(concat('dataTables.css'))
+    .pipe(postcss([autoprefixer()]))
+    .pipe(minifyCSS())
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(sourcemaps.write('./'))
+    .pipe(dest('portal/dist/merged/'))
 }
 
 function dataTablesJs () {
@@ -79,15 +78,15 @@ function dataTablesJs () {
   ], {
     base: 'node_modules/'
   })
-  .pipe(sourcemaps.init())
-  .pipe(concat('dataTables.js'))
-  .pipe(minify({
-    ext:{
-      min:'.min.js'
-    },
-  }))
-  .pipe(sourcemaps.write('./'))
-  .pipe(dest('portal/dist/merged/'))
+    .pipe(sourcemaps.init())
+    .pipe(concat('dataTables.js'))
+    .pipe(minify({
+      ext: {
+        min: '.min.js'
+      }
+    }))
+    .pipe(sourcemaps.write('./'))
+    .pipe(dest('portal/dist/merged/'))
 }
 
 function fullcalendarMinCss () {
@@ -99,12 +98,12 @@ function fullcalendarMinCss () {
   ], {
     base: 'node_modules/'
   })
-      .pipe(concat('fullcalendar.min.css'))
-      .pipe(sourcemaps.init())
-      .pipe(postcss([ autoprefixer() ]))
-      .pipe(minifyCSS())
-      .pipe(sourcemaps.write('.'))
-      .pipe(dest('portal/dist/merged/'))
+    .pipe(concat('fullcalendar.min.css'))
+    .pipe(sourcemaps.init())
+    .pipe(postcss([autoprefixer()]))
+    .pipe(minifyCSS())
+    .pipe(sourcemaps.write('.'))
+    .pipe(dest('portal/dist/merged/'))
 }
 
 function fullcalendarCss () {
@@ -116,11 +115,11 @@ function fullcalendarCss () {
   ], {
     base: 'node_modules/'
   })
-  .pipe(concat('fullcalendar.css'))
-  .pipe(sourcemaps.init())
-  .pipe(postcss([ autoprefixer() ]))
-  .pipe(sourcemaps.write('.'))
-  .pipe(dest('portal/dist/merged/'))
+    .pipe(concat('fullcalendar.css'))
+    .pipe(sourcemaps.init())
+    .pipe(postcss([autoprefixer()]))
+    .pipe(sourcemaps.write('.'))
+    .pipe(dest('portal/dist/merged/'))
 }
 
 function fullcalendarJs () {
@@ -134,15 +133,15 @@ function fullcalendarJs () {
   ], {
     base: 'node_modules/'
   })
-  .pipe(sourcemaps.init())
-  .pipe(concat('fullcalendar.js'))
-  .pipe(minify({
-    ext:{
-      min:'.min.js'
-    },
-  }))
-  .pipe(sourcemaps.write('./'))
-  .pipe(dest('portal/dist/merged/'))
+    .pipe(sourcemaps.init())
+    .pipe(concat('fullcalendar.js'))
+    .pipe(minify({
+      ext: {
+        min: '.min.js'
+      }
+    }))
+    .pipe(sourcemaps.write('./'))
+    .pipe(dest('portal/dist/merged/'))
 }
 
 function js () {
@@ -157,30 +156,30 @@ function js () {
   ], {
     base: 'node_modules/'
   })
-  .pipe(dest('portal/dist/'))
+    .pipe(dest('portal/dist/'))
 }
 
 function woff () {
   return src('node_modules/**/*.woff', {
     base: 'node_modules/'
   })
-  .pipe(dest('portal/dist/'))
+    .pipe(dest('portal/dist/'))
 }
 function woff2 () {
   return src('node_modules/**/*.woff2', {
     base: 'node_modules/'
   })
-  .pipe(dest('portal/dist/'))
+    .pipe(dest('portal/dist/'))
 }
 function ttf () {
   return src('node_modules/**/*.ttf', {
     base: 'node_modules/'
   })
-  .pipe(dest('portal/dist/'))
+    .pipe(dest('portal/dist/'))
 }
-exports.js = js;
-exports.css = css;
-exports.woff = woff;
-exports.woff2 = woff2;
-exports.ttf = ttf;
-exports.default = parallel(js, css, dataTablesJs, dataTablesCss, dataTablesMinCss, fullcalendarJs, fullcalendarCss, fullcalendarMinCss,woff, woff2, ttf);
+exports.js = js
+exports.css = css
+exports.woff = woff
+exports.woff2 = woff2
+exports.ttf = ttf
+exports.default = parallel(js, css, dataTablesJs, dataTablesCss, dataTablesMinCss, fullcalendarJs, fullcalendarCss, fullcalendarMinCss, woff, woff2, ttf)

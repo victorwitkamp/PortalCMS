@@ -36,7 +36,7 @@ class ProfileController extends Controller
     /**
      * Overview
      */
-    public function index()
+    public function index() : void
     {
         $templates = new Engine(DIR_VIEW);
         $user = UserMapper::getProfileById((int)Request::get('id'));

@@ -76,7 +76,6 @@ class EmailAttachment
     /**
      * Delete attachment(s)
      * @param array|null $attachmentIds
-     * @return bool
      */
     public static function deleteById(array $attachmentIds = null): bool
     {
@@ -98,9 +97,6 @@ class EmailAttachment
 
     /**
      * Handle feedback for the deleteById method
-     * @param int $deleted
-     * @param int $error
-     * @return bool
      */
     public static function deleteFeedbackHandler(int $deleted, int $error): bool
     {

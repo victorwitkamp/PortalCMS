@@ -23,7 +23,14 @@ use PortalCMS\Core\Session\Session;
 class UserManagementController extends Controller
 {
     private $requests = [
-        'deleteuser' => 'POST', 'deleterole' => 'POST', 'addrole' => 'POST', 'setrolepermission' => 'POST', 'deleterolepermission' => 'POST', 'assignrole' => 'POST', 'unassignrole' => 'POST', 'addNewUser' => 'POST'
+        'deleteuser'           => 'POST',
+        'deleterole'           => 'POST',
+        'addrole'              => 'POST',
+        'setrolepermission'    => 'POST',
+        'deleterolepermission' => 'POST',
+        'assignrole'           => 'POST',
+        'unassignrole'         => 'POST',
+        'addNewUser'           => 'POST'
     ];
 
     public function __construct()
@@ -33,16 +40,9 @@ class UserManagementController extends Controller
         Router::processRequests($this->requests, __CLASS__);
     }
 
-    public static function deleteuser()
-    {
-        // Not inplemented yet
-        $controller = new ErrorController();
-        $controller->notFound();
-    }
-
     public static function deleterole()
     {
-        if (RoleMapper::delete((int)Request::post('role_id'))) {
+        if (RoleMapper::delete((int) Request::post('role_id'))) {
             Session::add('feedback_positive', 'Rol verwijderd.');
             Redirect::to('UserManagement/Roles');
         } else {
@@ -53,7 +53,7 @@ class UserManagementController extends Controller
 
     public static function addrole()
     {
-        if (RoleMapper::create((string)Request::post('role_name'))) {
+        if (RoleMapper::create((string) Request::post('role_name'))) {
             Session::add('feedback_positive', 'Nieuwe rol aangemaakt.');
             Redirect::to('UserManagement/Roles');
         } else {
@@ -64,18 +64,18 @@ class UserManagementController extends Controller
 
     public static function setrolepermission()
     {
-        RolePermission::assignPermission((int)Request::post('role_id'), (int)Request::post('perm_id'));
+        RolePermission::assignPermission((int) Request::post('role_id'), (int) Request::post('perm_id'));
     }
 
     public static function deleterolepermission()
     {
-        RolePermission::unassignPermission((int)Request::post('role_id'), (int)Request::post('perm_id'));
+        RolePermission::unassignPermission((int) Request::post('role_id'), (int) Request::post('perm_id'));
     }
 
     public static function assignrole(): bool
     {
-        $user_id = (int)Request::post('user_id');
-        $role_id = (int)Request::post('role_id');
+        $user_id = (int) Request::post('user_id');
+        $role_id = (int) Request::post('role_id');
         if (UserRoleMapper::isAssigned($user_id, $role_id)) {
             Session::add('feedback_negative', 'Rol is reeds toegewezen aan deze gebruiker.');
         } elseif (UserRoleMapper::assign($user_id, $role_id)) {
@@ -91,8 +91,8 @@ class UserManagementController extends Controller
 
     public static function unassignrole(): bool
     {
-        $user_id = (int)Request::post('user_id');
-        $role_id = (int)Request::post('role_id');
+        $user_id = (int) Request::post('user_id');
+        $role_id = (int) Request::post('role_id');
         if (!UserRoleMapper::isAssigned($user_id, $role_id)) {
             Session::add('feedback_negative', 'Rol is niet aan deze gebruiker toegewezen. Er is geen toewijzing om te verwijderen.');
         } elseif (UserRoleMapper::unassign($user_id, $role_id)) {
@@ -106,7 +106,7 @@ class UserManagementController extends Controller
         return false;
     }
 
-    public function users()
+    public function users() : void
     {
         if (Authorization::hasPermission('user-management')) {
             $templates = new Engine(DIR_VIEW);
@@ -116,7 +116,7 @@ class UserManagementController extends Controller
         }
     }
 
-    public function profile()
+    public function profile() : void
     {
         if (Authorization::hasPermission('user-management')) {
             $templates = new Engine(DIR_VIEW);
@@ -126,7 +126,7 @@ class UserManagementController extends Controller
         }
     }
 
-    public function roles()
+    public function roles() : void
     {
         if (Authorization::hasPermission('role-management')) {
             $templates = new Engine(DIR_VIEW);
@@ -136,7 +136,7 @@ class UserManagementController extends Controller
         }
     }
 
-    public function addUser()
+    public function addUser() : void
     {
         if (Authorization::hasPermission('user-management')) {
             $templates = new Engine(DIR_VIEW);
@@ -146,7 +146,7 @@ class UserManagementController extends Controller
         }
     }
 
-    public function role()
+    public function role() : void
     {
         if (Authorization::hasPermission('user-management')) {
             $templates = new Engine(DIR_VIEW);
@@ -155,9 +155,4 @@ class UserManagementController extends Controller
             Redirect::to('Error/PermissionError');
         }
     }
-
-    //    public static function addNewUser() : ?int
-    //    {
-    //
-    //    }
 }

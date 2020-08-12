@@ -40,7 +40,8 @@ class Encryption
 
     /**
      * Encrypt a string.
-     * @throws Exception If functions don't exists
+     * @param string $plain
+     * @return string
      */
     public static function encrypt(string $plain): string
     {
@@ -63,8 +64,8 @@ class Encryption
 
     /**
      * Decrypted a string.
+     * @param string $ciphertext
      * @return string
-     * @throws Exception If $ciphertext is empty, or If functions don't exists
      */
     public static function decrypt(string $ciphertext): ?string
     {
@@ -102,7 +103,6 @@ class Encryption
      * @static static method
      * @param string $hmac    The hmac from the ciphertext being decrypted.
      * @param string $compare The comparison hmac.
-     * @return bool
      * @see    https://github.com/sarciszewski/php-future/blob/bd6c91fb924b2b35a3e4f4074a642868bd051baf/src/Security.php#L36
      */
     private static function hashEquals(string $hmac, string $compare): bool

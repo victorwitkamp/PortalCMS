@@ -17,7 +17,6 @@ use PortalCMS\Core\Config\Config;
 class Database
 {
     /**
-     * @return PDO|null
      */
     public static function &conn(): ?PDO
     {

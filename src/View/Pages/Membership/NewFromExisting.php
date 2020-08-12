@@ -51,7 +51,7 @@ if (!isset($selectedPaymentType) || empty($selectedPaymentType)) {
                 <a href="/Membership/NewFromExisting?Year=<?= $year ?><?= (!empty($selectedPaymentType)) ? '&PaymentType=' . $selectedPaymentType : '' ?>"><?= $year ?></a>
                 (<?= MemberMapper::getMemberCountByYear($year) ?>)<?php if ($selectedYear === $year) {
                     echo ' - Huidige selectie';
-                 } ?>
+                } ?>
                 </li><?php
             } ?>
         </ul>

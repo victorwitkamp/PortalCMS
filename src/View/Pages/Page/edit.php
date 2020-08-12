@@ -27,6 +27,8 @@ $pageName = 'Pagina ' . $row ['name'] . ' bewerken';
 <?= $this->push('head-extra') ?>
     <script src='https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=y6xawmw19w565wdi90wrtlow2ll6498emv0fozfrtrt7vb4y'></script>
     <script>
+        import tinymce from "bs-custom-file-input";
+
         tinymce.init({
             selector: '#mytextarea',
             plugins: 'advlist autolink link image lists charmap print preview'
