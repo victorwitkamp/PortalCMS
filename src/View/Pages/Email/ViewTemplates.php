@@ -40,7 +40,7 @@ $pageName = Text::get('TITLE_MAIL_TEMPLATES');
             <tbody>
             <?php
             foreach (EmailTemplateMapper::get() as $template) {
-            ?>
+                ?>
             <tr>
                 <td>
                     <form method="post">
@@ -61,7 +61,7 @@ $pageName = Text::get('TITLE_MAIL_TEMPLATES');
                 <td><?= $template['type'] ?></td>
                 <td><?= $template['subject'] ?></td>
             <tr><?php
-                } ?>
+            } ?>
             </tbody>
         </table>
 

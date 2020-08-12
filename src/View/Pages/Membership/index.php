@@ -56,7 +56,7 @@ if (!isset($year) || empty($year)) {
                 <a href="/Membership?year=<?= $jaar ?>"><?= $jaar ?></a>
                 (<?= MemberMapper::getMemberCountByYear($jaar) ?>)<?php if ($year === $jaar) {
                     echo ' - Huidige selectie';
-                } ?>
+                 } ?>
                 </li><?php
             } ?>
         </ul>

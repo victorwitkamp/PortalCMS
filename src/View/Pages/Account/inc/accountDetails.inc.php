@@ -37,16 +37,16 @@ $user = UserMapper::getProfileById((int)Session::get('user_id'));
     <tr>
         <th><?= Text::get('LABEL_USER_FBID') ?></th>
         <td><?php
-            if (!empty($user->user_fbid)) {
-                echo $user->user_fbid . ' '; ?>
+        if (!empty($user->user_fbid)) {
+            echo $user->user_fbid . ' '; ?>
                 <form method="post">
                 <input type="submit" name="clearUserFbid" class="btn btn-outline-success user_registered-login"
                        value="<?= Text::get('LABEL_USER_CLEAR_FBID') ?>"/>
                 </form><?php
-            } else {
-                ?><a href="<?= $loginUrl ?>"><?= Text::get('LABEL_USER_CONNECT_FB') ?></a><?php
-            }
-            ?></td>
+        } else {
+            ?><a href="<?= $loginUrl ?>"><?= Text::get('LABEL_USER_CONNECT_FB') ?></a><?php
+        }
+        ?></td>
     </tr>
     <tr>
         <th>Rollen</th>

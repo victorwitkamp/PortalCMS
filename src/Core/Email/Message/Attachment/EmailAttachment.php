@@ -117,7 +117,7 @@ class EmailAttachment
         return false;
     }
 
-//    /**
+    //    /**
     ////     * Validates is the file size of the attachment is within range.
     ////     * @param $attachmentFile
     ////     * @return bool

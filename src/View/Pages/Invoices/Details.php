@@ -12,7 +12,7 @@ use PortalCMS\Modules\Invoices\InvoiceItemMapper;
 use PortalCMS\Modules\Invoices\InvoiceMapper;
 
 $pageName = 'Factuur';
-$invoice = InvoiceMapper::getById((int)Request::get('id'));
+$invoice = InvoiceMapper::getById((int) Request::get('id'));
 if (!empty($invoice)) {
     $pageName = 'Factuur: ' . $invoice->factuurnummer;
     $contract = ContractMapper::getById($invoice->contract_id);
@@ -33,7 +33,9 @@ if (!empty($invoice)) {
                 <a href="/Invoices" class="btn btn-sm btn-primary"><span class="fa fa-arrow-left"></span></a>
                 <?php $msg = 'Weet u zeker dat u factuur met nummer ' . $invoice->factuurnummer . ' wilt verwijderen?'; ?>
                 <input type="hidden" name="id" value="<?= $invoice->id ?>">
-                <button type="submit" name="deleteInvoice" class="btn btn-danger btn-sm" title="Verwijderen" onclick="return confirm('<?= $msg ?>')"><span class="fa fa-trash"></span></button>
+                <button type="submit" name="deleteInvoice" class="btn btn-danger btn-sm" title="Verwijderen" onclick="return confirm('<?= $msg ?>')">
+                    <span class="fa fa-trash"></span>
+                </button>
             </form>
         </div>
         <hr>
@@ -86,9 +88,8 @@ if (!empty($invoice)) {
                                         <form method="post">
                                             <input type="hidden" name="invoiceid" value="<?= $invoice->id ?>">
                                             <input type="hidden" name="id" value="<?= $invoiceitem->id ?>">
-                                            <button type="submit" name="deleteInvoiceItem"
-                                                    onclick="return confirm('Weet je zeker dat je <?= $invoiceitem->name ?> wilt verwijderen?')"
-                                                    class="btn btn-sm btn-danger"><span class="fa fa-trash"></span>
+                                            <button type="submit" name="deleteInvoiceItem" onclick="return confirm('Weet je zeker dat je <?= $invoiceitem->name ?> wilt verwijderen?')" class="btn btn-sm btn-danger">
+                                                <span class="fa fa-trash"></span>
                                             </button>
                                         </form>
                                     <?php } ?>

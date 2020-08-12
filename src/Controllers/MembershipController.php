@@ -65,7 +65,7 @@ class MembershipController extends Controller
         }
 
         if (isset($_POST['copyMembersById'])) {
-//            MemberModel::copyMembersById();
+            //            MemberModel::copyMembersById();
             $targetYear = (int)Request::post('targetYear', true);
             $ids = (array) Request::post('id');
             foreach ($ids as $id) {
