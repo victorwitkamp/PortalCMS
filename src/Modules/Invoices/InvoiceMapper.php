@@ -60,6 +60,13 @@ class InvoiceMapper
         return ($stmt->rowCount() > 0) ? $stmt->fetchAll(PDO::FETCH_OBJ) : null;
     }
 
+    public static function getInvoiceCountByContractIdAndYear(int $contractId, int $year): int
+    {
+        $stmt = Database::conn()->prepare('SELECT id FROM invoices WHERE contract_id = ? AND year = ?');
+        $stmt->execute([ $contractId, $year ]);
+        return $stmt->rowCount();
+    }
+
     public static function getInvoiceCountByYear(int $year): int
     {
         $stmt = Database::conn()->prepare('SELECT id FROM invoices WHERE year = ?');

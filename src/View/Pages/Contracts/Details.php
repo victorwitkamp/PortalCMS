@@ -23,12 +23,11 @@ $pageName = 'Contract van ' . $contract->band_naam;
             <h1><?= $pageName ?></h1>
         </div>
     </div>
-    <div class="container">
+
+    <div class="container-fluid">
         <?php require __DIR__ . '/inc/buttons.php'; ?>
         <a href="/Invoices?contract=<?= $contract->id ?>">Facturen bekijken</a>
-        <hr>
         <?php require __DIR__ . '/inc/view.php'; ?>
-        <hr>
         <?php require __DIR__ . '/inc/buttons.php'; ?>
     </div>
 

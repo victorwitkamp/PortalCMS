@@ -14,34 +14,17 @@ use PortalCMS\Modules\Invoices\InvoiceHelper;
     <table id="example" class="table table-sm table-striped table-hover table-dark" style="width:100%;">
         <thead class="thead-dark">
         <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th>
-                <input type="checkbox" id="selectall-writeinvoice"/>
-                <button type="submit" name="writeInvoice" class="btn btn-success">
-                    <i class="fas fa-check"></i>
-                </button>
-            </th>
-            <th>
-                <input type="checkbox" id="selectall-send"/>
-                <button type="submit" name="createInvoiceMail" class="btn btn-success">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-            </th>
-            <th></th>
-        </tr>
-        <tr>
-            <th>Acties</th>
+            <th class="nosort">Acties</th>
             <th>Factuurnummer</th>
             <th>Huurder</th>
             <th>Bedrag</th>
             <th>Status</th>
-            <th>Maak definitief</th>
-            <th>Batch inplannen</th>
-            <th>Bekijken</th>
+            <th class="nosort">Maak definitief<br><input type="checkbox" id="selectall-writeinvoice"/>
+                <button type="submit" name="writeInvoice" class="btn btn-success"><i class="fas fa-check"></i></button>
+            </th>
+            <th class="nosort">Batch inplannen<br><input type="checkbox" id="selectall-send"/><button type="submit" name="createInvoiceMail" class="btn btn-success"><i class="fas fa-paper-plane"></i></button>
+            </th>
+            <th class="nosort">Bekijken</th>
         </tr>
         </thead>
         <tbody>
@@ -121,5 +104,18 @@ use PortalCMS\Modules\Invoices\InvoiceHelper;
                 $("input[id^='sendcheckbox']").prop('checked', false)
             }
         });
+        $(document).ready(function () {
+            $('#example').DataTable({
+                "columnDefs": [ {
+                    "targets": 'nosort',
+                    "orderable": false
+                } ],
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Dutch.json'
+                },
+                ordering: true,
+                order: [[1, 'asc']]
+            })
+        })
     </script>
 </form>

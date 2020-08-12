@@ -19,8 +19,10 @@ $pageName = Text::get('TITLE_ROLE_MANAGEMENT'); ?>
                 <h1><?= $pageName ?></h1>
             </div>
         </div>
-        <?php Alert::renderFeedbackMessages(); ?>
         <hr>
+        <?php Alert::renderFeedbackMessages(); ?>
+    </div>
+    <div class="container">
         <table class="table table-sm table-striped table-hover table-dark">
             <thead class="thead-dark">
             <tr>

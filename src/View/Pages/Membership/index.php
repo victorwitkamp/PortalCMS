@@ -24,12 +24,12 @@ if (!isset($year) || empty($year)) {
 
     <link rel="stylesheet" type="text/css" href="/dist/merged/dataTables.min.css">
     <script src="/dist/merged/dataTables.min.js"></script>
-    <script src="/includes/js/init.datatables.js" class="init"></script>
+<!--    <script src="/includes/js/init.datatables.js" class="init"></script>-->
 
 <?= $this->end() ?>
 <?= $this->push('main-content') ?>
 
-    <div class="container-fluid">
+    <div class="container">
         <div class="row mt-5">
             <div class="col-sm-8">
                 <h1><?= $pageName ?></h1>
@@ -63,6 +63,9 @@ if (!isset($year) || empty($year)) {
 
         <hr>
         <?php Alert::renderFeedbackMessages(); ?>
+    </div>
+    <div class="container-fluid">
+
         <?php
         $members = MemberMapper::getMembers($year);
         if (!empty($members)) {

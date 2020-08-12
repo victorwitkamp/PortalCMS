@@ -32,16 +32,16 @@ if (!isset($selectedPaymentType) || empty($selectedPaymentType)) {
 <?= $this->end() ?>
 <?= $this->push('main-content') ?>
 
-    <div class="container-fluid">
+    <div class="container">
         <div class="row mt-5">
             <div class="col-sm-8">
                 <h1><?= $pageName ?></h1>
             </div>
         </div>
-
         <hr>
         <?php Alert::renderFeedbackMessages(); ?>
-
+    </div>
+    <div class="container-fluid">
         <ul>
             <?php
             $years = MemberMapper::getYears();

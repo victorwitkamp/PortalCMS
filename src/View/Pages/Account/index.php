@@ -25,7 +25,10 @@ $loginUrl = $helper->getLoginUrl(Config::get('FB_ASSIGN_URL'), $permissions);
         <div class="row mt-5">
             <h1><?= $pageName ?></h1>
         </div>
+        <hr>
         <?php Alert::renderFeedbackMessages(); ?>
+    </div>
+    <div class="container">
         <?php require DIR_VIEW . 'Pages/Account/inc/accountDetails.inc.php'; ?>
         <?php require DIR_VIEW . 'Pages/Account/inc/changePassword.inc.php'; ?>
         <?php require DIR_VIEW . 'Pages/Account/inc/changeUsername.inc.php'; ?>

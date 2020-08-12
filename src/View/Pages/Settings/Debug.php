@@ -19,9 +19,9 @@ $pageName = Text::get('TITLE_DEBUG');
                 <h1><?= $pageName ?></h1>
             </div>
         </div>
+        <hr>
         <?php Alert::renderFeedbackMessages(); ?>
     </div>
-    <hr>
     <div class="container">
         <h2>var_dump($_SESSION)</h2>
         <?php var_dump($_SESSION); ?>

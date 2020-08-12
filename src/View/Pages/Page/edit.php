@@ -40,6 +40,8 @@ $pageName = 'Pagina ' . $row ['name'] . ' bewerken';
         </div>
         <hr>
         <?php Alert::renderFeedbackMessages(); ?>
+    </div>
+    <div class="container">
         <form method="post">
             <div class="form-group form-group-sm row">
                 <div class="col-sm-12">

@@ -12,7 +12,9 @@ hr {
     left: 100%;
     margin-top: -1px;
 }
-
+table.dataTable.table-sm>thead>tr>th :not(.sorting_disabled) {
+    padding: inherit!important;
+}
 main {
     padding-bottom: 90px;
     height: auto;

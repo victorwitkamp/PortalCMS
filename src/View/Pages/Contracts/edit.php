@@ -27,9 +27,10 @@ if (empty($contract)) {
         <div class="row mt-5">
             <h3><?= $pageName ?></h3>
         </div>
+        <hr>
+        <?php Alert::renderFeedbackMessages(); ?>
     </div>
     <div class="container">
-        <?php Alert::renderFeedbackMessages(); ?>
         <?php require DIR_VIEW . 'Pages/Contracts/inc/form.php'; ?>
     </div>
 

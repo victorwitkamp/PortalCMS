@@ -27,9 +27,9 @@ if (empty($Role)) {
         <div class="row mt-5">
             <h1><?= $pageName ?></h1>
         </div>
-        <?php Alert::renderFeedbackMessages(); ?>
         <a href="/UserManagement/Roles" class="btn btn-sm btn-primary"><span class="fa fa-arrow-left"></span></a>
         <hr>
+        <?php Alert::renderFeedbackMessages(); ?>
     </div>
     <div class="container">
         <?php require __DIR__ . '/inc/RoleDetails.php'; ?>

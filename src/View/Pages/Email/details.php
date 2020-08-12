@@ -32,6 +32,7 @@ if (MailScheduleMapper::exists($id)) {
         <div class="row mt-5">
             <h1><?= $pageName ?></h1>
         </div>
+        <hr>
         <?php Alert::renderFeedbackMessages(); ?>
     </div>
     <div class="container">

@@ -41,8 +41,10 @@ $pageName = Text::get('TITLE_EDIT_MAIL_TEMPLATE');
             <div class="col-sm-4"></div>
         </div>
         <hr>
-        <?php Alert::renderFeedbackMessages();
-
+        <?php Alert::renderFeedbackMessages(); ?>
+    </div>
+    <div class="container">
+        <?php
         $attachments = EmailAttachmentMapper::getByTemplateId($templateId);
         if (empty($attachments)) { ?>
             <p>Dit bericht heeft geen bijlagen</p>
