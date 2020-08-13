@@ -11,8 +11,19 @@ use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
 use function strlen;
 
+/**
+ * Class Password
+ * @package PortalCMS\Core\User
+ */
 class Password
 {
+    /**
+     * @param object $user
+     * @param string $currentPassword
+     * @param string $newPassword
+     * @param string $repeatNewPassword
+     * @return bool
+     */
     public static function changePassword(object $user, string $currentPassword, string $newPassword, string $repeatNewPassword): bool
     {
         if (empty($currentPassword) || empty($newPassword) || empty($repeatNewPassword)) {
@@ -30,6 +41,11 @@ class Password
         return false;
     }
 
+    /**
+     * @param object $user
+     * @param string $user_password
+     * @return bool
+     */
     public static function verifyPassword(object $user, string $user_password): bool
     {
         if (!password_verify(base64_encode($user_password), $user->user_password_hash)) {
@@ -38,6 +54,11 @@ class Password
         return true;
     }
 
+    /**
+     * @param string $currentPassword
+     * @param string $newPassword
+     * @return bool
+     */
     public static function validatePasswordChange(string $currentPassword, string $newPassword): bool
     {
         if ($currentPassword === $newPassword) {

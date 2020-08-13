@@ -19,8 +19,10 @@ use PortalCMS\Core\View\Text;
         </div>
     </div>
     <div class="form-group row">
+        <div class="col">
 
     <input type="hidden" name="csrf_token" value="<?= Csrf::makeToken() ?>"/>
-    <input type="submit" name="changeUsername" value="<?= Text::get('LABEL_SUBMIT') ?>" class="btn btn-outline-success"/>
+    <input type="submit" name="changeUsername" value="<?= Text::get('LABEL_SUBMIT') ?>" class="btn btn-outline-success float-right"/>
+        </div>
     </div>
 </form>

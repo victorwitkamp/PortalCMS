@@ -15,6 +15,10 @@ use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\User\UserMapper;
 
+/**
+ * Class ProfileController
+ * @package PortalCMS\Controllers
+ */
 class ProfileController extends Controller
 {
     /**

@@ -12,6 +12,10 @@ use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\View\Page;
 
+/**
+ * Class PageController
+ * @package PortalCMS\Controllers
+ */
 class PageController extends Controller
 {
     public function __construct()

@@ -9,10 +9,19 @@ namespace PortalCMS\Core\View;
 
 use function array_key_exists;
 
+/**
+ * Class Text
+ * @package PortalCMS\Core\View
+ */
 class Text
 {
     private static $texts;
 
+    /**
+     * @param      $key
+     * @param null $data
+     * @return string|null
+     */
     public static function get($key, $data = null)
     {
         if (!$key) {

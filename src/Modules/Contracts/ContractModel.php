@@ -35,6 +35,9 @@ class ContractModel
         return false;
     }
 
+    /**
+     * @return bool
+     */
     public static function update(): bool
     {
         $kosten_ruimte = (int)Request::post('kosten_ruimte', true);
@@ -55,6 +58,18 @@ class ContractModel
         return false;
     }
 
+    /**
+     * @param int $id
+     * @return bool
+     */
+    /**
+     * @param int $id
+     * @return bool
+     */
+    /**
+     * @param int $id
+     * @return bool
+     */
     public static function delete(int $id): bool
     {
         $contract = ContractMapper::getById($id);

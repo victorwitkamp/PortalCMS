@@ -36,6 +36,10 @@ class SMTPTransport
      */
     private $emailMessage;
 
+    /**
+     * SMTPTransport constructor.
+     * @param SMTPConfiguration $config
+     */
     public function __construct(SMTPConfiguration $config)
     {
         $this->config = $config;
@@ -52,6 +56,10 @@ class SMTPTransport
         return $this->error;
     }
 
+    /**
+     * @param EmailMessage $emailMessage
+     * @return bool
+     */
     public function sendMail(EmailMessage $emailMessage): bool
     {
         $this->emailMessage = $emailMessage;
@@ -66,6 +74,9 @@ class SMTPTransport
         return $this->send();
     }
 
+    /**
+     * @return bool
+     */
     public function verifyMessage(): bool
     {
         if (empty($this->emailMessage->recipients)) {
@@ -106,6 +117,15 @@ class SMTPTransport
         }
     }
 
+    /**
+     * @return bool
+     */
+    /**
+     * @return bool
+     */
+    /**
+     * @return bool
+     */
     public function processRecipients(): bool
     {
         if (!empty($this->emailMessage->recipients)) {
@@ -136,6 +156,15 @@ class SMTPTransport
         }
     }
 
+    /**
+     * @return bool
+     */
+    /**
+     * @return bool
+     */
+    /**
+     * @return bool
+     */
     public function send(): bool
     {
         try {

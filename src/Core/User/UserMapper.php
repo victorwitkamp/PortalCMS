@@ -10,8 +10,16 @@ namespace PortalCMS\Core\User;
 use PDO;
 use PortalCMS\Core\Database\Database;
 
+/**
+ * Class UserMapper
+ * @package PortalCMS\Core\User
+ */
 class UserMapper
 {
+    /**
+     * @param string $user_name
+     * @return bool
+     */
     public static function usernameExists(string $user_name): bool
     {
         $stmt = Database::conn()->prepare('SELECT user_id
@@ -22,6 +30,10 @@ class UserMapper
         return ($stmt->rowCount() === 1);
     }
 
+    /**
+     * @param int $Id
+     * @return object|null
+     */
     public static function getProfileById(int $Id): ?object
     {
         $stmt = Database::conn()->prepare('SELECT user_id,
@@ -49,6 +61,10 @@ class UserMapper
         return null;
     }
 
+    /**
+     * @param string $username
+     * @return object|null
+     */
     public static function getByUsername(string $username): ?object
     {
         $stmt = Database::conn()->prepare('SELECT user_id,
@@ -72,6 +88,11 @@ class UserMapper
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
+    /**
+     * @param int    $user_id
+     * @param string $token
+     * @return object|null
+     */
     public static function getByIdAndToken(int $user_id, string $token): ?object
     {
         $stmt = Database::conn()->prepare('SELECT user_id,
@@ -98,6 +119,18 @@ class UserMapper
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
+    /**
+     * @param int $user_fbid
+     * @return object|null
+     */
+    /**
+     * @param int $user_fbid
+     * @return object|null
+     */
+    /**
+     * @param int $user_fbid
+     * @return object|null
+     */
     public static function getByFbid(int $user_fbid): ?object
     {
         $stmt = Database::conn()->prepare('SELECT *
@@ -112,6 +145,18 @@ class UserMapper
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
+    /**
+     * @param string $usernameOrEmail
+     * @return object|null
+     */
+    /**
+     * @param string $usernameOrEmail
+     * @return object|null
+     */
+    /**
+     * @param string $usernameOrEmail
+     * @return object|null
+     */
     public static function getByUsernameOrEmail(string $usernameOrEmail): ?object
     {
         $stmt = Database::conn()->prepare('SELECT user_id, user_name, user_email
@@ -126,6 +171,15 @@ class UserMapper
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
+    /**
+     * @return array|null
+     */
+    /**
+     * @return array|null
+     */
+    /**
+     * @return array|null
+     */
     public static function getUsers(): ?array
     {
         $stmt = Database::conn()->query('SELECT * FROM users ORDER BY user_id ');
@@ -136,6 +190,21 @@ class UserMapper
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
+    /**
+     * @param string $username
+     * @param string $user_password_hash
+     * @return bool
+     */
+    /**
+     * @param string $username
+     * @param string $user_password_hash
+     * @return bool
+     */
+    /**
+     * @param string $username
+     * @param string $user_password_hash
+     * @return bool
+     */
     public static function updatePassword(string $username, string $user_password_hash): bool
     {
         $stmt = Database::conn()->prepare('UPDATE users
@@ -148,6 +217,21 @@ class UserMapper
         return ($stmt->rowCount() === 1);
     }
 
+    /**
+     * @param int    $user_id
+     * @param string $newUsername
+     * @return bool
+     */
+    /**
+     * @param int    $user_id
+     * @param string $newUsername
+     * @return bool
+     */
+    /**
+     * @param int    $user_id
+     * @param string $newUsername
+     * @return bool
+     */
     public static function updateUsername(int $user_id, string $newUsername): bool
     {
         $stmt = Database::conn()->prepare('UPDATE users
@@ -158,6 +242,21 @@ class UserMapper
         return ($stmt->rowCount() === 1);
     }
 
+    /**
+     * @param int      $user_id
+     * @param int|null $fbid
+     * @return bool
+     */
+    /**
+     * @param int      $user_id
+     * @param int|null $fbid
+     * @return bool
+     */
+    /**
+     * @param int      $user_id
+     * @param int|null $fbid
+     * @return bool
+     */
     public static function updateFBid(int $user_id, int $fbid = null): bool
     {
         $stmt = Database::conn()->prepare('UPDATE users
@@ -168,6 +267,21 @@ class UserMapper
         return ($stmt->rowCount() === 1);
     }
 
+    /**
+     * @param int    $user_id
+     * @param string $token
+     * @return bool
+     */
+    /**
+     * @param int    $user_id
+     * @param string $token
+     * @return bool
+     */
+    /**
+     * @param int    $user_id
+     * @param string $token
+     * @return bool
+     */
     public static function updateRememberMeToken(int $user_id, string $token): bool
     {
         $stmt = Database::conn()->prepare('UPDATE users
@@ -178,6 +292,21 @@ class UserMapper
         return ($stmt->rowCount() === 1);
     }
 
+    /**
+     * @param int         $userId
+     * @param string|null $sessionId
+     * @return bool
+     */
+    /**
+     * @param int         $userId
+     * @param string|null $sessionId
+     * @return bool
+     */
+    /**
+     * @param int         $userId
+     * @param string|null $sessionId
+     * @return bool
+     */
     public static function updateSessionId(int $userId, string $sessionId = null): bool
     {
         $stmt = Database::conn()->prepare('UPDATE users
@@ -188,6 +317,18 @@ class UserMapper
         return ($stmt->rowCount() === 1);
     }
 
+    /**
+     * @param string $username
+     * @return bool
+     */
+    /**
+     * @param string $username
+     * @return bool
+     */
+    /**
+     * @param string $username
+     * @return bool
+     */
     public static function saveTimestampByUsername(string $username): bool
     {
         $stmt = Database::conn()->prepare('UPDATE users
@@ -198,6 +339,18 @@ class UserMapper
         return ($stmt->rowCount() === 1);
     }
 
+    /**
+     * @param string $username
+     * @return bool
+     */
+    /**
+     * @param string $username
+     * @return bool
+     */
+    /**
+     * @param string $username
+     * @return bool
+     */
     public static function resetFailedLoginsByUsername(string $username): bool
     {
         $stmt = Database::conn()->prepare('UPDATE users
@@ -209,6 +362,18 @@ class UserMapper
         return ($stmt->rowCount() === 1);
     }
 
+    /**
+     * @param string $username
+     * @return bool
+     */
+    /**
+     * @param string $username
+     * @return bool
+     */
+    /**
+     * @param string $username
+     * @return bool
+     */
     public static function setFailedLoginByUsername(string $username): bool
     {
         $stmt = Database::conn()->prepare('UPDATE users
@@ -220,6 +385,18 @@ class UserMapper
         return ($stmt->rowCount() === 1);
     }
 
+    /**
+     * @param int $user_id
+     * @return bool
+     */
+    /**
+     * @param int $user_id
+     * @return bool
+     */
+    /**
+     * @param int $user_id
+     * @return bool
+     */
     public static function clearRememberMeToken(int $user_id): bool
     {
         $stmt = Database::conn()->prepare('UPDATE users
@@ -230,6 +407,18 @@ class UserMapper
         return ($stmt->rowCount() === 1);
     }
 
+    /**
+     * @param int $user_id
+     * @return bool
+     */
+    /**
+     * @param int $user_id
+     * @return bool
+     */
+    /**
+     * @param int $user_id
+     * @return bool
+     */
     public static function deleteUser(int $user_id): bool
     {
         $stmt = Database::conn()->prepare('DELETE FROM users

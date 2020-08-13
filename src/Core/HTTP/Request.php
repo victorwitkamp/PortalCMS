@@ -38,11 +38,19 @@ class Request
         return null;
     }
 
+    /**
+     * @param $key
+     * @return mixed|null
+     */
     public static function get($key)
     {
         return $_GET[$key] ?? null;
     }
 
+    /**
+     * @param $key
+     * @return mixed|null
+     */
     public static function cookie($key)
     {
         return $_COOKIE[$key] ?? null;

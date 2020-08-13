@@ -10,6 +10,10 @@ namespace PortalCMS\Core\Email\Message\Attachment;
 use PDO;
 use PortalCMS\Core\Database\Database;
 
+/**
+ * Class EmailAttachmentMapper
+ * @package PortalCMS\Core\Email\Message\Attachment
+ */
 class EmailAttachmentMapper
 {
     /**
@@ -35,6 +39,9 @@ class EmailAttachmentMapper
 
     /**
      * Create a new attachment for a template.
+     * @param int             $templateId
+     * @param EmailAttachment $attachment
+     * @return bool
      */
     public static function createForTemplate(int $templateId, EmailAttachment $attachment): bool
     {
@@ -47,6 +54,14 @@ class EmailAttachmentMapper
         return true;
     }
 
+    /**
+     * @param int $mailId
+     * @return array|null
+     */
+    /**
+     * @param int $mailId
+     * @return array|null
+     */
     public static function getByMailId(int $mailId): ?array
     {
         $stmt = Database::conn()->prepare('SELECT * FROM mail_attachments where mail_id = ?');
@@ -57,6 +72,10 @@ class EmailAttachmentMapper
         return null;
     }
 
+    /**
+     * @param int $templateId
+     * @return array|null
+     */
     public static function getByTemplateId(int $templateId): ?array
     {
         $stmt = Database::conn()->prepare('SELECT * FROM mail_attachments where template_id = ?');
@@ -67,6 +86,18 @@ class EmailAttachmentMapper
         return null;
     }
 
+    /**
+     * @param int $id
+     * @return bool
+     */
+    /**
+     * @param int $id
+     * @return bool
+     */
+    /**
+     * @param int $id
+     * @return bool
+     */
     public static function deleteById(int $id): bool
     {
         $stmt = Database::conn()->prepare('DELETE FROM mail_attachments WHERE id = ? LIMIT 1');
@@ -74,6 +105,18 @@ class EmailAttachmentMapper
         return ($stmt->rowCount() === 1);
     }
 
+    /**
+     * @param int $id
+     * @return bool
+     */
+    /**
+     * @param int $id
+     * @return bool
+     */
+    /**
+     * @param int $id
+     * @return bool
+     */
     public static function deleteByMailId(int $id): bool
     {
         $stmt = Database::conn()->prepare('DELETE FROM mail_attachments WHERE mail_id = ? LIMIT 1');

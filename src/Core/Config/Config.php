@@ -7,10 +7,18 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Config;
 
+/**
+ * Class Config
+ * @package PortalCMS\Core\Config
+ */
 class Config
 {
     public static $config;
 
+    /**
+     * @param string $key
+     * @return mixed
+     */
     public static function get(string $key)
     {
         if (!self::$config) {

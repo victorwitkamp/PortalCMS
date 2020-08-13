@@ -11,8 +11,17 @@ namespace PortalCMS\Modules\Members;
 use PDO;
 use PortalCMS\Core\Database\Database;
 
+/**
+ * Class MemberMapper
+ * @package PortalCMS\Modules\Members
+ */
 class MemberMapper
 {
+    /**
+     * @param int|null    $year
+     * @param string|null $paymentType
+     * @return array|null
+     */
     public static function getMembers(int $year = null, string $paymentType = null): ?array
     {
         if (!empty($year) && !empty($paymentType)) {
@@ -28,6 +37,10 @@ class MemberMapper
         return ($stmt->rowCount() === 0) ? null : $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
+    /**
+     * @param int $year
+     * @return array|null
+     */
     public static function getMembersByYear(int $year): ?array
     {
         $stmt = Database::conn()->prepare(
@@ -39,6 +52,10 @@ class MemberMapper
         return ($stmt->rowCount() === 0) ? null : $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
+    /**
+     * @param string $paymentType
+     * @return array|null
+     */
     public static function getMembersByPaymentType(string $paymentType): ?array
     {
         $stmt = Database::conn()->prepare('SELECT * FROM members where betalingswijze = ? ORDER BY id');
@@ -46,6 +63,11 @@ class MemberMapper
         return ($stmt->rowCount() === 0) ? null : $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
+    /**
+     * @param int    $year
+     * @param string $paymentType
+     * @return array|null
+     */
     public static function getMembersByYearAndPaymentType(int $year, string $paymentType): ?array
     {
         $stmt = Database::conn()->prepare('SELECT * FROM members where jaarlidmaatschap = ? and betalingswijze = ? ORDER BY id');
@@ -53,6 +75,9 @@ class MemberMapper
         return ($stmt->rowCount() === 0) ? null : $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
+    /**
+     * @return array|null
+     */
     public static function getPaymentTypes(): ?array
     {
         $stmt = Database::conn()->prepare('SELECT distinct betalingswijze FROM members');
@@ -60,12 +85,19 @@ class MemberMapper
         return ($stmt->rowCount() === 0) ? null : $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
+    /**
+     * @return array|null
+     */
     public static function getMembersWithValidEmail(): ?array
     {
         $stmt = Database::conn()->query('SELECT * FROM members WHERE emailadres IS NOT NULL ORDER BY id');
         return ($stmt->rowCount() === 0) ? null : $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
+    /**
+     * @param int $year
+     * @return int
+     */
     public static function getMemberCountByYear(int $year): int
     {
         $stmt = Database::conn()->prepare('SELECT id FROM members WHERE jaarlidmaatschap = ?');
@@ -73,12 +105,27 @@ class MemberMapper
         return $stmt->rowCount();
     }
 
+    /**
+     * @return array
+     */
     public static function getYears(): array
     {
         $stmt = Database::conn()->query('SELECT distinct jaarlidmaatschap FROM members order by jaarlidmaatschap desc');
         return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
+    /**
+     * @param int $memberId
+     * @return bool
+     */
+    /**
+     * @param int $memberId
+     * @return bool
+     */
+    /**
+     * @param int $memberId
+     * @return bool
+     */
     public static function doesMemberIdExist(int $memberId): bool
     {
         $stmt = Database::conn()->prepare('SELECT id FROM members WHERE id = ? LIMIT 1');
@@ -86,6 +133,21 @@ class MemberMapper
         return ($stmt->rowCount() === 1);
     }
 
+    /**
+     * @param int    $jaarlidmaatschap
+     * @param string $email
+     * @return bool
+     */
+    /**
+     * @param int    $jaarlidmaatschap
+     * @param string $email
+     * @return bool
+     */
+    /**
+     * @param int    $jaarlidmaatschap
+     * @param string $email
+     * @return bool
+     */
     public static function doesEmailforYearExist(int $jaarlidmaatschap, string $email): bool
     {
         $stmt = Database::conn()->prepare('SELECT id FROM members WHERE jaarlidmaatschap = ? AND emailadres = ? LIMIT 1');
@@ -93,6 +155,18 @@ class MemberMapper
         return ($stmt->rowCount() === 1);
     }
 
+    /**
+     * @param int $id
+     * @return object|null
+     */
+    /**
+     * @param int $id
+     * @return object|null
+     */
+    /**
+     * @param int $id
+     * @return object|null
+     */
     public static function getMemberById(int $id): ?object
     {
         $stmt = Database::conn()->prepare('SELECT * FROM members WHERE id=? LIMIT 1');
@@ -100,6 +174,18 @@ class MemberMapper
         return ($stmt->rowCount() === 1) ? $stmt->fetch(PDO::FETCH_OBJ) : null;
     }
 
+    /**
+     * @param int $id
+     * @return bool
+     */
+    /**
+     * @param int $id
+     * @return bool
+     */
+    /**
+     * @param int $id
+     * @return bool
+     */
     public static function delete(int $id): bool
     {
         $stmt = Database::conn()->prepare('DELETE FROM members WHERE id = ? LIMIT 1');
@@ -107,6 +193,18 @@ class MemberMapper
         return ($stmt->rowCount() === 1);
     }
 
+    /**
+     * @param Member|null $member
+     * @return bool
+     */
+    /**
+     * @param Member|null $member
+     * @return bool
+     */
+    /**
+     * @param Member|null $member
+     * @return bool
+     */
     public static function updateMember(Member $member = null): bool
     {
         $stmt = Database::conn()->prepare('UPDATE members
@@ -123,6 +221,21 @@ class MemberMapper
         return ($stmt->rowCount() === 1);
     }
 
+    /**
+     * @param int|null $id
+     * @param int|null $status
+     * @return bool
+     */
+    /**
+     * @param int|null $id
+     * @param int|null $status
+     * @return bool
+     */
+    /**
+     * @param int|null $id
+     * @param int|null $status
+     * @return bool
+     */
     public static function setStatus(int $id = null, int $status = null) : bool
     {
         $stmt = Database::conn()->prepare(

@@ -16,6 +16,10 @@ use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Modules\Contracts\ContractModel;
 
+/**
+ * Class ContractsController
+ * @package PortalCMS\Controllers
+ */
 class ContractsController extends Controller
 {
     private $requests = [

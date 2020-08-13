@@ -9,8 +9,16 @@ namespace PortalCMS\Core\HTTP;
 
 use PortalCMS\Core\Config\Config;
 
+/**
+ * Class Cookie
+ * @package PortalCMS\Core\HTTP
+ */
 class Cookie
 {
+    /**
+     * @param string $token
+     * @return bool
+     */
     public static function setRememberMe(string $token): bool
     {
         $runtime = time() + (int)Config::get('COOKIE_RUNTIME');

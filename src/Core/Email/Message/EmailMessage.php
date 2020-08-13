@@ -7,6 +7,10 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Email\Message;
 
+/**
+ * Class EmailMessage
+ * @package PortalCMS\Core\Email\Message
+ */
 class EmailMessage
 {
     /**
@@ -33,6 +37,13 @@ class EmailMessage
      */
     public $recipients = [];
 
+    /**
+     * EmailMessage constructor.
+     * @param string     $subject
+     * @param string     $body
+     * @param array|null $recipients
+     * @param array|null $attachments
+     */
     public function __construct(string $subject, string $body, array $recipients = null, array $attachments = null)
     {
         $this->subject = $subject;

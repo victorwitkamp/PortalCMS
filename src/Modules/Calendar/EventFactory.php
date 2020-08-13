@@ -8,8 +8,15 @@ namespace PortalCMS\Modules\Calendar;
 
 use PortalCMS\Core\HTTP\Request;
 
+/**
+ * Class EventFactory
+ * @package PortalCMS\Modules\Calendar
+ */
 class EventFactory
 {
+    /**
+     * @return Event
+     */
     public static function byCreateRequest(): Event
     {
         $event = new Event();
@@ -21,6 +28,9 @@ class EventFactory
         return $event;
     }
 
+    /**
+     * @return Event
+     */
     public static function byUpdateRequest(): Event
     {
         $event = new Event();

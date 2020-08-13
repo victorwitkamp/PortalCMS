@@ -12,6 +12,10 @@ use PortalCMS\Core\Session\Session;
 use TCPDF;
 use function define;
 
+/**
+ * Class PDF
+ * @package PortalCMS\Core\View
+ */
 class PDF
 {
     public static $defined = false;
@@ -78,6 +82,12 @@ class PDF
         self::$defined = true;
     }
 
+    /**
+     * @return TCPDF
+     */
+    /**
+     * @return TCPDF
+     */
     public static function configPDF(): TCPDF
     {
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', true);
@@ -96,11 +106,44 @@ class PDF
         return $pdf;
     }
 
+    /**
+     * @param TCPDF  $pdf
+     * @param object $invoice
+     * @param array  $invoiceitems
+     * @param object $contract
+     * @return TCPDF
+     */
+    /**
+     * @param TCPDF  $pdf
+     * @param object $invoice
+     * @param array  $invoiceitems
+     * @param object $contract
+     * @return TCPDF
+     */
+    /**
+     * @param TCPDF  $pdf
+     * @param object $invoice
+     * @param array  $invoiceitems
+     * @param object $contract
+     * @return TCPDF
+     */
     public static function createInvoice(TCPDF $pdf, object $invoice, array $invoiceitems, object $contract): TCPDF
     {
         return self::setInvoiceFooter(self::setInvoiceContent(self::setInvoiceHeader($pdf, $invoice, $contract), $invoiceitems));
     }
 
+    /**
+     * @param TCPDF $pdf
+     * @return TCPDF
+     */
+    /**
+     * @param TCPDF $pdf
+     * @return TCPDF
+     */
+    /**
+     * @param TCPDF $pdf
+     * @return TCPDF
+     */
     public static function setInvoiceFooter(TCPDF $pdf): TCPDF
     {
         $pdf->SetX(20);
@@ -116,6 +159,21 @@ class PDF
         return $pdf;
     }
 
+    /**
+     * @param TCPDF $pdf
+     * @param       $invoiceitems
+     * @return TCPDF
+     */
+    /**
+     * @param TCPDF $pdf
+     * @param       $invoiceitems
+     * @return TCPDF
+     */
+    /**
+     * @param TCPDF $pdf
+     * @param       $invoiceitems
+     * @return TCPDF
+     */
     public static function setInvoiceContent(TCPDF $pdf, $invoiceitems): TCPDF
     {
         $pdf->SetFont('dejavusans', 'B', 11, '', true);
@@ -150,6 +208,24 @@ class PDF
         return $pdf;
     }
 
+    /**
+     * @param TCPDF $pdf
+     * @param       $invoice
+     * @param       $contract
+     * @return TCPDF
+     */
+    /**
+     * @param TCPDF $pdf
+     * @param       $invoice
+     * @param       $contract
+     * @return TCPDF
+     */
+    /**
+     * @param TCPDF $pdf
+     * @param       $invoice
+     * @param       $contract
+     * @return TCPDF
+     */
     public static function setInvoiceHeader(TCPDF $pdf, $invoice, $contract): TCPDF
     {
         $pdf->SetTitle('Factuur ' . $invoice->factuurnummer);
@@ -179,6 +255,24 @@ class PDF
         return $pdf;
     }
 
+    /**
+     * @param object $invoice
+     * @param array  $invoiceitems
+     * @param object $contract
+     * @return bool
+     */
+    /**
+     * @param object $invoice
+     * @param array  $invoiceitems
+     * @param object $contract
+     * @return bool
+     */
+    /**
+     * @param object $invoice
+     * @param array  $invoiceitems
+     * @param object $contract
+     * @return bool
+     */
     public static function writeInvoice(object $invoice, array $invoiceitems, object $contract): bool
     {
         if (self::$defined === false) {

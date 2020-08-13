@@ -16,8 +16,18 @@ use PortalCMS\Core\Session\SessionCookie;
 use PortalCMS\Core\User\UserMapper;
 use PortalCMS\Core\View\Text;
 
+/**
+ * Class LoginService
+ * @package PortalCMS\Core\Security\Authentication\Service
+ */
 class LoginService
 {
+    /**
+     * @param string $username
+     * @param string $password
+     * @param bool   $rememberMe
+     * @return bool
+     */
     public static function loginWithPassword(string $username, string $password, bool $rememberMe = false): bool
     {
         $user = LoginValidator::validateLogin($username, $password);
@@ -38,6 +48,10 @@ class LoginService
         return false;
     }
 
+    /**
+     * @param int $user_id
+     * @return bool
+     */
     public static function setRememberMe(int $user_id): bool
     {
         // generate 64 char random string
@@ -58,6 +72,10 @@ class LoginService
         return Cookie::setRememberMe($cookie_string);
     }
 
+    /**
+     * @param object $user
+     * @return bool
+     */
     public static function setSuccessfulLoginIntoSession(object $user): bool
     {
         Session::init();
@@ -75,6 +93,18 @@ class LoginService
         return false;
     }
 
+    /**
+     * @param string $cookie
+     * @return bool
+     */
+    /**
+     * @param string $cookie
+     * @return bool
+     */
+    /**
+     * @param string $cookie
+     * @return bool
+     */
     public static function loginWithCookie(string $cookie): bool
     {
         if (!empty($cookie)) {
@@ -92,6 +122,18 @@ class LoginService
         return false;
     }
 
+    /**
+     * @param int $fbid
+     * @return bool
+     */
+    /**
+     * @param int $fbid
+     * @return bool
+     */
+    /**
+     * @param int $fbid
+     * @return bool
+     */
     public static function loginWithFacebook(int $fbid): bool
     {
         if (!empty($fbid)) {

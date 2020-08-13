@@ -18,6 +18,10 @@ use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Modules\Invoices\InvoiceHelper;
 
+/**
+ * Class InvoicesController
+ * @package PortalCMS\Controllers
+ */
 class InvoicesController extends Controller
 {
     private $requests = [

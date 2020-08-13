@@ -9,6 +9,10 @@ namespace PortalCMS\Core\View;
 
 use PortalCMS\Core\Session\Session;
 
+/**
+ * Class Alert
+ * @package PortalCMS\Core\View
+ */
 class Alert
 {
     /**
@@ -44,6 +48,10 @@ class Alert
         Session::set('feedback_negative', null);
     }
 
+    /**
+     * @param string $feedback
+     * @param string $style
+     */
     public static function render(string $feedback, string $style)
     {
         if (!empty($feedback) && !empty($style)) {

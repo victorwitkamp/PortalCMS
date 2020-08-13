@@ -9,8 +9,15 @@ namespace PortalCMS\Core\Session;
 
 use PortalCMS\Core\Config\Config;
 
+/**
+ * Class SessionCookie
+ * @package PortalCMS\Core\Session
+ */
 class SessionCookie
 {
+    /**
+     * @return bool
+     */
     public static function set(): bool
     {
         // @see https://www.owasp.org/index.php/PHP_Security_Cheat_Sheet#Cookies

@@ -1,15 +1,15 @@
 /*
  * Copyright Victor Witkamp (c) 2020.
  */
-const { src, dest, parallel } = require('gulp')
+const { src, dest, parallel } = require('gulp');
 // const less = require('gulp-less');
-const minifyCSS = require('gulp-csso')
-const concat = require('gulp-concat')
-const autoprefixer = require('autoprefixer')
-const sourcemaps = require('gulp-sourcemaps')
-const postcss = require('gulp-postcss')
-const minify = require('gulp-minify')
-const rename = require('gulp-rename')
+const minifyCSS = require('gulp-csso');
+const concat = require('gulp-concat');
+const autoprefixer = require('autoprefixer');
+const sourcemaps = require('gulp-sourcemaps');
+const postcss = require('gulp-postcss');
+const minify = require('gulp-minify');
+const rename = require('gulp-rename');
 
 // function css() {
 //     return src('portal/includes/css/*.css')
@@ -177,9 +177,9 @@ function ttf () {
   })
     .pipe(dest('portal/dist/'))
 }
-exports.js = js
-exports.css = css
-exports.woff = woff
-exports.woff2 = woff2
-exports.ttf = ttf
-exports.default = parallel(js, css, dataTablesJs, dataTablesCss, dataTablesMinCss, fullcalendarJs, fullcalendarCss, fullcalendarMinCss, woff, woff2, ttf)
+exports.js = js;
+exports.css = css;
+exports.woff = woff;
+exports.woff2 = woff2;
+exports.ttf = ttf;
+exports.default = parallel(js, css, dataTablesJs, dataTablesCss, dataTablesMinCss, fullcalendarJs, fullcalendarCss, fullcalendarMinCss, woff, woff2, ttf);

@@ -20,6 +20,10 @@ use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
 use function strlen;
 
+/**
+ * Class PasswordReset
+ * @package PortalCMS\Core\User
+ */
 class PasswordReset
 {
     /**

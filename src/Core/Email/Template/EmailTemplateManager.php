@@ -9,6 +9,10 @@ namespace PortalCMS\Core\Email\Template;
 
 use PortalCMS\Core\Session\Session;
 
+/**
+ * Class EmailTemplateManager
+ * @package PortalCMS\Core\Email\Template
+ */
 class EmailTemplateManager
 {
     /**
@@ -27,6 +31,10 @@ class EmailTemplateManager
         $this->EmailTemplateMapper = new EmailTemplateMapper();
     }
 
+    /**
+     * @param int $id
+     * @return bool
+     */
     public static function delete(int $id): bool
     {
         if (!empty(EmailTemplateMapper::getById($id))) {
@@ -41,6 +49,12 @@ class EmailTemplateManager
         return false;
     }
 
+    /**
+     * @param string $type
+     * @param string $subject
+     * @param string $body
+     * @return bool
+     */
     public function create(string $type, string $subject, string $body): bool
     {
         if (empty($type) || empty($subject) || empty($body)) {
@@ -55,6 +69,10 @@ class EmailTemplateManager
         return true;
     }
 
+    /**
+     * @param int $id
+     * @return EmailTemplate|null
+     */
     public function getExisting(int $id): ?EmailTemplate
     {
         $existing = EmailTemplateMapper::getById($id);
@@ -72,6 +90,9 @@ class EmailTemplateManager
         return null;
     }
 
+    /**
+     * @return bool
+     */
     public function store(): bool
     {
         if (empty($this->emailTemplate->type) || empty($this->emailTemplate->subject) || empty($this->emailTemplate->body)) {
@@ -88,6 +109,18 @@ class EmailTemplateManager
         return false;
     }
 
+    /**
+     * @param EmailTemplate $emailTemplate
+     * @return bool
+     */
+    /**
+     * @param EmailTemplate $emailTemplate
+     * @return bool
+     */
+    /**
+     * @param EmailTemplate $emailTemplate
+     * @return bool
+     */
     public function update(EmailTemplate $emailTemplate): bool
     {
         if (empty($emailTemplate->subject) || empty($emailTemplate->body)) {

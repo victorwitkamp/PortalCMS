@@ -35,7 +35,8 @@ use PortalCMS\Core\View\Text;
         </div>
     </div>
     <div class="form-group row">
-
-    <input type="submit" name="changePassword" value="<?= Text::get('LABEL_SUBMIT') ?>" class="btn btn-outline-success"/>
+        <div class="col">
+            <input type="submit" name="changePassword" value="<?= Text::get('LABEL_SUBMIT') ?>" class="btn btn-outline-success float-right"/>
+        </div>
     </div>
 </form>

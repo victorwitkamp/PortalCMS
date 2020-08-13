@@ -11,6 +11,10 @@ use PortalCMS\Core\Config\Config;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
 
+/**
+ * Class EmailAttachment
+ * @package PortalCMS\Core\Email\Message\Attachment
+ */
 class EmailAttachment
 {
     public $path;
@@ -19,12 +23,20 @@ class EmailAttachment
     public $encoding = 'base64';
     public $type = 'application/octet-stream';
 
+    /**
+     * EmailAttachment constructor.
+     * @param array $file
+     */
     public function __construct(array $file)
     {
         $this->path = Config::get('PATH_ATTACHMENTS');
         $this->processUpload($file);
     }
 
+    /**
+     * @param array $file
+     * @return bool
+     */
     public function processUpload(array $file): bool
     {
         if (!empty($file)) {
@@ -67,6 +79,10 @@ class EmailAttachment
         return false;
     }
 
+    /**
+     * @param string $filename
+     * @return string
+     */
     public function getMIMEType(string $filename): string
     {
         $realpath = realpath($filename);
@@ -74,7 +90,7 @@ class EmailAttachment
     }
 
     /**
-     * Delete attachment(s)
+     * Delete attachment(s) by providing an array of attachmentIds
      * @param array|null $attachmentIds
      */
     public static function deleteById(array $attachmentIds = null): bool
@@ -97,6 +113,9 @@ class EmailAttachment
 
     /**
      * Handle feedback for the deleteById method
+     * @param int $deleted
+     * @param int $error
+     * @return bool
      */
     public static function deleteFeedbackHandler(int $deleted, int $error): bool
     {
@@ -145,6 +164,21 @@ class EmailAttachment
     //    //        return false;
     //    //    }
 
+    /**
+     * @param int|null $mailId
+     * @param int|null $templateId
+     * @return bool
+     */
+    /**
+     * @param int|null $mailId
+     * @param int|null $templateId
+     * @return bool
+     */
+    /**
+     * @param int|null $mailId
+     * @param int|null $templateId
+     * @return bool
+     */
     public function store(int $mailId = null, int $templateId = null): bool
     {
         if (!$this->validate()) {
@@ -159,6 +193,15 @@ class EmailAttachment
         return false;
     }
 
+    /**
+     * @return bool
+     */
+    /**
+     * @return bool
+     */
+    /**
+     * @return bool
+     */
     public function validate(): bool
     {
         return !(empty($this->path) || empty($this->name) || empty($this->extension) || empty($this->encoding) || empty($this->type));

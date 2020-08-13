@@ -10,6 +10,10 @@ namespace PortalCMS\Core\Security\Authentication;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
 
+/**
+ * Class Authentication
+ * @package PortalCMS\Core\Security\Authentication
+ */
 class Authentication
 {
     public static function checkAuthentication()
@@ -33,6 +37,9 @@ class Authentication
         // }
     }
 
+    /**
+     * @return bool
+     */
     public static function userIsLoggedIn(): bool
     {
         return (Session::get('user_logged_in') ? true : false);

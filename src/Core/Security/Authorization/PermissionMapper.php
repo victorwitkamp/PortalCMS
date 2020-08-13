@@ -10,8 +10,16 @@ namespace PortalCMS\Core\Security\Authorization;
 use PDO;
 use PortalCMS\Core\Database\Database;
 
+/**
+ * Class PermissionMapper
+ * @package PortalCMS\Core\Security\Authorization
+ */
 class PermissionMapper
 {
+    /**
+     * @param int $perm_id
+     * @return bool|mixed
+     */
     public static function getById(int $perm_id)
     {
         $stmt = Database::conn()->prepare('SELECT *
@@ -25,6 +33,10 @@ class PermissionMapper
         return $stmt->fetch();
     }
 
+    /**
+     * @param int $user_id
+     * @return array|null
+     */
     public static function getPermissionsByUserId(int $user_id): ?array
     {
         $stmt = Database::conn()->prepare('SELECT DISTINCT t2.perm_desc

@@ -23,6 +23,11 @@ use PortalCMS\Core\View\Text;
  */
 class LoginValidator
 {
+    /**
+     * @param string $user_name
+     * @param string $user_password
+     * @return object|null
+     */
     public static function validateLogin(string $user_name, string $user_password): ?object
     {
         if (empty($user_name) || empty($user_password)) {
@@ -49,6 +54,11 @@ class LoginValidator
         return true;
     }
 
+    /**
+     * @param string $user_name
+     * @param string $user_password
+     * @return object|null
+     */
     public static function getUser(string $user_name, string $user_password): ?object
     {
         $user = UserMapper::getByUsername($user_name);
@@ -72,6 +82,9 @@ class LoginValidator
         }
     }
 
+    /**
+     * @return bool
+     */
     public static function incrementUserNotFoundCounter(): bool
     {
         return Session::set('failed-login-count', Session::get('failed-login-count') + 1) && Session::set('last-failed-login', time());
@@ -87,16 +100,49 @@ class LoginValidator
         return !(($user->user_failed_logins >= 3) && strtotime($user->user_last_failed_login) > (strtotime(date('Y-m-d H:i:s')) - 30));
     }
 
+    /**
+     * @param object $user
+     * @return bool
+     */
+    /**
+     * @param object $user
+     * @return bool
+     */
+    /**
+     * @param object $user
+     * @return bool
+     */
     public static function verifyIsActive(object $user): bool
     {
         return ($user->user_active === 1);
     }
 
+    /**
+     * @return bool
+     */
+    /**
+     * @return bool
+     */
+    /**
+     * @return bool
+     */
     public static function resetUserNotFoundCounter(): bool
     {
         return Session::set('failed-login-count', 0) && Session::set('last-failed-login', '');
     }
 
+    /**
+     * @param string $cookie
+     * @return object|null
+     */
+    /**
+     * @param string $cookie
+     * @return object|null
+     */
+    /**
+     * @param string $cookie
+     * @return object|null
+     */
     public static function validateCookieLogin(string $cookie): ?object
     {
         if (substr_count($cookie, ':') + 1 === 3) {

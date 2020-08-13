@@ -8,8 +8,15 @@ namespace PortalCMS\Core\Config;
 
 use PortalCMS\Core\HTTP\Request;
 
+/**
+ * Class SiteSettingsFactory
+ * @package PortalCMS\Core\Config
+ */
 class SiteSettingsFactory
 {
+    /**
+     * @return array
+     */
     public static function updateRequest(): array
     {
         $properties = [

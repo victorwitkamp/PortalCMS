@@ -7,6 +7,10 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Email\Recipient;
 
+/**
+ * Class EmailRecipientCollectionCreator
+ * @package PortalCMS\Core\Email\Recipient
+ */
 class EmailRecipientCollectionCreator
 {
     /**
@@ -21,6 +25,10 @@ class EmailRecipientCollectionCreator
         $this->mapper = new EmailRecipientMapper();
     }
 
+    /**
+     * @param int $mailId
+     * @return array|bool
+     */
     public function createCollection(int $mailId)
     {
         $emailRecipients = $this->mapper->getAll($mailId);

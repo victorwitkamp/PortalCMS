@@ -9,6 +9,10 @@ namespace PortalCMS\Core\HTTP;
 
 use PortalCMS\Core\Config\Config;
 
+/**
+ * Class Redirect
+ * @package PortalCMS\Core\HTTP
+ */
 class Redirect
 {
     /**

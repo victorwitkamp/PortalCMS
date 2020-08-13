@@ -19,8 +19,17 @@ use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Contracts\ContractMapper;
 use function is_array;
 
+/**
+ * Class InvoiceHelper
+ * @package PortalCMS\Modules\Invoices
+ */
 class InvoiceHelper
 {
+    /**
+     * @param int      $invoiceId
+     * @param int|null $batchId
+     * @return bool
+     */
     public static function createMail(int $invoiceId, int $batchId = null): bool
     {
         $invoice = InvoiceMapper::getById($invoiceId);
@@ -44,6 +53,13 @@ class InvoiceHelper
         return false;
     }
 
+    /**
+     * @param int    $year
+     * @param string $month
+     * @param array  $contract_ids
+     * @param string $factuurdatum
+     * @return bool
+     */
     public static function create(int $year, string $month, array $contract_ids, string $factuurdatum): bool
     {
         if (empty($factuurdatum)) {
@@ -65,6 +81,27 @@ class InvoiceHelper
         return false;
     }
 
+    /**
+     * @param int    $year
+     * @param string $month
+     * @param int    $contract_id
+     * @param string $factuurdatum
+     * @return bool
+     */
+    /**
+     * @param int    $year
+     * @param string $month
+     * @param int    $contract_id
+     * @param string $factuurdatum
+     * @return bool
+     */
+    /**
+     * @param int    $year
+     * @param string $month
+     * @param int    $contract_id
+     * @param string $factuurdatum
+     * @return bool
+     */
     public static function createInvoiceAction(int $year, string $month, int $contract_id, string $factuurdatum): bool
     {
         $contract = ContractMapper::getById($contract_id);
@@ -90,6 +127,18 @@ class InvoiceHelper
         return false;
     }
 
+    /**
+     * @param int $id
+     * @return bool|string
+     */
+    /**
+     * @param int $id
+     * @return bool|string
+     */
+    /**
+     * @param int $id
+     * @return bool|string
+     */
     public static function displayInvoiceSumById(int $id)
     {
         $sum = self::getInvoiceSumById($id);
@@ -99,6 +148,18 @@ class InvoiceHelper
         return '&euro; ' . $sum;
     }
 
+    /**
+     * @param int $id
+     * @return int
+     */
+    /**
+     * @param int $id
+     * @return int
+     */
+    /**
+     * @param int $id
+     * @return int
+     */
     public static function getInvoiceSumById(int $id): int
     {
         $sum = 0;
@@ -111,6 +172,18 @@ class InvoiceHelper
         return $sum;
     }
 
+    /**
+     * @param int $id
+     * @return bool
+     */
+    /**
+     * @param int $id
+     * @return bool
+     */
+    /**
+     * @param int $id
+     * @return bool
+     */
     public static function delete(int $id): bool
     {
         $invoice = InvoiceMapper::getById($id);
@@ -130,6 +203,18 @@ class InvoiceHelper
         return false;
     }
 
+    /**
+     * @param int $id
+     * @return bool|mixed
+     */
+    /**
+     * @param int $id
+     * @return bool|mixed
+     */
+    /**
+     * @param int $id
+     * @return bool|mixed
+     */
     public static function render(int $id)
     {
         if (!empty($id)) {
@@ -143,6 +228,18 @@ class InvoiceHelper
         return false;
     }
 
+    /**
+     * @param int|null $id
+     * @return bool
+     */
+    /**
+     * @param int|null $id
+     * @return bool
+     */
+    /**
+     * @param int|null $id
+     * @return bool
+     */
     public static function write(int $id = null): bool
     {
         if (!empty($id)) {
@@ -163,6 +260,24 @@ class InvoiceHelper
         return false;
     }
 
+    /**
+     * @param int    $invoiceId
+     * @param string $name
+     * @param int    $price
+     * @return bool
+     */
+    /**
+     * @param int    $invoiceId
+     * @param string $name
+     * @param int    $price
+     * @return bool
+     */
+    /**
+     * @param int    $invoiceId
+     * @param string $name
+     * @param int    $price
+     * @return bool
+     */
     public static function createItem(int $invoiceId, string $name, int $price): bool
     {
         if (!InvoiceItemMapper::create($invoiceId, $name, $price)) {
@@ -174,6 +289,18 @@ class InvoiceHelper
         return true;
     }
 
+    /**
+     * @param int $id
+     * @return bool
+     */
+    /**
+     * @param int $id
+     * @return bool
+     */
+    /**
+     * @param int $id
+     * @return bool
+     */
     public static function deleteItem(int $id): bool
     {
         if (!InvoiceItemMapper::exists($id)) {

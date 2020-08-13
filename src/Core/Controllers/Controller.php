@@ -13,6 +13,10 @@ use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Session\Session;
 
+/**
+ * Class Controller
+ * @package PortalCMS\Core\Controllers
+ */
 class Controller
 {
     public function __construct()

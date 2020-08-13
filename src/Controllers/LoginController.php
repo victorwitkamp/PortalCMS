@@ -54,6 +54,9 @@ class LoginController extends Controller
         // }
     }
 
+    /**
+     * @return bool
+     */
     public static function loginSubmit(): bool
     {
         if (!Csrf::isTokenValid()) {
@@ -79,6 +82,10 @@ class LoginController extends Controller
         return false;
     }
 
+    /**
+     * @param int $fbid
+     * @return bool
+     */
     public static function loginWithFacebook(int $fbid): bool
     {
         if (LoginService::loginWithFacebook($fbid)) {
@@ -145,6 +152,15 @@ class LoginController extends Controller
         }
     }
 
+    /**
+     * @return bool
+     */
+    /**
+     * @return bool
+     */
+    /**
+     * @return bool
+     */
     public static function loginWithCookie(): bool
     {
         $cookie = Request::cookie('remember_me');

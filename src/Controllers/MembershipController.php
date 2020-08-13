@@ -21,6 +21,10 @@ use PortalCMS\Modules\Members\MemberModel;
 use PortalCMS\Modules\Members\MemberPaymentDetails;
 use PortalCMS\Modules\Members\MemberPreferences;
 
+/**
+ * Class MembershipController
+ * @package PortalCMS\Controllers
+ */
 class MembershipController extends Controller
 {
     /**

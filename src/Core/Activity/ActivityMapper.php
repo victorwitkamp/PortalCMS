@@ -10,8 +10,20 @@ namespace PortalCMS\Core\Activity;
 
 use PortalCMS\Core\Database\Database;
 
+/**
+ * Class ActivityMapper
+ * @package PortalCMS\Core\Activity
+ */
 class ActivityMapper
 {
+    /**
+     * @param string      $activity
+     * @param int|null    $user_id
+     * @param string|null $user_name
+     * @param string|null $ip
+     * @param string|null $details
+     * @return bool
+     */
     public static function add(string $activity, int $user_id = null, string $user_name = null, string $ip = null, string $details = null): bool
     {
         $sql = 'INSERT INTO activity (id, user_id, user_name, ip_address, activity, details) VALUES (NULL, ?, ?, ?, ?, ?)';
@@ -22,6 +34,9 @@ class ActivityMapper
         return false;
     }
 
+    /**
+     * @return array
+     */
     public static function load(): array
     {
         return Database::conn()->query('SELECT * FROM activity ORDER BY id desc LIMIT 50')->fetchAll();

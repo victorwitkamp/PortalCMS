@@ -17,6 +17,10 @@ use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
 
+/**
+ * Class SettingsController
+ * @package PortalCMS\Controllers
+ */
 class SettingsController extends Controller
 {
     /**

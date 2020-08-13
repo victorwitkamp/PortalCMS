@@ -19,6 +19,10 @@ use PortalCMS\Core\User\User;
 use PortalCMS\Core\User\UserMapper;
 use PortalCMS\Core\View\Text;
 
+/**
+ * Class AccountController
+ * @package PortalCMS\Controllers
+ */
 class AccountController extends Controller
 {
     private $requests = [
@@ -55,6 +59,10 @@ class AccountController extends Controller
         Redirect::to('Account');
     }
 
+    /**
+     * @param int      $user_id
+     * @param int|null $FbId
+     */
     public static function setFbid(int $user_id, int $FbId = null)
     {
         if (!empty($FbId) && UserMapper::updateFBid($user_id, $FbId)) {

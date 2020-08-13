@@ -8,4 +8,4 @@ window.addEventListener('load', function () {
     static: !0,
     container: document.getElementById('container')
   })
-})
+});

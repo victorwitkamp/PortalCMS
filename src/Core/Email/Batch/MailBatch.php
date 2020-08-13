@@ -18,6 +18,9 @@ use PortalCMS\Core\Session\Session;
  */
 class MailBatch
 {
+    /**
+     * @return array
+     */
     public static function getAll(): array
     {
         $stmt = Database::conn()->prepare('SELECT * FROM mail_batches ORDER BY id ');
@@ -37,6 +40,10 @@ class MailBatch
         return null;
     }
 
+    /**
+     * @param int|null $used_template
+     * @return bool
+     */
     public static function create(int $used_template = null): bool
     {
         $stmt = Database::conn()->prepare('INSERT INTO mail_batches(id, status, UsedTemplate) VALUES (NULL,1,?)');
@@ -47,6 +54,10 @@ class MailBatch
         return true;
     }
 
+    /**
+     * @param array $IDs
+     * @return bool
+     */
     public static function deleteById(array $IDs): bool
     {
         $deleted = 0;
@@ -74,6 +85,10 @@ class MailBatch
         return false;
     }
 
+    /**
+     * @param int $batch_id
+     * @return mixed
+     */
     public static function countMessages(int $batch_id)
     {
         $stmt = Database::conn()->prepare('SELECT count(1) FROM mail_schedule where batch_id = ?');
@@ -81,6 +96,15 @@ class MailBatch
         return $stmt->fetchColumn();
     }
 
+    /**
+     * @param array $batch_IDs
+     */
+    /**
+     * @param array $batch_IDs
+     */
+    /**
+     * @param array $batch_IDs
+     */
     public static function sendById(array $batch_IDs)
     {
         $scheduledMailIDs = [];

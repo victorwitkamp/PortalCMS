@@ -10,8 +10,15 @@ namespace PortalCMS\Core\Email\Template;
 use PDO;
 use PortalCMS\Core\Database\Database;
 
+/**
+ * Class EmailTemplateMapper
+ * @package PortalCMS\Core\Email\Template
+ */
 class EmailTemplateMapper
 {
+    /**
+     * @return array|bool
+     */
     public static function get()
     {
         $stmt = Database::conn()->prepare('SELECT *
@@ -24,6 +31,10 @@ class EmailTemplateMapper
         return $stmt->fetchAll();
     }
 
+    /**
+     * @param string $type
+     * @return array|null
+     */
     public static function getByType(string $type): ?array
     {
         $stmt = Database::conn()->prepare('SELECT *
@@ -37,6 +48,10 @@ class EmailTemplateMapper
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
+    /**
+     * @param int $id
+     * @return object
+     */
     public static function getById(int $id): object
     {
         $stmt = Database::conn()->prepare('SELECT *
@@ -50,6 +65,10 @@ class EmailTemplateMapper
         return null;
     }
 
+    /**
+     * @param string $name
+     * @return bool|mixed
+     */
     public static function getSystemTemplateByName(string $name)
     {
         $stmt = Database::conn()->prepare("SELECT *
@@ -64,6 +83,10 @@ class EmailTemplateMapper
         return $stmt->fetch();
     }
 
+    /**
+     * @param int $id
+     * @return bool
+     */
     public static function delete(int $id): bool
     {
         $stmt = Database::conn()->prepare("DELETE FROM mail_templates
@@ -73,6 +96,10 @@ class EmailTemplateMapper
         return !($stmt->rowCount() === 0);
     }
 
+    /**
+     * @param EmailTemplate $EmailTemplate
+     * @return int|null
+     */
     public function create(EmailTemplate $EmailTemplate): ?int
     {
         $stmt = Database::conn()->prepare('INSERT INTO mail_templates(
@@ -86,11 +113,18 @@ class EmailTemplateMapper
         return self::lastInsertedId();
     }
 
+    /**
+     * @return mixed
+     */
     public static function lastInsertedId()
     {
         return Database::conn()->query('SELECT max(id) from mail_templates')->fetchColumn();
     }
 
+    /**
+     * @param EmailTemplate $emailTemplate
+     * @return bool
+     */
     public function update(EmailTemplate $emailTemplate): bool
     {
         if (empty($emailTemplate->id) || ($emailTemplate->id <= 0)) {

@@ -9,6 +9,10 @@ namespace PortalCMS\Core\Email\SMTP;
 
 use PortalCMS\Core\Config\SiteSetting;
 
+/**
+ * Class SMTPConfiguration
+ * @package PortalCMS\Core\Email\SMTP
+ */
 class SMTPConfiguration
 {
     /**

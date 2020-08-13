@@ -12,8 +12,16 @@ namespace PortalCMS\Core\HTTP;
 
 use function call_user_func;
 
+/**
+ * Class Router
+ * @package PortalCMS\Core\HTTP
+ */
 class Router
 {
+    /**
+     * @param array $requests
+     * @param       $class
+     */
     public static function processRequests(array $requests, $class): void
     {
         foreach ($requests as $key => $value) {

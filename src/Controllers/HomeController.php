@@ -11,6 +11,10 @@ use League\Plates\Engine;
 use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\Security\Authentication\Authentication;
 
+/**
+ * Class HomeController
+ * @package PortalCMS\Controllers
+ */
 class HomeController extends Controller
 {
     public function __construct()

@@ -20,6 +20,10 @@ use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
 
+/**
+ * Class EmailController
+ * @package PortalCMS\Controllers
+ */
 class EmailController extends Controller
 {
     private $requests = [
@@ -58,7 +62,7 @@ class EmailController extends Controller
 
     public static function deleteMailTemplateAttachments(): void
     {
-        EmailAttachment::deleteById((int) Request::post('id'));
+        EmailAttachment::deleteById([(int) Request::post('id')]);
         Redirect::to('email/EditTemplate?id=' . Request::get('id'));
     }
 

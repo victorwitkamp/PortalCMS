@@ -6,6 +6,10 @@ declare(strict_types=1);
 
 namespace PortalCMS\Modules\Members;
 
+/**
+ * Class MemberPreferences
+ * @package PortalCMS\Modules\Members
+ */
 class MemberPreferences
 {
     public $nieuwsbrief;
@@ -16,6 +20,16 @@ class MemberPreferences
     public $vrijwilligeroptie4;
     public $vrijwilligeroptie5;
 
+    /**
+     * MemberPreferences constructor.
+     * @param int|null $nieuwsbrief
+     * @param int|null $vrijwilliger
+     * @param int|null $vrijwilligeroptie1
+     * @param int|null $vrijwilligeroptie2
+     * @param int|null $vrijwilligeroptie3
+     * @param int|null $vrijwilligeroptie4
+     * @param int|null $vrijwilligeroptie5
+     */
     public function __construct(?int $nieuwsbrief, ?int $vrijwilliger, ?int $vrijwilligeroptie1, ?int $vrijwilligeroptie2, ?int $vrijwilligeroptie3, ?int $vrijwilligeroptie4, ?int $vrijwilligeroptie5)
     {
         $this->nieuwsbrief = $nieuwsbrief;

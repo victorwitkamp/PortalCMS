@@ -16,6 +16,12 @@ class MemberContactDetails
     public $telefoon_mobiel;
     public $emailadres;
 
+    /**
+     * MemberContactDetails constructor.
+     * @param string|null $telefoon_vast
+     * @param string|null $telefoon_mobiel
+     * @param string|null $emailadres
+     */
     public function __construct(string $telefoon_vast = null, string $telefoon_mobiel = null, string $emailadres = null)
     {
         $this->telefoon_vast = $telefoon_vast;

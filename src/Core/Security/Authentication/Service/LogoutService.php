@@ -14,8 +14,15 @@ use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\User\UserMapper;
 use PortalCMS\Core\View\Text;
 
+/**
+ * Class LogoutService
+ * @package PortalCMS\Core\Security\Authentication\Service
+ */
 class LogoutService
 {
+    /**
+     * @return bool
+     */
     public static function logout(): bool
     {
         if (Authentication::userIsLoggedIn()) {

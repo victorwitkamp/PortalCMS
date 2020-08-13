@@ -9,6 +9,10 @@ namespace PortalCMS\Core\Session;
 
 use PortalCMS\Core\Security\Filter;
 
+/**
+ * Class Session
+ * @package PortalCMS\Core\Session
+ */
 class Session
 {
     public static function init(): void
@@ -18,12 +22,22 @@ class Session
         }
     }
 
+    /**
+     * @param $key
+     * @param $value
+     * @return bool
+     */
     public static function set($key, $value): bool
     {
         $_SESSION[$key] = $value;
         return true;
     }
 
+    /**
+     * @param      $key
+     * @param bool $filter
+     * @return mixed|null
+     */
     public static function get($key, bool $filter = true)
     {
         if (isset($_SESSION[$key])) {
@@ -36,6 +50,9 @@ class Session
         return null;
     }
 
+    /**
+     * @return bool
+     */
     public static function destroy(): bool
     {
         if (!session_destroy()) {
@@ -46,6 +63,10 @@ class Session
         return true;
     }
 
+    /**
+     * @param $key
+     * @param $value
+     */
     public static function add($key, $value): void
     {
         $_SESSION[$key][] = $value;

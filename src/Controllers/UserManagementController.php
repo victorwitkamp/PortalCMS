@@ -20,6 +20,10 @@ use PortalCMS\Core\Security\Authorization\RolePermission;
 use PortalCMS\Core\Security\Authorization\UserRoleMapper;
 use PortalCMS\Core\Session\Session;
 
+/**
+ * Class UserManagementController
+ * @package PortalCMS\Controllers
+ */
 class UserManagementController extends Controller
 {
     private $requests = [
@@ -72,6 +76,9 @@ class UserManagementController extends Controller
         RolePermission::unassignPermission((int) Request::post('role_id'), (int) Request::post('perm_id'));
     }
 
+    /**
+     * @return bool
+     */
     public static function assignrole(): bool
     {
         $user_id = (int) Request::post('user_id');
@@ -89,6 +96,15 @@ class UserManagementController extends Controller
         return false;
     }
 
+    /**
+     * @return bool
+     */
+    /**
+     * @return bool
+     */
+    /**
+     * @return bool
+     */
     public static function unassignrole(): bool
     {
         $user_id = (int) Request::post('user_id');

@@ -11,8 +11,16 @@ use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
 
+/**
+ * Class User
+ * @package PortalCMS\Core\User
+ */
 class User
 {
+    /**
+     * @param string $newUsername
+     * @return bool
+     */
     public static function editUsername(string $newUsername): bool
     {
         if ($newUsername === Session::get('user_name')) {

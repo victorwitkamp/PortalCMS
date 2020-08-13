@@ -11,6 +11,10 @@ namespace PortalCMS\Controllers;
 use League\Plates\Engine;
 use PortalCMS\Core\Controllers\Controller;
 
+/**
+ * Class ErrorController
+ * @package PortalCMS\Controllers
+ */
 class ErrorController extends Controller
 {
     /**
