@@ -311,9 +311,8 @@ $edit = ($pageType === 'edit');
                 <div class="col-md-6">
                     <label class="col-form-label">&#xA0;</label>
                     <input type="hidden" name="id" value="<?= ($edit) ? $member->id : '' ?>">
-                    <input type="submit" <?= ($edit) ? 'name="saveMember"' : 'name="saveNewMember"' ?>
-                           class="btn btn-sm btn-primary" value="Opslaan">
-                    <a href="/Membership" class="btn btn-sm btn-danger">Annuleren</a>
+                    <input type="submit" <?= ($edit) ? 'name="saveMember"' : 'name="saveNewMember"' ?> class="btn btn-primary" value="Opslaan">
+                    <a href="/Membership" class="btn btn-danger">Annuleren</a>
                 </div>
             </div>
         </div>

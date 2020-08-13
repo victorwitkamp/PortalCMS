@@ -22,7 +22,9 @@ use PortalCMS\Core\View\Text;
 class AccountController extends Controller
 {
     private $requests = [
-        'changeUsername' => 'POST', 'changePassword' => 'POST', 'clearUserFbid' => 'POST'
+        'changeUsername' => 'POST',
+        'changePassword' => 'POST',
+        'clearUserFbid'  => 'POST'
     ];
 
     public function __construct()
@@ -34,17 +36,17 @@ class AccountController extends Controller
 
     public static function changeUsername()
     {
-        User::editUsername((string)Request::post('user_name'));
+        User::editUsername((string) Request::post('user_name'));
     }
 
     public static function changePassword()
     {
-        Password::changePassword(UserMapper::getByUsername((string)Session::get('user_name')), (string)Request::post('currentpassword'), (string)Request::post('newpassword'), (string)Request::post('newconfirmpassword'));
+        Password::changePassword(UserMapper::getByUsername((string) Session::get('user_name')), (string) Request::post('currentpassword'), (string) Request::post('newpassword'), (string) Request::post('newconfirmpassword'));
     }
 
     public static function clearUserFbid()
     {
-        if (UserMapper::updateFBid((int)Session::get('user_id'))) {
+        if (UserMapper::updateFBid((int) Session::get('user_id'))) {
             Session::set('user_fbid', null);
             Session::add('feedback_positive', Text::get('FEEDBACK_REMOVE_FACEBOOK_ACCOUNT_SUCCESS'));
             Redirect::to('Account');

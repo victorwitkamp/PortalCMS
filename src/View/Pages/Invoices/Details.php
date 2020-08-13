@@ -30,7 +30,7 @@ if (!empty($invoice)) {
         </div>
         <div class="row">
             <form method="post">
-                <a href="/Invoices" class="btn btn-sm btn-primary"><span class="fa fa-arrow-left"></span></a>
+                <a href="/Invoices" class="btn btn-sm btn-outline-primary"><span class="fa fa-arrow-left"></span></a>
                 <?php $msg = 'Weet u zeker dat u factuur met nummer ' . $invoice->factuurnummer . ' wilt verwijderen?'; ?>
                 <input type="hidden" name="id" value="<?= $invoice->id ?>">
                 <button type="submit" name="deleteInvoice" class="btn btn-danger btn-sm" title="Verwijderen" onclick="return confirm('<?= $msg ?>')">
@@ -116,7 +116,7 @@ if (!empty($invoice)) {
                             </div>
                         </div>
                         <input type="hidden" name="invoiceid" value="<?= $invoice->id ?>">
-                        <input type="submit" name="addInvoiceItem" class="btn btn-primary">
+                        <input type="submit" name="addInvoiceItem" class="btn btn-outline-primary">
                     </form>
                 <?php } else { ?>
                     <p>Je kunt de factuur niet meer bewerken</p>

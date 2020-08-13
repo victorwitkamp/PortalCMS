@@ -25,11 +25,11 @@ use PortalCMS\Core\View\Alert;
 <body>
 <?= $this->section('body-start') ?>
 <div class="container-fluid container-auth">
-    <div class="auth-brand m-t-md m-b-md"><?= SiteSetting::get('site_name') ?></div>
+    <div class="auth-brand m-t-md m-b-md"><h4><?= SiteSetting::get('site_name') ?></h4></div>
 </div>
 <form method="post">
     <div class="container-fluid container-auth">
-        <div class="panel panel-auth">
+        <div class="panel panel-auth shadow-lg bg-white">
             <div class="panel-heading">
                 <h2 id="title-container" class="panel-title text-center"><?= $this->e($title) ?> - <?= SiteSetting::get('site_name') ?></h2>
                 <?php Alert::renderFeedbackMessages(); ?>

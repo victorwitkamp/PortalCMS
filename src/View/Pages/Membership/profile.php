@@ -37,8 +37,6 @@ $pageName = 'Lidmaatschap van ' . $member->voornaam . ' ' . $member->achternaam;
                 <i class="far fa-trash-alt"></i>
             </button>
         </form>
-        <hr>
-        <?php //var_dump($member);?>
 
         <div class="row">
             <div class="col-md-8">

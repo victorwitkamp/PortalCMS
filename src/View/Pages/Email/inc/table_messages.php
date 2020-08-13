@@ -17,7 +17,7 @@ use PortalCMS\Core\View\Text;
         <div class="col-4">
             <?php
             if ($pageType === 'index') { ?>
-                <input type="submit" class="btn btn-primary float-right" name="sendScheduledMailById" value="<?= Text::get('LABEL_SEND_EMAIL') ?>">
+                <input type="submit" class="btn btn-outline-primary float-right" name="sendScheduledMailById" value="<?= Text::get('LABEL_SEND_EMAIL') ?>">
             <?php } ?>
             <input type="submit" class="btn btn-danger float-right" name="deleteScheduledMailById" value="<?= Text::get('LABEL_DELETE_EMAIL') ?>">
         </div>
@@ -76,7 +76,7 @@ use PortalCMS\Core\View\Text;
                             ?>
                         </td>
                         <td><?= $row['CreationDate'] ?></td>
-                        <td><a href="Details?id=<?= $row['id'] ?>" title="Details" class="btn btn-success btn-sm"><i class="fas fa-info"></i></a></td>
+                        <td><a href="Details?id=<?= $row['id'] ?>" title="Details" class="btn btn-outline-success btn-sm"><i class="fas fa-info"></i></a></td>
                     </tr>
                 <?php } ?>
                 </tbody>

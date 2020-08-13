@@ -42,31 +42,36 @@ if (!isset($selectedPaymentType) || empty($selectedPaymentType)) {
         <?php Alert::renderFeedbackMessages(); ?>
     </div>
     <div class="container-fluid">
-        <ul>
-            <?php
-            $years = MemberMapper::getYears();
-            foreach ($years as $year) {
-                ?>
-                <li>
-                <a href="/Membership/NewFromExisting?Year=<?= $year ?><?= (!empty($selectedPaymentType)) ? '&PaymentType=' . $selectedPaymentType : '' ?>"><?= $year ?></a>
-                (<?= MemberMapper::getMemberCountByYear($year) ?>)<?php if ($selectedYear === $year) {
-                    echo ' - Huidige selectie';
-                } ?>
-                </li><?php
-            } ?>
-        </ul>
-
-        <ul>
-            <?php
-            $paymentTypes = MemberMapper::getPaymentTypes();
-            foreach ($paymentTypes as $paymentType) {
-                ?>
-                <li>
-                <a
-                href="/Membership/NewFromExisting?PaymentType=<?= $paymentType ?><?= (!empty($selectedYear)) ? '&Year=' . $selectedYear : '' ?>"><?= $paymentType ?></a><?= ($selectedPaymentType === $paymentType) ? ' - Huidige selectie' : '' ?>
-                </li><?php
-            } ?>
-        </ul>
+        <div class="row">
+            <div class="col-auto">
+                <ul>
+                    <?php
+                    $years = MemberMapper::getYears();
+                    foreach ($years as $year) {
+                        ?>
+                        <li>
+                        <a href="/Membership/NewFromExisting?Year=<?= $year ?><?= (!empty($selectedPaymentType)) ? '&PaymentType=' . $selectedPaymentType : '' ?>"><?= $year ?></a>
+                        (<?= MemberMapper::getMemberCountByYear($year) ?>)<?php if ($selectedYear === $year) {
+                            echo ' - Huidige selectie';
+                        } ?>
+                        </li><?php
+                    } ?>
+                </ul>
+            </div>
+            <div class="col-auto">
+                <ul>
+                    <?php
+                    $paymentTypes = MemberMapper::getPaymentTypes();
+                    foreach ($paymentTypes as $paymentType) {
+                        ?>
+                        <li>
+                        <a
+                        href="/Membership/NewFromExisting?PaymentType=<?= $paymentType ?><?= (!empty($selectedYear)) ? '&Year=' . $selectedYear : '' ?>"><?= $paymentType ?></a><?= ($selectedPaymentType === $paymentType) ? ' - Huidige selectie' : '' ?>
+                        </li><?php
+                    } ?>
+                </ul>
+            </div>
+        </div>
 
         <?php
         if (!empty($selectedYear)) {

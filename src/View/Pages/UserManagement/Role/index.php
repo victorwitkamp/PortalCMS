@@ -27,7 +27,7 @@ if (empty($Role)) {
         <div class="row mt-5">
             <h1><?= $pageName ?></h1>
         </div>
-        <a href="/UserManagement/Roles" class="btn btn-sm btn-primary"><span class="fa fa-arrow-left"></span></a>
+        <a href="/UserManagement/Roles" class="btn btn-sm btn-outline-primary"><span class="fa fa-arrow-left"></span></a>
         <hr>
         <?php Alert::renderFeedbackMessages(); ?>
     </div>

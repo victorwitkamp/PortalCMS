@@ -78,7 +78,7 @@ $pageName = Text::get('TITLE_EDIT_MAIL_TEMPLATE');
         <hr>
         <form method="post">
             <input type="hidden" name="id" value="<?= $template->id ?>">
-            <input type="submit" class="btn btn-primary float-right" name="editTemplateAction"/>
+            <input type="submit" class="btn btn-outline-primary float-right" name="editTemplateAction"/>
             <div class="form-group">
                 <label for="subject">Onderwerp</label>
                 <input type="text" name="subject" class="form-control" id="subject" placeholder="Onderwerp"

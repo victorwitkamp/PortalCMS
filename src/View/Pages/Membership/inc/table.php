@@ -66,7 +66,7 @@ declare(strict_types=1);
             </select>
         </div>
         <div class="col-auto">
-            <input class="btn btn-info" type="submit" name="setPaymentStatusById" value="setPaymentStatusById"/>
+            <input class="btn btn-outline-info" type="submit" name="setPaymentStatusById" value="setPaymentStatusById"/>
         </div>
     </div>
 </form>

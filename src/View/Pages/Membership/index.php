@@ -35,8 +35,8 @@ if (!isset($year) || empty($year)) {
                 <h1><?= $pageName ?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="/Membership/NewFromExisting" class="btn btn-success float-right"><span class="fa fa-plus"></span> NewFromExisting</a>
-                <a href="/Membership/New" class="btn btn-success float-right"><span class="fa fa-plus"></span> <?= Text::get('LABEL_ADD') ?></a>
+                <a href="/Membership/NewFromExisting" class="btn btn-outline-success float-right"><span class="fa fa-plus"></span> NewFromExisting</a>
+                <a href="/Membership/New" class="btn btn-outline-success float-right"><span class="fa fa-plus"></span> <?= Text::get('LABEL_ADD') ?></a>
             </div>
         </div>
         <hr>

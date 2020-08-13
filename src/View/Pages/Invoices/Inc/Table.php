@@ -20,9 +20,9 @@ use PortalCMS\Modules\Invoices\InvoiceHelper;
             <th>Bedrag</th>
             <th>Status</th>
             <th class="nosort">Maak definitief<br><input type="checkbox" id="selectall-writeinvoice"/>
-                <button type="submit" name="writeInvoice" class="btn btn-success"><i class="fas fa-check"></i></button>
+                <button type="submit" name="writeInvoice" class="btn btn-outline-success"><i class="fas fa-check"></i></button>
             </th>
-            <th class="nosort">Batch inplannen<br><input type="checkbox" id="selectall-send"/><button type="submit" name="createInvoiceMail" class="btn btn-success"><i class="fas fa-paper-plane"></i></button>
+            <th class="nosort">Batch inplannen<br><input type="checkbox" id="selectall-send"/><button type="submit" name="createInvoiceMail" class="btn btn-outline-success"><i class="fas fa-paper-plane"></i></button>
             </th>
             <th class="nosort">Bekijken</th>
         </tr>
@@ -32,10 +32,10 @@ use PortalCMS\Modules\Invoices\InvoiceHelper;
         foreach ($invoices as $invoice) { ?>
             <tr>
                 <td>
-                    <a href="/Invoices/Details?id=<?= $invoice->id ?>" title="Details" class="btn btn-primary">
+                    <a href="/Invoices/Details?id=<?= $invoice->id ?>" title="Details" class="btn btn-outline-primary">
                         <span class="fas fa-edit"></span>
                     </a>
-                    <a href="/Invoices/CreatePDF?id=<?= $invoice->id ?>" title="PDF maken" class="btn btn-success">
+                    <a href="/Invoices/CreatePDF?id=<?= $invoice->id ?>" title="PDF maken" class="btn btn-outline-success">
                         <span class="fas fa-file-pdf"></span>
                     </a>
                 </td>

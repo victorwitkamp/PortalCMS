@@ -52,7 +52,7 @@ $pageName = 'Pagina ' . $row ['name'] . ' bewerken';
                 </div>
             </div>
             <input type="hidden" name="id" value="<?= $row ['id'] ?>">
-            <input type="submit" name="updatePage" class="btn btn-sm btn-primary" value="Opslaan">
+            <input type="submit" name="updatePage" class="btn btn-sm btn-outline-primary" value="Opslaan">
             <a href="javascript:history.back()" class="btn btn-sm btn-danger">Annuleren</a>
         </form>
     </div>

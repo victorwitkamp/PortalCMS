@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 ?>
 <form method="post">
-    <a href="/Contracts" class="btn btn-sm btn-primary">
+    <a href="/Contracts" class="btn btn-sm btn-outline-primary">
         <span class="fa fa-arrow-left"></span>
     </a>
     <a href="/Contracts/Edit?id=<?= $contract->id ?>" class="btn btn-sm btn-warning">

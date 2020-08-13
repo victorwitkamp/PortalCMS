@@ -22,27 +22,27 @@ use PortalCMS\Core\View\Text;
         <?php Alert::renderFeedbackMessages(); ?>
         <form method="post">
             <input name="id" type="hidden" value="<?= $event->id ?>">
-            <button name="deleteEvent" type="submit" class="btn btn-danger">
+            <button name="deleteEvent" type="submit" class="btn btn-outline-danger">
                 <i class="far fa-trash-alt"></i> <?= Text::get('LABEL_DELETE') ?>
             </button>
         </form>
         <form method="post">
-            <div class="row">
-                <div class="col-sm-12">
+            <div class="form-row">
+                <div class="form-group col-md-12">
                     <label for="eventTitle" class="control-label"><?= Text::get('LABEL_EVENT_TITLE') ?></label>
                     <input type="text" id="eventTitle" name="title" value="<?= $event->title ?>" class="form-control"
                            required>
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-sm-6">
+            <div class="form-row">
+                <div class="form-group col-md-6">
                     <label for="eventStart" class="control-label"><?= Text::get('LABEL_EVENT_START') ?></label>
                     <input type="datetime-local" id="eventStart" name="start_event"
                            value="<?= date('Y-m-d\TH:i', strtotime($event->start_event)) ?>" class="form-control"
                            required>
                 </div>
-                <div class="col-sm-6">
+                <div class="form-group col-md-6">
                     <label for="eventEnd" class="control-label"><?= Text::get('LABEL_EVENT_END') ?></label>
                     <input type="datetime-local" id="eventEnd" name="end_event"
                            value="<?= date('Y-m-d\TH:i', strtotime($event->end_event)) ?>" class="form-control"
@@ -50,16 +50,16 @@ use PortalCMS\Core\View\Text;
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-sm-12">
+            <div class="form-row">
+                <div class="form-group col-md-12">
                     <label for="eventDesc" class="control-label"><?= Text::get('LABEL_EVENT_DESC') ?></label>
                     <input type="text" id="eventDesc" name="description" value="<?= $event->description ?>"
                            class="form-control">
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-sm-6">
+            <div class="form-row">
+                <div class="form-group col-md-6">
                     <label for="eventStatus" class="control-label"><?= Text::get('LABEL_EVENT_STATUS') ?></label>
                     <select id="eventStatus" name="status" class="form-control" required>
                         <option value="0" <?= ($event->status === 0) ? 'selected' : '' ?>>0
@@ -71,12 +71,11 @@ use PortalCMS\Core\View\Text;
                     </select>
                 </div>
             </div>
-            <hr>
-            <div class="row">
+            <div class="form-row">
                 <input type="hidden" name="id" value="<?= $event->id ?>">
-                <button type="submit" name="updateEvent" class="btn btn-primary"><?= Text::get('LABEL_SUBMIT') ?> <i
+                <button type="submit" name="updateEvent" class="btn btn-outline-success"><?= Text::get('LABEL_SUBMIT') ?> <i
                             class="far fa-save"></i></button>
-                <a href="/Events" class="btn btn-danger"><?= Text::get('LABEL_CANCEL') ?> <i
+                <a href="/Events" class="btn btn-outline-danger"><?= Text::get('LABEL_CANCEL') ?> <i
                             class="fas fa-times"></i></a>
             </div>
         </form>

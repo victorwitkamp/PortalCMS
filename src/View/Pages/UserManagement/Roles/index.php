@@ -62,11 +62,10 @@ $pageName = Text::get('TITLE_ROLE_MANAGEMENT'); ?>
                 </tr>
             <?php } ?>
         </table>
-        <hr>
         <h3>Nieuwe rol</h3>
-        <form method="post">
-            <input type="text" name="role_name">
-            <button type="submit" name="addrole" class="btn btn-danger btn-sm">Toevoegen</button>
+        <form class="form-inline" method="post">
+                <input class="form-control" placeholder="Naam van de nieuwe rol" type="text" name="role_name">
+            <button type="submit" name="addrole" class="btn btn-outline-success">Toevoegen</button>
         </form>
     </div>
 

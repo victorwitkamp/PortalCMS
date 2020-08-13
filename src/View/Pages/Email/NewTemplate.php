@@ -32,7 +32,7 @@ $pageName = Text::get('TITLE_NEW_MAIL_TEMPLATE');
                 <h1><?= $pageName ?></h1>
             </div>
             <div class="col-sm-4">
-                <!-- <a href="#" class="btn btn-info float-right"><span class="fa fa-plus"></span> Nieuwe template</a> -->
+                <!-- <a href="#" class="btn btn-outline-info float-right"><span class="fa fa-plus"></span> Nieuwe template</a> -->
             </div>
         </div>
         <hr>
@@ -47,7 +47,7 @@ $pageName = Text::get('TITLE_NEW_MAIL_TEMPLATE');
                 <label for="body">Onderwerp</label>
                 <textarea class="form-control" id="body" name="body" cols="50" rows="15"></textarea>
             </div>
-            <input type="submit" class="btn btn-primary" name="addTemplate"/>
+            <input type="submit" class="btn btn-outline-primary" name="addTemplate"/>
         </form>
         <hr>
         <p>Beschikbare placeholders voor signup: username, sitename, activatelink, activateformlink, confcode</p>

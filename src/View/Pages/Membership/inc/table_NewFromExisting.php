@@ -5,10 +5,17 @@
 
 declare(strict_types=1);
 
+use PortalCMS\Core\View\Text;
 ?>
 <form method="post">
-    <input type="text" class="form-control" placeholder="targetYear" name="targetYear"/>
-    <input type="submit" class="btn btn-danger" name="copyMembersById" value="copyMembersById"/>
+    <div class="form-row">
+        <div class="col-2">
+            <input type="number" minlength="4" maxlength="4" class="form-control" placeholder="targetYear" name="targetYear"/>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-outline-primary" name="copyMembersById"><span class="fa fa-plus"></span> <?= Text::get('LABEL_COPY') ?></button>
+        </div>
+    </div>
     <table id="example" class="table table-sm table-striped table-hover table-dark" style="width:100%;">
         <thead class="thead-dark">
         <tr>

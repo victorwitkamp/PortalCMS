@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
     },
     eventClick: function (e) {
       var link = '/Events/Edit?id=' + e.event.id
-      $('#modalBody').load('Details?id=' + e.event.id), $('#eventUrl').attr('href', link), $('#deleteUrl').attr('value', e.event.id), $('#fullCalModal').modal()
+      $('#modalBody').load('/Events/Details?id=' + e.event.id), $('#eventUrl').attr('href', link), $('#deleteUrl').attr('value', e.event.id), $('#fullCalModal').modal()
     }
   })
   calendar.render()
