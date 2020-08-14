@@ -88,20 +88,6 @@ class InvoiceHelper
      * @param string $factuurdatum
      * @return bool
      */
-    /**
-     * @param int    $year
-     * @param string $month
-     * @param int    $contract_id
-     * @param string $factuurdatum
-     * @return bool
-     */
-    /**
-     * @param int    $year
-     * @param string $month
-     * @param int    $contract_id
-     * @param string $factuurdatum
-     * @return bool
-     */
     public static function createInvoiceAction(int $year, string $month, int $contract_id, string $factuurdatum): bool
     {
         $contract = ContractMapper::getById($contract_id);
@@ -128,18 +114,10 @@ class InvoiceHelper
     }
 
     /**
-     * @param int $id
+     * @param int|null $id
      * @return bool|string
      */
-    /**
-     * @param int $id
-     * @return bool|string
-     */
-    /**
-     * @param int $id
-     * @return bool|string
-     */
-    public static function displayInvoiceSumById(int $id)
+    public static function displayInvoiceSumById(int $id = null)
     {
         $sum = self::getInvoiceSumById($id);
         if (!$sum) {
@@ -173,18 +151,9 @@ class InvoiceHelper
     }
 
     /**
-     * @param int $id
-     * @return bool
+     * @param int|null $id
      */
-    /**
-     * @param int $id
-     * @return bool
-     */
-    /**
-     * @param int $id
-     * @return bool
-     */
-    public static function delete(int $id): bool
+    public static function delete(int $id = null): bool
     {
         $invoice = InvoiceMapper::getById($id);
         if (empty($invoice)) {
@@ -203,26 +172,21 @@ class InvoiceHelper
         return false;
     }
 
+
     /**
-     * @param int $id
+     * @param int|null $id
      * @return bool|mixed
      */
-    /**
-     * @param int $id
-     * @return bool|mixed
-     */
-    /**
-     * @param int $id
-     * @return bool|mixed
-     */
-    public static function render(int $id)
+    public static function render(int $id = null)
     {
-        if (!empty($id)) {
+        if ($id !== null) {
             $invoice = InvoiceMapper::getById($id);
             if (!empty($invoice)) {
                 $invoiceitems = InvoiceItemMapper::getByInvoiceId($id);
                 $contract = ContractMapper::getById($invoice->contract_id);
-                return PDF::renderInvoice($invoice, $invoiceitems, $contract);
+                if ($contract !== null) {
+                    return PDF::renderInvoice($invoice, $invoiceitems, $contract);
+                }
             }
         }
         return false;
@@ -230,19 +194,10 @@ class InvoiceHelper
 
     /**
      * @param int|null $id
-     * @return bool
-     */
-    /**
-     * @param int|null $id
-     * @return bool
-     */
-    /**
-     * @param int|null $id
-     * @return bool
      */
     public static function write(int $id = null): bool
     {
-        if (!empty($id)) {
+        if ($id !== null) {
             $invoice = InvoiceMapper::getById($id);
             if (!empty($invoice)) {
                 $contract = ContractMapper::getById($invoice->contract_id);
@@ -260,25 +215,13 @@ class InvoiceHelper
         return false;
     }
 
+
     /**
-     * @param int    $invoiceId
-     * @param string $name
-     * @param int    $price
-     * @return bool
+     * @param int|null    $invoiceId
+     * @param string|null $name
+     * @param int|null    $price
      */
-    /**
-     * @param int    $invoiceId
-     * @param string $name
-     * @param int    $price
-     * @return bool
-     */
-    /**
-     * @param int    $invoiceId
-     * @param string $name
-     * @param int    $price
-     * @return bool
-     */
-    public static function createItem(int $invoiceId, string $name, int $price): bool
+    public static function createItem(int $invoiceId = null, string $name = null, int $price = null): bool
     {
         if (!InvoiceItemMapper::create($invoiceId, $name, $price)) {
             Session::add('feedback_negative', 'Toevoegen van factuuritem mislukt.');
@@ -290,18 +233,9 @@ class InvoiceHelper
     }
 
     /**
-     * @param int $id
-     * @return bool
+     * @param int|null $id
      */
-    /**
-     * @param int $id
-     * @return bool
-     */
-    /**
-     * @param int $id
-     * @return bool
-     */
-    public static function deleteItem(int $id): bool
+    public static function deleteItem(int $id = null): bool
     {
         if (!InvoiceItemMapper::exists($id)) {
             Session::add('feedback_negative', 'Kan factuuritem niet verwijderen. Factuuritem bestaat niet.');

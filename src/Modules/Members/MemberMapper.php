@@ -118,15 +118,7 @@ class MemberMapper
      * @param int $memberId
      * @return bool
      */
-    /**
-     * @param int $memberId
-     * @return bool
-     */
-    /**
-     * @param int $memberId
-     * @return bool
-     */
-    public static function doesMemberIdExist(int $memberId): bool
+    public static function doesMemberIdExist(int $memberId = null): bool
     {
         $stmt = Database::conn()->prepare('SELECT id FROM members WHERE id = ? LIMIT 1');
         $stmt->execute([ $memberId ]);
@@ -138,17 +130,7 @@ class MemberMapper
      * @param string $email
      * @return bool
      */
-    /**
-     * @param int    $jaarlidmaatschap
-     * @param string $email
-     * @return bool
-     */
-    /**
-     * @param int    $jaarlidmaatschap
-     * @param string $email
-     * @return bool
-     */
-    public static function doesEmailforYearExist(int $jaarlidmaatschap, string $email): bool
+    public static function doesEmailforYearExist(int $jaarlidmaatschap = null, string $email = null): bool
     {
         $stmt = Database::conn()->prepare('SELECT id FROM members WHERE jaarlidmaatschap = ? AND emailadres = ? LIMIT 1');
         $stmt->execute([ $jaarlidmaatschap, $email ]);
@@ -159,15 +141,7 @@ class MemberMapper
      * @param int $id
      * @return object|null
      */
-    /**
-     * @param int $id
-     * @return object|null
-     */
-    /**
-     * @param int $id
-     * @return object|null
-     */
-    public static function getMemberById(int $id): ?object
+    public static function getMemberById(int $id = null): ?object
     {
         $stmt = Database::conn()->prepare('SELECT * FROM members WHERE id=? LIMIT 1');
         $stmt->execute([ $id ]);
@@ -178,29 +152,13 @@ class MemberMapper
      * @param int $id
      * @return bool
      */
-    /**
-     * @param int $id
-     * @return bool
-     */
-    /**
-     * @param int $id
-     * @return bool
-     */
-    public static function delete(int $id): bool
+    public static function delete(int $id = null): bool
     {
         $stmt = Database::conn()->prepare('DELETE FROM members WHERE id = ? LIMIT 1');
         $stmt->execute([ $id ]);
         return ($stmt->rowCount() === 1);
     }
 
-    /**
-     * @param Member|null $member
-     * @return bool
-     */
-    /**
-     * @param Member|null $member
-     * @return bool
-     */
     /**
      * @param Member|null $member
      * @return bool
@@ -226,16 +184,6 @@ class MemberMapper
      * @param int|null $status
      * @return bool
      */
-    /**
-     * @param int|null $id
-     * @param int|null $status
-     * @return bool
-     */
-    /**
-     * @param int|null $id
-     * @param int|null $status
-     * @return bool
-     */
     public static function setStatus(int $id = null, int $status = null) : bool
     {
         $stmt = Database::conn()->prepare(
@@ -245,7 +193,7 @@ class MemberMapper
         return ($stmt->rowCount() === 1);
     }
 
-    public static function new(Member $member): bool
+    public static function new(Member $member = null): bool
     {
         $stmt = Database::conn()->prepare('INSERT INTO members
                         (

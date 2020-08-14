@@ -19,7 +19,6 @@ class MemberModel
     /**
      * @param int|null $id
      * @param int|null $status
-     * @return bool
      */
     public static function setStatus(int $id = null, int $status = null) : bool
     {
@@ -38,11 +37,10 @@ class MemberModel
     /**
      * @param int|null $id
      * @param int|null $targetYear
-     * @return bool
      */
     public static function copyMember(int $id = null, int $targetYear = null): bool
     {
-        if (empty($id) || empty($targetYear)) {
+        if ($id === null || $targetYear === null) {
             return false;
         }
         $member = self::getMember($id);
@@ -62,13 +60,11 @@ class MemberModel
     }
 
     /**
-     * @param int $id
-     * @return Member
+     * @param int|null $id
      */
-    public static function getMember(int $id): Member
+    public static function getMember(int $id = null): Member
     {
         $membermap = MemberMapper::getMemberById($id);
-
         return new Member($id, $membermap->jaarlidmaatschap, $membermap->voorletters, $membermap->voornaam, $membermap->achternaam, $membermap->geboortedatum, new MemberAddress($membermap->adres, $membermap->postcode, $membermap->huisnummer, $membermap->woonplaats), new MemberContactDetails($membermap->telefoon_vast, $membermap->telefoon_mobiel, $membermap->emailadres), $membermap->ingangsdatum, $membermap->geslacht, new MemberPreferences($membermap->nieuwsbrief, $membermap->vrijwilliger, $membermap->vrijwilligeroptie1, $membermap->vrijwilligeroptie2, $membermap->vrijwilligeroptie3, $membermap->vrijwilligeroptie4, $membermap->vrijwilligeroptie5), new MemberPaymentDetails($membermap->betalingswijze, $membermap->iban, $membermap->machtigingskenmerk, $membermap->status));
     }
 
@@ -76,15 +72,7 @@ class MemberModel
      * @param int $id
      * @return bool
      */
-    /**
-     * @param int $id
-     * @return bool
-     */
-    /**
-     * @param int $id
-     * @return bool
-     */
-    public static function delete(int $id): bool
+    public static function delete(int $id = null): bool
     {
         if (MemberMapper::doesMemberIdExist($id)) {
             if (MemberMapper::delete($id)) {
@@ -100,27 +88,12 @@ class MemberModel
 
     /**
      * @param Member|null $member
-     * @return bool
-     */
-    /**
-     * @param Member|null $member
-     * @return bool
-     */
-    /**
-     * @param Member|null $member
-     * @return bool
      */
     public static function updateMember(Member $member = null): bool
     {
         return (MemberMapper::updateMember($member));
     }
 
-    /**
-     * @param Member|null $member
-     */
-    /**
-     * @param Member|null $member
-     */
     /**
      * @param Member|null $member
      */

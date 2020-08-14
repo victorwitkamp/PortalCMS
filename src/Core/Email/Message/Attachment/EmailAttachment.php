@@ -80,10 +80,9 @@ class EmailAttachment
     }
 
     /**
-     * @param string $filename
-     * @return string
+     * @param string|null $filename
      */
-    public function getMIMEType(string $filename): string
+    public function getMIMEType(string $filename = null): string
     {
         $realpath = realpath($filename);
         return finfo_file(finfo_open(FILEINFO_MIME_TYPE), $realpath);
@@ -115,9 +114,8 @@ class EmailAttachment
      * Handle feedback for the deleteById method
      * @param int $deleted
      * @param int $error
-     * @return bool
      */
-    public static function deleteFeedbackHandler(int $deleted, int $error): bool
+    public static function deleteFeedbackHandler(int $deleted = 0, int $error = 0): bool
     {
         if ($deleted > 0) {
             if ($error === 0) {
@@ -167,41 +165,21 @@ class EmailAttachment
     /**
      * @param int|null $mailId
      * @param int|null $templateId
-     * @return bool
-     */
-    /**
-     * @param int|null $mailId
-     * @param int|null $templateId
-     * @return bool
-     */
-    /**
-     * @param int|null $mailId
-     * @param int|null $templateId
-     * @return bool
      */
     public function store(int $mailId = null, int $templateId = null): bool
     {
         if (!$this->validate()) {
             Session::add('feedback_negative', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_FAILED'));
-        } elseif (!empty($mailId) && empty($templateId)) {
+        } elseif ($mailId !== null && $templateId === null) {
             // No implementation yet
             Session::add('feedback_negative', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_FAILED'));
-        } elseif (empty($mailId) && !empty($templateId) && EmailAttachmentMapper::createForTemplate($templateId, $this)) {
+        } elseif ($mailId === null && $templateId !== null && EmailAttachmentMapper::createForTemplate($templateId, $this)) {
             Session::add('feedback_positive', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_SUCCESSFUL'));
             return true;
         }
         return false;
     }
 
-    /**
-     * @return bool
-     */
-    /**
-     * @return bool
-     */
-    /**
-     * @return bool
-     */
     public function validate(): bool
     {
         return !(empty($this->path) || empty($this->name) || empty($this->extension) || empty($this->encoding) || empty($this->type));

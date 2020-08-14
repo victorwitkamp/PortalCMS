@@ -65,7 +65,7 @@ class AccountController extends Controller
      */
     public static function setFbid(int $user_id, int $FbId = null)
     {
-        if (!empty($FbId) && UserMapper::updateFBid($user_id, $FbId)) {
+        if ($FbId !== null && UserMapper::updateFBid($user_id, $FbId)) {
             Session::set('user_fbid', $FbId);
             Session::add('feedback_positive', Text::get('FEEDBACK_CONNECT_FACEBOOK_ACCOUNT_SUCCESS'));
             Redirect::to('Account');
