@@ -47,6 +47,7 @@ class MemberModel
         }
         $member = self::getMember($id);
         if (($member === null) || ($member->jaarlidmaatschap === $targetYear)) {
+            Session::add('feedback_negative', 'TargetYear is the same as source. MemberId: '.$id);
             return false;
         }
         $member->id = null;
@@ -54,7 +55,12 @@ class MemberModel
         $member->paymentDetails->status = 0;
         $member->creationDate = null;
         $member->modificationDate = null;
-        return (MemberMapper::new($member));
+        if (MemberMapper::new($member)) {
+            Session::add('feedback_positive', 'Lid met id '.$id.' gekopieerd naar '.$targetYear);
+            return true;
+        }
+        Session::add('feedback_negative', 'Fout opgetreden.');
+        return false;
     }
 
     public static function getMember(int $id = null): ?Member

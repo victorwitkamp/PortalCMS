@@ -287,13 +287,13 @@ $edit = ($pageType === 'edit');
                 <option value="1" <?= ($edit && $member->paymentDetails->status === 1) ? 'selected' : '' ?>>1. Incasso
                     opdracht verzonden
                 </option>
-                <option value="1" <?= ($edit && $member->paymentDetails->status === 11) ? 'selected' : '' ?>>1.1 Niet
+                <option value="11" <?= ($edit && $member->paymentDetails->status === 11) ? 'selected' : '' ?>>1.1 Niet
                     verstuurd: rekeningnummer onjuist
                 </option>
                 <option value="2" <?= ($edit && $member->paymentDetails->status === 2) ? 'selected' : '' ?>>2. Betaling
                     per incasso gelukt
                 </option>
-                <option value="2" <?= ($edit && $member->paymentDetails->status === 21) ? 'selected' : '' ?>>2.1 Incasso
+                <option value="21" <?= ($edit && $member->paymentDetails->status === 21) ? 'selected' : '' ?>>2.1 Incasso
                     mislukt: rekeningnummer onjuist
                 </option>
                 <option value="3" <?= ($edit && $member->paymentDetails->status === 3) ? 'selected' : '' ?>>3</option>

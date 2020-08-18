@@ -58,9 +58,9 @@ declare(strict_types=1);
             <select name="status" class="form-control">
                 <option value="0" selected="">0. Nieuw</option>
                 <option value="1">1. Incasso opdracht verzonden</option>
-                <option value="1">1.1 Niet verstuurd: rekeningnummer onjuist</option>
+                <option value="11">1.1 Niet verstuurd: rekeningnummer onjuist</option>
                 <option value="2">2. Betaling per incasso gelukt</option>
-                <option value="2">2.1 Incasso mislukt: rekeningnummer onjuist</option>
+                <option value="21">2.1 Incasso mislukt: rekeningnummer onjuist</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
             </select>
