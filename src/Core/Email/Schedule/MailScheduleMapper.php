@@ -124,22 +124,6 @@ class MailScheduleMapper
      * @param int         $status
      * @return bool
      */
-    /**
-     * @param int|null    $batchId
-     * @param int|null    $memberId
-     * @param string|null $subject
-     * @param string|null $body
-     * @param int         $status
-     * @return bool
-     */
-    /**
-     * @param int|null    $batchId
-     * @param int|null    $memberId
-     * @param string|null $subject
-     * @param string|null $body
-     * @param int         $status
-     * @return bool
-     */
     public static function create(int $batchId = null, int $memberId = null, string $subject = null, string $body = null, int $status = 1): bool
     {
         $stmt = Database::conn()->prepare('INSERT INTO mail_schedule(
@@ -157,27 +141,11 @@ class MailScheduleMapper
     /**
      * @return mixed
      */
-    /**
-     * @return mixed
-     */
-    /**
-     * @return mixed
-     */
     public static function lastInsertedId()
     {
         return Database::conn()->query('SELECT max(id) from mail_schedule')->fetchColumn();
     }
 
-    /**
-     * @param int $id
-     * @param int $status
-     * @return bool
-     */
-    /**
-     * @param int $id
-     * @param int $status
-     * @return bool
-     */
     /**
      * @param int $id
      * @param int $status
@@ -199,18 +167,6 @@ class MailScheduleMapper
      * @param string $senderEmail
      * @return bool
      */
-    /**
-     * @param int    $id
-     * @param string $senderName
-     * @param string $senderEmail
-     * @return bool
-     */
-    /**
-     * @param int    $id
-     * @param string $senderName
-     * @param string $senderEmail
-     * @return bool
-     */
     public static function updateSender(int $id, string $senderName, string $senderEmail): bool
     {
         $sender = $senderName . ' (' . $senderEmail . ')';
@@ -224,15 +180,6 @@ class MailScheduleMapper
 
     /**
      * @param int $id
-     * @return bool
-     */
-    /**
-     * @param int $id
-     * @return bool
-     */
-    /**
-     * @param int $id
-     * @return bool
      */
     public static function updateDateSent(int $id): bool
     {
@@ -244,16 +191,6 @@ class MailScheduleMapper
         return true;
     }
 
-    /**
-     * @param int    $id
-     * @param string $message
-     * @return bool
-     */
-    /**
-     * @param int    $id
-     * @param string $message
-     * @return bool
-     */
     /**
      * @param int    $id
      * @param string $message
