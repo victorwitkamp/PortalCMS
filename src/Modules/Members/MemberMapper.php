@@ -93,7 +93,7 @@ class MemberMapper
 
     public static function getMemberById(int $id): ?object
     {
-        $stmt = Database::conn()->prepare('SELECT * FROM members WHERE id=? LIMIT 1');
+        $stmt = Database::conn()->prepare('SELECT * FROM members WHERE id = ? LIMIT 1');
         $stmt->execute([ $id ]);
         return ($stmt->rowCount() === 1) ? $stmt->fetch(PDO::FETCH_OBJ) : null;
     }

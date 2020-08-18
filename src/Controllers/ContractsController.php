@@ -33,19 +33,19 @@ class ContractsController extends Controller
         Router::processRequests($this->requests, __CLASS__);
     }
 
-    public static function newContract()
+    public static function newContract() : void
     {
         ContractModel::new();
         Redirect::to('Contracts/');
     }
 
-    public static function updateContract()
+    public static function updateContract() : void
     {
         ContractModel::update();
         Redirect::to('Contracts/');
     }
 
-    public static function deleteContract()
+    public static function deleteContract() : void
     {
         if (ContractModel::delete((int)Request::post('id'))) {
             Redirect::to('Contracts/');

@@ -22,14 +22,16 @@ class MemberModel
      */
     public static function setStatus(int $id = null, int $status = null) : bool
     {
-        if (MemberMapper::doesMemberIdExist($id)) {
-            if (MemberMapper::setStatus($id, $status)) {
-                Session::add('feedback_positive', 'Status gewijzigd naar "' . $status . '" voor lid met ID: ' . $id);
-                return true;
+        if (($id !== null) && $status !== null) {
+            if (MemberMapper::doesMemberIdExist($id)) {
+                if (MemberMapper::setStatus($id, $status)) {
+                    Session::add('feedback_positive', 'Status gewijzigd naar "' . $status . '" voor lid met ID: ' . $id);
+                    return true;
+                }
+                Session::add('feedback_negative', 'Status wijzigen mislukt.');
+            } else {
+                Session::add('feedback_negative', 'Kan status niet wijzigen. Lid bestaat niet.');
             }
-            Session::add('feedback_negative', 'Verwijderen van lid mislukt.');
-        } else {
-            Session::add('feedback_negative', 'Verwijderen van lid mislukt. Lid bestaat niet.');
         }
         return false;
     }
@@ -53,17 +55,17 @@ class MemberModel
         $member->creationDate = null;
         $member->modificationDate = null;
 
-        if (MemberMapper::new($member)) {
-            return true;
-        }
-        return false;
+        return (MemberMapper::new($member));
     }
 
     /**
      * @param int|null $id
      */
-    public static function getMember(int $id = null): Member
+    public static function getMember(int $id = null): ?Member
     {
+        if ($id === null) {
+            return null;
+        }
         $membermap = MemberMapper::getMemberById($id);
         return new Member($id, $membermap->jaarlidmaatschap, $membermap->voorletters, $membermap->voornaam, $membermap->achternaam, $membermap->geboortedatum, new MemberAddress($membermap->adres, $membermap->postcode, $membermap->huisnummer, $membermap->woonplaats), new MemberContactDetails($membermap->telefoon_vast, $membermap->telefoon_mobiel, $membermap->emailadres), $membermap->ingangsdatum, $membermap->geslacht, new MemberPreferences($membermap->nieuwsbrief, $membermap->vrijwilliger, $membermap->vrijwilligeroptie1, $membermap->vrijwilligeroptie2, $membermap->vrijwilligeroptie3, $membermap->vrijwilligeroptie4, $membermap->vrijwilligeroptie5), new MemberPaymentDetails($membermap->betalingswijze, $membermap->iban, $membermap->machtigingskenmerk, $membermap->status));
     }
@@ -86,11 +88,11 @@ class MemberModel
         return false;
     }
 
-    /**
-     * @param Member|null $member
-     */
     public static function updateMember(Member $member = null): bool
     {
+        if ($member === null) {
+            return false;
+        }
         return (MemberMapper::updateMember($member));
     }
 
