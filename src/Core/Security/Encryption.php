@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Security;
 
+use Exception;
 use PortalCMS\Core\Config\Config;
 use RuntimeException;
 use function function_exists;

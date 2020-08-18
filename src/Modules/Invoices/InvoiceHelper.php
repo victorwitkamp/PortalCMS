@@ -132,13 +132,10 @@ class InvoiceHelper
         return null;
     }
 
-    /**
-     * @param int|null $id
-     */
-    public static function delete(int $id = null): bool
+    public static function delete(int $id): bool
     {
         $invoice = InvoiceMapper::getById($id);
-        if (empty($invoice)) {
+        if ($invoice === null) {
             Session::add('feedback_negative', 'Verwijderen van factuur mislukt. Factuur bestaat niet.');
         } elseif (!empty(InvoiceItemMapper::getByInvoiceId($id)) && !InvoiceItemMapper::deleteByInvoiceId($id)) {
             Session::add('feedback_negative', 'Verwijderen van factuur mislukt. Verwijderen van factuuritems voor factuur mislukt.');
@@ -154,29 +151,19 @@ class InvoiceHelper
         return false;
     }
 
-
-    /**
-     * @param int|null $id
-     * @return bool|mixed
-     */
-    public static function render(int $id = null)
+    public static function render(int $id)
     {
-        if ($id !== null) {
-            $invoice = InvoiceMapper::getById($id);
-            if (!empty($invoice)) {
-                $invoiceitems = InvoiceItemMapper::getByInvoiceId($id);
-                $contract = ContractMapper::getById($invoice->contract_id);
-                if ($contract !== null) {
-                    return PDF::renderInvoice($invoice, $invoiceitems, $contract);
-                }
+        $invoice = InvoiceMapper::getById($id);
+        if ($invoice !== null) {
+            $invoiceitems = InvoiceItemMapper::getByInvoiceId($id);
+            $contract = ContractMapper::getById($invoice->contract_id);
+            if ($contract !== null) {
+                return PDF::renderInvoice($invoice, $invoiceitems, $contract);
             }
         }
         return false;
     }
 
-    /**
-     * @param int|null $id
-     */
     public static function write(int $id = null): bool
     {
         if ($id !== null) {
@@ -199,12 +186,6 @@ class InvoiceHelper
         return false;
     }
 
-
-    /**
-     * @param int|null    $invoiceId
-     * @param string|null $name
-     * @param int|null    $price
-     */
     public static function createItem(int $invoiceId = null, string $name = null, int $price = null): bool
     {
         if (!InvoiceItemMapper::create($invoiceId, $name, $price)) {
