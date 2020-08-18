@@ -15,7 +15,6 @@ namespace PortalCMS\Core\Config;
 class Environment
 {
     /**
-     * @return string
      */
     public static function get(): string
     {

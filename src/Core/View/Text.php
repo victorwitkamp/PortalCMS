@@ -18,7 +18,6 @@ class Text
     private static $texts;
 
     /**
-     * @param      $key
      * @param null $data
      * @return string|null
      */

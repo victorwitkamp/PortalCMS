@@ -32,8 +32,6 @@ class EmailTemplateMapper
     }
 
     /**
-     * @param string $type
-     * @return array|null
      */
     public static function getByType(string $type): ?array
     {
@@ -49,8 +47,6 @@ class EmailTemplateMapper
     }
 
     /**
-     * @param int $id
-     * @return object
      */
     public static function getById(int $id): object
     {
@@ -66,7 +62,6 @@ class EmailTemplateMapper
     }
 
     /**
-     * @param string $name
      * @return bool|mixed
      */
     public static function getSystemTemplateByName(string $name)
@@ -84,8 +79,6 @@ class EmailTemplateMapper
     }
 
     /**
-     * @param int $id
-     * @return bool
      */
     public static function delete(int $id): bool
     {
@@ -97,8 +90,6 @@ class EmailTemplateMapper
     }
 
     /**
-     * @param EmailTemplate $EmailTemplate
-     * @return int|null
      */
     public function create(EmailTemplate $EmailTemplate): ?int
     {
@@ -122,8 +113,6 @@ class EmailTemplateMapper
     }
 
     /**
-     * @param EmailTemplate $emailTemplate
-     * @return bool
      */
     public function update(EmailTemplate $emailTemplate): bool
     {

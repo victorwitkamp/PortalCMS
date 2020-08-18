@@ -23,9 +23,6 @@ class Session
     }
 
     /**
-     * @param $key
-     * @param $value
-     * @return bool
      */
     public static function set($key, $value): bool
     {
@@ -34,8 +31,6 @@ class Session
     }
 
     /**
-     * @param      $key
-     * @param bool $filter
      * @return mixed|null
      */
     public static function get($key, bool $filter = true)
@@ -51,7 +46,6 @@ class Session
     }
 
     /**
-     * @return bool
      */
     public static function destroy(): bool
     {
@@ -64,8 +58,6 @@ class Session
     }
 
     /**
-     * @param $key
-     * @param $value
      */
     public static function add($key, $value): void
     {

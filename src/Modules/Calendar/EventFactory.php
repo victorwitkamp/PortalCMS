@@ -15,7 +15,6 @@ use PortalCMS\Core\HTTP\Request;
 class EventFactory
 {
     /**
-     * @return Event
      */
     public static function byCreateRequest(): Event
     {
@@ -29,7 +28,6 @@ class EventFactory
     }
 
     /**
-     * @return Event
      */
     public static function byUpdateRequest(): Event
     {

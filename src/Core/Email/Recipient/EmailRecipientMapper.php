@@ -16,10 +16,7 @@ use PortalCMS\Core\Database\Database;
 class EmailRecipientMapper
 {
     /**
-     * @param int         $mail_id
-     * @param string      $emailAddress
      * @param string|null $name
-     * @return bool
      */
     public static function createRecipient(int $mail_id, string $emailAddress, string $name = null): bool
     {
@@ -29,10 +26,7 @@ class EmailRecipientMapper
     }
 
     /**
-     * @param int         $mail_id
-     * @param string      $emailAddress
      * @param string|null $name
-     * @return bool
      */
     public static function createCC(int $mail_id, string $emailAddress, string $name = null): bool
     {
@@ -42,10 +36,7 @@ class EmailRecipientMapper
     }
 
     /**
-     * @param int         $mail_id
-     * @param string      $emailAddress
      * @param string|null $name
-     * @return bool
      */
     public static function createBCC(int $mail_id, string $emailAddress, string $name = null): bool
     {
@@ -55,8 +46,6 @@ class EmailRecipientMapper
     }
 
     /**
-     * @param int $mailId
-     * @return array|null
      */
     public static function getCC(int $mailId): ?array
     {
@@ -71,8 +60,6 @@ class EmailRecipientMapper
     }
 
     /**
-     * @param int $mailId
-     * @return array|null
      */
     public static function getBCC(int $mailId): ?array
     {
@@ -87,8 +74,6 @@ class EmailRecipientMapper
     }
 
     /**
-     * @param int $mail_id
-     * @return array|null
      */
     public function getAll(int $mail_id): ?array
     {
@@ -103,8 +88,6 @@ class EmailRecipientMapper
     }
 
     /**
-     * @param int $mailId
-     * @return array|null
      */
     public function getRecipients(int $mailId): ?array
     {

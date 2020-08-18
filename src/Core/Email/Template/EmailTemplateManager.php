@@ -32,8 +32,6 @@ class EmailTemplateManager
     }
 
     /**
-     * @param int $id
-     * @return bool
      */
     public static function delete(int $id): bool
     {
@@ -50,10 +48,6 @@ class EmailTemplateManager
     }
 
     /**
-     * @param string $type
-     * @param string $subject
-     * @param string $body
-     * @return bool
      */
     public function create(string $type, string $subject, string $body): bool
     {
@@ -70,8 +64,6 @@ class EmailTemplateManager
     }
 
     /**
-     * @param int $id
-     * @return EmailTemplate|null
      */
     public function getExisting(int $id): ?EmailTemplate
     {
@@ -91,7 +83,6 @@ class EmailTemplateManager
     }
 
     /**
-     * @return bool
      */
     public function store(): bool
     {
@@ -118,8 +109,6 @@ class EmailTemplateManager
      * @return bool
      */
     /**
-     * @param EmailTemplate $emailTemplate
-     * @return bool
      */
     public function update(EmailTemplate $emailTemplate): bool
     {

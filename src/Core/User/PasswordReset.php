@@ -27,8 +27,6 @@ use function strlen;
 class PasswordReset
 {
     /**
-     * @param string $username_or_email
-     * @return bool
      */
     public static function requestPasswordReset(string $username_or_email): bool
     {
@@ -46,10 +44,6 @@ class PasswordReset
     }
 
     /**
-     * @param string $username
-     * @param string $resetToken
-     * @param string $timestamp
-     * @return bool
      */
     public static function writeTokenToDatabase(string $username, string $resetToken, string $timestamp): bool
     {
@@ -69,10 +63,6 @@ class PasswordReset
     }
 
     /**
-     * @param string $username
-     * @param string $resetToken
-     * @param string $user_email
-     * @return bool
      */
     public static function sendPasswordResetMail(string $username, string $resetToken, string $user_email): bool
     {
@@ -89,9 +79,6 @@ class PasswordReset
     }
 
     /**
-     * @param string $username
-     * @param string $password_reset_hash
-     * @return bool
      */
     public static function verifyPasswordReset(string $username, string $password_reset_hash): bool
     {
@@ -123,11 +110,6 @@ class PasswordReset
      * Please note: At this point the user has already pre-verified via verifyPasswordReset() (within one hour),
      * so we don't need to check again for the 60min-limit here. In this method we authenticate
      * via username & password-reset-hash from (hidden) form fields.
-     * @param string $username
-     * @param string $resetToken
-     * @param string $user_password_new
-     * @param string $user_password_repeat
-     * @return bool
      */
     public static function setNewPassword(string $username, string $resetToken, string $user_password_new, string $user_password_repeat): bool
     {
@@ -140,11 +122,6 @@ class PasswordReset
     }
 
     /**
-     * @param string $username
-     * @param string $resetToken
-     * @param string $user_password_new
-     * @param string $user_password_repeat
-     * @return bool
      */
     public static function validateResetPassword(string $username, string $resetToken, string $user_password_new, string $user_password_repeat): bool
     {
@@ -165,10 +142,6 @@ class PasswordReset
     }
 
     /**
-     * @param string $username
-     * @param string $passwordHash
-     * @param string $resetToken
-     * @return bool
      */
     public static function saveNewUserPassword(string $username, string $passwordHash, string $resetToken): bool
     {

@@ -19,7 +19,6 @@ use PortalCMS\Core\Session\Session;
 class MailBatch
 {
     /**
-     * @return array
      */
     public static function getAll(): array
     {
@@ -42,7 +41,6 @@ class MailBatch
 
     /**
      * @param int|null $used_template
-     * @return bool
      */
     public static function create(int $used_template = null): bool
     {
@@ -55,8 +53,6 @@ class MailBatch
     }
 
     /**
-     * @param array $IDs
-     * @return bool
      */
     public static function deleteById(array $IDs): bool
     {
@@ -86,7 +82,6 @@ class MailBatch
     }
 
     /**
-     * @param int $batch_id
      * @return mixed
      */
     public static function countMessages(int $batch_id)
@@ -103,7 +98,6 @@ class MailBatch
      * @param array $batch_IDs
      */
     /**
-     * @param array $batch_IDs
      */
     public static function sendById(array $batch_IDs)
     {

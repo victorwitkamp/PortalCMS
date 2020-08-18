@@ -20,7 +20,6 @@ use PortalCMS\Core\Database\Database;
 class RoleMapper
 {
     /**
-     * @return array|null
      */
     public static function getRoles(): ?array
     {
@@ -32,8 +31,6 @@ class RoleMapper
     }
 
     /**
-     * @param int $role_id
-     * @return object|null
      */
     public static function get(int $role_id): ?object
     {
@@ -49,8 +46,6 @@ class RoleMapper
     }
 
     /**
-     * @param string $role_name
-     * @return bool
      */
     public static function create(string $role_name): bool
     {
@@ -61,8 +56,6 @@ class RoleMapper
     }
 
     /**
-     * @param int $role_id
-     * @return bool
      */
     public static function delete(int $role_id): bool
     {

@@ -17,7 +17,6 @@ use PortalCMS\Core\Database\Database;
 class ContractMapper
 {
     /**
-     * @return array|null
      */
     public static function get(): ?array
     {
@@ -30,8 +29,6 @@ class ContractMapper
     }
 
     /**
-     * @param int $Id
-     * @return object|null
      */
     public static function getById(int $Id): ?object
     {
@@ -68,7 +65,6 @@ class ContractMapper
      * @return int|null
      */
     /**
-     * @return int|null
      */
     public static function lastInsertedId(): ?int
     {
@@ -88,8 +84,6 @@ class ContractMapper
      * @return bool
      */
     /**
-     * @param Contract $contract
-     * @return bool
      */
     public static function update(Contract $contract): bool
     {
@@ -115,8 +109,6 @@ class ContractMapper
      * @return bool
      */
     /**
-     * @param int $id
-     * @return bool
      */
     public static function delete(int $id): bool
     {

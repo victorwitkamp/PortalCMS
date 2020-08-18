@@ -22,13 +22,6 @@ class MemberPreferences
 
     /**
      * MemberPreferences constructor.
-     * @param int|null $nieuwsbrief
-     * @param int|null $vrijwilliger
-     * @param int|null $vrijwilligeroptie1
-     * @param int|null $vrijwilligeroptie2
-     * @param int|null $vrijwilligeroptie3
-     * @param int|null $vrijwilligeroptie4
-     * @param int|null $vrijwilligeroptie5
      */
     public function __construct(?int $nieuwsbrief, ?int $vrijwilliger, ?int $vrijwilligeroptie1, ?int $vrijwilligeroptie2, ?int $vrijwilligeroptie3, ?int $vrijwilligeroptie4, ?int $vrijwilligeroptie5)
     {

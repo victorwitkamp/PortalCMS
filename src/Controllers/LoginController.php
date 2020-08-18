@@ -55,7 +55,6 @@ class LoginController extends Controller
     }
 
     /**
-     * @return bool
      */
     public static function loginSubmit(): bool
     {
@@ -83,8 +82,6 @@ class LoginController extends Controller
     }
 
     /**
-     * @param int $fbid
-     * @return bool
      */
     public static function loginWithFacebook(int $fbid): bool
     {
@@ -159,7 +156,6 @@ class LoginController extends Controller
      * @return bool
      */
     /**
-     * @return bool
      */
     public static function loginWithCookie(): bool
     {

@@ -25,7 +25,6 @@ class EmailAttachment
 
     /**
      * EmailAttachment constructor.
-     * @param array $file
      */
     public function __construct(array $file)
     {
@@ -34,8 +33,6 @@ class EmailAttachment
     }
 
     /**
-     * @param array $file
-     * @return bool
      */
     public function processUpload(array $file): bool
     {
@@ -112,8 +109,6 @@ class EmailAttachment
 
     /**
      * Handle feedback for the deleteById method
-     * @param int $deleted
-     * @param int $error
      */
     public static function deleteFeedbackHandler(int $deleted = 0, int $error = 0): bool
     {

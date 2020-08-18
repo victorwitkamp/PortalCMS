@@ -17,7 +17,6 @@ use PortalCMS\Core\Database\Database;
 class PermissionMapper
 {
     /**
-     * @param int $perm_id
      * @return bool|mixed
      */
     public static function getById(int $perm_id)
@@ -34,8 +33,6 @@ class PermissionMapper
     }
 
     /**
-     * @param int $user_id
-     * @return array|null
      */
     public static function getPermissionsByUserId(int $user_id): ?array
     {

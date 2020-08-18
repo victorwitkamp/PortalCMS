@@ -17,8 +17,6 @@ use PortalCMS\Core\Database\Database;
 class UserRoleMapper
 {
     /**
-     * @param int $userId
-     * @return array|null
      */
     public static function getByUserId(int $userId): ?array
     {
@@ -35,9 +33,6 @@ class UserRoleMapper
     }
 
     /**
-     * @param int $user_id
-     * @param int $role_id
-     * @return bool
      */
     public static function isAssigned(int $user_id, int $role_id): bool
     {
@@ -51,9 +46,6 @@ class UserRoleMapper
     }
 
     /**
-     * @param int $user_id
-     * @param int $role_id
-     * @return bool
      */
     public static function assign(int $user_id, int $role_id): bool
     {
@@ -66,9 +58,6 @@ class UserRoleMapper
     }
 
     /**
-     * @param int $user_id
-     * @param int $role_id
-     * @return bool
      */
     public static function unassign(int $user_id, int $role_id): bool
     {

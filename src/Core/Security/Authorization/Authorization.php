@@ -16,8 +16,6 @@ use PortalCMS\Core\Session\Session;
 class Authorization
 {
     /**
-     * @param string $perm_desc
-     * @return bool
      */
     public static function hasPermission(string $perm_desc): bool
     {

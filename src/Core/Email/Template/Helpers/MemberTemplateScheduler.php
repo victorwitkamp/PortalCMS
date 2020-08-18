@@ -21,9 +21,6 @@ use PortalCMS\Modules\Members\MemberModel;
 class MemberTemplateScheduler
 {
     /**
-     * @param object $template
-     * @param array  $memberIds
-     * @return bool
      */
     public function scheduleMails(object $template, array $memberIds): bool
     {
@@ -45,15 +42,9 @@ class MemberTemplateScheduler
         return true;
     }
 
-    /**
-     * @param int|null    $memberId
-     * @param int|null    $batchId
-     * @param object|null $template
-     * @return bool
-     */
     public function processSingleMail(int $memberId = null, int $batchId = null, object $template = null): bool
     {
-        if (empty($memberId) || empty($batchId) || empty($template)) {
+        if ($memberId === null || $batchId === null || $template === null) {
             return false;
         }
         $member = MemberModel::getMember($memberId);
@@ -74,8 +65,6 @@ class MemberTemplateScheduler
     }
 
     /**
-     * @param int $success
-     * @param int $failed
      */
     public function processFeedback(int $success, int $failed)
     {

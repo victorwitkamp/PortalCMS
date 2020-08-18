@@ -15,9 +15,6 @@ use PortalCMS\Core\Database\Database;
 class SiteSettingsMapper
 {
     /**
-     * @param string $setting
-     * @param string $value
-     * @return bool
      */
     public static function update(string $setting, string $value): bool
     {

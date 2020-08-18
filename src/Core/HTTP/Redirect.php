@@ -17,8 +17,6 @@ class Redirect
 {
     /**
      * Redirects to a RELATIVE path, like "user/profile"
-     * @param string $url
-     * @param bool   $permanent
      */
     public static function to(string $url, bool $permanent = false)
     {

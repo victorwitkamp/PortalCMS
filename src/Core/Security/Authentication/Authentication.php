@@ -38,7 +38,6 @@ class Authentication
     }
 
     /**
-     * @return bool
      */
     public static function userIsLoggedIn(): bool
     {

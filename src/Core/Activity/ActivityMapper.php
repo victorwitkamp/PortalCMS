@@ -17,12 +17,10 @@ use PortalCMS\Core\Database\Database;
 class ActivityMapper
 {
     /**
-     * @param string      $activity
      * @param int|null    $user_id
      * @param string|null $user_name
      * @param string|null $ip
      * @param string|null $details
-     * @return bool
      */
     public static function add(string $activity, int $user_id = null, string $user_name = null, string $ip = null, string $details = null): bool
     {
@@ -35,7 +33,6 @@ class ActivityMapper
     }
 
     /**
-     * @return array
      */
     public static function load(): array
     {

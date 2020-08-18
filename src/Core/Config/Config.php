@@ -16,7 +16,6 @@ class Config
     public static $config;
 
     /**
-     * @param string $key
      * @return mixed
      */
     public static function get(string $key)

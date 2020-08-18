@@ -23,8 +23,6 @@ use PortalCMS\Core\Session\Session;
 class MailSchedule
 {
     /**
-     * @param array $mailIds
-     * @return bool
      */
     public static function deleteById(array $mailIds): bool
     {
@@ -51,8 +49,6 @@ class MailSchedule
     }
 
     /**
-     * @param array $mailIds
-     * @return bool
      */
     public static function sendMailsById(array $mailIds): bool
     {
@@ -76,8 +72,6 @@ class MailSchedule
     }
 
     /**
-     * @param int $mailId
-     * @return bool
      */
     public static function isSent(int $mailId): bool
     {
@@ -85,8 +79,6 @@ class MailSchedule
     }
 
     /**
-     * @param int $mailId
-     * @return bool
      */
     public static function prepareMailData(int $mailId): bool
     {
@@ -123,11 +115,7 @@ class MailSchedule
      * @return bool
      */
     /**
-     * @param int        $mailId
-     * @param object     $scheduledMail
-     * @param array      $recipients
      * @param array|null $attachments
-     * @return bool
      */
     public static function sendSingleMailHandler(int $mailId, object $scheduledMail, array $recipients, array $attachments = null): bool
     {
@@ -158,10 +146,6 @@ class MailSchedule
      * @return bool
      */
     /**
-     * @param int $failed
-     * @param int $success
-     * @param int $alreadySent
-     * @return bool
      */
     public static function sendFeedbackHandler(int $failed, int $success, int $alreadySent): bool
     {
@@ -190,8 +174,6 @@ class MailSchedule
      * @param array $recipientIds
      */
     /**
-     * @param int   $templateId
-     * @param array $recipientIds
      */
     public static function createWithTemplate(int $templateId, array $recipientIds)
     {

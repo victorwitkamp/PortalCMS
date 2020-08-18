@@ -14,7 +14,6 @@ use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
-use PortalCMS\Core\Session\Session;
 use PortalCMS\Modules\Members\Member;
 use PortalCMS\Modules\Members\MemberAddress;
 use PortalCMS\Modules\Members\MemberContactDetails;

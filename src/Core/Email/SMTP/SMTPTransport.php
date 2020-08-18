@@ -38,7 +38,6 @@ class SMTPTransport
 
     /**
      * SMTPTransport constructor.
-     * @param SMTPConfiguration $config
      */
     public function __construct(SMTPConfiguration $config)
     {
@@ -57,8 +56,6 @@ class SMTPTransport
     }
 
     /**
-     * @param EmailMessage $emailMessage
-     * @return bool
      */
     public function sendMail(EmailMessage $emailMessage): bool
     {
@@ -75,7 +72,6 @@ class SMTPTransport
     }
 
     /**
-     * @return bool
      */
     public function verifyMessage(): bool
     {
@@ -124,7 +120,6 @@ class SMTPTransport
      * @return bool
      */
     /**
-     * @return bool
      */
     public function processRecipients(): bool
     {
@@ -163,7 +158,6 @@ class SMTPTransport
      * @return bool
      */
     /**
-     * @return bool
      */
     public function send(): bool
     {

@@ -23,10 +23,6 @@ use PortalCMS\Core\View\Text;
 class LoginService
 {
     /**
-     * @param string $username
-     * @param string $password
-     * @param bool   $rememberMe
-     * @return bool
      */
     public static function loginWithPassword(string $username, string $password, bool $rememberMe = false): bool
     {
@@ -49,8 +45,6 @@ class LoginService
     }
 
     /**
-     * @param int $user_id
-     * @return bool
      */
     public static function setRememberMe(int $user_id): bool
     {
@@ -73,8 +67,6 @@ class LoginService
     }
 
     /**
-     * @param object $user
-     * @return bool
      */
     public static function setSuccessfulLoginIntoSession(object $user): bool
     {
@@ -102,8 +94,6 @@ class LoginService
      * @return bool
      */
     /**
-     * @param string $cookie
-     * @return bool
      */
     public static function loginWithCookie(string $cookie): bool
     {
@@ -131,8 +121,6 @@ class LoginService
      * @return bool
      */
     /**
-     * @param int $fbid
-     * @return bool
      */
     public static function loginWithFacebook(int $fbid): bool
     {

@@ -20,9 +20,6 @@ use PortalCMS\Modules\Members\MemberModel;
 class PlaceholderHelper
 {
     /**
-     * @param int    $memberId
-     * @param string $text
-     * @return string
      */
     public static function replaceMemberPlaceholders(int $memberId, string $text): string
     {

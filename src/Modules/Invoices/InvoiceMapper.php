@@ -17,8 +17,6 @@ use PortalCMS\Core\Database\Database;
 class InvoiceMapper
 {
     /**
-     * @param int $id
-     * @return bool
      */
     public static function delete(int $id): bool
     {
@@ -28,8 +26,6 @@ class InvoiceMapper
     }
 
     /**
-     * @param int $id
-     * @return object|null
      */
     public static function getById(int $id): ?object
     {
@@ -39,8 +35,6 @@ class InvoiceMapper
     }
 
     /**
-     * @param string $factuurnummer
-     * @return object|null
      */
     public static function getByFactuurnummer(string $factuurnummer): ?object
     {
@@ -50,8 +44,6 @@ class InvoiceMapper
     }
 
     /**
-     * @param int $contractId
-     * @return array|null
      */
     public static function getByContractId(int $contractId): ?array
     {
@@ -61,9 +53,6 @@ class InvoiceMapper
     }
 
     /**
-     * @param int $contractId
-     * @param int $year
-     * @return array|null
      */
     public static function getByContractIdAndYear(int $contractId, int $year): ?array
     {
@@ -73,7 +62,6 @@ class InvoiceMapper
     }
 
     /**
-     * @return array|null
      */
     public static function getAll(): ?array
     {
@@ -82,8 +70,6 @@ class InvoiceMapper
     }
 
     /**
-     * @param int $year
-     * @return array|null
      */
     public static function getByYear(int $year): ?array
     {
@@ -93,9 +79,6 @@ class InvoiceMapper
     }
 
     /**
-     * @param int $contractId
-     * @param int $year
-     * @return int
      */
     public static function getInvoiceCountByContractIdAndYear(int $contractId, int $year): int
     {
@@ -113,8 +96,6 @@ class InvoiceMapper
      * @return int
      */
     /**
-     * @param int $year
-     * @return int
      */
     public static function getInvoiceCountByYear(int $year): int
     {
@@ -130,7 +111,6 @@ class InvoiceMapper
      * @return int
      */
     /**
-     * @return int
      */
     public static function getInvoiceCount(): int
     {
@@ -146,7 +126,6 @@ class InvoiceMapper
      * @return array
      */
     /**
-     * @return array
      */
     public static function getYears(): array
     {
@@ -171,12 +150,6 @@ class InvoiceMapper
      * @return bool
      */
     /**
-     * @param int    $contract_id
-     * @param string $factuurnummer
-     * @param int    $year
-     * @param int    $month
-     * @param string $factuurdatum
-     * @return bool
      */
     public static function create(int $contract_id, string $factuurnummer, int $year, int $month, string $factuurdatum): bool
     {
@@ -196,9 +169,6 @@ class InvoiceMapper
      * @return bool
      */
     /**
-     * @param int $invoice_id
-     * @param int $mail_id
-     * @return bool
      */
     public static function updateMailId(int $invoice_id, int $mail_id): bool
     {
@@ -218,9 +188,6 @@ class InvoiceMapper
      * @return bool
      */
     /**
-     * @param int $invoice_id
-     * @param int $status
-     * @return bool
      */
     public static function updateStatus(int $invoice_id, int $status): bool
     {

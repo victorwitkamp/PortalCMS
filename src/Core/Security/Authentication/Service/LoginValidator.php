@@ -24,9 +24,6 @@ use PortalCMS\Core\View\Text;
 class LoginValidator
 {
     /**
-     * @param string $user_name
-     * @param string $user_password
-     * @return object|null
      */
     public static function validateLogin(string $user_name, string $user_password): ?object
     {
@@ -55,9 +52,6 @@ class LoginValidator
     }
 
     /**
-     * @param string $user_name
-     * @param string $user_password
-     * @return object|null
      */
     public static function getUser(string $user_name, string $user_password): ?object
     {
@@ -83,7 +77,6 @@ class LoginValidator
     }
 
     /**
-     * @return bool
      */
     public static function incrementUserNotFoundCounter(): bool
     {
@@ -109,8 +102,6 @@ class LoginValidator
      * @return bool
      */
     /**
-     * @param object $user
-     * @return bool
      */
     public static function verifyIsActive(object $user): bool
     {
@@ -124,7 +115,6 @@ class LoginValidator
      * @return bool
      */
     /**
-     * @return bool
      */
     public static function resetUserNotFoundCounter(): bool
     {
@@ -140,8 +130,6 @@ class LoginValidator
      * @return object|null
      */
     /**
-     * @param string $cookie
-     * @return object|null
      */
     public static function validateCookieLogin(string $cookie): ?object
     {

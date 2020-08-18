@@ -17,9 +17,6 @@ use PortalCMS\Core\Session\Session;
 class EventModel
 {
     /**
-     * @param string $startDate
-     * @param string $endDate
-     * @return array
      */
     public static function getByDate(string $startDate, string $endDate): array
     {
@@ -60,8 +57,6 @@ class EventModel
     }
 
     /**
-     * @param Event $event
-     * @return bool
      */
     public static function create(Event $event): bool
     {
@@ -74,8 +69,6 @@ class EventModel
     }
 
     /**
-     * @param Event $event
-     * @return bool
      */
     public static function update(Event $event): bool
     {
@@ -100,8 +93,6 @@ class EventModel
      * @return bool
      */
     /**
-     * @param int $id
-     * @return bool
      */
     public static function delete(int $id): bool
     {

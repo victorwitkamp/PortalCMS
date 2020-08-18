@@ -7,7 +7,6 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Security;
 
-use Exception;
 use PortalCMS\Core\Config\Config;
 use RuntimeException;
 use function function_exists;
@@ -40,8 +39,6 @@ class Encryption
 
     /**
      * Encrypt a string.
-     * @param string $plain
-     * @return string
      */
     public static function encrypt(string $plain): string
     {
@@ -64,7 +61,6 @@ class Encryption
 
     /**
      * Decrypted a string.
-     * @param string $ciphertext
      * @return string
      */
     public static function decrypt(string $ciphertext): ?string

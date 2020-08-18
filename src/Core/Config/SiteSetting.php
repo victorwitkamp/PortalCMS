@@ -19,7 +19,6 @@ use PortalCMS\Core\View\Text;
 class SiteSetting
 {
     /**
-     * @return bool
      */
     public static function saveSiteSettings(): bool
     {
@@ -31,8 +30,6 @@ class SiteSetting
     }
 
     /**
-     * @param string $setting
-     * @return string|null
      */
     public static function get(string $setting): ?string
     {
@@ -46,7 +43,6 @@ class SiteSetting
     }
 
     /**
-     * @return bool
      */
     public static function uploadLogo(): bool
     {
@@ -63,7 +59,6 @@ class SiteSetting
     }
 
     /**
-     * @return bool
      */
     public static function isLogoFolderWritable(): bool
     {
@@ -78,7 +73,6 @@ class SiteSetting
     }
 
     /**
-     * @return bool
      */
     public static function validateImageFile(): bool
     {
@@ -141,9 +135,6 @@ class SiteSetting
      * @return bool
      */
     /**
-     * @param        $image
-     * @param string $destination
-     * @return bool
      */
     public static function writeJPG($image, string $destination): bool
     {
@@ -165,8 +156,6 @@ class SiteSetting
      * @return bool
      */
     /**
-     * @param string $fileName
-     * @return bool
      */
     public static function writeLogoToDatabase(string $fileName): bool
     {

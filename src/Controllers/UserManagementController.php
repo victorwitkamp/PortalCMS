@@ -77,7 +77,6 @@ class UserManagementController extends Controller
     }
 
     /**
-     * @return bool
      */
     public static function assignrole(): bool
     {
@@ -103,7 +102,6 @@ class UserManagementController extends Controller
      * @return bool
      */
     /**
-     * @return bool
      */
     public static function unassignrole(): bool
     {

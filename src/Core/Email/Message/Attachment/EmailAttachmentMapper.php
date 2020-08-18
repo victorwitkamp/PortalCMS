@@ -18,13 +18,6 @@ class EmailAttachmentMapper
 {
     /**
      * Create a new attachment for an e-mail in the schedule.
-     * @param int    $mailId
-     * @param string $path
-     * @param string $name
-     * @param string $extension
-     * @param string $encoding
-     * @param string $type
-     * @return bool
      */
     public static function create(int $mailId, string $path, string $name, string $extension, string $encoding = 'base64', string $type = 'application/octet-stream'): bool
     {
@@ -39,9 +32,6 @@ class EmailAttachmentMapper
 
     /**
      * Create a new attachment for a template.
-     * @param int             $templateId
-     * @param EmailAttachment $attachment
-     * @return bool
      */
     public static function createForTemplate(int $templateId, EmailAttachment $attachment): bool
     {
@@ -59,8 +49,6 @@ class EmailAttachmentMapper
      * @return array|null
      */
     /**
-     * @param int $mailId
-     * @return array|null
      */
     public static function getByMailId(int $mailId): ?array
     {
@@ -73,8 +61,6 @@ class EmailAttachmentMapper
     }
 
     /**
-     * @param int $templateId
-     * @return array|null
      */
     public static function getByTemplateId(int $templateId): ?array
     {
@@ -95,8 +81,6 @@ class EmailAttachmentMapper
      * @return bool
      */
     /**
-     * @param int $id
-     * @return bool
      */
     public static function deleteById(int $id): bool
     {
@@ -114,8 +98,6 @@ class EmailAttachmentMapper
      * @return bool
      */
     /**
-     * @param int $id
-     * @return bool
      */
     public static function deleteByMailId(int $id): bool
     {

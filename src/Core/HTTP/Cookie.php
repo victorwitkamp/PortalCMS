@@ -16,8 +16,6 @@ use PortalCMS\Core\Config\Config;
 class Cookie
 {
     /**
-     * @param string $token
-     * @return bool
      */
     public static function setRememberMe(string $token): bool
     {

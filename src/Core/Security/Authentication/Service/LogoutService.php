@@ -21,7 +21,6 @@ use PortalCMS\Core\View\Text;
 class LogoutService
 {
     /**
-     * @return bool
      */
     public static function logout(): bool
     {

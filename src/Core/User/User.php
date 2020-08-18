@@ -18,8 +18,6 @@ use PortalCMS\Core\View\Text;
 class User
 {
     /**
-     * @param string $newUsername
-     * @return bool
      */
     public static function editUsername(string $newUsername): bool
     {

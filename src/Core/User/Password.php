@@ -18,11 +18,6 @@ use function strlen;
 class Password
 {
     /**
-     * @param object $user
-     * @param string $currentPassword
-     * @param string $newPassword
-     * @param string $repeatNewPassword
-     * @return bool
      */
     public static function changePassword(object $user, string $currentPassword, string $newPassword, string $repeatNewPassword): bool
     {
@@ -42,9 +37,6 @@ class Password
     }
 
     /**
-     * @param object $user
-     * @param string $user_password
-     * @return bool
      */
     public static function verifyPassword(object $user, string $user_password): bool
     {
@@ -55,9 +47,6 @@ class Password
     }
 
     /**
-     * @param string $currentPassword
-     * @param string $newPassword
-     * @return bool
      */
     public static function validatePasswordChange(string $currentPassword, string $newPassword): bool
     {

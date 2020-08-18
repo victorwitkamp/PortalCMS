@@ -29,7 +29,6 @@ class EmailRecipient
     }
 
     /**
-     * @return EmailRecipient
      */
     public function get(): EmailRecipient
     {

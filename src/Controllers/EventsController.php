@@ -132,7 +132,6 @@ class EventsController extends Controller
      * @return bool
      */
     /**
-     * @return bool
      */
     public function updateEventDate(): bool
     {

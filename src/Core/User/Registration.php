@@ -16,7 +16,6 @@ use PortalCMS\Core\Database\Database;
 class Registration
 {
     /**
-     * @param int $userID
      */
     public static function rollbackRegistrationByUserId(int $userID)
     {
@@ -25,11 +24,6 @@ class Registration
     }
 
     /**
-     * @param string $username
-     * @param string $email
-     * @param string $md5password
-     * @param string $activationCode
-     * @return bool
      */
     public static function writeNewUserToDatabase(string $username, string $email, string $md5password, string $activationCode): bool
     {

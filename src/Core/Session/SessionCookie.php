@@ -16,7 +16,6 @@ use PortalCMS\Core\Config\Config;
 class SessionCookie
 {
     /**
-     * @return bool
      */
     public static function set(): bool
     {

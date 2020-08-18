@@ -89,9 +89,9 @@ class MailScheduleMapper
         return $stmt->execute([ $batchId, $memberId, $subject, $body, $status ]);
     }
 
-    public static function lastInsertedId()
+    public static function lastInsertedId(): int
     {
-        return Database::conn()->query('SELECT max(id) from mail_schedule')->fetchColumn();
+        return (int) Database::conn()->query('SELECT max(id) from mail_schedule')->fetchColumn();
     }
 
     public static function updateStatus(int $id, int $status = null): bool

@@ -26,9 +26,7 @@ use function is_array;
 class InvoiceHelper
 {
     /**
-     * @param int      $invoiceId
      * @param int|null $batchId
-     * @return bool
      */
     public static function createMail(int $invoiceId, int $batchId = null): bool
     {
@@ -40,11 +38,13 @@ class InvoiceHelper
             if (MailScheduleMapper::create($batchId, null, $subject, $body)) {
                 $createdMailId = MailScheduleMapper::lastInsertedId();
                 $contract = ContractMapper::getById($invoice->contract_id);
-                EmailRecipientMapper::createRecipient($createdMailId, $contract->bandleider_email);
-                EmailAttachmentMapper::create($createdMailId, 'content/invoices/', $invoice->factuurnummer, '.pdf');
-                InvoiceMapper::updateMailId($invoiceId, $createdMailId);
-                InvoiceMapper::updateStatus($invoiceId, 2);
-                return true;
+                if ($contract !== null) {
+                    EmailRecipientMapper::createRecipient($createdMailId, $contract->bandleider_email);
+                    EmailAttachmentMapper::create($createdMailId, 'content/invoices/', $invoice->factuurnummer, '.pdf');
+                    InvoiceMapper::updateMailId($invoiceId, $createdMailId);
+                    InvoiceMapper::updateStatus($invoiceId, 2);
+                    return true;
+                }
             }
             Session::add('feedback_negative', 'Nieuwe email aanmaken mislukt.');
         } else {
@@ -54,11 +54,6 @@ class InvoiceHelper
     }
 
     /**
-     * @param int    $year
-     * @param string $month
-     * @param array  $contract_ids
-     * @param string $factuurdatum
-     * @return bool
      */
     public static function create(int $year, string $month, array $contract_ids, string $factuurdatum): bool
     {
@@ -82,29 +77,29 @@ class InvoiceHelper
     }
 
     /**
-     * @param int    $year
-     * @param string $month
-     * @param int    $contract_id
-     * @param string $factuurdatum
-     * @return bool
      */
     public static function createInvoiceAction(int $year, string $month, int $contract_id, string $factuurdatum): bool
     {
         $contract = ContractMapper::getById($contract_id);
+        if ($contract === null) {
+            return false;
+        }
         $factuurnummer = $year . $contract->bandcode . $month;
         if (empty(InvoiceMapper::getByFactuurnummer($factuurnummer))) {
             if (InvoiceMapper::create($contract_id, $factuurnummer, $year, (int)$month, $factuurdatum)) {
                 $invoice = InvoiceMapper::getByFactuurnummer($factuurnummer);
-                $kosten_ruimte = (int)$contract->kosten_ruimte;
-                $kosten_kast = (int)$contract->kosten_kast;
-                if (($kosten_ruimte > 0)) {
-                    InvoiceItemMapper::create($invoice->id, 'Huur oefenruimte - ' . Text::get('MONTH_' . $month), $kosten_ruimte);
+                if ($invoice !== null) {
+                    $kosten_ruimte = (int) $contract->kosten_ruimte;
+                    $kosten_kast = (int) $contract->kosten_kast;
+                    if (($kosten_ruimte > 0)) {
+                        InvoiceItemMapper::create($invoice->id, 'Huur oefenruimte - ' . Text::get('MONTH_' . $month), $kosten_ruimte);
+                    }
+                    if (($kosten_kast > 0)) {
+                        InvoiceItemMapper::create($invoice->id, 'Huur kast - ' . Text::get('MONTH_' . $month), $kosten_kast);
+                    }
+                    Activity::add('NewInvoice', Session::get('user_id'), 'Factuurnr.: ' . $factuurnummer);
+                    return true;
                 }
-                if (($kosten_kast > 0)) {
-                    InvoiceItemMapper::create($invoice->id, 'Huur kast - ' . Text::get('MONTH_' . $month), $kosten_kast);
-                }
-                Activity::add('NewInvoice', Session::get('user_id'), 'Factuurnr.: ' . $factuurnummer);
-                return true;
             }
             Session::add('feedback_negative', 'Toevoegen van factuur mislukt.');
         } else {
@@ -113,41 +108,28 @@ class InvoiceHelper
         return false;
     }
 
-    /**
-     * @param int|null $id
-     * @return bool|string
-     */
-    public static function displayInvoiceSumById(int $id = null)
+    public static function displayInvoiceSumById(int $id = null): ?string
     {
-        $sum = self::getInvoiceSumById($id);
-        if (!$sum) {
-            return false;
+        if ($id !== null) {
+            $sum = self::getInvoiceSumById($id);
+            if ($sum !== null) {
+                return '&euro; ' . $sum;
+            }
         }
-        return '&euro; ' . $sum;
+        return null;
     }
 
-    /**
-     * @param int $id
-     * @return int
-     */
-    /**
-     * @param int $id
-     * @return int
-     */
-    /**
-     * @param int $id
-     * @return int
-     */
-    public static function getInvoiceSumById(int $id): int
+    public static function getInvoiceSumById(int $id): ?int
     {
-        $sum = 0;
         $items = InvoiceItemMapper::getByInvoiceId($id);
         if (!empty($items) && is_array($items)) {
+            $sum = 0;
             foreach ($items as $item) {
                 $sum += $item->price;
             }
+            return $sum;
         }
-        return $sum;
+        return null;
     }
 
     /**
@@ -199,14 +181,16 @@ class InvoiceHelper
     {
         if ($id !== null) {
             $invoice = InvoiceMapper::getById($id);
-            if (!empty($invoice)) {
+            if ($invoice !== null) {
                 $contract = ContractMapper::getById($invoice->contract_id);
-                $invoiceitems = InvoiceItemMapper::getByInvoiceId($id);
-                if (PDF::writeInvoice($invoice, $invoiceitems, $contract)) {
-                    InvoiceMapper::updateStatus($id, 1);
-                    return true;
+                if ($contract !== null) {
+                    $invoiceitems = InvoiceItemMapper::getByInvoiceId($id);
+                    if (PDF::writeInvoice($invoice, $invoiceitems, $contract)) {
+                        InvoiceMapper::updateStatus($id, 1);
+                        return true;
+                    }
+                    Session::add('feedback_negative', 'Fout bij het opslaan.');
                 }
-                Session::add('feedback_negative', 'Fout bij het opslaan.');
             }
             Session::add('feedback_negative', 'Fout bij het opslaan. Factuur niet gevonden.');
         } else {

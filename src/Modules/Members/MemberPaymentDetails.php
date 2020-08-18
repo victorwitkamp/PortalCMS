@@ -19,10 +19,6 @@ class MemberPaymentDetails
 
     /**
      * MemberPaymentDetails constructor.
-     * @param string|null $betalingswijze
-     * @param string|null $iban
-     * @param string|null $machtigingskenmerk
-     * @param int|null    $status
      */
     public function __construct(?string $betalingswijze, ?string $iban, ?string $machtigingskenmerk, ?int $status)
     {

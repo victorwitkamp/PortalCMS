@@ -18,8 +18,6 @@ class Request
     /**
      * When using just Request::post('x') it will return the raw and untouched $_POST['x'], when using it like
      * Request::post('x', true) will return a trimmed and stripped $_POST['x'] !
-     * @param      $key
-     * @param bool $clean
      * @return mixed|string|null
      */
     public static function post($key, bool $clean = false)
@@ -39,7 +37,6 @@ class Request
     }
 
     /**
-     * @param $key
      * @return mixed|null
      */
     public static function get($key)
@@ -48,7 +45,6 @@ class Request
     }
 
     /**
-     * @param $key
      * @return mixed|null
      */
     public static function cookie($key)

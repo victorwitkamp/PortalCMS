@@ -17,8 +17,6 @@ class RolePermissionMapper
 {
 
     /**
-     * @param int $role_id
-     * @return array|null
      */
     public static function getRolePermissions(int $role_id): ?array
     {
@@ -35,8 +33,6 @@ class RolePermissionMapper
     }
 
     /**
-     * @param int $role_id
-     * @return array|null
      */
     public static function getRoleSelectablePermissions(int $role_id): ?array
     {
@@ -53,9 +49,6 @@ class RolePermissionMapper
     }
 
     /**
-     * @param int    $role_id
-     * @param string $perm_desc
-     * @return bool
      */
     public static function isAssigned(int $role_id, string $perm_desc): bool
     {
@@ -68,9 +61,6 @@ class RolePermissionMapper
     }
 
     /**
-     * @param int $role_id
-     * @param int $perm_id
-     * @return bool
      */
     public static function assign(int $role_id, int $perm_id): bool
     {
@@ -80,9 +70,6 @@ class RolePermissionMapper
     }
 
     /**
-     * @param int $role_id
-     * @param int $perm_id
-     * @return bool
      */
     public static function unassign(int $role_id, int $perm_id): bool
     {

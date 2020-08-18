@@ -60,7 +60,6 @@ class AccountController extends Controller
     }
 
     /**
-     * @param int      $user_id
      * @param int|null $FbId
      */
     public static function setFbid(int $user_id, int $FbId = null)

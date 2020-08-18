@@ -86,7 +86,6 @@ class PDF
      * @return TCPDF
      */
     /**
-     * @return TCPDF
      */
     public static function configPDF(): TCPDF
     {
@@ -121,11 +120,6 @@ class PDF
      * @return TCPDF
      */
     /**
-     * @param TCPDF  $pdf
-     * @param object $invoice
-     * @param array  $invoiceitems
-     * @param object $contract
-     * @return TCPDF
      */
     public static function createInvoice(TCPDF $pdf, object $invoice, array $invoiceitems, object $contract): TCPDF
     {
@@ -141,8 +135,6 @@ class PDF
      * @return TCPDF
      */
     /**
-     * @param TCPDF $pdf
-     * @return TCPDF
      */
     public static function setInvoiceFooter(TCPDF $pdf): TCPDF
     {
@@ -170,9 +162,6 @@ class PDF
      * @return TCPDF
      */
     /**
-     * @param TCPDF $pdf
-     * @param       $invoiceitems
-     * @return TCPDF
      */
     public static function setInvoiceContent(TCPDF $pdf, $invoiceitems): TCPDF
     {
@@ -221,10 +210,6 @@ class PDF
      * @return TCPDF
      */
     /**
-     * @param TCPDF $pdf
-     * @param       $invoice
-     * @param       $contract
-     * @return TCPDF
      */
     public static function setInvoiceHeader(TCPDF $pdf, $invoice, $contract): TCPDF
     {
@@ -268,10 +253,6 @@ class PDF
      * @return bool
      */
     /**
-     * @param object $invoice
-     * @param array  $invoiceitems
-     * @param object $contract
-     * @return bool
      */
     public static function writeInvoice(object $invoice, array $invoiceitems, object $contract): bool
     {

@@ -39,8 +39,6 @@ class EmailMessage
 
     /**
      * EmailMessage constructor.
-     * @param string     $subject
-     * @param string     $body
      * @param array|null $recipients
      * @param array|null $attachments
      */

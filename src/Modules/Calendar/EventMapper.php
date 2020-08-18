@@ -17,8 +17,6 @@ use PortalCMS\Core\Database\Database;
 class EventMapper
 {
     /**
-     * @param int $id
-     * @return bool
      */
     public static function exists(int $id): bool
     {
@@ -28,9 +26,6 @@ class EventMapper
     }
 
     /**
-     * @param string $startDate
-     * @param string $endDate
-     * @return array|null
      */
     public static function getByDate(string $startDate, string $endDate): ?array
     {
@@ -45,9 +40,6 @@ class EventMapper
     }
 
     /**
-     * @param string $dateTime
-     * @param int    $limit
-     * @return array|null
      */
     public static function getEventsAfter(string $dateTime, int $limit = 3): ?array
     {
@@ -60,8 +52,6 @@ class EventMapper
     }
 
     /**
-     * @param int $id
-     * @return object|null
      */
     public static function getById(int $id): ?object
     {
@@ -83,8 +73,6 @@ class EventMapper
     }
 
     /**
-     * @param Event $event
-     * @return bool
      */
     public static function update(Event $event): bool
     {
@@ -108,10 +96,6 @@ class EventMapper
      * @return bool
      */
     /**
-     * @param int    $event_id
-     * @param string $start_event
-     * @param string $end_event
-     * @return bool
      */
     public static function updateDate(int $event_id, string $start_event, string $end_event): bool
     {
@@ -131,8 +115,6 @@ class EventMapper
      * @return bool
      */
     /**
-     * @param int $id
-     * @return bool
      */
     public static function delete(int $id): bool
     {

@@ -18,8 +18,6 @@ class RolePermission
 {
 
     /**
-     * @param int $roleId
-     * @param int $permId
      */
     public static function assignPermission(int $roleId, int $permId)
     {
@@ -37,8 +35,6 @@ class RolePermission
     }
 
     /**
-     * @param int $roleId
-     * @param int $permId
      */
     public static function unassignPermission(int $roleId, int $permId)
     {

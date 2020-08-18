@@ -21,8 +21,6 @@ class ValidatedCookie
 
     /**
      * ValidatedCookie constructor.
-     * @param int    $user_id
-     * @param string $token
      */
     public function __construct(int $user_id, string $token)
     {

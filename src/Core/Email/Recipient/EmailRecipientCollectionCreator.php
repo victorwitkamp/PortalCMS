@@ -26,7 +26,6 @@ class EmailRecipientCollectionCreator
     }
 
     /**
-     * @param int $mailId
      * @return array|bool
      */
     public function createCollection(int $mailId)

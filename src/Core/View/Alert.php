@@ -49,8 +49,6 @@ class Alert
     }
 
     /**
-     * @param string $feedback
-     * @param string $style
      */
     public static function render(string $feedback, string $style)
     {

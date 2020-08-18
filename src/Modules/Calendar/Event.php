@@ -27,7 +27,6 @@ class Event
     public $status;
 
     /**
-     * @param int $id
      */
     public function setId(int $id)
     {
@@ -40,7 +39,6 @@ class Event
     }
 
     /**
-     * @param string $title
      */
     public function setTitle(string $title)
     {
@@ -48,7 +46,6 @@ class Event
     }
 
     /**
-     * @param string $start
      */
     public function setStart(string $start)
     {
@@ -56,7 +53,6 @@ class Event
     }
 
     /**
-     * @param string $end
      */
     public function setEnd(string $end)
     {
@@ -64,7 +60,6 @@ class Event
     }
 
     /**
-     * @param string $description
      */
     public function setDescription(string $description)
     {
@@ -72,7 +67,6 @@ class Event
     }
 
     /**
-     * @param int $status
      */
     public function setStatus(int $status)
     {

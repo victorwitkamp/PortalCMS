@@ -16,8 +16,6 @@ class HTMLEntities
     /**
      * Converts characters to HTML entities
      * This is important to avoid XSS attacks, and attempts to inject malicious code in your page.
-     * @param string $string
-     * @return string
      */
     public static function encode(string $string): string
     {
@@ -26,8 +24,6 @@ class HTMLEntities
 
     /**
      * Converts HTML entities back to characters
-     * @param string $string
-     * @return string
      */
     public function decode(string $string): string
     {

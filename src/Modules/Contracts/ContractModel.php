@@ -36,7 +36,6 @@ class ContractModel
     }
 
     /**
-     * @return bool
      */
     public static function update(): bool
     {
@@ -67,8 +66,6 @@ class ContractModel
      * @return bool
      */
     /**
-     * @param int $id
-     * @return bool
      */
     public static function delete(int $id): bool
     {

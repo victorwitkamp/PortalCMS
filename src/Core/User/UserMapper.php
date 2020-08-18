@@ -17,8 +17,6 @@ use PortalCMS\Core\Database\Database;
 class UserMapper
 {
     /**
-     * @param string $user_name
-     * @return bool
      */
     public static function usernameExists(string $user_name): bool
     {
@@ -31,8 +29,6 @@ class UserMapper
     }
 
     /**
-     * @param int $Id
-     * @return object|null
      */
     public static function getProfileById(int $Id): ?object
     {
@@ -62,8 +58,6 @@ class UserMapper
     }
 
     /**
-     * @param string $username
-     * @return object|null
      */
     public static function getByUsername(string $username): ?object
     {
@@ -89,9 +83,6 @@ class UserMapper
     }
 
     /**
-     * @param int    $user_id
-     * @param string $token
-     * @return object|null
      */
     public static function getByIdAndToken(int $user_id, string $token): ?object
     {
@@ -128,8 +119,6 @@ class UserMapper
      * @return object|null
      */
     /**
-     * @param int $user_fbid
-     * @return object|null
      */
     public static function getByFbid(int $user_fbid): ?object
     {
@@ -154,8 +143,6 @@ class UserMapper
      * @return object|null
      */
     /**
-     * @param string $usernameOrEmail
-     * @return object|null
      */
     public static function getByUsernameOrEmail(string $usernameOrEmail): ?object
     {
@@ -178,7 +165,6 @@ class UserMapper
      * @return array|null
      */
     /**
-     * @return array|null
      */
     public static function getUsers(): ?array
     {
@@ -201,9 +187,6 @@ class UserMapper
      * @return bool
      */
     /**
-     * @param string $username
-     * @param string $user_password_hash
-     * @return bool
      */
     public static function updatePassword(string $username, string $user_password_hash): bool
     {
@@ -228,9 +211,6 @@ class UserMapper
      * @return bool
      */
     /**
-     * @param int    $user_id
-     * @param string $newUsername
-     * @return bool
      */
     public static function updateUsername(int $user_id, string $newUsername): bool
     {
@@ -253,9 +233,7 @@ class UserMapper
      * @return bool
      */
     /**
-     * @param int      $user_id
      * @param int|null $fbid
-     * @return bool
      */
     public static function updateFBid(int $user_id, int $fbid = null): bool
     {
@@ -278,9 +256,6 @@ class UserMapper
      * @return bool
      */
     /**
-     * @param int    $user_id
-     * @param string $token
-     * @return bool
      */
     public static function updateRememberMeToken(int $user_id, string $token): bool
     {
@@ -303,9 +278,7 @@ class UserMapper
      * @return bool
      */
     /**
-     * @param int         $userId
      * @param string|null $sessionId
-     * @return bool
      */
     public static function updateSessionId(int $userId, string $sessionId = null): bool
     {
@@ -326,8 +299,6 @@ class UserMapper
      * @return bool
      */
     /**
-     * @param string $username
-     * @return bool
      */
     public static function saveTimestampByUsername(string $username): bool
     {
@@ -348,8 +319,6 @@ class UserMapper
      * @return bool
      */
     /**
-     * @param string $username
-     * @return bool
      */
     public static function resetFailedLoginsByUsername(string $username): bool
     {
@@ -371,8 +340,6 @@ class UserMapper
      * @return bool
      */
     /**
-     * @param string $username
-     * @return bool
      */
     public static function setFailedLoginByUsername(string $username): bool
     {
@@ -394,8 +361,6 @@ class UserMapper
      * @return bool
      */
     /**
-     * @param int $user_id
-     * @return bool
      */
     public static function clearRememberMeToken(int $user_id): bool
     {
@@ -416,8 +381,6 @@ class UserMapper
      * @return bool
      */
     /**
-     * @param int $user_id
-     * @return bool
      */
     public static function deleteUser(int $user_id): bool
     {

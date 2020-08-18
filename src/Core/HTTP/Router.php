@@ -19,8 +19,6 @@ use function call_user_func;
 class Router
 {
     /**
-     * @param array $requests
-     * @param       $class
      */
     public static function processRequests(array $requests, $class): void
     {

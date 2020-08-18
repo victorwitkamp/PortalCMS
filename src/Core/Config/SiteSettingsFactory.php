@@ -15,7 +15,6 @@ use PortalCMS\Core\HTTP\Request;
 class SiteSettingsFactory
 {
     /**
-     * @return array
      */
     public static function updateRequest(): array
     {
