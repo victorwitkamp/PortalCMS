@@ -32,14 +32,14 @@ class EmailAttachmentMapper
     {
         $stmt = Database::conn()->prepare('SELECT * FROM mail_attachments where mail_id = ?');
         $stmt->execute([ $mailId ]);
-        ($stmt->rowCount() > 0) ? $stmt->fetchAll(PDO::FETCH_OBJ) : null;
+        return ($stmt->rowCount() > 0) ? $stmt->fetchAll(PDO::FETCH_OBJ) : null;
     }
 
     public static function getByTemplateId(int $templateId): ?array
     {
         $stmt = Database::conn()->prepare('SELECT * FROM mail_attachments where template_id = ?');
         $stmt->execute([ $templateId ]);
-        ($stmt->rowCount() > 0) ? $stmt->fetchAll(PDO::FETCH_OBJ) : null;
+        return ($stmt->rowCount() > 0) ? $stmt->fetchAll(PDO::FETCH_OBJ) : null;
     }
 
     public static function deleteById(int $id): bool

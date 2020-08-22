@@ -63,7 +63,7 @@ class SMTPTransport
         return $this->send();
     }
 
-     public function verifyMessage(): bool
+    public function verifyMessage(): bool
     {
         if (empty($this->emailMessage->recipients)) {
             $this->error = 'Recipients incompleet';
@@ -122,10 +122,10 @@ class SMTPTransport
     {
         if (!empty($this->emailMessage->attachments)) {
             foreach ($this->emailMessage->attachments as $attachment) {
-                $name = $attachment['name'] . $attachment['extension'];
-                $fullPath = DIR_ROOT . $attachment['path'] . $name;
+                $name = $attachment->name . $attachment->extension;]
+                $fullPath = DIR_ROOT . $attachment->path . $name;
                 try {
-                    $this->PHPMailer->addAttachment($fullPath, $name, $attachment['encoding'], $attachment['type']);
+                    $this->PHPMailer->addAttachment($fullPath, $name, $attachment->encoding, $attachment['type']);
                 } catch (Exception $e) {
                     echo 'Caught exception: ', $e->getMessage(), "\n";
                 }
@@ -136,12 +136,11 @@ class SMTPTransport
     public function send(): bool
     {
         try {
-            $this->PHPMailer->send();
+            return $this->PHPMailer->send();
         } catch (Exception $e) {
             $this->error = $e->errorMessage();
         } finally {
             $this->emailMessage = null;
-            return true;
         }
     }
 }
