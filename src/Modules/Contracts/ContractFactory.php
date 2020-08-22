@@ -16,12 +16,47 @@ use PortalCMS\Modules\Invoices\InvoiceMapper;
  * Class : Contract (Contract.php)
  * Details : Class for the contracts of bands who rent a practice room
  */
-class ContractModel
+class ContractFactory
 {
+    public static function getById(int $id) : Contract
+    {
+        $mappedContract = ContractMapper::getById($id);
+        $contractContact = new ContractContact(
+            $mappedContract->bandleider_naam,
+            $mappedContract->bandleider_adres,
+            $mappedContract->bandleider_postcode,
+            $mappedContract->bandleider_woonplaats,
+            $mappedContract->bandleider_geboortedatum,
+            $mappedContract->bandleider_telefoonnummer1,
+            $mappedContract->bandleider_telefoonnummer2,
+            $mappedContract->bandleider_email,
+            (int) $mappedContract->bandleider_bsn
+        );
+        return new Contract(
+            $mappedContract->id,
+            $mappedContract->beuk_vertegenwoordiger,
+            $mappedContract->band_naam,
+            $mappedContract->bandcode,
+            $contractContact,
+            (int) $mappedContract->huur_oefenruimte_nr,
+            $mappedContract->huur_dag,
+            $mappedContract->huur_start,
+            $mappedContract->huur_einde,
+            (int) $mappedContract->huur_kast_nr,
+            (int) $mappedContract->kosten_ruimte,
+            (int) $mappedContract->kosten_kast,
+            (int) $mappedContract->kosten_totaal,
+            (int) $mappedContract->kosten_borg,
+            $mappedContract->contract_ingangsdatum,
+            $mappedContract->contract_einddatum,
+            $mappedContract->contract_datum
+        );
+    }
+
     public static function new(): bool
     {
-        $kosten_ruimte = (int)Request::post('kosten_ruimte', true);
-        $kosten_kast = (int)Request::post('kosten_kast', true);
+        $kosten_ruimte = (int) Request::post('kosten_ruimte', true);
+        $kosten_kast = (int) Request::post('kosten_kast', true);
         $kosten_totaal = $kosten_ruimte + $kosten_kast;
 
         $contractContact = new ContractContact((string)Request::post('bandleider_naam', true), (string)Request::post('bandleider_adres', true), (string)Request::post('bandleider_postcode', true), (string)Request::post('bandleider_woonplaats', true), (string)Request::post('bandleider_geboortedatum', true), (string)Request::post('bandleider_telefoonnummer1', true), (string)Request::post('bandleider_telefoonnummer2', true), (string)Request::post('bandleider_email', true), (int)Request::post('bandleider_bsn', true));
@@ -35,12 +70,10 @@ class ContractModel
         return false;
     }
 
-    /**
-     */
     public static function update(): bool
     {
-        $kosten_ruimte = (int)Request::post('kosten_ruimte', true);
-        $kosten_kast = (int)Request::post('kosten_kast', true);
+        $kosten_ruimte = (int) Request::post('kosten_ruimte', true);
+        $kosten_kast = (int) Request::post('kosten_kast', true);
         $kosten_totaal = $kosten_ruimte + $kosten_kast;
 
         $contractContact = new ContractContact((string)Request::post('bandleider_naam', true), (string)Request::post('bandleider_adres', true), (string)Request::post('bandleider_postcode', true), (string)Request::post('bandleider_woonplaats', true), (string)Request::post('bandleider_geboortedatum', true), (string)Request::post('bandleider_telefoonnummer1', true), (string)Request::post('bandleider_telefoonnummer2', true), (string)Request::post('bandleider_email', true), (int)Request::post('bandleider_bsn', true));
@@ -57,16 +90,6 @@ class ContractModel
         return false;
     }
 
-    /**
-     * @param int $id
-     * @return bool
-     */
-    /**
-     * @param int $id
-     * @return bool
-     */
-    /**
-     */
     public static function delete(int $id): bool
     {
         $contract = ContractMapper::getById($id);

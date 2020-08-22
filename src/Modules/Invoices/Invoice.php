@@ -15,23 +15,21 @@ class Invoice
 {
     public $id;
     public $contract_id;
+    public $year;
+    public $month;
     public $factuurnummer;
+    public $factuurdatum;
     public $status;
     public $mail_id;
 
-    /**
-     * Invoice constructor.
-     * @param int|null $id
-     * @param int|null $contract_id
-     * @param int|null $factuurnummer
-     * @param int|null $status
-     * @param int|null $mail_id
-     */
-    public function __construct(int $id = null, int $contract_id = null, int $factuurnummer = null, int $status = null, int $mail_id = null)
+    public function __construct(int $id = null, int $contract_id = null, int $year = null, int $month = null, int $factuurnummer = null, string $factuurdatum = null, int $status = null, int $mail_id = null)
     {
         $this->id = $id;
         $this->contract_id = $contract_id;
+        $this->year = $year;
+        $this->month = $month;
         $this->factuurnummer = $factuurnummer;
+        $this->factuurdatum = $factuurdatum;
         $this->status = $status;
         $this->mail_id = $mail_id;
     }

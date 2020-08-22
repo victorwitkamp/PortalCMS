@@ -14,7 +14,7 @@ use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
-use PortalCMS\Modules\Contracts\ContractModel;
+use PortalCMS\Modules\Contracts\ContractFactory;
 
 /**
  * Class ContractsController
@@ -35,19 +35,19 @@ class ContractsController extends Controller
 
     public static function newContract() : void
     {
-        ContractModel::new();
+        ContractFactory::new();
         Redirect::to('Contracts/');
     }
 
     public static function updateContract() : void
     {
-        ContractModel::update();
+        ContractFactory::update();
         Redirect::to('Contracts/');
     }
 
     public static function deleteContract() : void
     {
-        if (ContractModel::delete((int)Request::post('id'))) {
+        if (ContractFactory::delete((int)Request::post('id'))) {
             Redirect::to('Contracts/');
         }
     }

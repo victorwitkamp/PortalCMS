@@ -16,8 +16,6 @@ use PortalCMS\Core\Database\Database;
  */
 class ContractMapper
 {
-    /**
-     */
     public static function get(): ?array
     {
         $stmt = Database::conn()->prepare('SELECT * FROM contracts ORDER BY id');
@@ -28,8 +26,6 @@ class ContractMapper
         return null;
     }
 
-    /**
-     */
     public static function getById(int $Id): ?object
     {
         $stmt = Database::conn()->prepare('SELECT * FROM contracts WHERE id = ? LIMIT 1');
@@ -61,11 +57,6 @@ class ContractMapper
         return ($stmt->rowCount() === 1);
     }
 
-    /**
-     * @return int|null
-     */
-    /**
-     */
     public static function lastInsertedId(): ?int
     {
         $id = Database::conn()->query('SELECT max(id) from contracts')->fetchColumn();
@@ -75,16 +66,6 @@ class ContractMapper
         return null;
     }
 
-    /**
-     * @param Contract $contract
-     * @return bool
-     */
-    /**
-     * @param Contract $contract
-     * @return bool
-     */
-    /**
-     */
     public static function update(Contract $contract): bool
     {
         $stmt = Database::conn()->prepare('UPDATE contracts
@@ -100,16 +81,6 @@ class ContractMapper
         return ($stmt->rowCount() === 1);
     }
 
-    /**
-     * @param int $id
-     * @return bool
-     */
-    /**
-     * @param int $id
-     * @return bool
-     */
-    /**
-     */
     public static function delete(int $id): bool
     {
         $stmt = Database::conn()->prepare('DELETE FROM contracts WHERE id = ? LIMIT 1');

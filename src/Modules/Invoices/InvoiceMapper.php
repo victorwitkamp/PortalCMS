@@ -16,8 +16,6 @@ use PortalCMS\Core\Database\Database;
  */
 class InvoiceMapper
 {
-    /**
-     */
     public static function delete(int $id): bool
     {
         $stmt = Database::conn()->prepare('DELETE FROM invoices WHERE id = ? LIMIT 1');
@@ -25,8 +23,6 @@ class InvoiceMapper
         return ($stmt->rowCount() === 1);
     }
 
-    /**
-     */
     public static function getById(int $id): ?object
     {
         $stmt = Database::conn()->prepare('SELECT * FROM invoices WHERE id = ? LIMIT 1');
@@ -34,8 +30,6 @@ class InvoiceMapper
         return ($stmt->rowCount() === 1) ? $stmt->fetch(PDO::FETCH_OBJ) : null;
     }
 
-    /**
-     */
     public static function getByFactuurnummer(string $factuurnummer): ?object
     {
         $stmt = Database::conn()->prepare('SELECT * FROM invoices WHERE factuurnummer = ? LIMIT 1');
@@ -43,8 +37,6 @@ class InvoiceMapper
         return ($stmt->rowCount() === 1) ? $stmt->fetch(PDO::FETCH_OBJ) : null;
     }
 
-    /**
-     */
     public static function getByContractId(int $contractId): ?array
     {
         $stmt = Database::conn()->prepare('SELECT * FROM invoices where contract_id = ?');
@@ -52,8 +44,6 @@ class InvoiceMapper
         return ($stmt->rowCount() > 0) ? $stmt->fetchAll(PDO::FETCH_OBJ) : null;
     }
 
-    /**
-     */
     public static function getByContractIdAndYear(int $contractId, int $year): ?array
     {
         $stmt = Database::conn()->prepare('SELECT * FROM invoices where contract_id = ? AND year = ?');
@@ -61,16 +51,12 @@ class InvoiceMapper
         return ($stmt->rowCount() > 0) ? $stmt->fetchAll(PDO::FETCH_OBJ) : null;
     }
 
-    /**
-     */
     public static function getAll(): ?array
     {
         $stmt = Database::conn()->query('SELECT * FROM invoices ORDER BY factuurnummer');
         return ($stmt->rowCount() > 0) ? $stmt->fetchAll(PDO::FETCH_OBJ) : null;
     }
 
-    /**
-     */
     public static function getByYear(int $year): ?array
     {
         $stmt = Database::conn()->prepare('SELECT * FROM invoices WHERE year = ? ORDER BY factuurnummer');
@@ -78,8 +64,6 @@ class InvoiceMapper
         return ($stmt->rowCount() > 0) ? $stmt->fetchAll(PDO::FETCH_OBJ) : null;
     }
 
-    /**
-     */
     public static function getInvoiceCountByContractIdAndYear(int $contractId, int $year): int
     {
         $stmt = Database::conn()->prepare('SELECT id FROM invoices WHERE contract_id = ? AND year = ?');
@@ -87,16 +71,6 @@ class InvoiceMapper
         return $stmt->rowCount();
     }
 
-    /**
-     * @param int $year
-     * @return int
-     */
-    /**
-     * @param int $year
-     * @return int
-     */
-    /**
-     */
     public static function getInvoiceCountByYear(int $year): int
     {
         $stmt = Database::conn()->prepare('SELECT id FROM invoices WHERE year = ?');
@@ -104,14 +78,6 @@ class InvoiceMapper
         return $stmt->rowCount();
     }
 
-    /**
-     * @return int
-     */
-    /**
-     * @return int
-     */
-    /**
-     */
     public static function getInvoiceCount(): int
     {
         $stmt = Database::conn()->prepare('SELECT id FROM invoices');
@@ -119,38 +85,12 @@ class InvoiceMapper
         return $stmt->rowCount();
     }
 
-    /**
-     * @return array
-     */
-    /**
-     * @return array
-     */
-    /**
-     */
     public static function getYears(): array
     {
         $stmt = Database::conn()->query('SELECT distinct year FROM invoices');
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * @param int    $contract_id
-     * @param string $factuurnummer
-     * @param int    $year
-     * @param int    $month
-     * @param string $factuurdatum
-     * @return bool
-     */
-    /**
-     * @param int    $contract_id
-     * @param string $factuurnummer
-     * @param int    $year
-     * @param int    $month
-     * @param string $factuurdatum
-     * @return bool
-     */
-    /**
-     */
     public static function create(int $contract_id, string $factuurnummer, int $year, int $month, string $factuurdatum): bool
     {
         $stmt = Database::conn()->prepare('INSERT INTO invoices(id, contract_id, factuurnummer, year, month, factuurdatum, vervaldatum)
@@ -158,18 +98,6 @@ class InvoiceMapper
         return ($stmt->execute([ $contract_id, $factuurnummer, $year, $month, $factuurdatum ]));
     }
 
-    /**
-     * @param int $invoice_id
-     * @param int $mail_id
-     * @return bool
-     */
-    /**
-     * @param int $invoice_id
-     * @param int $mail_id
-     * @return bool
-     */
-    /**
-     */
     public static function updateMailId(int $invoice_id, int $mail_id): bool
     {
         $stmt = Database::conn()->prepare('UPDATE invoices SET mail_id = ? WHERE id = ? LIMIT 1');
@@ -177,18 +105,6 @@ class InvoiceMapper
         return ($stmt->rowCount() === 1);
     }
 
-    /**
-     * @param int $invoice_id
-     * @param int $status
-     * @return bool
-     */
-    /**
-     * @param int $invoice_id
-     * @param int $status
-     * @return bool
-     */
-    /**
-     */
     public static function updateStatus(int $invoice_id, int $status): bool
     {
         $stmt = Database::conn()->prepare('UPDATE invoices SET status = ? WHERE id = ? LIMIT 1');
