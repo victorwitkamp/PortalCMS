@@ -53,23 +53,12 @@ class InvoiceHelper
 
     public static function create(int $year, string $month, array $contract_ids, string $factuurdatum): bool
     {
-        if (empty($factuurdatum)) {
-            Session::add('feedback_negative', 'Geen factuurdatum opgegeven.');
-        } elseif (empty($year)) {
-            Session::add('feedback_negative', 'Incompleet verzoek.');
-        } elseif (empty($month)) {
-            Session::add('feedback_negative', 'Incompleet verzoek.');
-        } elseif (empty($contract_ids)) {
-            Session::add('feedback_negative', 'Incompleet verzoek.');
-        } else {
-            foreach ($contract_ids as $contract_id) {
-                if (!self::createInvoiceAction($year, $month, (int)$contract_id, $factuurdatum)) {
-                    return false;
-                }
+        foreach ($contract_ids as $contract_id) {
+            if (!self::createInvoiceAction($year, $month, (int)$contract_id, $factuurdatum)) {
+                return false;
             }
-            return true;
         }
-        return false;
+        return true;
     }
 
     public static function createInvoiceAction(int $year, string $month, int $contract_id, string $factuurdatum): bool
@@ -108,7 +97,7 @@ class InvoiceHelper
         if ($sum !== null) {
             return '&euro; ' . $sum;
         }
-        return null;
+        return '';
     }
 
     public static function getInvoiceSumById(int $id): ?int

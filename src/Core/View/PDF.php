@@ -44,24 +44,24 @@ class PDF extends TCPDF
 //    public function config()
 //    {
 
-        //        define('K_TCPDF_EXTERNAL_CONFIG', true);
-        //        define('K_PATH_MAIN', DIR_VENDOR . 'tecnickcom/tcpdf/');
-        //        define('K_PATH_URL', DIR_VENDOR . 'tecnickcom/tcpdf/');
-        //        define('K_PATH_FONTS', K_PATH_MAIN . 'fonts/');
-        //        define('K_PATH_IMAGES', DIR_IMG);
-        //        define('K_PATH_CACHE', DIR_TEMP);
-        //        define('K_BLANK_IMAGE', '_blank.png');
-        //        define('PDF_FONT_NAME_MAIN', 'helvetica');
-        //        define('PDF_FONT_SIZE_MAIN', 10);
-        //        define('PDF_FONT_NAME_DATA', 'helvetica');
-        //        define('PDF_FONT_SIZE_DATA', 8);
-        //        define('HEAD_MAGNIFICATION', 1.1);
-        //        define('K_CELL_HEIGHT_RATIO', 1.25);
-        //        define('K_TITLE_MAGNIFICATION', 1.3);
-        //        define('K_SMALL_RATIO', 2 / 3);
-        //        define('K_THAI_TOPCHARS', true);
-        //        define('K_TCPDF_CALLS_IN_HTML', true);
-        //        define('K_TCPDF_THROW_EXCEPTION_ERROR', false);
+    //        define('K_TCPDF_EXTERNAL_CONFIG', true);
+    //        define('K_PATH_MAIN', DIR_VENDOR . 'tecnickcom/tcpdf/');
+    //        define('K_PATH_URL', DIR_VENDOR . 'tecnickcom/tcpdf/');
+    //        define('K_PATH_FONTS', K_PATH_MAIN . 'fonts/');
+    //        define('K_PATH_IMAGES', DIR_IMG);
+    //        define('K_PATH_CACHE', DIR_TEMP);
+    //        define('K_BLANK_IMAGE', '_blank.png');
+    //        define('PDF_FONT_NAME_MAIN', 'helvetica');
+    //        define('PDF_FONT_SIZE_MAIN', 10);
+    //        define('PDF_FONT_NAME_DATA', 'helvetica');
+    //        define('PDF_FONT_SIZE_DATA', 8);
+    //        define('HEAD_MAGNIFICATION', 1.1);
+    //        define('K_CELL_HEIGHT_RATIO', 1.25);
+    //        define('K_TITLE_MAGNIFICATION', 1.3);
+    //        define('K_SMALL_RATIO', 2 / 3);
+    //        define('K_THAI_TOPCHARS', true);
+    //        define('K_TCPDF_CALLS_IN_HTML', true);
+    //        define('K_TCPDF_THROW_EXCEPTION_ERROR', false);
 //    }
 
     public function render(string $name): string
@@ -83,4 +83,3 @@ class PDF extends TCPDF
         return false;
     }
 }
-
