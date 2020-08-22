@@ -80,7 +80,7 @@ class InvoiceHelper
         }
         $factuurnummer = $year . $contract->bandcode . $month;
         if (empty(InvoiceMapper::getByFactuurnummer($factuurnummer))) {
-            if (InvoiceMapper::create($contract_id, $factuurnummer, $year, (int)$month, $factuurdatum)) {
+            if (InvoiceMapper::create($contract_id, $factuurnummer, $year, (int) $month, $factuurdatum)) {
                 $invoice = InvoiceMapper::getByFactuurnummer($factuurnummer);
                 if ($invoice !== null) {
                     $kosten_ruimte = (int) $contract->kosten_ruimte;
@@ -148,46 +148,31 @@ class InvoiceHelper
     public static function render(int $id): ?string
     {
         $invoice = InvoiceFactory::get($id);
-
         if ($invoice !== null) {
-//            $invoiceitems = ;
-//            $contract = ContractMapper::getById($invoice->contract_id);
-//            $contract = ;
-//            if ($contract !== null) {
-                $pdf = new InvoicePDF($invoice, InvoiceItemMapper::getByInvoiceId($id), ContractFactory::getById($invoice->contract_id));
+            $pdf = new InvoicePDF($invoice, InvoiceItemMapper::getByInvoiceId($id), ContractFactory::getById($invoice->contract_id));
 //                ob_end_clean();
-//                return $pdf->Output($invoice->factuurnummer . '.pdf');
-//                return PDFFactory::renderInvoice($invoice, $invoiceitems, $contract);
             $pdf->initHeader();
             $pdf->initContent();
             $pdf->initFooter();
-                return $pdf->render($invoice->factuurnummer . '.pdf');
-//            }
+            return $pdf->render($invoice->factuurnummer . '.pdf');
         }
         return null;
     }
 
     public static function write(int $id): bool
     {
-//        if ($id !== null) {
-//            $invoice = InvoiceMapper::getById($id);
-            $invoice = InvoiceFactory::get($id);
-            if ($invoice !== null) {
-//                $contract = ContractMapper::getById($invoice->contract_id);
-//                if ($contract !== null) {
 
-                    $pdf = new InvoicePDF($invoice, InvoiceItemMapper::getByInvoiceId($id), ContractFactory::getById($invoice->contract_id));
-                    if ($pdf->writeToFile($_SERVER['DOCUMENT_ROOT'] . 'content/invoices/' . $invoice->factuurnummer . '.pdf')) {
-                        InvoiceMapper::updateStatus($id, 1);
-                        return true;
-                    }
-                    Session::add('feedback_negative', 'Fout bij het opslaan.');
-//                }
+//            $invoice = InvoiceMapper::getById($id);
+        $invoice = InvoiceFactory::get($id);
+        if ($invoice !== null) {
+            $pdf = new InvoicePDF($invoice, InvoiceItemMapper::getByInvoiceId($id), ContractFactory::getById($invoice->contract_id));
+            if ($pdf->writeToFile($_SERVER['DOCUMENT_ROOT'] . 'content/invoices/' . $invoice->factuurnummer . '.pdf')) {
+                InvoiceMapper::updateStatus($id, 1);
+                return true;
             }
-            Session::add('feedback_negative', 'Fout bij het opslaan. Factuur niet gevonden.');
-//        } else {
-//            Session::add('feedback_negative', 'Fout bij het opslaan. Geen ID opgegeven.');
-//        }
+            Session::add('feedback_negative', 'Fout bij het opslaan.');
+        }
+        Session::add('feedback_negative', 'Fout bij het opslaan. Factuur niet gevonden.');
         return false;
     }
 
@@ -202,9 +187,6 @@ class InvoiceHelper
         return true;
     }
 
-    /**
-     * @param int|null $id
-     */
     public static function deleteItem(int $id = null): bool
     {
         if (!InvoiceItemMapper::exists($id)) {

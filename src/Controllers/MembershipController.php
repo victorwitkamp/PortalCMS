@@ -33,8 +33,9 @@ class MembershipController extends Controller
 
     public function __construct()
     {
-        parent::__construct();
         Authentication::checkAuthentication();
+        parent::__construct();
+
         Router::processRequests($this->requests, __CLASS__);
     }
 

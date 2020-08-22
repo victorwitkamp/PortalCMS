@@ -16,63 +16,53 @@ class PDF extends TCPDF
 
     public function __construct()
     {
+        parent::__construct('P', 'mm', 'A4', true, 'UTF-8', true);
+
         if (self::$defined === false) {
-            self::config();
+            $this->SetCreator(SiteSetting::get('site_name'));
+            $this->SetAuthor(SiteSetting::get('site_name'));
+            $this->SetHeaderData('logo.jpg', 30, 'Factuur', "Poppodium de Beuk\nbeukonline.nl", [ 0, 64, 255 ], [
+                0,
+                64,
+                128
+            ]);
+            $this->setFooterData([ 0, 64, 0 ], [ 0, 64, 128 ]);
+            $this->setPrintHeader(false);
+            $this->setPrintFooter(false);
+            $this->SetDefaultMonospacedFont('courier');
+            $this->SetMargins(15, 50, 15);
+            $this->setHeaderMargin(10);
+            $this->setFooterMargin(10);
+            $this->SetAutoPageBreak(true, 25);
+            $this->setImageScale(1.25);
+            $this->setFontSubsetting(false);
+            $this->AddPage();
+            self::$defined = true;
         }
-        parent::__construct(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', true);
-        $this->setPrintHeader(false);
-        $this->setPrintFooter(false);
-        $this->SetCreator(PDF_CREATOR);
-        $this->SetAuthor(PDF_AUTHOR);
-        $this->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-        $this->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-        $this->setHeaderMargin(PDF_MARGIN_HEADER);
-        $this->setFooterMargin(PDF_MARGIN_FOOTER);
-        $this->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
-        $this->setImageScale(PDF_IMAGE_SCALE_RATIO);
-        $this->setFontSubsetting(false);
-        $this->AddPage();
     }
 
-    public static function config()
-    {
-        define('K_TCPDF_EXTERNAL_CONFIG', true);
-        define('K_PATH_MAIN', DIR_VENDOR . 'tecnickcom/tcpdf/');
-        define('K_PATH_URL', DIR_VENDOR . 'tecnickcom/tcpdf/');
-        define('K_PATH_FONTS', K_PATH_MAIN . 'fonts/');
-        define('K_PATH_IMAGES', DIR_IMG);
-        define('PDF_HEADER_LOGO', 'logo.jpg');
-        define('PDF_HEADER_LOGO_WIDTH', 30);
-        define('K_PATH_CACHE', DIR_TEMP);
-        define('K_BLANK_IMAGE', '_blank.png');
-        define('PDF_PAGE_FORMAT', 'A4');
-        define('PDF_PAGE_ORIENTATION', 'P');
-        define('PDF_CREATOR', SiteSetting::get('site_name'));
-        define('PDF_AUTHOR', SiteSetting::get('site_name'));
-        define('PDF_HEADER_TITLE', 'Factuur');
-        define('PDF_HEADER_STRING', "Poppodium de Beuk\nbeukonline.nl");
-        define('PDF_UNIT', 'mm');
-        define('PDF_MARGIN_HEADER', 10);
-        define('PDF_MARGIN_FOOTER', 10);
-        define('PDF_MARGIN_TOP', 50);
-        define('PDF_MARGIN_BOTTOM', 25);
-        define('PDF_MARGIN_LEFT', 15);
-        define('PDF_MARGIN_RIGHT', 15);
-        define('PDF_FONT_NAME_MAIN', 'helvetica');
-        define('PDF_FONT_SIZE_MAIN', 10);
-        define('PDF_FONT_NAME_DATA', 'helvetica');
-        define('PDF_FONT_SIZE_DATA', 8);
-        define('PDF_FONT_MONOSPACED', 'courier');
-        define('PDF_IMAGE_SCALE_RATIO', 1.25);
-        define('HEAD_MAGNIFICATION', 1.1);
-        define('K_CELL_HEIGHT_RATIO', 1.25);
-        define('K_TITLE_MAGNIFICATION', 1.3);
-        define('K_SMALL_RATIO', 2 / 3);
-        define('K_THAI_TOPCHARS', true);
-        define('K_TCPDF_CALLS_IN_HTML', true);
-        define('K_TCPDF_THROW_EXCEPTION_ERROR', false);
-        self::$defined = true;
-    }
+//    public function config()
+//    {
+
+        //        define('K_TCPDF_EXTERNAL_CONFIG', true);
+        //        define('K_PATH_MAIN', DIR_VENDOR . 'tecnickcom/tcpdf/');
+        //        define('K_PATH_URL', DIR_VENDOR . 'tecnickcom/tcpdf/');
+        //        define('K_PATH_FONTS', K_PATH_MAIN . 'fonts/');
+        //        define('K_PATH_IMAGES', DIR_IMG);
+        //        define('K_PATH_CACHE', DIR_TEMP);
+        //        define('K_BLANK_IMAGE', '_blank.png');
+        //        define('PDF_FONT_NAME_MAIN', 'helvetica');
+        //        define('PDF_FONT_SIZE_MAIN', 10);
+        //        define('PDF_FONT_NAME_DATA', 'helvetica');
+        //        define('PDF_FONT_SIZE_DATA', 8);
+        //        define('HEAD_MAGNIFICATION', 1.1);
+        //        define('K_CELL_HEIGHT_RATIO', 1.25);
+        //        define('K_TITLE_MAGNIFICATION', 1.3);
+        //        define('K_SMALL_RATIO', 2 / 3);
+        //        define('K_THAI_TOPCHARS', true);
+        //        define('K_TCPDF_CALLS_IN_HTML', true);
+        //        define('K_TCPDF_THROW_EXCEPTION_ERROR', false);
+//    }
 
     public function render(string $name): string
     {
@@ -93,3 +83,4 @@ class PDF extends TCPDF
         return false;
     }
 }
+

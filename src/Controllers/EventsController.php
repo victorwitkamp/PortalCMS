@@ -28,7 +28,9 @@ use PortalCMS\Modules\Calendar\EventModel;
 class EventsController extends Controller
 {
     private $requests = [
-        'addEvent' => 'POST', 'updateEvent' => 'POST', 'deleteEvent' => 'POST'
+        'addEvent' => 'POST',
+        'updateEvent' => 'POST',
+        'deleteEvent' => 'POST'
     ];
 
     public function __construct()
@@ -125,14 +127,6 @@ class EventsController extends Controller
         echo json_encode(EventModel::getByDate((string)Request::get('start'), (string)Request::get('end')));
     }
 
-    /**
-     * @return bool
-     */
-    /**
-     * @return bool
-     */
-    /**
-     */
     public function updateEventDate(): bool
     {
         return EventMapper::updateDate((int)Request::post('id'), (string)Request::post('start'), (string)Request::post('end'));
