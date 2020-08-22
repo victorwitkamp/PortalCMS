@@ -102,13 +102,11 @@ class InvoiceHelper
         return false;
     }
 
-    public static function displayInvoiceSumById(int $id = null): ?string
+    public static function displayInvoiceSumById(int $id): string
     {
-        if ($id !== null) {
-            $sum = self::getInvoiceSumById($id);
-            if ($sum !== null) {
-                return '&euro; ' . $sum;
-            }
+        $sum = self::getInvoiceSumById($id);
+        if ($sum !== null) {
+            return '&euro; ' . $sum;
         }
         return null;
     }
@@ -161,11 +159,12 @@ class InvoiceHelper
 
     public static function write(int $id): bool
     {
-
-//            $invoice = InvoiceMapper::getById($id);
         $invoice = InvoiceFactory::get($id);
         if ($invoice !== null) {
             $pdf = new InvoicePDF($invoice, InvoiceItemMapper::getByInvoiceId($id), ContractFactory::getById($invoice->contract_id));
+            $pdf->initHeader();
+            $pdf->initContent();
+            $pdf->initFooter();
             if ($pdf->writeToFile($_SERVER['DOCUMENT_ROOT'] . 'content/invoices/' . $invoice->factuurnummer . '.pdf')) {
                 InvoiceMapper::updateStatus($id, 1);
                 return true;
@@ -176,7 +175,7 @@ class InvoiceHelper
         return false;
     }
 
-    public static function createItem(int $invoiceId = null, string $name = null, int $price = null): bool
+    public static function createItem(int $invoiceId, string $name, int $price): bool
     {
         if (!InvoiceItemMapper::create($invoiceId, $name, $price)) {
             Session::add('feedback_negative', 'Toevoegen van factuuritem mislukt.');
@@ -187,7 +186,7 @@ class InvoiceHelper
         return true;
     }
 
-    public static function deleteItem(int $id = null): bool
+    public static function deleteItem(int $id): bool
     {
         if (!InvoiceItemMapper::exists($id)) {
             Session::add('feedback_negative', 'Kan factuuritem niet verwijderen. Factuuritem bestaat niet.');
