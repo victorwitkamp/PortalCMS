@@ -11,4 +11,4 @@ require __DIR__ . '/../../../../src/Init.php';
 require __DIR__ . '/config.php';
 require __DIR__ . '/getGraphUser.php';
 
-LoginController::loginWithFacebook((int)$facebookUser['id']);
+LoginController::loginWithFacebook((int) $facebookUser['id']);

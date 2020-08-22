@@ -59,7 +59,7 @@ class EmailTemplateManager
         $this->emailTemplate->subject = $subject;
         $this->emailTemplate->body = $body;
         $this->emailTemplate->status = 1;
-        $this->emailTemplate->CreatedBy = (int)Session::get('user_id');
+        $this->emailTemplate->CreatedBy = (int) Session::get('user_id');
         return true;
     }
 
