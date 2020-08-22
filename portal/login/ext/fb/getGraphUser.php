@@ -36,7 +36,7 @@ if (!$accessToken->isLongLived()) {
     }
 }
 
-$_SESSION['fb_access_token'] = (string)$accessToken;
+$_SESSION['fb_access_token'] = (string) $accessToken;
 
 try {
     $response = $fb->get('/me?fields=id,name,email', $_SESSION['fb_access_token']);

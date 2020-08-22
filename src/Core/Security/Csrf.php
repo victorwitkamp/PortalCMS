@@ -39,7 +39,7 @@ class Csrf
         $csrf_token = Session::get('csrf_token');
 
         if (empty($csrf_token) || $max_time + $stored_time <= time()) {
-            $csrf_token = md5(uniqid((string)mt_rand(), true));
+            $csrf_token = md5(uniqid((string) mt_rand(), true));
             Session::set('csrf_token', $csrf_token);
             Session::set('csrf_token_time', time());
         }

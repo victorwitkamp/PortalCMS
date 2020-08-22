@@ -98,7 +98,7 @@ class EmailAttachment
             return false;
         }
         foreach ($attachmentIds as $attachmentId) {
-            if (EmailAttachmentMapper::deleteById((int)$attachmentId)) {
+            if (EmailAttachmentMapper::deleteById((int) $attachmentId)) {
                 ++$deleted;
             } else {
                 ++$error;
