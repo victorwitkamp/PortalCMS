@@ -17,30 +17,16 @@ class Text
 {
     private static $texts;
 
-    /**
-     * @param null $data
-     * @return string|null
-     */
-    public static function get($key, $data = null)
+    public static function get($key, $data = null) : ?string
     {
-        if (!$key) {
-            return null;
-        }
-
-        if ($data) {
+        if ($data !== null) {
             foreach ($data as $var => $value) {
                 ${$var} = $value;
             }
         }
-
         if (!self::$texts) {
             self::$texts = include DIR_CONFIG . 'texts.php';
         }
-
-        if (!array_key_exists($key, self::$texts)) {
-            return 'LABEL_NOT_FOUND';
-        }
-
-        return strtoupper(self::$texts[$key]);
+        return (!array_key_exists($key, self::$texts)) ? 'LABEL_NOT_FOUND' : strtoupper(self::$texts[$key]);
     }
 }

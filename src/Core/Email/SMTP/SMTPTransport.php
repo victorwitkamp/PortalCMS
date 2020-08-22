@@ -11,9 +11,6 @@ use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 use PortalCMS\Core\Email\Message\EmailMessage;
 
-/**
- * Class Mail
- */
 class SMTPTransport
 {
     /**
@@ -36,9 +33,6 @@ class SMTPTransport
      */
     private $emailMessage;
 
-    /**
-     * SMTPTransport constructor.
-     */
     public function __construct(SMTPConfiguration $config)
     {
         $this->config = $config;
@@ -55,8 +49,6 @@ class SMTPTransport
         return $this->error;
     }
 
-    /**
-     */
     public function sendMail(EmailMessage $emailMessage): bool
     {
         $this->emailMessage = $emailMessage;
@@ -71,9 +63,7 @@ class SMTPTransport
         return $this->send();
     }
 
-    /**
-     */
-    public function verifyMessage(): bool
+     public function verifyMessage(): bool
     {
         if (empty($this->emailMessage->recipients)) {
             $this->error = 'Recipients incompleet';
@@ -103,7 +93,7 @@ class SMTPTransport
         $this->PHPMailer->Username = $this->config->SMTPUser;
         $this->PHPMailer->Password = $this->config->SMTPPass;
         $this->PHPMailer->SMTPDebug = $this->config->SMTPDebug;
-        $this->PHPMailer->Debugoutput = static function($str, $level) {
+        $this->PHPMailer->Debugoutput = static function ($str, $level) {
             file_put_contents(DIR_ROOT . 'phpmailer.log', gmdate('Y-m-d H:i:s') . "\t$level\t$str\n", FILE_APPEND | LOCK_EX);
         };
         $this->PHPMailer->From = $this->config->fromEmail;
@@ -113,14 +103,6 @@ class SMTPTransport
         }
     }
 
-    /**
-     * @return bool
-     */
-    /**
-     * @return bool
-     */
-    /**
-     */
     public function processRecipients(): bool
     {
         if (!empty($this->emailMessage->recipients)) {
@@ -151,14 +133,6 @@ class SMTPTransport
         }
     }
 
-    /**
-     * @return bool
-     */
-    /**
-     * @return bool
-     */
-    /**
-     */
     public function send(): bool
     {
         try {
