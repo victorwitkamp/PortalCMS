@@ -37,11 +37,6 @@ class EmailMessage
      */
     public $recipients = [];
 
-    /**
-     * EmailMessage constructor.
-     * @param array|null $recipients
-     * @param array|null $attachments
-     */
     public function __construct(string $subject, string $body, array $recipients = null, array $attachments = null)
     {
         $this->subject = $subject;

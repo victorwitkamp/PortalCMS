@@ -24,9 +24,9 @@ class SMTPTransport
     private $PHPMailer;
 
     /**
-     * @var mixed variable to collect errors
+     * @var string variable to collect errors
      */
-    private $error;
+    private $error = '';
 
     /**
      * @var EmailMessage $emailMessage An e-mail message
@@ -42,9 +42,8 @@ class SMTPTransport
     /**
      * The different mail sending methods write errors to the error property $this->error,
      * this method simply returns this error / error array.
-     * @return mixed
      */
-    public function getError()
+    public function getError() : string
     {
         return $this->error;
     }
@@ -65,19 +64,15 @@ class SMTPTransport
 
     public function verifyMessage(): bool
     {
-        if (empty($this->emailMessage->recipients)) {
+        if ($this->emailMessage->recipients === null) {
             $this->error = 'Recipients incompleet';
-        } elseif (empty($this->emailMessage->subject)) {
-            $this->error = 'Subject incompleet';
-        } elseif (empty($this->emailMessage->body)) {
-            $this->error = 'Body incompleet';
         } else {
             return true;
         }
         return false;
     }
 
-    public function prepareConfiguration()
+    public function prepareConfiguration(): void
     {
         $this->PHPMailer->CharSet = $this->config->charset;
         $this->PHPMailer->isSMTP();
@@ -118,7 +113,7 @@ class SMTPTransport
         return false;
     }
 
-    public function processAttachments()
+    public function processAttachments() : bool
     {
         if (!empty($this->emailMessage->attachments)) {
             foreach ($this->emailMessage->attachments as $attachment) {
@@ -130,17 +125,21 @@ class SMTPTransport
                     echo 'Caught exception: ', $e->getMessage(), "\n";
                 }
             }
+            return true;
         }
+        return false;
     }
 
     public function send(): bool
     {
         try {
-            return $this->PHPMailer->send();
+            if ($this->PHPMailer->send()) {
+                $this->emailMessage = null;
+                return true;
+            }
         } catch (Exception $e) {
             $this->error = $e->errorMessage();
-        } finally {
-            $this->emailMessage = null;
+            return false;
         }
     }
 }
