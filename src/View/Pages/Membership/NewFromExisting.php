@@ -12,11 +12,11 @@ use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Members\MemberMapper;
 
 $pageName = 'NewFromExisting';
-$selectedYear = (int)Request::get('Year');
+$selectedYear = (int) Request::get('Year');
 if (!isset($selectedYear) || empty($selectedYear)) {
-    $selectedYear = (int)date('Y');
+    $selectedYear = (int) date('Y');
 }
-$selectedPaymentType = (string)Request::get('PaymentType');
+$selectedPaymentType = (string) Request::get('PaymentType');
 if (!isset($selectedPaymentType) || empty($selectedPaymentType)) {
     $selectedPaymentType = 'incasso';
 }
@@ -51,10 +51,8 @@ if (!isset($selectedPaymentType) || empty($selectedPaymentType)) {
                         ?>
                         <li>
                         <a href="/Membership/NewFromExisting?Year=<?= $year ?><?= (!empty($selectedPaymentType)) ? '&PaymentType=' . $selectedPaymentType : '' ?>"><?= $year ?></a>
-                        (<?= MemberMapper::getMemberCountByYear($year) ?>)<?php if ($selectedYear === $year) {
-                            echo ' - Huidige selectie';
-                        } ?>
-                        </li><?php
+                        (<?= MemberMapper::getMemberCountByYear($year) ?>)<?= ($selectedYear === $year) ? ' - Huidige selectie' : ''
+                        ?></li><?php
                     } ?>
                 </ul>
             </div>
