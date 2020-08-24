@@ -55,7 +55,7 @@ if (!isset($year) || empty($year)) {
     </div>
     <div class="container-fluid">
         <?php
-        $members = MemberMapper::getMembers($year);
+        $members = MemberMapper::getMembersByYear($year);
         if (!empty($members)) {
             include_once DIR_VIEW . 'Pages/Membership/inc/table.php';
         } else {

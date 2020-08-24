@@ -17,29 +17,16 @@ use PortalCMS\Core\Database\Database;
  */
 class MemberMapper
 {
-    public static function getMembers(int $year = null, string $paymentType = null): ?array
+    public static function getMembers(): ?array
     {
-        if (!empty($year) && !empty($paymentType)) {
-            return self::getMembersByYearAndPaymentType($year, $paymentType);
-        }
-        if (!empty($year) && empty($paymentType)) {
-            return self::getMembersByYear($year);
-        }
-        if (empty($year) && !empty($paymentType)) {
-            return self::getMembersByPaymentType($paymentType);
-        }
         $stmt = Database::conn()->query('SELECT * FROM members ORDER BY id');
         return ($stmt->rowCount() === 0) ? null : $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
     public static function getMembersByYear(int $year): ?array
     {
-        $stmt = Database::conn()->prepare(
-            'SELECT * FROM members WHERE jaarlidmaatschap = ? ORDER BY id'
-        );
-        $stmt->execute([
-            $year
-        ]);
+        $stmt = Database::conn()->prepare('SELECT * FROM members WHERE jaarlidmaatschap = ? ORDER BY id');
+        $stmt->execute([ $year ]);
         return ($stmt->rowCount() === 0) ? null : $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
@@ -121,27 +108,24 @@ class MemberMapper
         return ($stmt->rowCount() === 1);
     }
 
-    public static function setStatus(int $id, int $status = null) : bool
+    public static function setStatus(int $id, int $status = null): bool
     {
-        $stmt = Database::conn()->prepare(
-            'UPDATE members SET status=? WHERE id=?'
-        );
-        $stmt->execute([$status, $id]);
+        $stmt = Database::conn()->prepare('UPDATE members SET status=? WHERE id=?');
+        $stmt->execute([ $status, $id ]);
         return ($stmt->rowCount() === 1);
     }
 
     public static function new(Member $member): bool
     {
         $stmt = Database::conn()->prepare(
-            'INSERT INTO members
-                        (
+            'INSERT INTO members (
                             id, jaarlidmaatschap, voorletters, voornaam, achternaam, geboortedatum,
                             adres, postcode, huisnummer, woonplaats, telefoon_vast, telefoon_mobiel,
                             emailadres, ingangsdatum, geslacht, nieuwsbrief, vrijwilliger, vrijwilligeroptie1,
                             vrijwilligeroptie2, vrijwilligeroptie3, vrijwilligeroptie4, vrijwilligeroptie5, betalingswijze, iban, machtigingskenmerk, status
                         ) VALUES (
-                                  NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
-                                  )'
+                            NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+                        )'
         );
         return $stmt->execute([
             $member->jaarlidmaatschap, $member->voorletters, $member->voornaam, $member->achternaam, $member->geboortedatum, $member->address->adres, $member->address->postcode, $member->address->huisnummer, $member->address->woonplaats, $member->contactDetails->telefoon_vast, $member->contactDetails->telefoon_mobiel, $member->contactDetails->emailadres, $member->ingangsdatum, $member->geslacht, $member->preferences->nieuwsbrief, $member->preferences->vrijwilliger, $member->preferences->vrijwilligeroptie1, $member->preferences->vrijwilligeroptie2, $member->preferences->vrijwilligeroptie3, $member->preferences->vrijwilligeroptie4, $member->preferences->vrijwilligeroptie5, $member->paymentDetails->betalingswijze, $member->paymentDetails->iban, $member->paymentDetails->machtigingskenmerk, $member->paymentDetails->status

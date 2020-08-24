@@ -72,14 +72,14 @@ if (!isset($selectedPaymentType) || empty($selectedPaymentType)) {
         </div>
 
         <?php
-        if (!empty($selectedYear)) {
+        if (isset($selectedYear) && !empty($selectedYear)) {
             if (isset($selectedPaymentType) && !empty($selectedPaymentType)) {
-                $members = MemberMapper::getMembers($selectedYear, $selectedPaymentType);
+                $members = MemberMapper::getMembersByYearAndPaymentType($selectedYear, $selectedPaymentType);
             } else {
-                $members = MemberMapper::getMembers($selectedYear);
+                $members = MemberMapper::getMembersByYear($selectedYear);
             }
-        } elseif (!empty($selectedPaymentType)) {
-            $members = MemberMapper::getMembers(null, $selectedPaymentType);
+        } elseif (isset($selectedPaymentType) && !empty($selectedPaymentType)) {
+            $members = MemberMapper::getMembersByPaymentType($selectedPaymentType);
         } else {
             $members = MemberMapper::getMembers();
         }
