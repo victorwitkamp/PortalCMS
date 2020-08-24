@@ -9,7 +9,7 @@ $pageName = 'Contract toevoegen';
 $pageType = 'new';
 ?>
 
-<?= $this->layout('layout', [ 'title' => $pageName ]) ?>
+<?= $this->layout('layout', ['title' => $pageName]) ?>
 <?= $this->push('head-extra') ?>
 <?= $this->end() ?>
 <?= $this->push('main-content') ?>

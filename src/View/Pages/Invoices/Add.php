@@ -11,7 +11,7 @@ use PortalCMS\Modules\Contracts\ContractMapper;
 
 $pageName = 'Factuur toevoegen';
 ?>
-<?= $this->layout('layout', [ 'title' => $pageName ]) ?>
+<?= $this->layout('layout', ['title' => $pageName]) ?>
 <?= $this->push('head-extra') ?>
 
     <!-- <script src="/includes/js/jquery-simple-validator.nl.js"></script>

@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 $pageName = 'Wachtwoord vergeten';
 ?>
-<?= $this->layout('layoutLogin', [ 'title' => $pageName ]) ?>
+<?= $this->layout('layoutLogin', ['title' => $pageName]) ?>
 <?= $this->push('head-extra') ?>
 
 <?php //PortalCMS_JS_JQuery_Simple_validator();

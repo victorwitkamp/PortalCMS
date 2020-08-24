@@ -34,7 +34,7 @@ class SiteSetting
     public static function get(string $setting): ?string
     {
         $stmt = Database::conn()->prepare('SELECT string_value FROM site_settings WHERE setting = ?');
-        $stmt->execute([ $setting ]);
+        $stmt->execute([$setting]);
         $value = $stmt->fetch(PDO::FETCH_COLUMN);
         if (!empty($value) && $value !== false) {
             return $value;
@@ -99,7 +99,7 @@ class SiteSetting
      */
     public static function resizeLogo(string $source)
     {
-        [ $width, $height ] = getimagesize($source);
+        [$width, $height] = getimagesize($source);
         if (!$width || !$height) {
             return null;
         }

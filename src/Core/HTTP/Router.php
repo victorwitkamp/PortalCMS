@@ -24,7 +24,7 @@ class Router
     {
         foreach ($requests as $key => $value) {
             if (($value === 'POST') && isset($_POST[$key])) {
-                call_user_func([ $class, $key ]);
+                call_user_func([$class, $key]);
             }
         }
     }

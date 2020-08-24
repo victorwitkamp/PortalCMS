@@ -22,7 +22,7 @@ class UserMapper
                     FROM users
                         WHERE user_name = ?
                         LIMIT 1');
-        $stmt->execute([ $user_name ]);
+        $stmt->execute([$user_name]);
         return ($stmt->rowCount() === 1);
     }
 
@@ -46,7 +46,7 @@ class UserMapper
                         WHERE user_id = :user_id
                         AND user_id IS NOT NULL
                         LIMIT 1');
-        $stmt->execute([ ':user_id' => $Id ]);
+        $stmt->execute([':user_id' => $Id]);
         if ($stmt->rowCount() === 1) {
             return $stmt->fetch(PDO::FETCH_OBJ);
         }
@@ -71,7 +71,7 @@ class UserMapper
                     FROM users
                         WHERE (user_name = ? OR user_email = ?)
                                 LIMIT 1');
-        $stmt->execute([ $username, $username ]);
+        $stmt->execute([$username, $username]);
         if ($stmt->rowCount() === 0) {
             return null;
         }
@@ -111,7 +111,7 @@ class UserMapper
                                 WHERE user_fbid = :user_fbid
                                     AND user_fbid IS NOT NULL
                                         LIMIT 1');
-        $stmt->execute([ ':user_fbid' => $user_fbid ]);
+        $stmt->execute([':user_fbid' => $user_fbid]);
         if ($stmt->rowCount() === 0) {
             return null;
         }
@@ -125,7 +125,7 @@ class UserMapper
                         WHERE user_name = ?
                             OR user_email = ?
                                 LIMIT 1');
-        $stmt->execute([ $usernameOrEmail, $usernameOrEmail ]);
+        $stmt->execute([$usernameOrEmail, $usernameOrEmail]);
         if ($stmt->rowCount() === 0) {
             return null;
         }
@@ -160,7 +160,7 @@ class UserMapper
                 SET user_name = :user_name
                     WHERE user_id = :user_id
                         LIMIT 1');
-        $stmt->execute([ ':user_name' => $newUsername, ':user_id' => $user_id ]);
+        $stmt->execute([':user_name' => $newUsername, ':user_id' => $user_id]);
         return ($stmt->rowCount() === 1);
     }
 
@@ -170,7 +170,7 @@ class UserMapper
                 SET user_fbid = ?
                     WHERE user_id = ?
                         LIMIT 1');
-        $stmt->execute([ $fbid, $user_id ]);
+        $stmt->execute([$fbid, $user_id]);
         return ($stmt->rowCount() === 1);
     }
 
@@ -180,7 +180,7 @@ class UserMapper
                     SET user_remember_me_token = ?
                         WHERE user_id = ?
                             LIMIT 1');
-        $stmt->execute([ $token, $user_id ]);
+        $stmt->execute([$token, $user_id]);
         return ($stmt->rowCount() === 1);
     }
 
@@ -190,7 +190,7 @@ class UserMapper
                     SET session_id = :session_id
                         WHERE user_id = :user_id
                             LIMIT 1');
-        $stmt->execute([ ':session_id' => $sessionId, ':user_id' => $userId ]);
+        $stmt->execute([':session_id' => $sessionId, ':user_id' => $userId]);
         return ($stmt->rowCount() === 1);
     }
 
@@ -200,7 +200,7 @@ class UserMapper
                 SET user_last_login_timestamp = ?
                     WHERE user_name = ?
                         LIMIT 1');
-        $stmt->execute([ date('Y-m-d H:i:s'), $username ]);
+        $stmt->execute([date('Y-m-d H:i:s'), $username]);
         return ($stmt->rowCount() === 1);
     }
 
@@ -211,7 +211,7 @@ class UserMapper
                     WHERE user_name = ?
                         AND user_failed_logins != 0
                             LIMIT 1');
-        $stmt->execute([ $username ]);
+        $stmt->execute([$username]);
         return ($stmt->rowCount() === 1);
     }
 
@@ -222,7 +222,7 @@ class UserMapper
                     WHERE user_name = :user_name
                         OR user_email = :user_email
                             LIMIT 1');
-        $stmt->execute([ ':user_name' => $username, ':user_email' => $username, ':user_last_failed_login' => date('Y-m-d H:i:s') ]);
+        $stmt->execute([':user_name' => $username, ':user_email' => $username, ':user_last_failed_login' => date('Y-m-d H:i:s')]);
         return ($stmt->rowCount() === 1);
     }
 
@@ -232,7 +232,7 @@ class UserMapper
                     SET user_remember_me_token = NULL
                         WHERE user_id = ?
                             LIMIT 1');
-        $stmt->execute([ $user_id ]);
+        $stmt->execute([$user_id]);
         return ($stmt->rowCount() === 1);
     }
 
@@ -241,7 +241,7 @@ class UserMapper
         $stmt = Database::conn()->prepare('DELETE FROM users
                 WHERE user_id = ?
                     LIMIT 1');
-        $stmt->execute([ $user_id ]);
+        $stmt->execute([$user_id]);
         return ($stmt->rowCount() === 1);
     }
 }

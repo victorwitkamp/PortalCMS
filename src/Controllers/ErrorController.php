@@ -26,13 +26,13 @@ class ErrorController extends Controller
     {
         header('HTTP/1.0 404 Not Found', true, 404);
         $templates = new Engine(DIR_VIEW);
-        echo $templates->render('Pages/Error/Error', [ 'title' => '404 - Not found', 'message' => 'The requested page cannot be found' ]);
+        echo $templates->render('Pages/Error/Error', ['title' => '404 - Not found', 'message' => 'The requested page cannot be found']);
     }
 
     public function permissionError()
     {
         header('HTTP/1.0 403 Not Found', true, 403);
         $templates = new Engine(DIR_VIEW);
-        echo $templates->render('Pages/Error/Error', [ 'title' => '403 - Forbidden', 'message' => 'You are not authorized perform this action.' ]);
+        echo $templates->render('Pages/Error/Error', ['title' => '403 - Forbidden', 'message' => 'You are not authorized perform this action.']);
     }
 }

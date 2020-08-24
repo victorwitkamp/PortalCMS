@@ -19,14 +19,14 @@ class MailScheduleMapper
     public static function exists(int $id): bool
     {
         $stmt = Database::conn()->prepare('SELECT id FROM mail_schedule WHERE id = ? LIMIT 1');
-        $stmt->execute([ $id ]);
+        $stmt->execute([$id]);
         return ($stmt->rowCount() === 1);
     }
 
     public static function getStatusById(int $id)
     {
         $stmt = Database::conn()->prepare('SELECT status FROM mail_schedule WHERE id = ? LIMIT 1');
-        $stmt->execute([ $id ]);
+        $stmt->execute([$id]);
         return $stmt->fetchColumn();
     }
 
@@ -47,35 +47,35 @@ class MailScheduleMapper
     public static function getByBatchId(int $batch_id): array
     {
         $stmt = Database::conn()->prepare('SELECT * FROM mail_schedule where batch_id = ? ORDER BY id ');
-        $stmt->execute([ $batch_id ]);
+        $stmt->execute([$batch_id]);
         return $stmt->fetchAll();
     }
 
     public static function getScheduledIdsByBatchId(int $batch_id): array
     {
         $stmt = Database::conn()->prepare('SELECT id FROM mail_schedule WHERE status = 1 and batch_id = ? ORDER BY id ');
-        $stmt->execute([ $batch_id ]);
+        $stmt->execute([$batch_id]);
         return $stmt->fetchAll();
     }
 
     public static function getById(int $id): ?object
     {
         $stmt = Database::conn()->prepare('SELECT * FROM mail_schedule WHERE id = ? LIMIT 1');
-        $stmt->execute([ $id ]);
+        $stmt->execute([$id]);
         return ($stmt->rowCount() === 1) ? $stmt->fetch(PDO::FETCH_OBJ) : null;
     }
 
     public static function deleteByBatchId(int $batch_id): int
     {
         $stmt = Database::conn()->prepare('DELETE FROM mail_schedule WHERE batch_id = ?');
-        $stmt->execute([ $batch_id ]);
+        $stmt->execute([$batch_id]);
         return $stmt->rowCount();
     }
 
     public static function deleteById(int $id): bool
     {
         $stmt = Database::conn()->prepare('DELETE FROM mail_schedule WHERE id = ? LIMIT 1');
-        $stmt->execute([ $id ]);
+        $stmt->execute([$id]);
         return ($stmt->rowCount() === 1);
     }
 
@@ -86,7 +86,7 @@ class MailScheduleMapper
         ) VALUES (
             NULL,?,NULL,?,?,?,?
         )');
-        return $stmt->execute([ $batchId, $memberId, $subject, $body, $status ]);
+        return $stmt->execute([$batchId, $memberId, $subject, $body, $status]);
     }
 
     public static function lastInsertedId(): int
@@ -97,7 +97,7 @@ class MailScheduleMapper
     public static function updateStatus(int $id, int $status = null): bool
     {
         $stmt = Database::conn()->prepare('UPDATE mail_schedule SET status = ? where id = ?');
-        $stmt->execute([ $status, $id ]);
+        $stmt->execute([$status, $id]);
         return ($stmt->rowCount() === 1);
     }
 
@@ -105,21 +105,21 @@ class MailScheduleMapper
     {
         $sender = $senderName . ' (' . $senderEmail . ')';
         $stmt = Database::conn()->prepare('UPDATE mail_schedule SET sender_email = ? where id = ?');
-        $stmt->execute([ $sender, $id ]);
+        $stmt->execute([$sender, $id]);
         return ($stmt->rowCount() === 1);
     }
 
     public static function updateDateSent(int $id): bool
     {
         $stmt = Database::conn()->prepare('UPDATE mail_schedule SET DateSent = CURRENT_TIMESTAMP where id = ?');
-        $stmt->execute([ $id ]);
+        $stmt->execute([$id]);
         return ($stmt->rowCount() === 1);
     }
 
     public static function setErrorMessageById(int $id, string $message = null): bool
     {
         $stmt = Database::conn()->prepare('UPDATE mail_schedule SET errormessage = ? where id = ?');
-        $stmt->execute([ $message, $id ]);
+        $stmt->execute([$message, $id]);
         return ($stmt->rowCount() === 1);
     }
 }

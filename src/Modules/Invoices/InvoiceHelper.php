@@ -31,7 +31,7 @@ class InvoiceHelper
         $invoice = InvoiceMapper::getById($invoiceId);
         if (!empty($invoice)) {
             $template = EmailTemplateMapper::getSystemTemplateByName('InvoiceMail');
-            $subject = PlaceholderHelper::replace('MAAND', Text::get('MONTH_' . (((int)$invoice->month < 10) ? '0' : '') . $invoice->month), $template['subject']);
+            $subject = PlaceholderHelper::replace('MAAND', Text::get('MONTH_' . (((int) $invoice->month < 10) ? '0' : '') . $invoice->month), $template['subject']);
             $body = PlaceholderHelper::replace('FACTUURNUMMER', $invoice->factuurnummer, $template['body']);
             if (MailScheduleMapper::create($batchId, null, $subject, $body)) {
                 $createdMailId = MailScheduleMapper::lastInsertedId();
@@ -54,7 +54,7 @@ class InvoiceHelper
     public static function create(int $year, string $month, array $contract_ids, string $factuurdatum): bool
     {
         foreach ($contract_ids as $contract_id) {
-            if (!self::createInvoiceAction($year, $month, (int)$contract_id, $factuurdatum)) {
+            if (!self::createInvoiceAction($year, $month, (int) $contract_id, $factuurdatum)) {
                 return false;
             }
         }

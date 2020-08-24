@@ -12,11 +12,11 @@ use PortalCMS\Core\View\HTMLEntities;
 use PortalCMS\Core\View\Text;
 
 require DIR_ROOT . 'login/ext/fb/config.php';
-$loginUrl = $helper->getLoginUrl(Config::get('FB_LOGIN_URL'), [ 'email' ]);
+$loginUrl = $helper->getLoginUrl(Config::get('FB_LOGIN_URL'), ['email']);
 $pageName = Text::get('LABEL_LOG_IN');
 ?>
 
-<?= $this->layout('layoutLogin', [ 'title' => $pageName ]) ?>
+<?= $this->layout('layoutLogin', ['title' => $pageName]) ?>
 <?= $this->push('body-start') ?>
 <?= $this->end() ?>
 <?= $this->push('body') ?>
@@ -38,7 +38,7 @@ $pageName = Text::get('LABEL_LOG_IN');
     <input type="hidden" name="csrf_token" value="<?= Csrf::makeToken() ?>"/>
 <?php
 if (!empty(Request::get('redirect'))) {
-    ?><input type="hidden" name="redirect" value="<?= HTMLEntities::encode((string)Request::get('redirect')) ?>" /><?php
+    ?><input type="hidden" name="redirect" value="<?= HTMLEntities::encode((string) Request::get('redirect')) ?>" /><?php
 }
 ?>
     <input type="submit" name="loginSubmit" class="btn btn-success" value="<?= Text::get('LABEL_LOG_IN') ?>"/>

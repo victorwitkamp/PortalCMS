@@ -134,9 +134,9 @@ class LoginValidator
     public static function validateCookieLogin(string $cookie): ?object
     {
         if (substr_count($cookie, ':') + 1 === 3) {
-            [ $user_id, $token, $hash ] = explode(':', $cookie);
+            [$user_id, $token, $hash] = explode(':', $cookie);
             try {
-                $user_id = (int)Encryption::decrypt($user_id);
+                $user_id = (int) Encryption::decrypt($user_id);
                 if (!empty($token) && !empty($user_id) && ($hash === hash('sha256', $user_id . ':' . $token))) {
                     return new ValidatedCookie($user_id, $token);
                 }

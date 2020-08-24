@@ -1,4 +1,4 @@
-<?= $this->layout('layoutLogin', [ 'Geen toegang' ]) ?>
+<?= $this->layout('layoutLogin', ['Geen toegang']) ?>
 <?= $this->push('head-extra') ?>
     <script>
         function goBack() {

@@ -23,7 +23,7 @@ class PageController extends Controller
         parent::__construct();
 
         if (isset($_POST['updatePage'])) {
-            Page::updatePage((int)Request::post('id'), (string)Request::post('content'));
+            Page::updatePage((int) Request::post('id'), (string) Request::post('content'));
         }
     }
 
