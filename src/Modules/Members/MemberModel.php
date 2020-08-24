@@ -15,10 +15,6 @@ use PortalCMS\Core\Session\Session;
  */
 class MemberModel
 {
-    /**
-     * @param int|null $id
-     * @param int|null $status
-     */
     public static function setStatus(int $id = null, int $status = null) : bool
     {
         if (($id !== null) && $status !== null) {
@@ -35,10 +31,6 @@ class MemberModel
         return false;
     }
 
-    /**
-     * @param int|null $id
-     * @param int|null $targetYear
-     */
     public static function copyMember(int $id = null, int $targetYear = null): bool
     {
         if ($id === null || $targetYear === null) {
@@ -46,7 +38,7 @@ class MemberModel
         }
         $member = self::getMember($id);
         if (($member === null) || ($member->jaarlidmaatschap === $targetYear)) {
-            Session::add('feedback_negative', 'TargetYear is the same as source. MemberId: '.$id);
+            Session::add('feedback_negative', 'TargetYear is the same as source. MemberId: ' . $id);
             return false;
         }
         $member->id = null;
@@ -55,7 +47,7 @@ class MemberModel
         $member->creationDate = null;
         $member->modificationDate = null;
         if (MemberMapper::new($member)) {
-            Session::add('feedback_positive', 'Lid met id '.$id.' gekopieerd naar '.$targetYear);
+            Session::add('feedback_positive', 'Lid met id ' . $id . ' gekopieerd naar ' . $targetYear);
             return true;
         }
         Session::add('feedback_negative', 'Fout opgetreden.');
@@ -77,7 +69,7 @@ class MemberModel
     {
         if (($id !== null) && MemberMapper::doesMemberIdExist($id)) {
             if (MemberMapper::delete($id)) {
-                Session::add('feedback_positive', 'Lid verwijderd (ID: '.$id.').');
+                Session::add('feedback_positive', 'Lid verwijderd (ID: ' . $id . ').');
                 return true;
             }
             Session::add('feedback_negative', 'Verwijderen van lid mislukt.');

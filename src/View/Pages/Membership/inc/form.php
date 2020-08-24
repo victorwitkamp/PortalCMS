@@ -7,9 +7,6 @@ declare(strict_types=1);
 $edit = ($pageType === 'edit');
 ?>
 <form method="post" id="form" class="needs-validation" novalidate>
-    <?php //echo ($edit) ? ' validate=true' : '' ?>
-
-
     <div class="row">
         <div class="col-md-8">
             <div class="form-group row">
