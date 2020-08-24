@@ -2,7 +2,6 @@
   <profile version="1.0">
     <option name="myName" value="Project Default" />
     <inspection_tool class="AnonymousFunctionJS" enabled="true" level="WARNING" enabled_by_default="true" />
-    <inspection_tool class="ArgumentEqualsDefaultValueInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
     <inspection_tool class="AssignmentResultUsedJS" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="AssignmentToForLoopParameterJS" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="AssignmentToFunctionParameterJS" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -275,7 +274,6 @@
       </option>
     </inspection_tool>
     <inspection_tool class="SenselessCommaInArrayDefinitionInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
-    <inspection_tool class="ShortEchoTagCanBeUsedInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
     <inspection_tool class="SpellCheckingInspection" enabled="false" level="TYPO" enabled_by_default="false">
       <option name="processCode" value="true" />
       <option name="processLiterals" value="true" />
@@ -291,6 +289,7 @@
     <inspection_tool class="TailRecursionJS" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="TextLabelInSwitchStatementJS" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="ThreeNegationsPerFunctionJS" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="UnNecessaryDoubleQuotesInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
     <inspection_tool class="UnnecessaryBooleanCheckInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
     <inspection_tool class="UnusedCatchParameterJS" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="m_ignoreCatchBlocksWithComments" value="false" />
