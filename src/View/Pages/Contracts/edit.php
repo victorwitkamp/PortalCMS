@@ -10,7 +10,7 @@ use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Modules\Contracts\ContractMapper;
 
-$contract = ContractMapper::getById((int)Request::get('id'));
+$contract = ContractMapper::getById((int) Request::get('id'));
 if (empty($contract)) {
     Redirect::to('Error/NotFound');
 } else {
@@ -18,7 +18,7 @@ if (empty($contract)) {
     $pageName = 'Contract van ' . $contract->band_naam . ' wijzigen';
 }
 ?>
-<?= $this->layout('layout', [ 'title' => $pageName ]) ?>
+<?= $this->layout('layout', ['title' => $pageName]) ?>
 <?= $this->push('head-extra') ?>
 <?= $this->end() ?>
 <?= $this->push('main-content') ?>

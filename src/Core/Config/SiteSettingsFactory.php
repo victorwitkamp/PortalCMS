@@ -23,7 +23,7 @@ class SiteSettingsFactory
         ];
         $settings = [];
         foreach ($properties as $property) {
-            $settings[$property] = (string)Request::post($property);
+            $settings[$property] = (string) Request::post($property);
         }
         return $settings;
     }

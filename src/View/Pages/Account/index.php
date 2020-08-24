@@ -12,10 +12,10 @@ use PortalCMS\Core\View\Text;
 $pageName = Text::get('TITLE_MY_ACCOUNT');
 require DIR_ROOT . 'login/ext/fb/config.php';
 $helper = $fb->getRedirectLoginHelper();
-$permissions = [ 'email' ];
+$permissions = ['email'];
 $loginUrl = $helper->getLoginUrl(Config::get('FB_ASSIGN_URL'), $permissions);
 ?>
-<?= $this->layout('layout', [ 'title' => $pageName ]) ?>
+<?= $this->layout('layout', ['title' => $pageName]) ?>
 <?= $this->push('head-extra') ?>
 <!--    <script src="/includes/js/pass_req.js"></script>-->
 <?= $this->end() ?>

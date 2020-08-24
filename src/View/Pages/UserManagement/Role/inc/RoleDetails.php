@@ -21,7 +21,7 @@ if ($Role) { ?>
             <th><?= Text::get('LABEL_ROLE_PERMISSIONS') ?></th>
             <td>
                 <?php
-                $ActivePerissions = RolePermissionMapper::getRolePermissions((int)Request::get('id'));
+                $ActivePerissions = RolePermissionMapper::getRolePermissions((int) Request::get('id'));
                 if (!empty($ActivePerissions)) { ?>
                     <table class="table table-sm table-striped table-hover table-dark">
                     <thead class="thead-dark">
@@ -38,7 +38,7 @@ if ($Role) { ?>
                             <td><?= $Permission['perm_desc'] ?></td>
                             <td>
                                 <form method="post">
-                                    <input type="hidden" name="role_id" value="<?= (int)Request::get('id') ?>">
+                                    <input type="hidden" name="role_id" value="<?= (int) Request::get('id') ?>">
                                     <input type="hidden" name="perm_id" value="<?= $Permission['perm_id'] ?>">
                                     <button type="submit" name="deleterolepermission"
                                             onclick="return confirm('<?= 'Weet u zeker dat u ' . $Permission['perm_desc'] . ' wilt verwijderen?' ?>')"
@@ -65,11 +65,11 @@ if ($Role) {
     ?><h3><?= Text::get('LABEL_ROLE_ADD_PERMISSION') ?></h3>
     <p>Een rol kan meerdere permissies hebben. Kies hieronder een gewenste permissie om toe te voegen aan de rol.<p>
     <?php
-    $selectablePermissions = RolePermissionMapper::getRoleSelectablePermissions((int)Request::get('id'));
+    $selectablePermissions = RolePermissionMapper::getRoleSelectablePermissions((int) Request::get('id'));
     if (!empty($selectablePermissions)) {
         ?>
         <form method="post">
-        <input type="hidden" name="role_id" value="<?= (int)Request::get('id') ?>">
+        <input type="hidden" name="role_id" value="<?= (int) Request::get('id') ?>">
         <label class="control-label">Permission</label>
         <select name='perm_id'>
             <?php foreach ($selectablePermissions as $selectablePermission) { ?>

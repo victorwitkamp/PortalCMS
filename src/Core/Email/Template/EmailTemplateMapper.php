@@ -39,7 +39,7 @@ class EmailTemplateMapper
                 FROM mail_templates
                     WHERE type = ?
                     ORDER BY id');
-        $stmt->execute([ $type ]);
+        $stmt->execute([$type]);
         if ($stmt->rowCount() === 0) {
             return null;
         }
@@ -54,7 +54,7 @@ class EmailTemplateMapper
                 FROM mail_templates
                     WHERE id = ?
                         LIMIT 1');
-        $stmt->execute([ $id ]);
+        $stmt->execute([$id]);
         if ($stmt->rowCount() === 1) {
             return $stmt->fetch(PDO::FETCH_OBJ);
         }
@@ -71,7 +71,7 @@ class EmailTemplateMapper
                     WHERE type = 'system'
                         AND name = ?
                             LIMIT 1");
-        $stmt->execute([ $name ]);
+        $stmt->execute([$name]);
         if ($stmt->rowCount() === 0) {
             return false;
         }
@@ -85,7 +85,7 @@ class EmailTemplateMapper
         $stmt = Database::conn()->prepare("DELETE FROM mail_templates
                 WHERE id = ?
                     AND type != 'system'");
-        $stmt->execute([ $id ]);
+        $stmt->execute([$id]);
         return !($stmt->rowCount() === 0);
     }
 
@@ -97,7 +97,7 @@ class EmailTemplateMapper
                 id, type, subject, body, status, CreatedBy
                 ) VALUES (
                     NULL,?,?,?,?,?)');
-        $stmt->execute([ $EmailTemplate->type, $EmailTemplate->subject, $EmailTemplate->body, $EmailTemplate->status, $EmailTemplate->CreatedBy ]);
+        $stmt->execute([$EmailTemplate->type, $EmailTemplate->subject, $EmailTemplate->body, $EmailTemplate->status, $EmailTemplate->CreatedBy]);
         if (!$stmt) {
             return null;
         }

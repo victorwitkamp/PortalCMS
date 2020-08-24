@@ -32,8 +32,8 @@ class MailSchedule
             Session::add('feedback_negative', 'Invalid request');
         } else {
             foreach ($mailIds as $mailId) {
-                if (MailScheduleMapper::deleteById((int)$mailId)) {
-                    EmailAttachmentMapper::deleteByMailId((int)$mailId);
+                if (MailScheduleMapper::deleteById((int) $mailId)) {
+                    EmailAttachmentMapper::deleteByMailId((int) $mailId);
                     ++$deleted;
                 } else {
                     ++$error;
@@ -59,9 +59,9 @@ class MailSchedule
             return false;
         }
         foreach ($mailIds as $mailId) {
-            if (self::isSent((int)$mailId)) {
+            if (self::isSent((int) $mailId)) {
                 ++$alreadySent;
-            } elseif (self::prepareMailData((int)$mailId)) {
+            } elseif (self::prepareMailData((int) $mailId)) {
                 ++$success;
             } else {
                 ++$failed;

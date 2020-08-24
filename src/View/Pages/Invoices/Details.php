@@ -21,7 +21,7 @@ if (!empty($invoice)) {
     echo 'no ID specified';
     die;
 } ?>
-<?= $this->layout('layout', [ 'title' => $pageName ]) ?>
+<?= $this->layout('layout', ['title' => $pageName]) ?>
 <?= $this->push('main-content') ?>
 
     <div class="container">

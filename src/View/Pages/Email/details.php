@@ -17,7 +17,7 @@ use PortalCMS\Core\View\Text;
 $pageName = Text::get('TITLE_MAIL_DETAILS');
 ?>
 <?php
-$id = (int)Request::get('id');
+$id = (int) Request::get('id');
 
 if (MailScheduleMapper::exists($id)) {
     $row = MailScheduleMapper::getById($id);
@@ -25,7 +25,7 @@ if (MailScheduleMapper::exists($id)) {
     Redirect::to('Error/NotFound');
 }
 ?>
-<?= $this->layout('layout', [ 'title' => $pageName ]) ?>
+<?= $this->layout('layout', ['title' => $pageName]) ?>
 <?= $this->push('main-content') ?>
 
     <div class="container">

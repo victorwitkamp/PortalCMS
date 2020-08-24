@@ -42,7 +42,7 @@ class EventsController extends Controller
 
     public static function deleteEvent()
     {
-        if (EventModel::delete((int)Request::post('id', true))) {
+        if (EventModel::delete((int) Request::post('id', true))) {
             Redirect::to('Events/');
         }
         Redirect::to('Error/Error');
@@ -79,10 +79,10 @@ class EventsController extends Controller
     public function details()
     {
         if (Authorization::hasPermission('events')) {
-            $event = EventMapper::getById((int)Request::get('id'));
+            $event = EventMapper::getById((int) Request::get('id'));
             if (!empty($event)) {
                 $templates = new Engine(DIR_VIEW);
-                echo $templates->render('Pages/Events/Details', [ 'event' => $event ]);
+                echo $templates->render('Pages/Events/Details', ['event' => $event]);
             } else {
                 Session::add('feedback_negative', 'Geen resultaten voor opgegeven event ID.');
                 Redirect::to('Error/Error');
@@ -97,7 +97,7 @@ class EventsController extends Controller
         if (Authorization::hasPermission('events')) {
             $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Events/Add', [
-                'pageName' => (string)Text::get('TITLE_EVENTS_ADD')
+                'pageName' => (string) Text::get('TITLE_EVENTS_ADD')
             ]);
         } else {
             Redirect::to('Error/PermissionError');
@@ -107,7 +107,7 @@ class EventsController extends Controller
     public function edit()
     {
         if (Authorization::hasPermission('events')) {
-            $event = EventMapper::getById((int)Request::get('id'));
+            $event = EventMapper::getById((int) Request::get('id'));
             if (!empty($event)) {
                 $templates = new Engine(DIR_VIEW);
                 echo $templates->render('Pages/Events/Edit', [
@@ -124,11 +124,11 @@ class EventsController extends Controller
 
     public function loadCalendarEvents()
     {
-        echo json_encode(EventModel::getByDate((string)Request::get('start'), (string)Request::get('end')));
+        echo json_encode(EventModel::getByDate((string) Request::get('start'), (string) Request::get('end')));
     }
 
     public function updateEventDate(): bool
     {
-        return EventMapper::updateDate((int)Request::post('id'), (string)Request::post('start'), (string)Request::post('end'));
+        return EventMapper::updateDate((int) Request::post('id'), (string) Request::post('start'), (string) Request::post('end'));
     }
 }

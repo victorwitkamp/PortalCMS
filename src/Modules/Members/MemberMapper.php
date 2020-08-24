@@ -26,21 +26,21 @@ class MemberMapper
     public static function getMembersByYear(int $year): ?array
     {
         $stmt = Database::conn()->prepare('SELECT * FROM members WHERE jaarlidmaatschap = ? ORDER BY id');
-        $stmt->execute([ $year ]);
+        $stmt->execute([$year]);
         return ($stmt->rowCount() === 0) ? null : $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
     public static function getMembersByPaymentType(string $paymentType): ?array
     {
         $stmt = Database::conn()->prepare('SELECT * FROM members where betalingswijze = ? ORDER BY id');
-        $stmt->execute([ $paymentType ]);
+        $stmt->execute([$paymentType]);
         return ($stmt->rowCount() === 0) ? null : $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
     public static function getMembersByYearAndPaymentType(int $year, string $paymentType): ?array
     {
         $stmt = Database::conn()->prepare('SELECT * FROM members where jaarlidmaatschap = ? and betalingswijze = ? ORDER BY id');
-        $stmt->execute([ $year, $paymentType ]);
+        $stmt->execute([$year, $paymentType]);
         return ($stmt->rowCount() === 0) ? null : $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
@@ -54,7 +54,7 @@ class MemberMapper
     public static function getMemberCountByYear(int $year): int
     {
         $stmt = Database::conn()->prepare('SELECT id FROM members WHERE jaarlidmaatschap = ?');
-        $stmt->execute([ $year ]);
+        $stmt->execute([$year]);
         return $stmt->rowCount();
     }
 
@@ -67,28 +67,28 @@ class MemberMapper
     public static function doesMemberIdExist(int $memberId): bool
     {
         $stmt = Database::conn()->prepare('SELECT id FROM members WHERE id = ? LIMIT 1');
-        $stmt->execute([ $memberId ]);
+        $stmt->execute([$memberId]);
         return ($stmt->rowCount() === 1);
     }
 
     public static function doesEmailforYearExist(int $jaarlidmaatschap, string $email): bool
     {
         $stmt = Database::conn()->prepare('SELECT id FROM members WHERE jaarlidmaatschap = ? AND emailadres = ? LIMIT 1');
-        $stmt->execute([ $jaarlidmaatschap, $email ]);
+        $stmt->execute([$jaarlidmaatschap, $email]);
         return ($stmt->rowCount() === 1);
     }
 
     public static function getMemberById(int $id): ?object
     {
         $stmt = Database::conn()->prepare('SELECT * FROM members WHERE id = ? LIMIT 1');
-        $stmt->execute([ $id ]);
+        $stmt->execute([$id]);
         return ($stmt->rowCount() === 1) ? $stmt->fetch(PDO::FETCH_OBJ) : null;
     }
 
     public static function delete(int $id): bool
     {
         $stmt = Database::conn()->prepare('DELETE FROM members WHERE id = ? LIMIT 1');
-        $stmt->execute([ $id ]);
+        $stmt->execute([$id]);
         return ($stmt->rowCount() === 1);
     }
 
@@ -111,7 +111,7 @@ class MemberMapper
     public static function setStatus(int $id, int $status = null): bool
     {
         $stmt = Database::conn()->prepare('UPDATE members SET status=? WHERE id=?');
-        $stmt->execute([ $status, $id ]);
+        $stmt->execute([$status, $id]);
         return ($stmt->rowCount() === 1);
     }
 

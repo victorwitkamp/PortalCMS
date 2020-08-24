@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 $pageName = 'Account activeren';
 ?>
-<?= $this->layout('layoutLogin', [ 'title' => $pageName ]) ?>
+<?= $this->layout('layoutLogin', ['title' => $pageName]) ?>
 <?= $this->push('body-start') ?>
 
     <header>

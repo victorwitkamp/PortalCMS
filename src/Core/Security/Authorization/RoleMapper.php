@@ -38,7 +38,7 @@ class RoleMapper
                     FROM roles
                         WHERE role_id = ?
                             LIMIT 1');
-        $stmt->execute([ $role_id ]);
+        $stmt->execute([$role_id]);
         if ($stmt->rowCount() === 1) {
             return $stmt->fetch(PDO::FETCH_OBJ);
         }
@@ -51,7 +51,7 @@ class RoleMapper
     {
         $stmt = Database::conn()->prepare('INSERT INTO roles (role_name) 
                         VALUES (?)');
-        $stmt->execute([ $role_name ]);
+        $stmt->execute([$role_name]);
         return ($stmt->rowCount() === 1);
     }
 
@@ -62,7 +62,7 @@ class RoleMapper
         $stmt = Database::conn()->prepare('DELETE FROM roles
                         WHERE role_id = ?
                             LIMIT 1');
-        $stmt->execute([ $role_id ]);
+        $stmt->execute([$role_id]);
         return ($stmt->rowCount() === 1);
     }
 }

@@ -1,4 +1,4 @@
-<?= $this->layout('layoutLogin', [ 'title' => $this->e($title) ]) ?>
+<?= $this->layout('layoutLogin', ['title' => $this->e($title)]) ?>
 <?= $this->push('head-extra') ?>
     <script>
         function goBack() {
