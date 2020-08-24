@@ -139,6 +139,7 @@ class SMTPTransport
             }
         } catch (Exception $e) {
             $this->error = $e->errorMessage();
+            return false;
         }
         return false;
     }

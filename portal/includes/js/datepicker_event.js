@@ -14,4 +14,4 @@ $(function () {
     locale: 'nl',
     sideBySide: !0
   })
-});
+})
