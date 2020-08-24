@@ -47,7 +47,7 @@ class ContractsController extends Controller
 
     public static function deleteContract() : void
     {
-        if (ContractFactory::delete((int)Request::post('id'))) {
+        if (ContractFactory::delete((int) Request::post('id'))) {
             Redirect::to('Contracts/');
         }
     }

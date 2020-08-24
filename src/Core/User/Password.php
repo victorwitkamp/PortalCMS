@@ -17,8 +17,6 @@ use function strlen;
  */
 class Password
 {
-    /**
-     */
     public static function changePassword(object $user, string $currentPassword, string $newPassword, string $repeatNewPassword): bool
     {
         if (empty($currentPassword) || empty($newPassword) || empty($repeatNewPassword)) {
@@ -36,18 +34,11 @@ class Password
         return false;
     }
 
-    /**
-     */
     public static function verifyPassword(object $user, string $user_password): bool
     {
-        if (!password_verify(base64_encode($user_password), $user->user_password_hash)) {
-            return false;
-        }
-        return true;
+        return (password_verify(base64_encode($user_password), $user->user_password_hash));
     }
 
-    /**
-     */
     public static function validatePasswordChange(string $currentPassword, string $newPassword): bool
     {
         if ($currentPassword === $newPassword) {

@@ -14,8 +14,7 @@ declare(strict_types=1);
         <span class="fa fa-edit"></span>
     </a>
     <input type="hidden" name="id" value="<?= $contract->id ?>">
-    <button type="submit" name="deleteContract" class="btn btn-danger btn-sm"
-            onclick="return confirm('Weet u zeker dat u het contract van <?= $contract->band_naam ?> wilt verwijderen?')">
+    <button type="submit" name="deleteContract" class="btn btn-danger btn-sm">
         <span class="fa fa-trash"></span>
     </button>
 </form>

@@ -45,7 +45,14 @@ class AccountController extends Controller
 
     public static function changePassword()
     {
-        Password::changePassword(UserMapper::getByUsername((string) Session::get('user_name')), (string) Request::post('currentpassword'), (string) Request::post('newpassword'), (string) Request::post('newconfirmpassword'));
+        Password::changePassword(
+            UserMapper::getByUsername(
+                (string) Session::get('user_name')
+            ),
+            (string) Request::post('currentpassword'),
+            (string) Request::post('newpassword'),
+            (string) Request::post('newconfirmpassword')
+        );
     }
 
     public static function clearUserFbid()

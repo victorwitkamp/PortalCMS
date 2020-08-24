@@ -92,17 +92,21 @@ class ContractFactory
 
     public static function delete(int $id): bool
     {
-        $contract = ContractMapper::getById($id);
-        if (empty($contract)) {
-            Session::add('feedback_negative', 'Verwijderen van contract mislukt. Contract bestaat niet.');
-        } elseif (!empty(InvoiceMapper::getByContractId($contract->id))) {
-            Session::add('feedback_negative', 'Dit contract heeft al facturen.');
-        } elseif (ContractMapper::delete($contract->id)) {
-            Activity::add('DeleteContract', Session::get('user_id'), 'ID: ' . $contract->id);
-            Session::add('feedback_positive', 'Contract verwijderd.');
-            return true;
-        } else {
+        if (empty($id) || $id === null) {
             Session::add('feedback_negative', 'Verwijderen van contract mislukt.');
+        } else {
+            $contract = ContractMapper::getById($id);
+            if (empty($contract)) {
+                Session::add('feedback_negative', 'Verwijderen van contract mislukt. Contract bestaat niet.');
+            } elseif (!empty(InvoiceMapper::getByContractId($contract->id))) {
+                Session::add('feedback_negative', 'Dit contract heeft al facturen.');
+            } elseif (ContractMapper::delete($contract->id)) {
+                Activity::add('DeleteContract', Session::get('user_id'), 'ID: ' . $contract->id);
+                Session::add('feedback_positive', 'Contract verwijderd.');
+                return true;
+            } else {
+                Session::add('feedback_negative', 'Verwijderen van contract mislukt.');
+            }
         }
         return false;
     }
