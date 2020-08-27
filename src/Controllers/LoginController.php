@@ -30,9 +30,9 @@ class LoginController extends Controller
      * The requests that this controller will handle
      * @var array $requests
      */
-    private $requests = [
-        'loginSubmit' => 'POST', 'requestPasswordResetSubmit' => 'POST', 'resetSubmit' => 'POST'
-    ];
+//    private $requests = [
+//        'loginSubmit' => 'POST', 'requestPasswordResetSubmit' => 'POST', 'resetSubmit' => 'POST'
+//    ];
 
     /**
      * Construct this object by extending the basic Controller class. The parent::__construct thing is necessary to
@@ -124,11 +124,9 @@ class LoginController extends Controller
         }
     }
 
-    /**
-     * Index, default action (shows the login form), when you do login/index
-     */
     public function index()
     {
+        $this->setLayout('login');
         if (Authentication::userIsLoggedIn()) {
             Session::add('feedback_positive', 'You are already logged in.');
             if (Request::post('redirect')) {
@@ -149,14 +147,6 @@ class LoginController extends Controller
         }
     }
 
-    /**
-     * @return bool
-     */
-    /**
-     * @return bool
-     */
-    /**
-     */
     public static function loginWithCookie(): bool
     {
         $cookie = Request::cookie('remember_me');

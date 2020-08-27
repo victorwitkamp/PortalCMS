@@ -31,17 +31,23 @@ class Application
         self::$ROOT_DIR = $rootDir;
         self::$app = $this;
         $this->request = new Request();
+//        if ($this->request->isPost()) {
+//            var_dump($this->request->getBody());
+//            die;
+//        }
+
         $this->router = new Router($this->request);
         $this->session = new Session();
         $this->view = new View();
 
         // $this->router->get('/Home', function($request) { return 'welkom'; });
         $this->router->get('/Home', [HomeController::class, 'index']);
+        $this->router->post('/Login', [SiteController::class, 'loginSubmit']);
         $this->router->get('/Login', [LoginController::class, 'index']);
-
     }
 
-    public function run() {
+    public function run()
+    {
         try {
             echo $this->router->resolve();
         } catch (\Exception $e) {
