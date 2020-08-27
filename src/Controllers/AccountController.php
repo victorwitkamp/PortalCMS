@@ -13,7 +13,7 @@ use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
-use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\HTTP\Session;
 use PortalCMS\Core\User\Password;
 use PortalCMS\Core\User\User;
 use PortalCMS\Core\User\UserMapper;

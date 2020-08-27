@@ -7,7 +7,7 @@ declare(strict_types=1);
 namespace PortalCMS\Core\View;
 
 use PortalCMS\Core\Config\SiteSetting;
-use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\HTTP\Session;
 use TCPDF;
 
 class PDF extends TCPDF

@@ -11,7 +11,7 @@ use PortalCMS\Core\Database\Database;
 use PortalCMS\Core\Email\Schedule\MailSchedule;
 use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
 use PortalCMS\Core\HTTP\Redirect;
-use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\HTTP\Session;
 
 /**
  * Statussen: 1 Klaar voor verzending, 2 Uitgevoerd

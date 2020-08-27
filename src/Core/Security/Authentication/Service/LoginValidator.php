@@ -12,7 +12,7 @@ namespace PortalCMS\Core\Security\Authentication\Service;
 
 use Exception;
 use PortalCMS\Core\Security\Encryption;
-use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\HTTP\Session;
 use PortalCMS\Core\User\Password;
 use PortalCMS\Core\User\UserMapper;
 use PortalCMS\Core\View\Text;

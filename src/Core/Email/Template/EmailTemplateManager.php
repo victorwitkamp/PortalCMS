@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Email\Template;
 
-use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\HTTP\Session;
 
 /**
  * Class EmailTemplateManager

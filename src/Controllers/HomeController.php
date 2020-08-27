@@ -19,7 +19,7 @@ class HomeController extends Controller
 {
     public function __construct()
     {
-        parent::__construct();
+//        parent::__construct();
         Authentication::checkAuthentication();
     }
 

@@ -10,7 +10,7 @@ namespace PortalCMS\Core\Security\Authentication\Service;
 use PortalCMS\Core\HTTP\Cookie;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Security\Authentication\Authentication;
-use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\HTTP\Session;
 use PortalCMS\Core\User\UserMapper;
 use PortalCMS\Core\View\Text;
 

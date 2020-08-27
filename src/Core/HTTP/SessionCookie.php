@@ -5,18 +5,16 @@
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Session;
+namespace PortalCMS\Core\HTTP;
 
 use PortalCMS\Core\Config\Config;
 
 /**
  * Class SessionCookie
- * @package PortalCMS\Core\Session
+ * @package PortalCMS\Core\HTTP
  */
 class SessionCookie
 {
-    /**
-     */
     public static function set(): bool
     {
         // @see https://www.owasp.org/index.php/PHP_Security_Cheat_Sheet#Cookies

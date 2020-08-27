@@ -18,7 +18,7 @@ use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\Security\Authorization\RoleMapper;
 use PortalCMS\Core\Security\Authorization\RolePermission;
 use PortalCMS\Core\Security\Authorization\UserRoleMapper;
-use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\HTTP\Session;
 
 /**
  * Class UserManagementController

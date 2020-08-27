@@ -9,7 +9,7 @@ namespace PortalCMS\Core\View;
 
 use PDO;
 use PortalCMS\Core\Database\Database;
-use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\HTTP\Session;
 
 /**
  * Page class.

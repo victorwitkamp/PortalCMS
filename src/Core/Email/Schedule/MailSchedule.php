@@ -14,7 +14,7 @@ use PortalCMS\Core\Email\SMTP\SMTPConfiguration;
 use PortalCMS\Core\Email\SMTP\SMTPTransport;
 use PortalCMS\Core\Email\Template\EmailTemplateMapper;
 use PortalCMS\Core\Email\Template\Helpers\MemberTemplateScheduler;
-use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\HTTP\Session;
 
 /**
  * Class MailSchedule

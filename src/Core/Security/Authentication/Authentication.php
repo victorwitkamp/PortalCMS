@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace PortalCMS\Core\Security\Authentication;
 
 use PortalCMS\Core\HTTP\Redirect;
-use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\HTTP\Session;
 
 /**
  * Class Authentication
@@ -24,7 +24,7 @@ class Authentication
             Session::add('feedback_negative', 'You need to log-in first.');
 
             // Redirect::to('Login/?redirect='.ltrim(urlencode($_SERVER['REQUEST_URI']), '/'));
-            Redirect::to('Login/?redirect=' . urlencode($_SERVER['REQUEST_URI']));
+            Redirect::to('Login?redirect=' . urlencode($_SERVER['REQUEST_URI']));
 
             // to prevent fetching views via cURL (which "ignores" the header-redirect above) we leave the application
             // the hard way, via exit(). @see https://github.com/panique/php-login/issues/453

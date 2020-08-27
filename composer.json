@@ -13,7 +13,8 @@
         "facebook/graph-sdk": "^5.7",
         "tecnickcom/tcpdf": "6.3.5",
         "ext-fileinfo": "*",
-        "league/plates": "^3.3"
+        "league/plates": "^3.3",
+        "psr/http-server-middleware": "^1.0.1"
     },
   "license": "",
   "require-dev": {

@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace PortalCMS\Core\User;
 
 use PortalCMS\Core\HTTP\Redirect;
-use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\HTTP\Session;
 use PortalCMS\Core\View\Text;
 
 /**

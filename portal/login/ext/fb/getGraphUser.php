@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 use Facebook\Exceptions\FacebookSDKException;
-use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\HTTP\Session;
 
 try {
     $accessToken = $helper->getAccessToken();

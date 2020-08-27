@@ -16,7 +16,7 @@ use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authentication\Service\LoginService;
 use PortalCMS\Core\Security\Csrf;
-use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\HTTP\Session;
 use PortalCMS\Core\User\PasswordReset;
 use PortalCMS\Core\View\Text;
 
@@ -41,8 +41,8 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        parent::__construct();
-        Router::processRequests($this->requests, __CLASS__);
+//        parent::__construct();
+//        Router::processRequests($this->requests, __CLASS__);
 
         // if (isset($_POST['signupSubmit'])) {
         //     $this->signup($_POST['email'], $_POST['username'], $_POST['password'], $_POST['confirm_password']);

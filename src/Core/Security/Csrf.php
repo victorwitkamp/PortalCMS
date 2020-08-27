@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace PortalCMS\Core\Security;
 
 use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\HTTP\Session;
 
 /**
  * Cross Site Request Forgery Class

@@ -10,7 +10,7 @@ declare(strict_types=1);
  */
 
 use PortalCMS\Core\Config\SiteSetting;
-use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\HTTP\Session;
 use PortalCMS\Core\View\Text;
 
 ?>

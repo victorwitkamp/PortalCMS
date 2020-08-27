@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Modules\Members;
 
-use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\HTTP\Session;
 
 /**
  * Class MemberModel

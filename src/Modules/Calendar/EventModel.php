@@ -8,7 +8,7 @@ declare(strict_types=1);
 namespace PortalCMS\Modules\Calendar;
 
 use PortalCMS\Core\Activity\Activity;
-use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\HTTP\Session;
 
 /**
  * Class EventModel

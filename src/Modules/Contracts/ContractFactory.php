@@ -9,7 +9,7 @@ namespace PortalCMS\Modules\Contracts;
 
 use PortalCMS\Core\Activity\Activity;
 use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\HTTP\Session;
 use PortalCMS\Modules\Invoices\InvoiceMapper;
 
 /**

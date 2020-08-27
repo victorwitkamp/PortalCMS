@@ -5,16 +5,23 @@
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Session;
+namespace PortalCMS\Core\HTTP;
 
 use PortalCMS\Core\Security\Filter;
 
 /**
  * Class Session
- * @package PortalCMS\Core\Session
+ * @package PortalCMS\Core\HTTP
  */
 class Session
 {
+    public function __construct()
+    {
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+    }
+
     public static function init(): void
     {
         if (session_status() !== PHP_SESSION_ACTIVE) {

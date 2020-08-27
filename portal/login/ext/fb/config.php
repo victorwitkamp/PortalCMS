@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 use Facebook\Exceptions\FacebookSDKException;
 use PortalCMS\Core\Config\Config;
-use PortalCMS\Core\Session\Session;
+use PortalCMS\Core\HTTP\Session;
 
 try {
     $fb = new Facebook\Facebook([
