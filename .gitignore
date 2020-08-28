@@ -14,3 +14,4 @@
 /database/
 composer.lock
 portal/phpmailer.log
+.php_cs.cache
