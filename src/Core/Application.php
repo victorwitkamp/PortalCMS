@@ -35,16 +35,19 @@ class Application
         );
         $container->add(Engine::class)->addArgument(DIR_VIEW);
 
-        $strategy = (new ApplicationStrategy())->setContainer($container);
-        $this->router   = (new Router())->setStrategy($strategy);
+        $strategy = new ApplicationStrategy();
+        $strategy->setContainer($container);
+        $this->router = new Router();
+        $this->router->setStrategy($strategy);
 
         $this->request = ServerRequestFactory::fromGlobals();
         $this->session = new Session();
 
-        $this->router->group('/Login', function (RouteGroup $route) {
-            $route->get('/', [ LoginController::class, 'index' ]);
-            $route->post('/', [ LoginController::class, 'loginSubmit' ]);
-        });
+//        $this->router->group('/Account', function (RouteGroup $route) {};
+//        $this->router->group('/Contracts', function (RouteGroup $route) {};
+//        $this->router->group('/Email', function (RouteGroup $route) {};
+//        $this->router->group('/Error', function (RouteGroup $route) {};
+
         $this->router->group('/Events', function (RouteGroup $route) {
             $route->get('/', [ EventsController::class, 'index' ]);
             $route->get('/Details', [ EventsController::class, 'details' ]);
@@ -56,8 +59,25 @@ class Application
             $route->get('/loadCalendarEvents', [ EventsController::class, 'loadCalendarEvents' ]);
             $route->post('/UpdateEventDate', [ EventsController::class, 'updateEventDate' ]);
         });
+
         $this->router->get('/Home', [ HomeController::class, 'index' ]);
+
+        $this->router->group('/Invoices', function (RouteGroup $route) {};
+
+
+        $this->router->group('/Login', function (RouteGroup $route) {
+            $route->get('/', [ LoginController::class, 'index' ]);
+            $route->post('/', [ LoginController::class, 'loginSubmit' ]);
+        });
+
         $this->router->get('/Logout', [ LogoutController::class, 'index' ]);
+
+//        $this->router->group('/Membership', function (RouteGroup $route) {};
+//        $this->router->group('/Page', function (RouteGroup $route) {};
+//        $this->router->group('/Profile', function (RouteGroup $route) {};
+//        $this->router->group('/Settings', function (RouteGroup $route) {};
+//        $this->router->group('/UserManagement', function (RouteGroup $route) {};
+
         (new SapiEmitter())->emit($this->router->dispatch($this->request));
     }
 }
