@@ -25,22 +25,14 @@ use PortalCMS\Modules\Calendar\EventModel;
  * Class EventsController
  * @package PortalCMS\Controllers
  */
-class EventsController extends Controller
+class EventsController
 {
-    private $requests = [
-        'addEvent' => 'POST',
-        'updateEvent' => 'POST',
-        'deleteEvent' => 'POST'
-    ];
-
     public function __construct()
     {
-        parent::__construct();
         Authentication::checkAuthentication();
-        Router::processRequests($this->requests, __CLASS__);
     }
 
-    public static function deleteEvent()
+    public function deleteEvent()
     {
         if (EventModel::delete((int) Request::post('id', true))) {
             Redirect::to('Events/');
@@ -48,7 +40,7 @@ class EventsController extends Controller
         Redirect::to('Error/Error');
     }
 
-    public static function updateEvent()
+    public function updateEvent()
     {
         if (EventModel::update(EventFactory::byUpdateRequest())) {
             Redirect::to('Events/');
@@ -57,7 +49,7 @@ class EventsController extends Controller
         }
     }
 
-    public static function addEvent()
+    public function addEvent()
     {
         if (EventModel::create(EventFactory::byCreateRequest())) {
             Redirect::to('Events/');

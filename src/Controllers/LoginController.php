@@ -8,11 +8,9 @@ declare(strict_types=1);
 namespace PortalCMS\Controllers;
 
 use League\Plates\Engine;
-use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Cookie;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authentication\Service\LoginService;
 use PortalCMS\Core\Security\Csrf;
@@ -24,14 +22,16 @@ use PortalCMS\Core\View\Text;
  * LoginController
  * Controls everything that is authentication-related
  */
-class LoginController extends Controller
+class LoginController
 {
     /**
      * The requests that this controller will handle
      * @var array $requests
      */
 //    private $requests = [
-//        'loginSubmit' => 'POST', 'requestPasswordResetSubmit' => 'POST', 'resetSubmit' => 'POST'
+//        'loginSubmit' => 'POST',
+    // 'requestPasswordResetSubmit' => 'POST',
+    // 'resetSubmit' => 'POST'
 //    ];
 
     /**
@@ -39,8 +39,8 @@ class LoginController extends Controller
      * put checkAuthentication in here to make an entire controller only usable for logged-in users (for sure not
      * needed in the LoginController).
      */
-    public function __construct()
-    {
+//    public function __construct()
+//    {
 //        parent::__construct();
 //        Router::processRequests($this->requests, __CLASS__);
 
@@ -52,11 +52,9 @@ class LoginController extends Controller
         //         Redirect::to('Login');
         //     }
         // }
-    }
+//    }
 
-    /**
-     */
-    public static function loginSubmit(): bool
+    public function loginSubmit(): bool
     {
         if (!Csrf::isTokenValid()) {
             Session::add('feedback_negative', 'Invalid CSRF token.');
@@ -126,7 +124,7 @@ class LoginController extends Controller
 
     public function index()
     {
-        $this->setLayout('login');
+//        $this->setLayout('login');
         if (Authentication::userIsLoggedIn()) {
             Session::add('feedback_positive', 'You are already logged in.');
             if (Request::post('redirect')) {

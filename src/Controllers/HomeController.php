@@ -15,7 +15,7 @@ use PortalCMS\Core\Security\Authentication\Authentication;
  * Class HomeController
  * @package PortalCMS\Controllers
  */
-class HomeController extends Controller
+class HomeController
 {
     public function __construct()
     {
