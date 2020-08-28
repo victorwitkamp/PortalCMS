@@ -62,7 +62,7 @@ class Application
 
         $this->router->get('/Home', [ HomeController::class, 'index' ]);
 
-        $this->router->group('/Invoices', function (RouteGroup $route) {};
+//        $this->router->group('/Invoices', function (RouteGroup $route) {});
 
 
         $this->router->group('/Login', function (RouteGroup $route) {
