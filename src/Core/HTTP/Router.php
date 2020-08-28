@@ -46,6 +46,7 @@ class Router
 
     public function resolve()
     {
+<<<<<<< HEAD
         $method = $this->request->getMethod();
         $url = $this->request->getUrl();
         $callback = $this->routeMap[$method][$url] ?? false;
@@ -62,6 +63,11 @@ class Router
             $middlewares = $controller->getMiddlewares();
             foreach ($middlewares as $middleware) {
                 $middleware->execute();
+=======
+        foreach ($requests as $key => $value) {
+            if (($value === 'POST') && isset($_POST[$key])) {
+                call_user_func([ $class, $key ]);
+>>>>>>> parent of 1edfe7c... Merge pull request #37 from victorwitkamp/scrutinizer-patch-1
             }
             $callback[0] = $controller;
         }

@@ -39,8 +39,8 @@ class PasswordReset
             Session::add('feedback_negative', Text::get('FEEDBACK_USER_DOES_NOT_EXIST'));
             return false;
         }
-        $resetToken = sha1(uniqid((string) mt_rand(), true));
-        return self::writeTokenToDatabase($result->user_name, $resetToken, (string) date('Y-m-d H:i:s')) && self::sendPasswordResetMail($result->user_name, $resetToken, $result->user_email);
+        $resetToken = sha1(uniqid((string)mt_rand(), true));
+        return self::writeTokenToDatabase($result->user_name, $resetToken, (string)date('Y-m-d H:i:s')) && self::sendPasswordResetMail($result->user_name, $resetToken, $result->user_email);
     }
 
     /**
@@ -70,7 +70,7 @@ class PasswordReset
         $resetlink = Config::get('URL') . Config::get('EMAIL_PASSWORD_RESET_URL') . '?username=' . $username . '&password_reset_hash=' . urlencode($resetToken);
         $recipient = new EmailRecipient($username, $user_email);
         $SMTPTransport = new SMTPTransport(new SMTPConfiguration());
-        if ($SMTPTransport->sendMail(new EmailMessage(Config::get('EMAIL_PASSWORD_RESET_SUBJECT'), PlaceholderHelper::replace('RESETLINK', $resetlink, PlaceholderHelper::replace('SITENAME', SiteSetting::get('site_name'), PlaceholderHelper::replace('USERNAME', $username, $template['body']))), [$recipient->get()], null))) {
+        if ($SMTPTransport->sendMail(new EmailMessage(Config::get('EMAIL_PASSWORD_RESET_SUBJECT'), PlaceholderHelper::replace('RESETLINK', $resetlink, PlaceholderHelper::replace('SITENAME', SiteSetting::get('site_name'), PlaceholderHelper::replace('USERNAME', $username, $template['body']))), [ $recipient->get() ], null))) {
             Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_RESET_MAIL_SENDING_SUCCESSFUL'));
             return true;
         }

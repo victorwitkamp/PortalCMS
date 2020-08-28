@@ -19,7 +19,7 @@ class InvoiceItemMapper
     public static function getByInvoiceId(int $invoiceId): array
     {
         $stmt = Database::conn()->prepare('SELECT * FROM invoice_items WHERE invoice_id = ?');
-        $stmt->execute([$invoiceId]);
+        $stmt->execute([ $invoiceId ]);
 //        if ($stmt->rowCount() === 0) {
 //            return null;
 //        }
@@ -32,27 +32,27 @@ class InvoiceItemMapper
                 id, invoice_id, name, price
                 )
                 VALUES (NULL,?,?,?)');
-        return $stmt->execute([$invoiceId, $name, $price]);
+        return $stmt->execute([ $invoiceId, $name, $price ]);
     }
 
     public static function delete(int $id): bool
     {
         $stmt = Database::conn()->prepare('DELETE FROM invoice_items WHERE id = ? LIMIT 1');
-        $stmt->execute([$id]);
+        $stmt->execute([ $id ]);
         return ($stmt->rowCount() === 1);
     }
 
     public static function deleteByInvoiceId(int $id): bool
     {
         $stmt = Database::conn()->prepare('DELETE FROM invoice_items WHERE invoice_id = ?');
-        $stmt->execute([$id]);
+        $stmt->execute([ $id ]);
         return ($stmt->rowCount() > 0);
     }
 
     public static function exists(int $id): bool
     {
         $stmt = Database::conn()->prepare('SELECT id FROM invoice_items WHERE id = ? LIMIT 1');
-        $stmt->execute([$id]);
+        $stmt->execute([ $id ]);
         return ($stmt->rowCount() === 1);
     }
 }

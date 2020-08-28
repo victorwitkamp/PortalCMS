@@ -10,7 +10,7 @@ use PortalCMS\Core\View\Text;
 $pageName = Text::get('TITLE_PROFILE') . ' ' . $this->e($user_name);
 
 ?>
-<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->layout('layout', [ 'title' => $pageName ]) ?>
 <?= $this->push('main-content') ?>
     <div class="container">
         <div class="row mt-5">

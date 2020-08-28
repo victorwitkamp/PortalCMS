@@ -8,10 +8,10 @@ declare(strict_types=1);
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
-$pageName = (string) Text::get('TITLE_EVENTS');
+$pageName = (string)Text::get('TITLE_EVENTS');
 
 ?>
-<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->layout('layout', [ 'title' => $pageName ]) ?>
 <?= $this->push('head-extra') ?>
 
     <link rel="stylesheet" type="text/css" href="/dist/merged/fullcalendar.min.css"/>

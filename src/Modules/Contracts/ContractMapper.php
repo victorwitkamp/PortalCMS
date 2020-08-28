@@ -29,7 +29,7 @@ class ContractMapper
     public static function getById(int $Id): ?object
     {
         $stmt = Database::conn()->prepare('SELECT * FROM contracts WHERE id = ? LIMIT 1');
-        $stmt->execute([$Id]);
+        $stmt->execute([ $Id ]);
         if ($stmt->rowCount() === 1) {
             return $stmt->fetch(PDO::FETCH_OBJ);
         }
@@ -61,7 +61,7 @@ class ContractMapper
     {
         $id = Database::conn()->query('SELECT max(id) from contracts')->fetchColumn();
         if (!empty($id) && is_numeric($id)) {
-            return (int) $id;
+            return (int)$id;
         }
         return null;
     }
@@ -84,7 +84,7 @@ class ContractMapper
     public static function delete(int $id): bool
     {
         $stmt = Database::conn()->prepare('DELETE FROM contracts WHERE id = ? LIMIT 1');
-        $stmt->execute([$id]);
+        $stmt->execute([ $id ]);
         return ($stmt->rowCount() === 1);
     }
 }

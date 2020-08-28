@@ -11,13 +11,13 @@ use PortalCMS\Core\User\UserMapper;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
-$user = UserMapper::getProfileById((int) Request::get('id'));
+$user = UserMapper::getProfileById((int)Request::get('id'));
 if (empty($user)) {
     Redirect::to('Error/NotFound');
 } else {
     $pageName = Text::get('TITLE_PROFILE') . $user->user_name;
 } ?>
-<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->layout('layout', [ 'title' => $pageName ]) ?>
 <?= $this->push('main-content') ?>
 
     <div class="container">

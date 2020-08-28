@@ -14,7 +14,7 @@ $pageName = 'Pagina bewerken';
 
 Authentication::checkAuthentication();
 
-$row = Page::getPage((int) Request::get('id'));
+$row = Page::getPage((int)Request::get('id'));
 if (empty($row)) {
     header('Location: /index.php');
     die;
@@ -23,7 +23,7 @@ if (empty($row)) {
 
 $pageName = 'Pagina ' . $row ['name'] . ' bewerken';
 ?>
-<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->layout('layout', [ 'title' => $pageName ]) ?>
 <?= $this->push('head-extra') ?>
     <script src='https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=y6xawmw19w565wdi90wrtlow2ll6498emv0fozfrtrt7vb4y'></script>
     <script>

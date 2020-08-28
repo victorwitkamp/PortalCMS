@@ -49,14 +49,14 @@ class LoginService
     public static function setRememberMe(int $user_id): bool
     {
         // generate 64 char random string
-        $token = hash('sha256', (string) mt_rand());
+        $token = hash('sha256', (string)mt_rand());
 
         UserMapper::updateRememberMeToken($user_id, $token);
 
         // generate cookie string that consists of user id, random string and combined hash of both
         // never expose the original user id, instead, encrypt it.
         try {
-            $cookie_string_first_part = Encryption::encrypt((string) $user_id) . ':' . $token;
+            $cookie_string_first_part = Encryption::encrypt((string)$user_id) . ':' . $token;
         } catch (Exception $e) {
             return false;
         }

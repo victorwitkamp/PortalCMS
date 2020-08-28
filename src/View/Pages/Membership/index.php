@@ -13,13 +13,13 @@ use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Members\MemberMapper;
 
 $pageName = Text::get('TITLE_MEMBERS');
-$year = (int) Request::get('year');
+$year = (int)Request::get('year');
 if (!isset($year) || empty($year)) {
     Redirect::to('Membership?year=' . date('Y'));
 }
 
 ?>
-<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->layout('layout', [ 'title' => $pageName ]) ?>
 <?= $this->push('head-extra') ?>
 
     <link rel="stylesheet" type="text/css" href="/dist/merged/dataTables.min.css">

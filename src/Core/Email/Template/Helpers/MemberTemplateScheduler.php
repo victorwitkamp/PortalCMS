@@ -32,7 +32,7 @@ class MemberTemplateScheduler
         }
         $batchId = MailBatch::lastInsertedId();
         foreach ($memberIds as $memberId) {
-            if ($this->processSingleMail((int) $memberId, $batchId, $template)) {
+            if ($this->processSingleMail((int)$memberId, $batchId, $template)) {
                 ++$success;
             } else {
                 ++$failed;

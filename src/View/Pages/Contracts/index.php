@@ -14,7 +14,7 @@ $pageName = Text::get('TITLE_CONTRACTS');
 
 $contracts = ContractMapper::get();
 ?>
-<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->layout('layout', [ 'title' => $pageName ]) ?>
 <?= $this->push('head-extra') ?>
 
     <link rel="stylesheet" type="text/css" href="/dist/merged/dataTables.min.css">
