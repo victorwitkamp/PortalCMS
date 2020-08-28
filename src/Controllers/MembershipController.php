@@ -43,7 +43,7 @@ class MembershipController
             $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Membership/Index');
         } else {
-            Redirect::to('Error/PermissionError');
+            return new RedirectResponse('/Error/PermissionError');
         }
     }
 
@@ -53,7 +53,7 @@ class MembershipController
             $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Membership/New');
         } else {
-            Redirect::to('Error/PermissionError');
+            return new RedirectResponse('/Error/PermissionError');
         }
     }
 
@@ -63,7 +63,7 @@ class MembershipController
             $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Membership/Edit');
         } else {
-            Redirect::to('Error/PermissionError');
+            return new RedirectResponse('/Error/PermissionError');
         }
     }
 
@@ -73,7 +73,7 @@ class MembershipController
             $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Membership/NewFromExisting');
         } else {
-            Redirect::to('Error/PermissionError');
+            return new RedirectResponse('/Error/PermissionError');
         }
     }
 
@@ -83,7 +83,7 @@ class MembershipController
             $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Membership/Profile');
         } else {
-            Redirect::to('Error/PermissionError');
+            return new RedirectResponse('/Error/PermissionError');
         }
     }
 

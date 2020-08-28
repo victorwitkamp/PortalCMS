@@ -125,7 +125,7 @@ class UserManagementController
             $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/UserManagement/Users/Index');
         } else {
-            Redirect::to('Error/PermissionError');
+            return new RedirectResponse('/Error/PermissionError');
         }
     }
 
@@ -135,7 +135,7 @@ class UserManagementController
             $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/UserManagement/Profile/Index');
         } else {
-            Redirect::to('Error/PermissionError');
+            return new RedirectResponse('/Error/PermissionError');
         }
     }
 
@@ -145,7 +145,7 @@ class UserManagementController
             $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/UserManagement/Roles/Index');
         } else {
-            Redirect::to('Error/PermissionError');
+            return new RedirectResponse('/Error/PermissionError');
         }
     }
 
@@ -155,7 +155,7 @@ class UserManagementController
             $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/UserManagement/Users/AddUser');
         } else {
-            Redirect::to('Error/PermissionError');
+            return new RedirectResponse('/Error/PermissionError');
         }
     }
 
@@ -165,7 +165,7 @@ class UserManagementController
             $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/UserManagement/Role/Index');
         } else {
-            Redirect::to('Error/PermissionError');
+            return new RedirectResponse('/Error/PermissionError');
         }
     }
 }

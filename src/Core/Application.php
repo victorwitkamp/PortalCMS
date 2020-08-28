@@ -15,6 +15,8 @@ use League\Plates\Engine;
 use League\Route\RouteGroup;
 use League\Route\Router;
 use League\Route\Strategy\ApplicationStrategy;
+use PortalCMS\Controllers\AccountController;
+use PortalCMS\Controllers\ContractsController;
 use PortalCMS\Controllers\EventsController;
 use PortalCMS\Controllers\HomeController;
 use PortalCMS\Controllers\LoginController;
@@ -35,18 +37,29 @@ class Application
         );
         $container->add(Engine::class)->addArgument(DIR_VIEW);
 
-        $strategy = new ApplicationStrategy();
-        $strategy->setContainer($container);
+        $strategy = (new ApplicationStrategy())->setContainer($container);
         $this->router = new Router();
         $this->router->setStrategy($strategy);
 
         $this->request = ServerRequestFactory::fromGlobals();
         $this->session = new Session();
 
-//        $this->router->group('/Account', function (RouteGroup $route) {};
-//        $this->router->group('/Contracts', function (RouteGroup $route) {};
-//        $this->router->group('/Email', function (RouteGroup $route) {};
-//        $this->router->group('/Error', function (RouteGroup $route) {};
+        $this->router->group('/Account', function (RouteGroup $route) {
+            $route->get('/', [ AccountController::class, 'index' ]);
+            $route->post('/changeUsername', [ AccountController::class, 'changeUsername' ]);
+            $route->post('/changePassword', [ AccountController::class, 'changePassword' ]);
+            $route->post('/clearUserFbid', [ AccountController::class, 'clearUserFbid' ]);
+        });
+
+        $this->router->group('/Contracts', function (RouteGroup $route) {
+            $route->get('/', [ ContractsController::class, 'index' ]);
+            $route->post('/newContract', [ ContractsController::class, 'newContract' ]);
+            $route->post('/updateContract', [ ContractsController::class, 'updateContract' ]);
+            $route->post('/deleteContract', [ ContractsController::class, 'deleteContract' ]);
+        });
+
+        //        $this->router->group('/Email', function (RouteGroup $route) {};
+        //        $this->router->group('/Error', function (RouteGroup $route) {};
 
         $this->router->group('/Events', function (RouteGroup $route) {
             $route->get('/', [ EventsController::class, 'index' ]);
@@ -62,8 +75,7 @@ class Application
 
         $this->router->get('/Home', [ HomeController::class, 'index' ]);
 
-//        $this->router->group('/Invoices', function (RouteGroup $route) {});
-
+        //        $this->router->group('/Invoices', function (RouteGroup $route) {});
 
         $this->router->group('/Login', function (RouteGroup $route) {
             $route->get('/', [ LoginController::class, 'index' ]);
@@ -72,11 +84,11 @@ class Application
 
         $this->router->get('/Logout', [ LogoutController::class, 'index' ]);
 
-//        $this->router->group('/Membership', function (RouteGroup $route) {};
-//        $this->router->group('/Page', function (RouteGroup $route) {};
-//        $this->router->group('/Profile', function (RouteGroup $route) {};
-//        $this->router->group('/Settings', function (RouteGroup $route) {};
-//        $this->router->group('/UserManagement', function (RouteGroup $route) {};
+        //        $this->router->group('/Membership', function (RouteGroup $route) {};
+        //        $this->router->group('/Page', function (RouteGroup $route) {};
+        //        $this->router->group('/Profile', function (RouteGroup $route) {};
+        //        $this->router->group('/Settings', function (RouteGroup $route) {};
+        //        $this->router->group('/UserManagement', function (RouteGroup $route) {};
 
         (new SapiEmitter())->emit($this->router->dispatch($this->request));
     }

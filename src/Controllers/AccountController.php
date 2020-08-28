@@ -8,8 +8,8 @@ declare(strict_types=1);
 namespace PortalCMS\Controllers;
 
 use Laminas\Diactoros\Response\HtmlResponse;
+use Laminas\Diactoros\Response\RedirectResponse;
 use League\Plates\Engine;
-use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Session;
 use PortalCMS\Core\Security\Authentication\Authentication;
@@ -27,24 +27,19 @@ class AccountController
 {
     protected $templates;
 
-    private $requests = [
-        'changeUsername' => 'POST',
-        'changePassword' => 'POST',
-        'clearUserFbid'  => 'POST'
-    ];
-
     public function __construct(Engine $templates)
     {
         Authentication::checkAuthentication();
         $this->templates = $templates;
     }
 
-    public static function changeUsername()
+    public function changeUsername() : ResponseInterface
     {
         User::editUsername((string) Request::post('user_name'));
+        return new RedirectResponse('/Account');
     }
 
-    public static function changePassword()
+    public function changePassword() : ResponseInterface
     {
         Password::changePassword(
             UserMapper::getByUsername(
@@ -54,32 +49,29 @@ class AccountController
             (string) Request::post('newpassword'),
             (string) Request::post('newconfirmpassword')
         );
+        return new RedirectResponse('/Account');
     }
 
-    public static function clearUserFbid()
+    public function clearUserFbid() : ResponseInterface
     {
         if (UserMapper::updateFBid((int) Session::get('user_id'))) {
             Session::set('user_fbid', null);
             Session::add('feedback_positive', Text::get('FEEDBACK_REMOVE_FACEBOOK_ACCOUNT_SUCCESS'));
-            Redirect::to('Account');
+        } else {
+            Session::add('feedback_negative', Text::get('FEEDBACK_REMOVE_FACEBOOK_ACCOUNT_FAILED'));
         }
-        Session::add('feedback_negative', Text::get('FEEDBACK_REMOVE_FACEBOOK_ACCOUNT_FAILED'));
-        Redirect::to('Account');
+        return new RedirectResponse('/Account');
     }
 
-    /**
-     * @param int|null $FbId
-     */
-    public static function setFbid(int $user_id, int $FbId = null)
+    public static function setFbid(int $user_id, int $FbId = null) : ResponseInterface
     {
         if ($FbId !== null && UserMapper::updateFBid($user_id, $FbId)) {
             Session::set('user_fbid', $FbId);
             Session::add('feedback_positive', Text::get('FEEDBACK_CONNECT_FACEBOOK_ACCOUNT_SUCCESS'));
-            Redirect::to('Account');
         } else {
             Session::add('feedback_negative', Text::get('FEEDBACK_CONNECT_FACEBOOK_ACCOUNT_FAILED'));
-            Redirect::to('Account');
         }
+        return new RedirectResponse('/Account');
     }
 
     public function index() : ResponseInterface

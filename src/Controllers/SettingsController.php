@@ -61,7 +61,7 @@ class SettingsController
             $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Settings/SiteSettings');
         } else {
-            Redirect::to('Error/PermissionError');
+            return new RedirectResponse('/Error/PermissionError');
         }
     }
 
@@ -71,7 +71,7 @@ class SettingsController
             $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Settings/Activity');
         } else {
-            Redirect::to('Error/PermissionError');
+            return new RedirectResponse('/Error/PermissionError');
         }
     }
 
@@ -81,7 +81,7 @@ class SettingsController
             $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Settings/Logo');
         } else {
-            Redirect::to('Error/PermissionError');
+            return new RedirectResponse('/Error/PermissionError');
         }
     }
 
@@ -91,7 +91,7 @@ class SettingsController
             $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Settings/Debug');
         } else {
-            Redirect::to('Error/PermissionError');
+            return new RedirectResponse('/Error/PermissionError');
         }
     }
 }

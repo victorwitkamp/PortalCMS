@@ -114,7 +114,7 @@ class InvoicesController
             $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Invoices/Index');
         } else {
-            Redirect::to('Error/PermissionError');
+            return new RedirectResponse('/Error/PermissionError');
         }
     }
 
@@ -124,7 +124,7 @@ class InvoicesController
             $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Invoices/Add');
         } else {
-            Redirect::to('Error/PermissionError');
+            return new RedirectResponse('/Error/PermissionError');
         }
     }
 
@@ -134,7 +134,7 @@ class InvoicesController
             $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Invoices/Details');
         } else {
-            Redirect::to('Error/PermissionError');
+            return new RedirectResponse('/Error/PermissionError');
         }
     }
 
@@ -144,7 +144,7 @@ class InvoicesController
             $templates = new Engine(DIR_VIEW);
             echo $templates->render('Pages/Invoices/CreatePDF');
         } else {
-            Redirect::to('Error/PermissionError');
+            return new RedirectResponse('/Error/PermissionError');
         }
     }
 }

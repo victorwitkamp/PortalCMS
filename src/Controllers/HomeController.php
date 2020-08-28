@@ -22,13 +22,14 @@ class HomeController
 
     public function __construct(Engine $templates)
     {
-//        $this->templates = new Engine(DIR_VIEW);
         Authentication::checkAuthentication();
         $this->templates = $templates;
     }
 
     public function index() : ResponseInterface
     {
-        return new HtmlResponse($this->templates->render('Pages/Home/Index'));
+        return new HtmlResponse(
+            $this->templates->render('Pages/Home/Index')
+        );
     }
 }

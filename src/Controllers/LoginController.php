@@ -7,14 +7,16 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
+use Laminas\Diactoros\Response\HtmlResponse;
+use Laminas\Diactoros\Response\RedirectResponse;
 use League\Plates\Engine;
 use PortalCMS\Core\HTTP\Cookie;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Core\HTTP\Session;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authentication\Service\LoginService;
 use PortalCMS\Core\Security\Csrf;
-use PortalCMS\Core\HTTP\Session;
 use PortalCMS\Core\User\PasswordReset;
 use PortalCMS\Core\View\Text;
 
@@ -26,11 +28,11 @@ class LoginController
 {
     protected $templates;
 
-//    private $requests = [
-//        'loginSubmit' => 'POST',
+    //    private $requests = [
+    //        'loginSubmit' => 'POST',
     // 'requestPasswordResetSubmit' => 'POST',
     // 'resetSubmit' => 'POST'
-//    ];
+    //    ];
 
     public function __construct(Engine $templates)
     {
@@ -45,12 +47,11 @@ class LoginController
         $this->templates = $templates;
     }
 
-    public function loginSubmit(): bool
+    public function loginSubmit()
     {
         if (!Csrf::isTokenValid()) {
             Session::add('feedback_negative', 'Invalid CSRF token.');
-            Redirect::to('Login');
-            return false;
+            return new RedirectResponse('/Login');
         }
         $rememberMe = false;
         if (Request::post('set_remember_me_cookie') === 'on') {
@@ -62,84 +63,78 @@ class LoginController
             if (!empty(Request::post('redirect'))) {
                 Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
             } else {
-                Redirect::to('Home');
+                return new RedirectResponse('/Home');
             }
-            return true;
         }
-        Redirect::to('Login');
-        return false;
+        return new RedirectResponse('/Login');
     }
 
     /**
      */
-    public static function loginWithFacebook(int $fbid): bool
+    public static function loginWithFacebook(int $fbid)
     {
         if (LoginService::loginWithFacebook($fbid)) {
             if (Request::post('redirect')) {
                 Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
             } else {
-                Redirect::to('Home');
+                return new RedirectResponse('/Home');
             }
-            return true;
         }
         if (Request::post('redirect')) {
             Redirect::to('Login/?redirect=' . ltrim(urlencode(Request::post('redirect')), '/'));
         } else {
-            Redirect::to('Login');
+            return new RedirectResponse('/Login');
         }
-        return false;
     }
 
     public static function requestPasswordResetSubmit()
     {
-        if (PasswordReset::requestPasswordReset((string)Request::post('user_name_or_email'))) {
-            Redirect::to('Login');
+        if (PasswordReset::requestPasswordReset((string) Request::post('user_name_or_email'))) {
+            return new RedirectResponse('/Login');
         }
     }
 
     public static function resetSubmit()
     {
-        $username = (string)Request::post('username');
-        $resetHash = (string)Request::post('password_reset_hash');
+        $username = (string) Request::post('username');
+        $resetHash = (string) Request::post('password_reset_hash');
         if (PasswordReset::verifyPasswordReset($username, $resetHash)) {
-            $passwordHash = password_hash(base64_encode((string)Request::post('password')), PASSWORD_DEFAULT);
+            $passwordHash = password_hash(base64_encode((string) Request::post('password')), PASSWORD_DEFAULT);
             if (PasswordReset::saveNewUserPassword($username, $passwordHash, $resetHash)) {
                 Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_CHANGE_SUCCESSFUL'));
-                Redirect::to('Login');
+                return new RedirectResponse('/Login');
             } else {
                 Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CHANGE_FAILED'));
-                Redirect::to('Login/PasswordReset.php');
+                return new RedirectResponse('/Login/PasswordReset');
             }
         }
     }
 
     public function index()
     {
-//        $this->setLayout('login');
         if (Authentication::userIsLoggedIn()) {
             Session::add('feedback_positive', 'You are already logged in.');
             if (Request::post('redirect')) {
                 Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
             } else {
-                Redirect::to('Home');
+                return new RedirectResponse('/Home');
             }
         } elseif (self::loginWithCookie()) {
             Session::add('feedback_positive', 'You are automatically logged in using a cookie.');
             if (Request::post('redirect')) {
                 Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
             } else {
-                Redirect::to('Home');
+                return new RedirectResponse('/Home');
             }
         } else {
-            $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/Login/Index');
+            return new HtmlResponse($this->templates->render('Pages/Login/Index'));
         }
     }
 
     public static function loginWithCookie(): bool
     {
         $cookie = Request::cookie('remember_me');
-        if (!empty($cookie) && LoginService::loginWithCookie((string)$cookie)) {
+        if (!empty($cookie) && LoginService::loginWithCookie((string) $cookie)) {
             return true;
         }
         // if not, delete cookie (outdated? attack?) and route user to login form to prevent infinite login loops
@@ -149,19 +144,16 @@ class LoginController
 
     public function requestPasswordReset()
     {
-        $templates = new Engine(DIR_VIEW);
-        echo $templates->render('Pages/Login/RequestPasswordReset');
+        return new HtmlResponse($this->templates->render('Pages/Login/RequestPasswordReset'));
     }
 
     public function passwordReset()
     {
-        $templates = new Engine(DIR_VIEW);
-        echo $templates->render('Pages/Login/PasswordReset');
+        return new HtmlResponse($this->templates->render('Pages/Login/PasswordReset'));
     }
 
     public function activate()
     {
-        $templates = new Engine(DIR_VIEW);
-        echo $templates->render('Pages/Login/Activate');
+        return new HtmlResponse($this->templates->render('Pages/Login/Activate'));
     }
 }
