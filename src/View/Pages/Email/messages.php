@@ -16,7 +16,7 @@ $pageType = 'index';
 $pageName = Text::get('TITLE_MAIL_MESSAGES');
 
 ?>
-<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->layout('layout', [ 'title' => $pageName ]) ?>
 <?= $this->push('head-extra') ?>
 
     <link rel="stylesheet" type="text/css" href="/dist/merged/dataTables.min.css">
@@ -51,7 +51,7 @@ $pageName = Text::get('TITLE_MAIL_MESSAGES');
     <div class="container-fluid">
         <?php
         if (!empty(Request::get('batch_id'))) {
-            $result = MailScheduleMapper::getByBatchId((int) Request::get('batch_id'));
+            $result = MailScheduleMapper::getByBatchId((int)Request::get('batch_id'));
         } else {
             $result = MailScheduleMapper::getAll();
         }

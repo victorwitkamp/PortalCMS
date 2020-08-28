@@ -25,7 +25,7 @@ class RolePermissionMapper
                         JOIN permissions as t2 ON t1.perm_id = t2.perm_id
                             WHERE t1.role_id = ?
                                 ORDER BY perm_id');
-        $stmt->execute([$role_id]);
+        $stmt->execute([ $role_id ]);
         if ($stmt->rowCount() > 0) {
             return $stmt->fetchAll();
         }
@@ -41,7 +41,7 @@ class RolePermissionMapper
                 FROM role_perm
                     WHERE role_id = ?)
                         ORDER BY perm_id');
-        $stmt->execute([$role_id]);
+        $stmt->execute([ $role_id ]);
         if ($stmt->rowCount() > 0) {
             return $stmt->fetchAll();
         }
@@ -77,7 +77,7 @@ class RolePermissionMapper
                         where role_id=?
                         AND perm_id=?
                         LIMIT 1');
-        $stmt->execute([$role_id, $perm_id]);
+        $stmt->execute([ $role_id, $perm_id ]);
         return ($stmt->rowCount() === 1);
     }
 }

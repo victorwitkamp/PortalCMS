@@ -9,7 +9,7 @@ use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
 ?>
-<?= $this->layout('layout', ['title' => $this->e($pageName)]) ?>
+<?= $this->layout('layout', [ 'title' => $this->e($pageName) ]) ?>
 <?= $this->push('main-content') ?>
 
     <div class="container">

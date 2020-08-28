@@ -13,8 +13,8 @@ use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Contracts\ContractMapper;
 use PortalCMS\Modules\Invoices\InvoiceMapper;
 
-$contractId = (int) Request::get('contract');
-$year = (int) Request::get('year');
+$contractId = (int)Request::get('contract');
+$year = (int)Request::get('year');
 
 if (!empty($contractId) && is_numeric($contractId)) {
     $contract = ContractMapper::getById($contractId);
@@ -37,7 +37,7 @@ if (!empty($contractId) && is_numeric($contractId)) {
 }
 
 ?>
-<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->layout('layout', [ 'title' => $pageName ]) ?>
 <?= $this->push('head-extra') ?>
 
     <link rel="stylesheet" type="text/css" href="/dist/merged/dataTables.min.css">

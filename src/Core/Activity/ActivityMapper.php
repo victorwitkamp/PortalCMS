@@ -26,7 +26,7 @@ class ActivityMapper
     {
         $sql = 'INSERT INTO activity (id, user_id, user_name, ip_address, activity, details) VALUES (NULL, ?, ?, ?, ?, ?)';
         $stmt = Database::conn()->prepare($sql);
-        if ($stmt->execute([$user_id, $user_name, $ip, $activity, $details])) {
+        if ($stmt->execute([ $user_id, $user_name, $ip, $activity, $details ])) {
             return true;
         }
         return false;

@@ -9,7 +9,7 @@ use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
 $pageName = Text::get('TITLE_SITE_SETTINGS'); ?>
-<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->layout('layout', [ 'title' => $pageName ]) ?>
 <?= $this->push('main-content') ?>
 
         <form method="post">

@@ -25,7 +25,7 @@ class PermissionMapper
                     FROM permissions
                         WHERE perm_id = ?
                             LIMIT 1');
-        $stmt->execute([$perm_id]);
+        $stmt->execute([ $perm_id ]);
         if ($stmt->rowCount() === 0) {
             return false;
         }
@@ -43,7 +43,7 @@ class PermissionMapper
                             (SELECT role_id
                                     FROM user_role
                                         WHERE user_id = ?)');
-        $stmt->execute([$user_id]);
+        $stmt->execute([ $user_id ]);
         if ($stmt->rowCount() === 0) {
             return null;
         }

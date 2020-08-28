@@ -8,7 +8,7 @@ declare(strict_types=1);
 $pageName = 'Lid toevoegen';
 $pageType = 'new';
 ?>
-<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->layout('layout', [ 'title' => $pageName ]) ?>
 <?= $this->push('head-extra') ?>
 
 <!--    <link rel="stylesheet" type="text/css" href="/dist/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css">-->

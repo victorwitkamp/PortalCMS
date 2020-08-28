@@ -12,7 +12,7 @@ use PortalCMS\Core\HTTP\Session;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
-$Role = RoleMapper::get((int) Request::get('id'));
+$Role = RoleMapper::get((int)Request::get('id'));
 if (empty($Role)) {
     Session::add('feedback_negative', 'Geen resultaten voor opgegeven rol ID.');
     Redirect::to('Error/Error');
@@ -20,7 +20,7 @@ if (empty($Role)) {
     $pageName = Text::get('TITLE_ROLE') . ': ' . $Role->role_name . ' (rol)';
 }
 ?>
-<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->layout('layout', [ 'title' => $pageName ]) ?>
 <?= $this->push('main-content') ?>
 
     <div class="container">

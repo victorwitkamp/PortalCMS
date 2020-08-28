@@ -12,14 +12,14 @@ use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
-$templateId = (int) Request::get('id');
+$templateId = (int)Request::get('id');
 $template = EmailTemplateMapper::getById($templateId);
 if (empty($template)) {
     Redirect::to('Error/NotFound');
 }
 $pageName = Text::get('TITLE_EDIT_MAIL_TEMPLATE');
 ?>
-<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->layout('layout', [ 'title' => $pageName ]) ?>
 <?= $this->push('head-extra') ?>
 
     <script src='https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=y6xawmw19w565wdi90wrtlow2ll6498emv0fozfrtrt7vb4y'></script>

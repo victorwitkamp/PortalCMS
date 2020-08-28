@@ -11,7 +11,7 @@ use PortalCMS\Core\View\Text;
 
 $pageName = Text::get('TITLE_USER_MANAGEMENT');
 ?>
-<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->layout('layout', [ 'title' => $pageName ]) ?>
 <?= $this->push('main-content') ?>
 
     <div class="container">

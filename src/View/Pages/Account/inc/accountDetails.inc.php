@@ -10,7 +10,7 @@ use PortalCMS\Core\HTTP\Session;
 use PortalCMS\Core\User\UserMapper;
 use PortalCMS\Core\View\Text;
 
-$user = UserMapper::getProfileById((int) Session::get('user_id'));
+$user = UserMapper::getProfileById((int)Session::get('user_id'));
 ?>
 <h3><?= Text::get('LABEL_ACCOUNT_DETAILS') ?></h3>
 <table class="table table-striped table-condensed">
