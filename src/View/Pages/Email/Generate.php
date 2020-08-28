@@ -9,7 +9,7 @@ use PortalCMS\Core\View\Alert;
 
 $pageName = 'Nieuw bericht';
 ?>
-<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->layout('layout', [ 'title' => $pageName ]) ?>
 <?= $this->push('main-content') ?>
 
 

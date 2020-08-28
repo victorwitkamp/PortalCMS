@@ -13,7 +13,7 @@ use PortalCMS\Core\View\Text;
 $pageType = 'index';
 $pageName = Text::get('TITLE_MAIL_BATCHES');
 ?>
-<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->layout('layout', [ 'title' => $pageName ]) ?>
 <?= $this->push('head-extra') ?>
 
     <link rel="stylesheet" type="text/css" href="/dist/merged/dataTables.min.css">

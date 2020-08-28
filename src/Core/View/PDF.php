@@ -21,12 +21,12 @@ class PDF extends TCPDF
         if (self::$defined === false) {
             $this->SetCreator(SiteSetting::get('site_name'));
             $this->SetAuthor(SiteSetting::get('site_name'));
-            $this->SetHeaderData('logo.jpg', 30, 'Factuur', "Poppodium de Beuk\nbeukonline.nl", [0, 64, 255], [
+            $this->SetHeaderData('logo.jpg', 30, 'Factuur', "Poppodium de Beuk\nbeukonline.nl", [ 0, 64, 255 ], [
                 0,
                 64,
                 128
             ]);
-            $this->setFooterData([0, 64, 0], [0, 64, 128]);
+            $this->setFooterData([ 0, 64, 0 ], [ 0, 64, 128 ]);
             $this->setPrintHeader(false);
             $this->setPrintFooter(false);
             $this->SetDefaultMonospacedFont('courier');

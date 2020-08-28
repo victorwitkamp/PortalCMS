@@ -13,7 +13,7 @@ use PortalCMS\Modules\Members\MemberModel;
 
 $pageName = 'Wijzigen';
 $pageType = 'edit';
-$member = MemberModel::getMember((int) Request::get('Id'));
+$member = MemberModel::getMember((int)Request::get('Id'));
 if ($member !== null) {
     $allowEdit = true;
     $pageName = 'Lidmaatschap van ' . $member->voornaam . ' ' . $member->achternaam . ' bewerken';
@@ -21,7 +21,7 @@ if ($member !== null) {
     Redirect::to('Error/NotFound');
 }
 ?>
-<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->layout('layout', [ 'title' => $pageName ]) ?>
 <?= $this->push('head-extra') ?>
 
 

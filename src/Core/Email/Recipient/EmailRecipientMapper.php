@@ -52,7 +52,7 @@ class EmailRecipientMapper
         $stmt = Database::conn()->prepare('
             SELECT * FROM mail_recipients where mail_id = ? and type = 2
         ');
-        $stmt->execute([$mailId]);
+        $stmt->execute([ $mailId ]);
         if ($stmt->rowCount() === 0) {
             return null;
         }
@@ -66,7 +66,7 @@ class EmailRecipientMapper
         $stmt = Database::conn()->prepare('
             SELECT * FROM mail_recipients where mail_id = ? and type = 3
         ');
-        $stmt->execute([$mailId]);
+        $stmt->execute([ $mailId ]);
         if ($stmt->rowCount() === 0) {
             return null;
         }
@@ -80,7 +80,7 @@ class EmailRecipientMapper
         $stmt = Database::conn()->prepare('
             SELECT * FROM mail_recipients where mail_id = ?
         ');
-        $stmt->execute([$mail_id]);
+        $stmt->execute([ $mail_id ]);
         if ($stmt->rowCount() === 0) {
             return null;
         }
@@ -94,7 +94,7 @@ class EmailRecipientMapper
         $stmt = Database::conn()->prepare('
             SELECT * FROM mail_recipients where mail_id = ? and type = 1
         ');
-        $stmt->execute([$mailId]);
+        $stmt->execute([ $mailId ]);
         if ($stmt->rowCount() === 0) {
             return null;
         }

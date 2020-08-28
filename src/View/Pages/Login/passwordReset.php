@@ -12,11 +12,11 @@ $pageName = 'Wachtwoord resetten';
 if (empty($_GET['password_reset_hash'])) {
     header('HTTP/1.1 401 Unauthorized ', true, 401);
     $templates = new Engine(DIR_VIEW);
-    echo $templates->render('Pages/Error/Error', ['title' => '401 - Unauthorized', 'message' => 'Invalid token. - Unauthorized']);
+    echo $templates->render('Pages/Error/Error', [ 'title' => '401 - Unauthorized', 'message' => 'Invalid token. - Unauthorized' ]);
     die;
 }
 ?>
-<?= $this->layout('layoutLogin', ['title' => $pageName]) ?>
+<?= $this->layout('layoutLogin', [ 'title' => $pageName ]) ?>
 <?= $this->push('body-start') ?>
 
     <header>

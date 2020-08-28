@@ -13,12 +13,12 @@ use PortalCMS\Modules\Members\MemberModel;
 
 $pageName = 'Nieuw bericht';
 
-$year = (int) Request::get('year');
+$year = (int)Request::get('year');
 if (empty($year)) {
-    $year = (int) date('Y');
+    $year = (int)date('Y');
 }
 ?>
-<?= $this->layout('layout', ['title' => $pageName]) ?>
+<?= $this->layout('layout', [ 'title' => $pageName ]) ?>
 <?= $this->push('head-extra') ?>
 
 
