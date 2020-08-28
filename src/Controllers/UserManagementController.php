@@ -9,10 +9,8 @@ declare(strict_types=1);
 namespace PortalCMS\Controllers;
 
 use League\Plates\Engine;
-use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\Security\Authorization\RoleMapper;
@@ -24,8 +22,10 @@ use PortalCMS\Core\HTTP\Session;
  * Class UserManagementController
  * @package PortalCMS\Controllers
  */
-class UserManagementController extends Controller
+class UserManagementController
 {
+    protected $templates;
+
     private $requests = [
         'deleteuser'           => 'POST',
         'deleterole'           => 'POST',
@@ -37,11 +37,10 @@ class UserManagementController extends Controller
         'addNewUser'           => 'POST'
     ];
 
-    public function __construct()
+    public function __construct(Engine $templates)
     {
-        parent::__construct();
         Authentication::checkAuthentication();
-        Router::processRequests($this->requests, __CLASS__);
+        $this->templates = $templates;
     }
 
     public static function deleterole()

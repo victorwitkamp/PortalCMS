@@ -8,11 +8,9 @@ declare(strict_types=1);
 namespace PortalCMS\Controllers;
 
 use League\Plates\Engine;
-use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\Email\Batch\MailBatch;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\HTTP\Session;
@@ -22,17 +20,18 @@ use PortalCMS\Modules\Invoices\InvoiceHelper;
  * Class InvoicesController
  * @package PortalCMS\Controllers
  */
-class InvoicesController extends Controller
+class InvoicesController
 {
+    protected $templates;
+
     private $requests = [
         'createInvoiceMail' => 'POST', 'writeInvoice' => 'POST', 'createInvoice' => 'POST', 'deleteInvoice' => 'POST', 'deleteInvoiceItem' => 'POST', 'addInvoiceItem' => 'POST', 'showInvoicesByYear' => 'POST'
     ];
 
-    public function __construct()
+    public function __construct(Engine $templates)
     {
-        parent::__construct();
         Authentication::checkAuthentication();
-        Router::processRequests($this->requests, __CLASS__);
+        $this->templates = $templates;
     }
 
     public static function createInvoiceMail()

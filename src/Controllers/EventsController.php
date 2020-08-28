@@ -29,11 +29,13 @@ use Psr\Http\Message\ResponseInterface;
  */
 class EventsController
 {
-    public $templates;
-    public function __construct()
+    protected $templates;
+
+    public function __construct(Engine $templates)
     {
         Authentication::checkAuthentication();
-        $this->templates = new Engine(DIR_VIEW);
+//        $this->templates = new Engine(DIR_VIEW);
+        $this->templates = $templates;
     }
 
     public function deleteEvent()

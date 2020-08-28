@@ -9,7 +9,12 @@ namespace PortalCMS\Core;
 
 use Laminas\Diactoros\ServerRequestFactory;
 use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
+use League\Container\Container;
+use League\Container\ReflectionContainer;
+use League\Plates\Engine;
 use League\Route\RouteGroup;
+use League\Route\Router;
+use League\Route\Strategy\ApplicationStrategy;
 use PortalCMS\Controllers\EventsController;
 use PortalCMS\Controllers\HomeController;
 use PortalCMS\Controllers\LoginController;
@@ -22,11 +27,18 @@ class Application
     public $request;
     public $session;
 
-    public function __construct($rootDir)
+    public function __construct()
     {
+        $container = new Container();
+        $container->delegate(
+            new ReflectionContainer()
+        );
+        $container->add(Engine::class)->addArgument(DIR_VIEW);
+
+        $strategy = (new ApplicationStrategy())->setContainer($container);
+        $this->router   = (new Router())->setStrategy($strategy);
+
         $this->request = ServerRequestFactory::fromGlobals();
-        $this->router = new \League\Route\Router();
-        $this->router->setStrategy(new \League\Route\Strategy\ApplicationStrategy());
         $this->session = new Session();
 
         $this->router->group('/Login', function (RouteGroup $route) {

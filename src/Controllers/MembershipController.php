@@ -8,10 +8,8 @@ declare(strict_types=1);
 namespace PortalCMS\Controllers;
 
 use League\Plates\Engine;
-use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Modules\Members\Member;
@@ -25,18 +23,18 @@ use PortalCMS\Modules\Members\MemberPreferences;
  * Class MembershipController
  * @package PortalCMS\Controllers
  */
-class MembershipController extends Controller
+class MembershipController
 {
+    protected $templates;
+
     private $requests = [
         'saveMember' => 'POST', 'saveNewMember' => 'POST', 'deleteMembersById' => 'POST', 'setPaymentStatusById' => 'POST', 'showMembersByYear' => 'POST', 'copyMembersById' => 'POST'
     ];
 
-    public function __construct()
+    public function __construct(Engine $templates)
     {
         Authentication::checkAuthentication();
-        parent::__construct();
-
-        Router::processRequests($this->requests, __CLASS__);
+        $this->templates = $templates;
     }
 
     public function index() : void

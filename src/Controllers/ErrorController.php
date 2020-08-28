@@ -9,14 +9,19 @@ declare(strict_types=1);
 namespace PortalCMS\Controllers;
 
 use League\Plates\Engine;
-use PortalCMS\Core\Controllers\Controller;
 
 /**
  * Class ErrorController
  * @package PortalCMS\Controllers
  */
-class ErrorController extends Controller
+class ErrorController
 {
+    protected $templates;
+
+    public function __construct(Engine $templates)
+    {
+        $this->templates = $templates;
+    }
     /**
      * Use this when something is not found. Gives back a proper 404 header response plus a normal page (where you could
      * show a well-designed error message or something more useful for your users).

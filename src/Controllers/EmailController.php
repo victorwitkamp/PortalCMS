@@ -9,14 +9,12 @@ declare(strict_types=1);
 namespace PortalCMS\Controllers;
 
 use League\Plates\Engine;
-use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\Email\Batch\MailBatch;
 use PortalCMS\Core\Email\Message\Attachment\EmailAttachment;
 use PortalCMS\Core\Email\Schedule\MailSchedule;
 use PortalCMS\Core\Email\Template\EmailTemplateManager;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
 
@@ -24,8 +22,10 @@ use PortalCMS\Core\Security\Authorization\Authorization;
  * Class EmailController
  * @package PortalCMS\Controllers
  */
-class EmailController extends Controller
+class EmailController
 {
+    protected $templates;
+
     private $requests = [
         'generateMemberSetYear'         => 'POST',
         'uploadAttachment'              => 'POST',
@@ -40,11 +40,10 @@ class EmailController extends Controller
         'deleteBatchById'               => 'POST'
     ];
 
-    public function __construct()
+    public function __construct(Engine $templates)
     {
-        parent::__construct();
         Authentication::checkAuthentication();
-        Router::processRequests($this->requests, __CLASS__);
+        $this->templates = $templates;
     }
 
     public static function generateMemberSetYear(): void

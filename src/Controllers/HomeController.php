@@ -7,9 +7,10 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
+use Laminas\Diactoros\Response\HtmlResponse;
 use League\Plates\Engine;
-use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\Security\Authentication\Authentication;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class HomeController
@@ -17,15 +18,17 @@ use PortalCMS\Core\Security\Authentication\Authentication;
  */
 class HomeController
 {
-    public function __construct()
+    protected $templates;
+
+    public function __construct(Engine $templates)
     {
-//        parent::__construct();
+//        $this->templates = new Engine(DIR_VIEW);
         Authentication::checkAuthentication();
+        $this->templates = $templates;
     }
 
-    public function index()
+    public function index() : ResponseInterface
     {
-        $templates = new Engine(DIR_VIEW);
-        echo $templates->render('Pages/Home/Index');
+        return new HtmlResponse($this->templates->render('Pages/Home/Index'));
     }
 }

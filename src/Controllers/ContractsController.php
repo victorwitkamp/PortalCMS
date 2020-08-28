@@ -8,10 +8,8 @@ declare(strict_types=1);
 namespace PortalCMS\Controllers;
 
 use League\Plates\Engine;
-use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Modules\Contracts\ContractFactory;
@@ -20,17 +18,18 @@ use PortalCMS\Modules\Contracts\ContractFactory;
  * Class ContractsController
  * @package PortalCMS\Controllers
  */
-class ContractsController extends Controller
+class ContractsController
 {
+    protected $templates;
+
     private $requests = [
         'newContract' => 'POST', 'updateContract' => 'POST', 'deleteContract' => 'POST'
     ];
 
-    public function __construct()
+    public function __construct(Engine $templates)
     {
-        parent::__construct();
         Authentication::checkAuthentication();
-        Router::processRequests($this->requests, __CLASS__);
+        $this->templates = $templates;
     }
 
     public static function newContract() : void

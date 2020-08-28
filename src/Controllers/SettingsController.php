@@ -9,9 +9,7 @@ namespace PortalCMS\Controllers;
 
 use League\Plates\Engine;
 use PortalCMS\Core\Config\SiteSetting;
-use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
-use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\HTTP\Session;
@@ -21,21 +19,18 @@ use PortalCMS\Core\View\Text;
  * Class SettingsController
  * @package PortalCMS\Controllers
  */
-class SettingsController extends Controller
+class SettingsController
 {
-    /**
-     * The requests that this controller will handle
-     * @var array $requests
-     */
+    protected $templates;
+
     private $requests = [
         'saveSiteSettings' => 'POST', 'uploadLogo' => 'POST'
     ];
 
-    public function __construct()
+    public function __construct(Engine $templates)
     {
-        parent::__construct();
         Authentication::checkAuthentication();
-        Router::processRequests($this->requests, __CLASS__);
+        $this->templates = $templates;
     }
 
     public static function saveSiteSettings()

@@ -38,7 +38,7 @@ use PortalCMS\Core\View\Text;
     echo $page['content'];
 
     if (Authorization::hasPermission('site-settings')) {
-        echo '<hr><a href="/page/edit?id=1">' . Text::get('LABEL_EDIT_PAGE') . '</a><p>' . Text::get('LABEL_LAST_MODIFIED') . ': ' . $page['ModificationDate'] . '</p>';
+        echo '<hr><a href="/Page/Edit?id=1">' . Text::get('LABEL_EDIT_PAGE') . '</a><p>' . Text::get('LABEL_LAST_MODIFIED') . ': ' . $page['ModificationDate'] . '</p>';
     }
     ?>
 </div>

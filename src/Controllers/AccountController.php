@@ -7,35 +7,36 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
+use Laminas\Diactoros\Response\HtmlResponse;
 use League\Plates\Engine;
-use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\HTTP\Router;
-use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\HTTP\Session;
+use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\User\Password;
 use PortalCMS\Core\User\User;
 use PortalCMS\Core\User\UserMapper;
 use PortalCMS\Core\View\Text;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class AccountController
  * @package PortalCMS\Controllers
  */
-class AccountController extends Controller
+class AccountController
 {
+    protected $templates;
+
     private $requests = [
         'changeUsername' => 'POST',
         'changePassword' => 'POST',
         'clearUserFbid'  => 'POST'
     ];
 
-    public function __construct()
+    public function __construct(Engine $templates)
     {
-        parent::__construct();
         Authentication::checkAuthentication();
-        Router::processRequests($this->requests, __CLASS__);
+        $this->templates = $templates;
     }
 
     public static function changeUsername()
@@ -81,9 +82,8 @@ class AccountController extends Controller
         }
     }
 
-    public function index()
+    public function index() : ResponseInterface
     {
-        $templates = new Engine(DIR_VIEW);
-        echo $templates->render('Pages/Account/Index');
+        return new HtmlResponse($this->templates->render('Pages/Account/Index'));
     }
 }
