@@ -10,7 +10,6 @@ namespace PortalCMS\Core;
 use Laminas\Diactoros\ServerRequestFactory;
 use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
 use League\Route\RouteGroup;
-use League\Route\Router;
 use PortalCMS\Controllers\EventsController;
 use PortalCMS\Controllers\HomeController;
 use PortalCMS\Controllers\LoginController;
@@ -19,18 +18,15 @@ use PortalCMS\Core\HTTP\Session;
 
 class Application
 {
-    public static $app;
-    public static $ROOT_DIR;
     public $router;
     public $request;
     public $session;
 
     public function __construct($rootDir)
     {
-        self::$ROOT_DIR = $rootDir . '/../src/';
-        self::$app = $this;
         $this->request = ServerRequestFactory::fromGlobals();
-        $this->router = new Router();
+        $this->router = new \League\Route\Router();
+        $this->router->setStrategy(new \League\Route\Strategy\ApplicationStrategy());
         $this->session = new Session();
 
         $this->router->group('/Login', function (RouteGroup $route) {
