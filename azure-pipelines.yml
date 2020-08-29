@@ -25,6 +25,10 @@ steps:
 
 - script: composer install --no-interaction --prefer-dist
   displayName: 'composer install'
+- task: IISWebAppDeploymentOnMachineGroup@0
+  inputs:
+    WebSiteName: 'portalcms-cms'
+    Package: '$(System.DefaultWorkingDirectory)\**\*.zip'
 
 - task: Npm@1
   inputs:
