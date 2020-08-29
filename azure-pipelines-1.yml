@@ -6,10 +6,6 @@
 trigger:
 - master
 
-
-pool:
-  vmImage: 'windows-latest'
-
 stages:
 - stage: Deploy
   displayName: Deploy to IIS
