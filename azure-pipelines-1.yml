@@ -11,29 +11,6 @@ pool:
   vmImage: 'windows-latest'
 
 stages:
-- stage: Build
-  jobs:
-  - job: BuildJob
-    steps:
-    - task: NuGetToolInstaller@1
-    - task: NuGetCommand@2
-      inputs:
-        restoreSolution: '$(solution)'
-    - task: VSBuild@1
-      inputs:
-        solution: '$(solution)'
-        msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
-        platform: '$(buildPlatform)'
-        configuration: '$(buildConfiguration)'
-    - task: VSTest@2
-      inputs:
-        platform: '$(buildPlatform)'
-        configuration: '$(buildConfiguration)'
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'drop'
-        publishLocation: 'Container'
 - stage: Deploy
   displayName: Deploy to IIS
   dependsOn: Build
@@ -47,30 +24,10 @@ stages:
       runOnce:
         deploy:
           steps:
-          - task: DownloadBuildArtifacts@0
+          - task: PowerShell@2
             inputs:
-              buildType: 'current'
-              downloadType: 'specific'
-              downloadPath: '$(System.ArtifactsDirectory)'
-          - task: IISWebAppDeploymentOnMachineGroup@0
-            displayName: 'Deploy IIS Website'
-            inputs:
-              WebSiteName: '$(websiteName)'
-              Package: '$(System.ArtifactsDirectory)\**\*.zip'
-# - task: IISWebAppDeploymentOnMachineGroup@0
-#   inputs:
-#     WebSiteName: 'portal-ci'
-#     Package: '$(System.DefaultWorkingDirectory)\**\*.zip'
-#     RemoveAdditionalFilesFlag: true'
-#   displayName: 'IIS Deployment'
-
-# - task: IISWebAppDeploy@2
-#   inputs:
-#     machinesList: 'WIT-SRV.witkamp.local'
-#     AdminUserName: '.\Administrator'
-#     AdminPassword: '$(adminPassword)'
-#     WinRMProtocol: 'Https'
-#     TestCertificate: false
-#     WebDeployPackage: 'C:\WebDeploy\portal-ci.zip'
-#     WebsiteName: 'portal-ci'
-#   displayName: 'IIS Deployment'
+              targetType: 'inline'
+              script: |
+                cd C:\inetpub\portal-ci
+                git clone https://github.com/victorwitkamp/PortalCMS/
+              failOnStderr: true
