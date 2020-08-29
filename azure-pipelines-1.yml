@@ -40,8 +40,8 @@ stages:
   jobs:
   - deployment: DeploytoIIS
     displayName: Deploy the web application to dev environment
-    # environment:
-      # name: iis-dev
+    environment:
+      name: iis-dev
       # resourceType: VirtualMachine
     strategy:
       runOnce:
