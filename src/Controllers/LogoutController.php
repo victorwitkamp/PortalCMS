@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace PortalCMS\Controllers;
 
 use PortalCMS\Core\Security\Authentication\Service\LogoutService;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * LogoutController
@@ -17,7 +18,7 @@ class LogoutController
 {
     /**
      */
-    public function index() : bool
+    public function index() : ResponseInterface
     {
         return LogoutService::logout();
     }

@@ -26,15 +26,15 @@ class InvoicesController
 {
     protected $templates;
 
-    private $requests = [
-        'createInvoiceMail'  => 'POST',
-        'writeInvoice'       => 'POST',
-        'createInvoice'      => 'POST',
-        'deleteInvoice'      => 'POST',
-        'deleteInvoiceItem'  => 'POST',
-        'addInvoiceItem'     => 'POST',
-        'showInvoicesByYear' => 'POST'
-    ];
+//    private $requests = [
+//        'createInvoiceMail'  => 'POST',
+//        'writeInvoice'       => 'POST',
+//        'createInvoice'      => 'POST',
+//        'deleteInvoice'      => 'POST',
+//        'deleteInvoiceItem'  => 'POST',
+//        'addInvoiceItem'     => 'POST',
+//        'showInvoicesByYear' => 'POST'
+//    ];
 
     public function __construct(Engine $templates)
     {

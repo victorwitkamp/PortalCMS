@@ -11,6 +11,7 @@ use Laminas\Diactoros\Response\HtmlResponse;
 use League\Plates\Engine;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\View\Page;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class PageController
@@ -28,8 +29,8 @@ class PageController
         $this->templates = $templates;
     }
 
-    public function edit() : void
+    public function edit() : ResponseInterface
     {
-        return new HtmlResponse($templates->render('Pages/Page/Edit'));
+        return new HtmlResponse($this->templates->render('Pages/Page/Edit'));
     }
 }
