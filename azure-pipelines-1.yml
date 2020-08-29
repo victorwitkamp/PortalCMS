@@ -9,7 +9,6 @@ trigger:
 stages:
 - stage: Deploy
   displayName: Deploy to IIS
-  dependsOn: Build
   jobs:
   - deployment: DeploytoIIS
     displayName: Deploy the web application to dev environment
