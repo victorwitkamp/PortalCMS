@@ -7,14 +7,10 @@ trigger:
 - master
 
 steps:
-- script: |
-- task: IISWebAppDeploy@2
+- script: | 
+- task: IISWebAppDeploymentOnMachineGroup@0
   inputs:
-    machinesList: 'WIT-SRV.witkamp.local'
-    AdminUserName: '.\Administrator'
-    AdminPassword: '$(adminPassword)'
-    WinRMProtocol: 'Https'
-    TestCertificate: false
-    WebDeployPackage: 'C:\WebDeploy\portal-ci.zip'
-    WebsiteName: 'portal-ci'
+    WebSiteName: 'portal-ci'
+    Package: '$(System.DefaultWorkingDirectory)\**\*.zip'
+    RemoveAdditionalFilesFlag: true'
   displayName: 'IIS Deployment'
