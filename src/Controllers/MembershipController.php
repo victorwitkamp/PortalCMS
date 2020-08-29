@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
+use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
 use League\Plates\Engine;
 use PortalCMS\Core\HTTP\Redirect;
@@ -29,14 +30,14 @@ class MembershipController
 {
     protected $templates;
 
-    private $requests = [
-        'saveMember'           => 'POST',
-        'saveNewMember'        => 'POST',
-        'deleteMembersById'    => 'POST',
-        'setPaymentStatusById' => 'POST',
-        'showMembersByYear'    => 'POST',
-        'copyMembersById'      => 'POST'
-    ];
+//    private $requests = [
+//        'saveMember'           => 'POST',
+//        'saveNewMember'        => 'POST',
+//        'deleteMembersById'    => 'POST',
+//        'setPaymentStatusById' => 'POST',
+//        'showMembersByYear'    => 'POST',
+//        'copyMembersById'      => 'POST'
+//    ];
 
     public function __construct(Engine $templates)
     {
@@ -47,51 +48,41 @@ class MembershipController
     public function index(): ResponseInterface
     {
         if (Authorization::hasPermission('membership')) {
-            $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/Membership/Index');
-        } else {
-            return new RedirectResponse('/Error/PermissionError');
+            return new HtmlResponse($this->templates->render('Pages/Membership/Index'));
         }
+        return new RedirectResponse('/Error/PermissionError');
     }
 
     public function new(): ResponseInterface
     {
         if (Authorization::hasPermission('membership')) {
-            $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/Membership/New');
-        } else {
-            return new RedirectResponse('/Error/PermissionError');
+            return new HtmlResponse($this->templates->render('Pages/Membership/New'));
         }
+        return new RedirectResponse('/Error/PermissionError');
     }
 
     public function edit(): ResponseInterface
     {
         if (Authorization::hasPermission('membership')) {
-            $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/Membership/Edit');
-        } else {
-            return new RedirectResponse('/Error/PermissionError');
+            return new HtmlResponse($this->templates->render('Pages/Membership/Edit'));
         }
+        return new RedirectResponse('/Error/PermissionError');
     }
 
     public function newFromExisting(): ResponseInterface
     {
         if (Authorization::hasPermission('membership')) {
-            $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/Membership/NewFromExisting');
-        } else {
-            return new RedirectResponse('/Error/PermissionError');
+            return new HtmlResponse($this->templates->render('Pages/Membership/NewFromExisting'));
         }
+        return new RedirectResponse('/Error/PermissionError');
     }
 
     public function profile(): ResponseInterface
     {
         if (Authorization::hasPermission('membership')) {
-            $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/Membership/Profile');
-        } else {
-            return new RedirectResponse('/Error/PermissionError');
+            return new HtmlResponse($this->templates->render('Pages/Membership/Profile'));
         }
+        return new RedirectResponse('/Error/PermissionError');
     }
 
     public static function saveMember(): ResponseInterface
