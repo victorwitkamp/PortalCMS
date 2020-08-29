@@ -9,20 +9,30 @@ trigger:
 stages:
 - stage: Deploy
   displayName: Deploy to IIS
+  
   jobs:
+  
   - deployment: DeploytoIIS
+  
     displayName: Deploy the web application to dev environment
-    environment:
-      name: iis-dev
-      # resourceType: VirtualMachine
+    environment: php
+
+    pool:
+      name: Default
+
     strategy:
       runOnce:
         deploy:
           steps:
-          - task: PowerShell@2
+          - task: IISWebAppDeploymentOnMachineGroup@0
             inputs:
-              targetType: 'inline'
-              script: |
-                Set-Location -Path C:\inetpub\portal-ci
-                git clone https://github.com/victorwitkamp/PortalCMS/
-              failOnStderr: true
+              WebSiteName: 'portalcms-ci'
+              Package: '$(System.DefaultWorkingDirectory)\**\*.zip'
+
+          # - task: PowerShell@2
+          #   inputs:
+          #     targetType: 'inline'
+          #     script: |
+          #       Set-Location -Path C:\inetpub\portal-ci
+          #       git clone https://github.com/victorwitkamp/PortalCMS/
+          #     failOnStderr: true
