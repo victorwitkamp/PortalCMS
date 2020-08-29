@@ -15,8 +15,6 @@ use PortalCMS\Core\HTTP\Session;
  */
 class Authorization
 {
-    /**
-     */
     public static function hasPermission(string $perm_desc): bool
     {
         $Permissions = PermissionMapper::getPermissionsByUserId((int) Session::get('user_id'));

@@ -47,7 +47,6 @@ class SettingsController
 
     public static function uploadLogo() : ResponseInterface
     {
-        Authentication::checkAuthentication();
         if (SiteSetting::uploadLogo()) {
             Session::add('feedback_positive', Text::get('FEEDBACK_AVATAR_UPLOAD_SUCCESSFUL'));
             return new RedirectResponse('/Home');

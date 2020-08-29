@@ -21,6 +21,7 @@ use PortalCMS\Controllers\EventsController;
 use PortalCMS\Controllers\HomeController;
 use PortalCMS\Controllers\LoginController;
 use PortalCMS\Controllers\LogoutController;
+use PortalCMS\Controllers\SettingsController;
 use PortalCMS\Core\HTTP\Session;
 
 class Application
@@ -84,11 +85,15 @@ class Application
 
         $this->router->get('/Logout', [ LogoutController::class, 'index' ]);
 
-        //        $this->router->group('/Membership', function (RouteGroup $route) {};
-        //        $this->router->group('/Page', function (RouteGroup $route) {};
-        //        $this->router->group('/Profile', function (RouteGroup $route) {};
-        //        $this->router->group('/Settings', function (RouteGroup $route) {};
-        //        $this->router->group('/UserManagement', function (RouteGroup $route) {};
+        // $this->router->group('/Membership', function (RouteGroup $route) {};
+        // $this->router->group('/Page', function (RouteGroup $route) {};
+        // $this->router->group('/Profile', function (RouteGroup $route) {};
+
+        $this->router->group('/Settings', function (RouteGroup $route) {
+            $route->get('/SiteSettings', [ SettingsController::class, 'siteSettings' ]);
+        });
+
+        // $this->router->group('/UserManagement', function (RouteGroup $route) {};
 
         (new SapiEmitter())->emit($this->router->dispatch($this->request));
     }

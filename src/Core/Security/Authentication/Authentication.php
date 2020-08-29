@@ -24,12 +24,12 @@ class Authentication
             // Session::destroy();
             Session::add('feedback_negative', 'You need to log-in first.');
 
-            Return new RedirectResponse('/Login?redirect='. urlencode($_SERVER['REQUEST_URI']));
+            return new RedirectResponse('/Login?redirect=' . urlencode($_SERVER['REQUEST_URI']));
 
             // to prevent fetching views via cURL (which "ignores" the header-redirect above) we leave the application
             // the hard way, via exit(). @see https://github.com/panique/php-login/issues/453
             // this is not optimal and will be fixed in future releases
-            exit();
+//            exit();
         }
 
         // Hook to check is a cookie exists and if it matches a remember me token in the database.

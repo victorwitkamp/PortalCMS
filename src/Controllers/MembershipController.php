@@ -10,7 +10,6 @@ namespace PortalCMS\Controllers;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
 use League\Plates\Engine;
-use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
@@ -103,6 +102,7 @@ class MembershipController
         foreach ($ids as $id) {
             MemberModel::delete((int) $id);
         }
+        return new RedirectResponse('/Membership');
     }
 
     public static function setPaymentStatusById(): ResponseInterface
@@ -112,6 +112,8 @@ class MembershipController
         foreach ($ids as $id) {
             MemberModel::setStatus((int) $id, $status);
         }
+        return new RedirectResponse('/Membership');
+
     }
 
     public static function showMembersByYear(): ResponseInterface
@@ -126,5 +128,6 @@ class MembershipController
         foreach ($ids as $id) {
             MemberModel::copyMember((int) $id, $targetYear);
         }
+        return new RedirectResponse('/Membership');
     }
 }
