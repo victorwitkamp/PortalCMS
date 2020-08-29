@@ -52,44 +52,39 @@ class ContractsController
     {
         if (Authorization::hasPermission('rental-contracts')) {
             return new HtmlResponse($this->templates->render('Pages/Contracts/Index'));
-        } else {
-            return new RedirectResponse('/Error/PermissionError');
         }
+        return new RedirectResponse('/Error/PermissionError');
     }
 
     public function new() : ResponseInterface
     {
         if (Authorization::hasPermission('rental-contracts')) {
             return new HtmlResponse($this->templates->render('Pages/Contracts/New'));
-        } else {
-            return new RedirectResponse('/Error/PermissionError');
         }
+        return new RedirectResponse('/Error/PermissionError');
     }
 
     public function edit() : ResponseInterface
     {
         if (Authorization::hasPermission('rental-contracts')) {
             return new HtmlResponse($this->templates->render('Pages/Contracts/Edit'));
-        } else {
-            return new RedirectResponse('/Error/PermissionError');
         }
+        return new RedirectResponse('/Error/PermissionError');
     }
 
     public function details() : ResponseInterface
     {
         if (Authorization::hasPermission('rental-contracts')) {
             return new HtmlResponse($this->templates->render('Pages/Contracts/Details'));
-        } else {
-            return new RedirectResponse('/Error/PermissionError');
         }
+        return new RedirectResponse('/Error/PermissionError');
     }
 
     public function invoices() : ResponseInterface
     {
         if (Authorization::hasPermission('rental-contracts')) {
             return new HtmlResponse($this->templates->render('Pages/Contracts/Invoices'));
-        } else {
-            return new RedirectResponse('/Error/PermissionError');
         }
+        return new RedirectResponse('/Error/PermissionError');
     }
 }

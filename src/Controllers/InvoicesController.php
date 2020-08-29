@@ -7,14 +7,16 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
+use Laminas\Diactoros\Response\HtmlResponse;
+use Laminas\Diactoros\Response\RedirectResponse;
 use League\Plates\Engine;
 use PortalCMS\Core\Email\Batch\MailBatch;
-use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Core\HTTP\Session;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
-use PortalCMS\Core\HTTP\Session;
 use PortalCMS\Modules\Invoices\InvoiceHelper;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class InvoicesController
@@ -25,7 +27,13 @@ class InvoicesController
     protected $templates;
 
     private $requests = [
-        'createInvoiceMail' => 'POST', 'writeInvoice' => 'POST', 'createInvoice' => 'POST', 'deleteInvoice' => 'POST', 'deleteInvoiceItem' => 'POST', 'addInvoiceItem' => 'POST', 'showInvoicesByYear' => 'POST'
+        'createInvoiceMail'  => 'POST',
+        'writeInvoice'       => 'POST',
+        'createInvoice'      => 'POST',
+        'deleteInvoice'      => 'POST',
+        'deleteInvoiceItem'  => 'POST',
+        'addInvoiceItem'     => 'POST',
+        'showInvoicesByYear' => 'POST'
     ];
 
     public function __construct(Engine $templates)
@@ -34,7 +42,7 @@ class InvoicesController
         $this->templates = $templates;
     }
 
-    public static function createInvoiceMail()
+    public static function createInvoiceMail() : ResponseInterface
     {
         $invoiceIds = Request::post('id');
         if (!empty($invoiceIds)) {
@@ -42,109 +50,96 @@ class InvoicesController
             $batchId = MailBatch::lastInsertedId();
             Session::add('feedback_positive', 'Nieuwe batch aangemaakt (batch ID: ' . $batchId . '). <a href="email/Messages?batch_id=' . $batchId . '">Batch bekijken</a>');
             foreach ($invoiceIds as $invoiceId) {
-                InvoiceHelper::createMail((int)$invoiceId, (int)$batchId);
+                InvoiceHelper::createMail((int) $invoiceId, (int) $batchId);
             }
-            Redirect::to('Invoices');
-        } else {
-            Redirect::to('Error/Error');
+            return new RedirectResponse('/Invoices');
         }
+        return new RedirectResponse('/Error/Error');
     }
 
-    public static function writeInvoice()
+    public static function writeInvoice() : ResponseInterface
     {
         $ids = Request::post('writeInvoiceId');
         if (!empty($ids)) {
             foreach ($ids as $id) {
-                InvoiceHelper::write((int)$id);
+                InvoiceHelper::write((int) $id);
             }
-            Redirect::to('Invoices');
-        } else {
-            Redirect::to('Error/Error');
+            return new RedirectResponse('/Invoices');
         }
+        return new RedirectResponse('/Error/Error');
     }
 
-    public static function createInvoice()
+    public static function createInvoice() : ResponseInterface
     {
-        $year = (int)Request::post('year', true);
-        $month = (string)Request::post('month', true);
-        $contracts = (array)Request::post('contract_id');
-        $factuurdatum = (string)Request::post('factuurdatum', true);
+        $year = (int) Request::post('year', true);
+        $month = (string) Request::post('month', true);
+        $contracts = (array) Request::post('contract_id');
+        $factuurdatum = (string) Request::post('factuurdatum', true);
         if (InvoiceHelper::create($year, $month, $contracts, $factuurdatum)) {
             Session::add('feedback_positive', 'Factuur toegevoegd.');
-            Redirect::to('Invoices/');
+            return new RedirectResponse('/Invoices');
         }
     }
 
-    public static function deleteInvoice()
+    public static function deleteInvoice() : ResponseInterface
     {
-        if (InvoiceHelper::delete((int)Request::post('id', true))) {
-            Redirect::to('Invoices/Index');
-        } else {
-            Redirect::to('Error/Error');
+        if (InvoiceHelper::delete((int) Request::post('id', true))) {
+            return new RedirectResponse('/Invoices');
         }
+        return new RedirectResponse('/Error/Error');
     }
 
-    public static function deleteInvoiceItem()
+    public static function deleteInvoiceItem() : ResponseInterface
     {
-        if (InvoiceHelper::deleteItem((int)Request::post('id', true))) {
-            Redirect::to('Invoices/Details?id=' . (int)Request::post('invoiceid', true));
-        } else {
-            Redirect::to('Error/Error');
+        if (InvoiceHelper::deleteItem((int) Request::post('id', true))) {
+            return new RedirectResponse('/Invoices/Details?id=' . (int) Request::post('invoiceid', true));
         }
+        return new RedirectResponse('/Error/Error');
     }
 
-    public static function addInvoiceItem()
+    public static function addInvoiceItem() : ResponseInterface
     {
-        $invoiceId = (int)Request::post('invoiceid', true);
-        if (InvoiceHelper::createItem($invoiceId, (string)Request::post('name', true), (int)Request::post('price', true))) {
-            Redirect::to('Invoices/Details?id=' . $invoiceId);
-        } else {
-            Redirect::to('Error/Error');
+        $invoiceId = (int) Request::post('invoiceid', true);
+        if (InvoiceHelper::createItem($invoiceId, (string) Request::post('name', true), (int) Request::post('price', true))) {
+            return new RedirectResponse('/Invoices/Details?id=' . $invoiceId);
         }
+        return new RedirectResponse('/Error/Error');
     }
 
-    public static function showInvoicesByYear()
+    public static function showInvoicesByYear() : ResponseInterface
     {
-        Redirect::to('Invoices?Year=' . Request::post('year'));
+        return new RedirectResponse('/Invoices?Year=' . Request::post('year'));
     }
 
-    public function index()
+    public function index() : ResponseInterface
     {
         if (Authorization::hasPermission('rental-invoices')) {
-            $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/Invoices/Index');
-        } else {
-            return new RedirectResponse('/Error/PermissionError');
+            return new HtmlResponse($this->templates->render('Pages/Invoices/Index'));
         }
+        return new RedirectResponse('/Error/PermissionError');
     }
 
-    public function add()
+    public function add() : ResponseInterface
     {
         if (Authorization::hasPermission('rental-invoices')) {
-            $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/Invoices/Add');
-        } else {
-            return new RedirectResponse('/Error/PermissionError');
+            return new HtmlResponse($this->templates->render('Pages/Invoices/Add'));
         }
+        return new RedirectResponse('/Error/PermissionError');
     }
 
-    public function details()
+    public function details() : ResponseInterface
     {
         if (Authorization::hasPermission('rental-invoices')) {
-            $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/Invoices/Details');
-        } else {
-            return new RedirectResponse('/Error/PermissionError');
+            return new HtmlResponse($this->templates->render('Pages/Invoices/Details'));
         }
+        return new RedirectResponse('/Error/PermissionError');
     }
 
-    public function createPDF()
+    public function createPDF() : ResponseInterface
     {
         if (Authorization::hasPermission('rental-invoices')) {
-            $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/Invoices/CreatePDF');
-        } else {
-            return new RedirectResponse('/Error/PermissionError');
+            return new HtmlResponse($this->templates->render('Pages/Invoices/CreatePDF'));
         }
+        return new RedirectResponse('/Error/PermissionError');
     }
 }

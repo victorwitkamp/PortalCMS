@@ -15,7 +15,6 @@ use PortalCMS\Core\Email\Batch\MailBatch;
 use PortalCMS\Core\Email\Message\Attachment\EmailAttachment;
 use PortalCMS\Core\Email\Schedule\MailSchedule;
 use PortalCMS\Core\Email\Template\EmailTemplateManager;
-use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
@@ -127,80 +126,71 @@ class EmailController
     {
         if (Authorization::hasPermission('mail-scheduler')) {
             return new HtmlResponse($this->templates->render('Pages/Email/Batches'));
-        } else {
-            return new RedirectResponse('/Error/PermissionError');
         }
+        return new RedirectResponse('/Error/PermissionError');
     }
 
     public function messages() : ResponseInterface
     {
         if (Authorization::hasPermission('mail-scheduler')) {
             return new HtmlResponse($this->templates->render('Pages/Email/Messages'));
-        } else {
-            return new RedirectResponse('/Error/PermissionError');
         }
+        return new RedirectResponse('/Error/PermissionError');
     }
 
     public function history() : ResponseInterface
     {
         if (Authorization::hasPermission('mail-scheduler')) {
             return new HtmlResponse($this->templates->render('Pages/Email/History'));
-        } else {
-            return new RedirectResponse('/Error/PermissionError');
         }
+        return new RedirectResponse('/Error/PermissionError');
     }
 
     public function details() : ResponseInterface
     {
         if (Authorization::hasPermission('mail-scheduler')) {
             return new HtmlResponse($this->templates->render('Pages/Email/Details'));
-        } else {
-            return new RedirectResponse('/Error/PermissionError');
         }
+        return new RedirectResponse('/Error/PermissionError');
     }
 
     public function viewTemplates() : ResponseInterface
     {
         if (Authorization::hasPermission('mail-templates')) {
             return new HtmlResponse($this->templates->render('Pages/Email/ViewTemplates'));
-        } else {
-            return new RedirectResponse('/Error/PermissionError');
         }
+        return new RedirectResponse('/Error/PermissionError');
     }
 
     public function editTemplate() : ResponseInterface
     {
         if (Authorization::hasPermission('mail-templates')) {
             return new HtmlResponse($this->templates->render('Pages/Email/EditTemplate'));
-        } else {
-            return new RedirectResponse('/Error/PermissionError');
         }
+        return new RedirectResponse('/Error/PermissionError');
     }
 
     public function newTemplate() : ResponseInterface
     {
         if (Authorization::hasPermission('mail-templates')) {
             return new HtmlResponse($this->templates->render('Pages/Email/NewTemplate'));
-        } else {
-            return new RedirectResponse('/Error/PermissionError');
         }
+        return new RedirectResponse('/Error/PermissionError');
     }
 
     public function generate() : ResponseInterface
     {
         if (Authorization::hasPermission('mail-scheduler')) {
             return new HtmlResponse($this->templates->render('Pages/Email/Generate'));
-        } else {
-            return new RedirectResponse('/Error/PermissionError');
         }
+        return new RedirectResponse('/Error/PermissionError');
     }
 
     public function generateMember() : ResponseInterface
     {
         if (Authorization::hasPermission('mail-scheduler')) {
             return new HtmlResponse($this->templates->render('Pages/Email/GenerateMember'));
-        } else {
-            return new RedirectResponse('/Error/PermissionError');
         }
+        return new RedirectResponse('/Error/PermissionError');
     }
 }

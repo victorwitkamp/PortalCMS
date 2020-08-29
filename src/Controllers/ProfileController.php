@@ -34,14 +34,17 @@ class ProfileController
         $user = UserMapper::getProfileById((int) Request::get('id'));
         if (!empty($user)) {
             return new HtmlResponse($this->templates->render('Pages/Profile/Index', (array) $user));
-        } else {
-            return new HtmlResponse(
-                $this->templates->render(
-                    'Pages/Error/Error',
-                    ['title' => '404 - Not found', 'message' => 'The requested page cannot be found']
-                ),
-                404
-            );
         }
+
+        return new HtmlResponse(
+            $this->templates->render(
+                'Pages/Error/Error',
+                [
+                    'title' => '404 - Not found',
+                    'message' => 'The requested page cannot be found'
+                ]
+            ),
+            404
+        );
     }
 }

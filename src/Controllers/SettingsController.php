@@ -7,13 +7,15 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
+use Laminas\Diactoros\Response\HtmlResponse;
+use Laminas\Diactoros\Response\RedirectResponse;
 use League\Plates\Engine;
 use PortalCMS\Core\Config\SiteSetting;
-use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\HTTP\Session;
 use PortalCMS\Core\View\Text;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class SettingsController
@@ -33,65 +35,55 @@ class SettingsController
         $this->templates = $templates;
     }
 
-    public static function saveSiteSettings()
+    public static function saveSiteSettings() : ResponseInterface
     {
         if (SiteSetting::saveSiteSettings()) {
             Session::add('feedback_positive', 'Instellingen succesvol opgeslagen.');
-            Redirect::to('Settings/SiteSettings');
-        } else {
-            Session::add('feedback_negative', 'Fout bij opslaan van instellingen.');
-            Redirect::to('Settings/SiteSettings');
+            return new RedirectResponse('/Settings/SiteSettings');
         }
+        Session::add('feedback_negative', 'Fout bij opslaan van instellingen.');
+        return new RedirectResponse('/Settings/SiteSettings');
     }
 
-    public static function uploadLogo()
+    public static function uploadLogo() : ResponseInterface
     {
         Authentication::checkAuthentication();
         if (SiteSetting::uploadLogo()) {
             Session::add('feedback_positive', Text::get('FEEDBACK_AVATAR_UPLOAD_SUCCESSFUL'));
-            Redirect::to('Home');
-        } else {
-            Redirect::to('Settings/Logo');
+            return new RedirectResponse('/Home');
         }
+        return new RedirectResponse('/Settings/Logo');
     }
 
-    public function siteSettings() : void
+    public function siteSettings() : ResponseInterface
     {
         if (Authorization::hasPermission('site-settings')) {
-            $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/Settings/SiteSettings');
-        } else {
-            return new RedirectResponse('/Error/PermissionError');
+            return new HtmlResponse($this->templates->render('Pages/Settings/SiteSettings'));
         }
+        return new RedirectResponse('/Error/PermissionError');
     }
 
-    public function activity() : void
+    public function activity() : ResponseInterface
     {
         if (Authorization::hasPermission('recent-activity')) {
-            $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/Settings/Activity');
-        } else {
-            return new RedirectResponse('/Error/PermissionError');
+            return new HtmlResponse($this->templates->render('Pages/Settings/Activity'));
         }
+        return new RedirectResponse('/Error/PermissionError');
     }
 
-    public function logo() : void
+    public function logo() : ResponseInterface
     {
         if (Authorization::hasPermission('site-settings')) {
-            $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/Settings/Logo');
-        } else {
-            return new RedirectResponse('/Error/PermissionError');
+            return new HtmlResponse($this->templates->render('Pages/Settings/Logo'));
         }
+        return new RedirectResponse('/Error/PermissionError');
     }
 
-    public function debug() : void
+    public function debug() : ResponseInterface
     {
         if (Authorization::hasPermission('debug')) {
-            $templates = new Engine(DIR_VIEW);
-            echo $templates->render('Pages/Settings/Debug');
-        } else {
-            return new RedirectResponse('/Error/PermissionError');
+            return new HtmlResponse($this->templates->render('Pages/Settings/Debug'));
         }
+        return new RedirectResponse('/Error/PermissionError');
     }
 }

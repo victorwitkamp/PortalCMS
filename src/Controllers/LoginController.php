@@ -11,7 +11,6 @@ use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
 use League\Plates\Engine;
 use PortalCMS\Core\HTTP\Cookie;
-use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Session;
 use PortalCMS\Core\Security\Authentication\Authentication;
@@ -19,6 +18,7 @@ use PortalCMS\Core\Security\Authentication\Service\LoginService;
 use PortalCMS\Core\Security\Csrf;
 use PortalCMS\Core\User\PasswordReset;
 use PortalCMS\Core\View\Text;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * LoginController
@@ -47,7 +47,7 @@ class LoginController
         $this->templates = $templates;
     }
 
-    public function loginSubmit()
+    public function loginSubmit() : ResponseInterface
     {
         if (!Csrf::isTokenValid()) {
             Session::add('feedback_negative', 'Invalid CSRF token.');
@@ -61,40 +61,37 @@ class LoginController
         $password = Request::post('user_password');
         if (!empty($username) && !empty($password) && LoginService::loginWithPassword($username, $password, $rememberMe)) {
             if (!empty(Request::post('redirect'))) {
-                Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
-            } else {
-                return new RedirectResponse('/Home');
+                return new RedirectResponse('/' . ltrim(urldecode(Request::post('redirect')), '/'));
             }
+            return new RedirectResponse('/Home');
         }
         return new RedirectResponse('/Login');
     }
 
     /**
      */
-    public static function loginWithFacebook(int $fbid)
+    public static function loginWithFacebook(int $fbid) : ResponseInterface
     {
         if (LoginService::loginWithFacebook($fbid)) {
             if (Request::post('redirect')) {
-                Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
-            } else {
-                return new RedirectResponse('/Home');
+                return new RedirectResponse('/' . ltrim(urlencode(Request::post('redirect'))));
             }
+            return new RedirectResponse('/Home');
         }
         if (Request::post('redirect')) {
-            Redirect::to('Login/?redirect=' . ltrim(urlencode(Request::post('redirect')), '/'));
-        } else {
-            return new RedirectResponse('/Login');
+            return new RedirectResponse('/Login/?redirect=' . ltrim(urlencode(Request::post('redirect'))));
         }
+        return new RedirectResponse('/Login');
     }
 
-    public static function requestPasswordResetSubmit()
+    public static function requestPasswordResetSubmit() : ResponseInterface
     {
         if (PasswordReset::requestPasswordReset((string) Request::post('user_name_or_email'))) {
             return new RedirectResponse('/Login');
         }
     }
 
-    public static function resetSubmit()
+    public static function resetSubmit() : ResponseInterface
     {
         $username = (string) Request::post('username');
         $resetHash = (string) Request::post('password_reset_hash');
@@ -103,29 +100,28 @@ class LoginController
             if (PasswordReset::saveNewUserPassword($username, $passwordHash, $resetHash)) {
                 Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_CHANGE_SUCCESSFUL'));
                 return new RedirectResponse('/Login');
-            } else {
-                Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CHANGE_FAILED'));
-                return new RedirectResponse('/Login/PasswordReset');
             }
+
+            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CHANGE_FAILED'));
+            return new RedirectResponse('/Login/PasswordReset');
         }
     }
 
-    public function index()
+    public function index() : ResponseInterface
     {
         if (Authentication::userIsLoggedIn()) {
             Session::add('feedback_positive', 'You are already logged in.');
             if (Request::post('redirect')) {
-                Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
-            } else {
-                return new RedirectResponse('/Home');
+                Return new RedirectResponse('/' . ltrim(urldecode(Request::post('redirect')), '/'));
             }
+
+            return new RedirectResponse('/Home');
         } elseif (self::loginWithCookie()) {
             Session::add('feedback_positive', 'You are automatically logged in using a cookie.');
             if (Request::post('redirect')) {
-                Redirect::to(ltrim(urldecode(Request::post('redirect')), '/'));
-            } else {
-                return new RedirectResponse('/Home');
+                return new RedirectResponse('/' . ltrim(urldecode(Request::post('redirect')), '/'));
             }
+            return new RedirectResponse('/Home');
         } else {
             return new HtmlResponse($this->templates->render('Pages/Login/Index'));
         }
@@ -142,17 +138,17 @@ class LoginController
         return false;
     }
 
-    public function requestPasswordReset()
+    public function requestPasswordReset() : ResponseInterface
     {
         return new HtmlResponse($this->templates->render('Pages/Login/RequestPasswordReset'));
     }
 
-    public function passwordReset()
+    public function passwordReset() : ResponseInterface
     {
         return new HtmlResponse($this->templates->render('Pages/Login/PasswordReset'));
     }
 
-    public function activate()
+    public function activate() : ResponseInterface
     {
         return new HtmlResponse($this->templates->render('Pages/Login/Activate'));
     }

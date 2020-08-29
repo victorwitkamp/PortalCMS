@@ -30,7 +30,9 @@ class LoginValidator
         if (empty($user_name) || empty($user_password)) {
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
             return null;
-        } elseif (!self::checkSessionBruteForce()) {
+        }
+
+        if (!self::checkSessionBruteForce()) {
             Session::add('feedback_negative', Text::get('FEEDBACK_BRUTE_FORCE_CHECK_FAILED'));
             return null;
         }
@@ -60,7 +62,9 @@ class LoginValidator
             self::incrementUserNotFoundCounter();
             Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_WRONG'));
             return null;
-        } elseif (self::checkUserBruteForce($user) === false) {
+        }
+
+        if (self::checkUserBruteForce($user) === false) {
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_WRONG_3_TIMES'));
             return null;
         } elseif (self::verifyIsActive($user) === false) {

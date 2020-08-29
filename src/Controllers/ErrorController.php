@@ -8,7 +8,9 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
+use Laminas\Diactoros\Response\HtmlResponse;
 use League\Plates\Engine;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class ErrorController
@@ -22,22 +24,20 @@ class ErrorController
     {
         $this->templates = $templates;
     }
-    /**
-     * Use this when something is not found. Gives back a proper 404 header response plus a normal page (where you could
-     * show a well-designed error message or something more useful for your users).
-     * You can see this in action in action in /core/Application.php -> __construct
-     */
-    public function notFound()
+
+    public function notFound() : ResponseInterface
     {
-        header('HTTP/1.0 404 Not Found', true, 404);
-        $templates = new Engine(DIR_VIEW);
-        echo $templates->render('Pages/Error/Error', [ 'title' => '404 - Not found', 'message' => 'The requested page cannot be found' ]);
+        return new HtmlResponse(
+            $this->templates->render('Pages/Error/Error', [ 'title' => '404 - Not found', 'message' => 'The requested page cannot be found' ]),
+            404
+        );
     }
 
-    public function permissionError()
+    public function permissionError() : ResponseInterface
     {
-        header('HTTP/1.0 403 Not Found', true, 403);
-        $templates = new Engine(DIR_VIEW);
-        echo $templates->render('Pages/Error/Error', [ 'title' => '403 - Forbidden', 'message' => 'You are not authorized perform this action.' ]);
+        return new HtmlResponse(
+            $this->templates->render('Pages/Error/Error', [ 'title' => '403 - Forbidden', 'message' => 'You are not authorized perform this action.' ]),
+            403
+        );
     }
 }

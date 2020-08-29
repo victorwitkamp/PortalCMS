@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
+use Laminas\Diactoros\Response\RedirectResponse;
 use League\Plates\Engine;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
@@ -18,6 +19,7 @@ use PortalCMS\Modules\Members\MemberContactDetails;
 use PortalCMS\Modules\Members\MemberModel;
 use PortalCMS\Modules\Members\MemberPaymentDetails;
 use PortalCMS\Modules\Members\MemberPreferences;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class MembershipController
@@ -28,7 +30,12 @@ class MembershipController
     protected $templates;
 
     private $requests = [
-        'saveMember' => 'POST', 'saveNewMember' => 'POST', 'deleteMembersById' => 'POST', 'setPaymentStatusById' => 'POST', 'showMembersByYear' => 'POST', 'copyMembersById' => 'POST'
+        'saveMember'           => 'POST',
+        'saveNewMember'        => 'POST',
+        'deleteMembersById'    => 'POST',
+        'setPaymentStatusById' => 'POST',
+        'showMembersByYear'    => 'POST',
+        'copyMembersById'      => 'POST'
     ];
 
     public function __construct(Engine $templates)
@@ -37,7 +44,7 @@ class MembershipController
         $this->templates = $templates;
     }
 
-    public function index() : void
+    public function index(): ResponseInterface
     {
         if (Authorization::hasPermission('membership')) {
             $templates = new Engine(DIR_VIEW);
@@ -47,7 +54,7 @@ class MembershipController
         }
     }
 
-    public function new() : void
+    public function new(): ResponseInterface
     {
         if (Authorization::hasPermission('membership')) {
             $templates = new Engine(DIR_VIEW);
@@ -57,7 +64,7 @@ class MembershipController
         }
     }
 
-    public function edit() : void
+    public function edit(): ResponseInterface
     {
         if (Authorization::hasPermission('membership')) {
             $templates = new Engine(DIR_VIEW);
@@ -67,7 +74,7 @@ class MembershipController
         }
     }
 
-    public function newFromExisting() : void
+    public function newFromExisting(): ResponseInterface
     {
         if (Authorization::hasPermission('membership')) {
             $templates = new Engine(DIR_VIEW);
@@ -77,7 +84,7 @@ class MembershipController
         }
     }
 
-    public function profile() : void
+    public function profile(): ResponseInterface
     {
         if (Authorization::hasPermission('membership')) {
             $templates = new Engine(DIR_VIEW);
@@ -87,49 +94,19 @@ class MembershipController
         }
     }
 
-    public static function saveMember() : void
+    public static function saveMember(): ResponseInterface
     {
-        MemberModel::updateMember(
-            new Member(
-                (int) Request::post('id', true),
-                (int) Request::post('jaarlidmaatschap', true),
-                Request::post('voorletters', true),
-                Request::post('voornaam', true),
-                Request::post('achternaam', true),
-                Request::post('geboortedatum', true),
-                new MemberAddress(Request::post('adres', true), Request::post('postcode', true), Request::post('huisnummer', true), Request::post('woonplaats', true)),
-                new MemberContactDetails(Request::post('telefoon_vast', true), Request::post('telefoon_mobiel', true), Request::post('emailadres', true)),
-                Request::post('ingangsdatum', true),
-                Request::post('geslacht', true),
-                new MemberPreferences((int) Request::post('nieuwsbrief', true), (int) Request::post('vrijwilliger', true), (int) Request::post('vrijwilligeroptie1', true), (int) Request::post('vrijwilligeroptie2', true), (int) Request::post('vrijwilligeroptie3', true), (int) Request::post('vrijwilligeroptie4', true), (int) Request::post('vrijwilligeroptie5', true)),
-                new MemberPaymentDetails((string) Request::post('betalingswijze', true), (string) Request::post('iban', true), (string) Request::post('machtigingskenmerk', true), (int) Request::post('status', true))
-            )
-        );
-        Redirect::to('membership/');
+        MemberModel::updateMember(new Member((int) Request::post('id', true), (int) Request::post('jaarlidmaatschap', true), Request::post('voorletters', true), Request::post('voornaam', true), Request::post('achternaam', true), Request::post('geboortedatum', true), new MemberAddress(Request::post('adres', true), Request::post('postcode', true), Request::post('huisnummer', true), Request::post('woonplaats', true)), new MemberContactDetails(Request::post('telefoon_vast', true), Request::post('telefoon_mobiel', true), Request::post('emailadres', true)), Request::post('ingangsdatum', true), Request::post('geslacht', true), new MemberPreferences((int) Request::post('nieuwsbrief', true), (int) Request::post('vrijwilliger', true), (int) Request::post('vrijwilligeroptie1', true), (int) Request::post('vrijwilligeroptie2', true), (int) Request::post('vrijwilligeroptie3', true), (int) Request::post('vrijwilligeroptie4', true), (int) Request::post('vrijwilligeroptie5', true)), new MemberPaymentDetails((string) Request::post('betalingswijze', true), (string) Request::post('iban', true), (string) Request::post('machtigingskenmerk', true), (int) Request::post('status', true))));
+        return new RedirectResponse('/Membership');
     }
 
-    public static function saveNewMember() : void
+    public static function saveNewMember(): ResponseInterface
     {
-        MemberModel::createMember(
-            new Member(
-                null,
-                (int) Request::post('jaarlidmaatschap', true),
-                Request::post('voorletters', true),
-                Request::post('voornaam', true),
-                Request::post('achternaam', true),
-                Request::post('geboortedatum', true),
-                new MemberAddress(Request::post('adres', true), Request::post('postcode', true), Request::post('huisnummer', true), Request::post('woonplaats', true)),
-                new MemberContactDetails(Request::post('telefoon_vast', true), Request::post('telefoon_mobiel', true), Request::post('emailadres', true)),
-                Request::post('ingangsdatum', true),
-                Request::post('geslacht', true),
-                new MemberPreferences((int) Request::post('nieuwsbrief', true), (int) Request::post('vrijwilliger', true), (int) Request::post('vrijwilligeroptie1', true), (int) Request::post('vrijwilligeroptie2', true), (int) Request::post('vrijwilligeroptie3', true), (int) Request::post('vrijwilligeroptie4', true), (int) Request::post('vrijwilligeroptie5', true)),
-                new MemberPaymentDetails((string) Request::post('betalingswijze', true), (string) Request::post('iban', true), (string) Request::post('machtigingskenmerk', true), (int) Request::post('status', true))
-            )
-        );
-        Redirect::to('membership/');
+        MemberModel::createMember(new Member(null, (int) Request::post('jaarlidmaatschap', true), Request::post('voorletters', true), Request::post('voornaam', true), Request::post('achternaam', true), Request::post('geboortedatum', true), new MemberAddress(Request::post('adres', true), Request::post('postcode', true), Request::post('huisnummer', true), Request::post('woonplaats', true)), new MemberContactDetails(Request::post('telefoon_vast', true), Request::post('telefoon_mobiel', true), Request::post('emailadres', true)), Request::post('ingangsdatum', true), Request::post('geslacht', true), new MemberPreferences((int) Request::post('nieuwsbrief', true), (int) Request::post('vrijwilliger', true), (int) Request::post('vrijwilligeroptie1', true), (int) Request::post('vrijwilligeroptie2', true), (int) Request::post('vrijwilligeroptie3', true), (int) Request::post('vrijwilligeroptie4', true), (int) Request::post('vrijwilligeroptie5', true)), new MemberPaymentDetails((string) Request::post('betalingswijze', true), (string) Request::post('iban', true), (string) Request::post('machtigingskenmerk', true), (int) Request::post('status', true))));
+        return new RedirectResponse('/Membership');
     }
 
-    public static function deleteMembersById() : void
+    public static function deleteMembersById(): ResponseInterface
     {
         $ids = (array) Request::post('id');
         foreach ($ids as $id) {
@@ -137,7 +114,7 @@ class MembershipController
         }
     }
 
-    public static function setPaymentStatusById() : void
+    public static function setPaymentStatusById(): ResponseInterface
     {
         $status = (int) Request::post('status');
         $ids = (array) Request::post('id');
@@ -146,12 +123,12 @@ class MembershipController
         }
     }
 
-    public static function showMembersByYear() : void
+    public static function showMembersByYear(): ResponseInterface
     {
-        Redirect::to('Membership?year=' . Request::post('year'));
+        return new RedirectResponse('/Membership?year=' . Request::post('year'));
     }
 
-    public static function copyMembersById() : void
+    public static function copyMembersById(): ResponseInterface
     {
         $targetYear = (int) Request::post('targetYear', true);
         $ids = (array) Request::post('id');
