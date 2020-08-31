@@ -14,10 +14,9 @@ use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
 use PortalCMS\Core\Email\Template\EmailTemplateMapper;
 use PortalCMS\Core\Email\Template\Helpers\PlaceholderHelper;
 use PortalCMS\Core\HTTP\Session;
-
 use PortalCMS\Core\View\Text;
-use PortalCMS\Modules\Contracts\ContractMapper;
 use PortalCMS\Modules\Contracts\ContractFactory;
+use PortalCMS\Modules\Contracts\ContractMapper;
 use function is_array;
 
 /**

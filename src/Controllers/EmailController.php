@@ -28,19 +28,19 @@ class EmailController
 {
     protected $templates;
 
-    private $requests = [
-        'generateMemberSetYear'         => 'POST',
-        'uploadAttachment'              => 'POST',
-        'deleteMailTemplateAttachments' => 'POST',
-        'deleteTemplate'                => 'POST',
-        'addTemplate'                   => 'POST',
-        'editTemplateAction'            => 'POST',
-        'sendScheduledMailById'         => 'POST',
-        'createMailWithTemplate'        => 'POST',
-        'deleteScheduledMailById'       => 'POST',
-        'sendBatchById'                 => 'POST',
-        'deleteBatchById'               => 'POST'
-    ];
+//    private $requests = [
+//        'generateMemberSetYear'         => 'POST',
+//        'uploadAttachment'              => 'POST',
+//        'deleteMailTemplateAttachments' => 'POST',
+//        'deleteTemplate'                => 'POST',
+//        'addTemplate'                   => 'POST',
+//        'editTemplateAction'            => 'POST',
+//        'sendScheduledMailById'         => 'POST',
+//        'createMailWithTemplate'        => 'POST',
+//        'deleteScheduledMailById'       => 'POST',
+//        'sendBatchById'                 => 'POST',
+//        'deleteBatchById'               => 'POST'
+//    ];
 
     public function __construct(Engine $templates)
     {
@@ -77,8 +77,12 @@ class EmailController
     {
         Authentication::checkAuthentication();
         $templateBuilder = new EmailTemplateManager();
-        $templateBuilder->create('member', Request::post('subject', true), Request::post('body'));
-        $templateBuilder->store();
+        $body = (string) Request::post('body');
+        $subject = (string) Request::post('subject', true);
+        if (!empty($body) && $body !== null && !empty($subject) && $subject !== null) {
+            $templateBuilder->create('member', $subject, $body);
+            $templateBuilder->store();
+        }
         return new RedirectResponse('/Email/ViewTemplates');
     }
 

@@ -77,8 +77,8 @@ class InvoicesController
         $factuurdatum = (string) Request::post('factuurdatum', true);
         if (InvoiceHelper::create($year, $month, $contracts, $factuurdatum)) {
             Session::add('feedback_positive', 'Factuur toegevoegd.');
-            return new RedirectResponse('/Invoices');
         }
+        return new RedirectResponse('/Invoices');
     }
 
     public static function deleteInvoice() : ResponseInterface

@@ -12,12 +12,12 @@ use Laminas\Diactoros\Response\RedirectResponse;
 use League\Plates\Engine;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Core\HTTP\Session;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\Security\Authorization\RoleMapper;
 use PortalCMS\Core\Security\Authorization\RolePermission;
 use PortalCMS\Core\Security\Authorization\UserRoleMapper;
-use PortalCMS\Core\HTTP\Session;
 use Psr\Http\Message\ResponseInterface;
 
 /**

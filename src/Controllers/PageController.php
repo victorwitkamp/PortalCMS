@@ -9,8 +9,6 @@ namespace PortalCMS\Controllers;
 
 use Laminas\Diactoros\Response\HtmlResponse;
 use League\Plates\Engine;
-use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\View\Page;
 use Psr\Http\Message\ResponseInterface;
 
 /**

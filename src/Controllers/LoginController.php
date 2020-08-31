@@ -87,8 +87,8 @@ class LoginController
     public static function requestPasswordResetSubmit() : ResponseInterface
     {
         if (PasswordReset::requestPasswordReset((string) Request::post('user_name_or_email'))) {
-            return new RedirectResponse('/Login');
         }
+        return new RedirectResponse('/Login');
     }
 
     public static function resetSubmit() : ResponseInterface
@@ -101,10 +101,9 @@ class LoginController
                 Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_CHANGE_SUCCESSFUL'));
                 return new RedirectResponse('/Login');
             }
-
             Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CHANGE_FAILED'));
-            return new RedirectResponse('/Login/PasswordReset');
         }
+        return new RedirectResponse('/Login/PasswordReset');
     }
 
     public function index() : ResponseInterface
@@ -112,9 +111,8 @@ class LoginController
         if (Authentication::userIsLoggedIn()) {
             Session::add('feedback_positive', 'You are already logged in.');
             if (Request::post('redirect')) {
-                Return new RedirectResponse('/' . ltrim(urldecode(Request::post('redirect')), '/'));
+                return new RedirectResponse('/' . ltrim(urldecode(Request::post('redirect')), '/'));
             }
-
             return new RedirectResponse('/Home');
         } elseif (self::loginWithCookie()) {
             Session::add('feedback_positive', 'You are automatically logged in using a cookie.');
@@ -122,9 +120,8 @@ class LoginController
                 return new RedirectResponse('/' . ltrim(urldecode(Request::post('redirect')), '/'));
             }
             return new RedirectResponse('/Home');
-        } else {
-            return new HtmlResponse($this->templates->render('Pages/Login/Index'));
         }
+        return new HtmlResponse($this->templates->render('Pages/Login/Index'));
     }
 
     public static function loginWithCookie(): bool

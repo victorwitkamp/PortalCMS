@@ -7,8 +7,8 @@ declare(strict_types=1);
 
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\Security\Authorization\RoleMapper;
 use PortalCMS\Core\HTTP\Session;
+use PortalCMS\Core\Security\Authorization\RoleMapper;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 

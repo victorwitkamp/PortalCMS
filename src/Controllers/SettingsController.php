@@ -11,9 +11,9 @@ use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
 use League\Plates\Engine;
 use PortalCMS\Core\Config\SiteSetting;
+use PortalCMS\Core\HTTP\Session;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
-use PortalCMS\Core\HTTP\Session;
 use PortalCMS\Core\View\Text;
 use Psr\Http\Message\ResponseInterface;
 

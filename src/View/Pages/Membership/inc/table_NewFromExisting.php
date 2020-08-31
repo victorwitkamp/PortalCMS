@@ -6,6 +6,7 @@
 declare(strict_types=1);
 
 use PortalCMS\Core\View\Text;
+
 ?>
 <form method="post">
     <div class="form-row">
