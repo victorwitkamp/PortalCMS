@@ -18,7 +18,7 @@ $pageName = Text::get('TITLE_MAIL_HISTORY');
 
     <link rel="stylesheet" type="text/css" href="/dist/merged/dataTables.min.css">
     <script src="/dist/merged/dataTables.min.js"></script>
-<!--    <script src="/includes/js/init.datatables.js" class="init"></script>-->
+    <script src="/includes/js/init.datatables.js" class="init"></script>
 
 <?= $this->end() ?>
 <?= $this->push('main-content') ?>
@@ -29,20 +29,19 @@ $pageName = Text::get('TITLE_MAIL_HISTORY');
                 <h1><?= $pageName ?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="/Email/Generate/" class="btn btn-outline-info float-right">
+                <a href="/Email/Generate/" class="btn btn-info float-right">
                     <span class="fa fa-plus"></span> <?= Text::get('LABEL_NEW_EMAIL') ?>
                 </a>
             </div>
         </div>
         <hr>
-        <?php Alert::renderFeedbackMessages(); ?>
     </div>
     <div class="container">
         <?php
+        Alert::renderFeedbackMessages();
         $result = MailScheduleMapper::getHistory();
         if ($result) {
-            $mailcount = count($result);
-            include __DIR__ . '/inc/table_messages.php';
+            include __DIR__ . 'inc/table_messages.php';
         } else {
             echo 'Geen berichten gevonden.';
         }

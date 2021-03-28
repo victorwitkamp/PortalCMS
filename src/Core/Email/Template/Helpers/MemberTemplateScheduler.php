@@ -11,17 +11,11 @@ use PortalCMS\Core\Email\Batch\MailBatch;
 use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
 use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
 use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
-use PortalCMS\Core\HTTP\Session;
+use PortalCMS\Core\Session\Session;
 use PortalCMS\Modules\Members\MemberModel;
 
-/**
- * Class MemberTemplateScheduler
- * @package PortalCMS\Core\Email\Template\Helpers
- */
 class MemberTemplateScheduler
 {
-    /**
-     */
     public function scheduleMails(object $template, array $memberIds): bool
     {
         $success = 0;
@@ -44,7 +38,7 @@ class MemberTemplateScheduler
 
     public function processSingleMail(int $memberId = null, int $batchId = null, object $template = null): bool
     {
-        if ($memberId === null || $batchId === null || $template === null) {
+        if (empty($memberId) || empty($batchId) || empty($template)) {
             return false;
         }
         $member = MemberModel::getMember($memberId);
@@ -64,8 +58,6 @@ class MemberTemplateScheduler
         return true;
     }
 
-    /**
-     */
     public function processFeedback(int $success, int $failed)
     {
         if ($failed === 0) {

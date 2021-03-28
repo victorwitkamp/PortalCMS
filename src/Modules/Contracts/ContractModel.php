@@ -9,54 +9,19 @@ namespace PortalCMS\Modules\Contracts;
 
 use PortalCMS\Core\Activity\Activity;
 use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\HTTP\Session;
+use PortalCMS\Core\Session\Session;
 use PortalCMS\Modules\Invoices\InvoiceMapper;
 
 /**
  * Class : Contract (Contract.php)
  * Details : Class for the contracts of bands who rent a practice room
  */
-class ContractFactory
+class ContractModel
 {
-    public static function getById(int $id) : Contract
-    {
-        $mappedContract = ContractMapper::getById($id);
-        $contractContact = new ContractContact(
-            $mappedContract->bandleider_naam,
-            $mappedContract->bandleider_adres,
-            $mappedContract->bandleider_postcode,
-            $mappedContract->bandleider_woonplaats,
-            $mappedContract->bandleider_geboortedatum,
-            $mappedContract->bandleider_telefoonnummer1,
-            $mappedContract->bandleider_telefoonnummer2,
-            $mappedContract->bandleider_email,
-            (int) $mappedContract->bandleider_bsn
-        );
-        return new Contract(
-            $mappedContract->id,
-            $mappedContract->beuk_vertegenwoordiger,
-            $mappedContract->band_naam,
-            $mappedContract->bandcode,
-            $contractContact,
-            (int) $mappedContract->huur_oefenruimte_nr,
-            $mappedContract->huur_dag,
-            $mappedContract->huur_start,
-            $mappedContract->huur_einde,
-            (int) $mappedContract->huur_kast_nr,
-            (int) $mappedContract->kosten_ruimte,
-            (int) $mappedContract->kosten_kast,
-            (int) $mappedContract->kosten_totaal,
-            (int) $mappedContract->kosten_borg,
-            $mappedContract->contract_ingangsdatum,
-            $mappedContract->contract_einddatum,
-            $mappedContract->contract_datum
-        );
-    }
-
     public static function new(): bool
     {
-        $kosten_ruimte = (int) Request::post('kosten_ruimte', true);
-        $kosten_kast = (int) Request::post('kosten_kast', true);
+        $kosten_ruimte = (int)Request::post('kosten_ruimte', true);
+        $kosten_kast = (int)Request::post('kosten_kast', true);
         $kosten_totaal = $kosten_ruimte + $kosten_kast;
 
         $contractContact = new ContractContact((string)Request::post('bandleider_naam', true), (string)Request::post('bandleider_adres', true), (string)Request::post('bandleider_postcode', true), (string)Request::post('bandleider_woonplaats', true), (string)Request::post('bandleider_geboortedatum', true), (string)Request::post('bandleider_telefoonnummer1', true), (string)Request::post('bandleider_telefoonnummer2', true), (string)Request::post('bandleider_email', true), (int)Request::post('bandleider_bsn', true));
@@ -72,8 +37,8 @@ class ContractFactory
 
     public static function update(): bool
     {
-        $kosten_ruimte = (int) Request::post('kosten_ruimte', true);
-        $kosten_kast = (int) Request::post('kosten_kast', true);
+        $kosten_ruimte = (int)Request::post('kosten_ruimte', true);
+        $kosten_kast = (int)Request::post('kosten_kast', true);
         $kosten_totaal = $kosten_ruimte + $kosten_kast;
 
         $contractContact = new ContractContact((string)Request::post('bandleider_naam', true), (string)Request::post('bandleider_adres', true), (string)Request::post('bandleider_postcode', true), (string)Request::post('bandleider_woonplaats', true), (string)Request::post('bandleider_geboortedatum', true), (string)Request::post('bandleider_telefoonnummer1', true), (string)Request::post('bandleider_telefoonnummer2', true), (string)Request::post('bandleider_email', true), (int)Request::post('bandleider_bsn', true));
@@ -92,21 +57,17 @@ class ContractFactory
 
     public static function delete(int $id): bool
     {
-        if (empty($id) || $id === null) {
-            Session::add('feedback_negative', 'Verwijderen van contract mislukt.');
+        $contract = ContractMapper::getById($id);
+        if (empty($contract)) {
+            Session::add('feedback_negative', 'Verwijderen van contract mislukt. Contract bestaat niet.');
+        } elseif (!empty(InvoiceMapper::getByContractId($contract->id))) {
+            Session::add('feedback_negative', 'Dit contract heeft al facturen.');
+        } elseif (ContractMapper::delete($contract->id)) {
+            Activity::add('DeleteContract', Session::get('user_id'), 'ID: ' . $contract->id);
+            Session::add('feedback_positive', 'Contract verwijderd.');
+            return true;
         } else {
-            $contract = ContractMapper::getById($id);
-            if (empty($contract)) {
-                Session::add('feedback_negative', 'Verwijderen van contract mislukt. Contract bestaat niet.');
-            } elseif (!empty(InvoiceMapper::getByContractId($contract->id))) {
-                Session::add('feedback_negative', 'Dit contract heeft al facturen.');
-            } elseif (ContractMapper::delete($contract->id)) {
-                Activity::add('DeleteContract', Session::get('user_id'), 'ID: ' . $contract->id);
-                Session::add('feedback_positive', 'Contract verwijderd.');
-                return true;
-            } else {
-                Session::add('feedback_negative', 'Verwijderen van contract mislukt.');
-            }
+            Session::add('feedback_negative', 'Verwijderen van contract mislukt.');
         }
         return false;
     }

@@ -5,14 +5,13 @@
 
 declare(strict_types=1);
 
-use PortalCMS\Core\Config\Config;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Security\Csrf;
 use PortalCMS\Core\View\HTMLEntities;
 use PortalCMS\Core\View\Text;
 
-require DIR_ROOT . 'login/ext/fb/config.php';
-$loginUrl = $helper->getLoginUrl(Config::get('FB_LOGIN_URL'), [ 'email' ]);
+//require DIR_ROOT . 'login/ext/fb/config.php';
+//$loginUrl = $helper->getLoginUrl(Config::get('FB_LOGIN_URL'), [ 'email' ]);
 $pageName = Text::get('LABEL_LOG_IN');
 ?>
 
@@ -20,7 +19,6 @@ $pageName = Text::get('LABEL_LOG_IN');
 <?= $this->push('body-start') ?>
 <?= $this->end() ?>
 <?= $this->push('body') ?>
-
     <div class="form-group required float in">
         <input type="text" class="form-control" id="email" name="user_name" placeholder="Gebruikersnaam" autocomplete="username" required autofocus/>
         <label for="text" class="label-float">Gebruikersnaam</label>
@@ -36,12 +34,10 @@ $pageName = Text::get('LABEL_LOG_IN');
     </div>
     <hr/>
     <input type="hidden" name="csrf_token" value="<?= Csrf::makeToken() ?>"/>
-<?php
-if (!empty(Request::get('redirect'))) {
-    ?><input type="hidden" name="redirect" value="<?= HTMLEntities::encode((string)Request::get('redirect')) ?>" /><?php
-}
-?>
-    <input type="submit" name="loginSubmit" class="btn btn-success" value="<?= Text::get('LABEL_LOG_IN') ?>"/>
-    <a href="<?= $loginUrl ?>" class="btn btn-info"><i class="fab fa-facebook"></i> <?= Text::get('LABEL_CONTINUE_WITH_FACEBOOK') ?></a>
-
+    <?php
+    if (!empty(Request::get('redirect'))) {
+        ?><input type="hidden" name="redirect" value="<?= HTMLEntities::encode((string)Request::get('redirect')) ?>" /><?php
+    }
+    ?>
+    <input type="submit" name="loginSubmit" class="btn btn-primary" value="<?= Text::get('LABEL_LOG_IN') ?>"/>
 <?= $this->end();

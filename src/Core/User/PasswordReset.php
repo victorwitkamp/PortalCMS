@@ -16,18 +16,12 @@ use PortalCMS\Core\Email\SMTP\SMTPConfiguration;
 use PortalCMS\Core\Email\SMTP\SMTPTransport;
 use PortalCMS\Core\Email\Template\EmailTemplateMapper;
 use PortalCMS\Core\Email\Template\Helpers\PlaceholderHelper;
-use PortalCMS\Core\HTTP\Session;
+use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
 use function strlen;
 
-/**
- * Class PasswordReset
- * @package PortalCMS\Core\User
- */
 class PasswordReset
 {
-    /**
-     */
     public static function requestPasswordReset(string $username_or_email): bool
     {
         if (empty($username_or_email)) {
@@ -43,8 +37,6 @@ class PasswordReset
         return self::writeTokenToDatabase($result->user_name, $resetToken, (string)date('Y-m-d H:i:s')) && self::sendPasswordResetMail($result->user_name, $resetToken, $result->user_email);
     }
 
-    /**
-     */
     public static function writeTokenToDatabase(string $username, string $resetToken, string $timestamp): bool
     {
         $sql = 'UPDATE users
@@ -62,8 +54,6 @@ class PasswordReset
         return false;
     }
 
-    /**
-     */
     public static function sendPasswordResetMail(string $username, string $resetToken, string $user_email): bool
     {
         $template = EmailTemplateMapper::getSystemTemplateByName('ResetPassword');
@@ -78,8 +68,6 @@ class PasswordReset
         return false;
     }
 
-    /**
-     */
     public static function verifyPasswordReset(string $username, string $password_reset_hash): bool
     {
         $sql = 'SELECT user_id, user_password_reset_timestamp
@@ -121,8 +109,6 @@ class PasswordReset
         return false;
     }
 
-    /**
-     */
     public static function validateResetPassword(string $username, string $resetToken, string $user_password_new, string $user_password_repeat): bool
     {
         if (empty($username)) {
@@ -141,8 +127,6 @@ class PasswordReset
         return false;
     }
 
-    /**
-     */
     public static function saveNewUserPassword(string $username, string $passwordHash, string $resetToken): bool
     {
         $sql = 'UPDATE users SET user_password_hash = :user_password_hash, password_reset_hash = NULL,

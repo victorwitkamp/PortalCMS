@@ -20,7 +20,7 @@ $pageName = Text::get('TITLE_MAIL_TEMPLATES');
                 <h1><?= $pageName ?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="NewTemplate" class="btn btn-outline-info float-right"><span
+                <a href="NewTemplate" class="btn btn-info float-right"><span
                             class="fa fa-plus"></span> <?= Text::get('TITLE_NEW_MAIL_TEMPLATE') ?></a>
             </div>
         </div>
@@ -40,7 +40,7 @@ $pageName = Text::get('TITLE_MAIL_TEMPLATES');
             <tbody>
             <?php
             foreach (EmailTemplateMapper::get() as $template) {
-                ?>
+            ?>
             <tr>
                 <td>
                     <form method="post">
@@ -61,7 +61,7 @@ $pageName = Text::get('TITLE_MAIL_TEMPLATES');
                 <td><?= $template['type'] ?></td>
                 <td><?= $template['subject'] ?></td>
             <tr><?php
-            } ?>
+                } ?>
             </tbody>
         </table>
 

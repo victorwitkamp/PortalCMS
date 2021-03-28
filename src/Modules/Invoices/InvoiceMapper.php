@@ -10,10 +10,6 @@ namespace PortalCMS\Modules\Invoices;
 use PDO;
 use PortalCMS\Core\Database\Database;
 
-/**
- * Class InvoiceMapper
- * @package PortalCMS\Modules\Invoices
- */
 class InvoiceMapper
 {
     public static function delete(int $id): bool
@@ -62,13 +58,6 @@ class InvoiceMapper
         $stmt = Database::conn()->prepare('SELECT * FROM invoices WHERE year = ? ORDER BY factuurnummer');
         $stmt->execute([ $year ]);
         return ($stmt->rowCount() > 0) ? $stmt->fetchAll(PDO::FETCH_OBJ) : null;
-    }
-
-    public static function getInvoiceCountByContractIdAndYear(int $contractId, int $year): int
-    {
-        $stmt = Database::conn()->prepare('SELECT id FROM invoices WHERE contract_id = ? AND year = ?');
-        $stmt->execute([ $contractId, $year ]);
-        return $stmt->rowCount();
     }
 
     public static function getInvoiceCountByYear(int $year): int

@@ -10,19 +10,17 @@ namespace PortalCMS\Modules\Invoices;
 use PDO;
 use PortalCMS\Core\Database\Database;
 
-/**
- * Class InvoiceItemMapper
- * @package PortalCMS\Modules\Invoices
- */
 class InvoiceItemMapper
 {
-    public static function getByInvoiceId(int $invoiceId): array
+    public static function getByInvoiceId(int $invoiceId): ?array
     {
-        $stmt = Database::conn()->prepare('SELECT * FROM invoice_items WHERE invoice_id = ?');
+        $stmt = Database::conn()->prepare('SELECT *
+                FROM invoice_items
+                WHERE invoice_id = ?');
         $stmt->execute([ $invoiceId ]);
-//        if ($stmt->rowCount() === 0) {
-//            return null;
-//        }
+        if ($stmt->rowCount() === 0) {
+            return null;
+        }
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
@@ -32,26 +30,37 @@ class InvoiceItemMapper
                 id, invoice_id, name, price
                 )
                 VALUES (NULL,?,?,?)');
-        return $stmt->execute([ $invoiceId, $name, $price ]);
+        $stmt->execute([ $invoiceId, $name, $price ]);
+        if (!$stmt) {
+            return false;
+        }
+        return true;
     }
 
     public static function delete(int $id): bool
     {
-        $stmt = Database::conn()->prepare('DELETE FROM invoice_items WHERE id = ? LIMIT 1');
+        $stmt = Database::conn()->prepare('DELETE
+                FROM invoice_items
+                    WHERE id = ?');
         $stmt->execute([ $id ]);
         return ($stmt->rowCount() === 1);
     }
 
     public static function deleteByInvoiceId(int $id): bool
     {
-        $stmt = Database::conn()->prepare('DELETE FROM invoice_items WHERE invoice_id = ?');
+        $stmt = Database::conn()->prepare('DELETE
+                FROM invoice_items
+                    WHERE invoice_id = ?');
         $stmt->execute([ $id ]);
         return ($stmt->rowCount() > 0);
     }
 
     public static function exists(int $id): bool
     {
-        $stmt = Database::conn()->prepare('SELECT id FROM invoice_items WHERE id = ? LIMIT 1');
+        $stmt = Database::conn()->prepare('SELECT id
+                    FROM invoice_items
+                        WHERE id = ?
+                        LIMIT 1');
         $stmt->execute([ $id ]);
         return ($stmt->rowCount() === 1);
     }

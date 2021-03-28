@@ -14,15 +14,16 @@ $pageName = Text::get('TITLE_USER_MANAGEMENT');
 <?= $this->layout('layout', [ 'title' => $pageName ]) ?>
 <?= $this->push('main-content') ?>
 
+
     <div class="container">
         <div class="row mt-5">
             <div class="col-sm-8"><h1><?= $pageName ?></h1></div>
-            <div class="col-sm-4"><a href="/UserManagement/AddUser" class="btn btn-outline-success navbar-btn float-right"><span class="fa fa-plus"></span> Toevoegen</a></div>
+            <div class="col-sm-4"><a href="/UserManagement/AddUser" class="btn btn-success navbar-btn float-right"><span
+                            class="fa fa-plus"></span> Toevoegen</a></div>
         </div>
+        <?php
+        Alert::renderFeedbackMessages(); ?>
         <hr>
-        <?php Alert::renderFeedbackMessages(); ?>
-    </div>
-    <div class="container">
         <table class="table table-sm table-striped table-hover table-dark">
             <thead class="thead-dark">
             <tr>

@@ -7,29 +7,21 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
-use Laminas\Diactoros\Response\HtmlResponse;
 use League\Plates\Engine;
+use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\Security\Authentication\Authentication;
-use Psr\Http\Message\ResponseInterface;
 
-/**
- * Class HomeController
- * @package PortalCMS\Controllers
- */
-class HomeController
+class HomeController extends Controller
 {
-    protected $templates;
-
-    public function __construct(Engine $templates)
+    public function __construct()
     {
+        parent::__construct();
         Authentication::checkAuthentication();
-        $this->templates = $templates;
     }
 
-    public function index() : ResponseInterface
+    public function index()
     {
-        return new HtmlResponse(
-            $this->templates->render('Pages/Home/Index')
-        );
+        $templates = new Engine(DIR_VIEW);
+        echo $templates->render('Pages/Home/Index');
     }
 }

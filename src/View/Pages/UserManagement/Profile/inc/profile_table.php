@@ -76,7 +76,7 @@ use PortalCMS\Core\Security\Authorization\UserRoleMapper;
                                 <label><?= $Role->role_name ?></label>
                                 <input type="hidden" name="user_id" value="<?= $user->user_id ?>">
                                 <input type="hidden" name="role_id" value="<?= $Role->role_id ?>">
-                                <button type="submit" name="unassignrole" class="btn btn-outline-danger"><span
+                                <button type="submit" name="unassignrole" class="btn btn-danger"><span
                                             class="fa fa-trash"></span></button>
                             </form>
                         <?php }
@@ -104,13 +104,13 @@ use PortalCMS\Core\Security\Authorization\UserRoleMapper;
                         <?php
                         $roles = RoleMapper::getRoles();
                         if (!empty($roles)) { ?>
-                            <select class="form-control" name='role_id'>
+                            <select name='role_id'>
                                 <?php foreach ($roles as $role) { ?>
                                     <option value="<?= $role->role_id ?>"><?= $role->role_name ?></option>
                                 <?php } ?>
                             </select>
                         <?php } ?>
-                        <input type="submit" name="assignrole" value="Toewijzen" class="btn btn-outline-success">
+                        <input type="submit" name="assignrole" value="Toewijzen" class="btn btn-primary ml-2">
                     </form>
                 </td>
             </tr>

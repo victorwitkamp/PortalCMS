@@ -7,8 +7,8 @@ declare(strict_types=1);
 
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\HTTP\Session;
 use PortalCMS\Core\Security\Authorization\RoleMapper;
+use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Alert;
 use PortalCMS\Core\View\Text;
 
@@ -27,9 +27,9 @@ if (empty($Role)) {
         <div class="row mt-5">
             <h1><?= $pageName ?></h1>
         </div>
-        <a href="/UserManagement/Roles" class="btn btn-sm btn-outline-primary"><span class="fa fa-arrow-left"></span></a>
-        <hr>
         <?php Alert::renderFeedbackMessages(); ?>
+        <a href="/UserManagement/Roles" class="btn btn-sm btn-primary"><span class="fa fa-arrow-left"></span></a>
+        <hr>
     </div>
     <div class="container">
         <?php require __DIR__ . '/inc/RoleDetails.php'; ?>

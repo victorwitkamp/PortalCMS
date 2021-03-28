@@ -14,16 +14,10 @@ use PortalCMS\Core\Email\SMTP\SMTPConfiguration;
 use PortalCMS\Core\Email\SMTP\SMTPTransport;
 use PortalCMS\Core\Email\Template\EmailTemplateMapper;
 use PortalCMS\Core\Email\Template\Helpers\MemberTemplateScheduler;
-use PortalCMS\Core\HTTP\Session;
+use PortalCMS\Core\Session\Session;
 
-/**
- * Class MailSchedule
- * @package PortalCMS\Core\Email\Schedule
- */
 class MailSchedule
 {
-    /**
-     */
     public static function deleteById(array $mailIds): bool
     {
         $deleted = 0;
@@ -48,8 +42,6 @@ class MailSchedule
         return false;
     }
 
-    /**
-     */
     public static function sendMailsById(array $mailIds): bool
     {
         $success = 0;
@@ -71,15 +63,11 @@ class MailSchedule
         return true;
     }
 
-    /**
-     */
     public static function isSent(int $mailId): bool
     {
         return MailScheduleMapper::getStatusById($mailId) !== 1;
     }
 
-    /**
-     */
     public static function prepareMailData(int $mailId): bool
     {
         $scheduledMail = MailScheduleMapper::getById($mailId);
@@ -100,23 +88,6 @@ class MailSchedule
         return false;
     }
 
-    /**
-     * @param int        $mailId
-     * @param object     $scheduledMail
-     * @param array      $recipients
-     * @param array|null $attachments
-     * @return bool
-     */
-    /**
-     * @param int        $mailId
-     * @param object     $scheduledMail
-     * @param array      $recipients
-     * @param array|null $attachments
-     * @return bool
-     */
-    /**
-     * @param array|null $attachments
-     */
     public static function sendSingleMailHandler(int $mailId, object $scheduledMail, array $recipients, array $attachments = null): bool
     {
         $EmailMessage = new EmailMessage($scheduledMail->subject, $scheduledMail->body, $recipients, $attachments);
@@ -133,20 +104,6 @@ class MailSchedule
         return true;
     }
 
-    /**
-     * @param int $failed
-     * @param int $success
-     * @param int $alreadySent
-     * @return bool
-     */
-    /**
-     * @param int $failed
-     * @param int $success
-     * @param int $alreadySent
-     * @return bool
-     */
-    /**
-     */
     public static function sendFeedbackHandler(int $failed, int $success, int $alreadySent): bool
     {
         if (($success === 0) && ($failed === 0) && ($alreadySent === 0)) {
@@ -165,16 +122,6 @@ class MailSchedule
         return false;
     }
 
-    /**
-     * @param int   $templateId
-     * @param array $recipientIds
-     */
-    /**
-     * @param int   $templateId
-     * @param array $recipientIds
-     */
-    /**
-     */
     public static function createWithTemplate(int $templateId, array $recipientIds)
     {
         $template = EmailTemplateMapper::getById($templateId);

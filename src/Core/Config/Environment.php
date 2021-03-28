@@ -14,8 +14,6 @@ namespace PortalCMS\Core\Config;
  */
 class Environment
 {
-    /**
-     */
     public static function get(): string
     {
         // APPLICATION_ENV constant can be set in apache config

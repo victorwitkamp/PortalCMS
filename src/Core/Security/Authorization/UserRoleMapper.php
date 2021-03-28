@@ -10,14 +10,8 @@ namespace PortalCMS\Core\Security\Authorization;
 use PDO;
 use PortalCMS\Core\Database\Database;
 
-/**
- * Class UserRoleMapper
- * @package PortalCMS\Core\Security\Authorization
- */
 class UserRoleMapper
 {
-    /**
-     */
     public static function getByUserId(int $userId): ?array
     {
         $stmt = Database::conn()->prepare('SELECT t1.role_id, t2.role_name
@@ -32,8 +26,6 @@ class UserRoleMapper
         return null;
     }
 
-    /**
-     */
     public static function isAssigned(int $user_id, int $role_id): bool
     {
         $stmt = Database::conn()->prepare('SELECT *
@@ -45,8 +37,6 @@ class UserRoleMapper
         return ($stmt->rowCount() === 1);
     }
 
-    /**
-     */
     public static function assign(int $user_id, int $role_id): bool
     {
         $stmt = Database::conn()->prepare('INSERT INTO user_role (user_id, role_id)
@@ -57,8 +47,6 @@ class UserRoleMapper
         return false;
     }
 
-    /**
-     */
     public static function unassign(int $user_id, int $role_id): bool
     {
         $stmt = Database::conn()->prepare('DELETE FROM user_role

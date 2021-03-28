@@ -27,9 +27,8 @@ $pageName = Text::get('TITLE_SITE_LOGO');
             </div>
         </div>
         <hr>
+
         <?php Alert::renderFeedbackMessages(); ?>
-    </div>
-    <div class="container">
         <div class="row">
             <form method="post" enctype="multipart/form-data">
                 <p>

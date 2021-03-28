@@ -21,7 +21,7 @@ $pageName = Text::get('TITLE_MAIL_MESSAGES');
 
     <link rel="stylesheet" type="text/css" href="/dist/merged/dataTables.min.css">
     <script src="/dist/merged/dataTables.min.js"></script>
-<!--    <script src="/includes/js/init.datatables.js" class="init"></script>-->
+    <script src="/includes/js/init.datatables.js" class="init"></script>
 
 <?= $this->end() ?>
 <?= $this->push('main-content') ?>
@@ -32,13 +32,14 @@ $pageName = Text::get('TITLE_MAIL_MESSAGES');
                 <h1><?= $pageName ?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="/Email/Generate" class="btn btn-outline-info float-right">
+                <a href="/Email/Generate" class="btn btn-info float-right">
                     <span class="fa fa-plus"></span> <?= Text::get('LABEL_NEW_EMAIL') ?>
                 </a>
             </div>
         </div>
-        <hr>
+
         <?php Alert::renderFeedbackMessages(); ?>
+
     </div>
     <div class="container">
         <nav>
@@ -48,20 +49,22 @@ $pageName = Text::get('TITLE_MAIL_MESSAGES');
             </div>
         </nav>
     </div>
-    <div class="container-fluid">
+    <div class="container">
         <?php
+
         if (!empty(Request::get('batch_id'))) {
             $result = MailScheduleMapper::getByBatchId((int)Request::get('batch_id'));
         } else {
             $result = MailScheduleMapper::getAll();
         }
+        $mailcount = count($result);
         if ($result) {
-            $mailcount = count($result);
             if (!empty(Request::get('batch_id'))) {
                 echo '<h3>Berichten van batch ' . Request::get('batch_id') . '</h3>';
             } else {
                 echo '<h3>Alle berichten</h3>';
             }
+            echo '<p>Aantal: ' . $mailcount . '</p>';
             include __DIR__ . '/inc/table_messages.php';
         } else {
             echo Text::get('LABEL_NOT_FOUND');

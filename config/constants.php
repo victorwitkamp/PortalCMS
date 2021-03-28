@@ -13,5 +13,5 @@ define('DIR_VENDOR', __DIR__ . '/../vendor/');
 define('DIR_VIEW', DIR_ROOT . '../src/View/');
 define('DIR_TEMP', __DIR__ . '/../portal/content/temp/');
 define('DIR_IMG', DIR_ROOT . 'content/img/');
-define('DIR_CONTROLLERS', __DIR__ . '\\..\\src\\Controllers\\');
+define('DIR_CONTROLLERS', __DIR__ . '/../src/Controllers/');
 define('DIR_CONFIG', __DIR__ . '/../config/');

@@ -76,7 +76,8 @@ if (empty($year)) {
             <div class="form-group form-check">
                 <div id="example" class="row">
                     <?php
-                    $members = MemberMapper::getMembersByYear($year);
+
+                    $members = MemberMapper::getMembers($year);
                     if (!empty($members)) {
                         $count = 0;
                         foreach ($members as $memberId) {

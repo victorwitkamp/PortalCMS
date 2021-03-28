@@ -21,33 +21,34 @@ use PortalCMS\Core\View\Text;
     <div class="container">
         <?php Alert::renderFeedbackMessages(); ?>
         <form method="post">
-            <div class="form-group row">
+            <div class="row">
                 <div class="col-sm-12">
                     <label for="eventTitle" class="control-label"><?= Text::get('LABEL_EVENT_TITLE') ?></label>
                     <input type="text" id="eventTitle" name="title" class="form-control" placeholder="" required>
                 </div>
             </div>
 
-            <div class="form-row">
-                <div class="form-group col-md-6">
+            <div class="row">
+                <div class="col-sm-6">
                     <label for="eventStart" class="control-label"><?= Text::get('LABEL_EVENT_START') ?></label>
                     <input type="datetime-local" id="eventStart" name="start_event" class="form-control" required>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="col-sm-6">
                     <label for="eventEnd" class="control-label"><?= Text::get('LABEL_EVENT_END') ?></label>
                     <input type="datetime-local" id="eventEnd" name="end_event" class="form-control" required>
                 </div>
             </div>
 
-            <div class="form-row">
-                <div class="form-group col-md-12">
+            <div class="row">
+                <div class="col-sm-12">
                     <label for="eventDesc" class="control-label"><?= Text::get('LABEL_EVENT_DESC') ?></label>
                     <input type="text" id="eventDesc" name="description" class="form-control">
                 </div>
             </div>
-            <div class="form-row">
-                <input type="submit" name="addEvent" class="btn btn-outline-success" value="<?= Text::get('LABEL_SUBMIT') ?>">
-                <a href="/Events" class="btn btn-outline-danger"><?= Text::get('LABEL_CANCEL') ?></a>
+            <hr/>
+            <div class="row">
+                <input type="submit" name="addEvent" class="btn btn-primary" value="<?= Text::get('LABEL_SUBMIT') ?>">
+                <a href="/Events" class="btn btn-danger"><?= Text::get('LABEL_CANCEL') ?></a>
             </div>
         </form>
     </div>

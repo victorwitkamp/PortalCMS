@@ -7,84 +7,94 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
-use Laminas\Diactoros\Response\HtmlResponse;
-use Laminas\Diactoros\Response\RedirectResponse;
 use League\Plates\Engine;
+use PortalCMS\Core\Controllers\Controller;
+use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
-use PortalCMS\Modules\Contracts\ContractFactory;
-use Psr\Http\Message\ResponseInterface;
+use PortalCMS\Modules\Contracts\ContractModel;
 
-/**
- * Class ContractsController
- * @package PortalCMS\Controllers
- */
-class ContractsController
+class ContractsController extends Controller
 {
-    protected $templates;
+    private $requests = [
+        'newContract' => 'POST', 'updateContract' => 'POST', 'deleteContract' => 'POST'
+    ];
 
-    public function __construct(Engine $templates)
+    public function __construct()
     {
+        parent::__construct();
         Authentication::checkAuthentication();
-        $this->templates = $templates;
+        Router::processRequests($this->requests, __CLASS__);
     }
 
-    public function newContract() : ResponseInterface
+    public static function newContract()
     {
-        ContractFactory::new();
-        return new RedirectResponse('/Contracts');
+        ContractModel::new();
+        Redirect::to('Contracts/');
     }
 
-    public function updateContract() : ResponseInterface
+    public static function updateContract()
     {
-        ContractFactory::update();
-        return new RedirectResponse('/Contracts');
+        ContractModel::update();
+        Redirect::to('Contracts/');
     }
 
-    public function deleteContract() : ResponseInterface
+    public static function deleteContract()
     {
-        ContractFactory::delete((int) Request::post('id'));
-        return new RedirectResponse('/Contracts');
+        if (ContractModel::delete((int)Request::post('id'))) {
+            Redirect::to('Contracts/');
+        }
     }
 
-    public function index() : ResponseInterface
+    public function index()
     {
         if (Authorization::hasPermission('rental-contracts')) {
-            return new HtmlResponse($this->templates->render('Pages/Contracts/Index'));
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/Contracts/Index');
+        } else {
+            Redirect::to('Error/PermissionError');
         }
-        return new RedirectResponse('/Error/PermissionError');
     }
 
-    public function new() : ResponseInterface
+    public function new()
     {
         if (Authorization::hasPermission('rental-contracts')) {
-            return new HtmlResponse($this->templates->render('Pages/Contracts/New'));
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/Contracts/New');
+        } else {
+            Redirect::to('Error/PermissionError');
         }
-        return new RedirectResponse('/Error/PermissionError');
     }
 
-    public function edit() : ResponseInterface
+    public function edit()
     {
         if (Authorization::hasPermission('rental-contracts')) {
-            return new HtmlResponse($this->templates->render('Pages/Contracts/Edit'));
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/Contracts/Edit');
+        } else {
+            Redirect::to('Error/PermissionError');
         }
-        return new RedirectResponse('/Error/PermissionError');
     }
 
-    public function details() : ResponseInterface
+    public function details()
     {
         if (Authorization::hasPermission('rental-contracts')) {
-            return new HtmlResponse($this->templates->render('Pages/Contracts/Details'));
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/Contracts/Details');
+        } else {
+            Redirect::to('Error/PermissionError');
         }
-        return new RedirectResponse('/Error/PermissionError');
     }
 
-    public function invoices() : ResponseInterface
+    public function invoices()
     {
         if (Authorization::hasPermission('rental-contracts')) {
-            return new HtmlResponse($this->templates->render('Pages/Contracts/Invoices'));
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/Contracts/Invoices');
+        } else {
+            Redirect::to('Error/PermissionError');
         }
-        return new RedirectResponse('/Error/PermissionError');
     }
 }

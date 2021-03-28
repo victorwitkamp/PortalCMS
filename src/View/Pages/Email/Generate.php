@@ -19,10 +19,12 @@ $pageName = 'Nieuw bericht';
                 <h1><?= $pageName ?></h1>
             </div>
         </div>
-        <hr>
-        <?php Alert::renderFeedbackMessages(); ?>
     </div>
+    <hr>
     <div class="container">
+        <?php
+        Alert::renderFeedbackMessages();
+        ?>
         <h2>Nieuw bericht met template</h2>
         <p>Aan wie wil je een e-mail versturen?<br>
             <a href="/Email/GenerateMember">Lid</a><br>

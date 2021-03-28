@@ -17,13 +17,6 @@ class MemberAddress
     public $huisnummer;
     public $woonplaats;
 
-    /**
-     * MemberAddress constructor.
-     * @param string|null $adres
-     * @param string|null $postcode
-     * @param string|null $huisnummer
-     * @param string|null $woonplaats
-     */
     public function __construct(string $adres = null, string $postcode = null, string $huisnummer = null, string $woonplaats = null)
     {
         $this->adres = $adres;

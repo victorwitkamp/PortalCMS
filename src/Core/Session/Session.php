@@ -5,41 +5,27 @@
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\HTTP;
+namespace PortalCMS\Core\Session;
 
 use PortalCMS\Core\Security\Filter;
 
-/**
- * Class Session
- * @package PortalCMS\Core\HTTP
- */
 class Session
 {
-    public function __construct()
+    public static function isActive(): bool
     {
-        if (session_status() !== PHP_SESSION_ACTIVE) {
-            session_start();
-        }
+        return session_status() === 2;
     }
-
     public static function init(): void
     {
-        if (session_status() !== PHP_SESSION_ACTIVE) {
+        if (!self::isActive()) {
             session_start();
         }
     }
-
-    /**
-     */
     public static function set($key, $value): bool
     {
         $_SESSION[$key] = $value;
         return true;
     }
-
-    /**
-     * @return mixed|null
-     */
     public static function get($key, bool $filter = true)
     {
         if (isset($_SESSION[$key])) {
@@ -52,8 +38,6 @@ class Session
         return null;
     }
 
-    /**
-     */
     public static function destroy(): bool
     {
         if (!session_destroy()) {
@@ -64,8 +48,6 @@ class Session
         return true;
     }
 
-    /**
-     */
     public static function add($key, $value): void
     {
         $_SESSION[$key][] = $value;

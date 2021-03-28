@@ -8,16 +8,10 @@ declare(strict_types=1);
 namespace PortalCMS\Modules\Calendar;
 
 use PortalCMS\Core\Activity\Activity;
-use PortalCMS\Core\HTTP\Session;
+use PortalCMS\Core\Session\Session;
 
-/**
- * Class EventModel
- * @package PortalCMS\Modules\Calendar
- */
 class EventModel
 {
-    /**
-     */
     public static function getByDate(string $startDate, string $endDate): array
     {
         $eventsArray = [];
@@ -56,8 +50,6 @@ class EventModel
         return $eventsArray;
     }
 
-    /**
-     */
     public static function create(Event $event): bool
     {
         if (EventMapper::new($event)) {
@@ -68,8 +60,6 @@ class EventModel
         return false;
     }
 
-    /**
-     */
     public static function update(Event $event): bool
     {
         if (!EventMapper::exists($event->id)) {
@@ -84,16 +74,6 @@ class EventModel
         return false;
     }
 
-    /**
-     * @param int $id
-     * @return bool
-     */
-    /**
-     * @param int $id
-     * @return bool
-     */
-    /**
-     */
     public static function delete(int $id): bool
     {
         if (empty(EventMapper::getById($id))) {

@@ -16,3 +16,7 @@ composer.lock
 portal/phpmailer.log
 .php_cs.cache
 *.cache
+.idea/portal.iml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/php.xml
+portal/errors.log.old

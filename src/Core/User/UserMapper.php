@@ -10,10 +10,6 @@ namespace PortalCMS\Core\User;
 use PDO;
 use PortalCMS\Core\Database\Database;
 
-/**
- * Class UserMapper
- * @package PortalCMS\Core\User
- */
 class UserMapper
 {
     public static function usernameExists(string $user_name): bool
@@ -53,8 +49,6 @@ class UserMapper
         return null;
     }
 
-    /**
-     */
     public static function getByUsername(string $username): ?object
     {
         $stmt = Database::conn()->prepare('SELECT user_id,
@@ -194,14 +188,13 @@ class UserMapper
         return ($stmt->rowCount() === 1);
     }
 
-    public static function saveTimestampByUsername(string $username): bool
+    public static function saveTimestampByUsername(string $username, $timestamp): bool
     {
         $stmt = Database::conn()->prepare('UPDATE users
-                SET user_last_login_timestamp = ?
-                    WHERE user_name = ?
+                SET user_last_login_timestamp = :user_last_login_timestamp
+                    WHERE user_name = :user_name
                         LIMIT 1');
-        $stmt->execute([ date('Y-m-d H:i:s'), $username ]);
-        return ($stmt->rowCount() === 1);
+        return $stmt->execute([ ':user_last_login_timestamp' => $timestamp, ':user_name' => $username ]);
     }
 
     public static function resetFailedLoginsByUsername(string $username): bool

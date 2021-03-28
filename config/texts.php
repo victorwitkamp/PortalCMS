@@ -15,7 +15,7 @@ return [
     'DAY'                         => 'DAG', 'YEAR' => 'JAAR', 'MONTH' => 'MAAND', // DAYS
     'DAY_01'                      => 'Maandag', 'DAY_02' => 'Dinsdag', 'DAY_03' => 'Woensdag', 'DAY_04' => 'Donderdag', 'DAY_05' => 'Vrijdag', 'DAY_06' => 'Zaterdag', 'DAY_07' => 'Zondag', // MONTHS
     'MONTH_01'                    => 'Januari', 'MONTH_02' => 'Februari', 'MONTH_03' => 'Maart', 'MONTH_04' => 'April', 'MONTH_05' => 'Mei', 'MONTH_06' => 'Juni', 'MONTH_07' => 'Juli', 'MONTH_08' => 'Augustus', 'MONTH_09' => 'September', 'MONTH_10' => 'Oktober', 'MONTH_11' => 'November', 'MONTH_12' => 'December', // GENERAL
-    'LABEL_ADD'                   => 'NIEUW', 'LABEL_EDIT' => 'BEWERKEN', 'LABEL_DELETE' => 'VERWIJDEREN', 'LABEL_COPY' => 'KOPIEEREN', 'LABEL_IMPORT' => 'IMPORTEREN', 'LABEL_CLOSE' => 'SLUITEN', 'LABEL_SUBMIT' => 'OPSLAAN', 'LABEL_CANCEL' => 'ANNULEREN', 'LABEL_NOT_FOUND' => 'GEEN RESULTATEN', 'LABEL_LOG_IN' => 'LOG-IN', 'LABEL_CONTINUE_WITH_FACEBOOK' => 'LOG-IN', 'LABEL_REMEMBER_ME' => 'AANGEMELD BLIJVEN', 'LABEL_FORGOT_PASSWORD' => 'WACHTWOORD VERGETEN',
+    'LABEL_ADD'                   => 'NIEUW', 'LABEL_EDIT' => 'BEWERKEN', 'LABEL_DELETE' => 'VERWIJDEREN', 'LABEL_IMPORT' => 'IMPORTEREN', 'LABEL_CLOSE' => 'SLUITEN', 'LABEL_SUBMIT' => 'OPSLAAN', 'LABEL_CANCEL' => 'ANNULEREN', 'LABEL_NOT_FOUND' => 'GEEN RESULTATEN', 'LABEL_LOG_IN' => 'LOG-IN', 'LABEL_CONTINUE_WITH_FACEBOOK' => 'LOG-IN', 'LABEL_REMEMBER_ME' => 'AANGEMELD BLIJVEN', 'LABEL_FORGOT_PASSWORD' => 'WACHTWOORD VERGETEN',
 
     // NAV
     'LABEL_SIGN_OUT'              => 'LOG UIT', 'LABEL_SIGNED_IN_AS' => 'WELKOM',

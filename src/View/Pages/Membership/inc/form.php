@@ -6,29 +6,33 @@
 declare(strict_types=1);
 $edit = ($pageType === 'edit');
 ?>
-<form method="post" id="form" class="needs-validation" novalidate>
+<form method="post"<?= ($edit) ? ' validate=true' : '' ?>>
+
     <div class="row">
         <div class="col-md-8">
             <div class="form-group row">
                 <div class="col-md-4">
                     <label class="col-form-label">Jaar van lidmaatschap</label>
-                    <input type="number" placeholder="YYYY" min="1900" max="2100"
-                            minlength="4" maxlength="4" name="jaarlidmaatschap" class="form-control" value="<?= ($edit) ? $member->jaarlidmaatschap : '' ?>" required>
+                    <input type="number" minlength="4" maxlength="4" name="jaarlidmaatschap" class="form-control"
+                           value="<?= ($edit) ? $member->jaarlidmaatschap : '' ?>">
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-md-3">
                     <label class="col-form-label">Voorletters</label>
-                    <input type="text" name="voorletters" value="<?= ($edit) ? $member->voorletters : '' ?>" class="form-control" required>
+                    <input type="text" name="voorletters" value="<?= ($edit) ? $member->voorletters : '' ?>"
+                           class="form-control">
                 </div>
                 <div class="col-md-4">
                     <label class="col-form-label">Voornaam</label>
-                    <input type="text" name="voornaam" value="<?= ($edit) ? $member->voornaam : '' ?>" class="form-control" autocomplete="given-name" required>
+                    <input type="text" name="voornaam" value="<?= ($edit) ? $member->voornaam : '' ?>"
+                           class="form-control" autocomplete="given-name">
                 </div>
                 <div class="col-md-5">
                     <label class="col-form-label">Achternaam</label>
-                    <input type="text" name="achternaam" value="<?= ($edit) ? $member->achternaam : '' ?>" class="form-control" autocomplete="family-name" required>
+                    <input type="text" name="achternaam" value="<?= ($edit) ? $member->achternaam : '' ?>"
+                           class="form-control" autocomplete="family-name">
                 </div>
             </div>
 
@@ -36,7 +40,7 @@ $edit = ($pageType === 'edit');
                 <div class="col-md-12">
                     <label class="col-form-label">Geboortedatum</label>
                     <div class="input-group">
-                        <div class="input-group-prepend">
+                        <div class="input-group-append">
                             <div class="input-group-text">
                                 <i class="fa fa-calendar"></i>
                             </div>
@@ -45,7 +49,7 @@ $edit = ($pageType === 'edit');
                                pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
                                name="geboortedatum"
                                value="<?= ($edit && !empty($member->geboortedatum)) ? date('Y-m-d', strtotime($member->geboortedatum)) : '' ?>"
-                               class="form-control" required>
+                               class="form-control">
                     </div>
                 </div>
             </div>
@@ -109,7 +113,7 @@ $edit = ($pageType === 'edit');
                 <div class="col-md-12">
                     <label class="col-form-label">Lid vanaf</label>
                     <div class="input-group">
-                        <div class="input-group-prepend">
+                        <div class="input-group-append">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
                         <input type="date"
@@ -269,7 +273,7 @@ $edit = ($pageType === 'edit');
     <div class="row">
         <div class="col-md-12">
             <label class="col-form-label">Machtigingskenmerk</label>
-            <input type="text" name="iban" value="<?= ($edit) ? $member->paymentDetails->machtigingskenmerk : '' ?>"
+            <input type="text" name="machtigingskenmerk" value="<?= ($edit) ? $member->paymentDetails->machtigingskenmerk : '' ?>"
                    class="form-control">
         </div>
     </div>
@@ -283,13 +287,13 @@ $edit = ($pageType === 'edit');
                 <option value="1" <?= ($edit && $member->paymentDetails->status === 1) ? 'selected' : '' ?>>1. Incasso
                     opdracht verzonden
                 </option>
-                <option value="11" <?= ($edit && $member->paymentDetails->status === 11) ? 'selected' : '' ?>>1.1 Niet
+                <option value="1" <?= ($edit && $member->paymentDetails->status === 11) ? 'selected' : '' ?>>1.1 Niet
                     verstuurd: rekeningnummer onjuist
                 </option>
                 <option value="2" <?= ($edit && $member->paymentDetails->status === 2) ? 'selected' : '' ?>>2. Betaling
                     per incasso gelukt
                 </option>
-                <option value="21" <?= ($edit && $member->paymentDetails->status === 21) ? 'selected' : '' ?>>2.1 Incasso
+                <option value="2" <?= ($edit && $member->paymentDetails->status === 21) ? 'selected' : '' ?>>2.1 Incasso
                     mislukt: rekeningnummer onjuist
                 </option>
                 <option value="3" <?= ($edit && $member->paymentDetails->status === 3) ? 'selected' : '' ?>>3</option>
@@ -307,29 +311,11 @@ $edit = ($pageType === 'edit');
                 <div class="col-md-6">
                     <label class="col-form-label">&#xA0;</label>
                     <input type="hidden" name="id" value="<?= ($edit) ? $member->id : '' ?>">
-                    <input type="submit" <?= ($edit) ? 'name="saveMember"' : 'name="saveNewMember"' ?> class="btn btn-primary" value="Opslaan">
-                    <a href="/Membership" class="btn btn-danger">Annuleren</a>
+                    <input type="submit" <?= ($edit) ? 'name="saveMember"' : 'name="saveNewMember"' ?>
+                           class="btn btn-sm btn-primary" value="Opslaan">
+                    <a href="/Membership" class="btn btn-sm btn-danger">Annuleren</a>
                 </div>
             </div>
         </div>
     </div>
 </form>
-<script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    (function () {
-        'use strict';
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.querySelectorAll('.needs-validation');
-        // Loop over them and prevent submission
-        Array.prototype.slice.call(forms)
-            .forEach(function (form) {
-                form.addEventListener('focusout', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault();
-                        event.stopPropagation()
-                    }
-                    form.classList.add('was-validated')
-                }, false)
-            })
-    })()
-</script>

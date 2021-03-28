@@ -7,10 +7,6 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Email\Message;
 
-/**
- * Class EmailMessage
- * @package PortalCMS\Core\Email\Message
- */
 class EmailMessage
 {
     /**

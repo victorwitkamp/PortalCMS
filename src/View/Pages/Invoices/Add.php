@@ -80,7 +80,7 @@ $pageName = 'Factuur toevoegen';
                 </div>
             </div>
 
-            <input type="submit" name="createInvoice" class="btn btn-outline-primary" value="Opslaan">
+            <input type="submit" name="createInvoice" class="btn btn-primary" value="Opslaan">
             <a href="/Invoices" class="btn btn-danger">Annuleren</a>
         </form>
 

@@ -2,25 +2,18 @@
 /**
  * Copyright Victor Witkamp (c) 2020.
  */
-
 declare(strict_types=1);
 
-/**
- * Main navigation
- */
-
 use PortalCMS\Core\Config\SiteSetting;
-use PortalCMS\Core\HTTP\Session;
+use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
-
 ?>
     <div class="navbar navbar-light bg-light p-0">
         <div class="container">
             <a class="navbar-brand mr-auto mr-lg-0" href="/Home"><?= SiteSetting::get('site_name') ?></a>
             <span class="navbar-text p-0">
             <?= Text::get('LABEL_SIGNED_IN_AS') ?><strong> <?= Session::get('user_name') ?></strong><br>
-            <a href="/Account"><?= Text::get('TITLE_MY_ACCOUNT') ?></a> | <a href="/Logout"><i
-                            class="fa fa-sign-out-alt"></i><?= Text::get('LABEL_SIGN_OUT') ?></a>
+            <a href="/Account"><?= Text::get('TITLE_MY_ACCOUNT') ?></a> | <a href="/Logout"><i class="fa fa-sign-out-alt"></i><?= Text::get('LABEL_SIGN_OUT') ?></a>
         </span>
         </div>
     </div>

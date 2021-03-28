@@ -8,43 +8,43 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
-use Laminas\Diactoros\Response\HtmlResponse;
 use League\Plates\Engine;
+use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\User\UserMapper;
-use Psr\Http\Message\ResponseInterface;
 
-/**
- * Class ProfileController
- * @package PortalCMS\Controllers
- */
-class ProfileController
+class ProfileController extends Controller
 {
-    protected $templates;
+    /**
+     * The requests that this controller will handle
+     * @var array $requests
+     */
+    private $requests = [];
 
-    public function __construct(Engine $templates)
+    /**
+     * Constructor
+     */
+    public function __construct()
     {
+        parent::__construct();
         Authentication::checkAuthentication();
-        $this->templates = $templates;
+        Router::processRequests($this->requests, __CLASS__);
     }
 
-    public function index(): ResponseInterface
+    /**
+     * Overview
+     */
+    public function index()
     {
-        $user = UserMapper::getProfileById((int) Request::get('id'));
+        $templates = new Engine(DIR_VIEW);
+        $user = UserMapper::getProfileById((int)Request::get('id'));
         if (!empty($user)) {
-            return new HtmlResponse($this->templates->render('Pages/Profile/Index', (array) $user));
+            echo $templates->render('Pages/Profile/Index', (array)$user);
+        } else {
+            header('HTTP/1.0 404 Not Found', true, 404);
+            echo $templates->render('Pages/Error/Error', [ 'title' => '404 - Not found', 'message' => 'The requested page cannot be found' ]);
         }
-
-        return new HtmlResponse(
-            $this->templates->render(
-                'Pages/Error/Error',
-                [
-                    'title' => '404 - Not found',
-                    'message' => 'The requested page cannot be found'
-                ]
-            ),
-            404
-        );
     }
 }

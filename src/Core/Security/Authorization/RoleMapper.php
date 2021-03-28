@@ -13,14 +13,8 @@ namespace PortalCMS\Core\Security\Authorization;
 use PDO;
 use PortalCMS\Core\Database\Database;
 
-/**
- * Class RoleMapper
- * @package PortalCMS\Core\Security\Authorization
- */
 class RoleMapper
 {
-    /**
-     */
     public static function getRoles(): ?array
     {
         $stmt = Database::conn()->query('SELECT * FROM roles ORDER BY role_id ');
@@ -30,8 +24,6 @@ class RoleMapper
         return null;
     }
 
-    /**
-     */
     public static function get(int $role_id): ?object
     {
         $stmt = Database::conn()->prepare('SELECT *
@@ -45,8 +37,6 @@ class RoleMapper
         return null;
     }
 
-    /**
-     */
     public static function create(string $role_name): bool
     {
         $stmt = Database::conn()->prepare('INSERT INTO roles (role_name) 
@@ -55,8 +45,6 @@ class RoleMapper
         return ($stmt->rowCount() === 1);
     }
 
-    /**
-     */
     public static function delete(int $role_id): bool
     {
         $stmt = Database::conn()->prepare('DELETE FROM roles

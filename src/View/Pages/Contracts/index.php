@@ -19,6 +19,7 @@ $contracts = ContractMapper::get();
 
     <link rel="stylesheet" type="text/css" href="/dist/merged/dataTables.min.css">
     <script src="/dist/merged/dataTables.min.js"></script>
+    <script src="/includes/js/init.datatables.js" class="init"></script>
 
 <?= $this->end() ?>
 <?= $this->push('main-content') ?>
@@ -28,24 +29,24 @@ $contracts = ContractMapper::get();
             <div class="col-sm-8">
                 <h1><?= $pageName ?></h1>
             </div>
-            <div class="col-sm-4"><a href="/Contracts/New" class="btn btn-outline-success navbar-btn float-right"><span class="fa fa-plus"></span> <?= Text::get('LABEL_ADD') ?></a></div>
+            <div class="col-sm-4"><a href="/Contracts/New" class="btn btn-success navbar-btn float-right"><span
+                            class="fa fa-plus"></span> <?= Text::get('LABEL_ADD') ?></a></div>
         </div>
         <hr>
-        <?php Alert::renderFeedbackMessages(); ?>
-    </div>
-    <div class="container-fluid">
         <?php
+        Alert::renderFeedbackMessages();
         if ($contracts) { ?>
             <table id="example" class="table table-sm table-striped table-hover" style="width:100%;">
                 <thead class="thead-dark">
-                    <tr>
-                        <th>Huurder</th>
-                        <th>Klantcode</th>
-                        <th>Prijs per maand</th>
-                    </tr>
+                <tr>
+                    <th>Huurder</th>
+                    <th>Klantcode</th>
+                    <th>Prijs per maand</th>
+                </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($contracts as $contract) { ?>
+                <?php
+                foreach ($contracts as $contract) { ?>
                     <tr>
                         <td><a href="/Contracts/Details?id=<?= $contract->id ?>"><?= $contract->band_naam ?></a></td>
                         <td><?= $contract->bandcode ?></td>
@@ -54,25 +55,11 @@ $contracts = ContractMapper::get();
                 <?php } ?>
                 </tbody>
             </table>
-            <script>
-                $(document).ready(function () {
-                    $('#example').DataTable({
-                        "columnDefs": [ {
-                            "targets": 'nosort',
-                            "orderable": false
-                        } ],
-                        language: {
-                            url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Dutch.json'
-                        },
-                        ordering: true,
-                        order: [[1, 'asc']]
-                    })
-                })
-            </script>
             <?php
         } else {
             echo Text::get('LABEL_NOT_FOUND');
-        } ?>
+        }
+        ?>
     </div>
 
 <?= $this->end();

@@ -77,7 +77,7 @@ if ($Role) {
                 </option>
             <?php } ?>
         </select>
-        <input type="submit" name="setrolepermission" value="Toewijzen" class="btn btn-outline-primary ml-2">
+        <input type="submit" name="setrolepermission" value="Toewijzen" class="btn btn-primary ml-2">
         </form><?php
     } else {
         ?><p>Geen permissies om toe te wijzen</p><?php

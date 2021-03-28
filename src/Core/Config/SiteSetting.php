@@ -9,7 +9,7 @@ namespace PortalCMS\Core\Config;
 
 use PDO;
 use PortalCMS\Core\Database\Database;
-use PortalCMS\Core\HTTP\Session;
+use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
 
 /**
@@ -18,8 +18,6 @@ use PortalCMS\Core\View\Text;
  */
 class SiteSetting
 {
-    /**
-     */
     public static function saveSiteSettings(): bool
     {
         $settings = SiteSettingsFactory::updateRequest();
@@ -29,8 +27,6 @@ class SiteSetting
         return true;
     }
 
-    /**
-     */
     public static function get(string $setting): ?string
     {
         $stmt = Database::conn()->prepare('SELECT string_value FROM site_settings WHERE setting = ?');
@@ -42,8 +38,6 @@ class SiteSetting
         return null;
     }
 
-    /**
-     */
     public static function uploadLogo(): bool
     {
         if (self::isLogoFolderWritable() && self::validateImageFile()) {
@@ -58,8 +52,6 @@ class SiteSetting
         return false;
     }
 
-    /**
-     */
     public static function isLogoFolderWritable(): bool
     {
         if (!is_dir(Config::get('PATH_LOGO'))) {
@@ -72,8 +64,6 @@ class SiteSetting
         return false;
     }
 
-    /**
-     */
     public static function validateImageFile(): bool
     {
         if (!isset($_FILES['logo_file'])) {
@@ -124,18 +114,6 @@ class SiteSetting
         return null;
     }
 
-    /**
-     * @param        $image
-     * @param string $destination
-     * @return bool
-     */
-    /**
-     * @param        $image
-     * @param string $destination
-     * @return bool
-     */
-    /**
-     */
     public static function writeJPG($image, string $destination): bool
     {
         $destination .= '.jpg';
@@ -147,16 +125,6 @@ class SiteSetting
         return false;
     }
 
-    /**
-     * @param string $fileName
-     * @return bool
-     */
-    /**
-     * @param string $fileName
-     * @return bool
-     */
-    /**
-     */
     public static function writeLogoToDatabase(string $fileName): bool
     {
         if (SiteSettingsMapper::update('site_logo', $fileName)) {

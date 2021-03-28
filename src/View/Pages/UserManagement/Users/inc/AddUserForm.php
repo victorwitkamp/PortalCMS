@@ -33,7 +33,7 @@ use PortalCMS\Core\View\Text;
     </div>
 
     <div class="row">
-        <input type="submit" name="addNewUser" class="btn btn-outline-primary" value="<?= Text::get('LABEL_SUBMIT') ?>">
+        <input type="submit" name="addNewUser" class="btn btn-primary" value="<?= Text::get('LABEL_SUBMIT') ?>">
         <a href="/UserManagement/Users" class="btn btn-danger"><?= Text::get('LABEL_CANCEL') ?></a>
     </div>
 </form>

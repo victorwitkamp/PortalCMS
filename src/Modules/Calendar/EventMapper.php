@@ -10,14 +10,8 @@ namespace PortalCMS\Modules\Calendar;
 use PDO;
 use PortalCMS\Core\Database\Database;
 
-/**
- * Class EventMapper
- * @package PortalCMS\Modules\Calendar
- */
 class EventMapper
 {
-    /**
-     */
     public static function exists(int $id): bool
     {
         $stmt = Database::conn()->prepare('SELECT id FROM events WHERE id = ? LIMIT 1');
@@ -25,8 +19,6 @@ class EventMapper
         return ($stmt->rowCount() === 1);
     }
 
-    /**
-     */
     public static function getByDate(string $startDate, string $endDate): ?array
     {
         $startDateTime = $startDate . ' 00:00:00';
@@ -39,8 +31,6 @@ class EventMapper
         return null;
     }
 
-    /**
-     */
     public static function getEventsAfter(string $dateTime, int $limit = 3): ?array
     {
         $stmt = Database::conn()->prepare('SELECT * FROM events WHERE start_event > ? ORDER BY start_event limit ?');
@@ -51,8 +41,6 @@ class EventMapper
         return null;
     }
 
-    /**
-     */
     public static function getById(int $id): ?object
     {
         $stmt = Database::conn()->prepare('SELECT * FROM events WHERE id = ? LIMIT 1');
@@ -72,8 +60,6 @@ class EventMapper
         return ($stmt->rowCount() === 1);
     }
 
-    /**
-     */
     public static function update(Event $event): bool
     {
         $stmt = Database::conn()->prepare('UPDATE events
@@ -83,20 +69,6 @@ class EventMapper
         return ($stmt->rowCount() === 1);
     }
 
-    /**
-     * @param int    $event_id
-     * @param string $start_event
-     * @param string $end_event
-     * @return bool
-     */
-    /**
-     * @param int    $event_id
-     * @param string $start_event
-     * @param string $end_event
-     * @return bool
-     */
-    /**
-     */
     public static function updateDate(int $event_id, string $start_event, string $end_event): bool
     {
         $stmt = Database::conn()->prepare('UPDATE events
@@ -106,16 +78,6 @@ class EventMapper
         return ($stmt->rowCount() === 1);
     }
 
-    /**
-     * @param int $id
-     * @return bool
-     */
-    /**
-     * @param int $id
-     * @return bool
-     */
-    /**
-     */
     public static function delete(int $id): bool
     {
         $stmt = Database::conn()->prepare('DELETE FROM events 

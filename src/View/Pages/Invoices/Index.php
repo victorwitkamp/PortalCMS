@@ -23,10 +23,11 @@ if (!empty($contractId) && is_numeric($contractId)) {
     }
     if (!empty($year)) {
         $invoices = InvoiceMapper::getByContractIdAndYear($contractId, $year);
+        $pageName = Text::get('LABEL_CONTRACT_INVOICES_FOR') . $contract->band_naam;
     } else {
         $invoices = InvoiceMapper::getByContractId($contractId);
+        $pageName = Text::get('LABEL_CONTRACT_INVOICES_FOR') . $contract->band_naam . ' (voor jaar: ' . $year . ')';
     }
-    $pageName = Text::get('LABEL_CONTRACT_INVOICES_FOR') . $contract->band_naam;
 } else {
     if (!empty($year)) {
         $invoices = InvoiceMapper::getByYear($year);
@@ -43,6 +44,25 @@ if (!empty($contractId) && is_numeric($contractId)) {
     <link rel="stylesheet" type="text/css" href="/dist/merged/dataTables.min.css">
     <script src="/dist/merged/dataTables.min.js"></script>
 <!--    <script src="/includes/js/init.datatables.js" class="init"></script>-->
+    <script>
+        $(document).ready(function () {
+            $("#example").DataTable({
+                scrollX: true,
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.10.19/i18n/Dutch.json"
+                },
+                paging: false,
+                ordering: !0,
+                "order": [[ 1, 'asc' ]],
+                compact: true,
+                select: true,
+                columnDefs: [
+                    { orderable: false, targets: 0 }
+                ],
+            });
+        });
+    </script>
+
 
 <?= $this->end() ?>
 <?= $this->push('main-content') ?>
@@ -52,19 +72,23 @@ if (!empty($contractId) && is_numeric($contractId)) {
             <div class="col-sm-8">
                 <h1><?= $pageName ?></h1>
             </div>
-            <div class="col-sm-4"><a href="/Invoices/Add" class="btn btn-outline-success navbar-btn float-right"><span
-                            class="fa fa-plus"></span> Toevoegen</a></div>
+            <div class="col-sm-4">
+                <a href="/Invoices/Add" class="btn btn-success navbar-btn float-right"><span class="fa fa-plus"></span> Toevoegen</a>
+            </div>
         </div>
+
         <ul>
             <li><a href="/Invoices">Alle</a> (<?= InvoiceMapper::getInvoiceCount() ?>)</li>
             <?php
-            $years = InvoiceMapper::getYears();
-            foreach ($years as $jaar) {
-                ?>
-                <li><a href="/Invoices?<?= (!empty($contract)) ? 'contract=' . $contract->id . '&' : '' ?>year=<?= $jaar['year'] ?>"><?= $jaar['year'] ?></a>
-                (<?= (!empty($contract)) ? InvoiceMapper::getInvoiceCountByContractIdAndYear($contract->id, $jaar['year']) : InvoiceMapper::getInvoiceCountByYear($jaar['year']) ?>) <?= ((int) Request::get('year') === $jaar['year']) ? ' - Geselecteerd' : '' ?></li><?php
+            foreach (InvoiceMapper::getYears() as $jaar) { ?>
+                <li><a href="/Invoices?year=<?= $jaar['year'] ?>"><?= $jaar['year'] ?></a>(<?= InvoiceMapper::getInvoiceCountByYear($jaar['year']) ?>) <?php
+                if ((int)Request::get('year') === $jaar['year']) {
+                    echo ' - Geselecteerd';
+                } ?></li><?php
             } ?>
         </ul>
+
+
         <hr>
         <?php Alert::renderFeedbackMessages(); ?>
     </div>

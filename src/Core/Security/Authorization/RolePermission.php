@@ -8,17 +8,11 @@ declare(strict_types=1);
 namespace PortalCMS\Core\Security\Authorization;
 
 use PortalCMS\Core\HTTP\Redirect;
-use PortalCMS\Core\HTTP\Session;
+use PortalCMS\Core\Session\Session;
 
-/**
- * Class RolePermission
- * @package PortalCMS\Core\Security\Authorization
- */
 class RolePermission
 {
 
-    /**
-     */
     public static function assignPermission(int $roleId, int $permId)
     {
         $Permission = PermissionMapper::getById($permId);
@@ -34,8 +28,6 @@ class RolePermission
         }
     }
 
-    /**
-     */
     public static function unassignPermission(int $roleId, int $permId)
     {
         $Permission = PermissionMapper::getById($permId);

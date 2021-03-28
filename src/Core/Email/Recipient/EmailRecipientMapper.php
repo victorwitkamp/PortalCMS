@@ -9,15 +9,8 @@ namespace PortalCMS\Core\Email\Recipient;
 
 use PortalCMS\Core\Database\Database;
 
-/**
- * Class EmailRecipientMapper
- * @package PortalCMS\Core\Email\Recipient
- */
 class EmailRecipientMapper
 {
-    /**
-     * @param string|null $name
-     */
     public static function createRecipient(int $mail_id, string $emailAddress, string $name = null): bool
     {
         $stmt = Database::conn()->prepare('INSERT INTO mail_recipients(id, email, mail_id, type, name) VALUES (NULL,?,?,1,?)');
@@ -25,9 +18,6 @@ class EmailRecipientMapper
         return ($stmt->rowCount() === 1);
     }
 
-    /**
-     * @param string|null $name
-     */
     public static function createCC(int $mail_id, string $emailAddress, string $name = null): bool
     {
         $stmt = Database::conn()->prepare('INSERT INTO mail_recipients(id, email, mail_id, type, name) VALUES (NULL,?,?,2,?)');
@@ -35,9 +25,6 @@ class EmailRecipientMapper
         return ($stmt->rowCount() === 1);
     }
 
-    /**
-     * @param string|null $name
-     */
     public static function createBCC(int $mail_id, string $emailAddress, string $name = null): bool
     {
         $stmt = Database::conn()->prepare('INSERT INTO mail_recipients(id, email, mail_id, type, name) VALUES (NULL,?,?,3,?)');
@@ -45,8 +32,6 @@ class EmailRecipientMapper
         return ($stmt->rowCount() === 1);
     }
 
-    /**
-     */
     public static function getCC(int $mailId): ?array
     {
         $stmt = Database::conn()->prepare('
@@ -59,8 +44,6 @@ class EmailRecipientMapper
         return $stmt->fetchAll();
     }
 
-    /**
-     */
     public static function getBCC(int $mailId): ?array
     {
         $stmt = Database::conn()->prepare('
@@ -73,8 +56,6 @@ class EmailRecipientMapper
         return $stmt->fetchAll();
     }
 
-    /**
-     */
     public function getAll(int $mail_id): ?array
     {
         $stmt = Database::conn()->prepare('
@@ -87,8 +68,6 @@ class EmailRecipientMapper
         return $stmt->fetchAll();
     }
 
-    /**
-     */
     public function getRecipients(int $mailId): ?array
     {
         $stmt = Database::conn()->prepare('

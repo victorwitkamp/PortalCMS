@@ -8,193 +8,219 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
-use Laminas\Diactoros\Response\HtmlResponse;
-use Laminas\Diactoros\Response\RedirectResponse;
 use League\Plates\Engine;
+use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\Email\Batch\MailBatch;
 use PortalCMS\Core\Email\Message\Attachment\EmailAttachment;
 use PortalCMS\Core\Email\Schedule\MailSchedule;
 use PortalCMS\Core\Email\Template\EmailTemplateManager;
+use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
-use Psr\Http\Message\ResponseInterface;
 
-/**
- * Class EmailController
- * @package PortalCMS\Controllers
- */
-class EmailController
+class EmailController extends Controller
 {
-    protected $templates;
+    private $requests = [
+        'generateMemberSetYear' => 'POST', 'uploadAttachment' => 'POST', 'deleteMailTemplateAttachments' => 'POST', 'deleteTemplate' => 'POST', 'addTemplate' => 'POST', 'editTemplateAction' => 'POST', 'sendScheduledMailById' => 'POST', 'createMailWithTemplate' => 'POST', 'deleteScheduledMailById' => 'POST', 'sendBatchById' => 'POST', 'deleteBatchById' => 'POST'
+    ];
 
-//    private $requests = [
-//        'generateMemberSetYear'         => 'POST',
-//        'uploadAttachment'              => 'POST',
-//        'deleteMailTemplateAttachments' => 'POST',
-//        'deleteTemplate'                => 'POST',
-//        'addTemplate'                   => 'POST',
-//        'editTemplateAction'            => 'POST',
-//        'sendScheduledMailById'         => 'POST',
-//        'createMailWithTemplate'        => 'POST',
-//        'deleteScheduledMailById'       => 'POST',
-//        'sendBatchById'                 => 'POST',
-//        'deleteBatchById'               => 'POST'
-//    ];
-
-    public function __construct(Engine $templates)
+    public function __construct()
     {
+        parent::__construct();
         Authentication::checkAuthentication();
-        $this->templates = $templates;
+        Router::processRequests($this->requests, __CLASS__);
     }
 
-    public static function generateMemberSetYear() : ResponseInterface
+    public static function generateMemberSetYear(): void
     {
-        return new RedirectResponse('/Email/GenerateMember/?year=' . Request::post('year'));
+        Redirect::to('Email/GenerateMember/?year=' . Request::post('year'));
     }
 
-    public static function uploadAttachment() : ResponseInterface
+    public static function uploadAttachment(): void
     {
         Authentication::checkAuthentication();
         $attachment = new EmailAttachment($_FILES['attachment_file']);
-        $attachment->store(null, (int) Request::get('id'));
-        return new RedirectResponse('/Email/EditTemplate?id=' . Request::get('id'));
+        $attachment->store(null, (int)Request::get('id'));
+        Redirect::to('email/EditTemplate?id=' . Request::get('id'));
     }
 
-    public static function deleteMailTemplateAttachments() : ResponseInterface
+    public static function deleteMailTemplateAttachments(): void
     {
-        EmailAttachment::deleteById([(int) Request::post('id')]);
-        return new RedirectResponse('/Email/EditTemplate?id=' . Request::get('id'));
+        EmailAttachment::deleteById(Request::post('id'));
+        Redirect::to('email/EditTemplate?id=' . Request::get('id'));
     }
 
-    public static function deleteTemplate() : ResponseInterface
+    public static function deleteTemplate(): void
     {
-        EmailTemplateManager::delete((int) Request::post('id'));
-        return new RedirectResponse('/Email/ViewTemplates');
+        EmailTemplateManager::delete((int)Request::post('id'));
+        Redirect::to('email/ViewTemplates');
     }
 
-    public static function addTemplate() : ResponseInterface
+    public static function addTemplate(): void
     {
         Authentication::checkAuthentication();
         $templateBuilder = new EmailTemplateManager();
-        $body = (string) Request::post('body');
-        $subject = (string) Request::post('subject', true);
-        if (!empty($body) && $body !== null && !empty($subject) && $subject !== null) {
-            $templateBuilder->create('member', $subject, $body);
-            $templateBuilder->store();
-        }
-        return new RedirectResponse('/Email/ViewTemplates');
+        $templateBuilder->create('member', Request::post('subject', true), Request::post('body'));
+        $templateBuilder->store();
+        Redirect::to('email/ViewTemplates');
     }
 
-    public static function editTemplateAction() : ResponseInterface
+    public static function editTemplateAction(): void
     {
         $templateBuilder = new EmailTemplateManager();
-        $template = $templateBuilder->getExisting((int) Request::get('id'));
+        $template = $templateBuilder->getExisting((int)Request::get('id'));
         $template->subject = Request::post('subject', true);
         $template->body = Request::post('body');
         $templateBuilder->update($template);
-        return new RedirectResponse('/Email/ViewTemplates');
+        Redirect::to('email/ViewTemplates');
     }
 
-    public static function sendScheduledMailById() : ResponseInterface
+    public static function sendScheduledMailById(): void
     {
-        MailSchedule::sendMailsById((array) Request::post('id'));
-        return new RedirectResponse('/Email/Messages');
+        MailSchedule::sendMailsById((array)Request::post('id'));
+        Redirect::to('Email/Messages');
     }
 
-    public static function createMailWithTemplate() : ResponseInterface
+    public static function createMailWithTemplate(): void
     {
         $templateId = filter_input(INPUT_POST, 'templateid', FILTER_VALIDATE_INT);
-        $recipients = (array) Request::post('recipients');
+        $recipients = (array)Request::post('recipients');
         MailSchedule::createWithTemplate($templateId, $recipients);
-        return new RedirectResponse('/Email/Messages');
+        Redirect::to('Email/Messages');
     }
 
-    public static function deleteScheduledMailById() : ResponseInterface
+    public static function deleteScheduledMailById(): void
     {
-        MailSchedule::deleteById((array) Request::post('id'));
-        return new RedirectResponse('/Email/Messages');
+        MailSchedule::deleteById((array)Request::post('id'));
+        Redirect::to('Email/Messages');
     }
 
     public static function sendBatchById(): void
     {
-        MailBatch::sendById((array) Request::post('id'));
+        MailBatch::sendById((array)Request::post('id'));
     }
 
     public static function deleteBatchById(): void
     {
-        MailBatch::deleteById((array) Request::post('id'));
+        MailBatch::deleteById((array)Request::post('id'));
     }
 
-    public function batches() : ResponseInterface
+    /**
+     * Route: Batches.
+     */
+    public function batches()
     {
         if (Authorization::hasPermission('mail-scheduler')) {
-            return new HtmlResponse($this->templates->render('Pages/Email/Batches'));
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/Email/Batches');
+        } else {
+            Redirect::to('Error/PermissionError');
         }
-        return new RedirectResponse('/Error/PermissionError');
     }
 
-    public function messages() : ResponseInterface
+    /**
+     * Route: Messages.
+     */
+    public function messages()
     {
         if (Authorization::hasPermission('mail-scheduler')) {
-            return new HtmlResponse($this->templates->render('Pages/Email/Messages'));
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/Email/Messages');
+        } else {
+            Redirect::to('Error/PermissionError');
         }
-        return new RedirectResponse('/Error/PermissionError');
     }
 
-    public function history() : ResponseInterface
+    /**
+     * Route: History.
+     */
+    public function history()
     {
         if (Authorization::hasPermission('mail-scheduler')) {
-            return new HtmlResponse($this->templates->render('Pages/Email/History'));
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/Email/History');
+        } else {
+            Redirect::to('Error/PermissionError');
         }
-        return new RedirectResponse('/Error/PermissionError');
     }
 
-    public function details() : ResponseInterface
+    /**
+     * Route: Details.
+     */
+    public function details()
     {
         if (Authorization::hasPermission('mail-scheduler')) {
-            return new HtmlResponse($this->templates->render('Pages/Email/Details'));
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/Email/Details');
+        } else {
+            Redirect::to('Error/PermissionError');
         }
-        return new RedirectResponse('/Error/PermissionError');
     }
 
-    public function viewTemplates() : ResponseInterface
+    /**
+     * Route: ViewTemplates.
+     */
+    public function viewTemplates()
     {
         if (Authorization::hasPermission('mail-templates')) {
-            return new HtmlResponse($this->templates->render('Pages/Email/ViewTemplates'));
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/Email/ViewTemplates');
+        } else {
+            Redirect::to('Error/PermissionError');
         }
-        return new RedirectResponse('/Error/PermissionError');
     }
 
-    public function editTemplate() : ResponseInterface
+    /**
+     * Route: EditTemplates.
+     */
+    public function editTemplate()
     {
         if (Authorization::hasPermission('mail-templates')) {
-            return new HtmlResponse($this->templates->render('Pages/Email/EditTemplate'));
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/Email/EditTemplate');
+        } else {
+            Redirect::to('Error/PermissionError');
         }
-        return new RedirectResponse('/Error/PermissionError');
     }
 
-    public function newTemplate() : ResponseInterface
+    /**
+     * Route: NewTemplates.
+     */
+    public function newTemplate()
     {
         if (Authorization::hasPermission('mail-templates')) {
-            return new HtmlResponse($this->templates->render('Pages/Email/NewTemplate'));
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/Email/NewTemplate');
+        } else {
+            Redirect::to('Error/PermissionError');
         }
-        return new RedirectResponse('/Error/PermissionError');
     }
 
-    public function generate() : ResponseInterface
+    /**
+     * Route: NewTemplates.
+     */
+    public function generate()
     {
         if (Authorization::hasPermission('mail-scheduler')) {
-            return new HtmlResponse($this->templates->render('Pages/Email/Generate'));
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/Email/Generate');
+        } else {
+            Redirect::to('Error/PermissionError');
         }
-        return new RedirectResponse('/Error/PermissionError');
     }
 
-    public function generateMember() : ResponseInterface
+    /**
+     * Route: NewTemplates.
+     */
+    public function generateMember()
     {
         if (Authorization::hasPermission('mail-scheduler')) {
-            return new HtmlResponse($this->templates->render('Pages/Email/GenerateMember'));
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/Email/GenerateMember');
+        } else {
+            Redirect::to('Error/PermissionError');
         }
-        return new RedirectResponse('/Error/PermissionError');
     }
 }

@@ -13,14 +13,8 @@ namespace PortalCMS\Core\Email\Template\Helpers;
 use PortalCMS\Core\Config\SiteSetting;
 use PortalCMS\Modules\Members\MemberModel;
 
-/**
- * Class PlaceholderHelper
- * @package PortalCMS\Core\Email\Template\Helpers
- */
 class PlaceholderHelper
 {
-    /**
-     */
     public static function replaceMemberPlaceholders(int $memberId, string $text): string
     {
         //        $member = MemberMapper::getMemberById($memberId);

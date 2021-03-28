@@ -27,8 +27,6 @@ $pageName = 'Pagina ' . $row ['name'] . ' bewerken';
 <?= $this->push('head-extra') ?>
     <script src='https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=y6xawmw19w565wdi90wrtlow2ll6498emv0fozfrtrt7vb4y'></script>
     <script>
-        import tinymce from "bs-custom-file-input";
-
         tinymce.init({
             selector: '#mytextarea',
             plugins: 'advlist autolink link image lists charmap print preview'
@@ -42,8 +40,6 @@ $pageName = 'Pagina ' . $row ['name'] . ' bewerken';
         </div>
         <hr>
         <?php Alert::renderFeedbackMessages(); ?>
-    </div>
-    <div class="container">
         <form method="post">
             <div class="form-group form-group-sm row">
                 <div class="col-sm-12">
@@ -52,7 +48,7 @@ $pageName = 'Pagina ' . $row ['name'] . ' bewerken';
                 </div>
             </div>
             <input type="hidden" name="id" value="<?= $row ['id'] ?>">
-            <input type="submit" name="updatePage" class="btn btn-sm btn-outline-primary" value="Opslaan">
+            <input type="submit" name="updatePage" class="btn btn-sm btn-primary" value="Opslaan">
             <a href="javascript:history.back()" class="btn btn-sm btn-danger">Annuleren</a>
         </form>
     </div>

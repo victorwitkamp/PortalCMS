@@ -11,6 +11,9 @@ use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 use PortalCMS\Core\Email\Message\EmailMessage;
 
+/**
+ * Class Mail
+ */
 class SMTPTransport
 {
     /**
@@ -24,9 +27,9 @@ class SMTPTransport
     private $PHPMailer;
 
     /**
-     * @var string variable to collect errors
+     * @var mixed variable to collect errors
      */
-    private $error = '';
+    private $error;
 
     /**
      * @var EmailMessage $emailMessage An e-mail message
@@ -42,8 +45,9 @@ class SMTPTransport
     /**
      * The different mail sending methods write errors to the error property $this->error,
      * this method simply returns this error / error array.
+     * @return mixed
      */
-    public function getError() : string
+    public function getError()
     {
         return $this->error;
     }
@@ -64,15 +68,19 @@ class SMTPTransport
 
     public function verifyMessage(): bool
     {
-        if ($this->emailMessage->recipients === null) {
+        if (empty($this->emailMessage->recipients)) {
             $this->error = 'Recipients incompleet';
+        } elseif (empty($this->emailMessage->subject)) {
+            $this->error = 'Subject incompleet';
+        } elseif (empty($this->emailMessage->body)) {
+            $this->error = 'Body incompleet';
         } else {
             return true;
         }
         return false;
     }
 
-    public function prepareConfiguration(): void
+    public function prepareConfiguration()
     {
         $this->PHPMailer->CharSet = $this->config->charset;
         $this->PHPMailer->isSMTP();
@@ -113,34 +121,30 @@ class SMTPTransport
         return false;
     }
 
-    public function processAttachments() : bool
+    public function processAttachments()
     {
         if (!empty($this->emailMessage->attachments)) {
             foreach ($this->emailMessage->attachments as $attachment) {
-                $name = $attachment->name . $attachment->extension;
-                $fullPath = DIR_ROOT . $attachment->path . $name;
+                $name = $attachment['name'] . $attachment['extension'];
+                $fullPath = DIR_ROOT . $attachment['path'] . $name;
                 try {
-                    $this->PHPMailer->addAttachment($fullPath, $name, $attachment->encoding, $attachment->type);
+                    $this->PHPMailer->addAttachment($fullPath, $name, $attachment['encoding'], $attachment['type']);
                 } catch (Exception $e) {
                     echo 'Caught exception: ', $e->getMessage(), "\n";
                 }
             }
-            return true;
         }
-        return false;
     }
 
     public function send(): bool
     {
         try {
-            if ($this->PHPMailer->send()) {
-                $this->emailMessage = null;
-                return true;
-            }
+            $this->PHPMailer->send();
         } catch (Exception $e) {
             $this->error = $e->errorMessage();
-            return false;
+        } finally {
+            $this->emailMessage = null;
+            return true;
         }
-        return false;
     }
 }

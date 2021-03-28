@@ -8,140 +8,156 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
-use Laminas\Diactoros\Response\RedirectResponse;
 use League\Plates\Engine;
+use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\HTTP\Session;
+use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
 use PortalCMS\Core\Security\Authorization\RoleMapper;
 use PortalCMS\Core\Security\Authorization\RolePermission;
 use PortalCMS\Core\Security\Authorization\UserRoleMapper;
-use Psr\Http\Message\ResponseInterface;
+use PortalCMS\Core\Session\Session;
 
-/**
- * Class UserManagementController
- * @package PortalCMS\Controllers
- */
-class UserManagementController
+class UserManagementController extends Controller
 {
-    protected $templates;
+    private $requests = [
+        'deleteuser' => 'POST', 'deleterole' => 'POST', 'addrole' => 'POST', 'setrolepermission' => 'POST', 'deleterolepermission' => 'POST', 'assignrole' => 'POST', 'unassignrole' => 'POST', 'addNewUser' => 'POST'
+    ];
 
-//    private $requests = [
-//        'deleteuser'           => 'POST',
-//        'deleterole'           => 'POST',
-//        'addrole'              => 'POST',
-//        'setrolepermission'    => 'POST',
-//        'deleterolepermission' => 'POST',
-//        'assignrole'           => 'POST',
-//        'unassignrole'         => 'POST',
-//        'addNewUser'           => 'POST'
-//    ];
-
-    public function __construct(Engine $templates)
+    public function __construct()
     {
+        parent::__construct();
         Authentication::checkAuthentication();
-        $this->templates = $templates;
+        Router::processRequests($this->requests, __CLASS__);
     }
 
-    public static function deleterole() : ResponseInterface
+    public static function deleteuser()
     {
-        if (RoleMapper::delete((int) Request::post('role_id'))) {
+        // Not inplemented yet
+        $controller = new ErrorController();
+        $controller->notFound();
+    }
+
+    public static function deleterole()
+    {
+        if (RoleMapper::delete((int)Request::post('role_id'))) {
             Session::add('feedback_positive', 'Rol verwijderd.');
-            return new RedirectResponse('/UserManagement/Roles');
+            Redirect::to('UserManagement/Roles');
+        } else {
+            Session::add('feedback_negative', 'Fout bij het verwijderen van rol.');
+            Redirect::to('Error/Error');
         }
-        Session::add('feedback_negative', 'Fout bij het verwijderen van rol.');
-        return new RedirectResponse('/Error/Error');
     }
 
-    public static function addrole() : ResponseInterface
+    public static function addrole()
     {
-        if (RoleMapper::create((string) Request::post('role_name'))) {
+        if (RoleMapper::create((string)Request::post('role_name'))) {
             Session::add('feedback_positive', 'Nieuwe rol aangemaakt.');
-            return new RedirectResponse('/UserManagement/Roles');
+            Redirect::to('UserManagement/Roles');
+        } else {
+            Session::add('feedback_negative', 'Fout bij het aanmaken van nieuwe rol.');
+            Redirect::to('Error/Error');
         }
-        Session::add('feedback_negative', 'Fout bij het aanmaken van nieuwe rol.');
-        return new RedirectResponse('/Error/Error');
     }
 
     public static function setrolepermission()
     {
-        RolePermission::assignPermission((int) Request::post('role_id'), (int) Request::post('perm_id'));
+        RolePermission::assignPermission((int)Request::post('role_id'), (int)Request::post('perm_id'));
     }
 
     public static function deleterolepermission()
     {
-        RolePermission::unassignPermission((int) Request::post('role_id'), (int) Request::post('perm_id'));
+        RolePermission::unassignPermission((int)Request::post('role_id'), (int)Request::post('perm_id'));
     }
 
-    public static function assignrole() : ResponseInterface
+    public static function assignrole(): bool
     {
-        $user_id = (int) Request::post('user_id');
-        $role_id = (int) Request::post('role_id');
+        $user_id = (int)Request::post('user_id');
+        $role_id = (int)Request::post('role_id');
         if (UserRoleMapper::isAssigned($user_id, $role_id)) {
             Session::add('feedback_negative', 'Rol is reeds toegewezen aan deze gebruiker.');
         } elseif (UserRoleMapper::assign($user_id, $role_id)) {
             Session::add('feedback_positive', 'Rol toegewezen.');
-            return new RedirectResponse('/UserManagement/Profile?id=' . $user_id);
+            Redirect::to('UserManagement/Profile?id=' . $user_id);
+            return true;
         } else {
             Session::add('feedback_negative', 'Fout bij toewijzen van rol.');
         }
-        return new RedirectResponse('/Error/Error');
+        Redirect::to('Error/Error');
+        return false;
     }
 
-    public static function unassignrole() : ResponseInterface
+    public static function unassignrole(): bool
     {
-        $user_id = (int) Request::post('user_id');
-        $role_id = (int) Request::post('role_id');
+        $user_id = (int)Request::post('user_id');
+        $role_id = (int)Request::post('role_id');
         if (!UserRoleMapper::isAssigned($user_id, $role_id)) {
             Session::add('feedback_negative', 'Rol is niet aan deze gebruiker toegewezen. Er is geen toewijzing om te verwijderen.');
         } elseif (UserRoleMapper::unassign($user_id, $role_id)) {
             Session::add('feedback_positive', 'Rol voor gebruiker verwijderd.');
-            return new RedirectResponse('/UserManagement/Profile?id=' . $user_id);
+            Redirect::to('UserManagement/Profile?id=' . $user_id);
+            return true;
         } else {
             Session::add('feedback_negative', 'Fout bij verwijderen van rol voor gebruiker.');
         }
-        return new RedirectResponse('/Error/Error');
+        Redirect::to('Error/Error');
+        return false;
     }
 
-    public function users() : ResponseInterface
+    public function users()
     {
         if (Authorization::hasPermission('user-management')) {
-            echo $this->templates->render('Pages/UserManagement/Users/Index');
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/UserManagement/Users/Index');
+        } else {
+            Redirect::to('Error/PermissionError');
         }
-        return new RedirectResponse('/Error/PermissionError');
     }
 
-    public function profile() : ResponseInterface
+    public function profile()
     {
         if (Authorization::hasPermission('user-management')) {
-            echo $this->templates->render('Pages/UserManagement/Profile/Index');
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/UserManagement/Profile/Index');
+        } else {
+            Redirect::to('Error/PermissionError');
         }
-        return new RedirectResponse('/Error/PermissionError');
     }
 
-    public function roles() : ResponseInterface
+    public function roles()
     {
         if (Authorization::hasPermission('role-management')) {
-            echo $this->templates->render('Pages/UserManagement/Roles/Index');
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/UserManagement/Roles/Index');
+        } else {
+            Redirect::to('Error/PermissionError');
         }
-        return new RedirectResponse('/Error/PermissionError');
     }
 
-    public function addUser() : ResponseInterface
+    public function addUser()
     {
         if (Authorization::hasPermission('user-management')) {
-            echo $this->templates->render('Pages/UserManagement/Users/AddUser');
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/UserManagement/Users/AddUser');
+        } else {
+            Redirect::to('Error/PermissionError');
         }
-        return new RedirectResponse('/Error/PermissionError');
     }
 
-    public function role() : ResponseInterface
+    public function role()
     {
         if (Authorization::hasPermission('user-management')) {
-            echo $this->templates->render('Pages/UserManagement/Role/Index');
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/UserManagement/Role/Index');
+        } else {
+            Redirect::to('Error/PermissionError');
         }
-        return new RedirectResponse('/Error/PermissionError');
     }
+
+    //    public static function addNewUser() : ?int
+    //    {
+    //
+    //    }
 }

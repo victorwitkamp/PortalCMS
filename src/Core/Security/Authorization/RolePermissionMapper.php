@@ -9,15 +9,9 @@ namespace PortalCMS\Core\Security\Authorization;
 
 use PortalCMS\Core\Database\Database;
 
-/**
- * Class RolePermissionMapper
- * @package PortalCMS\Core\Security\Authorization
- */
 class RolePermissionMapper
 {
 
-    /**
-     */
     public static function getRolePermissions(int $role_id): ?array
     {
         $stmt = Database::conn()->prepare('SELECT t2.perm_id, t2.perm_desc
@@ -32,8 +26,6 @@ class RolePermissionMapper
         return null;
     }
 
-    /**
-     */
     public static function getRoleSelectablePermissions(int $role_id): ?array
     {
         $stmt = Database::conn()->prepare('SELECT * FROM permissions where perm_id not in (
@@ -48,8 +40,6 @@ class RolePermissionMapper
         return null;
     }
 
-    /**
-     */
     public static function isAssigned(int $role_id, string $perm_desc): bool
     {
         $stmt = Database::conn()->prepare('SELECT t2.perm_desc
@@ -60,8 +50,6 @@ class RolePermissionMapper
         return ($stmt->rowCount() === 1);
     }
 
-    /**
-     */
     public static function assign(int $role_id, int $perm_id): bool
     {
         $stmt = Database::conn()->prepare('INSERT INTO role_perm(role_id, perm_id) VALUES (?,?)');
@@ -69,8 +57,6 @@ class RolePermissionMapper
         return ($stmt->rowCount() === 1);
     }
 
-    /**
-     */
     public static function unassign(int $role_id, int $perm_id): bool
     {
         $stmt = Database::conn()->prepare('DELETE FROM role_perm

@@ -17,9 +17,6 @@ class MemberPaymentDetails
     public $machtigingskenmerk;
     public $status;
 
-    /**
-     * MemberPaymentDetails constructor.
-     */
     public function __construct(?string $betalingswijze, ?string $iban, ?string $machtigingskenmerk, ?int $status)
     {
         $this->betalingswijze = $betalingswijze;

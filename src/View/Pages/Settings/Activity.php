@@ -15,6 +15,7 @@ $pageName = Text::get('TITLE_RECENT_ACTIVITY'); ?>
 
     <link rel="stylesheet" type="text/css" href="/dist/merged/dataTables.min.css">
     <script src="/dist/merged/dataTables.min.js"></script>
+    <script src="/includes/js/init.datatables.js" class="init"></script>
 
 <?= $this->end() ?>
 <?= $this->push('main-content') ?>
@@ -25,7 +26,6 @@ $pageName = Text::get('TITLE_RECENT_ACTIVITY'); ?>
                 <h1><?= $pageName ?></h1>
             </div>
         </div>
-        <hr>
         <?php Alert::renderFeedbackMessages(); ?>
     </div>
     <div class="container">
@@ -37,6 +37,7 @@ $pageName = Text::get('TITLE_RECENT_ACTIVITY'); ?>
                 <th>IP Address</th>
                 <th>Activity</th>
                 <th>Details</th>
+
             </tr>
             </thead>
             <?php
@@ -53,21 +54,6 @@ $pageName = Text::get('TITLE_RECENT_ACTIVITY'); ?>
                 <?php
             } ?>
         </table>
-        <script>
-            $(document).ready(function () {
-                $('#example').DataTable({
-                    "columnDefs": [ {
-                        "targets": 'nosort',
-                        "orderable": false
-                    } ],
-                    language: {
-                        url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/Dutch.json'
-                    },
-                    ordering: true,
-                    order: [[1, 'asc']]
-                })
-            })
-        </script>
     </div>
 
 <?= $this->end();

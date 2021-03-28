@@ -7,10 +7,6 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\Email\Template;
 
-/**
- * Class EmailTemplate
- * @package PortalCMS\Core\Email\Template
- */
 class EmailTemplate
 {
     /**

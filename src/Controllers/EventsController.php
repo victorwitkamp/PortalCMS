@@ -8,108 +8,117 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
-use Laminas\Diactoros\Response\HtmlResponse;
-use Laminas\Diactoros\Response\JsonResponse;
-use Laminas\Diactoros\Response\RedirectResponse;
 use League\Plates\Engine;
+use PortalCMS\Core\Controllers\Controller;
 use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\HTTP\Session;
+use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
+use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
 use PortalCMS\Modules\Calendar\EventFactory;
 use PortalCMS\Modules\Calendar\EventMapper;
 use PortalCMS\Modules\Calendar\EventModel;
-use Psr\Http\Message\ResponseInterface;
 
-/**
- * Class EventsController
- * @package PortalCMS\Controllers
- */
-class EventsController
+class EventsController extends Controller
 {
-    protected $templates;
+    private $requests = [
+        'addEvent' => 'POST', 'updateEvent' => 'POST', 'deleteEvent' => 'POST'
+    ];
 
-    public function __construct(Engine $templates)
+    public function __construct()
     {
+        parent::__construct();
         Authentication::checkAuthentication();
-        $this->templates = $templates;
+        Router::processRequests($this->requests, __CLASS__);
     }
 
-    public function deleteEvent() : ResponseInterface
+    public static function deleteEvent()
     {
         if (EventModel::delete((int)Request::post('id', true))) {
-            return new RedirectResponse('/Events');
+            Redirect::to('Events/');
         }
-        return new RedirectResponse('/Error/Error');
+        Redirect::to('Error/Error');
     }
 
-    public function updateEvent() : ResponseInterface
+    public static function updateEvent()
     {
         if (EventModel::update(EventFactory::byUpdateRequest())) {
-            return new RedirectResponse('/Events');
+            Redirect::to('Events/');
+        } else {
+            Redirect::to('Error/Error');
         }
-        return new RedirectResponse('/Error/Error');
     }
 
-    public function addEvent() : ResponseInterface
+    public static function addEvent()
     {
         if (EventModel::create(EventFactory::byCreateRequest())) {
-            return new RedirectResponse('/Events');
+            Redirect::to('Events/');
+        } else {
+            Redirect::to('Error/Error');
         }
-        return new RedirectResponse('/Error/Error');
     }
 
-    public function index() : ResponseInterface
+    public function index()
     {
         if (Authorization::hasPermission('events')) {
-            return new HtmlResponse($this->templates->render('Pages/Events/Index'), 200);
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/Events/Index');
+        } else {
+            Redirect::to('Error/PermissionError');
         }
-        return new RedirectResponse('/Error/PermissionError');
     }
 
-    public function details() : ResponseInterface
+    public function details()
     {
         if (Authorization::hasPermission('events')) {
             $event = EventMapper::getById((int)Request::get('id'));
             if (!empty($event)) {
-                return new HtmlResponse($this->templates->render('Pages/Events/Details', [ 'event' => $event ]));
+                $templates = new Engine(DIR_VIEW);
+                echo $templates->render('Pages/Events/Details', [ 'event' => $event ]);
+            } else {
+                Session::add('feedback_negative', 'Geen resultaten voor opgegeven event ID.');
+                Redirect::to('Error/Error');
             }
-            Session::add('feedback_negative', 'Geen resultaten voor opgegeven event ID.');
-            return new RedirectResponse('/Error/Error');
+        } else {
+            Redirect::to('Error/PermissionError');
         }
-        return new RedirectResponse('/Error/PermissionError');
     }
 
-    public function add() : ResponseInterface
+    public function add()
     {
         if (Authorization::hasPermission('events')) {
-            return new HtmlResponse($this->templates->render('Pages/Events/Add', [
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/Events/Add', [
                 'pageName' => (string)Text::get('TITLE_EVENTS_ADD')
-            ]));
+            ]);
+        } else {
+            Redirect::to('Error/PermissionError');
         }
-        return new RedirectResponse('/Error/PermissionError');
     }
 
-    public function edit() : ResponseInterface
+    public function edit()
     {
         if (Authorization::hasPermission('events')) {
             $event = EventMapper::getById((int)Request::get('id'));
             if (!empty($event)) {
-                return new HtmlResponse($this->templates->render('Pages/Events/Edit', [
+                $templates = new Engine(DIR_VIEW);
+                echo $templates->render('Pages/Events/Edit', [
                     'event' => $event, 'pageName' => 'Evenement ' . $event->title . ' bewerken'
-                ]));
+                ]);
+            } else {
+                Session::add('feedback_negative', 'Geen resultaten voor opgegeven event ID.');
+                Redirect::to('Error/Error');
             }
-            Session::add('feedback_negative', 'Geen resultaten voor opgegeven event ID.');
-            return new RedirectResponse('/Error/Error');
+        } else {
+            Redirect::to('Error/PermissionError');
         }
-        return new RedirectResponse('/Error/PermissionError');
     }
 
-    public function loadCalendarEvents() : ResponseInterface
+    public function loadCalendarEvents()
     {
-        return new JsonResponse(EventModel::getByDate((string)Request::get('start'), (string)Request::get('end')));
+        echo json_encode(EventModel::getByDate((string)Request::get('start'), (string)Request::get('end')));
     }
 
     public function updateEventDate(): bool

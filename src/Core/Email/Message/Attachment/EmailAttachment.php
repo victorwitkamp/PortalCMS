@@ -8,13 +8,9 @@ declare(strict_types=1);
 namespace PortalCMS\Core\Email\Message\Attachment;
 
 use PortalCMS\Core\Config\Config;
-use PortalCMS\Core\HTTP\Session;
+use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
 
-/**
- * Class EmailAttachment
- * @package PortalCMS\Core\Email\Message\Attachment
- */
 class EmailAttachment
 {
     public $path;
@@ -23,17 +19,12 @@ class EmailAttachment
     public $encoding = 'base64';
     public $type = 'application/octet-stream';
 
-    /**
-     * EmailAttachment constructor.
-     */
     public function __construct(array $file)
     {
         $this->path = Config::get('PATH_ATTACHMENTS');
         $this->processUpload($file);
     }
 
-    /**
-     */
     public function processUpload(array $file): bool
     {
         if (!empty($file)) {
@@ -76,18 +67,16 @@ class EmailAttachment
         return false;
     }
 
-    /**
-     * @param string|null $filename
-     */
-    public function getMIMEType(string $filename = null): string
+    public function getMIMEType(string $filename): string
     {
         $realpath = realpath($filename);
         return finfo_file(finfo_open(FILEINFO_MIME_TYPE), $realpath);
     }
 
     /**
-     * Delete attachment(s) by providing an array of attachmentIds
+     * Delete attachment(s)
      * @param array|null $attachmentIds
+     * @return bool
      */
     public static function deleteById(array $attachmentIds = null): bool
     {
@@ -98,7 +87,7 @@ class EmailAttachment
             return false;
         }
         foreach ($attachmentIds as $attachmentId) {
-            if (EmailAttachmentMapper::deleteById((int) $attachmentId)) {
+            if (EmailAttachmentMapper::deleteById((int)$attachmentId)) {
                 ++$deleted;
             } else {
                 ++$error;
@@ -109,8 +98,11 @@ class EmailAttachment
 
     /**
      * Handle feedback for the deleteById method
+     * @param int $deleted
+     * @param int $error
+     * @return bool
      */
-    public static function deleteFeedbackHandler(int $deleted = 0, int $error = 0): bool
+    public static function deleteFeedbackHandler(int $deleted, int $error): bool
     {
         if ($deleted > 0) {
             if ($error === 0) {
@@ -125,7 +117,7 @@ class EmailAttachment
         return false;
     }
 
-    //    /**
+//    /**
     ////     * Validates is the file size of the attachment is within range.
     ////     * @param $attachmentFile
     ////     * @return bool
@@ -157,18 +149,14 @@ class EmailAttachment
     //    //        return false;
     //    //    }
 
-    /**
-     * @param int|null $mailId
-     * @param int|null $templateId
-     */
     public function store(int $mailId = null, int $templateId = null): bool
     {
         if (!$this->validate()) {
             Session::add('feedback_negative', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_FAILED'));
-        } elseif ($mailId !== null && $templateId === null) {
+        } elseif (!empty($mailId) && empty($templateId)) {
             // No implementation yet
             Session::add('feedback_negative', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_FAILED'));
-        } elseif ($mailId === null && $templateId !== null && EmailAttachmentMapper::createForTemplate($templateId, $this)) {
+        } elseif (empty($mailId) && !empty($templateId) && EmailAttachmentMapper::createForTemplate($templateId, $this)) {
             Session::add('feedback_positive', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_SUCCESSFUL'));
             return true;
         }

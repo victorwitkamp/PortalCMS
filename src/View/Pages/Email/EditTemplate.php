@@ -24,8 +24,6 @@ $pageName = Text::get('TITLE_EDIT_MAIL_TEMPLATE');
 
     <script src='https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=y6xawmw19w565wdi90wrtlow2ll6498emv0fozfrtrt7vb4y'></script>
     <script>
-        import tinymce from "bs-custom-file-input";
-
         tinymce.init({
             selector: '#mytextarea',
             plugins: 'advlist autolink link image lists charmap print preview'
@@ -43,10 +41,8 @@ $pageName = Text::get('TITLE_EDIT_MAIL_TEMPLATE');
             <div class="col-sm-4"></div>
         </div>
         <hr>
-        <?php Alert::renderFeedbackMessages(); ?>
-    </div>
-    <div class="container">
-        <?php
+        <?php Alert::renderFeedbackMessages();
+
         $attachments = EmailAttachmentMapper::getByTemplateId($templateId);
         if (empty($attachments)) { ?>
             <p>Dit bericht heeft geen bijlagen</p>
@@ -78,7 +74,7 @@ $pageName = Text::get('TITLE_EDIT_MAIL_TEMPLATE');
         <hr>
         <form method="post">
             <input type="hidden" name="id" value="<?= $template->id ?>">
-            <input type="submit" class="btn btn-outline-primary float-right" name="editTemplateAction"/>
+            <input type="submit" class="btn btn-primary float-right" name="editTemplateAction"/>
             <div class="form-group">
                 <label for="subject">Onderwerp</label>
                 <input type="text" name="subject" class="form-control" id="subject" placeholder="Onderwerp"

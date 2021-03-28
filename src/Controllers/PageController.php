@@ -7,28 +7,25 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
-use Laminas\Diactoros\Response\HtmlResponse;
 use League\Plates\Engine;
-use Psr\Http\Message\ResponseInterface;
+use PortalCMS\Core\Controllers\Controller;
+use PortalCMS\Core\HTTP\Request;
+use PortalCMS\Core\View\Page;
 
-/**
- * Class PageController
- * @package PortalCMS\Controllers
- */
-class PageController
+class PageController extends Controller
 {
-    protected $templates;
-
-    public function __construct(Engine $templates)
+    public function __construct()
     {
-//        if (isset($_POST['updatePage'])) {
-//            Page::updatePage((int)Request::post('id'), (string)Request::post('content'));
-//        }
-        $this->templates = $templates;
+        parent::__construct();
+
+        if (isset($_POST['updatePage'])) {
+            Page::updatePage((int)Request::post('id'), (string)Request::post('content'));
+        }
     }
 
-    public function edit() : ResponseInterface
+    public static function edit()
     {
-        return new HtmlResponse($this->templates->render('Pages/Page/Edit'));
+        $templates = new Engine(DIR_VIEW);
+        echo $templates->render('Pages/Page/Edit');
     }
 }

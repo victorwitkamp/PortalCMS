@@ -7,82 +7,92 @@ declare(strict_types=1);
 
 namespace PortalCMS\Controllers;
 
-use Laminas\Diactoros\Response\HtmlResponse;
-use Laminas\Diactoros\Response\RedirectResponse;
 use League\Plates\Engine;
 use PortalCMS\Core\Config\SiteSetting;
-use PortalCMS\Core\HTTP\Session;
+use PortalCMS\Core\Controllers\Controller;
+use PortalCMS\Core\HTTP\Redirect;
+use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
 use PortalCMS\Core\Security\Authorization\Authorization;
+use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
-use Psr\Http\Message\ResponseInterface;
 
-/**
- * Class SettingsController
- * @package PortalCMS\Controllers
- */
-class SettingsController
+class SettingsController extends Controller
 {
-    protected $templates;
-
+    /**
+     * The requests that this controller will handle
+     * @var array $requests
+     */
     private $requests = [
         'saveSiteSettings' => 'POST', 'uploadLogo' => 'POST'
     ];
 
-    public function __construct(Engine $templates)
+    public function __construct()
     {
+        parent::__construct();
         Authentication::checkAuthentication();
-        $this->templates = $templates;
+        Router::processRequests($this->requests, __CLASS__);
     }
 
-    public static function saveSiteSettings() : ResponseInterface
+    public static function saveSiteSettings()
     {
         if (SiteSetting::saveSiteSettings()) {
             Session::add('feedback_positive', 'Instellingen succesvol opgeslagen.');
-            return new RedirectResponse('/Settings/SiteSettings');
+            Redirect::to('Settings/SiteSettings');
+        } else {
+            Session::add('feedback_negative', 'Fout bij opslaan van instellingen.');
+            Redirect::to('Settings/SiteSettings');
         }
-        Session::add('feedback_negative', 'Fout bij opslaan van instellingen.');
-        return new RedirectResponse('/Settings/SiteSettings');
     }
 
-    public static function uploadLogo() : ResponseInterface
+    public static function uploadLogo()
     {
+        Authentication::checkAuthentication();
         if (SiteSetting::uploadLogo()) {
             Session::add('feedback_positive', Text::get('FEEDBACK_AVATAR_UPLOAD_SUCCESSFUL'));
-            return new RedirectResponse('/Home');
+            Redirect::to('Home');
+        } else {
+            Redirect::to('Settings/Logo');
         }
-        return new RedirectResponse('/Settings/Logo');
     }
 
-    public function siteSettings() : ResponseInterface
+    public function siteSettings()
     {
         if (Authorization::hasPermission('site-settings')) {
-            return new HtmlResponse($this->templates->render('Pages/Settings/SiteSettings'));
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/Settings/SiteSettings');
+        } else {
+            Redirect::to('Error/PermissionError');
         }
-        return new RedirectResponse('/Error/PermissionError');
     }
 
-    public function activity() : ResponseInterface
+    public function activity()
     {
         if (Authorization::hasPermission('recent-activity')) {
-            return new HtmlResponse($this->templates->render('Pages/Settings/Activity'));
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/Settings/Activity');
+        } else {
+            Redirect::to('Error/PermissionError');
         }
-        return new RedirectResponse('/Error/PermissionError');
     }
 
-    public function logo() : ResponseInterface
+    public function logo()
     {
         if (Authorization::hasPermission('site-settings')) {
-            return new HtmlResponse($this->templates->render('Pages/Settings/Logo'));
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/Settings/Logo');
+        } else {
+            Redirect::to('Error/PermissionError');
         }
-        return new RedirectResponse('/Error/PermissionError');
     }
 
-    public function debug() : ResponseInterface
+    public function debug()
     {
         if (Authorization::hasPermission('debug')) {
-            return new HtmlResponse($this->templates->render('Pages/Settings/Debug'));
+            $templates = new Engine(DIR_VIEW);
+            echo $templates->render('Pages/Settings/Debug');
+        } else {
+            Redirect::to('Error/PermissionError');
         }
-        return new RedirectResponse('/Error/PermissionError');
     }
 }

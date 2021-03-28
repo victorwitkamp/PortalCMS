@@ -10,10 +10,6 @@ namespace PortalCMS\Core\Email\Schedule;
 use PDO;
 use PortalCMS\Core\Database\Database;
 
-/**
- * Class MailScheduleMapper
- * @package PortalCMS\Core\Email\Schedule
- */
 class MailScheduleMapper
 {
     public static function exists(int $id): bool
@@ -26,6 +22,13 @@ class MailScheduleMapper
     public static function getStatusById(int $id)
     {
         $stmt = Database::conn()->prepare('SELECT status FROM mail_schedule WHERE id = ? LIMIT 1');
+        $stmt->execute([ $id ]);
+        return $stmt->fetchColumn();
+    }
+
+    public static function getDateSentById(int $id)
+    {
+        $stmt = Database::conn()->prepare('SELECT DateSent FROM mail_schedule WHERE id = ? LIMIT 1');
         $stmt->execute([ $id ]);
         return $stmt->fetchColumn();
     }
@@ -62,7 +65,10 @@ class MailScheduleMapper
     {
         $stmt = Database::conn()->prepare('SELECT * FROM mail_schedule WHERE id = ? LIMIT 1');
         $stmt->execute([ $id ]);
-        return ($stmt->rowCount() === 1) ? $stmt->fetch(PDO::FETCH_OBJ) : null;
+        if ($stmt->rowCount() === 1) {
+            return $stmt->fetch(PDO::FETCH_OBJ);
+        }
+        return null;
     }
 
     public static function deleteByBatchId(int $batch_id): int
@@ -82,44 +88,60 @@ class MailScheduleMapper
     public static function create(int $batchId = null, int $memberId = null, string $subject = null, string $body = null, int $status = 1): bool
     {
         $stmt = Database::conn()->prepare('INSERT INTO mail_schedule(
-            id, batch_id, sender_email, member_id, subject, body, status
-        ) VALUES (
-            NULL,?,NULL,?,?,?,?
-        )');
-        return $stmt->execute([ $batchId, $memberId, $subject, $body, $status ]);
+                          id, batch_id, sender_email, member_id, subject, body, status
+                          ) VALUES (
+                            NULL,?,NULL,?,?,?,?
+                            )');
+        $stmt->execute([ $batchId, $memberId, $subject, $body, $status ]);
+        if (!$stmt) {
+            return false;
+        }
+        return true;
     }
 
-    public static function lastInsertedId(): int
+    public static function lastInsertedId()
     {
-        return (int) Database::conn()->query('SELECT max(id) from mail_schedule')->fetchColumn();
+        return Database::conn()->query('SELECT max(id) from mail_schedule')->fetchColumn();
     }
 
-    public static function updateStatus(int $id, int $status = null): bool
+    public static function updateStatus(int $id, int $status): bool
     {
-        $stmt = Database::conn()->prepare('UPDATE mail_schedule SET status = ? where id = ?');
+        $stmt = Database::conn()->prepare('UPDATE mail_schedule SET status =? where id=?');
         $stmt->execute([ $status, $id ]);
-        return ($stmt->rowCount() === 1);
+        if (!$stmt) {
+            return false;
+        }
+        return true;
     }
 
     public static function updateSender(int $id, string $senderName, string $senderEmail): bool
     {
         $sender = $senderName . ' (' . $senderEmail . ')';
-        $stmt = Database::conn()->prepare('UPDATE mail_schedule SET sender_email = ? where id = ?');
+        $stmt = Database::conn()->prepare('UPDATE mail_schedule SET sender_email =? where id=?');
         $stmt->execute([ $sender, $id ]);
-        return ($stmt->rowCount() === 1);
+        if (!$stmt) {
+            return false;
+        }
+        return true;
     }
 
     public static function updateDateSent(int $id): bool
     {
-        $stmt = Database::conn()->prepare('UPDATE mail_schedule SET DateSent = CURRENT_TIMESTAMP where id = ?');
+        $stmt = Database::conn()->prepare('UPDATE mail_schedule SET DateSent = CURRENT_TIMESTAMP where id=?');
         $stmt->execute([ $id ]);
-        return ($stmt->rowCount() === 1);
+        if (!$stmt) {
+            return false;
+        }
+        return true;
     }
 
-    public static function setErrorMessageById(int $id, string $message = null): bool
+    public static function setErrorMessageById(int $id, string $message): bool
     {
-        $stmt = Database::conn()->prepare('UPDATE mail_schedule SET errormessage = ? where id = ?');
+        $stmt = Database::conn()->prepare('UPDATE mail_schedule SET errormessage =? where id=?');
         $stmt->execute([ $message, $id ]);
-        return ($stmt->rowCount() === 1);
+        if (!$stmt) {
+            return false;
+        }
+        return true;
     }
 }

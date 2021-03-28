@@ -299,8 +299,8 @@ use PortalCMS\Core\View\Text;
             <input type="hidden"
                    name="id" <?= ($pageType === 'edit' && !empty($contract->id)) ? 'value="' . $contract->id . '"' : '' ?>>
             <input type="submit" <?= ($pageType === 'edit') ? 'name="updateContract"' : 'name="newContract"' ?>
-                   class="btn btn-sm btn-outline-primary" value="Opslaan">
-            <a <?= ($pageType === 'edit' && !empty($contract->id)) ? 'href="/Contracts/Details?id=' . $contract->id . '"' : 'href="/Contracts"' ?>
+                   class="btn btn-sm btn-primary" value="Opslaan">
+            <a <?= ($pageType === 'edit' && !empty($contract->id)) ? 'href="/Contracts/View?id=' . $contract->id . '"' : 'href="/Contracts"' ?>
                     class=" btn btn-sm btn-danger">Annuleren</a>
         </div>
     </div>

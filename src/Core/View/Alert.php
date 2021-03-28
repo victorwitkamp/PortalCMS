@@ -7,12 +7,8 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\View;
 
-use PortalCMS\Core\HTTP\Session;
+use PortalCMS\Core\Session\Session;
 
-/**
- * Class Alert
- * @package PortalCMS\Core\View
- */
 class Alert
 {
     /**
@@ -21,9 +17,9 @@ class Alert
      */
     public static function renderFeedbackMessages()
     {
-        $feedback_positive = (array) Session::get('feedback_positive', false);
-        $feedback_warning = (array) Session::get('feedback_warning', false);
-        $feedback_negative = (array) Session::get('feedback_negative', false);
+        $feedback_positive = (array)Session::get('feedback_positive', false);
+        $feedback_warning = (array)Session::get('feedback_warning', false);
+        $feedback_negative = (array)Session::get('feedback_negative', false);
 
         if (isset($feedback_positive)) {
             foreach ($feedback_positive as $feedback) {
@@ -48,8 +44,6 @@ class Alert
         Session::set('feedback_negative', null);
     }
 
-    /**
-     */
     public static function render(string $feedback, string $style)
     {
         if (!empty($feedback) && !empty($style)) {

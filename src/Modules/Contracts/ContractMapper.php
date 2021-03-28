@@ -10,10 +10,6 @@ namespace PortalCMS\Modules\Contracts;
 use PDO;
 use PortalCMS\Core\Database\Database;
 
-/**
- * Class ContractMapper
- * @package PortalCMS\Modules\Contracts
- */
 class ContractMapper
 {
     public static function get(): ?array
@@ -34,6 +30,13 @@ class ContractMapper
             return $stmt->fetch(PDO::FETCH_OBJ);
         }
         return null;
+    }
+
+    public static function getPriceById(int $id)
+    {
+        $stmt = Database::conn()->prepare('SELECT DateSent FROM mail_schedule WHERE id = ? LIMIT 1');
+        $stmt->execute([ $id ]);
+        return $stmt->fetchColumn();
     }
 
     public static function new(Contract $contract): bool

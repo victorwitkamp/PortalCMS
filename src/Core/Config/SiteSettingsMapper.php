@@ -8,14 +8,8 @@ namespace PortalCMS\Core\Config;
 
 use PortalCMS\Core\Database\Database;
 
-/**
- * Class SiteSettingsMapper
- * @package PortalCMS\Core\Config
- */
 class SiteSettingsMapper
 {
-    /**
-     */
     public static function update(string $setting, string $value): bool
     {
         $stmt = Database::conn()->prepare('UPDATE site_settings SET string_value = ? WHERE setting = ? LIMIT 1');
