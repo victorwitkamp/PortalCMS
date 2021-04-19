@@ -18,7 +18,7 @@
         "laminas/laminas-diactoros": "^2.3",
         "laminas/laminas-httphandlerrunner": "^1.2",
         "league/container": "^3.3",
-        "league/csv": "9.0"
+        "league/csv": "9.7.1"
     },
   "license": "",
   "require-dev": {
