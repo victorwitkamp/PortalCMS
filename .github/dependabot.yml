@@ -1,0 +1,15 @@
+version: 2
+updates:
+- package-ecosystem: composer
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: league/csv
+    versions:
+    - 9.7.0
+  - dependency-name: laravel/lumen-framework
+    versions:
+    - 8.2.0
