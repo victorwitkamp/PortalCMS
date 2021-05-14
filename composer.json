@@ -23,7 +23,7 @@
   "license": "",
   "require-dev": {
         "roave/security-advisories": "dev-master",
-        "friendsofphp/php-cs-fixer": "^2.15",
+        "friendsofphp/php-cs-fixer": "^3.0",
         "squizlabs/php_codesniffer": "*"
     },
     "autoload": {
