@@ -10,7 +10,7 @@
         "ext-gd": "*",
         "ext-json": "*",
         "phpmailer/phpmailer": "~6.0",
-        "tecnickcom/tcpdf": "6.4.2",
+        "tecnickcom/tcpdf": "6.4.3",
         "ext-fileinfo": "*",
         "league/plates": "^3.3",
         "psr/http-server-middleware": "^1.0.1",
