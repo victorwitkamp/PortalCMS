@@ -1,16 +1,13 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Modules\Contracts;
+namespace App\Modules\Contracts;
 
-use PortalCMS\Core\Activity\Activity;
-use PortalCMS\Core\HTTP\Request;
-use PortalCMS\Core\Session\Session;
-use PortalCMS\Modules\Invoices\InvoiceMapper;
+use App\Core\Activity\Activity;
+use App\Core\Session\Session;
+use App\Modules\Invoices\InvoiceMapper;
 
 /**
  * Class : Contract (Contract.php)
@@ -18,56 +15,56 @@ use PortalCMS\Modules\Invoices\InvoiceMapper;
  */
 class ContractModel
 {
-    public static function new(): bool
+    public function new(): bool
     {
-        $kosten_ruimte = (int)Request::post('kosten_ruimte', true);
-        $kosten_kast = (int)Request::post('kosten_kast', true);
+        $kosten_ruimte = (int)$this->request->get('kosten_ruimte');
+        $kosten_kast = (int)$this->request->get('kosten_kast');
         $kosten_totaal = $kosten_ruimte + $kosten_kast;
 
-        $contractContact = new ContractContact((string)Request::post('bandleider_naam', true), (string)Request::post('bandleider_adres', true), (string)Request::post('bandleider_postcode', true), (string)Request::post('bandleider_woonplaats', true), (string)Request::post('bandleider_geboortedatum', true), (string)Request::post('bandleider_telefoonnummer1', true), (string)Request::post('bandleider_telefoonnummer2', true), (string)Request::post('bandleider_email', true), (int)Request::post('bandleider_bsn', true));
-        $contract = new Contract(null, (string)Request::post('beuk_vertegenwoordiger', true), (string)Request::post('band_naam', true), (string)Request::post('bandcode', true), $contractContact, (int)Request::post('huur_oefenruimte_nr', true), (string)Request::post('huur_dag', true), (string)Request::post('huur_start', true), (string)Request::post('huur_einde', true), (int)Request::post('huur_kast_nr', true), $kosten_ruimte, $kosten_kast, $kosten_totaal, (int)Request::post('kosten_borg', true), (string)Request::post('contract_ingangsdatum', true), (string)Request::post('contract_einddatumm', true), (string)Request::post('contract_datum', true));
+        $contractContact = new ContractContact((string)$this->request->get('bandleider_naam'), (string)$this->request->get('bandleider_adres'), (string)$this->request->get('bandleider_postcode'), (string)$this->request->get('bandleider_woonplaats'), (string)$this->request->get('bandleider_geboortedatum'), (string)$this->request->get('bandleider_telefoonnummer1'), (string)$this->request->get('bandleider_telefoonnummer2'), (string)$this->request->get('bandleider_email'), (int)$this->request->get('bandleider_bsn'));
+        $contract = new Contract(null, (string)$this->request->get('beuk_vertegenwoordiger'), (string)$this->request->get('band_naam'), (string)$this->request->get('bandcode'), $contractContact, (int)$this->request->get('huur_oefenruimte_nr'), (string)$this->request->get('huur_dag'), (string)$this->request->get('huur_start'), (string)$this->request->get('huur_einde'), (int)$this->request->get('huur_kast_nr'), $kosten_ruimte, $kosten_kast, $kosten_totaal, (int)$this->request->get('kosten_borg'), (string)$this->request->get('contract_ingangsdatum'), (string)$this->request->get('contract_einddatumm'), (string)$this->request->get('contract_datum'));
         if (ContractMapper::new($contract)) {
             Activity::add('NewContract', Session::get('user_id'), 'ID: ' . ContractMapper::lastInsertedId());
-            Session::add('feedback_positive', 'Contract toegevoegd.');
+            $this->addFlash('success','Contract toegevoegd.');
             return true;
         }
-        Session::add('feedback_negative', 'Toevoegen van contract mislukt.');
+        $this->addFlash('danger','Toevoegen van contract mislukt.');
         return false;
     }
 
-    public static function update(): bool
+    public function update(): bool
     {
-        $kosten_ruimte = (int)Request::post('kosten_ruimte', true);
-        $kosten_kast = (int)Request::post('kosten_kast', true);
+        $kosten_ruimte = (int)$this->request->get('kosten_ruimte');
+        $kosten_kast = (int)$this->request->get('kosten_kast');
         $kosten_totaal = $kosten_ruimte + $kosten_kast;
 
-        $contractContact = new ContractContact((string)Request::post('bandleider_naam', true), (string)Request::post('bandleider_adres', true), (string)Request::post('bandleider_postcode', true), (string)Request::post('bandleider_woonplaats', true), (string)Request::post('bandleider_geboortedatum', true), (string)Request::post('bandleider_telefoonnummer1', true), (string)Request::post('bandleider_telefoonnummer2', true), (string)Request::post('bandleider_email', true), (int)Request::post('bandleider_bsn', true));
-        $contract = new Contract((int)Request::post('id', true), (string)Request::post('beuk_vertegenwoordiger', true), (string)Request::post('band_naam', true), (string)Request::post('bandcode', true), $contractContact, (int)Request::post('huur_oefenruimte_nr', true), (string)Request::post('huur_dag', true), (string)Request::post('huur_start', true), (string)Request::post('huur_einde', true), (int)Request::post('huur_kast_nr', true), $kosten_ruimte, $kosten_kast, $kosten_totaal, (int)Request::post('kosten_borg', true), (string)Request::post('contract_ingangsdatum', true), (string)Request::post('contract_einddatumm', true), (string)Request::post('contract_datum', true));
+        $contractContact = new ContractContact((string)$this->request->get('bandleider_naam'), (string)$this->request->get('bandleider_adres'), (string)$this->request->get('bandleider_postcode'), (string)$this->request->get('bandleider_woonplaats'), (string)$this->request->get('bandleider_geboortedatum'), (string)$this->request->get('bandleider_telefoonnummer1'), (string)$this->request->get('bandleider_telefoonnummer2'), (string)$this->request->get('bandleider_email'), (int)$this->request->get('bandleider_bsn'));
+        $contract = new Contract((int)$this->request->get('id'), (string)$this->request->get('beuk_vertegenwoordiger'), (string)$this->request->get('band_naam'), (string)$this->request->get('bandcode'), $contractContact, (int)$this->request->get('huur_oefenruimte_nr'), (string)$this->request->get('huur_dag'), (string)$this->request->get('huur_start'), (string)$this->request->get('huur_einde'), (int)$this->request->get('huur_kast_nr'), $kosten_ruimte, $kosten_kast, $kosten_totaal, (int)$this->request->get('kosten_borg'), (string)$this->request->get('contract_ingangsdatum'), (string)$this->request->get('contract_einddatumm'), (string)$this->request->get('contract_datum'));
         if (empty(ContractMapper::getById((int)$contract->id))) {
-            Session::add('feedback_negative', 'Wijzigen van contract mislukt. Contract bestaat niet.');
+            $this->addFlash('danger','Wijzigen van contract mislukt. Contract bestaat niet.');
         } elseif (ContractMapper::update($contract)) {
             Activity::add('UpdateContract', Session::get('user_id'), 'ID: ' . $contract->id);
-            Session::add('feedback_positive', 'Contract gewijzigd.');
+            $this->addFlash('success','Contract gewijzigd.');
             return true;
         } else {
-            Session::add('feedback_negative', 'Wijzigen van contract mislukt.');
+            $this->addFlash('danger','Wijzigen van contract mislukt.');
         }
         return false;
     }
 
-    public static function delete(int $id): bool
+    public function delete(int $id): bool
     {
         $contract = ContractMapper::getById($id);
         if (empty($contract)) {
-            Session::add('feedback_negative', 'Verwijderen van contract mislukt. Contract bestaat niet.');
+            $this->addFlash('danger','Verwijderen van contract mislukt. Contract bestaat niet.');
         } elseif (!empty(InvoiceMapper::getByContractId($contract->id))) {
-            Session::add('feedback_negative', 'Dit contract heeft al facturen.');
+            $this->addFlash('danger','Dit contract heeft al facturen.');
         } elseif (ContractMapper::delete($contract->id)) {
             Activity::add('DeleteContract', Session::get('user_id'), 'ID: ' . $contract->id);
-            Session::add('feedback_positive', 'Contract verwijderd.');
+            $this->addFlash('success','Contract verwijderd.');
             return true;
         } else {
-            Session::add('feedback_negative', 'Verwijderen van contract mislukt.');
+            $this->addFlash('danger','Verwijderen van contract mislukt.');
         }
         return false;
     }

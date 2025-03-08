@@ -1,42 +1,32 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Email\Template;
+namespace App\Core\Email\Template;
 
-use PortalCMS\Core\Session\Session;
+use App\Core\Session\Session;
 
 class EmailTemplateManager
 {
-    /**
-     * Instance of the MailTemplateMapper class
-     * @var EmailTemplate $emailTemplate
-     */
-    public $emailTemplate;
-
-    /**
-     * @var EmailTemplateMapper $EmailTemplateMapper
-     */
-    public $EmailTemplateMapper;
+    public EmailTemplate $emailTemplate;
+    public EmailTemplateMapper $EmailTemplateMapper;
 
     public function __construct()
     {
         $this->EmailTemplateMapper = new EmailTemplateMapper();
     }
 
-    public static function delete(int $id): bool
+    public function delete(int $id): bool
     {
         if (!empty(EmailTemplateMapper::getById($id))) {
             if (EmailTemplateMapper::delete($id)) {
-                Session::add('feedback_positive', 'Template verwijderd.');
+                $this->addFlash('success','Template verwijderd.');
                 return true;
             }
-            Session::add('feedback_negative', 'Verwijderen van template mislukt.');
+            $this->addFlash('danger','Verwijderen van template mislukt.');
         } else {
-            Session::add('feedback_negative', 'Verwijderen van template mislukt. Template bestaat niet.');
+            $this->addFlash('danger','Verwijderen van template mislukt. Template bestaat niet.');
         }
         return false;
     }
@@ -75,13 +65,13 @@ class EmailTemplateManager
     public function store(): bool
     {
         if (empty($this->emailTemplate->type) || empty($this->emailTemplate->subject) || empty($this->emailTemplate->body)) {
-            Session::add('feedback_negative', 'Nieuwe template aanmaken mislukt.');
+            $this->addFlash('danger','Nieuwe template aanmaken mislukt.');
         } else {
             $return = $this->EmailTemplateMapper->create($this->emailTemplate);
             if ($return === null) {
-                Session::add('feedback_negative', 'Nieuwe template aanmaken mislukt.');
+                $this->addFlash('danger','Nieuwe template aanmaken mislukt.');
             } else {
-                Session::add('feedback_positive', 'Template toegevoegd (ID = ' . $return . ')');
+                $this->addFlash('success','Template toegevoegd (ID = ' . $return . ')');
                 return true;
             }
         }
@@ -91,12 +81,12 @@ class EmailTemplateManager
     public function update(EmailTemplate $emailTemplate): bool
     {
         if (empty($emailTemplate->subject) || empty($emailTemplate->body)) {
-            Session::add('feedback_negative', 'Niet alle velden zijn ingevuld');
+            $this->addFlash('danger','Niet alle velden zijn ingevuld');
         } elseif ($this->EmailTemplateMapper->update($emailTemplate)) {
-            Session::add('feedback_positive', 'Template opgeslagen');
+            $this->addFlash('success','Template opgeslagen');
             return true;
         } else {
-            Session::add('feedback_negative', 'Opslaan mislukt');
+            $this->addFlash('danger','Opslaan mislukt');
         }
         return false;
     }

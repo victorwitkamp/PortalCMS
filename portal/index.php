@@ -1,15 +1,15 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
-
 declare(strict_types=1);
 
-use PortalCMS\Core\Application\Application;
+use App\Kernel;
+use Symfony\Component\Dotenv\Dotenv;
+use Symfony\Component\HttpFoundation\Request;
 
-if (file_exists(__DIR__ . '/../src/Init.php')) {
-    include __DIR__ . '/../src/Init.php';
-    new Application();
-} else {
-    echo 'Failed to initialize the application. Init.php does not exist.';
-}
+require dirname(__DIR__) . '/vendor/autoload_runtime.php';
+
+
+(new Dotenv())->bootEnv(dirname(__DIR__) . '/.env');
+
+return function (array $context) {
+    return new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
+};

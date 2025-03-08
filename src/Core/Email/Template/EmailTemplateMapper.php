@@ -1,14 +1,11 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Email\Template;
+namespace App\Core\Email\Template;
 
 use PDO;
-use PortalCMS\Core\Database\Database;
+use App\Core\Database\Database;
 
 class EmailTemplateMapper
 {
@@ -37,7 +34,7 @@ class EmailTemplateMapper
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public static function getById(int $id): object
+    public static function getById(int $id): ?object
     {
         $stmt = Database::conn()->prepare('SELECT *
                 FROM mail_templates

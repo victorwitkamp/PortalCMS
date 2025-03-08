@@ -1,10 +1,8 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 declare(strict_types=1);
 
-namespace PortalCMS\Core\HTTP;
+namespace App\Core\HTTP;
 
 use function in_array;
 
@@ -21,24 +19,12 @@ class RemoteAddress
      * it's his/her own risk, only reliable field for IP address is $_SERVER['REMOTE_ADDR'].
      * @var bool
      */
-    protected $useProxy = false;
+    private bool $useProxy = false;
 
-    /**
-     * List of trusted proxy IP addresses
-     * @var array
-     */
-    protected $trustedProxies = [];
+    private array $trustedProxies = [];
 
-    /**
-     * HTTP header to introspect for proxies
-     * @var string
-     */
-    protected $proxyHeader = 'HTTP_X_FORWARDED_FOR';
+    private string $proxyHeader = 'HTTP_X_FORWARDED_FOR';
 
-    /**
-     * Returns client IP address.
-     * @return string IP address.
-     */
     public function getIpAddress(): ?string
     {
         $ip = $this->getIpAddressFromProxy();
@@ -50,14 +36,9 @@ class RemoteAddress
         return $_SERVER['REMOTE_ADDR'] ?? null;
     }
 
-    /**
-     * Attempt to get the IP address for a proxied client
-     * @see http://tools.ietf.org/html/draft-ietf-appsawg-http-forwarded-10#section-5.2
-     * @return false|string
-     */
     private function getIpAddressFromProxy()
     {
-        if (!$this->useProxy || (isset($_SERVER['REMOTE_ADDR']) && !in_array($_SERVER['REMOTE_ADDR'], $this->trustedProxies, true))) {
+        if (!$this->useProxy || (isset($_SERVER['REMOTE_ADDR']) && !in_array($_SERVER['REMOTE_ADDR'], $this->trustedProxies))) {
             return false;
         }
 

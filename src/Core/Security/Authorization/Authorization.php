@@ -1,13 +1,11 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Security\Authorization;
+namespace App\Core\Security\Authorization;
 
-use PortalCMS\Core\Session\Session;
+use App\Core\Session\Session;
 
 class Authorization
 {

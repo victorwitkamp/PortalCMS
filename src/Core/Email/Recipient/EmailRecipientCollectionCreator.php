@@ -1,11 +1,9 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Email\Recipient;
+namespace App\Core\Email\Recipient;
 
 class EmailRecipientCollectionCreator
 {
@@ -13,8 +11,8 @@ class EmailRecipientCollectionCreator
      * Recipients
      * @var array
      */
-    public $recipients;
-    public $mapper;
+    public array $recipients;
+    public EmailRecipientMapper $mapper;
 
     public function __construct()
     {

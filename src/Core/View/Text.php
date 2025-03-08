@@ -1,11 +1,9 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\View;
+namespace App\Core\View;
 
 use function array_key_exists;
 
@@ -13,7 +11,7 @@ class Text
 {
     private static $texts;
 
-    public static function get($key, $data = null)
+    public static function get(string $key, $data = null)
     {
         if (!$key) {
             return null;

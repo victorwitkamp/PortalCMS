@@ -1,23 +1,20 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Email\Message\Attachment;
+namespace App\Core\Email\Message\Attachment;
 
-use PortalCMS\Core\Config\Config;
-use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\View\Text;
+use App\Core\Config\Config;
+use App\Core\View\Text;
 
 class EmailAttachment
 {
-    public $path;
-    public $name;
-    public $extension;
-    public $encoding = 'base64';
-    public $type = 'application/octet-stream';
+    public string $path;
+    public string $name;
+    public string $extension;
+    public string $encoding = 'base64';
+    public string $type = 'application/octet-stream';
 
     public function __construct(array $file)
     {
@@ -41,28 +38,23 @@ class EmailAttachment
                     $this->type = $this->getMIMEType(DIR_ROOT . $this->path . $file['name']);
                     return true;
                 }
-                Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_IMAGE_UPLOAD_FAILED'));
+                $this->addFlash('danger',Text::get('FEEDBACK_AVATAR_IMAGE_UPLOAD_FAILED'));
             }
         } else {
-            Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_IMAGE_UPLOAD_FAILED'));
+            $this->addFlash('danger',Text::get('FEEDBACK_AVATAR_IMAGE_UPLOAD_FAILED'));
         }
         return false;
     }
 
-    /**
-     * Checks if the upload folder exists and if it is writable
-     * @return bool success status
-     * @var string $path Path of the target upload folder
-     */
     public function isFolderWritable(string $path): bool
     {
         if (is_dir(DIR_ROOT . $path)) {
             if (is_writable(DIR_ROOT . $path)) {
                 return true;
             }
-            Session::add('feedback_negative', 'Directory ' . $path . ' is not writeable');
+            $this->addFlash('danger','Directory ' . $path . ' is not writeable');
         } else {
-            Session::add('feedback_negative', 'Directory ' . $path . ' doesnt exist');
+            $this->addFlash('danger','Directory ' . $path . ' doesnt exist');
         }
         return false;
     }
@@ -73,17 +65,12 @@ class EmailAttachment
         return finfo_file(finfo_open(FILEINFO_MIME_TYPE), $realpath);
     }
 
-    /**
-     * Delete attachment(s)
-     * @param array|null $attachmentIds
-     * @return bool
-     */
-    public static function deleteById(array $attachmentIds = null): bool
+    public function deleteById(array $attachmentIds = null): bool
     {
         $deleted = 0;
         $error = 0;
         if (empty($attachmentIds)) {
-            Session::add('feedback_negative', 'Verwijderen mislukt. Ongeldig verzoek');
+            $this->addFlash('danger','Verwijderen mislukt. Ongeldig verzoek');
             return false;
         }
         foreach ($attachmentIds as $attachmentId) {
@@ -96,24 +83,18 @@ class EmailAttachment
         return self::deleteFeedbackHandler($deleted, $error);
     }
 
-    /**
-     * Handle feedback for the deleteById method
-     * @param int $deleted
-     * @param int $error
-     * @return bool
-     */
-    public static function deleteFeedbackHandler(int $deleted, int $error): bool
+    public function deleteFeedbackHandler(int $deleted, int $error): bool
     {
         if ($deleted > 0) {
             if ($error === 0) {
-                Session::add('feedback_positive', 'Aantal bijlagen verwijderd: ' . $deleted);
+                $this->addFlash('success','Aantal bijlagen verwijderd: ' . $deleted);
             }
             if ($error > 0) {
-                Session::add('feedback_warning', 'Aantal bijlagen verwijderd: ' . $deleted . '. Aantal bijlagen met problemen: ' . $error);
+                $this->addFlash('warning', 'Aantal bijlagen verwijderd: ' . $deleted . '. Aantal bijlagen met problemen: ' . $error);
             }
             return true;
         }
-        Session::add('feedback_negative', 'Verwijderen mislukt. Aantal bijlagen met problemen: ' . $error);
+        $this->addFlash('danger','Verwijderen mislukt. Aantal bijlagen met problemen: ' . $error);
         return false;
     }
 
@@ -125,7 +106,7 @@ class EmailAttachment
     //    public function validateFileSize($attachmentFile) : bool
     //    {
     //        if ($attachmentFile['size'] > 5000000) {
-    //            Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_UPLOAD_TOO_BIG'));
+    //            $this->addFlash('danger',Text::get('FEEDBACK_AVATAR_UPLOAD_TOO_BIG'));
     //            return false;
     //        }
     //        return true;
@@ -145,19 +126,19 @@ class EmailAttachment
     //    //        if ($attachmentFile['type'] === 'image/jpeg') {
     //    //            return true;
     //    //        }
-    //    //        Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_UPLOAD_WRONG_TYPE'));
+    //    //        $this->addFlash('danger',Text::get('FEEDBACK_AVATAR_UPLOAD_WRONG_TYPE'));
     //    //        return false;
     //    //    }
 
     public function store(int $mailId = null, int $templateId = null): bool
     {
         if (!$this->validate()) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_FAILED'));
-        } elseif (!empty($mailId) && empty($templateId)) {
+            $this->addFlash('danger',Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_FAILED'));
+        } elseif ($mailId !== null && $templateId === null) {
             // No implementation yet
-            Session::add('feedback_negative', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_FAILED'));
-        } elseif (empty($mailId) && !empty($templateId) && EmailAttachmentMapper::createForTemplate($templateId, $this)) {
-            Session::add('feedback_positive', Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_SUCCESSFUL'));
+            $this->addFlash('danger',Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_FAILED'));
+        } elseif ($mailId === null && $templateId !== null && EmailAttachmentMapper::createForTemplate($templateId, $this)) {
+            $this->addFlash('success',Text::get('FEEDBACK_MAIL_ATTACHMENT_UPLOAD_SUCCESSFUL'));
             return true;
         }
         return false;

@@ -1,15 +1,13 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Security\Authorization;
+namespace App\Core\Security\Authorization;
 
 class Role
 {
-    protected $permissions;
+    private array $permissions;
 
     protected function __construct()
     {

@@ -1,17 +1,15 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Email\Recipient;
+namespace App\Core\Email\Recipient;
 
 class EmailRecipient
 {
-    public $name;
+    public ?string $name;
 
-    public $email;
+    public ?string $email;
 
     public function __construct(string $name = null, string $email = null)
     {

@@ -2,7 +2,6 @@
 declare(strict_types=1);
 
 use Facebook\Exceptions\FacebookSDKException;
-use PortalCMS\Core\Session\Session;
 
 try {
     $accessToken = $helper->getAccessToken();
@@ -31,7 +30,7 @@ if (!$accessToken->isLongLived()) {
     try {
         $accessToken = $oAuth2Client->getLongLivedAccessToken($accessToken);
     } catch (FacebookSDKException $e) {
-        Session::add('feedback_negative', 'Error getting long-lived access token: ' . $e->getMessage());
+        $this->addFlash('danger','Error getting long-lived access token: ' . $e->getMessage());
         exit;
     }
 }
@@ -41,13 +40,13 @@ $_SESSION['fb_access_token'] = (string) $accessToken;
 try {
     $response = $fb->get('/me?fields=id,name,email', $_SESSION['fb_access_token']);
 } catch (FacebookSDKException $e) {
-    Session::add('feedback_negative', 'Facebook SDK returned an error: ' . $e->getMessage());
+    $this->addFlash('danger','Facebook SDK returned an error: ' . $e->getMessage());
     exit;
 }
 
 try {
     $facebookUser = $response->getGraphUser();
 } catch (FacebookSDKException $e) {
-    Session::add('feedback_negative', 'Facebook SDK returned an error: ' . $e->getMessage());
+    $this->addFlash('danger','Facebook SDK returned an error: ' . $e->getMessage());
     exit;
 }

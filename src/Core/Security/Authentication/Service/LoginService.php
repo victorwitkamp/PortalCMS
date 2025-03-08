@@ -1,24 +1,21 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Security\Authentication\Service;
+namespace App\Core\Security\Authentication\Service;
 
 use Exception;
-use PortalCMS\Core\Activity\Activity;
-use PortalCMS\Core\HTTP\Cookie;
-use PortalCMS\Core\Security\Encryption;
-use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\Session\SessionCookie;
-use PortalCMS\Core\User\UserMapper;
-use PortalCMS\Core\View\Text;
+use App\Core\Activity\Activity;
+use App\Core\HTTP\Cookie;
+use App\Core\Security\Encryption;
+use App\Core\Session\Session;
+use App\Core\Session\SessionCookie;
+use App\Core\User\UserMapper;
 
 class LoginService
 {
-    public static function loginWithPassword(string $username, string $password, bool $rememberMe = false): bool
+    public function loginWithPassword(string $username, string $password, bool $rememberMe = false): bool
     {
         $user = LoginValidator::validateLogin($username, $password);
         if (!empty($user)) {
@@ -27,15 +24,14 @@ class LoginService
             }
             if ($rememberMe) {
                 self::setRememberMe($user->user_id);
-                // Session::add('feedback_positive', Text::get('FEEDBACK_REMEMBER_ME_ENABLED'));
+                //todo $this->addFlash('success',Text::get('FEEDBACK_REMEMBER_ME_ENABLED'));
             }
             self::setSuccessfulLoginIntoSession($user);
-            // Activity::add('LoginWithPassword', $user->user_id);
-            // Session::add('feedback_positive', Text::get('FEEDBACK_LOGIN_SUCCESSFUL'));
+            Activity::add('LoginWithPassword', $user->user_id);
+            //todo $this->addFlash('success',Text::get('FEEDBACK_LOGIN_SUCCESSFUL'));
             return true;
         }
-
-        // Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
+        //todo $this->addFlash('danger',Text::get('FEEDBACK_USERNAME_OR_PASSWORD_FIELD_EMPTY'));
         return false;
     }
 
@@ -59,23 +55,16 @@ class LoginService
     public static function setSuccessfulLoginIntoSession(object $user): bool
     {
         Session::init();
-        if (Session::isActive()) {
-            session_regenerate_id(true);
-        }
+        session_regenerate_id(true);
         Session::set('user_id', $user->user_id);
         Session::set('user_name', $user->user_name);
         Session::set('user_email', $user->user_email);
         Session::set('user_fbid', $user->user_fbid);
         Session::set('user_logged_in', true);
-        if (UserMapper::updateSessionId($user->user_id, session_id())) {
-            echo 'sessionId updated';
-            $timestamp = date('Y-m-d H:i:s');
-            if (UserMapper::saveTimestampByUsername($user->user_name, $timestamp)) {
-                echo 'timestampsaved saved';
-                if (SessionCookie::set()) {
-                    return true;
-                }
-            }
+        UserMapper::updateSessionId($user->user_id, session_id());
+        UserMapper::saveTimestampByUsername($user->user_name);
+        if (SessionCookie::set()) {
+            return true;
         }
         return false;
     }
@@ -89,7 +78,7 @@ class LoginService
                 if (!empty($user)) {
                     self::setSuccessfulLoginIntoSession($user);
                     Activity::add('LoginWithCookie', $user->user_id);
-                    Session::add('feedback_positive', Text::get('FEEDBACK_COOKIE_LOGIN_SUCCESSFUL'));
+                    //todo $this->addFlash('success',Text::get('FEEDBACK_COOKIE_LOGIN_SUCCESSFUL'));
                     return true;
                 }
             }
@@ -104,11 +93,11 @@ class LoginService
             if (!empty($user)) {
                 self::setSuccessfulLoginIntoSession($user);
                 Activity::add('LoginWithFacebook', $user->user_id);
-                Session::add('feedback_positive', Text::get('FEEDBACK_SUCCESSFUL_FACEBOOK_LOGIN'));
+                //todo $this->addFlash('success',Text::get('FEEDBACK_SUCCESSFUL_FACEBOOK_LOGIN'));
                 return true;
             }
         }
-        Session::add('feedback_negative', Text::get('FEEDBACK_FACEBOOK_LOGIN_FAILED'));
+        //todo $this->addFlash('danger',Text::get('FEEDBACK_FACEBOOK_LOGIN_FAILED'));
         return false;
     }
 }

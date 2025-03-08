@@ -1,14 +1,12 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Modules\Contracts;
+namespace App\Modules\Contracts;
 
 use PDO;
-use PortalCMS\Core\Database\Database;
+use App\Core\Database\Database;
 
 class ContractMapper
 {
@@ -30,13 +28,6 @@ class ContractMapper
             return $stmt->fetch(PDO::FETCH_OBJ);
         }
         return null;
-    }
-
-    public static function getPriceById(int $id)
-    {
-        $stmt = Database::conn()->prepare('SELECT DateSent FROM mail_schedule WHERE id = ? LIMIT 1');
-        $stmt->execute([ $id ]);
-        return $stmt->fetchColumn();
     }
 
     public static function new(Contract $contract): bool

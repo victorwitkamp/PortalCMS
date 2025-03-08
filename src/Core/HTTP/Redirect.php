@@ -1,19 +1,14 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\HTTP;
+namespace App\Core\HTTP;
 
-use PortalCMS\Core\Config\Config;
+use App\Core\Config\Config;
 
 class Redirect
 {
-    /**
-     * Redirects to a RELATIVE path, like "user/profile"
-     */
     public static function to(string $url, bool $permanent = false)
     {
         // session_write_close();

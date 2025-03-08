@@ -1,12 +1,8 @@
 <?php
 declare(strict_types=1);
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
 
-namespace PortalCMS\Core\Config;
 
-use PortalCMS\Core\HTTP\Request;
+namespace App\Core\Config;
 
 class SiteSettingsFactory
 {
@@ -17,7 +13,7 @@ class SiteSettingsFactory
         ];
         $settings = [];
         foreach ($properties as $property) {
-            $settings[$property] = (string)Request::post($property);
+            $settings[$property] = (string)$this->request->get($property);
         }
         return $settings;
     }

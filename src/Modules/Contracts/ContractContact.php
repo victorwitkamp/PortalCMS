@@ -1,22 +1,20 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 declare(strict_types=1);
 
-namespace PortalCMS\Modules\Contracts;
+namespace App\Modules\Contracts;
 
 class ContractContact
 {
-    public $name;
-    public $address;
-    public $zipCode;
-    public $city;
-    public $dateOfBirth;
-    public $phonePrimary;
-    public $phoneSecodary;
-    public $emailAddress;
-    public $citizenServiceNumber;
+    public ?string $name;
+    public ?string $address;
+    public ?string $zipCode;
+    public ?string $city;
+    public ?string $dateOfBirth;
+    public ?string $phonePrimary;
+    public ?string $phoneSecodary;
+    public ?string $emailAddress;
+    public ?int $citizenServiceNumber;
 
     public function __construct(string $name = null, string $address = null, string $zipCode = null, string $city = null, string $dateOfBirth = null, string $phonePrimary = null, string $phoneSecodary = null, string $emailAddress = null, int $citizenServiceNumber = null)
     {

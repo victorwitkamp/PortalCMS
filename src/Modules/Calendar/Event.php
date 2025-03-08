@@ -1,26 +1,20 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
 
 declare(strict_types=1);
-/**
- * Copyright Victor Witkamp (c) 2019.
- */
 
-namespace PortalCMS\Modules\Calendar;
+namespace App\Modules\Calendar;
 
-use PortalCMS\Core\Session\Session;
+use App\Core\Session\Session;
 
 class Event
 {
-    public $id;
-    public $CreatedBy;
-    public $title;
-    public $start_event;
-    public $end_event;
-    public $description;
-    public $status;
+    public int $id;
+    public int $CreatedBy;
+    public string $title;
+    public string $start_event;
+    public string $end_event;
+    public string $description;
+    public int $status;
 
     public function setId(int $id)
     {
@@ -29,7 +23,7 @@ class Event
 
     public function setCreatedBy()
     {
-        $this->CreatedBy = (int)Session::get('user_id');
+        $this->CreatedBy = (int) Session::get('user_id');
     }
 
     public function setTitle(string $title)

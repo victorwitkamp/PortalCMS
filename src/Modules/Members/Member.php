@@ -1,10 +1,8 @@
 <?php
 declare(strict_types=1);
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
 
-namespace PortalCMS\Modules\Members;
+
+namespace App\Modules\Members;
 
 /**
  * Class Member
@@ -12,20 +10,20 @@ namespace PortalCMS\Modules\Members;
  */
 class Member
 {
-    public $id;
-    public $jaarlidmaatschap;
-    public $voorletters;
-    public $voornaam;
-    public $achternaam;
-    public $geboortedatum;
-    public $address;
-    public $contactDetails;
-    public $ingangsdatum;
-    public $geslacht;
-    public $preferences;
-    public $paymentDetails;
-    public $creationDate;
-    public $modificationDate;
+    public ?int $id;
+    public ?int $jaarlidmaatschap;
+    public ?string $voorletters;
+    public ?string $voornaam;
+    public ?string $achternaam;
+    public ?string $geboortedatum;
+    public ?MemberAddress $address;
+    public ?MemberContactDetails $contactDetails;
+    public ?string $ingangsdatum;
+    public ?string $geslacht;
+    public ?MemberPreferences $preferences;
+    public ?MemberPaymentDetails $paymentDetails;
+    public ?string $creationDate;
+    public ?string $modificationDate;
 
     public function __construct(int $id = null, int $jaarlidmaatschap = null, string $voorletters = null, string $voornaam = null, string $achternaam = null, string $geboortedatum = null, MemberAddress $address = null, MemberContactDetails $contactDetails = null, string $ingangsdatum = null, string $geslacht = null, MemberPreferences $preferences = null, MemberPaymentDetails $paymentDetails = null, string $creationDate = null, string $modificationDate = null)
     {

@@ -1,47 +1,24 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Security;
+namespace App\Core\Security;
 
-use Exception;
-use PortalCMS\Core\Config\Config;
+use App\Core\Config\Config;
 use RuntimeException;
 use function function_exists;
 use function ord;
 
-/**
- * Encryption and Decryption Class
- */
 class Encryption
 {
-    /**
-     * Cipher algorithm
-     * @var string
-     */
     private const CIPHER = 'aes-256-cbc';
 
-    /**
-     * Hash function
-     * @var string
-     */
     private const HASH_FUNCTION = 'sha256';
 
-    /**
-     * Constructor for Encryption object. This is empty and private so that this object cannot be instantiated.
-     * @access private
-     */
     private function __construct()
     {
     }
 
-    /**
-     * Encrypt a string.
-     * @throws Exception If functions don't exists
-     */
     public static function encrypt(string $plain): string
     {
         if (!function_exists('openssl_cipher_iv_length') || !function_exists('openssl_random_pseudo_bytes') || !function_exists('openssl_encrypt')) {
@@ -61,11 +38,6 @@ class Encryption
         return $hmac . $ciphertext;
     }
 
-    /**
-     * Decrypted a string.
-     * @return string
-     * @throws Exception If $ciphertext is empty, or If functions don't exists
-     */
     public static function decrypt(string $ciphertext): ?string
     {
         if (empty($ciphertext)) {

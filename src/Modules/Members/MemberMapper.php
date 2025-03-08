@@ -1,27 +1,25 @@
 <?php
 
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Modules\Members;
+namespace App\Modules\Members;
 
 use PDO;
-use PortalCMS\Core\Database\Database;
+use App\Core\Database\Database;
 
 class MemberMapper
 {
     public static function getMembers(int $year = null, string $paymentType = null): ?array
     {
-        if (!empty($year) && !empty($paymentType)) {
+        if ($year !== null && !empty($paymentType)) {
             return self::getMembersByYearAndPaymentType($year, $paymentType);
         }
-        if (!empty($year) && empty($paymentType)) {
+        if ($year !== null && empty($paymentType)) {
             return self::getMembersByYear($year);
         }
-        if (empty($year) && !empty($paymentType)) {
+        if ($year === null && !empty($paymentType)) {
             return self::getMembersByPaymentType($paymentType);
         }
         $stmt = Database::conn()->query('SELECT * FROM members ORDER BY id');

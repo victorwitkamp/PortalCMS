@@ -1,14 +1,12 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Modules\Invoices;
+namespace App\Modules\Invoices;
 
 use PDO;
-use PortalCMS\Core\Database\Database;
+use App\Core\Database\Database;
 
 class InvoiceItemMapper
 {

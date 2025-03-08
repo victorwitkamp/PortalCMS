@@ -1,13 +1,11 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Activity;
+namespace App\Core\Activity;
 
-use PortalCMS\Core\HTTP\RemoteAddress;
+use App\Core\HTTP\RemoteAddress;
 
 /**
  * Class : Activity (Activity.php)

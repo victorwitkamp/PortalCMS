@@ -1,14 +1,12 @@
 <?php
 
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Activity;
+namespace App\Core\Activity;
 
-use PortalCMS\Core\Database\Database;
+use App\Core\Database\Database;
 
 class ActivityMapper
 {

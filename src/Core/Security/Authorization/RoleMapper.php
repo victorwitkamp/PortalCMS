@@ -1,17 +1,15 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 /**
  * Copyright Victor Witkamp (c) 2019.
  */
 
-namespace PortalCMS\Core\Security\Authorization;
+namespace App\Core\Security\Authorization;
 
 use PDO;
-use PortalCMS\Core\Database\Database;
+use App\Core\Database\Database;
 
 class RoleMapper
 {

@@ -1,10 +1,8 @@
 <?php
 declare(strict_types=1);
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
 
-namespace PortalCMS\Modules\Members;
+
+namespace App\Modules\Members;
 
 /**
  * Class MemberPaymentDetails
@@ -12,10 +10,10 @@ namespace PortalCMS\Modules\Members;
  */
 class MemberPaymentDetails
 {
-    public $betalingswijze;
-    public $iban;
-    public $machtigingskenmerk;
-    public $status;
+    public ?string $betalingswijze;
+    public ?string $iban;
+    public ?string $machtigingskenmerk;
+    public ?int $status;
 
     public function __construct(?string $betalingswijze, ?string $iban, ?string $machtigingskenmerk, ?int $status)
     {

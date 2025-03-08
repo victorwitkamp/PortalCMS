@@ -1,0 +1,58 @@
+<li class="nav-item dropdown">
+    <a class="nav-link" href="{{ path('home') }}">NAV_TITLE_HOME</a>
+</li>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+       data-toggle="dropdown" aria-haspopup="true"
+       aria-expanded="false"> NAV_TITLE_MENU</a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <a class="dropdown-item" href="{{ path('events') }}"><i class="fa fa-calendar"></i> TITLE_EVENTS</a>
+        <a class="dropdown-item" href="{{ path('membership') }}"><i class="fa fa-user"></i> TITLE_MEMBERS</a>
+    </div>
+</li>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+       data-toggle="dropdown" aria-haspopup="true"
+       aria-expanded="false"> NAV_TITLE_FINANCE</a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <a class="dropdown-item" href="{{ path('bankimports') }}">TITLE_BANK_IMPORTS</a>
+        <a class="dropdown-item" href="{{ path('bankcategories') }}">TITLE_TRANSACTION_CATEGORIES</a>
+        <a class="dropdown-item" href="{{ path('banktransactions') }}">TITLE_BANK_TRANSACTIONS</a>
+        <a class="dropdown-item" href="{{ path('bankcontacts') }}">TITLE_TRANSACTION_CONTACTS</a>
+        <a class="dropdown-item" href="{{ path('contracts') }}">TITLE_CONTRACTS</a>
+        <a class="dropdown-item" href="{{ path('invoices') }}">TITLE_INVOICES</a>
+    </div>
+</li>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+       data-toggle="dropdown" aria-haspopup="true"
+       aria-expanded="false"> NAV_TITLE_EMAIL</a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <h6 class="dropdown-header">LABEL_SCHEDULE</h6>
+        <a class="dropdown-item" href="{{ path('emailbatches') }}">LABEL_BATCHES</a>
+        <a class="dropdown-item" href="{{ path('emailmessages') }}">LABEL_MESSAGES</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="{{ path('emailhistory') }}">TITLE_MAIL_HISTORY</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="{{ path('emailviewtemplates') }}">TITLE_MAIL_TEMPLATES</a>
+    </div>
+</li>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+       data-toggle="dropdown" aria-haspopup="true"
+       aria-expanded="false">
+        NAV_TITLE_SETTINGS
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <h6 class="dropdown-header">LABEL_GENERAL_SETTINGS</h6>
+        <a class="dropdown-item" href="{{ path('settingsgeneral') }}">TITLE_SITE_SETTINGS</a>
+        <div class="dropdown-divider"></div>
+        <h6 class="dropdown-header">LABEL_ACCESS_SETTINGS</h6>
+        <a class="dropdown-item" href="{{ path('usermanagementusers') }}">TITLE_USER_MANAGEMENT</a>
+        <a class="dropdown-item" href="{{ path('usermanagementroles') }}">TITLE_ROLE_MANAGEMENT</a>
+        <div class="dropdown-divider"></div>
+        <h6 class="dropdown-header">LABEL_OTHER</h6>
+        <a class="dropdown-item" href="{{ path('settingsactivity') }}">TITLE_RECENT_ACTIVITY</a>
+        <a class="dropdown-item" href="{{ path('settingsdebug') }}">TITLE_DEBUG</a>
+    </div>
+</li>

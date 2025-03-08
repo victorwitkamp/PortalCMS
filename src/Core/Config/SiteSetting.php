@@ -1,21 +1,15 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Config;
+namespace App\Core\Config;
 
 use PDO;
-use PortalCMS\Core\Database\Database;
-use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\View\Text;
+use App\Core\Database\Database;
+use App\Core\Filesystem;
+use App\Core\ImageHelper;
 
-/**
- * Class : SiteSettings (SiteSettings.class.php)
- * Details : SiteSettings.
- */
 class SiteSetting
 {
     public static function saveSiteSettings(): bool
@@ -38,99 +32,25 @@ class SiteSetting
         return null;
     }
 
-    public static function uploadLogo(): bool
+    public function processUploadedLogo($logo): bool
     {
-        if (self::isLogoFolderWritable() && self::validateImageFile()) {
-            $publicPath = Config::get('URL') . Config::get('PATH_LOGO_PUBLIC') . 'logo';
-            $resizedImage = self::resizeLogo($_FILES['logo_file']['tmp_name']);
-            if (!empty($resizedImage)) {
-                self::writeJPG($resizedImage, Config::get('PATH_LOGO') . 'logo');
-                self::writeLogoToDatabase($publicPath . '.jpg');
+        if (isset($logo) && Filesystem::validateMaxSize($logo, 5000000) && ImageHelper::validateMime($logo, 'image/jpeg')) {
+            $resizedImage = ImageHelper::resizeLogo($logo['tmp_name']);
+            if ($resizedImage !== null && Filesystem::isWriteableFolder(Config::get('PATH_LOGO'))) {
+                ImageHelper::writeJPG($resizedImage, Config::get('PATH_LOGO') . 'logo.jpg');
+                $this->writeLogoPathToDatabase(Config::get('URL') . Config::get('PATH_LOGO_PUBLIC') . 'logo.jpg');
                 return true;
             }
         }
         return false;
     }
 
-    public static function isLogoFolderWritable(): bool
-    {
-        if (!is_dir(Config::get('PATH_LOGO'))) {
-            Session::add('feedback_negative', 'Directory ' . Config::get('PATH_LOGO') . ' doesnt exist');
-        } elseif (!is_writable(Config::get('PATH_LOGO'))) {
-            Session::add('feedback_negative', 'Directory ' . Config::get('PATH_LOGO') . ' is not writeable');
-        } else {
-            return true;
-        }
-        return false;
-    }
-
-    public static function validateImageFile(): bool
-    {
-        if (!isset($_FILES['logo_file'])) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_IMAGE_UPLOAD_FAILED'));
-            return false;
-        }
-        if ($_FILES['logo_file']['size'] > 5000000) { // >5MB
-            Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_UPLOAD_TOO_BIG'));
-            return false;
-        }
-        $image_proportions = getimagesize($_FILES['logo_file']['tmp_name']);
-        if (!($image_proportions['mime'] === 'image/jpeg')) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_UPLOAD_WRONG_TYPE'));
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Resize logo
-     * @param string $source The location to the original raw image.
-     * @return resource success state
-     */
-    public static function resizeLogo(string $source)
-    {
-        [ $width, $height ] = getimagesize($source);
-        if (!$width || !$height) {
-            return null;
-        }
-
-        $myImage = imagecreatefromjpeg($source);
-
-        if ($width > $height) {
-            $y = 0;
-            $x = ($width - $height) / 2;
-            $smallestSide = $height;
-        } else {
-            $x = 0;
-            $y = ($height - $width) / 2;
-            $smallestSide = $width;
-        }
-
-        $thumb = imagecreatetruecolor(150, 150);
-        if ($thumb !== false && $myImage !== false) {
-            imagecopyresampled($thumb, $myImage, 0, 0, $x, $y, 150, 150, $smallestSide, $smallestSide);
-            return $thumb;
-        }
-        return null;
-    }
-
-    public static function writeJPG($image, string $destination): bool
-    {
-        $destination .= '.jpg';
-        imagejpeg($image, $destination, 100);
-        imagedestroy($image);
-        if (file_exists($destination)) {
-            return true;
-        }
-        return false;
-    }
-
-    public static function writeLogoToDatabase(string $fileName): bool
+    public function writeLogoPathToDatabase(string $fileName): bool
     {
         if (SiteSettingsMapper::update('site_logo', $fileName)) {
             return true;
         }
-        Session::add('feedback_negative', 'Could not write to database');
+        $this->addFlash('danger','Could not write to database');
         return false;
     }
 }

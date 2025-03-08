@@ -1,13 +1,11 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\User;
+namespace App\Core\User;
 
-use PortalCMS\Core\Database\Database;
+use App\Core\Database\Database;
 
 class Registration
 {

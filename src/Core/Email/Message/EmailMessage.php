@@ -1,11 +1,9 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Email\Message;
+namespace App\Core\Email\Message;
 
 class EmailMessage
 {
@@ -13,25 +11,25 @@ class EmailMessage
      * Subject
      * @var string
      */
-    public $subject;
+    public string $subject;
 
     /**
      * Body
      * @var string
      */
-    public $body;
+    public string $body;
 
     /**
      * Attachments
-     * @var array
+     * @var array|null
      */
-    public $attachments = [];
+    public ?array $attachments = [];
 
     /**
      * Recipients
-     * @var array
+     * @var array|null
      */
-    public $recipients = [];
+    public ?array $recipients = [];
 
     public function __construct(string $subject, string $body, array $recipients = null, array $attachments = null)
     {

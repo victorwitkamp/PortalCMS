@@ -1,18 +1,15 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Email\Template\Helpers;
+namespace App\Core\Email\Template\Helpers;
 
-use PortalCMS\Core\Email\Batch\MailBatch;
-use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
-use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
-use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
-use PortalCMS\Core\Session\Session;
-use PortalCMS\Modules\Members\MemberModel;
+use App\Core\Email\Batch\MailBatch;
+use App\Core\Email\Message\Attachment\EmailAttachmentMapper;
+use App\Core\Email\Recipient\EmailRecipientMapper;
+use App\Core\Email\Schedule\MailScheduleMapper;
+use App\Modules\Members\MemberModel;
 
 class MemberTemplateScheduler
 {
@@ -38,7 +35,7 @@ class MemberTemplateScheduler
 
     public function processSingleMail(int $memberId = null, int $batchId = null, object $template = null): bool
     {
-        if (empty($memberId) || empty($batchId) || empty($template)) {
+        if ($memberId === null || $batchId === null || empty($template)) {
             return false;
         }
         $member = MemberModel::getMember($memberId);
@@ -61,9 +58,9 @@ class MemberTemplateScheduler
     public function processFeedback(int $success, int $failed)
     {
         if ($failed === 0) {
-            Session::add('feedback_positive', 'Totaal aantal berichten aangemaakt:' . $success);
+            $this->addFlash('success','Totaal aantal berichten aangemaakt:' . $success);
         } else {
-            Session::add('feedback_warning', 'Totaal aantal berichten aangemaakt: ' . $success . '. Berichten met fout: ' . $failed);
+            $this->addFlash('warning', 'Totaal aantal berichten aangemaakt: ' . $success . '. Berichten met fout: ' . $failed);
         }
     }
 }

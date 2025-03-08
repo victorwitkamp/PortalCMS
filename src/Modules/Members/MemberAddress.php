@@ -1,10 +1,8 @@
 <?php
 declare(strict_types=1);
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
 
-namespace PortalCMS\Modules\Members;
+
+namespace App\Modules\Members;
 
 /**
  * Class MemberAddress
@@ -12,10 +10,10 @@ namespace PortalCMS\Modules\Members;
  */
 class MemberAddress
 {
-    public $adres;
-    public $postcode;
-    public $huisnummer;
-    public $woonplaats;
+    public ?string $adres;
+    public ?string $postcode;
+    public ?string $huisnummer;
+    public ?string $woonplaats;
 
     public function __construct(string $adres = null, string $postcode = null, string $huisnummer = null, string $woonplaats = null)
     {

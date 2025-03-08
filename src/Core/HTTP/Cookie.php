@@ -1,13 +1,11 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\HTTP;
+namespace App\Core\HTTP;
 
-use PortalCMS\Core\Config\Config;
+use App\Core\Config\Config;
 
 class Cookie
 {

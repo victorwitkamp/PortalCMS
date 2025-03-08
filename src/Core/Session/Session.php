@@ -1,32 +1,33 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Session;
+namespace App\Core\Session;
 
-use PortalCMS\Core\Security\Filter;
+use App\Core\Security\Filter;
 
 class Session
 {
-    public static function isActive(): bool
-    {
-        return session_status() === 2;
-    }
     public static function init(): void
     {
-        if (!self::isActive()) {
+        if (session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
         }
     }
-    public static function set($key, $value): bool
+
+    public static function isActive(): bool
+    {
+        return (session_status() === PHP_SESSION_ACTIVE);
+    }
+
+    public static function set(string $key, $value): bool
     {
         $_SESSION[$key] = $value;
         return true;
     }
-    public static function get($key, bool $filter = true)
+
+    public static function get(string $key, bool $filter = true)
     {
         if (isset($_SESSION[$key])) {
             $value = $_SESSION[$key];
@@ -48,7 +49,7 @@ class Session
         return true;
     }
 
-    public static function add($key, $value): void
+    public static function add(string $key, $value): void
     {
         $_SESSION[$key][] = $value;
         // session_write_close();

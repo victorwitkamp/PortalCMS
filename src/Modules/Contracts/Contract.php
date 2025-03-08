@@ -1,30 +1,28 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 declare(strict_types=1);
 
-namespace PortalCMS\Modules\Contracts;
+namespace App\Modules\Contracts;
 
 class Contract
 {
-    public $id;
-    public $accountManager;
-    public $name;
-    public $code;
-    public $contractContact;
-    public $rehearsalRoomNumber;
-    public $day;
-    public $startTime;
-    public $endTime;
-    public $storageNumber;
-    public $rehearsalRoomMonthlyCost;
-    public $storageMonthlyCost;
-    public $totalMonthlyCost;
-    public $bailCost;
-    public $startDate;
-    public $endDate;
-    public $contractDate;
+    public ?int $id;
+    public ?string $accountManager;
+    public ?string $name;
+    public ?string $code;
+    public ?ContractContact $contractContact;
+    public ?int $rehearsalRoomNumber;
+    public ?string $day;
+    public ?string $startTime;
+    public ?string $endTime;
+    public ?int $storageNumber;
+    public ?int $rehearsalRoomMonthlyCost;
+    public ?int $storageMonthlyCost;
+    public ?int $totalMonthlyCost;
+    public ?int $bailCost;
+    public ?string $startDate;
+    public ?string $endDate;
+    public ?string $contractDate;
 
     public function __construct(int $id = null, string $accountManager = null, string $name = null, string $code = null, ContractContact $contractContact = null, int $rehearsalRoomNumber = null, string $day = null, string $startTime = null, string $endTime = null, int $storageNumber = null, int $rehearsalRoomMonthlyCost = null, int $storageMonthlyCost = null, int $totalMonthlyCost = null, int $bailCost = null, string $startDate = null, string $endDate = null, string $contractDate = null)
     {

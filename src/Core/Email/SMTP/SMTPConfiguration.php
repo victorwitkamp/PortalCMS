@@ -1,72 +1,70 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Email\SMTP;
+namespace App\Core\Email\SMTP;
 
-use PortalCMS\Core\Config\SiteSetting;
+use App\Core\Config\SiteSetting;
 
 class SMTPConfiguration
 {
     /**
-     * @var string
+     * @var null|string
      */
-    public $SMTPHost = 'localhost';
+    public ?string $SMTPHost = 'localhost';
 
     /**
-     * @var int
+     * @var int|null|string
      */
-    public $SMTPPort = 25;
+    public null|int|string $SMTPPort = 25;
 
     /**
      * Encryption type for the SMTP connection (tls, ssl or empty)
      * @var string
      */
-    public $SMTPCrypto;
+    public string $SMTPCrypto;
 
     /**
      * @var bool
      */
-    public $SMTPAuth = 0;
+    public bool|int $SMTPAuth = 0;
 
     /**
-     * @var string
+     * @var null|string
      */
-    public $SMTPUser;
+    public ?string $SMTPUser;
 
     /**
-     * @var string
+     * @var null|string
      */
-    public $SMTPPass;
+    public ?string $SMTPPass;
 
     /**
-     * @var int
+     * @var int|null|string
      */
-    public $SMTPDebug = 0;
+    public null|int|string $SMTPDebug = 0;
 
     /**
-     * @var string
+     * @var null|string
      */
-    public $fromEmail;
+    public ?string $fromEmail;
 
     /**
-     * @var string
+     * @var null|string
      */
-    public $fromName;
+    public ?string $fromName;
 
     /**
      * @var bool
      */
-    public $isHTML = true;
+    public bool $isHTML = true;
 
     /**
      * Character set (utf-8, iso-8859-1, etc.)
      * @var string
      */
-    public $charset = 'UTF-8';
+    public string $charset = 'UTF-8';
 
     /**
      * Initialize preferences

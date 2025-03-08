@@ -1,14 +1,12 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Email\Schedule;
+namespace App\Core\Email\Schedule;
 
 use PDO;
-use PortalCMS\Core\Database\Database;
+use App\Core\Database\Database;
 
 class MailScheduleMapper
 {
@@ -22,13 +20,6 @@ class MailScheduleMapper
     public static function getStatusById(int $id)
     {
         $stmt = Database::conn()->prepare('SELECT status FROM mail_schedule WHERE id = ? LIMIT 1');
-        $stmt->execute([ $id ]);
-        return $stmt->fetchColumn();
-    }
-
-    public static function getDateSentById(int $id)
-    {
-        $stmt = Database::conn()->prepare('SELECT DateSent FROM mail_schedule WHERE id = ? LIMIT 1');
         $stmt->execute([ $id ]);
         return $stmt->fetchColumn();
     }

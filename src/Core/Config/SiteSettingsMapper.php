@@ -1,12 +1,10 @@
 <?php
 declare(strict_types=1);
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
 
-namespace PortalCMS\Core\Config;
 
-use PortalCMS\Core\Database\Database;
+namespace App\Core\Config;
+
+use App\Core\Database\Database;
 
 class SiteSettingsMapper
 {

@@ -1,43 +1,37 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Email\Batch;
+namespace App\Core\Email\Batch;
 
-use PortalCMS\Core\Database\Database;
-use PortalCMS\Core\Email\Schedule\MailSchedule;
-use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
-use PortalCMS\Core\HTTP\Redirect;
-use PortalCMS\Core\Session\Session;
+use App\Core\Database\Database;
+use App\Core\Email\Schedule\MailSchedule;
+use App\Core\Email\Schedule\MailScheduleMapper;
+use App\Core\HTTP\Redirect;
 
 /**
  * Statussen: 1 Klaar voor verzending, 2 Uitgevoerd
  */
 class MailBatch
 {
-    public static function getAll(): array
+    public function getAll(): array
     {
         $stmt = Database::conn()->prepare('SELECT * FROM mail_batches ORDER BY id ');
         $stmt->execute([]);
         return $stmt->fetchAll();
     }
 
-    /**
-     * @return mixed
-     */
-    public static function lastInsertedId()
+    public function lastInsertedId() : ?int
     {
-        $batchId = (int)Database::conn()->query('SELECT max(id) from mail_batches')->fetchColumn();
+        $batchId = (int) Database::conn()->query('SELECT max(id) from mail_batches')->fetchColumn();
         if (!empty($batchId)) {
             return $batchId;
         }
         return null;
     }
 
-    public static function create(int $used_template = null): bool
+    public function create(int $used_template = null): bool
     {
         $stmt = Database::conn()->prepare('INSERT INTO mail_batches(id, status, UsedTemplate) VALUES (NULL,1,?)');
         $stmt->execute([ $used_template ]);
@@ -47,7 +41,7 @@ class MailBatch
         return true;
     }
 
-    public static function deleteById(array $IDs): bool
+    public function deleteById(array $IDs): bool
     {
         $deleted = 0;
         $error = 0;
@@ -66,22 +60,22 @@ class MailBatch
             }
         }
         if ($deleted > 0) {
-            Session::add('feedback_positive', 'Er zijn ' . $deleted . ' batches en ' . $deletedMessageCount . ' berichten verwijderd. ');
+            $this->addFlash('success','Er zijn ' . $deleted . ' batches en ' . $deletedMessageCount . ' berichten verwijderd. ');
             Redirect::to('Email/Batches');
             return true;
         }
-        Session::add('feedback_negative', 'Verwijderen mislukt. Aantal batches met problemen: ' . $error);
+        $this->addFlash('danger','Verwijderen mislukt. Aantal batches met problemen: ' . $error);
         return false;
     }
 
-    public static function countMessages(int $batch_id)
+    public function countMessages(int $batch_id)
     {
         $stmt = Database::conn()->prepare('SELECT count(1) FROM mail_schedule where batch_id = ?');
         $stmt->execute([ $batch_id ]);
         return $stmt->fetchColumn();
     }
 
-    public static function sendById(array $batch_IDs)
+    public function sendById(array $batch_IDs)
     {
         $scheduledMailIDs = [];
         foreach ($batch_IDs as $batch_id) {

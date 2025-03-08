@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <script src="/includes/js/pass_req.js"></script>
+{% endblock %}
+{% block body %}
+    {{ include('AccountDetails.html.twig') }}
+    {{ include('AccountChangePassword.html.twig') }}
+    {{ include('AccountChangeUsername.html.twig') }}
+{% endblock %}
+{% block jsbottom %}
+    <script src="/dist/cookieconsent/build/cookieconsent.min.js"></script>
+    <script src="/includes/js/cookieconsent.init.js"></script>
+{% endblock %}

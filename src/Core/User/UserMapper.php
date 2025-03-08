@@ -1,14 +1,12 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\User;
+namespace App\Core\User;
 
 use PDO;
-use PortalCMS\Core\Database\Database;
+use App\Core\Database\Database;
 
 class UserMapper
 {
@@ -188,13 +186,14 @@ class UserMapper
         return ($stmt->rowCount() === 1);
     }
 
-    public static function saveTimestampByUsername(string $username, $timestamp): bool
+    public static function saveTimestampByUsername(string $username): bool
     {
         $stmt = Database::conn()->prepare('UPDATE users
-                SET user_last_login_timestamp = :user_last_login_timestamp
-                    WHERE user_name = :user_name
+                SET user_last_login_timestamp = ?
+                    WHERE user_name = ?
                         LIMIT 1');
-        return $stmt->execute([ ':user_last_login_timestamp' => $timestamp, ':user_name' => $username ]);
+        $stmt->execute([ date('Y-m-d H:i:s'), $username ]);
+        return ($stmt->rowCount() === 1);
     }
 
     public static function resetFailedLoginsByUsername(string $username): bool

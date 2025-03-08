@@ -1,17 +1,15 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 /**
  * Copyright Victor Witkamp (c) 2019.
  */
 
-namespace PortalCMS\Core\Email\Template\Helpers;
+namespace App\Core\Email\Template\Helpers;
 
-use PortalCMS\Core\Config\SiteSetting;
-use PortalCMS\Modules\Members\MemberModel;
+use App\Core\Config\SiteSetting;
+use App\Modules\Members\MemberModel;
 
 class PlaceholderHelper
 {

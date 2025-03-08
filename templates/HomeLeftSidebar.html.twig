@@ -1,0 +1,20 @@
+<div class="col-sm-4">
+{#    <!--#}
+{#    if (SiteSetting::get('WidgetComingEvents') === 'true') {#}
+{#        include DIR_VIEW . 'Pages/Home/widgets/comingEvents/comingEvents.php';#}
+{#    }#}
+{#    <hr>#}
+{#    if (SiteSetting::get('WidgetDebug') === 'true') {#}
+{#        include DIR_VIEW . 'Pages/Home/widgets/debug/debug.php';#}
+{#    }#}
+{#    -->#}
+</div>
+<div class="col-sm-8">
+    {{ page_content|raw }}
+{#<!--#}
+{#//    if (Authorization::hasPermission('site-settings')) {#}
+{#//        echo '<hr><a href="/page/edit?id=1">' . Text::get('LABEL_EDIT_PAGE') . '</a><p>' . Text::get('LABEL_LAST_MODIFIED') . ': ' . $page['ModificationDate'] . '</p>';#}
+{#//    }#}
+{#//#}
+{#-->#}
+</div>

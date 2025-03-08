@@ -1,29 +1,26 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Email\Schedule;
+namespace App\Core\Email\Schedule;
 
-use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
-use PortalCMS\Core\Email\Message\EmailMessage;
-use PortalCMS\Core\Email\Recipient\EmailRecipientCollectionCreator;
-use PortalCMS\Core\Email\SMTP\SMTPConfiguration;
-use PortalCMS\Core\Email\SMTP\SMTPTransport;
-use PortalCMS\Core\Email\Template\EmailTemplateMapper;
-use PortalCMS\Core\Email\Template\Helpers\MemberTemplateScheduler;
-use PortalCMS\Core\Session\Session;
+use App\Core\Email\Message\Attachment\EmailAttachmentMapper;
+use App\Core\Email\Message\EmailMessage;
+use App\Core\Email\Recipient\EmailRecipientCollectionCreator;
+use App\Core\Email\SMTP\SMTPConfiguration;
+use App\Core\Email\SMTP\SMTPTransport;
+use App\Core\Email\Template\EmailTemplateMapper;
+use App\Core\Email\Template\Helpers\MemberTemplateScheduler;
 
 class MailSchedule
 {
-    public static function deleteById(array $mailIds): bool
+    public function deleteById(array $mailIds): bool
     {
         $deleted = 0;
         $error = 0;
         if (empty($mailIds)) {
-            Session::add('feedback_negative', 'Invalid request');
+            $this->addFlash('danger','Invalid request');
         } else {
             foreach ($mailIds as $mailId) {
                 if (MailScheduleMapper::deleteById((int)$mailId)) {
@@ -34,15 +31,15 @@ class MailSchedule
                 }
             }
             if ($deleted > 0) {
-                Session::add('feedback_positive', 'Er zijn ' . $deleted . ' berichten verwijderd.');
+                $this->addFlash('success','Er zijn ' . $deleted . ' berichten verwijderd.');
                 return true;
             }
-            Session::add('feedback_negative', 'Verwijderen mislukt. Aantal berichten met problemen: ' . $error);
+            $this->addFlash('danger','Verwijderen mislukt. Aantal berichten met problemen: ' . $error);
         }
         return false;
     }
 
-    public static function sendMailsById(array $mailIds): bool
+    public function sendMailsById(array $mailIds): bool
     {
         $success = 0;
         $failed = 0;
@@ -104,19 +101,19 @@ class MailSchedule
         return true;
     }
 
-    public static function sendFeedbackHandler(int $failed, int $success, int $alreadySent): bool
+    public function sendFeedbackHandler(int $failed, int $success, int $alreadySent): bool
     {
         if (($success === 0) && ($failed === 0) && ($alreadySent === 0)) {
-            Session::add('feedback_negative', 'Invalid request.');
+            $this->addFlash('danger','Invalid request.');
         }
         if ($failed > 0) {
-            Session::add('feedback_negative', $failed . ' bericht(en) mislukt.');
+            $this->addFlash('danger',$failed . ' bericht(en) mislukt.');
         }
         if ($alreadySent > 0) {
-            Session::add('feedback_warning', $alreadySent . ' bericht(en) reeds verstuurd.');
+            $this->addFlash('warning', $alreadySent . ' bericht(en) reeds verstuurd.');
         }
         if ($success > 0) {
-            Session::add('feedback_positive', $success . ' bericht(en) succesvol verstuurd.');
+            $this->addFlash('success',$success . ' bericht(en) succesvol verstuurd.');
             return true;
         }
         return false;
@@ -135,16 +132,16 @@ class MailSchedule
     //    {
     //        $create = MailScheduleMapper::create(
     //            null,
-    //            Request::post('recipient_email', true),
-    //            Request::post('subject', true),
-    //            Request::post('body', true)
+    //            $this->request->get('recipient_email'),
+    //            $this->request->get('subject'),
+    //            $this->request->get('body')
     //        );
     //        if (!$create) {
-    //            Session::add('feedback_negative', 'Nieuwe email aanmaken mislukt.');
+    //            $this->addFlash('danger','Nieuwe email aanmaken mislukt.');
     //            return false;
     //        }
     //        $created = MailScheduleMapper::lastInsertedId();
-    //        Session::add('feedback_positive', 'Email toegevoegd (ID = ' . $created . ')');
+    //        $this->addFlash('success','Email toegevoegd (ID = ' . $created . ')');
     //        return true;
     //    }
 }

@@ -1,23 +1,20 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\User;
+namespace App\Core\User;
 
-use PortalCMS\Core\Config\Config;
-use PortalCMS\Core\Config\SiteSetting;
-use PortalCMS\Core\Database\Database;
-use PortalCMS\Core\Email\Message\EmailMessage;
-use PortalCMS\Core\Email\Recipient\EmailRecipient;
-use PortalCMS\Core\Email\SMTP\SMTPConfiguration;
-use PortalCMS\Core\Email\SMTP\SMTPTransport;
-use PortalCMS\Core\Email\Template\EmailTemplateMapper;
-use PortalCMS\Core\Email\Template\Helpers\PlaceholderHelper;
-use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\View\Text;
+use App\Core\Config\Config;
+use App\Core\Config\SiteSetting;
+use App\Core\Database\Database;
+use App\Core\Email\Message\EmailMessage;
+use App\Core\Email\Recipient\EmailRecipient;
+use App\Core\Email\SMTP\SMTPConfiguration;
+use App\Core\Email\SMTP\SMTPTransport;
+use App\Core\Email\Template\EmailTemplateMapper;
+use App\Core\Email\Template\Helpers\PlaceholderHelper;
+use App\Core\View\Text;
 use function strlen;
 
 class PasswordReset
@@ -25,15 +22,15 @@ class PasswordReset
     public static function requestPasswordReset(string $username_or_email): bool
     {
         if (empty($username_or_email)) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_EMAIL_FIELD_EMPTY'));
+            $this->addFlash('danger',Text::get('FEEDBACK_USERNAME_EMAIL_FIELD_EMPTY'));
             return false;
         }
         $result = UserMapper::getByUsernameOrEmail($username_or_email);
         if (empty($result)) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_USER_DOES_NOT_EXIST'));
+            $this->addFlash('danger',Text::get('FEEDBACK_USER_DOES_NOT_EXIST'));
             return false;
         }
-        $resetToken = sha1(uniqid((string)mt_rand(), true));
+        $resetToken = sha1(uniqid((string)mt_rand()));
         return self::writeTokenToDatabase($result->user_name, $resetToken, (string)date('Y-m-d H:i:s')) && self::sendPasswordResetMail($result->user_name, $resetToken, $result->user_email);
     }
 
@@ -50,7 +47,7 @@ class PasswordReset
         if ($stmt->rowCount() === 1) {
             return true;
         }
-        Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_TOKEN_FAIL'));
+        $this->addFlash('danger',Text::get('FEEDBACK_PASSWORD_RESET_TOKEN_FAIL'));
         return false;
     }
 
@@ -61,10 +58,10 @@ class PasswordReset
         $recipient = new EmailRecipient($username, $user_email);
         $SMTPTransport = new SMTPTransport(new SMTPConfiguration());
         if ($SMTPTransport->sendMail(new EmailMessage(Config::get('EMAIL_PASSWORD_RESET_SUBJECT'), PlaceholderHelper::replace('RESETLINK', $resetlink, PlaceholderHelper::replace('SITENAME', SiteSetting::get('site_name'), PlaceholderHelper::replace('USERNAME', $username, $template['body']))), [ $recipient->get() ], null))) {
-            Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_RESET_MAIL_SENDING_SUCCESSFUL'));
+            $this->addFlash('success',Text::get('FEEDBACK_PASSWORD_RESET_MAIL_SENDING_SUCCESSFUL'));
             return true;
         }
-        Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_MAIL_SENDING_ERROR') . $SMTPTransport->getError());
+        $this->addFlash('danger',Text::get('FEEDBACK_PASSWORD_RESET_MAIL_SENDING_ERROR') . $SMTPTransport->getError());
         return false;
     }
 
@@ -80,8 +77,8 @@ class PasswordReset
                 ':password_reset_hash' => $password_reset_hash, ':user_name' => $username
             ]);
         if ($stmt->rowCount() !== 1) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_COMBINATION_DOES_NOT_EXIST'));
-            Session::add('feedback_negative', $username . ' ' . $sql);
+            $this->addFlash('danger',Text::get('FEEDBACK_PASSWORD_RESET_COMBINATION_DOES_NOT_EXIST'));
+            $this->addFlash('danger',$username . ' ' . $sql);
             return false;
         }
         $result_user_row = $stmt->fetch();
@@ -90,7 +87,7 @@ class PasswordReset
         if ($user_timestamp > $oneHourAgo) {
             return true;
         }
-        Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_LINK_EXPIRED'));
+        $this->addFlash('danger',Text::get('FEEDBACK_PASSWORD_RESET_LINK_EXPIRED'));
         return false;
     }
 
@@ -102,25 +99,25 @@ class PasswordReset
     public static function setNewPassword(string $username, string $resetToken, string $user_password_new, string $user_password_repeat): bool
     {
         if (self::validateResetPassword($username, $resetToken, $user_password_new, $user_password_repeat) && self::saveNewUserPassword($username, password_hash(base64_encode($user_password_new), PASSWORD_DEFAULT), $resetToken)) {
-            Session::add('feedback_positive', Text::get('FEEDBACK_PASSWORD_CHANGE_SUCCESSFUL'));
+            $this->addFlash('success',Text::get('FEEDBACK_PASSWORD_CHANGE_SUCCESSFUL'));
             return true;
         }
-        Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_CHANGE_FAILED'));
+        $this->addFlash('danger',Text::get('FEEDBACK_PASSWORD_CHANGE_FAILED'));
         return false;
     }
 
     public static function validateResetPassword(string $username, string $resetToken, string $user_password_new, string $user_password_repeat): bool
     {
         if (empty($username)) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_USERNAME_FIELD_EMPTY'));
+            $this->addFlash('danger',Text::get('FEEDBACK_USERNAME_FIELD_EMPTY'));
         } elseif (empty($resetToken)) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_RESET_TOKEN_MISSING'));
+            $this->addFlash('danger',Text::get('FEEDBACK_PASSWORD_RESET_TOKEN_MISSING'));
         } elseif (empty($user_password_new) || empty($user_password_repeat)) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_FIELD_EMPTY'));
+            $this->addFlash('danger',Text::get('FEEDBACK_PASSWORD_FIELD_EMPTY'));
         } elseif ($user_password_new !== $user_password_repeat) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_REPEAT_WRONG'));
+            $this->addFlash('danger',Text::get('FEEDBACK_PASSWORD_REPEAT_WRONG'));
         } elseif (strlen($user_password_new) < 6) {
-            Session::add('feedback_negative', Text::get('FEEDBACK_PASSWORD_TOO_SHORT'));
+            $this->addFlash('danger',Text::get('FEEDBACK_PASSWORD_TOO_SHORT'));
         } else {
             return true;
         }

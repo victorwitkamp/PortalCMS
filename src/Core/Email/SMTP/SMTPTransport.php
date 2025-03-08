@@ -1,40 +1,26 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Email\SMTP;
+namespace App\Core\Email\SMTP;
 
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
-use PortalCMS\Core\Email\Message\EmailMessage;
+use App\Core\Email\Message\EmailMessage;
 
 /**
  * Class Mail
  */
 class SMTPTransport
 {
-    /**
-     * @var SMTPConfiguration SMTP configuration object
-     */
-    private $config;
+    private SMTPConfiguration $config;
 
-    /**
-     * @var PHPMailer PHPMailer instance
-     */
-    private $PHPMailer;
+    private PHPMailer $PHPMailer;
 
-    /**
-     * @var mixed variable to collect errors
-     */
     private $error;
 
-    /**
-     * @var EmailMessage $emailMessage An e-mail message
-     */
-    private $emailMessage;
+    private ?EmailMessage $emailMessage;
 
     public function __construct(SMTPConfiguration $config)
     {
@@ -42,11 +28,6 @@ class SMTPTransport
         $this->PHPMailer = new PHPMailer(true);
     }
 
-    /**
-     * The different mail sending methods write errors to the error property $this->error,
-     * this method simply returns this error / error array.
-     * @return mixed
-     */
     public function getError()
     {
         return $this->error;

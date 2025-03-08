@@ -1,22 +1,20 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Modules\Invoices;
+namespace App\Modules\Invoices;
 
-use PortalCMS\Core\Activity\Activity;
-use PortalCMS\Core\Email\Message\Attachment\EmailAttachmentMapper;
-use PortalCMS\Core\Email\Recipient\EmailRecipientMapper;
-use PortalCMS\Core\Email\Schedule\MailScheduleMapper;
-use PortalCMS\Core\Email\Template\EmailTemplateMapper;
-use PortalCMS\Core\Email\Template\Helpers\PlaceholderHelper;
-use PortalCMS\Core\Session\Session;
-use PortalCMS\Core\View\PDF;
-use PortalCMS\Core\View\Text;
-use PortalCMS\Modules\Contracts\ContractMapper;
+use App\Core\Activity\Activity;
+use App\Core\Email\Message\Attachment\EmailAttachmentMapper;
+use App\Core\Email\Recipient\EmailRecipientMapper;
+use App\Core\Email\Schedule\MailScheduleMapper;
+use App\Core\Email\Template\EmailTemplateMapper;
+use App\Core\Email\Template\Helpers\PlaceholderHelper;
+use App\Core\Session\Session;
+use App\Core\View\PDF;
+use App\Core\View\Text;
+use App\Modules\Contracts\ContractMapper;
 use function is_array;
 
 class InvoiceHelper
@@ -34,12 +32,11 @@ class InvoiceHelper
                 EmailRecipientMapper::createRecipient($createdMailId, $contract->bandleider_email);
                 EmailAttachmentMapper::create($createdMailId, 'content/invoices/', $invoice->factuurnummer, '.pdf');
                 InvoiceMapper::updateMailId($invoiceId, $createdMailId);
-                InvoiceMapper::updateStatus($invoiceId, 2);
                 return true;
             }
-            Session::add('feedback_negative', 'Nieuwe email aanmaken mislukt.');
+            //todo $this->addFlash('danger','Nieuwe email aanmaken mislukt.');
         } else {
-            Session::add('feedback_negative', 'Factuur niet gevonden.');
+            //todo $this->addFlash('danger','Factuur niet gevonden.');
         }
         return false;
     }
@@ -47,13 +44,13 @@ class InvoiceHelper
     public static function create(int $year, string $month, array $contract_ids, string $factuurdatum): bool
     {
         if (empty($factuurdatum)) {
-            Session::add('feedback_negative', 'Geen factuurdatum opgegeven.');
+            //todo $this->addFlash('danger','Geen factuurdatum opgegeven.');
         } elseif (empty($year)) {
-            Session::add('feedback_negative', 'Incompleet verzoek.');
+            //todo $this->addFlash('danger','Incompleet verzoek.');
         } elseif (empty($month)) {
-            Session::add('feedback_negative', 'Incompleet verzoek.');
+            //todo $this->addFlash('danger','Incompleet verzoek.');
         } elseif (empty($contract_ids)) {
-            Session::add('feedback_negative', 'Incompleet verzoek.');
+            //todo $this->addFlash('danger','Incompleet verzoek.');
         } else {
             foreach ($contract_ids as $contract_id) {
                 if (!self::createInvoiceAction($year, $month, (int)$contract_id, $factuurdatum)) {
@@ -83,21 +80,20 @@ class InvoiceHelper
                 Activity::add('NewInvoice', Session::get('user_id'), 'Factuurnr.: ' . $factuurnummer);
                 return true;
             }
-            Session::add('feedback_negative', 'Toevoegen van factuur mislukt.');
+            //todo $this->addFlash('danger','Toevoegen van factuur mislukt.');
         } else {
-            Session::add('feedback_negative', 'Factuurnummer bestaat al.');
+            //todo $this->addFlash('danger','Factuurnummer bestaat al.');
         }
         return false;
     }
 
     public static function displayInvoiceSumById(int $id)
     {
-//        $sum = self::getInvoiceSumById($id);
-//        if (!$sum) {
-//            return false;
-//        }
-//        return '&euro; ' . $sum;
-        return self::getInvoiceSumById($id);
+        $sum = self::getInvoiceSumById($id);
+        if (!$sum) {
+            return false;
+        }
+        return '&euro; ' . $sum;
     }
 
     public static function getInvoiceSumById(int $id): int
@@ -116,17 +112,17 @@ class InvoiceHelper
     {
         $invoice = InvoiceMapper::getById($id);
         if (empty($invoice)) {
-            Session::add('feedback_negative', 'Verwijderen van factuur mislukt. Factuur bestaat niet.');
+            //todo $this->addFlash('danger','Verwijderen van factuur mislukt. Factuur bestaat niet.');
         } elseif (!empty(InvoiceItemMapper::getByInvoiceId($id)) && !InvoiceItemMapper::deleteByInvoiceId($id)) {
-            Session::add('feedback_negative', 'Verwijderen van factuur mislukt. Verwijderen van factuuritems voor factuur mislukt.');
+            //todo $this->addFlash('danger','Verwijderen van factuur mislukt. Verwijderen van factuuritems voor factuur mislukt.');
         } elseif (($invoice->status > 0) && !unlink(DIR_ROOT . '/content/invoices/' . $invoice->factuurnummer . '.pdf')) {
-            Session::add('feedback_negative', 'Verwijderen van factuur mislukt. PDF niet gevonden.');
+            //todo $this->addFlash('danger','Verwijderen van factuur mislukt. PDF niet gevonden.');
         } elseif (InvoiceMapper::delete($id)) {
-            Session::add('feedback_positive', 'Factuur verwijderd.');
+            //todo $this->addFlash('success','Factuur verwijderd.');
             Activity::add('NewInvoice', Session::get('user_id'), 'Factuurnr.: ' . $invoice->factuurnummer);
             return true;
         } else {
-            Session::add('feedback_negative', 'Verwijderen van factuur mislukt.');
+            //todo $this->addFlash('danger','Verwijderen van factuur mislukt.');
         }
         return false;
     }
@@ -139,9 +135,6 @@ class InvoiceHelper
                 $invoiceitems = InvoiceItemMapper::getByInvoiceId($id);
                 $contract = ContractMapper::getById($invoice->contract_id);
                 return PDF::renderInvoice($invoice, $invoiceitems, $contract);
-            } else {
-                echo 'invoice empty';
-                die;
             }
         }
         return false;
@@ -149,7 +142,7 @@ class InvoiceHelper
 
     public static function write(int $id = null): bool
     {
-        if (!empty($id)) {
+        if ($id !== null) {
             $invoice = InvoiceMapper::getById($id);
             if (!empty($invoice)) {
                 $contract = ContractMapper::getById($invoice->contract_id);
@@ -158,11 +151,11 @@ class InvoiceHelper
                     InvoiceMapper::updateStatus($id, 1);
                     return true;
                 }
-                Session::add('feedback_negative', 'Fout bij het opslaan.');
+                //todo $this->addFlash('danger','Fout bij het opslaan.');
             }
-            Session::add('feedback_negative', 'Fout bij het opslaan. Factuur niet gevonden.');
+            //todo $this->addFlash('danger','Fout bij het opslaan. Factuur niet gevonden.');
         } else {
-            Session::add('feedback_negative', 'Fout bij het opslaan. Geen ID opgegeven.');
+            //todo $this->addFlash('danger','Fout bij het opslaan. Geen ID opgegeven.');
         }
         return false;
     }
@@ -170,10 +163,10 @@ class InvoiceHelper
     public static function createItem(int $invoiceId, string $name, int $price): bool
     {
         if (!InvoiceItemMapper::create($invoiceId, $name, $price)) {
-            Session::add('feedback_negative', 'Toevoegen van factuuritem mislukt.');
+            //todo $this->addFlash('danger','Toevoegen van factuuritem mislukt.');
             return false;
         }
-        Session::add('feedback_positive', 'Factuuritem toegevoegd.');
+        //todo $this->addFlash('success','Factuuritem toegevoegd.');
         Activity::add('AddInvoiceItem', Session::get('user_id'), 'Added item "' . $name . '" to invoice with ID = ' . $invoiceId);
         return true;
     }
@@ -181,14 +174,14 @@ class InvoiceHelper
     public static function deleteItem(int $id): bool
     {
         if (!InvoiceItemMapper::exists($id)) {
-            Session::add('feedback_negative', 'Kan factuuritem niet verwijderen. Factuuritem bestaat niet.');
+            //todo $this->addFlash('danger','Kan factuuritem niet verwijderen. Factuuritem bestaat niet.');
             return false;
         }
         if (!InvoiceItemMapper::delete($id)) {
-            Session::add('feedback_negative', 'Verwijderen van factuuritem mislukt.');
+            //todo $this->addFlash('danger','Verwijderen van factuuritem mislukt.');
             return false;
         }
-        Session::add('feedback_positive', 'Factuuritem verwijderd.');
+        //todo $this->addFlash('success','Factuuritem verwijderd.');
         return true;
     }
 }

@@ -1,20 +1,15 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Email\Message\Attachment;
+namespace App\Core\Email\Message\Attachment;
 
 use PDO;
-use PortalCMS\Core\Database\Database;
+use App\Core\Database\Database;
 
 class EmailAttachmentMapper
 {
-    /**
-     * Create a new attachment for an e-mail in the schedule.
-     */
     public static function create(int $mailId, string $path, string $name, string $extension, string $encoding = 'base64', string $type = 'application/octet-stream'): bool
     {
         $stmt = Database::conn()->prepare('INSERT INTO mail_attachments(id, mail_id, template_id, path, name, extension, encoding, type)

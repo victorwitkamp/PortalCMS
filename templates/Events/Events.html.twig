@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="/dist/merged/fullcalendar.min.css"/>
+{% endblock %}
+{% block javascripts %}
+    <script src="/dist/moment/min/moment.min.js"></script>
+    <script src="/dist/moment/locale/nl.js"></script>
+    <script src="/dist/merged/fullcalendar.min.js"></script>
+    <script src="/includes/js/calendar.js"></script>
+{% endblock %}
+{% block button %}
+    <a href="/Events/Add" class="btn btn-info float-right"><span class="fa fa-plus"></span> LABEL_ADD</a>
+{% endblock %}
+{% block body %}
+    <div class="row justify-content-center">
+        <div class="col-sm-12">
+            <div id="calendar"></div>
+            <p>
+                <span class="badge badge-info">LABEL_EVENT_DRAFT</span>
+                <span class="badge badge-success">LABEL_EVENT_CONFIRMED</span>
+                <span class="badge badge-danger">LABEL_EVENT_CANCELED</span>
+            </p>
+        </div>
+    </div>
+{% endblock %}
+{% block jsbottom %}
+    <div id="fullCalModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="modalTitle" class="modal-title">LABEL_EVENT_DETAILS</h4>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                        <span class="sr-only">CLOSE</span>
+                    </button>
+                </div>
+                <div id="modalBody" class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">LABEL_CLOSE</button>
+                    <a class="btn btn-primary" id="eventUrl" role="button"><i class="far fa-edit"></i> LABEL_EDIT</a>
+                    <form method="post">
+                        <input name="id" type="hidden" id="deleteUrl">
+                        <button name="deleteEvent" type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i> LABEL_DELETE</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

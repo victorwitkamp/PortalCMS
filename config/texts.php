@@ -1,7 +1,5 @@
 <?PHP
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
@@ -21,7 +19,28 @@ return [
     'LABEL_SIGN_OUT'              => 'LOG UIT', 'LABEL_SIGNED_IN_AS' => 'WELKOM',
 
     // NAVIGATION
-    'NAV_TITLE_HOME'              => 'Start', 'NAV_TITLE_MENU' => 'Menu', 'NAV_TITLE_EMAIL' => 'E-mail', 'TITLE_MEMBERS' => 'Leden', 'NAV_TITLE_RENTAL' => 'Verhuur', 'TITLE_CONTRACTS' => 'Contracten', 'TITLE_INVOICES' => 'Facturen', 'TITLE_PRODUCTS' => 'Producten', 'NAV_TITLE_SETTINGS' => 'Instellingen', 'LABEL_GENERAL_SETTINGS' => 'Algemeen', 'TITLE_SITE_SETTINGS' => 'Site instellingen', 'LABEL_ACCESS_SETTINGS' => 'Toegang', 'TITLE_USER_MANAGEMENT' => 'Gebruikers beheren', 'TITLE_ROLE_MANAGEMENT' => 'Rollen beheren', 'LABEL_OTHER' => 'Overig', 'TITLE_RECENT_ACTIVITY' => 'Recente activiteit', 'TITLE_DEBUG' => 'Debug',
+    'NAV_TITLE_HOME'              => 'Start',
+    'NAV_TITLE_MENU' => 'Menu',
+    'NAV_TITLE_EMAIL' => 'E-mail',
+    'TITLE_MEMBERS' => 'Leden',
+    'NAV_TITLE_FINANCE' => 'Financieel',
+    'TITLE_BANK_IMPORTS' => 'BankImports',
+    'TITLE_TRANSACTION_CATEGORIES' => 'Categories',
+    'TITLE_TRANSACTION_CONTACTS' => 'Contacts',
+
+    'TITLE_BANK_TRANSACTIONS' => 'BankTransactions',
+    'TITLE_CONTRACTS' => 'Contracten',
+    'TITLE_INVOICES' => 'Facturen',
+    'TITLE_PRODUCTS' => 'Producten',
+    'NAV_TITLE_SETTINGS' => 'Instellingen',
+    'LABEL_GENERAL_SETTINGS' => 'Algemeen',
+    'TITLE_SITE_SETTINGS' => 'Site instellingen',
+    'LABEL_ACCESS_SETTINGS' => 'Toegang',
+    'TITLE_USER_MANAGEMENT' => 'Gebruikers beheren',
+    'TITLE_ROLE_MANAGEMENT' => 'Rollen beheren',
+    'LABEL_OTHER' => 'Overig',
+    'TITLE_RECENT_ACTIVITY' => 'Recente activiteit',
+    'TITLE_DEBUG' => 'Debug',
 
     // HOME
     'TITLE_HOME'                  => 'Home', 'LABEL_EDIT_PAGE' => 'Pagina bewerken', 'LABEL_LAST_MODIFIED' => 'Laatst gewijzigd',
@@ -38,7 +57,10 @@ return [
     'LABEL_CONTRACT_INVOICES_FOR' => 'Facturen voor: ',
 
     // SITE SETTINGS
-    'LABEL_SETTINGS_GENERAL'      => 'ALGEMEEN', 'LABEL_SITE_NAME' => 'NAAM', 'LABEL_SITE_DESC' => 'SLOGAN TEXT', 'LABEL_SITE_DESC_TYPE' => 'SLOGAN TYPE', 'LABEL_SITE_THEME' => 'THEMA', 'LABEL_SITE_LAYOUT' => 'LAYOUT', 'LABEL_SITE_URL' => 'URL', 'TITLE_SITE_LOGO' => 'Logo wijzigen', 'LABEL_SITE_LOGO_URL' => 'Logo URL',
+    'LABEL_SETTINGS_GENERAL'      => 'ALGEMEEN', 'LABEL_SITE_NAME' => 'NAAM', 'LABEL_SITE_DESC' => 'SLOGAN TEXT', 'LABEL_SITE_DESC_TYPE' => 'SLOGAN TYPE', 'LABEL_SITE_THEME' => 'THEMA', 'LABEL_SITE_LAYOUT' => 'LAYOUT', 'LABEL_SITE_URL' => 'URL',
+    'TITLE_SITE_LOGO' => 'Logo wijzigen', 'LABEL_SITE_LOGO_URL' => 'Logo URL',
+
+    'TITLE_CSV_IMPORT' => 'CSV Importeren',
 
     'LABEL_SITE_WIDGETS' => 'WIDGETS', // ROLE MANAGEMENT
     'TITLE_ROLE'         => 'Details van', 'LABEL_ROLE_GENERAL' => 'Algemeen', 'LABEL_ROLE_PERMISSIONS' => 'Permissies', 'LABEL_ROLE_ADD_PERMISSION' => 'Permissie toevoegen', // User Management

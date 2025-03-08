@@ -1,19 +1,17 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Modules\Invoices;
+namespace App\Modules\Invoices;
 
 class Invoice
 {
-    public $id;
-    public $contract_id;
-    public $factuurnummer;
-    public $status;
-    public $mail_id;
+    public ?int $id;
+    public ?int $contract_id;
+    public ?int $factuurnummer;
+    public ?int $status;
+    public ?int $mail_id;
 
     public function __construct(int $id = null, int $contract_id = null, int $factuurnummer = null, int $status = null, int $mail_id = null)
     {

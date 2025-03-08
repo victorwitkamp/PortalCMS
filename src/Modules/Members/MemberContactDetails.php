@@ -1,10 +1,8 @@
 <?php
 declare(strict_types=1);
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
 
-namespace PortalCMS\Modules\Members;
+
+namespace App\Modules\Members;
 
 /**
  * Class MemberContactDetails
@@ -12,9 +10,9 @@ namespace PortalCMS\Modules\Members;
  */
 class MemberContactDetails
 {
-    public $telefoon_vast;
-    public $telefoon_mobiel;
-    public $emailadres;
+    public ?string $telefoon_vast;
+    public ?string $telefoon_mobiel;
+    public ?string $emailadres;
 
     public function __construct(string $telefoon_vast = null, string $telefoon_mobiel = null, string $emailadres = null)
     {

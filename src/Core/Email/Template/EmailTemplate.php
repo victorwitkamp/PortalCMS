@@ -1,46 +1,44 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\Email\Template;
+namespace App\Core\Email\Template;
 
 class EmailTemplate
 {
     /**
      * @var int $id
      */
-    public $id;
+    public int $id;
 
     /**
      * @var string $type
      */
-    public $type;
+    public string $type;
 
     /**
      * @var string $name
      */
-    public $name;
+    public string $name;
 
     /**
      * @var string $subject
      */
-    public $subject;
+    public string $subject;
 
     /**
      * @var string $body
      */
-    public $body;
+    public string $body;
 
     /**
-     * @var string $status
+     * @var int $status
      */
-    public $status;
+    public int $status;
 
     /**
      * @var int $CreatedBy
      */
-    public $CreatedBy;
+    public int $CreatedBy;
 }

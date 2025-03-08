@@ -1,11 +1,9 @@
 <?php
-/**
- * Copyright Victor Witkamp (c) 2020.
- */
+
 
 declare(strict_types=1);
 
-namespace PortalCMS\Core\View;
+namespace App\Core\View;
 
 /**
  * Class View
