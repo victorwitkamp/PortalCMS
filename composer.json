@@ -12,7 +12,9 @@
         "phpmailer/phpmailer": "^7.0",
         "tecnickcom/tcpdf": "^6.11",
         "ext-fileinfo": "*",
-        "league/plates": "^3.3"
+        "league/plates": "^3.3",
+        "symfony/http-foundation": "^7.4",
+        "symfony/mime": "^7.4"
     },
   "license": "MIT",
   "require-dev": {

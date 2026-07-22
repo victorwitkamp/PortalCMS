@@ -9,8 +9,10 @@ namespace PortalCMS\Core\Config;
 
 use PDO;
 use PortalCMS\Core\Database\Database;
+use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Class : SiteSettings (SiteSettings.class.php)
@@ -40,9 +42,10 @@ class SiteSetting
 
     public static function uploadLogo(): bool
     {
-        if (self::isLogoFolderWritable() && self::validateImageFile()) {
+        $file = Request::file('logo_file');
+        if (self::isLogoFolderWritable() && self::validateImageFile($file)) {
             $publicPath = Config::get('URL') . Config::get('PATH_LOGO_PUBLIC') . 'logo';
-            $resizedImage = self::resizeLogo($_FILES['logo_file']['tmp_name']);
+            $resizedImage = self::resizeLogo($file->getPathname());
             if (!empty($resizedImage)) {
                 self::writeJPG($resizedImage, Config::get('PATH_LOGO') . 'logo');
                 self::writeLogoToDatabase($publicPath . '.jpg');
@@ -64,18 +67,17 @@ class SiteSetting
         return false;
     }
 
-    public static function validateImageFile(): bool
+    public static function validateImageFile(?UploadedFile $file): bool
     {
-        if (!isset($_FILES['logo_file'])) {
+        if ($file === null || !$file->isValid()) {
             Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_IMAGE_UPLOAD_FAILED'));
             return false;
         }
-        if ($_FILES['logo_file']['size'] > 5000000) { // >5MB
+        if ($file->getSize() > 5000000) { // >5MB
             Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_UPLOAD_TOO_BIG'));
             return false;
         }
-        $image_proportions = getimagesize($_FILES['logo_file']['tmp_name']);
-        if (!($image_proportions['mime'] === 'image/jpeg')) {
+        if ($file->getMimeType() !== 'image/jpeg') {
             Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_UPLOAD_WRONG_TYPE'));
             return false;
         }

@@ -10,43 +10,55 @@ namespace PortalCMS\Core\Email\Message\Attachment;
 use PortalCMS\Core\Config\Config;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\View\Text;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class EmailAttachment
 {
+    private const MAX_FILE_SIZE = 5000000; // 5MB
+
     public $path;
     public $name;
     public $extension;
     public $encoding = 'base64';
     public $type = 'application/octet-stream';
 
-    public function __construct(array $file)
+    public function __construct(?UploadedFile $file)
     {
         $this->path = Config::get('PATH_ATTACHMENTS');
         $this->processUpload($file);
     }
 
-    public function processUpload(array $file): bool
+    public function processUpload(?UploadedFile $file): bool
     {
-        if (!empty($file)) {
-            if ($this->isFolderWritable($this->path)) {
-                // if (!$this->validateType($file)) {
-                //     return false;
-                // }
-                // if (!$this->validateFileSize($file)) {
-                //     return false;
-                // }
-                if (move_uploaded_file($file['tmp_name'], DIR_ROOT . $this->path . $file['name'])) {
-                    $this->name = pathinfo($this->path . $file['name'], PATHINFO_FILENAME);
-                    $this->extension = pathinfo($this->path . $file['name'], PATHINFO_EXTENSION);
-                    $this->type = $this->getMIMEType(DIR_ROOT . $this->path . $file['name']);
+        if ($file !== null && $file->isValid()) {
+            if ($this->validateFileSize($file) && $this->isFolderWritable($this->path)) {
+                $filename = $file->getClientOriginalName();
+                try {
+                    $movedFile = $file->move(DIR_ROOT . $this->path, $filename);
+                    $this->name = pathinfo($filename, PATHINFO_FILENAME);
+                    $this->extension = pathinfo($filename, PATHINFO_EXTENSION);
+                    $this->type = $movedFile->getMimeType() ?? $this->type;
                     return true;
+                } catch (\Throwable $e) {
+                    Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_IMAGE_UPLOAD_FAILED'));
                 }
-                Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_IMAGE_UPLOAD_FAILED'));
             }
         } else {
             Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_IMAGE_UPLOAD_FAILED'));
         }
         return false;
+    }
+
+    /**
+     * Validates that the file size of the attachment is within range.
+     */
+    public function validateFileSize(UploadedFile $file): bool
+    {
+        if ($file->getSize() > self::MAX_FILE_SIZE) {
+            Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_UPLOAD_TOO_BIG'));
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -65,12 +77,6 @@ class EmailAttachment
             Session::add('feedback_negative', 'Directory ' . $path . ' doesnt exist');
         }
         return false;
-    }
-
-    public function getMIMEType(string $filename): string
-    {
-        $realpath = realpath($filename);
-        return finfo_file(finfo_open(FILEINFO_MIME_TYPE), $realpath);
     }
 
     /**
@@ -116,38 +122,6 @@ class EmailAttachment
         Session::add('feedback_negative', 'Verwijderen mislukt. Aantal bijlagen met problemen: ' . $error);
         return false;
     }
-
-//    /**
-    ////     * Validates is the file size of the attachment is within range.
-    ////     * @param $attachmentFile
-    ////     * @return bool
-    ////     */
-    //    public function validateFileSize($attachmentFile) : bool
-    //    {
-    //        if ($attachmentFile['size'] > 5000000) {
-    //            Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_UPLOAD_TOO_BIG'));
-    //            return false;
-    //        }
-    //        return true;
-    //    }
-
-    //    public function validateImageDimentions($attachmentFile) : bool
-    //    {
-    //         $image_proportions = getimagesize($attachmentFile['tmp_name']);
-    //         if ($image_proportions[0] < Config::get('AVATAR_SIZE') or $image_proportions[1] < Config::get('AVATAR_SIZE')) {
-    //             return false;
-    //         }
-    //         return true
-    //    }
-
-    //    public function validateType($attachmentFile) : bool
-    //    //    {
-    //    //        if ($attachmentFile['type'] === 'image/jpeg') {
-    //    //            return true;
-    //    //        }
-    //    //        Session::add('feedback_negative', Text::get('FEEDBACK_AVATAR_UPLOAD_WRONG_TYPE'));
-    //    //        return false;
-    //    //    }
 
     public function store(int $mailId = null, int $templateId = null): bool
     {

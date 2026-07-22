@@ -7,41 +7,56 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\HTTP;
 
-use function is_string;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
 /**
  * Request Class
- * Abstracts the access to $_GET, $_POST and $_COOKIE, preventing direct access to these super-globals.
+ * Abstracts access to the current HTTP request, backed by Symfony's
+ * HttpFoundation Request instead of touching $_GET/$_POST/$_COOKIE/$_FILES
+ * directly.
  */
 class Request
 {
-    /**
-     * When using just Request::post('x') it will return the raw and untouched $_POST['x'], when using it like
-     * Request::post('x', true) will return a trimmed and stripped $_POST['x'] !
-     */
-    public static function post($key, bool $clean = false)
-    {
-        if (isset($_POST[$key]) && !empty($_POST[$key])) {
-            if ($clean && is_string($key)) {
-                $return = trim(strip_tags($_POST[$key]));
+    private static ?SymfonyRequest $instance = null;
 
-            } else {
-                $return = $_POST[$key];
-            }
-            if (!empty($return)) {
-                return $return;
-            }
+    public static function instance(): SymfonyRequest
+    {
+        if (self::$instance === null) {
+            self::$instance = SymfonyRequest::createFromGlobals();
         }
-        return null;
+        return self::$instance;
     }
 
-    public static function get($key)
+    /**
+     * When using just Request::post('x') it will return the raw and untouched POST value, when using it like
+     * Request::post('x', true) it will return a trimmed and stripped value!
+     */
+    public static function post(string $key, bool $clean = false)
     {
-        return $_GET[$key] ?? null;
+        $value = self::instance()->request->get($key);
+        if (empty($value)) {
+            return null;
+        }
+        if ($clean) {
+            $value = trim(strip_tags((string)$value));
+        }
+        return !empty($value) ? $value : null;
     }
 
-    public static function cookie($key)
+    public static function get(string $key)
     {
-        return $_COOKIE[$key] ?? null;
+        return self::instance()->query->get($key);
+    }
+
+    public static function cookie(string $key)
+    {
+        return self::instance()->cookies->get($key);
+    }
+
+    public static function file(string $key): ?UploadedFile
+    {
+        $file = self::instance()->files->get($key);
+        return $file instanceof UploadedFile ? $file : null;
     }
 }

@@ -41,7 +41,7 @@ class EmailController extends Controller
     public static function uploadAttachment(): void
     {
         Authentication::checkAuthentication();
-        $attachment = new EmailAttachment($_FILES['attachment_file']);
+        $attachment = new EmailAttachment(Request::file('attachment_file'));
         $attachment->store(null, (int)Request::get('id'));
         Redirect::to('email/EditTemplate?id=' . Request::get('id'));
     }
