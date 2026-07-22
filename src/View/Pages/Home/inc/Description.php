@@ -27,6 +27,8 @@ if (SiteSetting::get('site_description_type') === '2') {
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
+    curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 3);
+    curl_setopt($curl, CURLOPT_TIMEOUT, 5);
     $result = curl_exec($curl);
     if ($result === false) {
         printf("cUrl error (#%d): %s<br>\n", curl_errno($curl), htmlspecialchars(curl_error($curl)));
@@ -51,8 +53,8 @@ if (SiteSetting::get('site_description_type') === '2') {
 }
 if (SiteSetting::get('site_description_type') === '3') {
     $request_headers = [];
-    $request_headers[] = 'accept: (text/plain)';
-    $curl = curl_init('https://api.chucknorris.io/jokes/random');
+    $request_headers[] = 'accept: text/plain';
+    $curl = curl_init('https://api.chucknorris.io/jokes/random?category=dev');
     curl_setopt($curl, CURLOPT_HTTPHEADER, $request_headers);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($curl, CURLOPT_FAILONERROR, true);
@@ -60,6 +62,12 @@ if (SiteSetting::get('site_description_type') === '3') {
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
+    curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 3);
+    curl_setopt($curl, CURLOPT_TIMEOUT, 5);
     $output = curl_exec($curl);
-    echo $output;
+    if ($output === false) {
+        printf("cUrl error (#%d): %s<br>\n", curl_errno($curl), htmlspecialchars(curl_error($curl)));
+    } else {
+        echo $output;
+    }
 }

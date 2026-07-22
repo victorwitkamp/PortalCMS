@@ -7,7 +7,7 @@ use PortalCMS\Core\View\Text;
 <form method="post">
     <div class="row">
         <div class="col-md-12">
-            <div class="form-group">
+            <div class="mb-3">
                 <h3><?= Text::get('LABEL_ACCOUNT_DETAILS') ?></h3>
                 <div class="row">
                     <div class="col-md-12">

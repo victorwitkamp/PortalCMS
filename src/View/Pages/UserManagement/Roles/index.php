@@ -22,7 +22,7 @@ $pageName = Text::get('TITLE_ROLE_MANAGEMENT'); ?>
         <?php Alert::renderFeedbackMessages(); ?>
         <hr>
         <table class="table table-sm table-striped table-hover table-dark">
-            <thead class="thead-dark">
+            <thead class="table-dark">
             <tr>
                 <th>ID</th>
                 <th>Rol</th>

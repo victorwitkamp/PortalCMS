@@ -92,12 +92,12 @@ if (!empty($invoice)) {
         <h3>Items toevoegen</h3>
         <?php if ($invoice->status === 0) { ?>
             <form method="post">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
+                <div class="row">
+                    <div class="mb-3 col-md-6">
                         <label>Omschrijving</label>
                         <input type="text" name="name" class="form-control">
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="mb-3 col-md-6">
                         <label>Prijs</label>
                         <input type="text" name="price" class="form-control">
                     </div>

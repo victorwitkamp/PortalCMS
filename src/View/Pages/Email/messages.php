@@ -32,7 +32,7 @@ $pageName = Text::get('TITLE_MAIL_MESSAGES');
                 <h1><?= $pageName ?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="/Email/Generate" class="btn btn-info float-right">
+                <a href="/Email/Generate" class="btn btn-info float-end">
                     <span class="fa fa-plus"></span> <?= Text::get('LABEL_NEW_EMAIL') ?>
                 </a>
             </div>

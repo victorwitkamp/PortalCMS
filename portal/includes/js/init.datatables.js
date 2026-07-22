@@ -2,16 +2,16 @@
  * Copyright Victor Witkamp (c) 2020.
  */
 
-$(document).ready(function () {
-    $("#example").DataTable({
+document.addEventListener("DOMContentLoaded", function () {
+    new DataTable("#example", {
         scrollX: true,
         language: {
-            url: "//cdn.datatables.net/plug-ins/1.10.19/i18n/Dutch.json"
+            url: "//cdn.datatables.net/plug-ins/2.3.8/i18n/nl-NL.json"
         },
         paging: false,
-        ordering: !0,
-        "order": [[ 1, 'asc' ]],
+        ordering: true,
+        order: [[1, "asc"]],
         compact: true,
-        select: true,
+        select: true
     });
 });

@@ -18,14 +18,14 @@ $pageName = Text::get('TITLE_USER_MANAGEMENT');
     <div class="container">
         <div class="row mt-5">
             <div class="col-sm-8"><h1><?= $pageName ?></h1></div>
-            <div class="col-sm-4"><a href="/UserManagement/AddUser" class="btn btn-success navbar-btn float-right"><span
+            <div class="col-sm-4"><a href="/UserManagement/AddUser" class="btn btn-success navbar-btn float-end"><span
                             class="fa fa-plus"></span> Toevoegen</a></div>
         </div>
         <?php
         Alert::renderFeedbackMessages(); ?>
         <hr>
         <table class="table table-sm table-striped table-hover table-dark">
-            <thead class="thead-dark">
+            <thead class="table-dark">
             <tr>
                 <th><?= Text::get('LABEL_USER_ID') ?></th>
                 <th><?= Text::get('LABEL_USER_NAME') ?></th>

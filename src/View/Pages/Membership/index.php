@@ -26,20 +26,20 @@ if (!isset($year) || empty($year)) {
     <script src="/dist/merged/dataTables.min.js"></script>
 <!--    <script src="/includes/js/init.datatables.js" class="init"></script>-->
     <script>
-        $(document).ready(function () {
-            $("#example").DataTable({
+        document.addEventListener("DOMContentLoaded", function () {
+            new DataTable("#example", {
                 scrollX: true,
                 language: {
-                    url: "//cdn.datatables.net/plug-ins/1.10.19/i18n/Dutch.json"
+                    url: "//cdn.datatables.net/plug-ins/2.3.8/i18n/nl-NL.json"
                 },
                 paging: false,
-                ordering: !0,
-                "order": [[ 2, 'asc' ]],
+                ordering: true,
+                order: [[2, "asc"]],
                 compact: true,
                 select: true,
                 columnDefs: [
-                    { orderable: false, targets: [0,1] }
-                ],
+                    { orderable: false, targets: [0, 1] }
+                ]
             });
         });
     </script>
@@ -52,9 +52,9 @@ if (!isset($year) || empty($year)) {
             <div class="col-sm-8">
                 <h1><?= $pageName ?></h1>
             </div>
-            <div class="col-sm-4"><a href="/Membership/NewFromExisting" class="btn btn-success float-right"><span
+            <div class="col-sm-4"><a href="/Membership/NewFromExisting" class="btn btn-success float-end"><span
                             class="fa fa-plus"></span> NewFromExisting</a>
-                <a href="/Membership/New" class="btn btn-success float-right"><span
+                <a href="/Membership/New" class="btn btn-success float-end"><span
                             class="fa fa-plus"></span> <?= Text::get('LABEL_ADD') ?></a></div>
         </div>
 

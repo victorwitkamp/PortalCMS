@@ -1,8 +1,6 @@
 # PortalCMS
 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/victorwitkamp/PortalCMS/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/victorwitkamp/PortalCMS/?branch=master)
-[![Build Status](https://scrutinizer-ci.com/g/victorwitkamp/PortalCMS/badges/build.png?b=master)](https://scrutinizer-ci.com/g/victorwitkamp/PortalCMS/build-status/master)
-[![Build Status](https://dev.azure.com/99038776/php/_apis/build/status/victorwitkamp.PortalCMS?branchName=refs%2Fpull%2F35%2Fmerge)](https://dev.azure.com/99038776/php/_build/latest?definitionId=1&branchName=refs%2Fpull%2F35%2Fmerge)
+[![Build](https://github.com/victorwitkamp/PortalCMS/actions/workflows/build.yml/badge.svg)](https://github.com/victorwitkamp/PortalCMS/actions/workflows/build.yml)
 
 ## About
 
@@ -51,16 +49,21 @@ A CMS-like PHP application/portal that I'm creation for a small non-profit music
 This may work on other configurations as well.
 
 - IIS webserver
-- PHP 7.2+
-- MySQL 5.7
-- Yarn
+- PHP 8.0+
+- MySQL 5.7+
+- Node.js / npm
 - Composer
 
 ## Installation
-composer update
+
+See [docs/Installation.md](docs/Installation.md) for the full deployment guide
+(IIS setup, required file permissions, database seeding). Quick version:
+
+```
+composer install
 npm install
-npm install gulp-cli
-gulp
+npm run build
+```
 
 ## Credits
 

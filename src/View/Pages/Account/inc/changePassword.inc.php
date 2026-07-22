@@ -12,14 +12,14 @@ use PortalCMS\Core\View\Text;
 <h3><?= Text::get('LABEL_CHANGE_PASSWORD') ?></h3>
 <form method="post" id="changePasswordForm" class="needs-validation" novalidate>
     <input type="text" class="d-none" value="<?= Session::get('user_name') ?>" autocomplete="username" required/>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label for="currentPassword" class="col-sm-4 col-form-label"><?= Text::get('LABEL_CURRENT_PASSWORD') ?></label>
         <div class="col-sm-8">
             <input type="password" name="currentpassword" id="currentPassword" class="form-control"
                    autocomplete="current-password" required/>
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label for="newPassword" class="col-sm-4 col-form-label"><?= Text::get('LABEL_NEW_PASSWORD') ?></label>
         <div class="col-sm-8">
             <input type="password" minlength="8" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
@@ -30,7 +30,7 @@ use PortalCMS\Core\View\Text;
                 letter en 1 cijfer)</small>
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label for="newConfirmPassword"
                class="col-sm-4 col-form-label"><?= Text::get('LABEL_CONFIRM_PASSWORD') ?></label>
         <div class="col-sm-8">
@@ -53,25 +53,6 @@ use PortalCMS\Core\View\Text;
                 }, !1)
             })
         };
-    </script>
-    <script>
-        $('#newPassword').PassRequirements({
-            // rules: {
-            //     containSpecialChars: {
-            //         text: "Your input should contain at least minLength special character",
-            //         minLength: 1,
-            //         regex: new RegExp('([^!,%,&,@,#,$,^,*,?,_,~])', 'g')
-            //     },
-            //     containNumbers: {
-            //         text: "Your input should contain at least minLength numbers",
-            //         minLength: 2,
-            //         regex: new RegExp('[^0-9]', 'g')
-            //     }
-            // },
-            popoverPlacement: 'bottom',
-            defaults: true,
-            trigger: 'click'
-        });
     </script>
 </form>
 <hr>

@@ -13,6 +13,7 @@ use PortalCMS\Core\HTTP\Redirect;
 use PortalCMS\Core\HTTP\Request;
 use PortalCMS\Core\HTTP\Router;
 use PortalCMS\Core\Security\Authentication\Authentication;
+use PortalCMS\Core\Security\Csrf;
 use PortalCMS\Core\Session\Session;
 use PortalCMS\Core\User\Password;
 use PortalCMS\Core\User\User;
@@ -34,6 +35,11 @@ class AccountController extends Controller
 
     public static function changeUsername()
     {
+        if (!Csrf::isTokenValid()) {
+            Session::add('feedback_negative', 'Invalid CSRF token.');
+            Redirect::to('Account');
+            return;
+        }
         User::editUsername((string)Request::post('user_name'));
     }
 

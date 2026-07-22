@@ -44,7 +44,7 @@ $user = UserMapper::getProfileById((int)Session::get('user_id'));
                        value="<?= Text::get('LABEL_USER_CLEAR_FBID') ?>"/>
                 </form><?php
             } else {
-                ?><a href="<?= $loginUrl ?>"><?= Text::get('LABEL_USER_CONNECT_FB') ?></a><?php
+                ?><a href="<?= $loginUrl ?? '#' ?>"><?= Text::get('LABEL_USER_CONNECT_FB') ?></a><?php
             }
             ?></td>
     </tr>

@@ -29,7 +29,7 @@ $contracts = ContractMapper::get();
             <div class="col-sm-8">
                 <h1><?= $pageName ?></h1>
             </div>
-            <div class="col-sm-4"><a href="/Contracts/New" class="btn btn-success navbar-btn float-right"><span
+            <div class="col-sm-4"><a href="/Contracts/New" class="btn btn-success navbar-btn float-end"><span
                             class="fa fa-plus"></span> <?= Text::get('LABEL_ADD') ?></a></div>
         </div>
         <hr>
@@ -37,7 +37,7 @@ $contracts = ContractMapper::get();
         Alert::renderFeedbackMessages();
         if ($contracts) { ?>
             <table id="example" class="table table-sm table-striped table-hover" style="width:100%;">
-                <thead class="thead-dark">
+                <thead class="table-dark">
                 <tr>
                     <th>Huurder</th>
                     <th>Klantcode</th>

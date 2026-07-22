@@ -11,7 +11,7 @@ use PortalCMS\Core\View\Text;
 ?>
 <form method="post">
     <table id="messages" class="table table-sm" style="width:100%;" data-page-length='25'>
-        <thead class="thead-dark">
+        <thead class="table-dark">
         <tr>
             <th class="text-center"><input type="checkbox" id="selectall"/></th>
             <th>ID</th>
@@ -51,13 +51,13 @@ use PortalCMS\Core\View\Text;
                 <td>
                     <?php
                     if ($row['status'] === 1) {
-                        ?><span class="badge badge-secondary">Klaar voor verzending</span><?php
+                        ?><span class="badge bg-secondary">Klaar voor verzending</span><?php
                     }
                     if ($row['status'] === 2) {
-                        ?><span class="badge badge-success">Verzonden</span><?php
+                        ?><span class="badge bg-success">Verzonden</span><?php
                     }
                     if ($row['status'] === 3) {
-                        ?><span class="badge badge-danger">Fout bij verzenden</span><?php
+                        ?><span class="badge bg-danger">Fout bij verzenden</span><?php
                     }
                     ?>
                 </td>
@@ -78,11 +78,9 @@ use PortalCMS\Core\View\Text;
            value="<?= Text::get('LABEL_DELETE_EMAIL') ?>">
 </form>
 <script>
-    $("#selectall").on('change', function () {
-        if (this.checked) {
-            $("input[type='checkbox']").prop('checked', true)
-        } else {
-            $("input[type='checkbox']").prop('checked', false)
-        }
+    document.getElementById("selectall").addEventListener("change", function () {
+        document.querySelectorAll("input[type='checkbox']").forEach(function (checkbox) {
+            checkbox.checked = this.checked;
+        }, this);
     });
 </script>

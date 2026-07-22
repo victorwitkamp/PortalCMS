@@ -41,7 +41,7 @@ $pageName = 'Pagina ' . $row ['name'] . ' bewerken';
         <hr>
         <?php Alert::renderFeedbackMessages(); ?>
         <form method="post">
-            <div class="form-group form-group-sm row">
+            <div class="mb-3 mb-3-sm row">
                 <div class="col-sm-12">
                     <textarea id="mytextarea" name="content" cols="50" rows="15"
                               required><?= $row ['content'] ?></textarea>

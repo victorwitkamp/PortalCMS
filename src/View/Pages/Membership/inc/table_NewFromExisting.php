@@ -10,7 +10,7 @@ declare(strict_types=1);
     <input type="text" class="form-control" name="targetYear"/>
     <input type="submit" class="btn btn-danger" name="copyMembersById" value="copyMembersById"/>
     <table id="example" class="table table-sm table-striped table-hover table-dark" style="width:100%;">
-        <thead class="thead-dark">
+        <thead class="table-dark">
         <tr>
             <th class="text-center"><input type="checkbox" id="selectall"/></th>
             <th>Naam</th>
@@ -48,11 +48,9 @@ declare(strict_types=1);
     </table>
 </form>
 <script>
-    $("#selectall").on('change', function () {
-        if (this.checked) {
-            $("input[type='checkbox']").prop('checked', true)
-        } else {
-            $("input[type='checkbox']").prop('checked', false)
-        }
+    document.getElementById("selectall").addEventListener("change", function () {
+        document.querySelectorAll("input[type='checkbox']").forEach(function (checkbox) {
+            checkbox.checked = this.checked;
+        }, this);
     });
 </script>

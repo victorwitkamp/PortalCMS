@@ -29,7 +29,7 @@ $pageName = 'Wachtwoord vergeten';
 <?= $this->end() ?>
 <?= $this->push('body') ?>
 
-    <div class="form-group required float in">
+    <div class="mb-3 required float in">
         <input type="text" name="user_name_or_email" id="inputEmail" placeholder="email@voorbeeld.nl"
                class="form-control" required autofocus>
         <label for="inputEmail" class="label-float">Gebruikersnaam of e-mailadres</label>

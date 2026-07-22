@@ -48,7 +48,7 @@ $pageName = Text::get('TITLE_EDIT_MAIL_TEMPLATE');
             <p>Dit bericht heeft geen bijlagen</p>
         <?php } else { ?>
             <form method="post">
-                <div class="form-group">
+                <div class="mb-3">
                     <label for="currentattachments">Bijlage(s)</label>
                     <ul id="currentattachments">
                         <?php foreach ($attachments as $attachment) { ?>
@@ -64,7 +64,7 @@ $pageName = Text::get('TITLE_EDIT_MAIL_TEMPLATE');
         <?php } ?>
         <hr>
         <form method="post" enctype="multipart/form-data">
-            <div class="form-group">
+            <div class="mb-3">
                 <label for="attachment_file">Upload een bijlage:</label>
                 <input type="file" name="attachment_file" required/>
             </div>
@@ -74,13 +74,13 @@ $pageName = Text::get('TITLE_EDIT_MAIL_TEMPLATE');
         <hr>
         <form method="post">
             <input type="hidden" name="id" value="<?= $template->id ?>">
-            <input type="submit" class="btn btn-primary float-right" name="editTemplateAction"/>
-            <div class="form-group">
+            <input type="submit" class="btn btn-primary float-end" name="editTemplateAction"/>
+            <div class="mb-3">
                 <label for="subject">Onderwerp</label>
                 <input type="text" name="subject" class="form-control" id="subject" placeholder="Onderwerp"
                        value="<?= $template->subject ?>">
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <label for="body">Bericht</label>
                 <textarea id="mytextarea" name="body" cols="50" rows="15" required>
                         <?= $template->body ?>

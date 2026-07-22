@@ -110,7 +110,7 @@ use PortalCMS\Core\Security\Authorization\UserRoleMapper;
                                 <?php } ?>
                             </select>
                         <?php } ?>
-                        <input type="submit" name="assignrole" value="Toewijzen" class="btn btn-primary ml-2">
+                        <input type="submit" name="assignrole" value="Toewijzen" class="btn btn-primary ms-2">
                     </form>
                 </td>
             </tr>

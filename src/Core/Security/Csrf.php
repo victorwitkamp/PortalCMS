@@ -29,11 +29,6 @@ class Csrf
     {
         $token = Request::post('csrf_token');
         $sessiontoken = Session::get('csrf_token');
-        if (!empty($token)) {
-            var_dump($token);
-            var_dump($sessiontoken);
-            die;
-            return $token === $sessiontoken;
-        }
+        return !empty($token) && !empty($sessiontoken) && hash_equals($sessiontoken, $token);
     }
 }

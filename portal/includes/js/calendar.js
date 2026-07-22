@@ -1,45 +1,52 @@
 document.addEventListener("DOMContentLoaded", function () {
     "use strict";
-    var calendarEl = document.getElementById("calendar"), calendar = new FullCalendar.Calendar(calendarEl, {
-        plugins: ["list", "dayGrid", "interaction", "bootstrap"],
+    var calendarEl = document.getElementById("calendar");
+    var calendar = new FullCalendar.Calendar(calendarEl, {
         locale: "nl",
-        defaultView: "dayGridMonth",
+        initialView: "dayGridMonth",
         height: "auto",
         contentHeight: "auto",
         aspectRatio: 2,
-        themeSystem: "bootstrap",
-        now: moment.now.getDate,
-        bootstrapFontAwesome: {custom1: "fa-calendar-plus"},
-        editable: !0,
-        droppable: !0,
-        header: {left: "prev,next", center: "title", right: "custom1 listYear dayGridMonth"},
+        themeSystem: "bootstrap5",
+        editable: true,
+        droppable: true,
+        headerToolbar: {start: "prev,next", center: "title", end: "listYear,dayGridMonth"},
         scrollTime: "00:00:00",
         events: "/Events/loadCalendarEvents",
-        // weekNumbers: !0,
         weekNumbers: true,
         weekNumbersWithinDays: true,
-        weekNumberTitle: "Week",
-        allDaySlot: !1,
-        selectable: !1,
-        selectHelper: !1,
-        forceEventDuration: !0,
+        weekNumberCalculation: "ISO",
+        allDaySlot: false,
+        selectable: false,
+        forceEventDuration: true,
         slotDuration: "01:00:00",
-        eventDrop: function (e) {
-            var start = moment(e.event.start).format("Y-MM-DD HH:mm:ss"),
-                end = moment(e.event.end).format("Y-MM-DD HH:mm:ss"), title = e.event.title, id = e.event.id;
-            $.ajax({
-                url: "/Events/updateEventDate",
-                type: "POST",
-                data: {title: title, start: start, end: end, id: id},
-                success: function () {
-                    calendar.render(), alert("De datum van het evenement is aangepast")
-                }
-            })
+        eventDrop: function (info) {
+            var start = moment(info.event.start).format("Y-MM-DD HH:mm:ss");
+            var end = moment(info.event.end).format("Y-MM-DD HH:mm:ss");
+            var title = info.event.title;
+            var id = info.event.id;
+            fetch("/Events/updateEventDate", {
+                method: "POST",
+                headers: {"Content-Type": "application/x-www-form-urlencoded"},
+                body: new URLSearchParams({title: title, start: start, end: end, id: id})
+            }).then(function () {
+                calendar.render();
+                alert("De datum van het evenement is aangepast");
+            });
         },
-        eventClick: function (e) {
-            var link = "/Events/Edit?id=" + e.event.id;
-            $("#modalBody").load("Details?id=" + e.event.id), $("#eventUrl").attr("href", link), $("#deleteUrl").attr("value", e.event.id), $("#fullCalModal").modal()
+        eventClick: function (info) {
+            var link = "/Events/Edit?id=" + info.event.id;
+            fetch("Details?id=" + info.event.id)
+                .then(function (response) {
+                    return response.text();
+                })
+                .then(function (html) {
+                    document.getElementById("modalBody").innerHTML = html;
+                });
+            document.getElementById("eventUrl").setAttribute("href", link);
+            document.getElementById("deleteUrl").value = info.event.id;
+            bootstrap.Modal.getOrCreateInstance(document.getElementById("fullCalModal")).show();
         }
     });
-    calendar.render()
+    calendar.render();
 });

@@ -140,11 +140,12 @@ class SMTPTransport
     {
         try {
             $this->PHPMailer->send();
+            return true;
         } catch (Exception $e) {
             $this->error = $e->errorMessage();
+            return false;
         } finally {
             $this->emailMessage = null;
-            return true;
         }
     }
 }

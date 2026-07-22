@@ -23,7 +23,7 @@ $pageName = 'Account activeren';
 <?= $this->end() ?>
 <?= $this->push('body') ?>
 
-    <div class="form-group required float in">
+    <div class="mb-3 required float in">
         <!-- <input type="text" name="user_name_or_email" id="inputEmail" placeholder="email@voorbeeld.nl" class="form-control" required autofocus> -->
         <input type="email" name="email"
                title="The domain portion of the email address is invalid (the portion after the @)."
@@ -32,7 +32,7 @@ $pageName = 'Account activeren';
         <!-- <label for="inputEmail" class="label-float">Gebruikersnaam of e-mailadres</label> -->
         <label for="inputEmail" class="label-float">E-mailadres</label>
     </div>
-    <div class="form-group required float in">
+    <div class="mb-3 required float in">
         <input type="text" minlength="32" maxlength="32" name="code" id="inputCode" class="form-control"
                placeholder="code" required>
         <label for="inputCode" class="label-float">Activatiecode</label>

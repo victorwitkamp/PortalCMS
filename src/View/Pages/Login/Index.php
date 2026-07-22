@@ -19,15 +19,15 @@ $pageName = Text::get('LABEL_LOG_IN');
 <?= $this->push('body-start') ?>
 <?= $this->end() ?>
 <?= $this->push('body') ?>
-    <div class="form-group required float in">
+    <div class="mb-3 required float in">
         <input type="text" class="form-control" id="email" name="user_name" placeholder="Gebruikersnaam" autocomplete="username" required autofocus/>
         <label for="text" class="label-float">Gebruikersnaam</label>
     </div>
-    <div class="form-group required float in">
+    <div class="mb-3 required float in">
         <input type="password" class="form-control" id="password" name="user_password" placeholder="Wachtwoord" autocomplete="current-password" required/>
         <label for="password" class="label-float">Wachtwoord</label>
     </div>
-    <div class="form-group form-check">
+    <div class="mb-3 form-check">
         <label class="form-check-label" for="rememberMe">
             <input type="checkbox" id="rememberMe" name="set_remember_me_cookie" class="form-check-input"/> <?= Text::get('LABEL_REMEMBER_ME') ?>
         </label>

@@ -13,7 +13,7 @@ $pageName = Text::get('TITLE_HOME');
 ?>
 <?= $this->layout('layout', [ 'title' => $pageName ]) ?>
 <?= $this->push('main-content') ?>
-    <div class="jumbotron jumbotron-fluid">
+    <div class="py-5 bg-body-tertiary">
         <div class="container">
             <div class="row">
                 <div class="col-sm-4">

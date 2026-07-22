@@ -35,7 +35,7 @@ if (empty($year)) {
     </div>
     <div class="container">
         <form method="post">
-            <div class="form-group">
+            <div class="mb-3">
                 <div class="row">
                     <div class="col-md-12">
                         <label><?= Text::get('YEAR') ?></label>
@@ -46,7 +46,7 @@ if (empty($year)) {
             </div>
         </form>
         <form method="post">
-            <div class="form-group">
+            <div class="mb-3">
                 <div class="row">
                     <div class="col-md-12">
                         <label>Template selecteren</label>
@@ -64,7 +64,7 @@ if (empty($year)) {
             </div>
 
 
-            <div class="form-group form-check">
+            <div class="mb-3 form-check">
                 <div class="row">
                     <div class="col-md-12">
                         <input type="checkbox" id="selectall">
@@ -73,7 +73,7 @@ if (empty($year)) {
                 </div>
             </div>
 
-            <div class="form-group form-check">
+            <div class="mb-3 form-check">
                 <div id="example" class="row">
                     <?php
 
@@ -86,16 +86,16 @@ if (empty($year)) {
                             $member = MemberModel::getMember($memberId->id);
                             if (!empty($member->contactDetails->emailadres)) { ?>
                                 <div class="col-md-4">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" name='recipients[]'
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" name='recipients[]'
                                                id="customCheck<?= $count ?>" value="<?= $member->id ?>">
-                                        <label class="custom-control-label"
+                                        <label class="form-check-label"
                                                for="customCheck<?= $count ?>"><?= $member->voornaam . ' ' . $member->achternaam ?></label>
                                     </div>
                                 </div>
                             <?php } else { ?>
                                 <div class="col-md-4">
-                                    <input type="checkbox" class="custom-control-input" value="<?= $member->id ?>"
+                                    <input type="checkbox" class="form-check-input" value="<?= $member->id ?>"
                                            disabled><s> <?= $member->voornaam . ' ' . $member->achternaam ?></s><br/>
                                 </div>
                             <?php }

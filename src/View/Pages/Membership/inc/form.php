@@ -10,7 +10,7 @@ $edit = ($pageType === 'edit');
 
     <div class="row">
         <div class="col-md-8">
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="col-md-4">
                     <label class="col-form-label">Jaar van lidmaatschap</label>
                     <input type="number" minlength="4" maxlength="4" name="jaarlidmaatschap" class="form-control"
@@ -18,7 +18,7 @@ $edit = ($pageType === 'edit');
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="col-md-3">
                     <label class="col-form-label">Voorletters</label>
                     <input type="text" name="voorletters" value="<?= ($edit) ? $member->voorletters : '' ?>"
@@ -36,15 +36,13 @@ $edit = ($pageType === 'edit');
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="col-md-12">
                     <label class="col-form-label">Geboortedatum</label>
                     <div class="input-group">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
+                        <div class="input-group-text">
                                 <i class="fa fa-calendar"></i>
                             </div>
-                        </div>
                         <input type="date"
                                pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
                                name="geboortedatum"
@@ -54,7 +52,7 @@ $edit = ($pageType === 'edit');
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="col-md-9">
                     <label class="col-form-label">Adres</label>
                     <input type="text" name="adres" value="<?= ($edit) ? $member->address->adres : '' ?>"
@@ -67,7 +65,7 @@ $edit = ($pageType === 'edit');
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="col-md-5">
                     <label class="col-form-label">Postcode</label>
                     <input type="text" name="postcode" value="<?= ($edit) ? $member->address->postcode : '' ?>"
@@ -81,7 +79,7 @@ $edit = ($pageType === 'edit');
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="col-md-6">
                     <label class="col-form-label">Telefoon vast</label>
                     <input type="tel" name="telefoon_vast"
@@ -96,26 +94,22 @@ $edit = ($pageType === 'edit');
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="col-md-12">
                     <label class="col-form-label">Emailadres</label>
                     <div class="input-group">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">@</div>
-                        </div>
+                        <div class="input-group-text">@</div>
                         <input type="email" name="emailadres"
                                value="<?= ($edit) ? $member->contactDetails->emailadres : '' ?>" class="form-control"
                                autocomplete="email">
                     </div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="col-md-12">
                     <label class="col-form-label">Lid vanaf</label>
                     <div class="input-group">
-                        <div class="input-group-append">
-                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                        </div>
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         <input type="date"
                                pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
                                name="ingangsdatum"
@@ -127,7 +121,7 @@ $edit = ($pageType === 'edit');
         </div>
 
         <div class="col-md-4">
-            <div class="form-group">
+            <div class="mb-3">
                 <label class="col-form-label">Geslacht</label>
                 <select name="geslacht" class="form-control">
                     <option></option>
@@ -307,7 +301,7 @@ $edit = ($pageType === 'edit');
     <div class="row">
         <div class="col-md-12">
             <p>* = verplicht veld.</p>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="col-md-6">
                     <label class="col-form-label">&#xA0;</label>
                     <input type="hidden" name="id" value="<?= ($edit) ? $member->id : '' ?>">

@@ -58,12 +58,11 @@ class LoginController extends Controller
 
     public static function loginSubmit(): bool
     {
-        //        if (!Csrf::isTokenValid()) {
-        //            Session::add('feedback_negative', 'Invalid CSRF token.');
-        //            Redirect::to('Login');
-        //            return false;
-        //        }
-        //todo fix csrf
+        if (!Csrf::isTokenValid()) {
+            Session::add('feedback_negative', 'Invalid CSRF token.');
+            Redirect::to('Login');
+            return false;
+        }
         $rememberMe = false;
         if (Request::post('set_remember_me_cookie') === 'on') {
             $rememberMe = true;

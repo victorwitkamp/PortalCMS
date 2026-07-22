@@ -12,12 +12,6 @@ use PortalCMS\Modules\Contracts\ContractMapper;
 $pageName = 'Factuur toevoegen';
 ?>
 <?= $this->layout('layout', [ 'title' => $pageName ]) ?>
-<?= $this->push('head-extra') ?>
-
-    <!-- <script src="/includes/js/jquery-simple-validator.nl.js"></script>
-    <link rel="stylesheet" type="text/css" href="/includes/css/jquery-simple-validator.css"> -->
-
-<?= $this->end() ?>
 <?= $this->push('main-content') ?>
 
     <div class="container">
@@ -30,7 +24,7 @@ $pageName = 'Factuur toevoegen';
             contract.</p>
         <form method="post">
 
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Contract(en)</label>
                 <div class="col-sm-10">
                     <?php foreach (ContractMapper::get() as $row) : ?>
@@ -40,7 +34,7 @@ $pageName = 'Factuur toevoegen';
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label"><?= Text::get('YEAR') ?></label>
                 <div class="col-sm-10">
                     <input type="number" minlength="4" maxlength="4" name="year" class="form-control"
@@ -48,7 +42,7 @@ $pageName = 'Factuur toevoegen';
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label"><?= Text::get('MONTH') ?></label>
                 <div class="col-sm-10">
                     <select name="month" class="form-control">
@@ -68,7 +62,7 @@ $pageName = 'Factuur toevoegen';
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Factuurdatum</label>
                 <div class="col-sm-10">
                     <input type="date"

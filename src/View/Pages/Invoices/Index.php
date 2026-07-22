@@ -45,20 +45,20 @@ if (!empty($contractId) && is_numeric($contractId)) {
     <script src="/dist/merged/dataTables.min.js"></script>
 <!--    <script src="/includes/js/init.datatables.js" class="init"></script>-->
     <script>
-        $(document).ready(function () {
-            $("#example").DataTable({
+        document.addEventListener("DOMContentLoaded", function () {
+            new DataTable("#example", {
                 scrollX: true,
                 language: {
-                    url: "//cdn.datatables.net/plug-ins/1.10.19/i18n/Dutch.json"
+                    url: "//cdn.datatables.net/plug-ins/2.3.8/i18n/nl-NL.json"
                 },
                 paging: false,
-                ordering: !0,
-                "order": [[ 1, 'asc' ]],
+                ordering: true,
+                order: [[1, "asc"]],
                 compact: true,
                 select: true,
                 columnDefs: [
-                    { orderable: false, targets: 0 }
-                ],
+                    { orderable: false, targets: [0, 6] }
+                ]
             });
         });
     </script>
@@ -73,7 +73,7 @@ if (!empty($contractId) && is_numeric($contractId)) {
                 <h1><?= $pageName ?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="/Invoices/Add" class="btn btn-success navbar-btn float-right"><span class="fa fa-plus"></span> Toevoegen</a>
+                <a href="/Invoices/Add" class="btn btn-success navbar-btn float-end"><span class="fa fa-plus"></span> Toevoegen</a>
             </div>
         </div>
 

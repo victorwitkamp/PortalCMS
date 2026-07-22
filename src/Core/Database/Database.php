@@ -16,11 +16,17 @@ use PortalCMS\Core\Config\Config;
  */
 class Database
 {
+    private static ?PDO $instance = null;
+
     /**
      * @return PDO|null
      */
     public static function &conn(): ?PDO
     {
+        if (self::$instance !== null) {
+            return self::$instance;
+        }
+
         $type = Config::get('DB_TYPE');
         $host = Config::get('DB_HOST');
         $database = Config::get('DB_NAME');
@@ -42,14 +48,12 @@ class Database
          * by throwing custom error message
          */
         try {
-            $conn = new PDO($dsn, $username, $password, $options);
+            self::$instance = new PDO($dsn, $username, $password, $options);
         } catch (PDOException $exception) {
-            echo 'Database connection can not be estabilished. Please try again later.' . '<br>';
-            echo 'Error message: ' . $exception->getMessage();
-            echo '<br>';
-            echo 'Error code: ' . $exception->getCode(); // getCode() returns a string.
+            error_log('Database connection failed: ' . $exception->getMessage());
+            echo 'Database connection can not be established. Please try again later.';
             exit;
         }
-        return $conn;
+        return self::$instance;
     }
 }

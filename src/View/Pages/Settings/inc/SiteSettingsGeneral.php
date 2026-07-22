@@ -14,7 +14,7 @@ use PortalCMS\Core\View\Text;
 
 ?>
 <h3><?= Text::get('LABEL_SETTINGS_GENERAL') ?></h3>
-<div class="form-group row">
+<div class="mb-3 row">
 
     <label class="col-4 col-form-label"><?= Text::get('LABEL_SITE_NAME') ?></label>
     <div class="col-8">
@@ -90,7 +90,7 @@ use PortalCMS\Core\View\Text;
  */
 ?>
 <h3><?= Text::get('LABEL_SITE_WIDGETS') ?></h3>
-<div class="form-group row">
+<div class="mb-3 row">
     <label class="col-4 col-form-label"><?= Text::get('TITLE_WIDGET_COMING_EVENTS') ?></label>
     <div class="col-8">
         <div class="input-group">
@@ -119,7 +119,7 @@ use PortalCMS\Core\View\Text;
 ?>
 <h3>Mailserver</h3>
 
-<div class="form-group row">
+<div class="mb-3 row">
     <label class="col-4 col-form-label">SMTP server IP/hostname</label>
     <div class="col-8">
         <input type="text" name="MailServer" value="<?= SiteSetting::get('MailServer') ?>" class="form-control">

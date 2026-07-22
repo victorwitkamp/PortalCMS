@@ -24,7 +24,7 @@ if ($Role) { ?>
                 $ActivePerissions = RolePermissionMapper::getRolePermissions((int)Request::get('id'));
                 if (!empty($ActivePerissions)) { ?>
                     <table class="table table-sm table-striped table-hover table-dark">
-                    <thead class="thead-dark">
+                    <thead class="table-dark">
                     <tr>
                         <th>ID</th>
                         <th>Permissie</th>
@@ -42,7 +42,7 @@ if ($Role) { ?>
                                     <input type="hidden" name="perm_id" value="<?= $Permission['perm_id'] ?>">
                                     <button type="submit" name="deleterolepermission"
                                             onclick="return confirm('<?= 'Weet u zeker dat u ' . $Permission['perm_desc'] . ' wilt verwijderen?' ?>')"
-                                            class="btn btn-danger ml-2">
+                                            class="btn btn-danger ms-2">
                                         <span class="fa fa-trash"></span>
                                     </button>
                                 </form>
@@ -77,7 +77,7 @@ if ($Role) {
                 </option>
             <?php } ?>
         </select>
-        <input type="submit" name="setrolepermission" value="Toewijzen" class="btn btn-primary ml-2">
+        <input type="submit" name="setrolepermission" value="Toewijzen" class="btn btn-primary ms-2">
         </form><?php
     } else {
         ?><p>Geen permissies om toe te wijzen</p><?php

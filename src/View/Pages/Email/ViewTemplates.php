@@ -20,14 +20,14 @@ $pageName = Text::get('TITLE_MAIL_TEMPLATES');
                 <h1><?= $pageName ?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="NewTemplate" class="btn btn-info float-right"><span
+                <a href="NewTemplate" class="btn btn-info float-end"><span
                             class="fa fa-plus"></span> <?= Text::get('TITLE_NEW_MAIL_TEMPLATE') ?></a>
             </div>
         </div>
         <hr>
         <?php Alert::renderFeedbackMessages(); ?>
         <table id="example" class="table table-sm table-striped table-hover table-dark" style="width:100%;">
-            <thead class="thead-dark">
+            <thead class="table-dark">
             <tr>
                 <th>acties</th>
                 <th>id</th>
@@ -39,7 +39,7 @@ $pageName = Text::get('TITLE_MAIL_TEMPLATES');
             </thead>
             <tbody>
             <?php
-            foreach (EmailTemplateMapper::get() as $template) {
+            foreach (EmailTemplateMapper::get() ?: [] as $template) {
             ?>
             <tr>
                 <td>

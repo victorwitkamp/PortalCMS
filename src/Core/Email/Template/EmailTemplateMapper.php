@@ -37,7 +37,7 @@ class EmailTemplateMapper
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public static function getById(int $id): object
+    public static function getById(int $id): ?object
     {
         $stmt = Database::conn()->prepare('SELECT *
                 FROM mail_templates

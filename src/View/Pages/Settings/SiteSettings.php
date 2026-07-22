@@ -19,7 +19,7 @@ $pageName = Text::get('TITLE_SITE_SETTINGS'); ?>
                     <h1><?= $pageName ?></h1>
                 </div>
                 <div class="col-sm-4">
-                    <input type="submit" name="saveSiteSettings" class="btn btn-success navbar-btn float-right"
+                    <input type="submit" name="saveSiteSettings" class="btn btn-success navbar-btn float-end"
                            value="<?= Text::get('LABEL_SUBMIT') ?>">
                 </div>
             </div>

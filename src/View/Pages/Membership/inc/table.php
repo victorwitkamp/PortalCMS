@@ -7,12 +7,12 @@ declare(strict_types=1);
 
 ?>
 <form method="post">
-    <div class="form-row">
+    <div class="row">
         <div class="col-auto">
             <input class="btn btn-danger" type="submit" name="deleteMembersById" value="deleteMembersById"/>
         </div>
     </div>
-    <div class="form-row align-items-center">
+    <div class="row align-items-center">
         <div class="col-auto">
             <select name="status" class="form-control">
                 <option value="0" selected="">0. Nieuw</option>
@@ -30,7 +30,7 @@ declare(strict_types=1);
     </div>
 
     <table id="example" class="table table-sm table-striped table-hover table-dark" style="width:100%;">
-        <thead class="thead-dark">
+        <thead class="table-dark">
         <tr>
             <th><input type="checkbox" id="selectall"/></th>
             <th>Acties</th>
@@ -73,11 +73,9 @@ declare(strict_types=1);
 
 </form>
 <script>
-    $("#selectall").on('change', function () {
-        if (this.checked) {
-            $("input[type='checkbox']").prop('checked', true)
-        } else {
-            $("input[type='checkbox']").prop('checked', false)
-        }
+    document.getElementById("selectall").addEventListener("change", function () {
+        document.querySelectorAll("input[type='checkbox']").forEach(function (checkbox) {
+            checkbox.checked = this.checked;
+        }, this);
     });
 </script>

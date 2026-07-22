@@ -14,7 +14,7 @@ $pageName = (string)Text::get('TITLE_EVENTS');
 <?= $this->layout('layout', [ 'title' => $pageName ]) ?>
 <?= $this->push('head-extra') ?>
 
-    <link rel="stylesheet" type="text/css" href="/dist/merged/fullcalendar.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/dist/bootstrap-icons/font/bootstrap-icons.min.css">
     <script src="/dist/moment/min/moment.min.js"></script>
     <script src="/dist/moment/locale/nl.js"></script>
     <script src="/dist/merged/fullcalendar.min.js"></script>
@@ -29,7 +29,7 @@ $pageName = (string)Text::get('TITLE_EVENTS');
                 <h1><?= $pageName ?></h1>
             </div>
             <div class="col-sm-4">
-                <a href="/Events/Add" class="btn btn-info float-right"><span
+                <a href="/Events/Add" class="btn btn-info float-end"><span
                             class="fa fa-plus"></span> <?= Text::get('LABEL_ADD') ?></a>
             </div>
         </div>
@@ -38,9 +38,9 @@ $pageName = (string)Text::get('TITLE_EVENTS');
             <div class="col-sm-12">
                 <div id="calendar"></div>
                 <p>
-                    <span class="badge badge-info"><?= Text::get('LABEL_EVENT_DRAFT') ?></span>
-                    <span class="badge badge-success"><?= Text::get('LABEL_EVENT_CONFIRMED') ?></span>
-                    <span class="badge badge-danger"><?= Text::get('LABEL_EVENT_CANCELED') ?></span>
+                    <span class="badge bg-info"><?= Text::get('LABEL_EVENT_DRAFT') ?></span>
+                    <span class="badge bg-success"><?= Text::get('LABEL_EVENT_CONFIRMED') ?></span>
+                    <span class="badge bg-danger"><?= Text::get('LABEL_EVENT_CANCELED') ?></span>
                 </p>
             </div>
         </div>
@@ -54,15 +54,13 @@ $pageName = (string)Text::get('TITLE_EVENTS');
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 id="modalTitle" class="modal-title"><?= Text::get('LABEL_EVENT_DETAILS') ?></h4>
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span aria-hidden="true">×</span>
-                        <span class="sr-only"><?= Text::get('CLOSE') ?></span>
-                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="<?= Text::get('CLOSE') ?>"></button>
                 </div>
                 <div id="modalBody" class="modal-body"></div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"
-                            data-dismiss="modal"><?= Text::get('LABEL_CLOSE') ?></button>
+                            data-bs-dismiss="modal"><?= Text::get('LABEL_CLOSE') ?></button>
                     <a class="btn btn-primary" id="eventUrl" role="button">
                         <i class="far fa-edit"></i> <?= Text::get('LABEL_EDIT') ?>
                     </a>
