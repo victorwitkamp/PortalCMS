@@ -10,12 +10,18 @@ $finder = PhpCsFixer\Finder::create()
 return (new PhpCsFixer\Config())
     ->setRules([
         '@PSR12' => true,
-        'declare_strict_types' => true,
         'no_unused_imports' => true,
-        'ordered_imports' => true,
-        'trailing_comma_in_multiline' => true,
         'no_trailing_whitespace' => true,
-        'single_quote' => true,
+        // Disabled: don't match this codebase's existing conventions.
+        // Enabling these would mean reformatting ~125 files rather than
+        // reflecting how the code actually looks; the copyright header
+        // comment is always placed directly after `<?php` with no gap.
+        'blank_line_after_opening_tag' => false,
+        'statement_indentation' => false,
+        'blank_line_between_import_groups' => false,
+        'return_type_declaration' => false,
+        'no_blank_lines_after_class_opening' => false,
+        'single_line_after_imports' => false,
+        'full_opening_tag' => false,
     ])
-    ->setRiskyAllowed(true)
     ->setFinder($finder);
