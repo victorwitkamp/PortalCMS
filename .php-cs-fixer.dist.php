@@ -2,8 +2,13 @@
 
 $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__ . '/src')
-    ->in(__DIR__ . '/portal')
+    ->in(__DIR__ . '/public')
     ->in(__DIR__ . '/config')
+    ->in(__DIR__ . '/db')
+    ->append([
+        __DIR__ . '/migrations.php',
+        __DIR__ . '/cli-config.php',
+    ])
     ->name('*.php')
     ->exclude('dist');
 

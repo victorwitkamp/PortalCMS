@@ -49,8 +49,8 @@ A CMS-like PHP application/portal that I'm creation for a small non-profit music
 This may work on other configurations as well.
 
 - IIS webserver
-- PHP 8.0+
-- MySQL 5.7+
+- PHP 8.2+
+- MySQL 8.0+
 - Node.js / npm
 - Composer
 
@@ -63,7 +63,11 @@ See [docs/Installation.md](docs/Installation.md) for the full deployment guide
 composer install
 npm install
 npm run build
+vendor/bin/doctrine-migrations migrate --no-interaction
 ```
+
+The current code organization and class API are documented in
+[docs/Architecture.md](docs/Architecture.md).
 
 ## Credits
 

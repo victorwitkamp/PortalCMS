@@ -4,7 +4,7 @@
  */
 declare(strict_types=1);
 
-namespace PortalCMS\Core\HTTP;
+namespace PortalCMS\Core\Http;
 
 use function in_array;
 

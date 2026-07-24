@@ -2,7 +2,7 @@
     "name": "victorwitkamp/portalcms",
     "description": "A PHP framework/CMS that is currently in development.",
     "require": {
-        "php": ">=8.0",
+        "php": ">=8.2",
         "ext-pdo": "*",
         "ext-curl": "*",
         "ext-mbstring": "*",
@@ -14,13 +14,34 @@
         "ext-fileinfo": "*",
         "league/plates": "^3.3",
         "symfony/http-foundation": "^7.4",
-        "symfony/mime": "^7.4"
+        "symfony/mime": "^7.4",
+        "doctrine/dbal": "^4.4",
+        "doctrine/migrations": "^3.9",
+        "doctrine/orm": "^3.6",
+        "symfony/cache": "^7.4",
+        "symfony/serializer": "^7.4",
+        "symfony/validator": "^7.4",
+        "symfony/property-access": "^7.4",
+        "symfony/dependency-injection": "^7.4",
+        "symfony/http-kernel": "^7.4",
+        "symfony/routing": "^7.4",
+        "symfony/framework-bundle": "^7.4",
+        "symfony/runtime": "^7.4",
+        "symfony/security-csrf": "^7.4"
     },
-  "license": "MIT",
-  "require-dev": {
+    "license": "MIT",
+    "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.0"
     },
     "autoload": {
-        "classmap": ["src/"]
+        "psr-4": {
+            "PortalCMS\\": "src/",
+            "DoctrineMigrations\\": "db/migrations/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "symfony/runtime": true
+        }
     }
 }

@@ -1,7 +1,7 @@
 /*
  * Copyright Victor Witkamp (c) 2020.
  *
- * Copies vendor CSS/JS/font assets from node_modules into portal/dist/,
+ * Copies vendor CSS/JS/font assets from node_modules into public/dist/,
  * and concatenates the DataTables and FullCalendar bundles used by the app.
  * None of the app's own JS is compiled (it's all loaded as plain globals),
  * so a bundler would be overkill here — copying + concatenation is all
@@ -15,7 +15,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const nodeModules = join(root, 'node_modules');
-const dist = join(root, 'portal', 'dist');
+const dist = join(root, 'public', 'dist');
 const merged = join(dist, 'merged');
 
 function concat(relSrcList, relDest) {
@@ -47,9 +47,8 @@ concat([
     'datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css'
 ], 'dataTables.min.css');
 
-// --- merged DataTables bundle (JS, jQuery first since DataTables requires it as a global) ---
+// --- merged DataTables bundle (JS; DataTables 3+ has no jQuery dependency) ---
 concat([
-    'jquery/dist/jquery.min.js',
     'datatables.net/js/dataTables.min.js',
     'datatables.net-select/js/dataTables.select.min.js',
     'datatables.net-select-bs5/js/select.bootstrap5.min.js',
@@ -68,4 +67,4 @@ concat([
     '@fullcalendar/core/locales-all.global.min.js'
 ], 'fullcalendar.min.js');
 
-console.log('Assets built into portal/dist/');
+console.log('Assets built into public/dist/');

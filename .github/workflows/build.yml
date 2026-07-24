@@ -20,8 +20,14 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --no-dev --optimize-autoloader --prefer-dist --no-progress
 
+      - name: Validate Composer configuration
+        run: composer validate --strict
+
       - name: Syntax check (php -l)
-        run: find src config -name '*.php' -print0 | xargs -0 -n1 php -l
+        run: |
+          find src config db public -name '*.php' -print0 | xargs -0 -n1 php -l
+          php -l cli-config.php
+          php -l migrations.php
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -32,11 +38,14 @@ jobs:
       - name: Install npm dependencies
         run: npm ci
 
+      - name: Lint JavaScript
+        run: npm run lint
+
       - name: Build assets
         run: npm run build
 
       - name: Verify build output
         run: |
-          test -f portal/dist/merged/dataTables.min.js
-          test -f portal/dist/merged/fullcalendar.min.js
-          test -f portal/dist/bootstrap/dist/js/bootstrap.bundle.min.js
+          test -f public/dist/merged/dataTables.min.js
+          test -f public/dist/merged/fullcalendar.min.js
+          test -f public/dist/bootstrap/dist/js/bootstrap.bundle.min.js

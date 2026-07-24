@@ -1,0 +1,12 @@
+<?php
+/**
+ * Copyright Victor Witkamp (c) 2020.
+ */
+
+declare(strict_types=1);
+
+use PortalCMS\Core\View\Text;
+
+?>
+<h4><?= Text::get('TITLE_WIDGET_DEBUG') ?></h4>
+<pre><?= $this->e(print_r([ 'user_name' => $currentUserName ?? null ], true)) ?></pre>
