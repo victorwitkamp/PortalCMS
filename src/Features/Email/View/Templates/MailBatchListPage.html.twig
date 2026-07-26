@@ -1,0 +1,38 @@
+{% extends '@View/Layout/ApplicationLayout.html.twig' %}
+
+{% set pageType = 'index' %}
+{% set pageName = text('TITLE_MAIL_BATCHES') %}
+
+{% block title %}{{ pageName }}{% endblock %}
+
+{% block head_extra %}
+    <link rel="stylesheet" type="text/css" href="/dist/merged/dataTables.min.css">
+    <script src="/dist/merged/dataTables.min.js"></script>
+    <script src="/includes/js/init.datatables.js"></script>
+{% endblock %}
+
+{% block main_content %}
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-sm-8"><h1>{{ pageName }}</h1></div>
+            <div class="col-sm-4">
+                <a href="{{ path('email.generate') }}" class="btn btn-info float-end">
+                    <span class="fa fa-plus"></span> {{ text('LABEL_NEW_EMAIL') }}
+                </a>
+            </div>
+        </div>
+        {% include '@View/Partials/FlashMessages.html.twig' %}
+        <nav>
+            <div class="nav nav-tabs mb-3 bg-secondary">
+                <a class="nav-item nav-link active" href="{{ path('email.batches') }}">Batches</a>
+                <a class="nav-item nav-link" href="{{ path('email.messages') }}">Messages</a>
+            </div>
+        </nav>
+        {% if batches %}
+            <p>Aantal: {{ batches|length }}</p>
+            {% include '@Email/Partials/MailBatchTable.html.twig' %}
+        {% else %}
+            {{ text('LABEL_NOT_FOUND') }}
+        {% endif %}
+    </div>
+{% endblock %}

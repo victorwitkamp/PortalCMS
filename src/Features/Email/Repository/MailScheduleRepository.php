@@ -4,14 +4,20 @@ declare(strict_types=1);
 
 namespace PortalCMS\Features\Email\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use PortalCMS\Features\Email\Entity\MailSchedule;
 
 /**
- * @extends EntityRepository<MailSchedule>
+ * @extends ServiceEntityRepository<MailSchedule>
  */
-final class MailScheduleRepository extends EntityRepository
+final class MailScheduleRepository extends ServiceEntityRepository
 {
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, MailSchedule::class);
+    }
+
     /** @return MailSchedule[] */
     public function findAllOrdered(): array
     {

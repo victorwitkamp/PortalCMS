@@ -4,15 +4,21 @@ declare(strict_types=1);
 
 namespace PortalCMS\Features\Users\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use PortalCMS\Features\Users\Entity\Permission;
 use PortalCMS\Features\Users\Entity\Role;
 
 /**
- * @extends EntityRepository<Role>
+ * @extends ServiceEntityRepository<Role>
  */
-final class RoleRepository extends EntityRepository
+final class RoleRepository extends ServiceEntityRepository
 {
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Role::class);
+    }
+
     /**
      * @return Role[]
      */

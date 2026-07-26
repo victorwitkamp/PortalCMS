@@ -1,0 +1,32 @@
+{% extends '@View/Layout/ApplicationLayout.html.twig' %}
+
+{% set title = 'Pagina ' ~ page.name ~ ' bewerken' %}
+
+{% block head_extra %}
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=y6xawmw19w565wdi90wrtlow2ll6498emv0fozfrtrt7vb4y"></script>
+    <script>
+        tinymce.init({
+            selector: "#mytextarea",
+            plugins: "advlist autolink link image lists charmap print preview"
+        });
+    </script>
+{% endblock %}
+
+{% block main_content %}
+    <div class="container">
+        <div class="row mt-5"><h3>Pagina "{{ page.name }}" bewerken</h3></div>
+        <hr>
+        {% include '@View/Partials/FlashMessages.html.twig' %}
+        <form method="post" action="{{ path('pages.update') }}">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('pages.update') }}">
+            <div class="mb-3 row">
+                <div class="col-sm-12">
+                    <textarea id="mytextarea" name="content" cols="50" rows="15" required>{{ page.content }}</textarea>
+                </div>
+            </div>
+            <input type="hidden" name="id" value="{{ page.id }}">
+            <button type="submit" class="btn btn-sm btn-primary">Opslaan</button>
+            <button type="button" onclick="history.back()" class="btn btn-sm btn-danger">Annuleren</button>
+        </form>
+    </div>
+{% endblock %}

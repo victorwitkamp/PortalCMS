@@ -1,0 +1,14 @@
+{% extends '@View/Layout/ApplicationLayout.html.twig' %}
+
+{% set title = 'Contract van ' ~ contract.band_naam ~ ' wijzigen' %}
+
+{% block main_content %}
+    <div class="container">
+        <div class="row mt-5"><h3>{{ title }}</h3></div>
+        {% include '@View/Partials/FlashMessages.html.twig' %}
+        {% include '@Contracts/Partials/ContractForm.html.twig' with {
+            pageType: 'edit',
+            contract: contract
+        } %}
+    </div>
+{% endblock %}

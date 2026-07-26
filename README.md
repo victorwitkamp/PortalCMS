@@ -63,7 +63,7 @@ See [docs/Installation.md](docs/Installation.md) for the full deployment guide
 composer install
 npm install
 npm run build
-vendor/bin/doctrine-migrations migrate --no-interaction
+php bin/console doctrine:migrations:migrate --no-interaction
 ```
 
 The current code organization and class API are documented in

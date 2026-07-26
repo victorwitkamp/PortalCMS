@@ -1,0 +1,32 @@
+{% extends '@View/Layout/AuthenticationLayout.html.twig' %}
+
+{% set title = text('LABEL_LOG_IN') %}
+
+{% block body %}
+    <form method="post" action="{{ path('login.submit') }}">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('login.submit') }}">
+        <div class="mb-3 required float in">
+            <input type="text" class="form-control" id="email" name="user_name" placeholder="Gebruikersnaam"
+                   autocomplete="username" required autofocus>
+            <label for="email" class="label-float">Gebruikersnaam</label>
+        </div>
+        <div class="mb-3 required float in">
+            <input type="password" class="form-control" id="password" name="user_password" placeholder="Wachtwoord"
+                   autocomplete="current-password" required>
+            <label for="password" class="label-float">Wachtwoord</label>
+        </div>
+        <div class="mb-3 form-check">
+            <label class="form-check-label" for="rememberMe">
+                <input type="checkbox" id="rememberMe" name="set_remember_me_cookie" class="form-check-input">
+                {{ text('LABEL_REMEMBER_ME') }}
+            </label>
+        </div>
+        <hr>
+        {% if redirect %}
+            <input type="hidden" name="redirect" value="{{ redirect }}">
+        {% endif %}
+        <button type="submit" name="loginSubmit" class="btn btn-primary">
+            {{ text('LABEL_LOG_IN') }}
+        </button>
+    </form>
+{% endblock %}

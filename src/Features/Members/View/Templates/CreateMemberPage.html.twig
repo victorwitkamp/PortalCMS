@@ -1,0 +1,13 @@
+{% extends '@View/Layout/ApplicationLayout.html.twig' %}
+
+{% set pageName = 'Lid toevoegen' %}
+{% set pageType = 'new' %}
+
+{% block title %}{{ pageName }}{% endblock %}
+
+{% block main_content %}
+    <div class="container">
+        <div class="row mt-5"><h1>{{ pageName }}</h1></div>
+        {% include '@Members/Partials/MemberForm.html.twig' %}
+    </div>
+{% endblock %}

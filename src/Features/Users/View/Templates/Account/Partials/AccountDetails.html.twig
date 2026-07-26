@@ -1,0 +1,33 @@
+<h3>{{ text('LABEL_ACCOUNT_DETAILS') }}</h3>
+<table class="table table-striped table-condensed">
+    <tr><th>{{ text('LABEL_USER_ID') }}</th><td>{{ user.user_id }}</td></tr>
+    <tr><th>{{ text('LABEL_USER_NAME') }}</th><td>{{ user.user_name }}</td></tr>
+    <tr><th>{{ text('LABEL_USER_EMAIL') }}</th><td>{{ user.user_email }}</td></tr>
+    <tr><th>{{ text('LABEL_USER_LAST_LOGIN_TIMESTAMP') }}</th><td>{{ user.user_last_login_timestamp|date('Y-m-d H:i:s') }}</td></tr>
+    <tr><th>{{ text('LABEL_USER_LAST_FAILED_LOGIN') }}</th><td>{{ user.user_last_failed_login ? user.user_last_failed_login|date('Y-m-d H:i:s') : '' }}</td></tr>
+    <tr>
+        <th>{{ text('LABEL_USER_FBID') }}</th>
+        <td>
+            {% if user.user_fbid %}
+                {{ user.user_fbid }}
+                <form method="post" action="{{ path('account.facebook_delete') }}" class="d-inline">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('account.facebook_delete') }}">
+                    <button type="submit" class="btn btn-outline-success user_registered-login">
+                        {{ text('LABEL_USER_CLEAR_FBID') }}
+                    </button>
+                </form>
+            {% else %}
+                <span>{{ text('LABEL_USER_CONNECT_FB') }}</span>
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th>Rollen</th>
+        <td>
+            {% for role in roles %}
+                {{ role.role_name }} ({{ role.role_id }}){% if not loop.last %}, {% endif %}
+            {% endfor %}
+        </td>
+    </tr>
+</table>
+<hr>

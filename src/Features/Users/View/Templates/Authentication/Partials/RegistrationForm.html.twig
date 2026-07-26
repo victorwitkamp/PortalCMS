@@ -1,0 +1,30 @@
+<div class="user_forms-signup">
+    <h2 class="forms_title">Registratie</h2>
+    <form method="post" action="{{ path('login.activate') }}" class="forms_form">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('login.activate') }}">
+        <fieldset class="forms_fieldset">
+            <div class="forms_field">
+                <input type="text" name="username" minlength="5" maxlength="20" placeholder="Gebruikersnaam"
+                       class="forms_field-input" autocomplete="username" required>
+            </div>
+            <div class="forms_field">
+                <input type="email" name="email" placeholder="E-mailadres"
+                       class="forms_field-input" autocomplete="email" required>
+            </div>
+            <div class="forms_field">
+                <input type="password" name="password" minlength="8"
+                       pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+                       placeholder="Wachtwoord" class="forms_field-input" autocomplete="new-password" required>
+            </div>
+            <div class="forms_field">
+                <input type="password" name="confirm_password" placeholder="Wachtwoord bevestigen"
+                       class="forms_field-input" autocomplete="new-password" required>
+            </div>
+        </fieldset>
+        <div class="forms_buttons">
+            <button type="submit" name="signupSubmit" class="btn btn-outline-info forms_buttons-action">
+                Registreren
+            </button>
+        </div>
+    </form>
+</div>

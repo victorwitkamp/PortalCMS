@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
     "use strict";
     var calendarEl = document.getElementById("calendar");
+    if (!calendarEl) {
+        return;
+    }
     var calendar = new FullCalendar.Calendar(calendarEl, {
         locale: "nl",
         initialView: "dayGridMonth",
@@ -12,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
         droppable: true,
         headerToolbar: {start: "prev,next", center: "title", end: "listYear,dayGridMonth"},
         scrollTime: "00:00:00",
-        events: "/Events/loadCalendarEvents",
+        events: calendarEl.dataset.eventsUrl,
         weekNumbers: true,
         weekNumbersWithinDays: true,
         weekNumberCalculation: "ISO",
@@ -25,9 +28,12 @@ document.addEventListener("DOMContentLoaded", function () {
             var end = moment(info.event.end).format("Y-MM-DD HH:mm:ss");
             var title = info.event.title;
             var id = info.event.id;
-            fetch("/Events/updateEventDate", {
+            fetch(calendarEl.dataset.rescheduleUrl, {
                 method: "POST",
-                headers: {"Content-Type": "application/x-www-form-urlencoded"},
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "X-CSRF-Token": calendarEl.dataset.rescheduleToken
+                },
                 body: new URLSearchParams({title: title, start: start, end: end, id: id})
             }).then(function () {
                 calendar.render();
@@ -35,8 +41,8 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         },
         eventClick: function (info) {
-            var link = "/Events/Edit?id=" + info.event.id;
-            fetch("/Events/Details?id=" + info.event.id)
+            var link = calendarEl.dataset.editUrl + "?id=" + info.event.id;
+            fetch(calendarEl.dataset.detailsUrl + "?id=" + info.event.id)
                 .then(function (response) {
                     return response.text();
                 })

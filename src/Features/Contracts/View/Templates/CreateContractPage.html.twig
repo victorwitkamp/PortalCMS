@@ -1,0 +1,10 @@
+{% extends '@View/Layout/ApplicationLayout.html.twig' %}
+
+{% set title = 'Contract toevoegen' %}
+
+{% block main_content %}
+    <div class="container">
+        <div class="row mt-5"><h1>{{ title }}</h1></div>
+        {% include '@Contracts/Partials/ContractForm.html.twig' with { pageType: 'new' } %}
+    </div>
+{% endblock %}

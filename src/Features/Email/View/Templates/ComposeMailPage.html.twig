@@ -1,0 +1,16 @@
+{% extends '@View/Layout/ApplicationLayout.html.twig' %}
+
+{% set pageName = 'Nieuw bericht' %}
+
+{% block title %}{{ pageName }}{% endblock %}
+
+{% block main_content %}
+    <div class="container">
+        <div class="row mt-5"><div class="col-sm-12"><h1>{{ pageName }}</h1></div></div>
+        <hr>
+        {% include '@View/Partials/FlashMessages.html.twig' %}
+        <h2>Nieuw bericht met template</h2>
+        <p>Aan wie wil je een e-mail versturen?</p>
+        <a href="{{ path('email.generate_member') }}">Lid</a>
+    </div>
+{% endblock %}

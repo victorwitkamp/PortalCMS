@@ -1,0 +1,20 @@
+{% set allowedStyles = ['success', 'warning', 'danger', 'info'] %}
+{% for type, messages in flashMessages|default([]) %}
+    {% set style = type in allowedStyles ? type : 'info' %}
+    {% for message in messages %}
+        {% set messageIsStructured = message is iterable %}
+        {% set messageText = messageIsStructured ? message.message|default('') : message %}
+        {% set messageLink = messageIsStructured and message.link is defined and message.link is iterable
+            ? message.link
+            : null %}
+        <div class="alert alert-{{ style }} alert-dismissible fade show" role="alert">
+            {{ messageText }}
+            {% if messageLink %}
+                <a href="{{ messageLink.href|default('') }}" class="alert-link">
+                    {{ messageLink.label|default('') }}
+                </a>
+            {% endif %}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+{% endfor %}

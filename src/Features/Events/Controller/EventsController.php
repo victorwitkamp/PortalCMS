@@ -38,13 +38,10 @@ final class EventsController extends AbstractController
     }
 
     #[Route('/Events', name: 'events.index', methods: [ 'GET' ])]
-    #[Route('/Events/', name: 'events.index_slash', methods: [ 'GET' ])]
-    #[Route('/events/', name: 'events.index_lowercase', methods: [ 'GET' ])]
-    #[Route('/Events/Index', name: 'events.index_legacy', methods: [ 'GET' ])]
     public function index(): Response
     {
         return $this->allowed()
-            ? $this->render('Events::EventListPage')
+            ? $this->render('@Events/EventListPage.html.twig')
             : $this->forbiddenResponse();
     }
 
@@ -52,7 +49,7 @@ final class EventsController extends AbstractController
     public function add(): Response
     {
         return $this->allowed()
-            ? $this->render('Events::CreateEventPage', [ 'pageName' => (string) Text::get('TITLE_EVENTS_ADD') ])
+            ? $this->render('@Events/CreateEventPage.html.twig', [ 'pageName' => (string) Text::get('TITLE_EVENTS_ADD') ])
             : $this->forbiddenResponse();
     }
 
@@ -93,7 +90,7 @@ final class EventsController extends AbstractController
             return $this->notFoundResponse();
         }
 
-        return $this->render('Events::EditEventPage', [
+        return $this->render('@Events/EditEventPage.html.twig', [
             'event' => $event,
             'pageName' => 'Evenement ' . $event->title . ' bewerken',
         ]);
@@ -162,7 +159,7 @@ final class EventsController extends AbstractController
             return $this->notFoundResponse('Geen resultaten voor opgegeven event ID.');
         }
 
-        return $this->render('Events::EventDetailsPage', [
+        return $this->render('@Events/EventDetailsPage.html.twig', [
             'event' => $event,
             'creator' => $this->users->findProfileById($event->CreatedBy),
         ]);

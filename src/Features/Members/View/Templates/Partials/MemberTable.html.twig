@@ -1,0 +1,59 @@
+{% set statusLabels = {
+    0: '0. Nieuw',
+    1: '1. Incasso opdracht verzonden',
+    11: '1.1 Niet verstuurd: rekeningnummer onjuist',
+    2: '2. Betaling per incasso gelukt',
+    21: '2.1 Incasso mislukt: rekeningnummer onjuist',
+    3: '3',
+    4: '4'
+} %}
+
+<form method="post">
+    <div class="row">
+        <div class="col-auto">
+            <button class="btn btn-danger" type="submit" formaction="{{ path('members.delete') }}"
+                    name="_csrf_token" value="{{ csrf_token('members.delete') }}">deleteMembersById</button>
+        </div>
+    </div>
+    <div class="row align-items-center">
+        <div class="col-auto">
+            <select name="status" class="form-control">
+                {% for value, label in statusLabels %}<option value="{{ value }}">{{ label }}</option>{% endfor %}
+            </select>
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-info" type="submit" formaction="{{ path('members.status') }}"
+                    name="_csrf_token" value="{{ csrf_token('members.status') }}">setPaymentStatusById</button>
+        </div>
+    </div>
+    <table id="example" class="table table-sm table-striped table-hover table-dark" style="width:100%;">
+        <thead class="table-dark">
+        <tr><th><input type="checkbox" id="selectall"></th><th>Acties</th><th>Naam</th><th>Betalingswijze</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+        {% for member in members %}
+            <tr>
+                <td class="text-center"><input type="checkbox" name="id[]" id="checkbox{{ member.id }}" value="{{ member.id }}"></td>
+                <td>
+                    <a href="{{ path('members.profile', {Id: member.id}) }}" title="Lidmaatschap bekijken" class="btn btn-primary btn-sm">
+                        <span class="fa fa-user"></span>
+                    </a>
+                    <a href="{{ path('members.edit', {Id: member.id}) }}" title="Gegevens wijzigen" class="btn btn-warning btn-sm">
+                        <span class="fa fa-edit"></span>
+                    </a>
+                </td>
+                <td>{{ member.voornaam }} {{ member.achternaam }}</td>
+                <td>{{ member.betalingswijze }}</td>
+                <td>{{ statusLabels[member.status]|default(member.status) }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</form>
+<script>
+    document.getElementById('selectall').addEventListener('change', function () {
+        document.querySelectorAll("input[type='checkbox']").forEach(checkbox => {
+            checkbox.checked = this.checked;
+        });
+    });
+</script>

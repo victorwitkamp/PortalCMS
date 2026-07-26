@@ -1,0 +1,31 @@
+{% extends '@View/Layout/ApplicationLayout.html.twig' %}
+
+{% set title = text('TITLE_HOME') %}
+
+{% block main_content %}
+    <div class="py-5 bg-body-tertiary">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <img src="{{ settings.site_logo|default('') }}" alt="logo" width="150" height="150">
+                    {% if canEdit %}
+                        <br><a href="{{ path('settings.logo') }}">Logo wijzigen</a>
+                    {% endif %}
+                </div>
+                <div class="col-sm-8">
+                    <h1>{{ settings.site_name|default('') }}</h1>
+                    <p class="lead">{{ description|raw }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            {% if settings.site_layout|default('right-sidebar') == 'left-sidebar' %}
+                {% include '@Home/Layout/LeftSidebarLayout.html.twig' %}
+            {% else %}
+                {% include '@Home/Layout/RightSidebarLayout.html.twig' %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,18 @@
+<div class="col-sm-4">
+    {% if settings.WidgetComingEvents|default(null) == 'true' %}
+        {% include '@Home/Widget/UpcomingEventsWidget.html.twig' with { events: events } %}
+    {% endif %}
+    <hr>
+    {% if settings.WidgetDebug|default(null) == 'true' %}
+        {% include '@Home/Widget/DebugWidget.html.twig' %}
+    {% endif %}
+</div>
+<div class="col-sm-8">
+    {% include '@View/Partials/FlashMessages.html.twig' %}
+    {{ page ? page.content|raw : '' }}
+    {% if canEdit and page %}
+        <hr>
+        <a href="{{ path('pages.edit', { id: page.id }) }}">{{ text('LABEL_EDIT_PAGE') }}</a>
+        <p>{{ text('LABEL_LAST_MODIFIED') }}: {{ page.ModificationDate|date('Y-m-d H:i:s') }}</p>
+    {% endif %}
+</div>

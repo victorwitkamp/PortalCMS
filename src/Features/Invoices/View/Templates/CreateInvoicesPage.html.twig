@@ -1,0 +1,53 @@
+{% extends '@View/Layout/ApplicationLayout.html.twig' %}
+
+{% set pageName = 'Factuur toevoegen' %}
+
+{% block title %}{{ pageName }}{% endblock %}
+
+{% block main_content %}
+    <div class="container">
+        <div class="row mt-5"><h1>{{ pageName }}</h1></div>
+        <hr>
+        {% include '@View/Partials/FlashMessages.html.twig' %}
+        <p>Zorg ervoor dat de bedragen voor de huur van de ruimte en van een eventuele kast reeds ingevuld zijn in het contract.</p>
+        <form method="post" action="{{ path('invoices.create') }}">
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Contract(en)</label>
+                <div class="col-sm-10">
+                    {% for contract in contracts %}
+                        <label class="d-block">
+                            <input type="checkbox" name="contract_id[]" value="{{ contract.id }}">
+                            {{ contract.bandcode }}: {{ contract.band_naam }}
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="invoice-year" class="col-sm-2 col-form-label">{{ text('YEAR') }}</label>
+                <div class="col-sm-10">
+                    <input type="number" min="1900" max="2100" id="invoice-year" name="year" class="form-control" value="{{ 'now'|date('Y') }}">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="invoice-month" class="col-sm-2 col-form-label">{{ text('MONTH') }}</label>
+                <div class="col-sm-10">
+                    <select id="invoice-month" name="month" class="form-control">
+                        {% for month in 1..12 %}
+                            {% set monthNumber = '%02d'|format(month) %}
+                            <option value="{{ monthNumber }}">{{ text('MONTH_' ~ monthNumber) }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="invoice-date" class="col-sm-2 col-form-label">Factuurdatum</label>
+                <div class="col-sm-10">
+                    <input type="date" id="invoice-date" class="form-control" name="factuurdatum" value="{{ 'now'|date('Y-m-d') }}">
+                </div>
+            </div>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('invoices.create') }}">
+            <button type="submit" class="btn btn-primary">Opslaan</button>
+            <a href="{{ path('invoices.index') }}" class="btn btn-danger">Annuleren</a>
+        </form>
+    </div>
+{% endblock %}

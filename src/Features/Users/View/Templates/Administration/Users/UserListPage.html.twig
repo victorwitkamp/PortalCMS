@@ -1,0 +1,49 @@
+{% extends '@View/Layout/ApplicationLayout.html.twig' %}
+
+{% set pageName = text('TITLE_USER_MANAGEMENT') %}
+
+{% block title %}{{ pageName }}{% endblock %}
+
+{% block main_content %}
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-sm-8"><h1>{{ pageName }}</h1></div>
+            <div class="col-sm-4">
+                <a href="{{ path('users.admin_add') }}" class="btn btn-success navbar-btn float-end">
+                    <span class="fa fa-plus"></span> Toevoegen
+                </a>
+            </div>
+        </div>
+        {% include '@View/Partials/FlashMessages.html.twig' %}
+        <hr>
+        <table class="table table-sm table-striped table-hover table-dark">
+            <thead class="table-dark">
+            <tr>
+                <th>{{ text('LABEL_USER_ID') }}</th>
+                <th>{{ text('LABEL_USER_NAME') }}</th>
+                <th>{{ text('LABEL_USER_EMAIL') }}</th>
+                <th>{{ text('LABEL_USER_LAST_LOGIN_TIMESTAMP') }}</th>
+                <th>Profiel</th>
+            </tr>
+            </thead>
+            {% if users %}
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.user_id }}</td>
+                        <td>{{ user.user_name }}</td>
+                        <td>{{ user.user_email }}</td>
+                        <td>{{ user.user_last_login_timestamp|date('Y-m-d H:i:s') }}</td>
+                        <td>
+                            <a href="{{ path('users.admin_profile', {id: user.user_id}) }}" title="Profiel weergeven"
+                               class="btn btn-primary btn-sm"><span class="fa fa-user"></span></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            {% else %}
+                <tr><td colspan="5">Ontbrekende gegevens.</td></tr>
+            {% endif %}
+        </table>
+    </div>
+{% endblock %}

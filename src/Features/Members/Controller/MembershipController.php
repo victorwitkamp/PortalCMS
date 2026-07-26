@@ -35,9 +35,6 @@ final class MembershipController extends AbstractController
     }
 
     #[Route('/Membership', name: 'members.index', methods: [ 'GET' ])]
-    #[Route('/Membership/', name: 'members.index_slash', methods: [ 'GET' ])]
-    #[Route('/membership', name: 'members.index_lowercase', methods: [ 'GET' ])]
-    #[Route('/membership/', name: 'members.index_lowercase_slash', methods: [ 'GET' ])]
     public function index(Request $request): Response
     {
         if (!$this->allowed()) {
@@ -45,7 +42,7 @@ final class MembershipController extends AbstractController
         }
 
         $year = $request->query->getInt('year', (int) date('Y'));
-        return $this->render('Members::MemberListPage', [
+        return $this->render('@Members/MemberListPage.html.twig', [
             'year' => $year,
             'years' => $this->members->findYears(),
             'yearCounts' => $this->yearCounts(),
@@ -57,7 +54,7 @@ final class MembershipController extends AbstractController
     public function new(): Response
     {
         return $this->allowed()
-            ? $this->render('Members::CreateMemberPage')
+            ? $this->render('@Members/CreateMemberPage.html.twig')
             : $this->forbiddenResponse();
     }
 
@@ -95,7 +92,7 @@ final class MembershipController extends AbstractController
 
         $member = $this->members->find($this->queryId($request));
         return $member instanceof Member
-            ? $this->render('Members::EditMemberPage', [ 'member' => $member ])
+            ? $this->render('@Members/EditMemberPage.html.twig', [ 'member' => $member ])
             : $this->notFoundResponse();
     }
 
@@ -176,7 +173,7 @@ final class MembershipController extends AbstractController
         $selectedYear = $request->query->getInt('Year', (int) date('Y'));
         $selectedPaymentType = $request->query->getString('PaymentType', 'incasso');
 
-        return $this->render('Members::CopyMembersPage', [
+        return $this->render('@Members/CopyMembersPage.html.twig', [
             'selectedYear' => $selectedYear,
             'selectedPaymentType' => $selectedPaymentType,
             'years' => $this->members->findYears(),
@@ -221,7 +218,7 @@ final class MembershipController extends AbstractController
 
         $member = $this->members->find($this->queryId($request));
         return $member instanceof Member
-            ? $this->render('Members::MemberProfilePage', [ 'member' => $member ])
+            ? $this->render('@Members/MemberProfilePage.html.twig', [ 'member' => $member ])
             : $this->notFoundResponse();
     }
 

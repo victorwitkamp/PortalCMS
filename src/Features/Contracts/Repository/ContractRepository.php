@@ -4,14 +4,20 @@ declare(strict_types=1);
 
 namespace PortalCMS\Features\Contracts\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use PortalCMS\Features\Contracts\Entity\Contract;
 
 /**
- * @extends EntityRepository<Contract>
+ * @extends ServiceEntityRepository<Contract>
  */
-final class ContractRepository extends EntityRepository
+final class ContractRepository extends ServiceEntityRepository
 {
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Contract::class);
+    }
+
     /**
      * @return Contract[]
      */

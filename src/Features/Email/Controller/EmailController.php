@@ -45,7 +45,6 @@ final class EmailController extends AbstractController
     }
 
     #[Route('/Email/Batches', name: 'email.batches', methods: [ 'GET' ])]
-    #[Route('/Email/Batches/', name: 'email.batches_slash', methods: [ 'GET' ])]
     public function batches(): Response
     {
         if (!$this->canSchedule()) {
@@ -58,11 +57,10 @@ final class EmailController extends AbstractController
             $messageCounts[$batch->id] = $this->batches->countMessages($batch->id);
         }
 
-        return $this->render('Email::MailBatchListPage', compact('batches', 'messageCounts'));
+        return $this->render('@Email/MailBatchListPage.html.twig', compact('batches', 'messageCounts'));
     }
 
     #[Route('/Email/Messages', name: 'email.messages', methods: [ 'GET' ])]
-    #[Route('/Email/Messages/', name: 'email.messages_slash', methods: [ 'GET' ])]
     public function messages(Request $request): Response
     {
         if (!$this->canSchedule()) {
@@ -74,14 +72,14 @@ final class EmailController extends AbstractController
             ? $this->mails->findAllOrdered()
             : $this->mails->findByBatchId($batchId);
 
-        return $this->render('Email::ScheduledMailListPage', compact('mails', 'batchId'));
+        return $this->render('@Email/ScheduledMailListPage.html.twig', compact('mails', 'batchId'));
     }
 
     #[Route('/Email/History', name: 'email.history', methods: [ 'GET' ])]
     public function history(): Response
     {
         return $this->canSchedule()
-            ? $this->render('Email::MailHistoryPage', [ 'mails' => $this->mails->findHistory() ])
+            ? $this->render('@Email/MailHistoryPage.html.twig', [ 'mails' => $this->mails->findHistory() ])
             : $this->forbiddenResponse();
     }
 
@@ -96,14 +94,14 @@ final class EmailController extends AbstractController
             return $this->notFoundResponse();
         }
 
-        return $this->render('Email::ScheduledMailDetailsPage', [ 'mail' => $mail ]);
+        return $this->render('@Email/ScheduledMailDetailsPage.html.twig', [ 'mail' => $mail ]);
     }
 
     #[Route('/Email/ViewTemplates', name: 'email.templates', methods: [ 'GET' ])]
     public function viewTemplates(): Response
     {
         return $this->canEditTemplates()
-            ? $this->render('Email::MailTemplateListPage', [
+            ? $this->render('@Email/MailTemplateListPage.html.twig', [
                 'mailTemplates' => $this->mailTemplates->findAllOrdered(),
             ])
             : $this->forbiddenResponse();
@@ -120,28 +118,26 @@ final class EmailController extends AbstractController
             return $this->notFoundResponse();
         }
 
-        return $this->render('Email::EditMailTemplatePage', [ 'mailTemplate' => $template ]);
+        return $this->render('@Email/EditMailTemplatePage.html.twig', [ 'mailTemplate' => $template ]);
     }
 
     #[Route('/Email/NewTemplate', name: 'email.template_new', methods: [ 'GET' ])]
     public function newTemplate(): Response
     {
         return $this->canEditTemplates()
-            ? $this->render('Email::CreateMailTemplatePage')
+            ? $this->render('@Email/CreateMailTemplatePage.html.twig')
             : $this->forbiddenResponse();
     }
 
     #[Route('/Email/Generate', name: 'email.generate', methods: [ 'GET' ])]
-    #[Route('/Email/Generate/', name: 'email.generate_slash', methods: [ 'GET' ])]
     public function generate(): Response
     {
         return $this->canSchedule()
-            ? $this->render('Email::ComposeMailPage')
+            ? $this->render('@Email/ComposeMailPage.html.twig')
             : $this->forbiddenResponse();
     }
 
     #[Route('/Email/GenerateMember', name: 'email.generate_member', methods: [ 'GET' ])]
-    #[Route('/Email/GenerateMember/', name: 'email.generate_member_slash', methods: [ 'GET' ])]
     public function generateMember(Request $request): Response
     {
         if (!$this->canSchedule()) {
@@ -149,7 +145,7 @@ final class EmailController extends AbstractController
         }
         $year = $request->query->getInt('year') ?: (int) date('Y');
 
-        return $this->render('Email::ComposeMemberMailPage', [
+        return $this->render('@Email/ComposeMemberMailPage.html.twig', [
             'year' => $year,
             'members' => $this->members->findRows($year),
             'mailTemplates' => $this->mailTemplates->findByType('member'),

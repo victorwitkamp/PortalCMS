@@ -71,7 +71,7 @@ abstract class AbstractController
     protected function notFoundResponse(string $message = 'The requested page cannot be found'): Response
     {
         return $this->render(
-            'View::Error/ErrorPage',
+            '@View/Error/ErrorPage.html.twig',
             [ 'title' => '404 - Not found', 'message' => $message ],
             Response::HTTP_NOT_FOUND,
         );
@@ -80,7 +80,7 @@ abstract class AbstractController
     protected function forbiddenResponse(string $message = 'You are not authorized to perform this action.'): Response
     {
         return $this->render(
-            'View::Error/ErrorPage',
+            '@View/Error/ErrorPage.html.twig',
             [ 'title' => '403 - Forbidden', 'message' => $message ],
             Response::HTTP_FORBIDDEN,
         );

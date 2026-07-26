@@ -4,15 +4,21 @@ declare(strict_types=1);
 
 namespace PortalCMS\Features\Email\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use PortalCMS\Features\Email\Entity\MailAttachment;
 use PortalCMS\Features\Email\Entity\MailTemplate;
 
 /**
- * @extends EntityRepository<MailTemplate>
+ * @extends ServiceEntityRepository<MailTemplate>
  */
-final class MailTemplateRepository extends EntityRepository
+final class MailTemplateRepository extends ServiceEntityRepository
 {
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, MailTemplate::class);
+    }
+
     /**
      * @return MailTemplate[]
      */

@@ -1,0 +1,39 @@
+{% extends '@View/Layout/ApplicationLayout.html.twig' %}
+
+{% set pageName = 'NewFromExisting' %}
+
+{% block title %}{{ pageName }}{% endblock %}
+
+{% block main_content %}
+    <div class="container-fluid">
+        <div class="row mt-5"><div class="col-sm-8"><h1>{{ pageName }}</h1></div></div>
+        <hr>
+        {% include '@View/Partials/FlashMessages.html.twig' %}
+        <ul>
+            {% for availableYear in years %}
+                <li>
+                    <a href="{{ path('members.copy_form', {
+                        Year: availableYear,
+                        PaymentType: selectedPaymentType|default(null)
+                    }) }}">{{ availableYear }}</a>
+                    ({{ yearCounts[availableYear]|default(0) }}){{ selectedYear == availableYear ? ' - Huidige selectie' : '' }}
+                </li>
+            {% endfor %}
+        </ul>
+        <ul>
+            {% for paymentType in paymentTypes %}
+                <li>
+                    <a href="{{ path('members.copy_form', {
+                        PaymentType: paymentType,
+                        Year: selectedYear|default(null)
+                    }) }}">{{ paymentType }}</a>{{ selectedPaymentType == paymentType ? ' - Huidige selectie' : '' }}
+                </li>
+            {% endfor %}
+        </ul>
+        {% if members %}
+            {% include '@Members/Partials/MemberCopyTable.html.twig' %}
+        {% else %}
+            {{ text('LABEL_NOT_FOUND') }}
+        {% endif %}
+    </div>
+{% endblock %}

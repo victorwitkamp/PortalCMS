@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="col-sm-6"><strong>{{ text('LABEL_EVENT_TITLE') }}:</strong></div>
+    <div class="col-sm-6"><p>{{ event.title }}</p></div>
+    <div class="col-sm-6"><strong>{{ text('LABEL_EVENT_ADDED_BY') }}:</strong></div>
+    <div class="col-sm-6">
+        <p>
+            {% if creator %}
+                <a href="{{ path('profile.index', { id: creator.user_id }) }}">{{ creator.user_name }}</a>
+            {% else %}
+                {{ text('LABEL_UNKNOWN') }}
+            {% endif %}
+        </p>
+    </div>
+    <div class="col-sm-6"><strong>{{ text('LABEL_EVENT_START') }}:</strong></div>
+    <div class="col-sm-6"><p>{{ event.start_event|date('Y-m-d H:i:s') }}</p></div>
+    <div class="col-sm-6"><strong>{{ text('LABEL_EVENT_END') }}:</strong></div>
+    <div class="col-sm-6"><p>{{ event.end_event|date('Y-m-d H:i:s') }}</p></div>
+    <div class="col-sm-6"><strong>{{ text('LABEL_EVENT_DESC') }}:</strong></div>
+    <div class="col-sm-6"><p>{{ event.description }}</p></div>
+    <div class="col-sm-6"><strong>{{ text('LABEL_EVENT_STATUS') }}:</strong></div>
+    <div class="col-sm-6"><p>{{ event.status }}</p></div>
+</div>

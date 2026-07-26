@@ -1,0 +1,14 @@
+<form method="post" action="{{ path('contracts.delete') }}">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('contracts.delete') }}">
+    <a href="{{ path('contracts.index') }}" class="btn btn-sm btn-primary" title="Terug">
+        <span class="fa fa-arrow-left"></span>
+    </a>
+    <a href="{{ path('contracts.edit', { id: contract.id }) }}" class="btn btn-sm btn-warning" title="Wijzigen">
+        <span class="fa fa-edit"></span>
+    </a>
+    <input type="hidden" name="id" value="{{ contract.id }}">
+    <button type="submit" class="btn btn-danger btn-sm"
+            onclick="return confirm('Weet u zeker dat u dit contract wilt verwijderen?')" title="Verwijderen">
+        <span class="fa fa-trash"></span>
+    </button>
+</form>

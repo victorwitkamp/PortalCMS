@@ -42,11 +42,8 @@ class User
     #[ORM\Column(type: 'boolean', options: [ 'default' => false ])]
     public bool $user_deleted = false;
 
-    // Doctrine's 'smallint' type generates a SMALLINT column, which would
-    // widen this away from the live schema's tinyint(1) (this holds small
-    // multi-value ints like 7, not just 0/1, so 'boolean' would be wrong
-    // too) — columnDefinition pins the exact existing DDL.
-    #[ORM\Column(type: 'integer', options: [ 'default' => 1 ], columnDefinition: 'TINYINT(1) NOT NULL DEFAULT 1')]
+    /** Multi-value account type; unlike the surrounding flags, this is not boolean. */
+    #[ORM\Column(type: 'smallint', options: [ 'default' => 1 ])]
     public int $user_account_type = 1;
 
     #[ORM\Column(type: 'boolean', options: [ 'default' => false ])]
@@ -58,10 +55,10 @@ class User
     #[ORM\Column(type: 'bigint', nullable: true)]
     public ?string $user_suspension_timestamp = null;
 
-    #[ORM\Column(type: 'datetime_immutable', columnDefinition: 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')]
+    #[ORM\Column(type: 'datetime_immutable', options: [ 'default' => 'CURRENT_TIMESTAMP' ], columnDefinition: 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')]
     public DateTimeImmutable $user_last_login_timestamp;
 
-    #[ORM\Column(type: 'integer', options: [ 'default' => 0 ], columnDefinition: 'TINYINT(1) NOT NULL DEFAULT 0')]
+    #[ORM\Column(type: 'smallint', options: [ 'default' => 0 ])]
     public int $user_failed_logins = 0;
 
     /** The historical zero-date default was migrated to a nullable timestamp. */
@@ -71,27 +68,24 @@ class User
     #[ORM\Column(type: 'string', length: 40, nullable: true)]
     public ?string $user_activation_hash = null;
 
-    // columnDefinition pins the existing CHAR(40) — plain type:'string' with
-    // a length generates VARCHAR, a real (if minor) type change.
-    #[ORM\Column(type: 'string', length: 40, nullable: true, columnDefinition: 'CHAR(40) DEFAULT NULL')]
+    /** Fixed-length SHA-1 token retained until the password-reset redesign. */
+    #[ORM\Column(type: 'string', length: 40, nullable: true, options: [ 'fixed' => true ])]
     public ?string $password_reset_hash = null;
 
     /** Same historical zero-date default issue as user_last_failed_login. */
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     public ?DateTimeImmutable $user_password_reset_timestamp = null;
 
-    // columnDefinition pins the existing TEXT — Doctrine's plain 'text' type
-    // generates LONGTEXT, an unintended widening.
-    #[ORM\Column(type: 'text', nullable: true, columnDefinition: 'TEXT DEFAULT NULL')]
+    #[ORM\Column(type: 'text', length: 65535, nullable: true)]
     public ?string $user_provider_type = null;
 
     #[ORM\Column(type: 'string', length: 100, nullable: true)]
     public ?string $user_fbid = null;
 
-    #[ORM\Column(name: 'CreationDate', type: 'datetime_immutable', insertable: false, updatable: false, columnDefinition: 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP')]
+    #[ORM\Column(name: 'CreationDate', type: 'datetime_immutable', insertable: false, updatable: false, options: [ 'default' => 'CURRENT_TIMESTAMP' ], columnDefinition: 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP')]
     public DateTimeImmutable $CreationDate;
 
-    #[ORM\Column(name: 'ModificationDate', type: 'datetime_immutable', insertable: false, updatable: false, columnDefinition: 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')]
+    #[ORM\Column(name: 'ModificationDate', type: 'datetime_immutable', insertable: false, updatable: false, options: [ 'default' => 'CURRENT_TIMESTAMP' ], columnDefinition: 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')]
     public DateTimeImmutable $ModificationDate;
 
     /** @var Collection<int, Role> */

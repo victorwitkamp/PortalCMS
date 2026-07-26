@@ -1,0 +1,127 @@
+{% macro option(value, current, label) %}
+    <option value="{{ value }}"{{ current == value ? ' selected' : '' }}>{{ label|default(value) }}</option>
+{% endmacro %}
+
+{% import _self as form %}
+
+<h3>{{ text('LABEL_SETTINGS_GENERAL') }}</h3>
+<div class="mb-3 row">
+    <label class="col-4 col-form-label">{{ text('LABEL_SITE_NAME') }}</label>
+    <div class="col-8"><input type="text" name="siteName" value="{{ settings.site_name|default('') }}" class="form-control"></div>
+
+    <label class="col-4 col-form-label">{{ text('LABEL_SITE_DESC') }}</label>
+    <div class="col-8"><input type="text" name="siteDescription" value="{{ settings.site_description|default('') }}" class="form-control"></div>
+
+    <label class="col-4 col-form-label">{{ text('LABEL_SITE_DESC_TYPE') }}</label>
+    <div class="col-8">
+        <select name="siteDescriptionType" class="form-control">
+            {{ form.option('1', settings.site_description_type|default(''), '1. Site description text') }}
+            {{ form.option('2', settings.site_description_type|default(''), '2. Random joke') }}
+            {{ form.option('3', settings.site_description_type|default(''), '3. Random Chuck Norris joke') }}
+        </select>
+    </div>
+
+    <label class="col-4 col-form-label">{{ text('LABEL_SITE_THEME') }}</label>
+    <div class="col-8">
+        <select class="form-control" name="siteTheme">
+            {% for theme in ['darkly', 'solar', 'superhero', 'cyborg', 'flatly', 'slate'] %}
+                {{ form.option(theme, settings.site_theme|default('')) }}
+            {% endfor %}
+        </select>
+    </div>
+
+    <label class="col-4 col-form-label">{{ text('LABEL_SITE_LAYOUT') }}</label>
+    <div class="col-8">
+        <select class="form-control" name="siteLayout">
+            {{ form.option('right-sidebar', settings.site_layout|default('')) }}
+            {{ form.option('left-sidebar', settings.site_layout|default('')) }}
+        </select>
+    </div>
+
+    <label class="col-4 col-form-label">{{ text('LABEL_SITE_URL') }}</label>
+    <div class="col-8"><input type="url" name="siteUrl" value="{{ settings.site_url|default('') }}" class="form-control"></div>
+
+    <label class="col-4 col-form-label">{{ text('LABEL_SITE_LOGO_URL') }}</label>
+    <div class="col-8"><input type="text" name="siteLogo" value="{{ settings.site_logo|default('') }}" class="form-control"></div>
+</div>
+
+<h3>{{ text('LABEL_SITE_WIDGETS') }}</h3>
+<div class="mb-3 row">
+    <label class="col-4 col-form-label">{{ text('TITLE_WIDGET_COMING_EVENTS') }}</label>
+    <div class="col-8">
+        <select class="form-control" name="widgetComingEvents">
+            {{ form.option('true', settings.WidgetComingEvents|default(''), 'Enabled') }}
+            {{ form.option('false', settings.WidgetComingEvents|default(''), 'Disabled') }}
+        </select>
+    </div>
+    <label class="col-4 col-form-label">{{ text('TITLE_WIDGET_DEBUG') }}</label>
+    <div class="col-8">
+        <select class="form-control" name="widgetDebug">
+            {{ form.option('true', settings.WidgetDebug|default(''), 'Enabled') }}
+            {{ form.option('false', settings.WidgetDebug|default(''), 'Disabled') }}
+        </select>
+    </div>
+</div>
+
+<h3>Mailserver</h3>
+<div class="mb-3 row">
+    <label class="col-4 col-form-label">SMTP server IP/hostname</label>
+    <div class="col-8"><input type="text" name="mailServer" value="{{ settings.MailServer|default('') }}" class="form-control"></div>
+
+    <label class="col-4 col-form-label">SMTP server port</label>
+    <div class="col-8"><input type="number" name="mailServerPort" value="{{ settings.MailServerPort|default('') }}" class="form-control"></div>
+
+    <label class="col-4 col-form-label">SMTP encryption</label>
+    <div class="col-8">
+        <select class="form-control" name="mailServerSecure">
+            {{ form.option('tls', settings.MailServerSecure|default('')) }}
+            {{ form.option('ssl', settings.MailServerSecure|default('')) }}
+            {{ form.option('off', settings.MailServerSecure|default(''), 'Disabled') }}
+        </select>
+    </div>
+
+    <label class="col-4 col-form-label">SMTP authentication</label>
+    <div class="col-8">
+        <select class="form-control" name="mailServerAuth">
+            {{ form.option('true', settings.MailServerAuth|default(''), 'Enabled') }}
+            {{ form.option('false', settings.MailServerAuth|default(''), 'Disabled') }}
+        </select>
+    </div>
+
+    <label class="col-4 col-form-label">SMTP username</label>
+    <div class="col-8"><input type="text" name="mailServerUsername" value="{{ settings.MailServerUsername|default('') }}" class="form-control"></div>
+
+    <label class="col-4 col-form-label">SMTP password</label>
+    <div class="col-8">
+        <input type="password" name="mailServerPassword" class="form-control" autocomplete="new-password" placeholder="Ongewijzigd laten">
+    </div>
+
+    <label class="col-4 col-form-label">SMTP debug</label>
+    <div class="col-8">
+        <select class="form-control" name="mailServerDebug">
+            {% for value, label in {
+                '0': '0. SMTP::DEBUG_OFF',
+                '1': '1. SMTP::DEBUG_CLIENT',
+                '2': '2. SMTP::DEBUG_SERVER',
+                '3': '3. SMTP::DEBUG_CONNECTION',
+                '4': '4. SMTP::DEBUG_LOWLEVEL'
+            } %}
+                {{ form.option(value, settings.MailServerDebug|default(''), label) }}
+            {% endfor %}
+        </select>
+    </div>
+
+    <label class="col-4 col-form-label">MailFromName</label>
+    <div class="col-8"><input type="text" name="mailFromName" value="{{ settings.MailFromName|default('') }}" class="form-control"></div>
+
+    <label class="col-4 col-form-label">MailFromEmail</label>
+    <div class="col-8"><input type="email" name="mailFromEmail" value="{{ settings.MailFromEmail|default('') }}" class="form-control"></div>
+
+    <label class="col-4 col-form-label">MailIsHTML</label>
+    <div class="col-8">
+        <select class="form-control" name="mailIsHtml">
+            {{ form.option('true', settings.MailIsHTML|default(''), 'Enabled') }}
+            {{ form.option('false', settings.MailIsHTML|default(''), 'Disabled') }}
+        </select>
+    </div>
+</div>

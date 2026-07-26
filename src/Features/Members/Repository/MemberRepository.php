@@ -4,14 +4,20 @@ declare(strict_types=1);
 
 namespace PortalCMS\Features\Members\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use PortalCMS\Features\Members\Entity\Member;
 
 /**
- * @extends EntityRepository<Member>
+ * @extends ServiceEntityRepository<Member>
  */
-final class MemberRepository extends EntityRepository
+final class MemberRepository extends ServiceEntityRepository
 {
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Member::class);
+    }
+
     /**
      * Read projections deliberately use DBAL so legacy list templates receive
      * scalar dates and integer TINYINT values rather than ORM-converted types.

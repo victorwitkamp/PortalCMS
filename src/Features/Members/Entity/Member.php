@@ -97,10 +97,10 @@ class Member
     #[ORM\Column(type: 'string', length: 30, nullable: true)]
     public ?string $opmerking = null;
 
-    #[ORM\Column(name: 'CreationDate', type: 'datetime_immutable', insertable: false, updatable: false, columnDefinition: 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP')]
+    #[ORM\Column(name: 'CreationDate', type: 'datetime_immutable', insertable: false, updatable: false, options: [ 'default' => 'CURRENT_TIMESTAMP' ], columnDefinition: 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP')]
     public DateTimeImmutable $CreationDate;
 
-    #[ORM\Column(name: 'ModificationDate', type: 'datetime_immutable', insertable: false, updatable: false, columnDefinition: 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')]
+    #[ORM\Column(name: 'ModificationDate', type: 'datetime_immutable', insertable: false, updatable: false, options: [ 'default' => 'CURRENT_TIMESTAMP' ], columnDefinition: 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')]
     public DateTimeImmutable $ModificationDate;
 
     public function __construct()

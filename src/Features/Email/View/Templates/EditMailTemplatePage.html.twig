@@ -1,0 +1,70 @@
+{% extends '@View/Layout/ApplicationLayout.html.twig' %}
+
+{% set pageName = text('TITLE_EDIT_MAIL_TEMPLATE') %}
+{% set attachments = mailTemplate.attachments %}
+
+{% block title %}{{ pageName }}{% endblock %}
+
+{% block head_extra %}
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=y6xawmw19w565wdi90wrtlow2ll6498emv0fozfrtrt7vb4y"></script>
+    <script>tinymce.init({selector: '#mytextarea', plugins: 'advlist autolink link image lists charmap print preview'});</script>
+{% endblock %}
+
+{% block main_content %}
+    <div class="container">
+        <div class="row mt-5"><div class="col-sm-8"><h1>{{ pageName }}</h1></div></div>
+        <hr>
+        {% include '@View/Partials/FlashMessages.html.twig' %}
+        {% if attachments.empty %}
+            <p>Dit bericht heeft geen bijlagen</p>
+        {% else %}
+            <form method="post" action="{{ path('email.template_attachments_delete') }}">
+                <input type="hidden" name="template_id" value="{{ mailTemplate.id }}">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('email.template_attachments_delete') }}">
+                <div class="mb-3">
+                    <label>Bijlage(s)</label>
+                    <ul>
+                        {% for attachment in attachments %}
+                            <li>
+                                <input type="checkbox" name="id[]" id="attachment-{{ attachment.id }}" value="{{ attachment.id }}">
+                                <label for="attachment-{{ attachment.id }}">
+                                    {{ attachment.path }}{{ attachment.name }}.{{ attachment.extension|trim('.') }}
+                                </label>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <button type="submit" class="btn btn-danger">Verwijderen</button>
+            </form>
+        {% endif %}
+        <hr>
+        <form method="post" action="{{ path('email.template_attachment_upload') }}" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="attachment_file">Upload een bijlage:</label>
+                <input type="file" id="attachment_file" name="attachment_file" required>
+            </div>
+            <input type="hidden" name="MAX_FILE_SIZE" value="5000000">
+            <input type="hidden" name="template_id" value="{{ mailTemplate.id }}">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('email.template_attachment_upload') }}">
+            <button type="submit">Bijlage uploaden</button>
+        </form>
+        <hr>
+        <form method="post" action="{{ path('email.template_update') }}">
+            <input type="hidden" name="id" value="{{ mailTemplate.id }}">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('email.template_update') }}">
+            <button type="submit" class="btn btn-primary float-end">Opslaan</button>
+            <div class="mb-3">
+                <label for="subject">Onderwerp</label>
+                <input type="text" name="subject" class="form-control" id="subject" placeholder="Onderwerp"
+                       value="{{ mailTemplate.subject }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="mytextarea">Bericht</label>
+                <textarea id="mytextarea" name="body" cols="50" rows="15" required>{{ mailTemplate.body }}</textarea>
+            </div>
+        </form>
+        <hr>
+        <p>Beschikbare placeholders voor signup: username, sitename, activatelink, activateformlink, confcode</p>
+        <p>Beschikbare placeholders voor password reset: USERNAME, RESETLINK, SITENAME</p>
+    </div>
+{% endblock %}

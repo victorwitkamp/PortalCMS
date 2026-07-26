@@ -1,0 +1,33 @@
+{% extends '@View/Layout/ApplicationLayout.html.twig' %}
+
+{% set pageName = text('TITLE_NEW_MAIL_TEMPLATE') %}
+
+{% block title %}{{ pageName }}{% endblock %}
+
+{% block head_extra %}
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=y6xawmw19w565wdi90wrtlow2ll6498emv0fozfrtrt7vb4y"></script>
+    <script>tinymce.init({selector: '#body', plugins: 'advlist autolink link image lists charmap print preview'});</script>
+{% endblock %}
+
+{% block main_content %}
+    <div class="container">
+        <div class="row mt-5"><div class="col-sm-8"><h1>{{ pageName }}</h1></div></div>
+        <hr>
+        {% include '@View/Partials/FlashMessages.html.twig' %}
+        <form method="post" action="{{ path('email.template_create') }}">
+            <div class="mb-3">
+                <label for="subject">Onderwerp</label>
+                <input type="text" name="subject" class="form-control" id="subject" placeholder="Onderwerp" required>
+            </div>
+            <div class="mb-3">
+                <label for="body">Bericht</label>
+                <textarea class="form-control" id="body" name="body" cols="50" rows="15"></textarea>
+            </div>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('email.template_create') }}">
+            <button type="submit" class="btn btn-primary">Opslaan</button>
+        </form>
+        <hr>
+        <p>Beschikbare placeholders voor signup: username, sitename, activatelink, activateformlink, confcode</p>
+        <p>Beschikbare placeholders voor password reset: USERNAME, RESETLINK, SITENAME</p>
+    </div>
+{% endblock %}

@@ -28,7 +28,6 @@ final class ProfileController extends AbstractController
     }
 
     #[Route('/Profile', name: 'profile.index', methods: [ 'GET' ])]
-    #[Route('/Profile/', name: 'profile.index_slash', methods: [ 'GET' ])]
     public function index(Request $request): Response
     {
         if (!$this->authentication->isLoggedIn()) {
@@ -41,6 +40,6 @@ final class ProfileController extends AbstractController
             return $this->notFoundResponse();
         }
 
-        return $this->render('Users::Profile/UserProfilePage', [ 'user' => $user ]);
+        return $this->render('@Users/Profile/UserProfilePage.html.twig', [ 'user' => $user ]);
     }
 }

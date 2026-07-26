@@ -1,0 +1,202 @@
+{% set editing = pageType == 'edit' %}
+{% set current = contract|default(null) %}
+{% set submitRoute = editing ? 'contracts.update' : 'contracts.create' %}
+
+<form method="post" action="{{ path(submitRoute) }}">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token(submitRoute) }}">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="mb-3">
+                <h3>Algemeen</h3>
+                <div class="row">
+                    <div class="col-md-8">
+                        <label class="col-form-label">Huurder</label>
+                        <input type="text" name="band_naam" class="form-control"
+                               value="{{ current.band_naam|default('') }}" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-form-label">Klantcode</label>
+                        <input minlength="1" maxlength="2" type="text" name="bandcode" class="form-control"
+                               value="{{ current.bandcode|default('') }}" required>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <h3>Kosten</h3>
+                <div class="row">
+                    {% for name, label in {
+                        kosten_ruimte: 'Ruimte (per maand)',
+                        kosten_kast: 'Kast (per maand)',
+                        kosten_totaal: 'Totaal (per maand)',
+                        kosten_borg: 'Borg (eenmalig)'
+                    } %}
+                        <div class="col-md-3">
+                            <label class="col-form-label">{{ label }}</label>
+                            <div class="input-group">
+                                <div class="input-group-text"><i class="fas fa-euro-sign"></i></div>
+                                <input type="number" step="0.01" name="{{ name }}" class="form-control"
+                                       value="{{ attribute(current, name)|default('') }}"
+                                       {{ name == 'kosten_totaal' ? 'disabled' : '' }}>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="row">
+                    {% for name, label in {
+                        contract_ingangsdatum: 'Ingangsdatum',
+                        contract_einddatum: 'Einddatum',
+                        contract_datum: 'Contractdatum'
+                    } %}
+                        {% set value = current ? attribute(current, name) : null %}
+                        <div class="col-md-3">
+                            <label class="col-form-label">{{ label }}</label>
+                            <div class="input-group">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                <input type="date" name="{{ name }}" class="form-control"
+                                       value="{{ value ? value|date('Y-m-d') : '' }}">
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <h3>Contactpersoon</h3>
+            <div class="mb-3">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="col-form-label">Naam</label>
+                        <input type="text" name="bandleider_naam" class="form-control"
+                               value="{{ current.bandleider_naam|default('') }}">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="col-form-label">Adres</label>
+                        <input type="text" name="bandleider_adres" class="form-control"
+                               placeholder="Voorbeeldadres 123" value="{{ current.bandleider_adres|default('') }}">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="col-form-label">Postcode</label>
+                        <input type="text" name="bandleider_postcode" class="form-control" maxlength="6"
+                               placeholder="1234AB" value="{{ current.bandleider_postcode|default('') }}">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="col-form-label">Woonplaats</label>
+                        <input type="text" name="bandleider_woonplaats" class="form-control"
+                               value="{{ current.bandleider_woonplaats|default('') }}">
+                    </div>
+                </div>
+                <div class="row">
+                    {% for name, label in {
+                        bandleider_telefoonnummer1: 'Telefoonnummer 1',
+                        bandleider_telefoonnummer2: 'Telefoonnummer 2'
+                    } %}
+                        <div class="col-sm-6">
+                            <label class="col-form-label">{{ label }}</label>
+                            <div class="input-group">
+                                <div class="input-group-text"><i class="fas fa-phone"></i></div>
+                                <input type="tel" name="{{ name }}" class="form-control"
+                                       value="{{ attribute(current, name)|default('') }}">
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="col-form-label">E-mail</label>
+                        <div class="input-group">
+                            <div class="input-group-text"><i class="fas fa-at"></i></div>
+                            <input type="email" name="bandleider_email" maxlength="254" class="form-control"
+                                   value="{{ current.bandleider_email|default('') }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label class="col-form-label">BSN</label>
+                        <div class="input-group">
+                            <div class="input-group-text"><i class="fas fa-user-tag"></i></div>
+                            <input type="text" name="bandleider_bsn" class="form-control"
+                                   value="{{ current.bandleider_bsn|default('') }}">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="col-form-label">Geboortedatum</label>
+                        <div class="input-group">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            <input type="date" name="bandleider_geboortedatum" class="form-control"
+                                   value="{{ current and current.bandleider_geboortedatum
+                                       ? current.bandleider_geboortedatum|date('Y-m-d')
+                                       : '' }}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <h3>Oefenruimte</h3>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Ruimte</label>
+                <div class="col-sm-10">
+                    {% for room in ['1', '2'] %}
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="huur_oefenruimte_nr"
+                                   value="{{ room }}" {{ current and current.huur_oefenruimte_nr == room ? 'checked' : '' }}>
+                            <label class="form-check-label">Oefenruimte {{ room }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Kast nr.</label>
+                <div class="col-sm-10">
+                    <input type="text" name="huur_kast_nr" class="form-control"
+                           value="{{ current.huur_kast_nr|default('') }}">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">{{ text('DAY') }}</label>
+                <div class="col-sm-10">
+                    <select name="huur_dag" class="form-control">
+                        <option value="">Selecteer een dag...</option>
+                        {% for number in 1..7 %}
+                            {% set day = text(('DAY_%02d')|format(number)) %}
+                            <option value="{{ day }}"
+                                    {{ current and current.huur_dag|upper == day|upper ? 'selected' : '' }}>
+                                {{ day }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                {% for name, label in { huur_start: 'Begintijd', huur_einde: 'Eindtijd' } %}
+                    {% set value = current ? attribute(current, name) : null %}
+                    <div class="col-md-4">
+                        <label class="col-form-label">{{ label }}</label>
+                        <div class="input-group">
+                            <div class="input-group-text"><i class="far fa-clock"></i></div>
+                            <input type="time" name="{{ name }}" class="form-control"
+                                   value="{{ value ? value|date('H:i') : '' }}">
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="mb-3 row">
+                <div class="col-md-4">
+                    <label class="col-form-label">Vertegenwoordiger de Beuk</label>
+                    <input type="text" name="beuk_vertegenwoordiger" class="form-control"
+                           value="{{ current.beuk_vertegenwoordiger|default('') }}">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <hr>
+            <p>* = verplicht veld.</p>
+            {% if editing %}<input type="hidden" name="id" value="{{ current.id }}">{% endif %}
+            <button type="submit" class="btn btn-sm btn-primary">Opslaan</button>
+            <a href="{{ editing ? path('contracts.details', { id: current.id }) : path('contracts.index') }}"
+               class="btn btn-sm btn-danger">Annuleren</a>
+        </div>
+    </div>
+</form>

@@ -25,6 +25,7 @@ final readonly class ContractInput
         public ?string $bandleider_telefoonnummer1 = null,
         public ?string $bandleider_telefoonnummer2 = null,
         #[Assert\Email]
+        #[Assert\Length(max: 254)]
         public ?string $bandleider_email = null,
         public ?string $bandleider_bsn = null,
         public ?string $huur_oefenruimte_nr = null,

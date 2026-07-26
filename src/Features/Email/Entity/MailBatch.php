@@ -17,7 +17,7 @@ class MailBatch
     #[ORM\Column(type: 'integer')]
     public int $id;
 
-    #[ORM\Column(type: 'integer', options: [ 'default' => 0 ], columnDefinition: 'TINYINT(1) NOT NULL DEFAULT 0')]
+    #[ORM\Column(type: 'smallint', options: [ 'default' => 0 ])]
     public int $status = 0;
 
     #[ORM\Column(name: 'DateSent', type: 'datetime_immutable', nullable: true)]
@@ -29,10 +29,10 @@ class MailBatch
     #[ORM\Column(name: 'CreatedBy', type: 'integer', nullable: true)]
     public ?int $CreatedBy = null;
 
-    #[ORM\Column(name: 'CreationDate', type: 'datetime_immutable', insertable: false, updatable: false, columnDefinition: 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP')]
+    #[ORM\Column(name: 'CreationDate', type: 'datetime_immutable', insertable: false, updatable: false, options: [ 'default' => 'CURRENT_TIMESTAMP' ], columnDefinition: 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP')]
     public DateTimeImmutable $CreationDate;
 
-    #[ORM\Column(name: 'ModificationDate', type: 'datetime_immutable', nullable: true, insertable: false, updatable: false, columnDefinition: 'TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')]
+    #[ORM\Column(name: 'ModificationDate', type: 'datetime_immutable', nullable: true, insertable: false, updatable: false, options: [ 'default' => 'CURRENT_TIMESTAMP' ], columnDefinition: 'TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')]
     public ?DateTimeImmutable $ModificationDate = null;
 
     public function __construct()

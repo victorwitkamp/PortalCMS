@@ -1,0 +1,28 @@
+<div class="navbar navbar-light bg-light p-0">
+    <div class="container">
+        <a class="navbar-brand me-auto mr-lg-0" href="{{ path('home.index') }}">{{ siteName }}</a>
+        <span class="navbar-text p-0">
+            {{ text('LABEL_SIGNED_IN_AS') }}<strong> {{ currentUserName|default('') }}</strong><br>
+            <a href="{{ path('account.index') }}">{{ text('TITLE_MY_ACCOUNT') }}</a> |
+            <form method="post" action="{{ path('logout') }}" class="d-inline">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('logout') }}">
+                <button type="submit" class="btn btn-link p-0 align-baseline">
+                    <i class="fa fa-sign-out-alt"></i>{{ text('LABEL_SIGN_OUT') }}
+                </button>
+            </form>
+        </span>
+    </div>
+</div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#primaryNavigation"
+                aria-controls="primaryNavigation" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="primaryNavigation">
+            <ul class="navbar-nav me-auto mt-lg-0">
+                {% include '@View/Partials/PrimaryNavigationMenu.html.twig' %}
+            </ul>
+        </div>
+    </div>
+</nav>

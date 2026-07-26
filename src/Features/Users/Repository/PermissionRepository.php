@@ -4,15 +4,21 @@ declare(strict_types=1);
 
 namespace PortalCMS\Features\Users\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use PortalCMS\Features\Users\Entity\Permission;
 use PortalCMS\Features\Users\Entity\User;
 
 /**
- * @extends EntityRepository<Permission>
+ * @extends ServiceEntityRepository<Permission>
  */
-final class PermissionRepository extends EntityRepository
+final class PermissionRepository extends ServiceEntityRepository
 {
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Permission::class);
+    }
+
     /** @return Permission[] */
     public function findAllOrdered(): array
     {

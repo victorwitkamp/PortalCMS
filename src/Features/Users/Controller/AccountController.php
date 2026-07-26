@@ -16,8 +16,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Csrf\CsrfToken;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 final class AccountController extends AbstractController
 {
@@ -28,13 +26,11 @@ final class AccountController extends AbstractController
         private readonly UserRepository $users,
         private readonly Authentication $authentication,
         private readonly Password $password,
-        private readonly CsrfTokenManagerInterface $csrfTokenManager,
     ) {
         parent::__construct($templates, $requestStack, $urlGenerator);
     }
 
     #[Route('/Account', name: 'account.index', methods: [ 'GET' ])]
-    #[Route('/Account/', name: 'account.index_slash', methods: [ 'GET' ])]
     public function index(): Response
     {
         $user = $this->currentUser();
@@ -42,15 +38,9 @@ final class AccountController extends AbstractController
             return $this->redirectToRoute('login.index', [ 'redirect' => 'Account' ]);
         }
 
-        return $this->render('Users::Account/AccountPage', [
+        return $this->render('@Users/Account/AccountPage.html.twig', [
             'user' => $user,
             'roles' => $this->users->findRoles($user->user_id),
-            'changeUsernameCsrfToken' => $this->csrfTokenManager
-                ->getToken('account.change_username')
-                ->getValue(),
-            'changePasswordCsrfToken' => $this->csrfTokenManager
-                ->getToken('account.change_password')
-                ->getValue(),
         ]);
     }
 
@@ -61,14 +51,6 @@ final class AccountController extends AbstractController
         if (!$user instanceof User) {
             return $this->redirectToRoute('login.index', [ 'redirect' => 'Account' ]);
         }
-        if (!$this->csrfTokenManager->isTokenValid(new CsrfToken(
-            'account.change_username',
-            $request->request->getString('csrf_token'),
-        ))) {
-            $this->addFlash('danger', 'Invalid CSRF token.');
-            return $this->redirectToRoute('account.index');
-        }
-
         $username = trim($request->request->getString('user_name'));
         if ($username === $user->user_name) {
             $this->addFlash('danger', Text::get('FEEDBACK_USERNAME_SAME_AS_OLD_ONE'));
@@ -93,14 +75,6 @@ final class AccountController extends AbstractController
         if (!$user instanceof User) {
             return $this->redirectToRoute('login.index', [ 'redirect' => 'Account' ]);
         }
-        if (!$this->csrfTokenManager->isTokenValid(new CsrfToken(
-            'account.change_password',
-            $request->request->getString('csrf_token'),
-        ))) {
-            $this->addFlash('danger', 'Invalid CSRF token.');
-            return $this->redirectToRoute('account.index');
-        }
-
         $error = $this->password->change(
             $user,
             $request->request->getString('currentpassword'),

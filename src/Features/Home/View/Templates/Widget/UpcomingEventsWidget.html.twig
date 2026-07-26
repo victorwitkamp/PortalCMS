@@ -1,0 +1,16 @@
+<h4>{{ text('TITLE_WIDGET_COMING_EVENTS') }}</h4>
+<div class="card" id="show-events">
+    {% if events %}
+        <ul class="list-group">
+            {% for event in events %}
+                <li class="list-group-item">
+                    <i class="far fa-calendar"></i>
+                    <a href="{{ path('events.details', { id: event.id }) }}">{{ event.title }}</a>
+                    <br>Start: {{ event.start_event|date('Y-m-d H:i:s') }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Geen evenementen gevonden.</p>
+    {% endif %}
+</div>

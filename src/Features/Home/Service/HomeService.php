@@ -6,14 +6,14 @@ namespace PortalCMS\Features\Home\Service;
 
 use PortalCMS\Features\Events\Repository\EventRepository;
 use PortalCMS\Features\Pages\Repository\PageRepository;
-use PortalCMS\Features\Settings\SiteSetting;
+use PortalCMS\Features\Settings\Application\Settings;
 use PortalCMS\Features\Users\Authorization\Authorization;
 use Throwable;
 
 final class HomeService
 {
     public function __construct(
-        private readonly SiteSetting $settings,
+        private readonly Settings $settings,
         private readonly PageRepository $pages,
         private readonly EventRepository $events,
         private readonly Authorization $authorization,

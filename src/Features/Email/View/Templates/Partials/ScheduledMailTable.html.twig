@@ -1,0 +1,49 @@
+<form method="post">
+    <table id="messages" class="table table-sm" style="width:100%;" data-page-length="25">
+        <thead class="table-dark">
+        <tr>
+            <th class="text-center"><input type="checkbox" id="selectall"></th>
+            <th>ID</th><th>Batch ID</th><th>Recipients</th><th>Subject</th>
+            {% if pageType == 'history' %}<th>Verzonden op</th>{% endif %}
+            <th>Status</th><th>CreationDate</th><th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for mail in mails %}
+            <tr>
+                <td class="text-center"><input type="checkbox" name="id[]" id="checkbox{{ mail.id }}" value="{{ mail.id }}"></td>
+                <td>{{ mail.id }}</td>
+                <td>{{ mail.batch_id }}</td>
+                <td>{{ mail.recipients.count }}</td>
+                <td>{{ mail.subject }}</td>
+                {% if pageType == 'history' %}<td>{{ mail.DateSent ? mail.DateSent|date('Y-m-d H:i:s') : '' }}</td>{% endif %}
+                <td>
+                    {% if mail.status == 1 %}<span class="badge bg-secondary">Klaar voor verzending</span>{% endif %}
+                    {% if mail.status == 2 %}<span class="badge bg-success">Verzonden</span>{% endif %}
+                    {% if mail.status == 3 %}<span class="badge bg-danger">Fout bij verzenden</span>{% endif %}
+                </td>
+                <td>{{ mail.CreationDate|date('Y-m-d H:i:s') }}</td>
+                <td>
+                    <a href="{{ path('email.details', {id: mail.id}) }}" title="Details" class="btn btn-success btn-sm">
+                        <i class="fas fa-info"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <hr>
+    {% if pageType == 'index' %}
+        <button type="submit" class="btn btn-primary" formaction="{{ path('email.messages_send') }}"
+                name="_csrf_token" value="{{ csrf_token('email.messages_send') }}">{{ text('LABEL_SEND_EMAIL') }}</button>
+    {% endif %}
+    <button type="submit" class="btn btn-danger" formaction="{{ path('email.messages_delete') }}"
+            name="_csrf_token" value="{{ csrf_token('email.messages_delete') }}">{{ text('LABEL_DELETE_EMAIL') }}</button>
+</form>
+<script>
+    document.getElementById('selectall').addEventListener('change', function () {
+        document.querySelectorAll("input[type='checkbox']").forEach(checkbox => {
+            checkbox.checked = this.checked;
+        });
+    });
+</script>

@@ -4,14 +4,20 @@ declare(strict_types=1);
 
 namespace PortalCMS\Features\Products\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use PortalCMS\Features\Products\Entity\Product;
 
 /**
- * @extends EntityRepository<Product>
+ * @extends ServiceEntityRepository<Product>
  */
-final class ProductRepository extends EntityRepository
+final class ProductRepository extends ServiceEntityRepository
 {
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Product::class);
+    }
+
     /** @return Product[] */
     public function findAllOrdered(): array
     {

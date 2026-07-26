@@ -4,15 +4,21 @@ declare(strict_types=1);
 
 namespace PortalCMS\Features\Invoices\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use PortalCMS\Features\Invoices\Entity\Invoice;
 use PortalCMS\Features\Invoices\Entity\InvoiceItem;
 
 /**
- * @extends EntityRepository<Invoice>
+ * @extends ServiceEntityRepository<Invoice>
  */
-final class InvoiceRepository extends EntityRepository
+final class InvoiceRepository extends ServiceEntityRepository
 {
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Invoice::class);
+    }
+
     public function findByNumber(string $number): ?Invoice
     {
         return $this->findOneBy([ 'factuurnummer' => $number ]);

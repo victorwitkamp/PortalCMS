@@ -47,7 +47,7 @@ class Contract
     #[ORM\Column(type: 'string', length: 10, nullable: true)]
     public ?string $bandleider_telefoonnummer2 = null;
 
-    #[ORM\Column(type: 'string', length: 30, nullable: true)]
+    #[ORM\Column(type: 'string', length: 254, nullable: true)]
     public ?string $bandleider_email = null;
 
     #[ORM\Column(type: 'string', length: 9, nullable: true)]
@@ -106,10 +106,10 @@ class Contract
     // columnDefinition also pins the exact DDL so Doctrine's schema tool
     // doesn't try to convert these to DATETIME (its default mapping for
     // "datetime_immutable" is DATETIME, not TIMESTAMP).
-    #[ORM\Column(name: 'CreationDate', type: 'datetime_immutable', insertable: false, updatable: false, columnDefinition: 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP')]
+    #[ORM\Column(name: 'CreationDate', type: 'datetime_immutable', insertable: false, updatable: false, options: [ 'default' => 'CURRENT_TIMESTAMP' ], columnDefinition: 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP')]
     public DateTimeImmutable $CreationDate;
 
-    #[ORM\Column(name: 'ModificationDate', type: 'datetime_immutable', insertable: false, updatable: false, columnDefinition: 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')]
+    #[ORM\Column(name: 'ModificationDate', type: 'datetime_immutable', insertable: false, updatable: false, options: [ 'default' => 'CURRENT_TIMESTAMP' ], columnDefinition: 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')]
     public DateTimeImmutable $ModificationDate;
 
     public function __construct()

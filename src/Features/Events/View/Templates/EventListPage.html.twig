@@ -1,0 +1,70 @@
+{% extends '@View/Layout/ApplicationLayout.html.twig' %}
+
+{% set title = text('TITLE_EVENTS') %}
+
+{% block head_extra %}
+    <link rel="stylesheet" type="text/css" href="/dist/bootstrap-icons/font/bootstrap-icons.min.css">
+    <script src="/dist/moment/min/moment.min.js"></script>
+    <script src="/dist/moment/locale/nl.js"></script>
+    <script src="/dist/merged/fullcalendar.min.js"></script>
+    <script src="/includes/js/calendar.js"></script>
+{% endblock %}
+
+{% block main_content %}
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-sm-8"><h1>{{ title }}</h1></div>
+            <div class="col-sm-4">
+                <a href="{{ path('events.add') }}" class="btn btn-info float-end">
+                    <span class="fa fa-plus"></span> {{ text('LABEL_ADD') }}
+                </a>
+            </div>
+        </div>
+        {% include '@View/Partials/FlashMessages.html.twig' %}
+        <div class="row justify-content-center">
+            <div class="col-sm-12">
+                <div id="calendar"
+                     data-events-url="{{ path('events.calendar') }}"
+                     data-details-url="{{ path('events.details') }}"
+                     data-edit-url="{{ path('events.edit') }}"
+                     data-reschedule-url="{{ path('events.reschedule') }}"
+                     data-reschedule-token="{{ csrf_token('events.reschedule') }}"></div>
+                <p>
+                    <span class="badge bg-info">{{ text('LABEL_EVENT_DRAFT') }}</span>
+                    <span class="badge bg-success">{{ text('LABEL_EVENT_CONFIRMED') }}</span>
+                    <span class="badge bg-danger">{{ text('LABEL_EVENT_CANCELED') }}</span>
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <div id="fullCalModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="modalTitle" class="modal-title">{{ text('LABEL_EVENT_DETAILS') }}</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="{{ text('CLOSE') }}"></button>
+                </div>
+                <div id="modalBody" class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        {{ text('LABEL_CLOSE') }}
+                    </button>
+                    <a class="btn btn-primary" id="eventUrl" role="button">
+                        <i class="far fa-edit"></i> {{ text('LABEL_EDIT') }}
+                    </a>
+                    <form method="post" action="{{ path('events.delete') }}">
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('events.delete') }}">
+                        <input name="id" type="hidden" id="deleteUrl">
+                        <button name="deleteEvent" type="submit" class="btn btn-danger">
+                            <i class="far fa-trash-alt"></i> {{ text('LABEL_DELETE') }}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

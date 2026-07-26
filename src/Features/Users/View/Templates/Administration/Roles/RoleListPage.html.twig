@@ -1,0 +1,47 @@
+{% extends '@View/Layout/ApplicationLayout.html.twig' %}
+
+{% set pageName = text('TITLE_ROLE_MANAGEMENT') %}
+
+{% block title %}{{ pageName }}{% endblock %}
+
+{% block main_content %}
+    <div class="container">
+        <div class="row mt-5"><div class="col-sm-8"><h1>{{ pageName }}</h1></div></div>
+        {% include '@View/Partials/FlashMessages.html.twig' %}
+        <hr>
+        <table class="table table-sm table-striped table-hover table-dark">
+            <thead class="table-dark"><tr><th>ID</th><th>Rol</th><th>Acties</th></tr></thead>
+            {% if roles %}
+                <tbody>
+                {% for role in roles %}
+                    <tr>
+                        <td>{{ role.role_id }}</td>
+                        <td>{{ role.role_name }}</td>
+                        <td>
+                            <form method="post" action="{{ path('users.admin_role_delete') }}">
+                                <a href="{{ path('users.admin_role', {id: role.role_id}) }}" title="Rol beheren"
+                                   class="btn btn-primary btn-sm"><span class="fa fa-cog"></span></a>
+                                <input type="hidden" name="role_id" value="{{ role.role_id }}">
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('users.admin_role_delete') }}">
+                                <button type="submit" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Weet u zeker dat u deze rol wilt verwijderen?')">
+                                    <span class="fa fa-trash"></span>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            {% else %}
+                <tr><td colspan="3">Ontbrekende gegevens.</td></tr>
+            {% endif %}
+        </table>
+        <hr>
+        <h3>Nieuwe rol</h3>
+        <form method="post" action="{{ path('users.admin_role_create') }}">
+            <input type="text" name="role_name" required>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('users.admin_role_create') }}">
+            <button type="submit" class="btn btn-primary btn-sm">Toevoegen</button>
+        </form>
+    </div>
+{% endblock %}

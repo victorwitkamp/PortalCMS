@@ -23,8 +23,7 @@ final class LogoutController extends AbstractController
         parent::__construct($templates, $requestStack, $urlGenerator);
     }
 
-    #[Route('/Logout', name: 'logout', methods: [ 'GET', 'POST' ])]
-    #[Route('/Logout/', name: 'logout_slash', methods: [ 'GET', 'POST' ])]
+    #[Route('/Logout', name: 'logout', methods: [ 'POST' ])]
     public function index(): Response
     {
         $this->authentication->logout();

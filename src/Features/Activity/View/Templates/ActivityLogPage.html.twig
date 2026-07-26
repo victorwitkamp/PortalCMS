@@ -1,0 +1,38 @@
+{% extends '@View/Layout/ApplicationLayout.html.twig' %}
+
+{% set title = text('TITLE_RECENT_ACTIVITY') %}
+
+{% block head_extra %}
+    <link rel="stylesheet" type="text/css" href="/dist/merged/dataTables.min.css">
+    <script src="/dist/merged/dataTables.min.js"></script>
+    <script src="/includes/js/init.datatables.js" class="init"></script>
+{% endblock %}
+
+{% block main_content %}
+    <div class="container">
+        <div class="row mt-5"><div class="col-sm-12"><h1>{{ title }}</h1></div></div>
+        {% include '@View/Partials/FlashMessages.html.twig' %}
+        <table id="example" class="table table-sm table-striped table-hover table-dark" style="width:100%;">
+            <thead>
+            <tr>
+                <th>CreationDate</th>
+                <th>User ID</th>
+                <th>IP Address</th>
+                <th>Activity</th>
+                <th>Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for activity in activities %}
+                <tr>
+                    <td>{{ activity.CreationDate|date('Y-m-d H:i:s') }}</td>
+                    <td>{{ activity.user_id }}</td>
+                    <td>{{ activity.ip_address }}</td>
+                    <td>{{ activity.activity }}</td>
+                    <td>{{ activity.details }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

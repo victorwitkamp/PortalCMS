@@ -22,10 +22,10 @@ class Page
 
     // columnDefinition pins the existing TEXT — Doctrine's plain 'text' type
     // generates LONGTEXT, an unintended widening.
-    #[ORM\Column(type: 'text', nullable: true, columnDefinition: 'TEXT DEFAULT NULL')]
+    #[ORM\Column(type: 'text', length: 65535, nullable: true)]
     public ?string $content = null;
 
-    #[ORM\Column(name: 'ModificationDate', type: 'datetime_immutable', insertable: false, updatable: false, columnDefinition: 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')]
+    #[ORM\Column(name: 'ModificationDate', type: 'datetime_immutable', insertable: false, updatable: false, options: [ 'default' => 'CURRENT_TIMESTAMP' ], columnDefinition: 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')]
     public DateTimeImmutable $ModificationDate;
 
     public function __construct()

@@ -1,0 +1,51 @@
+{% extends '@View/Layout/ApplicationLayout.html.twig' %}
+
+{% block title %}{{ pageName }}{% endblock %}
+
+{% block head_extra %}
+    <link rel="stylesheet" type="text/css" href="/dist/merged/dataTables.min.css">
+    <script src="/dist/merged/dataTables.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            new DataTable('#example', {
+                scrollX: true,
+                language: {url: '//cdn.datatables.net/plug-ins/2.3.8/i18n/nl-NL.json'},
+                paging: false,
+                ordering: true,
+                order: [[1, 'asc']],
+                compact: true,
+                select: true,
+                columnDefs: [{orderable: false, targets: [0, 6]}]
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block main_content %}
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-sm-8"><h1>{{ pageName }}</h1></div>
+            <div class="col-sm-4">
+                <a href="{{ path('invoices.add') }}" class="btn btn-success navbar-btn float-end">
+                    <span class="fa fa-plus"></span> Toevoegen
+                </a>
+            </div>
+        </div>
+        <ul>
+            <li><a href="{{ path('invoices.index') }}">Alle</a> ({{ invoiceCount }})</li>
+            {% for availableYear in years %}
+                <li>
+                    <a href="{{ path('invoices.index', {year: availableYear}) }}">{{ availableYear }}</a>
+                    ({{ yearCounts[availableYear]|default(0) }}){{ selectedYear == availableYear ? ' - Geselecteerd' : '' }}
+                </li>
+            {% endfor %}
+        </ul>
+        <hr>
+        {% include '@View/Partials/FlashMessages.html.twig' %}
+    </div>
+    {% if invoices %}
+        <div class="container-fluid">{% include '@Invoices/Partials/InvoiceTable.html.twig' %}</div>
+    {% else %}
+        <div class="container">Geen facturen gevonden.</div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends '@View/Layout/ApplicationLayout.html.twig' %}
+
+{% set pageName = text('TITLE_PROFILE') ~ user.user_name %}
+
+{% block title %}{{ pageName }}{% endblock %}
+
+{% block main_content %}
+    <div class="container">
+        <div class="row mt-5"><h1>{{ pageName }}</h1></div>
+        {% include '@View/Partials/FlashMessages.html.twig' %}
+        <form method="post" action="{{ path('users.admin_delete') }}">
+            <a href="{{ path('users.admin_users') }}" class="btn btn-sm btn-primary"><span class="fa fa-arrow-left"></span></a>
+            <input type="hidden" name="user_id" value="{{ user.user_id }}">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('users.admin_delete') }}">
+            <button type="submit" onclick="return confirm('Weet je zeker dat je deze gebruiker wilt verwijderen?')"
+                    class="btn btn-sm btn-danger"><span class="fa fa-trash"></span></button>
+        </form>
+        <hr>
+    </div>
+    <div class="container">
+        {% include '@Users/Administration/Users/Partials/UserDetailsTable.html.twig' %}
+    </div>
+{% endblock %}

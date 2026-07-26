@@ -4,17 +4,14 @@ declare(strict_types=1);
 
 namespace PortalCMS\Core\View;
 
-use League\Plates\Engine;
-use PortalCMS\Features\Settings\SiteSetting;
-use RuntimeException;
+use PortalCMS\Features\Settings\Application\Settings;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Twig\Environment;
 
 final class TemplateRenderer
 {
-    private Engine $engine;
-
     private ?Request $contextRequest = null;
 
     private bool $hasRequestData = false;
@@ -23,20 +20,10 @@ final class TemplateRenderer
     private array $requestData = [];
 
     public function __construct(
-        private readonly SiteSetting $settings,
+        private readonly Environment $twig,
+        private readonly Settings $settings,
         private readonly RequestStack $requestStack,
     ) {
-        $this->engine = new Engine();
-        $this->engine->addFolder('View', dirname(__DIR__, 2) . '/View');
-
-        $featureViews = glob(dirname(__DIR__, 2) . '/Features/*/View/Templates', GLOB_ONLYDIR);
-        if ($featureViews === false) {
-            throw new RuntimeException('Feature view directories could not be discovered.');
-        }
-        foreach ($featureViews as $featureView) {
-            $featureName = basename(dirname(dirname($featureView)));
-            $this->engine->addFolder($featureName, $featureView);
-        }
     }
 
     /**
@@ -44,9 +31,10 @@ final class TemplateRenderer
      */
     public function render(string $template, array $data = []): string
     {
-        $this->engine->addData($this->sharedData());
-
-        return $this->engine->render($template, $data);
+        return $this->twig->render($template, [
+            ...$this->sharedData(),
+            ...$data,
+        ]);
     }
 
     /**
@@ -80,8 +68,8 @@ final class TemplateRenderer
         $this->contextRequest = $request;
         $this->hasRequestData = true;
         $this->requestData = [
-            'siteName' => $this->settings->get('site_name') ?? 'PortalCMS',
-            'siteTheme' => $this->settings->get('site_theme') ?? 'default',
+            'siteName' => $this->settings->value('site_name') ?? 'PortalCMS',
+            'siteTheme' => $this->settings->value('site_theme') ?? 'default',
             'currentUserName' => is_string($currentUserName) ? $currentUserName : null,
             'flashMessages' => $flashMessages,
         ];

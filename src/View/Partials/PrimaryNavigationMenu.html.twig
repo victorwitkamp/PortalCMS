@@ -1,0 +1,48 @@
+<li class="nav-item">
+    <a class="nav-link" href="{{ path('home.index') }}">{{ text('NAV_TITLE_HOME') }}</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{{ path('events.index') }}">{{ text('TITLE_EVENTS') }}</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{{ path('members.index') }}">{{ text('TITLE_MEMBERS') }}</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{{ path('activity.index') }}">{{ text('NAV_TITLE_ACTIVITY') }}</a>
+</li>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="rentalMenu" data-bs-toggle="dropdown"
+       aria-haspopup="true" aria-expanded="false">{{ text('NAV_TITLE_RENTAL') }}</a>
+    <div class="dropdown-menu" aria-labelledby="rentalMenu">
+        <a class="dropdown-item" href="{{ path('contracts.index') }}">{{ text('TITLE_CONTRACTS') }}</a>
+        <a class="dropdown-item" href="{{ path('invoices.index') }}">{{ text('TITLE_INVOICES') }}</a>
+    </div>
+</li>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="emailMenu" data-bs-toggle="dropdown"
+       aria-haspopup="true" aria-expanded="false">{{ text('NAV_TITLE_EMAIL') }}</a>
+    <div class="dropdown-menu" aria-labelledby="emailMenu">
+        <h6 class="dropdown-header">{{ text('LABEL_SCHEDULE') }}</h6>
+        <a class="dropdown-item" href="{{ path('email.batches') }}">{{ text('LABEL_BATCHES') }}</a>
+        <a class="dropdown-item" href="{{ path('email.messages') }}">{{ text('LABEL_MESSAGES') }}</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="{{ path('email.history') }}">{{ text('TITLE_MAIL_HISTORY') }}</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="{{ path('email.templates') }}">{{ text('TITLE_MAIL_TEMPLATES') }}</a>
+    </div>
+</li>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="settingsMenu" data-bs-toggle="dropdown"
+       aria-haspopup="true" aria-expanded="false">{{ text('NAV_TITLE_SETTINGS') }}</a>
+    <div class="dropdown-menu" aria-labelledby="settingsMenu">
+        <h6 class="dropdown-header">{{ text('LABEL_GENERAL_SETTINGS') }}</h6>
+        <a class="dropdown-item" href="{{ path('settings.index') }}">{{ text('TITLE_SITE_SETTINGS') }}</a>
+        <div class="dropdown-divider"></div>
+        <h6 class="dropdown-header">{{ text('LABEL_ACCESS_SETTINGS') }}</h6>
+        <a class="dropdown-item" href="{{ path('users.admin_users') }}">{{ text('TITLE_USER_MANAGEMENT') }}</a>
+        <a class="dropdown-item" href="{{ path('users.admin_roles') }}">{{ text('TITLE_ROLE_MANAGEMENT') }}</a>
+        <div class="dropdown-divider"></div>
+        <h6 class="dropdown-header">{{ text('LABEL_OTHER') }}</h6>
+        <a class="dropdown-item" href="{{ path('diagnostics.index') }}">{{ text('TITLE_DEBUG') }}</a>
+    </div>
+</li>

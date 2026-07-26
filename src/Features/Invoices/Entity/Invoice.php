@@ -76,7 +76,7 @@ class Invoice
     // in its INSERT either); a placeholder default just keeps the typed
     // property initialized. columnDefinition pins the exact DDL so
     // Doctrine's schema tool doesn't try to convert it to DATETIME.
-    #[ORM\Column(name: 'CreationDate', type: 'datetime_immutable', insertable: false, updatable: false, columnDefinition: 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP')]
+    #[ORM\Column(name: 'CreationDate', type: 'datetime_immutable', insertable: false, updatable: false, options: [ 'default' => 'CURRENT_TIMESTAMP' ], columnDefinition: 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP')]
     public DateTimeImmutable $CreationDate;
 
     #[ORM\Column(name: 'ModificationDate', type: 'datetime_immutable', nullable: true, insertable: false, updatable: false, columnDefinition: 'TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP')]

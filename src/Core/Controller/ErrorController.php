@@ -12,22 +12,21 @@ use Throwable;
 
 final class ErrorController extends AbstractController
 {
-    #[Route('/Error/Error', name: 'error.not_found', methods: [ 'GET', 'POST' ])]
-    #[Route('/Error/NotFound', name: 'error.not_found_legacy', methods: [ 'GET', 'POST' ])]
+    #[Route('/Error/Error', name: 'error.not_found', methods: [ 'GET' ])]
     public function notFound(): Response
     {
         return $this->render(
-            'View::Error/ErrorPage',
+            '@View/Error/ErrorPage.html.twig',
             [ 'title' => '404 - Not found', 'message' => 'The requested page cannot be found' ],
             Response::HTTP_NOT_FOUND,
         );
     }
 
-    #[Route('/Error/PermissionError', name: 'error.forbidden', methods: [ 'GET', 'POST' ])]
+    #[Route('/Error/PermissionError', name: 'error.forbidden', methods: [ 'GET' ])]
     public function permissionError(): Response
     {
         return $this->render(
-            'View::Error/ErrorPage',
+            '@View/Error/ErrorPage.html.twig',
             [ 'title' => '403 - Forbidden', 'message' => 'You are not authorized to perform this action.' ],
             Response::HTTP_FORBIDDEN,
         );
@@ -42,7 +41,7 @@ final class ErrorController extends AbstractController
         };
 
         return $this->render(
-            'View::Error/ErrorPage',
+            '@View/Error/ErrorPage.html.twig',
             [
                 'title' => match ($status) {
                     Response::HTTP_UNAUTHORIZED => '401 - Unauthorized',

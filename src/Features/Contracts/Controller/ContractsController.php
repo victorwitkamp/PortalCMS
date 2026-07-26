@@ -37,11 +37,10 @@ final class ContractsController extends AbstractController
     }
 
     #[Route('/Contracts', name: 'contracts.index', methods: [ 'GET' ])]
-    #[Route('/Contracts/', name: 'contracts.index_slash', methods: [ 'GET' ])]
     public function index(): Response
     {
         return $this->allowed()
-            ? $this->render('Contracts::ContractListPage', [ 'contracts' => $this->contracts->findAllOrdered() ])
+            ? $this->render('@Contracts/ContractListPage.html.twig', [ 'contracts' => $this->contracts->findAllOrdered() ])
             : $this->forbiddenResponse();
     }
 
@@ -49,7 +48,7 @@ final class ContractsController extends AbstractController
     public function new(): Response
     {
         return $this->allowed()
-            ? $this->render('Contracts::CreateContractPage')
+            ? $this->render('@Contracts/CreateContractPage.html.twig')
             : $this->forbiddenResponse();
     }
 
@@ -80,7 +79,7 @@ final class ContractsController extends AbstractController
 
         $contract = $this->contracts->find($request->query->getInt('id'));
         return $contract instanceof Contract
-            ? $this->render('Contracts::EditContractPage', [ 'contract' => $contract ])
+            ? $this->render('@Contracts/EditContractPage.html.twig', [ 'contract' => $contract ])
             : $this->notFoundResponse();
     }
 
@@ -132,7 +131,6 @@ final class ContractsController extends AbstractController
     }
 
     #[Route('/Contracts/Details', name: 'contracts.details', methods: [ 'GET' ])]
-    #[Route('/Contracts/View', name: 'contracts.view_legacy', methods: [ 'GET' ])]
     public function details(Request $request): Response
     {
         if (!$this->allowed()) {
@@ -141,7 +139,7 @@ final class ContractsController extends AbstractController
 
         $contract = $this->contracts->find($request->query->getInt('id'));
         return $contract instanceof Contract
-            ? $this->render('Contracts::ContractDetailsPage', [ 'contract' => $contract ])
+            ? $this->render('@Contracts/ContractDetailsPage.html.twig', [ 'contract' => $contract ])
             : $this->notFoundResponse();
     }
 

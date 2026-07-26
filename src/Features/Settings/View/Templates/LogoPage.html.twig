@@ -1,0 +1,27 @@
+{% extends '@View/Layout/ApplicationLayout.html.twig' %}
+
+{% set pageName = text('TITLE_SITE_LOGO') %}
+
+{% block title %}{{ pageName }}{% endblock %}
+
+{% block main_content %}
+    <div class="container">
+        <div class="row mt-5"><div class="col-sm-12"><h1>{{ pageName }}</h1></div></div>
+        <hr>
+        {% include '@View/Partials/FlashMessages.html.twig' %}
+        <div class="row">
+            <form method="post" action="{{ path('settings.logo_update') }}" enctype="multipart/form-data">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('settings.logo_update') }}">
+                <p>Selecteer een JPEG-, PNG-, GIF- of WebP-afbeelding om als logo te gebruiken.</p>
+                <div class="mb-3">
+                    <label class="form-label" for="customFile">Bestand selecteren</label>
+                    <input type="file" class="form-control" id="customFile" name="logo_file"
+                           accept="image/jpeg,image/png,image/gif,image/webp" required>
+                </div>
+                <hr>
+                <input type="hidden" name="MAX_FILE_SIZE" value="5000000">
+                <button type="submit" class="btn btn-success">Logo uploaden</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

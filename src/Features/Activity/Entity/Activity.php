@@ -18,7 +18,7 @@ class Activity
     #[ORM\Column(type: 'integer')]
     public int $id;
 
-    #[ORM\Column(name: 'CreationDate', type: 'datetime_immutable', insertable: false, updatable: false, columnDefinition: 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP')]
+    #[ORM\Column(name: 'CreationDate', type: 'datetime_immutable', insertable: false, updatable: false, options: [ 'default' => 'CURRENT_TIMESTAMP' ], columnDefinition: 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP')]
     public DateTimeImmutable $CreationDate;
 
     /** Was an unenforced plain int column; added as a real FK in this migration (no orphaned rows found). */
@@ -40,7 +40,7 @@ class Activity
     #[ORM\Column(type: 'string', length: 32)]
     public string $activity;
 
-    #[ORM\Column(type: 'string', length: 32, nullable: true)]
+    #[ORM\Column(type: 'text', length: 65535, nullable: true)]
     public ?string $details = null;
 
     public function __construct()

@@ -17,7 +17,7 @@ use PortalCMS\Features\Email\SMTP\SMTPConfiguration;
 use PortalCMS\Features\Email\Transport\MailTransport;
 use PortalCMS\Features\Members\Entity\Member;
 use PortalCMS\Features\Members\Repository\MemberRepository;
-use PortalCMS\Features\Settings\SiteSetting;
+use PortalCMS\Features\Settings\Application\Settings;
 
 final class MailSchedule
 {
@@ -26,7 +26,7 @@ final class MailSchedule
         private readonly MailBatchRepository $batches,
         private readonly MailTemplateRepository $templates,
         private readonly MemberRepository $members,
-        private readonly SiteSetting $settings,
+        private readonly Settings $settings,
         private readonly MailTransport $transport,
         private readonly SMTPConfiguration $configuration,
     ) {
@@ -243,7 +243,7 @@ final class MailSchedule
             'VOORNAAM' => (string) $member->voornaam,
             'ACHTERNAAM' => (string) $member->achternaam,
             'IBAN' => (string) $member->iban,
-            'AFZENDER' => (string) $this->settings->get('MailFromName'),
+            'AFZENDER' => (string) $this->settings->value('MailFromName'),
         ];
 
         return str_replace(

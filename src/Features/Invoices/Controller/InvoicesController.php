@@ -50,8 +50,6 @@ final class InvoicesController extends AbstractController
     }
 
     #[Route('/Invoices', name: 'invoices.index', methods: [ 'GET' ])]
-    #[Route('/Invoices/', name: 'invoices.index_slash', methods: [ 'GET' ])]
-    #[Route('/Invoices/Index', name: 'invoices.index_legacy', methods: [ 'GET' ])]
     public function index(Request $request): Response
     {
         if (!$this->allowed()) {
@@ -92,7 +90,7 @@ final class InvoicesController extends AbstractController
             }
         }
 
-        return $this->render('Invoices::InvoiceListPage', [
+        return $this->render('@Invoices/InvoiceListPage.html.twig', [
             'invoices' => $invoices,
             'pageName' => $pageName,
             'selectedYear' => $year,
@@ -107,7 +105,7 @@ final class InvoicesController extends AbstractController
     public function add(): Response
     {
         return $this->allowed()
-            ? $this->render('Invoices::CreateInvoicesPage', [ 'contracts' => $this->contracts->findAllOrdered() ])
+            ? $this->render('@Invoices/CreateInvoicesPage.html.twig', [ 'contracts' => $this->contracts->findAllOrdered() ])
             : $this->forbiddenResponse();
     }
 
@@ -170,7 +168,7 @@ final class InvoicesController extends AbstractController
             return $this->notFoundResponse();
         }
 
-        return $this->render('Invoices::InvoiceDetailsPage', [
+        return $this->render('@Invoices/InvoiceDetailsPage.html.twig', [
             'invoice' => $invoice,
             'contract' => $invoice->contract,
         ]);

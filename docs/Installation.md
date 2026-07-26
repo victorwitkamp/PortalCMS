@@ -67,13 +67,13 @@ not reused.
 Create an empty MySQL 8 database named by `DB_NAME`, then run:
 
 ```powershell
-vendor\bin\doctrine-migrations.bat migrate --no-interaction
+php bin\console doctrine:migrations:migrate --no-interaction
 ```
 
 On Linux:
 
 ```bash
-vendor/bin/doctrine-migrations migrate --no-interaction
+php bin/console doctrine:migrations:migrate --no-interaction
 ```
 
 The guarded baseline creates an empty database or reconciles a known legacy

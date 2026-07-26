@@ -72,7 +72,7 @@ final class LegacyDatabaseImporter
             ], $sanitizedDumpPath);
             $this->reconcileLegacyTableNames($serverConnection, $databaseName);
 
-            fwrite(STDOUT, "Applying the squashed Doctrine baseline.\n");
+            fwrite(STDOUT, "Applying Doctrine migrations.\n");
             $this->runMigrations($databaseName);
 
             $this->showMigrationStatus($databaseName);
@@ -331,8 +331,8 @@ final class LegacyDatabaseImporter
     {
         $command = [
             PHP_BINARY,
-            $this->projectRoot . '/vendor/bin/doctrine-migrations',
-            'migrate',
+            $this->projectRoot . '/bin/console',
+            'doctrine:migrations:migrate',
         ];
         $command[] = '--no-interaction';
 
@@ -348,8 +348,8 @@ final class LegacyDatabaseImporter
             $databaseName,
             fn (): int => $this->runCommand([
                 PHP_BINARY,
-                $this->projectRoot . '/vendor/bin/doctrine-migrations',
-                'status',
+                $this->projectRoot . '/bin/console',
+                'doctrine:migrations:status',
             ]),
         );
     }
@@ -467,8 +467,8 @@ Options:
   --help              Show this help.
 
 The target database must not already exist and may not be the database from
-config/config.development.php. The squashed Doctrine baseline reconciles a
-legacy dump directly with the current schema, leaving no pending migrations.
+config/config.development.php. Doctrine migrations reconcile a legacy dump
+directly with the current schema, leaving no pending migrations.
 
 TEXT);
 }

@@ -1,0 +1,32 @@
+{% extends '@View/Layout/ApplicationLayout.html.twig' %}
+
+{% set pageType = 'history' %}
+{% set pageName = text('TITLE_MAIL_HISTORY') %}
+
+{% block title %}{{ pageName }}{% endblock %}
+
+{% block head_extra %}
+    <link rel="stylesheet" type="text/css" href="/dist/merged/dataTables.min.css">
+    <script src="/dist/merged/dataTables.min.js"></script>
+    <script src="/includes/js/init.datatables.js"></script>
+{% endblock %}
+
+{% block main_content %}
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-sm-8"><h1>{{ pageName }}</h1></div>
+            <div class="col-sm-4">
+                <a href="{{ path('email.generate') }}" class="btn btn-info float-end">
+                    <span class="fa fa-plus"></span> {{ text('LABEL_NEW_EMAIL') }}
+                </a>
+            </div>
+        </div>
+        <hr>
+        {% include '@View/Partials/FlashMessages.html.twig' %}
+        {% if mails %}
+            {% include '@Email/Partials/ScheduledMailTable.html.twig' %}
+        {% else %}
+            Geen berichten gevonden.
+        {% endif %}
+    </div>
+{% endblock %}

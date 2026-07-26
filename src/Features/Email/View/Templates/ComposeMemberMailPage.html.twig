@@ -1,0 +1,62 @@
+{% extends '@View/Layout/ApplicationLayout.html.twig' %}
+
+{% set pageName = 'Nieuw bericht' %}
+
+{% block title %}{{ pageName }}{% endblock %}
+
+{% block main_content %}
+    <div class="container">
+        <div class="row mt-5"><div class="col-sm-12"><h1>{{ pageName }}</h1></div></div>
+        <hr>
+        <form method="post" action="{{ path('email.generate_member_year') }}">
+            <div class="mb-3">
+                <label for="mail-year">{{ text('YEAR') }}</label>
+                <input type="number" id="mail-year" name="year" value="{{ year }}">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('email.generate_member_year') }}">
+                <button type="submit">Jaar selecteren</button>
+            </div>
+        </form>
+        <form method="post" action="{{ path('email.schedule_members') }}">
+            <div class="mb-3">
+                <label for="mail-template">Template selecteren</label>
+                <select id="mail-template" name="templateid">
+                    {% for template in mailTemplates %}<option value="{{ template.id }}">{{ template.subject }}</option>{% endfor %}
+                </select>
+                <input type="hidden" name="type" value="member">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('email.schedule_members') }}">
+                <button type="submit">Berichten aanmaken</button>
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" id="selectall">
+                <label for="selectall">Alles selecteren</label>
+            </div>
+            <div id="example" class="row mb-3">
+                {% for member in members %}
+                    <div class="col-md-4">
+                        {% if member.emailadres %}
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="recipients[]"
+                                       id="recipient-{{ member.id }}" value="{{ member.id }}">
+                                <label class="form-check-label" for="recipient-{{ member.id }}">
+                                    {{ member.voornaam }} {{ member.achternaam }}
+                                </label>
+                            </div>
+                        {% else %}
+                            <input type="checkbox" class="form-check-input" disabled>
+                            <s>{{ member.voornaam }} {{ member.achternaam }}</s>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <p>Geen resultaten</p>
+                {% endfor %}
+            </div>
+        </form>
+    </div>
+    <script>
+        document.getElementById('selectall').addEventListener('change', function () {
+            document.querySelectorAll("input[type='checkbox']:not(:disabled)").forEach(checkbox => {
+                checkbox.checked = this.checked;
+            });
+        });
+    </script>
+{% endblock %}

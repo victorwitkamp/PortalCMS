@@ -1,0 +1,42 @@
+{% extends '@View/Layout/ApplicationLayout.html.twig' %}
+
+{% set title = text('TITLE_CONTRACTS') %}
+
+{% block head_extra %}
+    <link rel="stylesheet" type="text/css" href="/dist/merged/dataTables.min.css">
+    <script src="/dist/merged/dataTables.min.js"></script>
+    <script src="/includes/js/init.datatables.js" class="init"></script>
+{% endblock %}
+
+{% block main_content %}
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-sm-8"><h1>{{ title }}</h1></div>
+            <div class="col-sm-4">
+                <a href="{{ path('contracts.new') }}" class="btn btn-success navbar-btn float-end">
+                    <span class="fa fa-plus"></span> {{ text('LABEL_ADD') }}
+                </a>
+            </div>
+        </div>
+        <hr>
+        {% include '@View/Partials/FlashMessages.html.twig' %}
+        {% if contracts %}
+            <table id="example" class="table table-sm table-striped table-hover" style="width:100%;">
+                <thead class="table-dark">
+                <tr><th>Huurder</th><th>Klantcode</th><th>Prijs per maand</th></tr>
+                </thead>
+                <tbody>
+                {% for contract in contracts %}
+                    <tr>
+                        <td><a href="{{ path('contracts.details', { id: contract.id }) }}">{{ contract.band_naam }}</a></td>
+                        <td>{{ contract.bandcode }}</td>
+                        <td>{{ contract.kosten_totaal }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            {{ text('LABEL_NOT_FOUND') }}
+        {% endif %}
+    </div>
+{% endblock %}

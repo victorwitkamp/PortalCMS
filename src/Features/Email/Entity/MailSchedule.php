@@ -37,10 +37,10 @@ class MailSchedule
 
     // columnDefinition pins the existing TEXT on both — Doctrine's plain
     // 'text' type generates LONGTEXT, an unintended widening.
-    #[ORM\Column(type: 'text', nullable: true, columnDefinition: 'TEXT DEFAULT NULL')]
+    #[ORM\Column(type: 'text', length: 65535, nullable: true)]
     public ?string $body = null;
 
-    #[ORM\Column(type: 'text', nullable: true, columnDefinition: 'TEXT DEFAULT NULL')]
+    #[ORM\Column(type: 'text', length: 65535, nullable: true)]
     public ?string $attachment = null;
 
     #[ORM\Column(name: 'member_id', type: 'integer', nullable: true)]
@@ -52,7 +52,7 @@ class MailSchedule
     #[ORM\Column(type: 'integer', options: [ 'default' => self::STATUS_SCHEDULED ])]
     public int $status = self::STATUS_SCHEDULED;
 
-    #[ORM\Column(type: 'text', nullable: true, columnDefinition: 'TEXT DEFAULT NULL')]
+    #[ORM\Column(type: 'text', length: 65535, nullable: true)]
     public ?string $errormessage = null;
 
     #[ORM\Column(name: 'DateSent', type: 'datetime_immutable', nullable: true)]
@@ -61,7 +61,7 @@ class MailSchedule
     #[ORM\Column(name: 'CreatedBy', type: 'integer', nullable: true)]
     public ?int $CreatedBy = null;
 
-    #[ORM\Column(name: 'CreationDate', type: 'datetime_immutable', insertable: false, updatable: false, columnDefinition: 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP')]
+    #[ORM\Column(name: 'CreationDate', type: 'datetime_immutable', insertable: false, updatable: false, options: [ 'default' => 'CURRENT_TIMESTAMP' ], columnDefinition: 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP')]
     public DateTimeImmutable $CreationDate;
 
     #[ORM\Column(name: 'ModificationDate', type: 'datetime_immutable', nullable: true, insertable: false, updatable: false, columnDefinition: 'TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP')]

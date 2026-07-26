@@ -1,0 +1,21 @@
+{% extends '@View/Layout/ApplicationLayout.html.twig' %}
+
+{% set pageName = text('TITLE_SITE_SETTINGS') %}
+
+{% block title %}{{ pageName }}{% endblock %}
+
+{% block main_content %}
+    <div class="container">
+        <form method="post" action="{{ path('settings.update') }}">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('settings.update') }}">
+            <div class="row mt-5">
+                <div class="col-sm-8"><h1>{{ pageName }}</h1></div>
+                <div class="col-sm-4">
+                    <input type="submit" class="btn btn-success navbar-btn float-end" value="{{ text('LABEL_SUBMIT') }}">
+                </div>
+            </div>
+            {% include '@View/Partials/FlashMessages.html.twig' %}
+            {% include '@Settings/Partials/SettingsForm.html.twig' %}
+        </form>
+    </div>
+{% endblock %}

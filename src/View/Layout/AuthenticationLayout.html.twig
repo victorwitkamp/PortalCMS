@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }} - {{ siteName }}</title>
+    <link rel="stylesheet" type="text/css" href="/dist/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/dist/bootswatch/dist/{{ siteTheme }}/bootstrap.min.css">
+    <link rel="stylesheet" href="/includes/css/LoginNewStyle.css">
+    <link rel="stylesheet" type="text/css" href="/dist/cookieconsent/build/cookieconsent.min.css">
+    {% block head_extra %}{% endblock %}
+</head>
+<body>
+{% block body_start %}{% endblock %}
+<div class="container-fluid container-auth">
+    <div class="auth-brand m-t-md m-b-md">{{ siteName }}</div>
+</div>
+<div class="container-fluid container-auth">
+    <div class="panel panel-auth">
+        <div class="panel-heading">
+            <h2 id="title-container" class="panel-title text-center">{{ title }} - {{ siteName }}</h2>
+            {% include '@View/Partials/FlashMessages.html.twig' %}
+        </div>
+        <div class="panel-body">{% block body %}{% endblock %}</div>
+        <div class="panel-footer">
+            <label>Hulp bij aanmelden</label>
+            <div class="small">
+                <del>Registreren</del> |
+                <a href="{{ path('login.activate') }}">Activeren</a> |
+                <a href="{{ path('login.password_request') }}">Wachtwoord vergeten</a>
+            </div>
+        </div>
+    </div>
+    <ul class="list-inline text-center small m-t-md">
+        <li><i class="fas fa-globe text-muted"></i></li>
+        <li><a class="text-muted" href="#"><del>English</del></a></li>
+        <li><a class="text-muted" href="#"><del>Nederlands</del></a></li>
+    </ul>
+</div>
+<ul class="list-inline text-center small m-t-md m-b-lg">
+    <li><a href="#" class="text-muted"><del>Terms and conditions</del></a></li>
+    <li><a href="#" class="text-muted"><del>Contact us</del></a></li>
+</ul>
+<div class="webmail-bg"></div>
+<script src="/dist/cookieconsent/build/cookieconsent.min.js"></script>
+<script src="/includes/js/cookieconsent.init.js"></script>
+</body>
+</html>

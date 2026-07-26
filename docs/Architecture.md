@@ -1,6 +1,6 @@
 # PortalCMS Architecture And Refactoring History
 
-Updated: 2026-07-24.
+Updated: 2026-07-26.
 
 This is the authoritative description of the implemented PortalCMS
 architecture. It consolidates the former database proposal, database and
@@ -42,8 +42,9 @@ upgrade was unsafe. The implemented solution uses schema introspection:
 - contract date/time/money conversion, zero-date repair, aggregate keys,
   foreign keys, and required mail-recipient ownership are part of the same
   baseline
-- unknown extra columns are preserved rather than dropped; this protects
-  instance-specific additions such as the historical `roles.type` column
+- unknown extra columns are preserved by the baseline; the later convergence
+  migration removes the known, unused `roles.type` legacy column after
+  validating its values
 
 The former versions from `Version20260722000001` through
 `Version20260724000001` remain part of the repository history, but are no
@@ -54,8 +55,9 @@ Doctrine ORM was chosen over standalone Eloquent and Cycle ORM. Eloquent's
 Active Record and magic property model did not provide the desired strongly
 typed entities. Cycle had a suitable object model but a smaller ecosystem.
 Doctrine provides mature Data Mapper semantics, typed attribute-mapped
-entities, DBAL, migrations, change tracking, and custom repositories without
-requiring DoctrineBundle.
+entities, DBAL, migrations, change tracking, and custom repositories.
+DoctrineBundle and DoctrineMigrationsBundle now integrate those facilities
+with the Symfony kernel and console.
 
 MySQL DDL implicitly commits, so migrations are deliberately configured with
 `all_or_nothing=false` and `transactional=false`. Treating DDL as
@@ -104,9 +106,11 @@ removed.
 
 HttpFoundation native sessions use `PORTALCMSSESSID`, Secure auto-detection,
 HttpOnly, SameSite=Lax, a 1,800-second lifetime, and PHP strict session mode.
-FlashBag owns one-time feedback. Security CSRF uses distinct tokens for login,
-username changes, and password changes. Plates remains the HTML template
-engine; Twig, SecurityBundle, DoctrineBundle, and Symfony Form were not added.
+FlashBag owns one-time feedback. A request subscriber protects every unsafe
+route with a token whose ID is the canonical route name. HTML forms submit
+`_csrf_token`, JavaScript requests use `X-CSRF-Token`, and logout is POST-only.
+TwigBundle owns HTML rendering and autoescaping; SecurityBundle and Symfony
+Form have not been added.
 
 ### Database archive consolidation
 
@@ -114,8 +118,8 @@ The legacy SQL archive was removed after its schema knowledge had been encoded
 in the guarded migrations and import tooling. `db/import.php` is now the
 single supported import path for a dump from another PortalCMS instance. It
 redirects embedded database-name statements into a newly created isolated
-database, handles the historical `band_contracts` name, and applies the
-single squashed baseline.
+database, handles the historical `band_contracts` name, and applies the full
+Doctrine migration chain through `bin/console`.
 
 The importer was validated against a real October 2023 backup containing all
 19 tables and application data. That test exposed and fixed Dutch
@@ -142,6 +146,7 @@ grouped by feature:
 src/Features/
   Activity/
   Contracts/
+  Diagnostics/
   Email/
   Events/
   Home/
@@ -231,7 +236,8 @@ Entities:
 
 Repositories:
 
-- extend `Doctrine\ORM\EntityRepository`
+- extend DoctrineBundle's `ServiceEntityRepository`
+- receive `ManagerRegistry` through Symfony autowiring
 - contain queries and Doctrine `persist`, `remove`, and `flush` boundaries
 - do not implement entity state changes, rendering, request parsing, or
   cross-feature workflows
@@ -255,7 +261,7 @@ Views:
 - render already-loaded data
 - never call repositories
 - keep shared layouts, errors, and partials under `src/View`
-- keep feature-owned Plates templates under
+- keep feature-owned Twig templates under
   `src/Features/<Feature>/View/Templates`
 - keep rendering classes in the owning code namespace, including
   `Core\View\TemplateRenderer` and `Invoices\View\InvoicePdf`
@@ -272,7 +278,7 @@ Views:
 | Members | `Member` | member fields |
 | Pages | `Page` | none |
 | Products | `Product` | none |
-| Settings | `SiteSetting` | none |
+| Settings | `Setting` | setting value |
 | Users | `User`, `Role`, `Permission` | user-role and role-permission associations |
 
 `InvoiceItem`, `MailRecipient`, and `MailAttachment` intentionally have no
@@ -296,13 +302,15 @@ The runtime uses:
   native sessions, and flash messages
 - Symfony Security CSRF with action-specific token IDs
 - Symfony Serializer, Validator, and PropertyAccess for typed form input
-- Doctrine ORM custom repositories and one shared entity manager
-- Plates for HTML views
+- DoctrineBundle for the managed DBAL connection, entity manager, mappings,
+  and autowired repositories
+- DoctrineMigrationsBundle for migrations through `bin/console`
+- TwigBundle for autoescaped HTML views, route generation, and CSRF helpers
 - TCPDF for the invoice PDF view
 
 `Core\Kernel` extends the FrameworkBundle kernel and uses `MicroKernelTrait`.
-PHP configuration in `config/packages/framework.php`, `config/services.php`,
-and `config/routes.php` owns framework integration. The legacy filename
+PHP configuration in `config/packages`, `config/services.php`, and
+`config/routes.php` owns framework integration. The legacy filename
 dispatcher, manual container factory, custom route loader, and static session
 layer are removed.
 
@@ -325,8 +333,6 @@ by their class responsibility.
   helpers.
 - `Controller\ErrorController`: `notFound()`, `permissionError()`,
   `exception()` render HTTP error responses.
-- `Database\DoctrineConfiguration`: `createEntityManager()` configures
-  feature metadata and the MySQL connection.
 - `Database\Migrations\AbstractGuardedMigration`: `schemaManager()`,
   `tableExists()`, `ensureTable()`, `columnExists()`, `ensureColumn()`,
   `ensureIndex()`, `ensureForeignKey()`, and `renameColumnIfNeeded()` support
@@ -359,6 +365,8 @@ by their class responsibility.
   `flush()` query and persist activity.
 - `Activity\Activity`: `load()` retrieves recent activity and `add()` records
   activity with user and remote-address context.
+- `Activity\Controller\ActivityController`: `index()` renders the canonical
+  `/Activity` page.
 
 ### Contracts
 
@@ -371,6 +379,11 @@ by their class responsibility.
   `remove()`, and `flush()`.
 - `Contracts\Controller\ContractsController`: `index()`, `new()`, `create()`,
   `edit()`, `update()`, `delete()`, and `details()`.
+
+### Diagnostics
+
+- `Diagnostics\Controller\DiagnosticsController`: `index()` authorizes and
+  renders the canonical `/Diagnostics` page with request-session context.
 
 ### Home
 
@@ -489,15 +502,22 @@ by their class responsibility.
 
 ### Settings
 
-- `Settings\Entity\SiteSetting`: `changeValue()` owns a setting mutation.
-- `Settings\Repository\SiteSettingRepository`: `findSetting()`,
-  `findValue()`, and `flush()`.
-- `Settings\Input\SiteSettingsInput`: typed nullable setting values and
-  `values()` for repository-independent form extraction.
-- `Settings\SiteSetting`: `save()`, `get()`, `values()`, `uploadLogo()`, and
-  `error()` coordinate persisted settings and local logo storage.
-- `Settings\Controller\SettingsController`: `siteSettings()`, `save()`,
-  `activity()`, `logo()`, `uploadLogo()`, and `debug()`.
+- `Settings\Entity\Setting`: `name()`, `value()`, `changeValue()`, and
+  `modifiedAt()` expose mapped setting state and own value mutation.
+- `Settings\Repository\SettingRepository`: `findByName()`, `findByNames()`,
+  and `findValues()` load settings and projected values.
+- `Settings\Input\UpdateSettingsInput`: typed and validated settings form
+  fields; `values()` maps the HTTP field names to legacy database keys without
+  exposing the stored SMTP password.
+- `Settings\Application\Settings`: `value()`, `values()`,
+  `editableValues()`, `update()`, and `replaceLogo()` coordinate setting
+  persistence.
+- `Settings\Application\SiteLogo`: `replace()` validates JPEG, PNG, GIF, and
+  WebP uploads, limits decoded dimensions, crops them, and stores one
+  normalized JPEG logo.
+- `Settings\Controller\SettingsController`: `index()`, `update()`, `logo()`,
+  and `updateLogo()` own the canonical `/Settings` and `/Settings/Logo`
+  request workflows.
 
 ### Users
 
@@ -543,15 +563,17 @@ by their class responsibility.
 
 ## Database And Imports
 
-There is one Doctrine migration under `db/migrations`:
-`Version20260724000002`. This irreversible, guarded baseline creates the
-current 19-table application schema on an empty database and reconciles known
-legacy schemas in place. It contains the behavior previously spread across 24
-migrations, including typed contract fields, auth timestamp repair, missing
-primary keys, foreign keys, and required mail-recipient ownership.
+There are three Doctrine migrations under `db/migrations`.
+`Version20260724000002` is the irreversible, guarded baseline that creates the
+19-table application schema on an empty database and reconciles known legacy
+schemas in place. `Version20260726000003` aligns integer semantics, defaults,
+and relation index names with ORM metadata. `Version20260726000004` preserves
+longer legacy activity and contract-email data while removing the obsolete
+`roles.type` column.
 
-The configured database is at `Version20260724000002`: one version is
-available, one is executed, and none are unavailable or pending.
+The configured database is at `Version20260726000004`: all three versions are
+executed and available, with none unavailable or pending. ORM schema
+validation proposes no changes.
 
 Use the standalone importer for a database dump from another instance:
 
@@ -568,7 +590,8 @@ database configured in `config/config.development.php`. The importer:
 2. rewrites dump-level `CREATE DATABASE` and `USE` directives to that target
 3. imports through the native MySQL client using a temporary protected option
    file, keeping credentials out of the process command
-4. applies `Version20260724000002` and prints final migration status
+4. applies the complete migration chain through Symfony and prints final
+   migration status
 
 Pass `--mysql-bin=<path>` if `mysql` is not discoverable. The importer never
 replaces an existing database and retains a failed target for inspection.
@@ -588,7 +611,7 @@ pages, and required system mail templates as described in
 
 ## Validation Record
 
-Completed on 2026-07-24:
+Completed through 2026-07-26:
 
 - Composer strict validation
 - optimized PSR-4 autoload generation
@@ -601,13 +624,13 @@ Completed on 2026-07-24:
 - Doctrine mapping validation: 17 entities
 - repository resolution: 14 custom aggregate repositories and 3 default
   owned-entity repositories
-- configured database status: one migration executed and available, none
+- configured database status: three migrations executed and available, none
   unavailable or pending
-- clean-database execution of the squashed baseline
+- clean-database execution of the full migration chain with zero schema diff
 - restore and squash of a fresh configured-database backup, with all 19
   application-table row counts preserved
-- isolated import of a real October 2023 instance backup through the squashed
-  baseline
+- isolated import of a real October 2023 instance backup through the full
+  migration chain, with zero schema diff and longer legacy values preserved
 - successful hydration of all 17 mapped entity types that had fixture rows in
   the imported database
 - isolated import of an older partial schema through the guarded
@@ -621,7 +644,8 @@ Completed on 2026-07-24:
 - invoice PDF render check with a valid `%PDF` header
 - static checks for legacy namespaces, mapper classes, static repositories,
   repository access in views, and PSR-4 path/case mismatches
-- resolution of 120 literal Plates template references
+- conversion and syntax validation of all 71 HTML templates
+- route-token coverage for all 48 POST-capable routes
 - authenticated rendering of 27 primary GET routes and 7 fixture-backed
   edit/detail routes after the view reorganization
 - source filename audit confirming PascalCase, purpose-specific PHP filenames;
@@ -635,9 +659,9 @@ database. The explicitly requested final schema migration was applied there.
 Before deploying:
 
 1. back up the database
-2. run `vendor/bin/doctrine-migrations migrate --no-interaction`
-3. verify the migration reaches `Version20260724000002` with one executed and
-   one available version
+2. run `php bin/console doctrine:migrations:migrate --no-interaction`
+3. verify the migration reaches `Version20260726000004` with three executed
+   and three available versions
 4. exercise login, one representative write per feature, invoice PDF storage,
    and SMTP delivery in the target environment
 
@@ -648,10 +672,8 @@ dump into the configured live database.
 
 ## Optional Follow-up Work
 
-- DoctrineBundle and DoctrineMigrationsBundle adoption
 - Symfony Form
 - SecurityBundle and replacement of the application authentication model
-- Twig; Plates is currently sufficient and remains the only template engine
 - PSR-3 logging with Monolog
 - Flysystem for attachment, logo, and invoice storage
 - Symfony Mailer as a possible PHPMailer replacement

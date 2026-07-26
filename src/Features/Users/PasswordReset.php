@@ -10,7 +10,7 @@ use PortalCMS\Features\Email\Message\EmailMessage;
 use PortalCMS\Features\Email\Recipient\EmailRecipient;
 use PortalCMS\Features\Email\Template\MailTemplate;
 use PortalCMS\Features\Email\Transport\MailTransport;
-use PortalCMS\Features\Settings\SiteSetting;
+use PortalCMS\Features\Settings\Application\Settings;
 use PortalCMS\Features\Users\Entity\User;
 use PortalCMS\Features\Users\Repository\UserRepository;
 
@@ -22,7 +22,7 @@ final class PasswordReset
         private readonly UserRepository $users,
         private readonly MailTemplate $templates,
         private readonly MailTransport $transport,
-        private readonly SiteSetting $settings,
+        private readonly Settings $settings,
     ) {
     }
 
@@ -60,7 +60,7 @@ final class PasswordReset
             [
                 $user->user_name,
                 $resetLink,
-                (string) $this->settings->get('site_name'),
+                (string) $this->settings->value('site_name'),
             ],
             $template->body,
         );

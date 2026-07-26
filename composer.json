@@ -12,7 +12,6 @@
         "phpmailer/phpmailer": "^7.0",
         "tecnickcom/tcpdf": "^6.11",
         "ext-fileinfo": "*",
-        "league/plates": "^3.3",
         "symfony/http-foundation": "^7.4",
         "symfony/mime": "^7.4",
         "doctrine/dbal": "^4.4",
@@ -27,7 +26,10 @@
         "symfony/routing": "^7.4",
         "symfony/framework-bundle": "^7.4",
         "symfony/runtime": "^7.4",
-        "symfony/security-csrf": "^7.4"
+        "symfony/security-csrf": "^7.4",
+        "doctrine/doctrine-bundle": "^2.19",
+        "doctrine/doctrine-migrations-bundle": "^3.7",
+        "symfony/twig-bundle": "^7.4"
     },
     "license": "MIT",
     "require-dev": {

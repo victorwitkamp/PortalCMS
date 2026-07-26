@@ -6,13 +6,13 @@ namespace PortalCMS\Features\Invoices\View;
 
 use PortalCMS\Features\Contracts\Entity\Contract;
 use PortalCMS\Features\Invoices\Entity\Invoice;
-use PortalCMS\Features\Settings\SiteSetting;
+use PortalCMS\Features\Settings\Application\Settings;
 use RuntimeException;
 use TCPDF;
 
 final class InvoicePdf
 {
-    public function __construct(private readonly SiteSetting $settings)
+    public function __construct(private readonly Settings $settings)
     {
         $this->configureTcpdf();
     }
@@ -59,8 +59,8 @@ final class InvoicePdf
         $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', true);
         $pdf->setPrintHeader(false);
         $pdf->setPrintFooter(false);
-        $pdf->SetCreator((string) ($this->settings->get('site_name') ?? 'PortalCMS'));
-        $pdf->SetAuthor((string) ($this->settings->get('site_name') ?? 'PortalCMS'));
+        $pdf->SetCreator((string) ($this->settings->value('site_name') ?? 'PortalCMS'));
+        $pdf->SetAuthor((string) ($this->settings->value('site_name') ?? 'PortalCMS'));
         $pdf->SetDefaultMonospacedFont('courier');
         $pdf->SetMargins(15, 50, 15);
         $pdf->setHeaderMargin(10);

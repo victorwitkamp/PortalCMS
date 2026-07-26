@@ -29,17 +29,15 @@ final class PageController extends AbstractController
     }
 
     #[Route('/Page/Edit', name: 'pages.edit', methods: [ 'GET' ])]
-    #[Route('/page/edit', name: 'pages.edit_lowercase', methods: [ 'GET' ])]
     public function edit(Request $request): Response
     {
         $page = $this->pages->find((string) $request->query->getInt('id'));
         return $page instanceof Page
-            ? $this->render('Pages::PageEditorPage', [ 'page' => $page ])
+            ? $this->render('@Pages/PageEditorPage.html.twig', [ 'page' => $page ])
             : $this->notFoundResponse();
     }
 
     #[Route('/Page/Edit', name: 'pages.update', methods: [ 'POST' ])]
-    #[Route('/page/edit', name: 'pages.update_lowercase', methods: [ 'POST' ])]
     public function update(Request $request): Response
     {
         $page = $this->pages->find((string) $request->request->getInt('id'));

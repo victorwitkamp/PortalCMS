@@ -38,18 +38,16 @@ final class UserManagementController extends AbstractController
     }
 
     #[Route('/UserManagement/Users', name: 'users.admin_users', methods: [ 'GET' ])]
-    #[Route('/UserManagement/Users/', name: 'users.admin_users_slash', methods: [ 'GET' ])]
     public function users(): Response
     {
         return $this->canManageUsers()
-            ? $this->render('Users::Administration/Users/UserListPage', [
+            ? $this->render('@Users/Administration/Users/UserListPage.html.twig', [
                 'users' => $this->users->findAllOrdered(),
             ])
             : $this->forbiddenResponse();
     }
 
     #[Route('/UserManagement/Profile', name: 'users.admin_profile', methods: [ 'GET' ])]
-    #[Route('/UserManagement/Profile/', name: 'users.admin_profile_slash', methods: [ 'GET' ])]
     public function profile(Request $request): Response
     {
         if (!$this->canManageUsers()) {
@@ -66,7 +64,7 @@ final class UserManagementController extends AbstractController
             static fn (Role $role): bool => !in_array($role->role_id, $assignedIds, true),
         ));
 
-        return $this->render('Users::Administration/Users/UserDetailsPage', [
+        return $this->render('@Users/Administration/Users/UserDetailsPage.html.twig', [
             'user' => $user,
             'assignedRoles' => $assignedRoles,
             'availableRoles' => $availableRoles,
@@ -75,18 +73,16 @@ final class UserManagementController extends AbstractController
     }
 
     #[Route('/UserManagement/Roles', name: 'users.admin_roles', methods: [ 'GET' ])]
-    #[Route('/UserManagement/Roles/', name: 'users.admin_roles_slash', methods: [ 'GET' ])]
     public function roles(): Response
     {
         return $this->canManageRoles()
-            ? $this->render('Users::Administration/Roles/RoleListPage', [
+            ? $this->render('@Users/Administration/Roles/RoleListPage.html.twig', [
                 'roles' => $this->roles->findAllOrdered(),
             ])
             : $this->forbiddenResponse();
     }
 
     #[Route('/UserManagement/Role', name: 'users.admin_role', methods: [ 'GET' ])]
-    #[Route('/UserManagement/Role/', name: 'users.admin_role_slash', methods: [ 'GET' ])]
     public function role(Request $request): Response
     {
         if (!$this->canManageRoles()) {
@@ -97,7 +93,7 @@ final class UserManagementController extends AbstractController
             return $this->notFoundResponse();
         }
 
-        return $this->render('Users::Administration/Roles/RoleDetailsPage', [
+        return $this->render('@Users/Administration/Roles/RoleDetailsPage.html.twig', [
             'role' => $role,
             'activePermissions' => $this->roles->findPermissions($role),
             'selectablePermissions' => $this->roles->findSelectablePermissions($role),
@@ -108,7 +104,7 @@ final class UserManagementController extends AbstractController
     public function addUser(): Response
     {
         return $this->canManageUsers()
-            ? $this->render('Users::Administration/Users/CreateUserPage')
+            ? $this->render('@Users/Administration/Users/CreateUserPage.html.twig')
             : $this->forbiddenResponse();
     }
 

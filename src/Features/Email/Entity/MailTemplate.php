@@ -30,7 +30,7 @@ class MailTemplate
 
     // columnDefinition pins the existing TEXT — Doctrine's plain 'text' type
     // generates LONGTEXT, an unintended widening.
-    #[ORM\Column(type: 'text', nullable: true, columnDefinition: 'TEXT DEFAULT NULL')]
+    #[ORM\Column(type: 'text', length: 65535, nullable: true)]
     public ?string $body = null;
 
     #[ORM\Column(type: 'integer', options: [ 'default' => 1 ])]
@@ -39,10 +39,10 @@ class MailTemplate
     #[ORM\Column(name: 'CreatedBy', type: 'integer', nullable: true)]
     public ?int $CreatedBy = null;
 
-    #[ORM\Column(name: 'CreationDate', type: 'datetime_immutable', insertable: false, updatable: false, columnDefinition: 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP')]
+    #[ORM\Column(name: 'CreationDate', type: 'datetime_immutable', insertable: false, updatable: false, options: [ 'default' => 'CURRENT_TIMESTAMP' ], columnDefinition: 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP')]
     public DateTimeImmutable $CreationDate;
 
-    #[ORM\Column(name: 'ModificationDate', type: 'datetime_immutable', insertable: false, updatable: false, columnDefinition: 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')]
+    #[ORM\Column(name: 'ModificationDate', type: 'datetime_immutable', insertable: false, updatable: false, options: [ 'default' => 'CURRENT_TIMESTAMP' ], columnDefinition: 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')]
     public DateTimeImmutable $ModificationDate;
 
     /** @var Collection<int, MailAttachment> */

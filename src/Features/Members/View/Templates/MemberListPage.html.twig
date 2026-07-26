@@ -1,0 +1,55 @@
+{% extends '@View/Layout/ApplicationLayout.html.twig' %}
+
+{% set pageName = text('TITLE_MEMBERS') %}
+
+{% block title %}{{ pageName }}{% endblock %}
+
+{% block head_extra %}
+    <link rel="stylesheet" type="text/css" href="/dist/merged/dataTables.min.css">
+    <script src="/dist/merged/dataTables.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            new DataTable('#example', {
+                scrollX: true,
+                language: {url: '//cdn.datatables.net/plug-ins/2.3.8/i18n/nl-NL.json'},
+                paging: false,
+                ordering: true,
+                order: [[2, 'asc']],
+                compact: true,
+                select: true,
+                columnDefs: [{orderable: false, targets: [0, 1]}]
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block main_content %}
+    <div class="container-fluid">
+        <div class="row mt-5">
+            <div class="col-sm-8"><h1>{{ pageName }}</h1></div>
+            <div class="col-sm-4">
+                <a href="{{ path('members.copy_form') }}" class="btn btn-success float-end">
+                    <span class="fa fa-plus"></span> NewFromExisting
+                </a>
+                <a href="{{ path('members.new') }}" class="btn btn-success float-end">
+                    <span class="fa fa-plus"></span> {{ text('LABEL_ADD') }}
+                </a>
+            </div>
+        </div>
+        <ul>
+            {% for availableYear in years %}
+                <li>
+                    <a href="{{ path('members.index', {year: availableYear}) }}">{{ availableYear }}</a>
+                    ({{ yearCounts[availableYear]|default(0) }}){{ year == availableYear ? ' - Huidige selectie' : '' }}
+                </li>
+            {% endfor %}
+        </ul>
+        <hr>
+        {% include '@View/Partials/FlashMessages.html.twig' %}
+        {% if members %}
+            {% include '@Members/Partials/MemberTable.html.twig' %}
+        {% else %}
+            {{ text('LABEL_NOT_FOUND') }}
+        {% endif %}
+    </div>
+{% endblock %}

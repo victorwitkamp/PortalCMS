@@ -1,0 +1,34 @@
+{% extends '@View/Layout/AuthenticationLayout.html.twig' %}
+
+{% set title = 'Account activeren' %}
+
+{% block body_start %}
+    <header>
+        <div class="navbar navbar-dark bg-dark">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('login.index') }}">
+                        <span class="fa fa-arrow-left"></span> Inloggen
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+{% endblock %}
+
+{% block body %}
+    <form method="post" action="{{ path('login.activate') }}">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('login.activate') }}">
+        <div class="mb-3 required float in">
+            <input type="email" name="email" id="inputEmail" class="form-control"
+                   placeholder="E-mailadres" autocomplete="email" required autofocus>
+            <label for="inputEmail" class="label-float">E-mailadres</label>
+        </div>
+        <div class="mb-3 required float in">
+            <input type="text" minlength="32" maxlength="32" name="code" id="inputCode"
+                   class="form-control" placeholder="code" required>
+            <label for="inputCode" class="label-float">Activatiecode</label>
+        </div>
+        <button type="submit" name="activateSubmit" class="btn btn-primary">Activeren</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends '@View/Layout/ApplicationLayout.html.twig' %}
+
+{% set pageName = text('TITLE_MAIL_TEMPLATES') %}
+
+{% block title %}{{ pageName }}{% endblock %}
+
+{% block main_content %}
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-sm-8"><h1>{{ pageName }}</h1></div>
+            <div class="col-sm-4">
+                <a href="{{ path('email.template_new') }}" class="btn btn-info float-end">
+                    <span class="fa fa-plus"></span> {{ text('TITLE_NEW_MAIL_TEMPLATE') }}
+                </a>
+            </div>
+        </div>
+        <hr>
+        {% include '@View/Partials/FlashMessages.html.twig' %}
+        <table id="example" class="table table-sm table-striped table-hover table-dark" style="width:100%;">
+            <thead class="table-dark"><tr><th>acties</th><th>id</th><th>name</th><th>type</th><th>subject</th></tr></thead>
+            <tbody>
+            {% for template in mailTemplates %}
+                <tr>
+                    <td>
+                        <form method="post" action="{{ path('email.template_delete') }}">
+                            <a href="{{ path('email.template_edit', {id: template.id}) }}" title="Gegevens wijzigen"
+                               class="btn btn-warning btn-sm"><span class="fa fa-edit"></span></a>
+                            <button type="submit" onclick="return confirm('Weet je zeker dat je deze template wilt verwijderen?')"
+                                    class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i></button>
+                            <input type="hidden" name="id" value="{{ template.id }}">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('email.template_delete') }}">
+                        </form>
+                    </td>
+                    <td>{{ template.id }}</td>
+                    <td>{{ template.name }}</td>
+                    <td>{{ template.type }}</td>
+                    <td>{{ template.subject }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

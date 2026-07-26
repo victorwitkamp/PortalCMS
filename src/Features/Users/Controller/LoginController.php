@@ -15,8 +15,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Csrf\CsrfToken;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 final class LoginController extends AbstractController
 {
@@ -26,14 +24,11 @@ final class LoginController extends AbstractController
         UrlGeneratorInterface $urlGenerator,
         private readonly Authentication $authentication,
         private readonly PasswordReset $passwordReset,
-        private readonly CsrfTokenManagerInterface $csrfTokenManager,
     ) {
         parent::__construct($templates, $requestStack, $urlGenerator);
     }
 
     #[Route('/Login', name: 'login.index', methods: [ 'GET' ])]
-    #[Route('/Login/', name: 'login.index_slash', methods: [ 'GET' ])]
-    #[Route('/Login/Index', name: 'login.index_legacy', methods: [ 'GET' ])]
     public function index(Request $request): Response
     {
         $destination = $this->destination($request->query->getString('redirect'));
@@ -47,9 +42,8 @@ final class LoginController extends AbstractController
             return $this->redirectToLocalPath($destination);
         }
 
-        $response = $this->render('Users::Authentication/LoginPage', [
+        $response = $this->render('@Users/Authentication/LoginPage.html.twig', [
             'redirect' => $request->query->getString('redirect'),
-            'csrfToken' => $this->csrfTokenManager->getToken('login')->getValue(),
         ]);
         $this->applyCookie($response, $this->authentication->takeResponseCookie());
 
@@ -57,17 +51,8 @@ final class LoginController extends AbstractController
     }
 
     #[Route('/Login', name: 'login.submit', methods: [ 'POST' ])]
-    #[Route('/Login/', name: 'login.submit_slash', methods: [ 'POST' ])]
     public function login(Request $request): Response
     {
-        if (!$this->csrfTokenManager->isTokenValid(new CsrfToken(
-            'login',
-            $request->request->getString('csrf_token'),
-        ))) {
-            $this->addFlash('danger', 'Invalid CSRF token.');
-            return $this->redirectToRoute('login.index');
-        }
-
         $loggedIn = $this->authentication->login(
             trim($request->request->getString('user_name')),
             $request->request->getString('user_password'),
@@ -84,7 +69,7 @@ final class LoginController extends AbstractController
     #[Route('/Login/RequestPasswordReset', name: 'login.password_request', methods: [ 'GET' ])]
     public function requestPasswordReset(): Response
     {
-        return $this->render('Users::Authentication/RequestPasswordResetPage');
+        return $this->render('@Users/Authentication/RequestPasswordResetPage.html.twig');
     }
 
     #[Route('/Login/RequestPasswordReset', name: 'login.password_request_submit', methods: [ 'POST' ])]
@@ -102,24 +87,22 @@ final class LoginController extends AbstractController
     }
 
     #[Route('/Login/PasswordReset', name: 'login.password_reset', methods: [ 'GET' ])]
-    #[Route('/Login/PasswordReset.php', name: 'login.password_reset_legacy', methods: [ 'GET' ])]
     public function passwordReset(Request $request): Response
     {
         $username = $request->query->getString('username');
         $token = $request->query->getString('password_reset_hash');
         if (!$this->passwordReset->verify($username, $token)) {
             return $this->render(
-                'View::Error/ErrorPage',
+                '@View/Error/ErrorPage.html.twig',
                 [ 'title' => '401 - Unauthorized', 'message' => 'Invalid or expired token.' ],
                 Response::HTTP_UNAUTHORIZED,
             );
         }
 
-        return $this->render('Users::Authentication/ResetPasswordPage', compact('username', 'token'));
+        return $this->render('@Users/Authentication/ResetPasswordPage.html.twig', compact('username', 'token'));
     }
 
     #[Route('/Login/PasswordReset', name: 'login.password_reset_submit', methods: [ 'POST' ])]
-    #[Route('/Login/PasswordReset.php', name: 'login.password_reset_submit_legacy', methods: [ 'POST' ])]
     public function resetPassword(Request $request): Response
     {
         $reset = $this->passwordReset->reset(
@@ -141,7 +124,7 @@ final class LoginController extends AbstractController
     #[Route('/Login/Activate', name: 'login.activate', methods: [ 'GET', 'POST' ])]
     public function activate(): Response
     {
-        return $this->render('Users::Authentication/ActivateAccountPage');
+        return $this->render('@Users/Authentication/ActivateAccountPage.html.twig');
     }
 
     private function destination(string $redirect): string
