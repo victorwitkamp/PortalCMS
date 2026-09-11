@@ -10,7 +10,7 @@
         "ext-gd": "*",
         "ext-json": "*",
         "phpmailer/phpmailer": "^7.0",
-        "tecnickcom/tcpdf": "^6.11",
+        "tecnickcom/tcpdf": "^7.0",
         "ext-fileinfo": "*",
         "symfony/http-foundation": "^7.4",
         "symfony/mime": "^7.4",
