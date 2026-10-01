@@ -22,7 +22,7 @@
     "datatables.net-buttons-bs5": "^4.0.0",
     "datatables.net-select": "^4.0.0",
     "datatables.net-select-bs5": "^4.0.0",
-    "moment": "2.30.1"
+    "moment": "2.31.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
